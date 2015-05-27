@@ -1,0 +1,43 @@
+{
+    "title": "Humanify",
+    "sections": [
+        {
+            "sectionTitle": "nil", 
+            "sectionType": "list", 
+            "items": [
+                {
+                    "displayName": "Personas", 
+                    "enabled": true, 
+                    "configuration": {
+                        "navigationContext": "personas"
+                    }, 
+                    "type": "landing",
+                    "icon": "ecs_ic_nav_personas"
+                }, 
+                {
+                    "displayName": "Humanify", 
+                    "enabled": true, 
+                    "configuration": {
+                        "url": "http://www.humanify.com"
+                    }, 
+                    "type": "web", 
+                    "icon": "ecs_ic_nav_humanify"
+                }, 
+                {
+                    "displayName": "Profile", 
+                    "enabled": true, 
+                    "configuration": {}, 
+                    "type": "profile",
+                    "icon": "ecs_ic_nav_profile"
+                }, 
+                {
+                    "displayName": "Settings", 
+                    "enabled": true, 
+                    "configuration": {}, 
+                    "type": "settings", 
+                    "icon": "ecs_ic_nav_settings"
+                },
+            ]
+        }
+    ],
+}

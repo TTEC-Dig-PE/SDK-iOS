@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ECSSectionHeader">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DN-bh-jWS" customClass="ECSDynamicLabel">
+                    <rect key="frame" x="15" y="23" width="41" height="20"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9DN-bh-jWS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="c5C-im-SWU"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9DN-bh-jWS" secondAttribute="trailing" constant="15" id="hbx-sX-Mcc"/>
+                <constraint firstAttribute="centerY" secondItem="9DN-bh-jWS" secondAttribute="centerY" id="vWY-hI-DdK"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="textLabel" destination="9DN-bh-jWS" id="qvN-eC-GLa"/>
+            </connections>
+            <point key="canvasLocation" x="338" y="491"/>
+        </view>
+    </objects>
+</document>

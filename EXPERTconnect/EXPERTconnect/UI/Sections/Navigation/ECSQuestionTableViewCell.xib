@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="ECSQuestionTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask a Question" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zjJ-TN-Ltz" customClass="ECSSearchTextField">
+                        <rect key="frame" x="15" y="8" width="290" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                    </textField>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="zjJ-TN-Ltz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4iT-CQ-uAS"/>
+                    <constraint firstAttribute="bottom" secondItem="zjJ-TN-Ltz" secondAttribute="bottom" constant="8" id="NFg-27-6b8"/>
+                    <constraint firstAttribute="trailing" secondItem="zjJ-TN-Ltz" secondAttribute="trailing" constant="15" id="NzP-RX-E3u"/>
+                    <constraint firstItem="zjJ-TN-Ltz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="gwv-xU-0rE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="searchField" destination="zjJ-TN-Ltz" id="VEB-cC-gjs"/>
+            </connections>
+            <point key="canvasLocation" x="494" y="513.5"/>
+        </tableViewCell>
+    </objects>
+</document>

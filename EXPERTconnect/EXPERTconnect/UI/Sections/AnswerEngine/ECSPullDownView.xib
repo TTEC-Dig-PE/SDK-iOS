@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ECSPullDownView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="169" placeholderIntrinsicHeight="21" text="View Previous Answer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dce-zu-OWE" customClass="ECSDynamicLabel">
+                    <rect key="frame" x="215" y="24" width="169" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="ecs_ic_answerengine_up" translatesAutoresizingMaskIntoConstraints="NO" id="dyS-Ty-Zwp">
+                    <rect key="frame" x="294" y="10" width="12" height="7"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="dce-zu-OWE" secondAttribute="bottom" constant="15" id="NwW-yH-To5"/>
+                <constraint firstAttribute="centerX" secondItem="dce-zu-OWE" secondAttribute="centerX" id="TNF-x7-2HI"/>
+                <constraint firstItem="dyS-Ty-Zwp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="WWy-hx-wnY"/>
+                <constraint firstItem="dce-zu-OWE" firstAttribute="top" secondItem="dyS-Ty-Zwp" secondAttribute="bottom" constant="7" id="ecV-yU-4Co"/>
+                <constraint firstAttribute="centerX" secondItem="dyS-Ty-Zwp" secondAttribute="centerX" id="rRH-5C-vnD"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="label" destination="dce-zu-OWE" id="q3I-cx-Jo2"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="ecs_ic_answerengine_up" width="12" height="7"/>
+    </resources>
+</document>

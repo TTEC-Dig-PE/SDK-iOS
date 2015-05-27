@@ -1,0 +1,1522 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UAConfig Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">Urban Airship iOS Library 5.1.1 </a></h1>
+				<a id="developerHome" href="../index.html">Urban Airship</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">UAConfig Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/analyticsEnabled">&nbsp;&nbsp;&nbsp;&nbsp;analyticsEnabled</option>
+	
+	<option value="//api/name/analyticsURL">&nbsp;&nbsp;&nbsp;&nbsp;analyticsURL</option>
+	
+	<option value="//api/name/appKey">&nbsp;&nbsp;&nbsp;&nbsp;appKey</option>
+	
+	<option value="//api/name/appSecret">&nbsp;&nbsp;&nbsp;&nbsp;appSecret</option>
+	
+	<option value="//api/name/automaticSetupEnabled">&nbsp;&nbsp;&nbsp;&nbsp;automaticSetupEnabled</option>
+	
+	<option value="//api/name/cacheDiskSizeInMB">&nbsp;&nbsp;&nbsp;&nbsp;cacheDiskSizeInMB</option>
+	
+	<option value="//api/name/clearKeychain">&nbsp;&nbsp;&nbsp;&nbsp;clearKeychain</option>
+	
+	<option value="//api/name/clearUserOnAppRestore">&nbsp;&nbsp;&nbsp;&nbsp;clearUserOnAppRestore</option>
+	
+	<option value="//api/name/detectProvisioningMode">&nbsp;&nbsp;&nbsp;&nbsp;detectProvisioningMode</option>
+	
+	<option value="//api/name/developmentAppKey">&nbsp;&nbsp;&nbsp;&nbsp;developmentAppKey</option>
+	
+	<option value="//api/name/developmentAppSecret">&nbsp;&nbsp;&nbsp;&nbsp;developmentAppSecret</option>
+	
+	<option value="//api/name/developmentLogLevel">&nbsp;&nbsp;&nbsp;&nbsp;developmentLogLevel</option>
+	
+	<option value="//api/name/deviceAPIURL">&nbsp;&nbsp;&nbsp;&nbsp;deviceAPIURL</option>
+	
+	<option value="//api/name/inProduction">&nbsp;&nbsp;&nbsp;&nbsp;inProduction</option>
+	
+	<option value="//api/name/landingPageContentURL">&nbsp;&nbsp;&nbsp;&nbsp;landingPageContentURL</option>
+	
+	<option value="//api/name/logLevel">&nbsp;&nbsp;&nbsp;&nbsp;logLevel</option>
+	
+	<option value="//api/name/productionAppKey">&nbsp;&nbsp;&nbsp;&nbsp;productionAppKey</option>
+	
+	<option value="//api/name/productionAppSecret">&nbsp;&nbsp;&nbsp;&nbsp;productionAppSecret</option>
+	
+	<option value="//api/name/productionLogLevel">&nbsp;&nbsp;&nbsp;&nbsp;productionLogLevel</option>
+	
+	<option value="//api/name/whitelist">&nbsp;&nbsp;&nbsp;&nbsp;whitelist</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/config">&nbsp;&nbsp;&nbsp;&nbsp;+ config</option>
+	
+	<option value="//api/name/configWithContentsOfFile:">&nbsp;&nbsp;&nbsp;&nbsp;+ configWithContentsOfFile:</option>
+	
+	<option value="//api/name/defaultConfig">&nbsp;&nbsp;&nbsp;&nbsp;+ defaultConfig</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/validate">&nbsp;&nbsp;&nbsp;&nbsp;- validate</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Resolved Values">Resolved Values</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Configuration Values">Configuration Values</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Advanced Configuration Options">Advanced Configuration Options</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Factory Methods">Factory Methods</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Utilities, Helpers">Utilities, Helpers</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/analyticsEnabled">analyticsEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/analyticsURL">analyticsURL</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/appKey">appKey</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/appSecret">appSecret</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/automaticSetupEnabled">automaticSetupEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/cacheDiskSizeInMB">cacheDiskSizeInMB</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearKeychain">clearKeychain</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearUserOnAppRestore">clearUserOnAppRestore</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/detectProvisioningMode">detectProvisioningMode</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/developmentAppKey">developmentAppKey</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/developmentAppSecret">developmentAppSecret</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/developmentLogLevel">developmentLogLevel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/deviceAPIURL">deviceAPIURL</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/inProduction">inProduction</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/landingPageContentURL">landingPageContentURL</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/logLevel">logLevel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/productionAppKey">productionAppKey</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/productionAppSecret">productionAppSecret</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/productionLogLevel">productionLogLevel</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/whitelist">whitelist</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/config">config</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/configWithContentsOfFile:">configWithContentsOfFile:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/defaultConfig">defaultConfig</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/validate">validate</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="UAConfig Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">UAConfig Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">UAConfig.h</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The UAConfig object provides an interface for passing common configurable values to <a href="../Classes/UAirship.html#//api/name/takeOff">[UAirship takeOff]</a>.
+The simplest way to use this class is to add an AirshipConfig.plist file in your app&rsquo;s bundle and set
+the desired options. The plist keys use the same names as the properties on this class. Older, all-caps
+keys are still supported, but you should migrate your properties file to make use of a number of new options.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Resolved Values" name="task_Resolved Values"></a>
+						<h3 class="subsubtitle task-title">Resolved Values</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/appKey">&nbsp;&nbsp;appKey</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/appSecret">&nbsp;&nbsp;appSecret</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/logLevel">&nbsp;&nbsp;logLevel</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/inProduction">&nbsp;&nbsp;inProduction</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/analyticsEnabled">&nbsp;&nbsp;analyticsEnabled</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Configuration Values" name="task_Configuration Values"></a>
+						<h3 class="subsubtitle task-title">Configuration Values</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/developmentAppKey">&nbsp;&nbsp;developmentAppKey</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/developmentAppSecret">&nbsp;&nbsp;developmentAppSecret</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/productionAppKey">&nbsp;&nbsp;productionAppKey</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/productionAppSecret">&nbsp;&nbsp;productionAppSecret</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/developmentLogLevel">&nbsp;&nbsp;developmentLogLevel</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/productionLogLevel">&nbsp;&nbsp;productionLogLevel</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/cacheDiskSizeInMB">&nbsp;&nbsp;cacheDiskSizeInMB</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/automaticSetupEnabled">&nbsp;&nbsp;automaticSetupEnabled</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/whitelist">&nbsp;&nbsp;whitelist</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Advanced Configuration Options" name="task_Advanced Configuration Options"></a>
+						<h3 class="subsubtitle task-title">Advanced Configuration Options</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/detectProvisioningMode">&nbsp;&nbsp;detectProvisioningMode</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearKeychain">&nbsp;&nbsp;clearKeychain</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/deviceAPIURL">&nbsp;&nbsp;deviceAPIURL</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/analyticsURL">&nbsp;&nbsp;analyticsURL</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/landingPageContentURL">&nbsp;&nbsp;landingPageContentURL</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearUserOnAppRestore">&nbsp;&nbsp;clearUserOnAppRestore</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Factory Methods" name="task_Factory Methods"></a>
+						<h3 class="subsubtitle task-title">Factory Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/defaultConfig">+&nbsp;defaultConfig</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/configWithContentsOfFile:">+&nbsp;configWithContentsOfFile:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/config">+&nbsp;config</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Utilities, Helpers" name="task_Utilities, Helpers"></a>
+						<h3 class="subsubtitle task-title">Utilities, Helpers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/validate">&ndash;&nbsp;validate</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/analyticsEnabled" title="analyticsEnabled"></a>
+	<h3 class="subsubtitle method-title">analyticsEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Toggles Urban Airship analytics. Defaults to <code>YES</code>. If set to <code>NO</code>, many UA features will not be
+available to this application.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL analyticsEnabled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/analyticsURL" title="analyticsURL"></a>
+	<h3 class="subsubtitle method-title">analyticsURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The Urban Airship analytics API url. This option is reserved for internal debugging.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *analyticsURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/appKey" title="appKey"></a>
+	<h3 class="subsubtitle method-title">appKey</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The current app key (resolved using the <a href="#//api/name/inProduction">inProduction</a> flag).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *appKey</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/appSecret" title="appSecret"></a>
+	<h3 class="subsubtitle method-title">appSecret</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The current app secret (resolved using the <a href="#//api/name/inProduction">inProduction</a> flag).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) NSString *appSecret</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/automaticSetupEnabled" title="automaticSetupEnabled"></a>
+	<h3 class="subsubtitle method-title">automaticSetupEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>If enabled, the UA library automatically registers for remote notifications when push is enabled
+and intercepts incoming notifications in both the foreground and upon launch.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL automaticSetupEnabled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Defaults to YES. If this is disabled, you will need to register for remote notifications
+in application:didFinishLaunchingWithOptions: and forward all notification-related app delegate
+calls to <a href="../Classes/UAPush.html">UAPush</a> and <a href="../Classes/UAInbox.html">UAInbox</a>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/cacheDiskSizeInMB" title="cacheDiskSizeInMB"></a>
+	<h3 class="subsubtitle method-title">cacheDiskSizeInMB</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The size in MB for the UA Disk Cache.  Defaults to 100.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSUInteger cacheDiskSizeInMB</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Only items that are small enough (1/20th of the size) of the cache will be
+cached.</p>
+
+<p>Any size greater than 0 will cause the UA Disk Cache to become active.
+<a href="../Classes/UAURLProtocol.html">UAURLProtocol</a> will be registered as a NSURLProtocol.  Only requests whose
+mainDocumentURL or URL that have been added as a cachable URL will be considered
+for caching.  By defualt it includes all of the Rich Application Page URLs.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/clearKeychain" title="clearKeychain"></a>
+	<h3 class="subsubtitle method-title">clearKeychain</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>If set to <code>YES</code>, the app will clear all keychain user information every time the app starts.
+This is designed for development mode only. (<b class="deprecated">Deprecated:</b><span class="deprecated"> As of version 5.0. To clear the keychain once during the next
+application start, use the settings bundle to set YES for the key
+&ldquo;com.urbanairship.reset_keychain&rdquo; in standard user defaults.</span>)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL clearKeychain</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/clearUserOnAppRestore" title="clearUserOnAppRestore"></a>
+	<h3 class="subsubtitle method-title">clearUserOnAppRestore</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>If set to <code>YES</code>, the Urban Airship user will be cleared if the application is
+restored on a different device from an encrypted backup.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL clearUserOnAppRestore</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Defaults to &lsquo;NO&rsquo;.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/detectProvisioningMode" title="detectProvisioningMode"></a>
+	<h3 class="subsubtitle method-title">detectProvisioningMode</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Apps may be set to self-configure based on the APS-environment set in the
+embedded.mobileprovision file by using detectProvisioningMode. If
+detectProvisioningMode is set to &lsquo;YES&rsquo;, the <a href="#//api/name/inProduction">inProduction</a> value will
+be determined at runtime by reading the provisioning profile. If it is set to
+&lsquo;NO&rsquo; (the default), the <a href="#//api/name/inProduction">inProduction</a> flag may be set directly or by using the
+AirshipConfig.plist file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL detectProvisioningMode</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>When this flag is enabled, the <a href="#//api/name/inProduction">inProduction</a> flag defaults to &lsquo;YES&rsquo; for safety
+so that the production keys will always be used if the profile cannot be read
+in a released app. Simulator builds do not include the profile, and the
+detectProvisioningMode flag does not have any effect in cases where a profile
+is not present. When a provisioning file is not present, the app will fall
+back to the <a href="#//api/name/inProduction">inProduction</a> property as set in code or the AirshipConfig.plist
+file.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/developmentAppKey" title="developmentAppKey"></a>
+	<h3 class="subsubtitle method-title">developmentAppKey</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The development app key. This should match the application on go.urbanairship.com that is
+configured with your development push certificate.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *developmentAppKey</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/developmentAppSecret" title="developmentAppSecret"></a>
+	<h3 class="subsubtitle method-title">developmentAppSecret</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The development app secret. This should match the application on go.urbanairship.com that is
+configured with your development push certificate.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *developmentAppSecret</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/developmentLogLevel" title="developmentLogLevel"></a>
+	<h3 class="subsubtitle method-title">developmentLogLevel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The log level used for development apps. Defaults to <code>UALogLevelDebug</code> (4).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) UALogLevel developmentLogLevel</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/deviceAPIURL" title="deviceAPIURL"></a>
+	<h3 class="subsubtitle method-title">deviceAPIURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The Urban Airship device API url. This option is reserved for internal debugging.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *deviceAPIURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/inProduction" title="inProduction"></a>
+	<h3 class="subsubtitle method-title">inProduction</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The production status of this application. This may be set directly, or it may be determined
+automatically if the <a href="#//api/name/detectProvisioningMode">detectProvisioningMode</a> flag is set to <code>YES</code>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL inProduction</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/landingPageContentURL" title="landingPageContentURL"></a>
+	<h3 class="subsubtitle method-title">landingPageContentURL</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The Urban Airship landing page content url. This option is reserved for internal debugging.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *landingPageContentURL</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/logLevel" title="logLevel"></a>
+	<h3 class="subsubtitle method-title">logLevel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The current log level for the library&rsquo;s UA_L<level> macros (resolved using the <a href="#//api/name/inProduction">inProduction</a> flag).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) UALogLevel logLevel</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/productionAppKey" title="productionAppKey"></a>
+	<h3 class="subsubtitle method-title">productionAppKey</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The production app key. This should match the application on go.urbanairship.com that is
+configured with your production push certificate. This is used for App Store, Ad-Hoc and Enterprise
+app configurations.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *productionAppKey</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/productionAppSecret" title="productionAppSecret"></a>
+	<h3 class="subsubtitle method-title">productionAppSecret</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The production app secret. This should match the application on go.urbanairship.com that is
+configured with your production push certificate. This is used for App Store, Ad-Hoc and Enterprise
+app configurations.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *productionAppSecret</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/productionLogLevel" title="productionLogLevel"></a>
+	<h3 class="subsubtitle method-title">productionLogLevel</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The log level used for production apps. Defaults to <code>UALogLevelError</code> (1).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) UALogLevel productionLogLevel</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/whitelist" title="whitelist"></a>
+	<h3 class="subsubtitle method-title">whitelist</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>An array of <a href="../Classes/UAWhitelist.html">UAWhitelist</a> entry strings.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) NSArray *whitelist</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="note"><p><strong>Note:</strong> See <a href="../Classes/UAWhitelist.html">UAWhitelist</a> for pattern entry syntax.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/config" title="config"></a>
+	<h3 class="subsubtitle method-title">config</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates an instance with empty values.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (UAConfig *)config</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A UAConfig with empty values.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/configWithContentsOfFile:" title="configWithContentsOfFile:"></a>
+	<h3 class="subsubtitle method-title">configWithContentsOfFile:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates an instance using the values found in the specified <code>.plist</code> file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (UAConfig *)configWithContentsOfFile:(NSString *)<em>path</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>path</em></dt>
+			<dd><p>The path of the specified file.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A UAConfig with values from the specified file.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/defaultConfig" title="defaultConfig"></a>
+	<h3 class="subsubtitle method-title">defaultConfig</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates an instance using the values set in the <code>AirshipConfig.plist</code> file.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (UAConfig *)defaultConfig</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A UAConfig with values from <code>AirshipConfig.plist</code> file.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/validate" title="validate"></a>
+	<h3 class="subsubtitle method-title">validate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Validates the current configuration. In addition to performing a strict validation, this method
+will log warnings and common configuration errors.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)validate</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p><code>YES</code> if the current configuration is valid, otherwise <code>NO</code>.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAConfig.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 Urban Airship. All rights reserved. (Last updated: 2014-12-11)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1972 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UALocationService Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">Urban Airship iOS Library 5.1.1 </a></h1>
+				<a id="developerHome" href="../index.html">Urban Airship</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">UALocationService Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/automaticLocationOnForegroundEnabled">&nbsp;&nbsp;&nbsp;&nbsp;automaticLocationOnForegroundEnabled</option>
+	
+	<option value="//api/name/backgroundLocationServiceEnabled">&nbsp;&nbsp;&nbsp;&nbsp;backgroundLocationServiceEnabled</option>
+	
+	<option value="//api/name/dateOfLastLocation">&nbsp;&nbsp;&nbsp;&nbsp;dateOfLastLocation</option>
+	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/lastReportedLocation">&nbsp;&nbsp;&nbsp;&nbsp;lastReportedLocation</option>
+	
+	<option value="//api/name/minimumTimeBetweenForegroundUpdates">&nbsp;&nbsp;&nbsp;&nbsp;minimumTimeBetweenForegroundUpdates</option>
+	
+	<option value="//api/name/requestAlwaysAuthorization">&nbsp;&nbsp;&nbsp;&nbsp;requestAlwaysAuthorization</option>
+	
+	<option value="//api/name/significantChangeServiceStatus">&nbsp;&nbsp;&nbsp;&nbsp;significantChangeServiceStatus</option>
+	
+	<option value="//api/name/singleLocationServiceStatus">&nbsp;&nbsp;&nbsp;&nbsp;singleLocationServiceStatus</option>
+	
+	<option value="//api/name/standardLocationServiceStatus">&nbsp;&nbsp;&nbsp;&nbsp;standardLocationServiceStatus</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/airshipLocationServiceEnabled">&nbsp;&nbsp;&nbsp;&nbsp;+ airshipLocationServiceEnabled</option>
+	
+	<option value="//api/name/coreLocationWillPromptUserForPermissionToRun">&nbsp;&nbsp;&nbsp;&nbsp;+ coreLocationWillPromptUserForPermissionToRun</option>
+	
+	<option value="//api/name/locationServiceAuthorized">&nbsp;&nbsp;&nbsp;&nbsp;+ locationServiceAuthorized</option>
+	
+	<option value="//api/name/locationServicesEnabled">&nbsp;&nbsp;&nbsp;&nbsp;+ locationServicesEnabled</option>
+	
+	<option value="//api/name/setAirshipLocationServiceEnabled:">&nbsp;&nbsp;&nbsp;&nbsp;+ setAirshipLocationServiceEnabled:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/location">&nbsp;&nbsp;&nbsp;&nbsp;- location</option>
+	
+	<option value="//api/name/purpose">&nbsp;&nbsp;&nbsp;&nbsp;- purpose</option>
+	
+	<option value="//api/name/reportCurrentLocation">&nbsp;&nbsp;&nbsp;&nbsp;- reportCurrentLocation</option>
+	
+	<option value="//api/name/reportLocationToAnalytics:fromProvider:">&nbsp;&nbsp;&nbsp;&nbsp;- reportLocationToAnalytics:fromProvider:</option>
+	
+	<option value="//api/name/setSingleLocationDesiredAccuracy:">&nbsp;&nbsp;&nbsp;&nbsp;- setSingleLocationDesiredAccuracy:</option>
+	
+	<option value="//api/name/setStandardLocationDesiredAccuracy:">&nbsp;&nbsp;&nbsp;&nbsp;- setStandardLocationDesiredAccuracy:</option>
+	
+	<option value="//api/name/setStandardLocationDistanceFilter:">&nbsp;&nbsp;&nbsp;&nbsp;- setStandardLocationDistanceFilter:</option>
+	
+	<option value="//api/name/setTimeoutForSingleLocationService:">&nbsp;&nbsp;&nbsp;&nbsp;- setTimeoutForSingleLocationService:</option>
+	
+	<option value="//api/name/singleLocationDesiredAccuracy">&nbsp;&nbsp;&nbsp;&nbsp;- singleLocationDesiredAccuracy</option>
+	
+	<option value="//api/name/standardLocationDesiredAccuracy">&nbsp;&nbsp;&nbsp;&nbsp;- standardLocationDesiredAccuracy</option>
+	
+	<option value="//api/name/standardLocationDistanceFilter">&nbsp;&nbsp;&nbsp;&nbsp;- standardLocationDistanceFilter</option>
+	
+	<option value="//api/name/startReportingSignificantLocationChanges">&nbsp;&nbsp;&nbsp;&nbsp;- startReportingSignificantLocationChanges</option>
+	
+	<option value="//api/name/startReportingStandardLocation">&nbsp;&nbsp;&nbsp;&nbsp;- startReportingStandardLocation</option>
+	
+	<option value="//api/name/stopReportingSignificantLocationChanges">&nbsp;&nbsp;&nbsp;&nbsp;- stopReportingSignificantLocationChanges</option>
+	
+	<option value="//api/name/stopReportingStandardLocation">&nbsp;&nbsp;&nbsp;&nbsp;- stopReportingStandardLocation</option>
+	
+	<option value="//api/name/timeoutForSingleLocationService">&nbsp;&nbsp;&nbsp;&nbsp;- timeoutForSingleLocationService</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Standard Location Accuracy and Distance">Standard Location Accuracy and Distance</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Location Services Authorization">Location Services Authorization</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Recent Activity">Recent Activity</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Automatic Location Services">Automatic Location Services</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Status of Services">Status of Services</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Purpose">Purpose</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Starting and Stopping Location Services">Starting and Stopping Location Services</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Analytics">Analytics</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Single Location Service">Single Location Service</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/automaticLocationOnForegroundEnabled">automaticLocationOnForegroundEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/backgroundLocationServiceEnabled">backgroundLocationServiceEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/dateOfLastLocation">dateOfLastLocation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lastReportedLocation">lastReportedLocation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumTimeBetweenForegroundUpdates">minimumTimeBetweenForegroundUpdates</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestAlwaysAuthorization">requestAlwaysAuthorization</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/significantChangeServiceStatus">significantChangeServiceStatus</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/singleLocationServiceStatus">singleLocationServiceStatus</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/standardLocationServiceStatus">standardLocationServiceStatus</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/airshipLocationServiceEnabled">airshipLocationServiceEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/coreLocationWillPromptUserForPermissionToRun">coreLocationWillPromptUserForPermissionToRun</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/locationServiceAuthorized">locationServiceAuthorized</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/locationServicesEnabled">locationServicesEnabled</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setAirshipLocationServiceEnabled:">setAirshipLocationServiceEnabled:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/location">location</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/purpose">purpose</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reportCurrentLocation">reportCurrentLocation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/reportLocationToAnalytics:fromProvider:">reportLocationToAnalytics:fromProvider:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setSingleLocationDesiredAccuracy:">setSingleLocationDesiredAccuracy:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setStandardLocationDesiredAccuracy:">setStandardLocationDesiredAccuracy:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setStandardLocationDistanceFilter:">setStandardLocationDistanceFilter:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setTimeoutForSingleLocationService:">setTimeoutForSingleLocationService:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/singleLocationDesiredAccuracy">singleLocationDesiredAccuracy</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/standardLocationDesiredAccuracy">standardLocationDesiredAccuracy</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/standardLocationDistanceFilter">standardLocationDistanceFilter</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startReportingSignificantLocationChanges">startReportingSignificantLocationChanges</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startReportingStandardLocation">startReportingStandardLocation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopReportingSignificantLocationChanges">stopReportingSignificantLocationChanges</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopReportingStandardLocation">stopReportingStandardLocation</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/timeoutForSingleLocationService">timeoutForSingleLocationService</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="UALocationService Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">UALocationService Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value"><a href="../Protocols/UALocationProviderDelegate.html">UALocationProviderDelegate</a></td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">UALocationService.h</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The UALocationService class provides an interface to both the <a href="#//api/name/location">location</a> services on
+device and the Urban Airship API.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Standard Location Accuracy and Distance" name="task_Standard Location Accuracy and Distance"></a>
+						<h3 class="subsubtitle task-title">Standard Location Accuracy and Distance</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/standardLocationDistanceFilter">&ndash;&nbsp;standardLocationDistanceFilter</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setStandardLocationDistanceFilter:">&ndash;&nbsp;setStandardLocationDistanceFilter:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/standardLocationDesiredAccuracy">&ndash;&nbsp;standardLocationDesiredAccuracy</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setStandardLocationDesiredAccuracy:">&ndash;&nbsp;setStandardLocationDesiredAccuracy:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Location Services Authorization" name="task_Location Services Authorization"></a>
+						<h3 class="subsubtitle task-title">Location Services Authorization</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/airshipLocationServiceEnabled">+&nbsp;airshipLocationServiceEnabled</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setAirshipLocationServiceEnabled:">+&nbsp;setAirshipLocationServiceEnabled:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/locationServicesEnabled">+&nbsp;locationServicesEnabled</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/locationServiceAuthorized">+&nbsp;locationServiceAuthorized</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/coreLocationWillPromptUserForPermissionToRun">+&nbsp;coreLocationWillPromptUserForPermissionToRun</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Recent Activity" name="task_Recent Activity"></a>
+						<h3 class="subsubtitle task-title">Recent Activity</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/location">&ndash;&nbsp;location</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lastReportedLocation">&nbsp;&nbsp;lastReportedLocation</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/dateOfLastLocation">&nbsp;&nbsp;dateOfLastLocation</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Automatic Location Services" name="task_Automatic Location Services"></a>
+						<h3 class="subsubtitle task-title">Automatic Location Services</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/automaticLocationOnForegroundEnabled">&nbsp;&nbsp;automaticLocationOnForegroundEnabled</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/requestAlwaysAuthorization">&nbsp;&nbsp;requestAlwaysAuthorization</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/backgroundLocationServiceEnabled">&nbsp;&nbsp;backgroundLocationServiceEnabled</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/minimumTimeBetweenForegroundUpdates">&nbsp;&nbsp;minimumTimeBetweenForegroundUpdates</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Status of Services" name="task_Status of Services"></a>
+						<h3 class="subsubtitle task-title">Status of Services</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/standardLocationServiceStatus">&nbsp;&nbsp;standardLocationServiceStatus</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/significantChangeServiceStatus">&nbsp;&nbsp;significantChangeServiceStatus</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/singleLocationServiceStatus">&nbsp;&nbsp;singleLocationServiceStatus</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Purpose" name="task_Purpose"></a>
+						<h3 class="subsubtitle task-title">Purpose</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/purpose">&ndash;&nbsp;purpose</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Starting and Stopping Location Services" name="task_Starting and Stopping Location Services"></a>
+						<h3 class="subsubtitle task-title">Starting and Stopping Location Services</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startReportingStandardLocation">&ndash;&nbsp;startReportingStandardLocation</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopReportingStandardLocation">&ndash;&nbsp;stopReportingStandardLocation</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startReportingSignificantLocationChanges">&ndash;&nbsp;startReportingSignificantLocationChanges</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopReportingSignificantLocationChanges">&ndash;&nbsp;stopReportingSignificantLocationChanges</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Analytics" name="task_Analytics"></a>
+						<h3 class="subsubtitle task-title">Analytics</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reportLocationToAnalytics:fromProvider:">&ndash;&nbsp;reportLocationToAnalytics:fromProvider:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Single Location Service" name="task_Single Location Service"></a>
+						<h3 class="subsubtitle task-title">Single Location Service</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/timeoutForSingleLocationService">&ndash;&nbsp;timeoutForSingleLocationService</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setTimeoutForSingleLocationService:">&ndash;&nbsp;setTimeoutForSingleLocationService:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/singleLocationDesiredAccuracy">&ndash;&nbsp;singleLocationDesiredAccuracy</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setSingleLocationDesiredAccuracy:">&ndash;&nbsp;setSingleLocationDesiredAccuracy:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/reportCurrentLocation">&ndash;&nbsp;reportCurrentLocation</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/automaticLocationOnForegroundEnabled" title="automaticLocationOnForegroundEnabled"></a>
+	<h3 class="subsubtitle method-title">automaticLocationOnForegroundEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Starts the GPS (Standard Location) and acquires a single <a href="#//api/name/location">location</a> on every launch.
+Setting this property to YES has the side effect of calling <a href="#//api/name/reportCurrentLocation">reportCurrentLocation</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, setter=setAutomaticLocationOnForegroundEnabled:) BOOL automaticLocationOnForegroundEnabled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/backgroundLocationServiceEnabled" title="backgroundLocationServiceEnabled"></a>
+	<h3 class="subsubtitle method-title">backgroundLocationServiceEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Allows <a href="#//api/name/location">location</a> services to continue in the background.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL backgroundLocationServiceEnabled</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/dateOfLastLocation" title="dateOfLastLocation"></a>
+	<h3 class="subsubtitle method-title">dateOfLastLocation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Date of last <a href="#//api/name/location">location</a> event reported</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSDate *dateOfLastLocation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p><a href="../Protocols/UALocationServiceDelegate.html">UALocationServiceDelegate</a> for <a href="#//api/name/location">location</a> service callbacks</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, weak) id&lt;UALocationServiceDelegate&gt; delegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lastReportedLocation" title="lastReportedLocation"></a>
+	<h3 class="subsubtitle method-title">lastReportedLocation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Last <a href="#//api/name/location">location</a> reported to Urban Airship</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) CLLocation *lastReportedLocation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumTimeBetweenForegroundUpdates" title="minimumTimeBetweenForegroundUpdates"></a>
+	<h3 class="subsubtitle method-title">minimumTimeBetweenForegroundUpdates</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Minimum time between automatic updates that are tied to app foreground events.
+Default value is 120 seconds.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSTimeInterval minimumTimeBetweenForegroundUpdates</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/requestAlwaysAuthorization" title="requestAlwaysAuthorization"></a>
+	<h3 class="subsubtitle method-title">requestAlwaysAuthorization</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Request &ldquo;always&rdquo; <a href="#//api/name/location">location</a> authorization. If YES (the default), Urban Airship will request always-on <a href="#//api/name/location">location</a> permission. If NO,
+&ldquo;when in use&rdquo; authorization will be requested. Always-On permission is required for background <a href="#//api/name/location">location</a> monitoring,
+including significant change.
+Once <a href="#//api/name/location">location</a> reporting is started and an authorization prompt is presented, changes to the authorization level are not possible
+without updating the app in the App Store.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL requestAlwaysAuthorization</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/significantChangeServiceStatus" title="significantChangeServiceStatus"></a>
+	<h3 class="subsubtitle method-title">significantChangeServiceStatus</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Status for NETWORK (cell tower) events.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) UALocationProviderStatus significantChangeServiceStatus</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/singleLocationServiceStatus" title="singleLocationServiceStatus"></a>
+	<h3 class="subsubtitle method-title">singleLocationServiceStatus</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Status for single <a href="#//api/name/location">location</a> service</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) UALocationProviderStatus singleLocationServiceStatus</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/standardLocationServiceStatus" title="standardLocationServiceStatus"></a>
+	<h3 class="subsubtitle method-title">standardLocationServiceStatus</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Status for GPS service.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) UALocationProviderStatus standardLocationServiceStatus</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/airshipLocationServiceEnabled" title="airshipLocationServiceEnabled"></a>
+	<h3 class="subsubtitle method-title">airshipLocationServiceEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Current setting allowing UA <a href="#//api/name/location">location</a> services.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)airshipLocationServiceEnabled</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES UA <a href="#//api/name/location">location</a> services are allowed, and will start if authorized and enabled</p><p>NO UA <a href="#//api/name/location">location</a> services are not allowed, and will not start, even if authorized and enabled</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/coreLocationWillPromptUserForPermissionToRun" title="coreLocationWillPromptUserForPermissionToRun"></a>
+	<h3 class="subsubtitle method-title">coreLocationWillPromptUserForPermissionToRun</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This method checks the underlying Core Location service to see if a user
+will receive a prompt requesting permission for Core Location services to run.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)coreLocationWillPromptUserForPermissionToRun</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>NO If Core Location services are enabled and the user has explicitly authorized <a href="#//api/name/location">location</a> services</p><p>YES If ANY of the following are true:</p>
+
+<ul>
+<li>Location services are not enabled (The global <a href="#//api/name/location">location</a> service setting in Settings is disabled)</li>
+<li>Location services are explicitly not authorized (The per app <a href="#//api/name/location">location</a> service setting in Settings is disabled)</li>
+<li>The user has not been asked yet to allow <a href="#//api/name/location">location</a> services. (Location services are enabled, and CLLocationManager reports kCLAuthorizationStatusNotDetermined)</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/locationServiceAuthorized" title="locationServiceAuthorized"></a>
+	<h3 class="subsubtitle method-title">locationServiceAuthorized</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Reports the current authorization status of <a href="#//api/name/location">location</a> services as reported by the
+system.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)locationServiceAuthorized</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the user has authorized <a href="#//api/name/location">location</a> services, or has yet to be asked about <a href="#//api/name/location">location</a> services.</p><p>NO if the user has explicitly disabled <a href="#//api/name/location">location</a> services</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/locationServicesEnabled" title="locationServicesEnabled"></a>
+	<h3 class="subsubtitle method-title">locationServicesEnabled</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Reports the current authorization status of <a href="#//api/name/location">location</a> services as reported by the
+system. This refers to the global <a href="#//api/name/location">location</a> service setting switch.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)locationServicesEnabled</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if <a href="#//api/name/location">location</a> services are reported as enabled by the system.</p><p>NO if <a href="#//api/name/location">location</a> services are reported as not enabled by the system.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setAirshipLocationServiceEnabled:" title="setAirshipLocationServiceEnabled:"></a>
+	<h3 class="subsubtitle method-title">setAirshipLocationServiceEnabled:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>This method allows UA Location Services to report <a href="#//api/name/location">location</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)setAirshipLocationServiceEnabled:(BOOL)<em>airshipLocationServiceEnabled</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>airshipLocationServiceEnabled</em></dt>
+			<dd><p>If set to YES, all UA <a href="#//api/name/location">location</a> services will run
+if the system reports that <a href="#//api/name/location">location</a> services are available and authorized. This setting will not
+override the users choice to disable <a href="#//api/name/location">location</a> services and is safe to enable when user preferences
+have not been established. If NO, UA Location Services are disabled. This setting is persisted in
+NSUserDefaults.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/location" title="location"></a>
+	<h3 class="subsubtitle method-title">location</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The most recently received location available from the CLLocationManager object. This may be more accurate than
+the last reported location, and it may also be nil. See CLLocationManager documentation for more details.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (CLLocation *)location</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The most recent location, or nil if no locations are available.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/purpose" title="purpose"></a>
+	<h3 class="subsubtitle method-title">purpose</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Purpose for <a href="#//api/name/location">location</a> services shown to user
+when prompted to allow <a href="#//api/name/location">location</a> services to begin. The default value
+is the NSLocationUsageDescription listed in the info.plist. This value cannot be set
+programatically.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)purpose</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>An NSString with the current purpose.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reportCurrentLocation" title="reportCurrentLocation"></a>
+	<h3 class="subsubtitle method-title">reportCurrentLocation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Starts the single <a href="#//api/name/location">location</a> service (standard <a href="#//api/name/location">location</a>) long enough to obtain a <a href="#//api/name/location">location</a> an then uploads
+it to Urban Airship. This method will send the first <a href="#//api/name/location">location</a> that meets the accuracy set in
+the <a href="#//api/name/singleLocationDesiredAccuracy">singleLocationDesiredAccuracy</a> property. If a <a href="#//api/name/location">location</a> is not found before the timeout, the most
+accurate <a href="#//api/name/location">location</a> returned by CoreLocation is returned. If no <a href="#//api/name/location">location</a> is found, the service is
+simply terminated.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)reportCurrentLocation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/reportLocationToAnalytics:fromProvider:" title="reportLocationToAnalytics:fromProvider:"></a>
+	<h3 class="subsubtitle method-title">reportLocationToAnalytics:fromProvider:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Creates a <a href="../Classes/UALocationEvent.html">UALocationEvent</a> and enqueues it with the Analytics service.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)reportLocationToAnalytics:(CLLocation *)<em>location</em> fromProvider:(id&lt;UALocationProviderProtocol&gt;)<em>provider</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>location</em></dt>
+			<dd><p>The <a href="#//api/name/location">location</a> to be sent to the Urban Airship analytics service</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>provider</em></dt>
+			<dd><p>The provider that generated the <a href="#//api/name/location">location</a>. Data is pulled from the provider for analytics</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> This must be called on the main thread. Not doing so will result in a crash</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setSingleLocationDesiredAccuracy:" title="setSingleLocationDesiredAccuracy:"></a>
+	<h3 class="subsubtitle method-title">setSingleLocationDesiredAccuracy:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the desiredAccuracy for the single <a href="#//api/name/location">location</a> service. Used by the reportCurrentLocation: method
+and the automatic foreground <a href="#//api/name/location">location</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setSingleLocationDesiredAccuracy:(CLLocationAccuracy)<em>desiredAccuracy</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>desiredAccuracy</em></dt>
+			<dd><p>CLLocationAccuracy The new desiredAccuracy</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> Setting this value to high (such as kCLLocationAccuracyBest) will result in timeouts
+on every <a href="#//api/name/location">location</a> service call in areas with poor GPS. This will result in degraded device battery life.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setStandardLocationDesiredAccuracy:" title="setStandardLocationDesiredAccuracy:"></a>
+	<h3 class="subsubtitle method-title">setStandardLocationDesiredAccuracy:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the standard <a href="#//api/name/location">location</a> desired accuracy.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setStandardLocationDesiredAccuracy:(CLLocationAccuracy)<em>desiredAccuracy</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>desiredAccuracy</em></dt>
+			<dd><p>The new desired accuracy</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setStandardLocationDistanceFilter:" title="setStandardLocationDistanceFilter:"></a>
+	<h3 class="subsubtitle method-title">setStandardLocationDistanceFilter:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sets the distance filter on the standard <a href="#//api/name/location">location</a> provider.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setStandardLocationDistanceFilter:(CLLocationDistance)<em>distanceFilter</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>distanceFilter</em></dt>
+			<dd><p>The new distance filter.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setTimeoutForSingleLocationService:" title="setTimeoutForSingleLocationService:"></a>
+	<h3 class="subsubtitle method-title">setTimeoutForSingleLocationService:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Time interval representing the length of time the single <a href="#//api/name/location">location</a> service will
+attempt to acquire a <a href="#//api/name/location">location</a> that meets accuracy requirements. At the end of the time
+interval, the most accurate <a href="#//api/name/location">location</a> received will be sent. If no <a href="#//api/name/location">location</a> has
+been received, the service is shut down.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setTimeoutForSingleLocationService:(NSTimeInterval)<em>timeoutForSingleLocationService</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>timeoutForSingleLocationService</em></dt>
+			<dd><p>NSTimeInterval for the new timeout value</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/singleLocationDesiredAccuracy" title="singleLocationDesiredAccuracy"></a>
+	<h3 class="subsubtitle method-title">singleLocationDesiredAccuracy</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Desired accuracy for single <a href="#//api/name/location">location</a> service. Used by the reportCurrentLocation: method
+and the automatic foreground <a href="#//api/name/location">location</a>.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (CLLocationAccuracy)singleLocationDesiredAccuracy</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>CLLocationAccuracy representing the desired accuracy for single <a href="#//api/name/location">location</a> service.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/standardLocationDesiredAccuracy" title="standardLocationDesiredAccuracy"></a>
+	<h3 class="subsubtitle method-title">standardLocationDesiredAccuracy</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The desired accuracy on the standard <a href="#//api/name/location">location</a> provider.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (CLLocationAccuracy)standardLocationDesiredAccuracy</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>CLLocationAccuracy The current desired accuracy</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/standardLocationDistanceFilter" title="standardLocationDistanceFilter"></a>
+	<h3 class="subsubtitle method-title">standardLocationDistanceFilter</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The distance filter on the standard <a href="#//api/name/location">location</a> provider.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (CLLocationDistance)standardLocationDistanceFilter</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>CLLocationDistance The current distance filter on the standard <a href="#//api/name/location">location</a> provider</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startReportingSignificantLocationChanges" title="startReportingSignificantLocationChanges"></a>
+	<h3 class="subsubtitle method-title">startReportingSignificantLocationChanges</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Starts the Significant Change <a href="#//api/name/location">location</a> service
+and sends <a href="#//api/name/location">location</a> data to Urban Airship. This service
+will continue in the background if stopMonitoringSignificantLocationChanges
+is not called before the app enters the background.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)startReportingSignificantLocationChanges</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This will not start the <a href="#//api/name/location">location</a> service if the app is not enabled and authorized. To force
+<a href="#//api/name/location">location</a> services to start, set the UALocationServicesAllowed property to YES and call this method.</p>
+
+<p>This will prompt the user for permission if <a href="#//api/name/location">location</a> services have not been started previously,
+or if the user has purposely disabled <a href="#//api/name/location">location</a> services. Given that <a href="#//api/name/location">location</a> services were probably
+disabled for a reason, this prompt might not be welcomed.</p><div class="warning"><p><strong>Warning:</strong> If the kCLErrorDenied or kCLErrorNetwork errors are returned from the Core Location
+service, this service will be automatically shut down before the locationService:didFailWithError: <a href="#//api/name/delegate">delegate</a> call
+to conserve battery. Be aware of this, and take appropriate action to restart the service if necessary.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startReportingStandardLocation" title="startReportingStandardLocation"></a>
+	<h3 class="subsubtitle method-title">startReportingStandardLocation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Start the standard <a href="#//api/name/location">location</a> service.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)startReportingStandardLocation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopReportingSignificantLocationChanges" title="stopReportingSignificantLocationChanges"></a>
+	<h3 class="subsubtitle method-title">stopReportingSignificantLocationChanges</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stops the Significant Change <a href="#//api/name/location">location</a> service.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)stopReportingSignificantLocationChanges</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopReportingStandardLocation" title="stopReportingStandardLocation"></a>
+	<h3 class="subsubtitle method-title">stopReportingStandardLocation</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stops the standard <a href="#//api/name/location">location</a> service.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)stopReportingStandardLocation</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/timeoutForSingleLocationService" title="timeoutForSingleLocationService"></a>
+	<h3 class="subsubtitle method-title">timeoutForSingleLocationService</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Time interval representing the amount of time that the single <a href="#//api/name/location">location</a> service will
+run while waiting for a <a href="#//api/name/location">location</a> value that meets the desired accuracy.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSTimeInterval)timeoutForSingleLocationService</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>NSTimeInterval representing the current timeout value</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UALocationService.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 Urban Airship. All rights reserved. (Last updated: 2014-12-11)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

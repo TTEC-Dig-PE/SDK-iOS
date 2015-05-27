@@ -1,0 +1,1194 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>UAAction Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">Urban Airship iOS Library 5.1.1 </a></h1>
+				<a id="developerHome" href="../index.html">Urban Airship</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">UAAction Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/actionWithBlock:">&nbsp;&nbsp;&nbsp;&nbsp;+ actionWithBlock:</option>
+	
+	<option value="//api/name/actionWithBlock:acceptingArguments:">&nbsp;&nbsp;&nbsp;&nbsp;+ actionWithBlock:acceptingArguments:</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/acceptsArguments:">&nbsp;&nbsp;&nbsp;&nbsp;- acceptsArguments:</option>
+	
+	<option value="//api/name/bind:">&nbsp;&nbsp;&nbsp;&nbsp;- bind:</option>
+	
+	<option value="//api/name/continueWith:">&nbsp;&nbsp;&nbsp;&nbsp;- continueWith:</option>
+	
+	<option value="//api/name/didPerformWithArguments:withResult:">&nbsp;&nbsp;&nbsp;&nbsp;- didPerformWithArguments:withResult:</option>
+	
+	<option value="//api/name/filter:">&nbsp;&nbsp;&nbsp;&nbsp;- filter:</option>
+	
+	<option value="//api/name/lift:">&nbsp;&nbsp;&nbsp;&nbsp;- lift:</option>
+	
+	<option value="//api/name/lift:transformingPredicate:">&nbsp;&nbsp;&nbsp;&nbsp;- lift:transformingPredicate:</option>
+	
+	<option value="//api/name/map:">&nbsp;&nbsp;&nbsp;&nbsp;- map:</option>
+	
+	<option value="//api/name/performWithArguments:actionName:completionHandler:">&nbsp;&nbsp;&nbsp;&nbsp;- performWithArguments:actionName:completionHandler:</option>
+	
+	<option value="//api/name/postExecution:">&nbsp;&nbsp;&nbsp;&nbsp;- postExecution:</option>
+	
+	<option value="//api/name/preExecution:">&nbsp;&nbsp;&nbsp;&nbsp;- preExecution:</option>
+	
+	<option value="//api/name/willPerformWithArguments:">&nbsp;&nbsp;&nbsp;&nbsp;- willPerformWithArguments:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Operators Methods">Operators Methods</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/actionWithBlock:">actionWithBlock:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/actionWithBlock:acceptingArguments:">actionWithBlock:acceptingArguments:</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/acceptsArguments:">acceptsArguments:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/bind:">bind:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/continueWith:">continueWith:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/didPerformWithArguments:withResult:">didPerformWithArguments:withResult:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/filter:">filter:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lift:">lift:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/lift:transformingPredicate:">lift:transformingPredicate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/map:">map:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/performWithArguments:actionName:completionHandler:">performWithArguments:actionName:completionHandler:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/postExecution:">postExecution:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/preExecution:">preExecution:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/willPerformWithArguments:">willPerformWithArguments:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="UAAction Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">UAAction Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">UAAction.h</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Base class for actions, which define a modular unit of work.</p>
+
+<p>A block defining a monadic lift operation on the predicate block</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/acceptsArguments:">&ndash;&nbsp;acceptsArguments:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/willPerformWithArguments:">&ndash;&nbsp;willPerformWithArguments:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/didPerformWithArguments:withResult:">&ndash;&nbsp;didPerformWithArguments:withResult:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/performWithArguments:actionName:completionHandler:">&ndash;&nbsp;performWithArguments:actionName:completionHandler:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/actionWithBlock:">+&nbsp;actionWithBlock:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/actionWithBlock:acceptingArguments:">+&nbsp;actionWithBlock:acceptingArguments:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Operators Methods" name="task_Operators Methods"></a>
+						<h3 class="subsubtitle task-title">Operators Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/bind:">&ndash;&nbsp;bind:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lift:transformingPredicate:">&ndash;&nbsp;lift:transformingPredicate:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/lift:">&ndash;&nbsp;lift:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/continueWith:">&ndash;&nbsp;continueWith:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/filter:">&ndash;&nbsp;filter:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/map:">&ndash;&nbsp;map:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/preExecution:">&ndash;&nbsp;preExecution:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/postExecution:">&ndash;&nbsp;postExecution:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/actionWithBlock:" title="actionWithBlock:"></a>
+	<h3 class="subsubtitle method-title">actionWithBlock:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Factory method for creating anonymous actions</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)actionWithBlock:(UAActionBlock)<em>actionBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>actionBlock</em></dt>
+			<dd><p>A UAActionBlock representing the primary work performed by the action.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/actionWithBlock:acceptingArguments:" title="actionWithBlock:acceptingArguments:"></a>
+	<h3 class="subsubtitle method-title">actionWithBlock:acceptingArguments:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Factory method for creating anonymous actions</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (instancetype)actionWithBlock:(UAActionBlock)<em>actionBlock</em> acceptingArguments:(UAActionPredicate)<em>predicateBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>actionBlock</em></dt>
+			<dd><p>A UAActionBlock representing the primary work performed by the action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>predicateBlock</em></dt>
+			<dd><p>A UAActionPredicate limiting the scope of the arguments.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/acceptsArguments:" title="acceptsArguments:"></a>
+	<h3 class="subsubtitle method-title">acceptsArguments:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called before an action is performed to determine if the
+the action can accept the arguments.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (BOOL)acceptsArguments:(UAActionArguments *)<em>arguments</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arguments</em></dt>
+			<dd><p>A <a href="../Classes/UAActionArguments.html">UAActionArguments</a> value representing the arguments passed to the action.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>YES if the action can perform with the arguments, otherwise NO</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method can be used both to verify that an argument&rsquo;s value is an appropriate type,
+as well as to limit the scope of execution of a desired range of values. Rejecting
+arguments will result in the action not being performed when it is run.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/bind:" title="bind:"></a>
+	<h3 class="subsubtitle method-title">bind:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for creating a monadic binding.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)bind:(UAActionBindBlock)<em>bindBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>bindBlock</em></dt>
+			<dd><p>A UAActionBindBlock</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver and binding the passed block.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/continueWith:" title="continueWith:"></a>
+	<h3 class="subsubtitle method-title">continueWith:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for chaining two actions together in sequence.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)continueWith:(UAAction *)<em>continuationAction</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>continuationAction</em></dt>
+			<dd><p>A UAAction to be executed as the continuation of
+the receiver.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver and the continuationAction, which chains
+the two together when run.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>When run, if the receiver executes normally, the result will be passed in the
+arguments to the supplied continuation action, whose result will be passed in the
+completion handler as the final result.</p>
+
+<p>Otherwise if the receiver action rejects its arguments or
+encounters an error, the continuation will finish early and the receiver&rsquo;s result
+will be passed in the completion handler.</p>
+
+<p>The result of the aggregate action is the result of the second action.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/didPerformWithArguments:withResult:" title="didPerformWithArguments:withResult:"></a>
+	<h3 class="subsubtitle method-title">didPerformWithArguments:withResult:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called after the action has performed, before its final completion handler is called.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)didPerformWithArguments:(UAActionArguments *)<em>arguments</em> withResult:(UAActionResult *)<em>result</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arguments</em></dt>
+			<dd><p>A <a href="../Classes/UAActionArguments.html">UAActionArguments</a> value representing the arguments passed to the action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>result</em></dt>
+			<dd><p>A <a href="../Classes/UAActionResult.html">UAActionResult</a> from performing the action.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method can be used to define optional teardown or post-execution logic.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/filter:" title="filter:"></a>
+	<h3 class="subsubtitle method-title">filter:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for limiting the scope of an action with a predicate block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)filter:(UAActionPredicate)<em>filterBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>filterBlock</em></dt>
+			<dd><p>A UAActionPredicate block.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver and applying the supplied filterBlock to its argument validation logic.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This operator serves the same purpose as the <a href="#//api/name/acceptsArguments:">[UAAction acceptsArguments:]</a> method, but
+can be used to customize an action ad-hoc without deriving a subclass.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lift:" title="lift:"></a>
+	<h3 class="subsubtitle method-title">lift:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for lifting a block transforming an action block, into a monadic binding.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)lift:(UAActionLiftBlock)<em>liftBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>liftBlock</em></dt>
+			<dd><p>A UAActionLiftBlock</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver, which lifts the passed block into a bind operation.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/lift:transformingPredicate:" title="lift:transformingPredicate:"></a>
+	<h3 class="subsubtitle method-title">lift:transformingPredicate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for lifting a block transforming an action block and predicate, into a monadic binding.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)lift:(UAActionLiftBlock)<em>actionLiftBlock</em> transformingPredicate:(UAActionPredicateLiftBlock)<em>predicateLiftBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>actionLiftBlock</em></dt>
+			<dd><p>A UAActionLiftBlock</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>predicateLiftBlock</em></dt>
+			<dd><p>A UAActionPredicteLiftBlock</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver, which lifts the passed blocks into a bind operation.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/map:" title="map:"></a>
+	<h3 class="subsubtitle method-title">map:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for transforming the arguments passed into an action.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)map:(UAActionMapArgumentsBlock)<em>mapArgumentsBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>mapArgumentsBlock</em></dt>
+			<dd><p>A UAActionMapArgumentsBlock</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver and applying the supplied mapArgumentsBlock as a transformation on the arguments.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/performWithArguments:actionName:completionHandler:" title="performWithArguments:actionName:completionHandler:"></a>
+	<h3 class="subsubtitle method-title">performWithArguments:actionName:completionHandler:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Performs the action.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)performWithArguments:(UAActionArguments *)<em>arguments</em> actionName:(NSString *)<em>name</em> completionHandler:(UAActionCompletionHandler)<em>completionHandler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arguments</em></dt>
+			<dd><p>A <a href="../Classes/UAActionArguments.html">UAActionArguments</a> value representing the arguments passed to the action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>name</em></dt>
+			<dd><p>A NSString representing the name of the action.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>completionHandler</em></dt>
+			<dd><p>A UAActionCompletionHandler that will be called when the action has finished executing.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Subclasses of UAAction should override this method to define custom behavior.</p><div class="note"><p><strong>Note:</strong> You should not ordinarily call this method directly. Instead, use the <a href="../Classes/UAActionRunner.html"><code>UAActionRunner</code></a>.</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/postExecution:" title="postExecution:"></a>
+	<h3 class="subsubtitle method-title">postExecution:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for adding additional post-execution logic to an action.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)postExecution:(UAActionPostExecutionBlock)<em>postExecutionBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>postExecutionBlock</em></dt>
+			<dd><p>A UAActionPostExecutionBlock.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver that executes the postExecutionBlock when run, before performing.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This operator serves the same purpose as <a href="#//api/name/didPerformWithArguments:withResult:">[UAAction didPerformWithArguments:withResult:]</a> but
+can be used to customize an action ad-hoc without deriving a subclass.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/preExecution:" title="preExecution:"></a>
+	<h3 class="subsubtitle method-title">preExecution:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Operator for adding additional pre-execution logic to an action.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (UAAction *)preExecution:(UAActionPreExecutionBlock)<em>preExecutionBlock</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>preExecutionBlock</em></dt>
+			<dd><p>A UAActionPreExecutionBlock.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A new UAAction wrapping the receiver that executes the preExecutionBlock when run, before performing.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This operator serves the same purpose as <a href="#//api/name/willPerformWithArguments:">[UAAction willPerformWithArguments:]</a> but
+can be used to customize an action ad-hoc without deriving a subclass.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction+Operators.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/willPerformWithArguments:" title="willPerformWithArguments:"></a>
+	<h3 class="subsubtitle method-title">willPerformWithArguments:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Called before the action&rsquo;s performWithArguments:withCompletionHandler:</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)willPerformWithArguments:(UAActionArguments *)<em>arguments</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>arguments</em></dt>
+			<dd><p>A <a href="../Classes/UAActionArguments.html">UAActionArguments</a> value representing the arguments passed to the action.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method can be used to define optional setup or pre-execution logic.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">UAAction.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 Urban Airship. All rights reserved. (Last updated: 2014-12-11)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+---
+  #tests: # List of all tests
+  #  -
+  #    name: "my-name" # Name of test. Run with make test-my-name.
+  #    project: "project" # Name of project. Use this OR workspace.
+  #    workspace: "workspace" # Name of workspace. Use this OR project.
+  #    scheme: "scheme" # Scheme to use during test. Make sure it's shared.
+  #    platform: "platform" # Platform to use for test. e.g. iOS Simulator.
+  #    os: "os" # OS to use for test. e.g. 8.1.
+  #    device: "device" # Device to use for test. e.g. iPad 2.
+  archives: # List of all archives.
+    -
+      name: "EXPERTconnect-App" # Name of archive. Run with make artifacts/archives/my-name.xcarchive
+      scheme: "EXPERTconnectDemo" # Scheme to use during archive. Make sure it's shared.
+      configuration: "Release" # Configuration to use during archive.
+      workspace: "EXPERTconnect" # Name of workspace. Use this OR project.
+      ipas: # List of all ipas to generate from parent archive
+        -
+          name: "EXPERTconnectDemo" # Name of ipa. Run with make artifacts/ipas/my-name.ipa
+          profile: "HumanifyExpertConnectDemo" # Provisioning profile to use when exporting ipa.
+          distributions: # List of all distributions for the parent ipa
+            -
+              type: "hockeyapp" # Distribution type.
+              api-token: "$(HOCKEY_APP_ID)" # X-HockeyAppToken
+              name: "Humanify EXPERTconnect - iOS Internal" # Distribution name. Run with make distribute my-name
+              notes: "New build!" # (Optional) Release notes as Textile or Markdown
+              notes_type: 0 # (Optional) Type of release notes: 0 for Textile, 1 for Markdown
+              notify: 0 # (Optional) Notify testers: 0 no notify, 1 notify testers that can install app, 2 notify all
+              status: 2 # (Optional) Download status: 1 don't allow users to download, 2 make available for download
+              tags: "" # (Optional) Restrict download to comma-separated list of tags
+              teams: "" # (Optional) Restrict download to comma-separated list of team IDs
+              users: "" # (Optional) Restrict download to comma-separated list of user IDs
+              mandatory: 0 # (Optional) Set version as mandatory: 0 for not mandatory, 1 for mandatory
+              release_type: 0 # (Optional) 2 for alpha, 0 for beta [default], 1 for store, 3 for enterprise
+              private: false # (Optional) Set to true to enable the private download page
+              commit_sha: "" # (Optional) Set to the git commit sha for this build
+              build_server_url: "" # (Optional) Set to the URL of the build job on your build server
+              repository_url: "" # (Optional) Set to your source repository

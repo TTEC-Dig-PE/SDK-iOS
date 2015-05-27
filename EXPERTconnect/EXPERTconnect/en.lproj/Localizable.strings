@@ -1,0 +1,303 @@
+/* 
+  Localization.strings
+  EXPERTconnect
+
+  Copyright (c) 2015 Humanify, Inc. All rights reserved.
+*/
+
+/* Name of the company */
+"ECSLocalizedCompanyNameKey" = "Humanify";
+
+/* Close */
+"ECSLocalizedCloseKey" = "Close";
+
+/* Error */
+"ECSLocalizeErrorKey" = "Error";
+
+/* Logout */
+"ECSLocalizeLogoutTitle" = "Logout?";
+
+/* Logout text */
+"ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
+
+/* ECSLocalizedFrequentlyAskedQuestionsKey */
+"ECSLocalizedAskAQuestionKey" = "Ask a Question";
+
+/* Frequently asked Questions header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "FREQUENTLY ASKED QUESTIONS";
+
+/* FAQ */
+"ECSLocalizeShortFAQKey" = "FAQ";
+
+/* Hide FAQ */
+"ECSLocalizeShortHideFAQKey" = "Hide FAQ";
+
+/* Email Address Placeholder */
+"ECSLocalizeEmailFieldPlaceholder" = "Email Address";
+
+/* Mobile Number Placeholder */
+"ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
+
+/* Log in prompt text */
+"ECSLogInPromptText" = "Log in to your Humanify Account";
+
+/* All Fields Required Text */
+"ECSLocalizeAllFieldsRequired" = "All Fields Required";
+
+/* Error missing required fields */
+"ECSLocalizeLoginErrorMissingRequiredFields" = "The Email Address field is required.";
+
+/* All registration fields are requried */
+"ECSLocalizeRegisterErrorMissingRequiredFields" = "All fields are required.";
+
+/* Log in button text */
+"ECSLocalizeLogInButton" = "Log In";
+
+/* Log out button text */
+"ECSLocalizedLogoutButton" = "Logout";
+
+/* Request to create an account */
+"ECSCreateAccountPromptKey" = "Create a Humanify Account";
+
+/* Full Name text field placeholder */
+"ECSLocalizeFullNameFieldPlaceholderKey" = "Full Name";
+
+/* Create Account button text */
+"ECSLocalizeCreateAccountKey" = "Create Account";
+
+/* Next Question */
+"ECSLocalizeNextQuestionKey" = "Next";
+
+/* Previous Question */
+"ECSLocalizePreviousQuestionKey" = "Previous";
+
+/* Optional Question */
+"ECSLocalizeOptionalKey" = "Optional";
+
+/* Required Question */
+"ECSLocalizeRequiredKey" = "Required";
+
+/* Select all that apply */
+"ECSLocalizeSelectAllThatApplyKey" = "Select all that apply";
+
+/* Submit */
+"ECSLocalizeSubmitKey" = "Submit";
+
+/* Possible Answer */
+"ECSLocalizePossibleAnswer" = "POSSIBLE ANSWER";
+
+/* Others also asked */
+"ECSLocalizeOthersAlsoAsked" = "OTHERS ALSO ASKED...";
+
+/* Was this response helpful? */
+"ECSLocalizeWasThisResponseHelpful" = "Was this response helpful?";
+
+/* View Previous Answer */
+"ECSLocalizedViewPreviousAnswer" = "View Previous Answer";
+
+/* View Next Answer */
+"ECSLocalizedViewNextAnswer" = "View Next Answer";
+
+/* Answer not found title */
+"ECSLocalizedAnswerNotFoundTitle" = "Try Again";
+
+/* Answer not found message */
+"ECSLocalizedAnswerNotFoundMessage" = "We were unable to find an answer to your query, please try again.";
+
+/* OK Button Text */
+"ECSLocalizedOkButton" = "OK";
+
+/* Reachability error connecting to the website */
+"ECSLocalizeReachabilityErrorKey" = "We are unable to connect to the Humanify Network. Please check your internet connection.";
+
+/* Push Notifications */
+"ECSLocalizedPushNotificationsHeader" = "Push Notifications";
+
+/* iBeacons */
+"ECSLocalizedBeaconsHeader" = "iBeacons";
+
+/* Version */
+"ECSLocalizedVersionHeader" = "Version %@";
+
+/* Receive Notifications */
+"ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
+
+/* Enable iBeacon Feature */
+"ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
+
+/* Open Source Licenses */
+"ECSLocalizedLicensesRow" = "Open Source Licenses";
+
+/* Chat view placeholder text */
+"ECSLocalizedChatViewPlaceholder" = "Type a Message";
+
+/* Welcome */
+"ECSLocalizeWelcome" = "Welcome";
+
+/* Welcome with user name */
+"ECSLocalizeWelcomeWithUsername" = "Welcome, %1@";
+
+/* Generic wait time message */
+"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
+
+/* Wait time message */
+"ECSLocalizeWaitTime" = "You'll be connected to an agent in approximately %1d minutes.";
+
+/* Temporarily Disconnected */
+"ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";
+
+/* Check your Network Connection */
+"ECSLocalizeChatReachabilityReconnectErrorKey" = "Check your Network Connection";
+
+/* Try Reconnecting */
+"ECSLocalizeChatReachabilityReconnectButtonKey" = "Try Reconnecting";
+
+/* Idle Message */
+"ECSLocalizeIdleMessageKey" = "You've been idle for %1d minutes";
+
+/* Continue Chatting */
+"ECSLocalizeContinueChattingKey" = "Would you like to continue chatting?";
+
+/* Warning */
+"ECSLocalizeWarningKey" = "Warning";
+
+/* Chat disconnect prompt */
+"ECSLocalizeChatDisconnectPrompt" = "Are you sure you want to exit the chat?";
+
+/* Chat disconnect prompt with survey */
+"ECSLocalizeChatDisconnectPromptSurvey" = "Are you sure you want to exit the chat and continue to the survey?";
+
+/* Localize YES */
+"ECSLocalizeYes" = "YES";
+
+/* Localize NO */
+"ECSLocalizeNo" = "NO";
+
+/* Tap to respond */
+"ECSLocalizeTapToRespond" = "Tap to respond";
+
+/* Request a phone call */
+"ECSLocalizeRequestAPhoneCall" = "Request a Phone Call";
+
+/* Request a SMS message */
+"ECSLocalizeRequestASMS" = "Request a SMS Message";
+ 
+/* Tap to
+
+/* Disconnected */
+"ECSLocalizeChatDisconnected" = "You have been disconnected from chat";
+
+/* Stay connected */
+"ECSLocalizedStayConnectedKey" = "Stay Connected";
+
+
+/* Chat Session Ended */
+"ECSLocalizedChatSessionEnded" = "Chat Session Ended";
+
+/* Chat Session Ended Subtitle */
+"ECSLocalizedChatSessionEndedSubtitle" = "Please answer a few short questions about your experience today.";
+
+/* Chat Session Ended Directions */
+"ECSLocalizedChatSessionEndedDirections" = "Answering these questions will help us better assist you in the future.";
+
+/* Chat Session Ended Button */
+"ECSLocalizedExitChatButton" = "Exit Chat";
+
+/* SMS Message */
+"ECSLocalizeCallNavigationTitle" = "Phone Call";
+
+/* Request a Phone Call */
+"ECSLocalizeRequestCallButton" = "Request a Phone Call";
+
+/* Enter your phone number to receive a call: */
+"ECSLocalizeRequestCallText" = "Enter your phone number to receive a call:";
+
+/* Carrier voice and data rates may apply */
+"ECSLocalizeRequestCallDisclaimerText" = "Carrier voice and data rates may apply.";
+
+/* Processing... */
+"ECSLocalizeProcessingButton" = "Processing...";
+
+/* SMS Message */
+"ECSLocalizeSMSNavigationTitle" = "SMS Message";
+
+/* Request a SMS */
+"ECSLocalizeRequestSMSButton" = "Request a SMS";
+
+/* Enter your phone number to receive a SMS: */
+"ECSLocalizeRequestSMSText" = "Enter your phone number to receive a SMS:";
+
+/* Carrier voice and data rates may apply */
+"ECSLocalizeRequestSMSDisclaimerText" = "Carrier voice and data rates may apply.";
+
+/* We'll Call You. */
+"ECSLocalizeCallCancelTitle" = "We'll Call You.";
+
+/* Call Cancel Description */
+"ECSLocalizeCallCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated call from us at %@";
+
+/* Cancel Call Request */
+"ECSLocalizeCallCancelButton" = "Cancel Call Request";
+
+/* We'll Text You. */
+"ECSLocalizeSMSCancelTitle" = "We'll Text You.";
+
+/* SMS Cancel Description */
+"ECSLocalizeSMSCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated SMS message from us at %@";
+
+/* Your approximate wait time */
+"ECSLocalizeCallbackWaitTime" = "Your approximate wait time is: ";
+
+/* Cancel SMS Request */
+"ECSLocalizeSMSCancelButton" = "Cancel SMS Request";
+
+/* Minutes */
+"ECSLocalizeMinutes" = "minutes";
+
+/* Minute */
+"ECSLocalizeMinute" = "minute";
+
+/* Error */
+"ECSLocalizeError" = "Error";
+
+/* Default Error Text */
+"ECSLocalizeErrorText" = "We are unable to complete your request at this time.  Please try again later.";
+
+/* Take a Photo */
+"ECSLocalizeTakeAPhoto" = "Take a Photo";
+
+/* Record a Video */
+"ECSLocalizeRecordVideo" = "Record a Video";
+
+/* Existing from Album */
+"ECSLocalizeExistingFromAlbum" = "Existing from Album";
+
+/* Send */
+"ECSLocalizeSend" = "Send";
+
+/* Cancel */
+"ECSLocalizeCancel" = "Cancel";
+
+/* Profile */
+"ECSLocalizeProfile" = "Profile";
+
+/* Chat Logs */
+"ECSLocalizeChatLogs" = "Chat Logs";
+
+/* Chat Join User */
+"ECSLocalizeChatJoin" = "%1@ Joined";
+
+/* History */
+"ECSLocalizeHistory" = "History";
+
+/* Edit Profile */
+"ECSLocalizeEditProfile" = "Edit Profile";
+
+/* Answers */
+"ECSLocalizeAnswers" = "Answers";
+
+/* Localization Directions */
+"ECSLocalizeDirections" = "<h1>Unable to Determine Location</h1><h2>Please follow these instructions to enable Location Access</h2><ol><li>Launch <b>Settings</b> on your iPhone or iPad.</li><li>Scroll down to select <b>Privacy</b>, then <b>Location Services</b></li><li>Make sure the top toggle switch is <b>Green</b></li><li>Scroll down and select *%@* and make sure it is set to \"While Using the App\" or \"Always\"</li></ol>";
+
+/* Profile Error */
+"ECSLocalizeProfileError" = "There was an error creating your profile.  Please fill out all fields and try again.";

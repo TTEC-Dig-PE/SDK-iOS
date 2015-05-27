@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSFormViewController">
+            <connections>
+                <outlet property="buttonViewBottomConstraint" destination="oXN-lb-KyW" id="bxn-Un-xdH"/>
+                <outlet property="contentView" destination="hTl-Zx-qFS" id="DJt-XO-DXb"/>
+                <outlet property="nextButton" destination="El0-Ur-VgU" id="FhK-tq-gYH"/>
+                <outlet property="previousButton" destination="UyC-hu-WST" id="VUa-fF-ZIj"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTl-Zx-qFS" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="526"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbM-mG-jQS">
+                    <rect key="frame" x="0.0" y="526" width="600" height="74"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gT7-2t-sfW" userLabel="Button View Seperator">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="xwH-FC-mg5"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UyC-hu-WST" userLabel="Previous Button" customClass="ECSButton">
+                            <rect key="frame" x="15" y="15" width="278" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="4FY-Am-rpB"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Button">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="previousTapped:" destination="-1" eventType="touchUpInside" id="jCg-12-74c"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="El0-Ur-VgU" userLabel="Next Button" customClass="ECSButton">
+                            <rect key="frame" x="307" y="15" width="278" height="44"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="mhe-IB-aC0"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Button">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="nextTapped:" destination="-1" eventType="touchUpInside" id="oyY-Ty-uix"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="gT7-2t-sfW" firstAttribute="top" secondItem="XbM-mG-jQS" secondAttribute="top" id="Hvx-Au-37k"/>
+                        <constraint firstItem="El0-Ur-VgU" firstAttribute="leading" secondItem="UyC-hu-WST" secondAttribute="trailing" constant="15" id="Itj-Zv-PPd"/>
+                        <constraint firstAttribute="centerY" secondItem="UyC-hu-WST" secondAttribute="centerY" id="UlA-bv-PXM"/>
+                        <constraint firstItem="UyC-hu-WST" firstAttribute="leading" secondItem="XbM-mG-jQS" secondAttribute="leading" constant="15" id="dL6-20-oQX"/>
+                        <constraint firstItem="El0-Ur-VgU" firstAttribute="width" secondItem="UyC-hu-WST" secondAttribute="width" id="gwJ-HU-YkU"/>
+                        <constraint firstItem="gT7-2t-sfW" firstAttribute="leading" secondItem="XbM-mG-jQS" secondAttribute="leading" id="hvt-hb-leP"/>
+                        <constraint firstAttribute="trailing" secondItem="gT7-2t-sfW" secondAttribute="trailing" id="mV7-Bb-h7q"/>
+                        <constraint firstAttribute="height" constant="74" id="plv-ta-YeF"/>
+                        <constraint firstAttribute="centerY" secondItem="El0-Ur-VgU" secondAttribute="centerY" id="uuM-Ed-9N1"/>
+                        <constraint firstAttribute="trailing" secondItem="El0-Ur-VgU" secondAttribute="trailing" constant="15" id="yzY-jf-DMz"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XbM-mG-jQS" firstAttribute="top" secondItem="hTl-Zx-qFS" secondAttribute="bottom" id="0Xv-II-kde"/>
+                <constraint firstAttribute="trailing" secondItem="hTl-Zx-qFS" secondAttribute="trailing" id="Nv9-ae-mGg"/>
+                <constraint firstItem="hTl-Zx-qFS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RLN-3j-Nhe"/>
+                <constraint firstItem="hTl-Zx-qFS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bfd-Xx-WDz"/>
+                <constraint firstItem="XbM-mG-jQS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lqT-a5-wpb"/>
+                <constraint firstAttribute="bottom" secondItem="XbM-mG-jQS" secondAttribute="bottom" id="oXN-lb-KyW"/>
+                <constraint firstAttribute="trailing" secondItem="XbM-mG-jQS" secondAttribute="trailing" id="yLh-1f-Y8u"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="628" y="593"/>
+        </view>
+    </objects>
+</document>

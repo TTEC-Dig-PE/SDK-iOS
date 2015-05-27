@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSWebViewController">
+            <connections>
+                <outlet property="backButton" destination="g4o-5r-mFl" id="8Fb-TS-XPe"/>
+                <outlet property="forwardButton" destination="CDs-Kc-Xxh" id="hKZ-yG-zTJ"/>
+                <outlet property="refreshButton" destination="Ktc-UT-V9u" id="IN4-cg-Eij"/>
+                <outlet property="shareButton" destination="a5G-00-AAe" id="EHZ-bZ-MTR"/>
+                <outlet property="toolbar" destination="FxJ-xD-Mnp" id="Nm8-SK-fyb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="KIL-0o-wrK" id="hVg-EC-u0K"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIL-0o-wrK">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </webView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FxJ-xD-Mnp">
+                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                    <items>
+                        <barButtonItem image="ecs_ic_webview_back_enabled" id="g4o-5r-mFl">
+                            <connections>
+                                <action selector="backButtonTapped:" destination="-1" id="GAm-wv-KgI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Wld-cd-UFs"/>
+                        <barButtonItem image="ecs_ic_webview_forward_enabled" id="CDs-Kc-Xxh">
+                            <connections>
+                                <action selector="forwardButtonTapped:" destination="-1" id="D7E-jw-Tdr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="bMS-U4-iae"/>
+                        <barButtonItem systemItem="refresh" id="Ktc-UT-V9u">
+                            <connections>
+                                <action selector="refreshTapped:" destination="-1" id="SkP-Vn-gb0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="HnE-Ju-4cv"/>
+                        <barButtonItem systemItem="action" id="a5G-00-AAe">
+                            <connections>
+                                <action selector="shareTapped:" destination="-1" id="TKX-Ij-gqZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="KIL-0o-wrK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3EO-wK-Kxy"/>
+                <constraint firstAttribute="trailing" secondItem="FxJ-xD-Mnp" secondAttribute="trailing" id="6Yr-jq-g4l"/>
+                <constraint firstAttribute="trailing" secondItem="KIL-0o-wrK" secondAttribute="trailing" id="9kZ-jc-MlG"/>
+                <constraint firstItem="KIL-0o-wrK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IZd-nB-WWe"/>
+                <constraint firstAttribute="bottom" secondItem="FxJ-xD-Mnp" secondAttribute="bottom" id="Ibi-Oz-lAT"/>
+                <constraint firstAttribute="bottom" secondItem="KIL-0o-wrK" secondAttribute="bottom" id="LhJ-f9-eLV"/>
+                <constraint firstItem="FxJ-xD-Mnp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WeG-pS-jw1"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="ecs_ic_webview_back_enabled" width="12" height="21"/>
+        <image name="ecs_ic_webview_forward_enabled" width="12" height="21"/>
+    </resources>
+</document>

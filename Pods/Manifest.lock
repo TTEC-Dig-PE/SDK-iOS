@@ -1,0 +1,21 @@
+PODS:
+  - Bugsnag (4.0.3):
+    - Bugsnag/no-arc (= 4.0.3)
+  - Bugsnag/no-arc (4.0.3)
+
+DEPENDENCIES:
+  - Bugsnag (from `https://github.com/bugsnag/bugsnag-cocoa.git`)
+
+EXTERNAL SOURCES:
+  Bugsnag:
+    :git: https://github.com/bugsnag/bugsnag-cocoa.git
+
+CHECKOUT OPTIONS:
+  Bugsnag:
+    :commit: a5d09c0aadddd31c53c90a2d0bada6cde4583fad
+    :git: https://github.com/bugsnag/bugsnag-cocoa.git
+
+SPEC CHECKSUMS:
+  Bugsnag: 7267951d92ac48ff264b605cf65b42208dfde905
+
+COCOAPODS: 0.36.0

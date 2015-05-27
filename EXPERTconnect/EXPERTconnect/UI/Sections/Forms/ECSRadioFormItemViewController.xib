@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSRadioFormItemViewController">
+            <connections>
+                <outlet property="choicesTable" destination="0Xf-zM-Iir" id="vuj-N2-wJf"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0Xf-zM-Iir">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="0Xf-zM-Iir" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EWD-wV-RSN"/>
+                <constraint firstAttribute="bottom" secondItem="0Xf-zM-Iir" secondAttribute="bottom" id="Hdu-vY-9BU"/>
+                <constraint firstItem="0Xf-zM-Iir" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TeN-i1-VmF"/>
+                <constraint firstAttribute="trailing" secondItem="0Xf-zM-Iir" secondAttribute="trailing" id="h44-z5-knD"/>
+            </constraints>
+            <point key="canvasLocation" x="284" y="286"/>
+        </view>
+    </objects>
+</document>

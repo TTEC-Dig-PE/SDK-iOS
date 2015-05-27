@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDLoginViewController">
+            <connections>
+                <outlet property="contentView" destination="L5O-Ew-FoW" id="wD7-Ac-oBi"/>
+                <outlet property="emailAddressField" destination="1rv-Lu-JAr" id="z6n-ig-bbX"/>
+                <outlet property="errorLabel" destination="Vh1-hj-30z" id="VQm-j7-KsC"/>
+                <outlet property="fieldsRequiredLabel" destination="ftl-Nh-uzD" id="R9a-XJ-hMO"/>
+                <outlet property="loadingIndicator" destination="UPN-7B-izb" id="nAZ-Nv-1IT"/>
+                <outlet property="logInButton" destination="GuB-7h-abq" id="q9G-dL-dzE"/>
+                <outlet property="logInContainer" destination="Dbq-m4-QTP" id="D16-aS-nVy"/>
+                <outlet property="logInContainerBottomConstraint" destination="WME-ZJ-2BG" id="X5g-iS-22n"/>
+                <outlet property="logInLabel" destination="Xyq-Ns-1ma" id="jEb-48-7j5"/>
+                <outlet property="scrollView" destination="Nvo-UX-Gh5" id="Jyx-9Z-7PL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nvo-UX-Gh5">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="L5O-Ew-FoW" userLabel="Content View">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in to your Humanify Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xyq-Ns-1ma" customClass="ECSDynamicLabel">
+                                    <rect key="frame" x="15" y="15" width="570" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1rv-Lu-JAr" customClass="ECSFormTextField">
+                                    <rect key="frame" x="0.0" y="47" width="600" height="44"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="XvG-Rv-SSl"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Fields Required" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftl-Nh-uzD" customClass="ECSDynamicLabel">
+                                    <rect key="frame" x="15" y="106" width="570" height="13.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QfM-ui-0Je">
+                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="mfb-gO-gsR">
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P78-lU-rhJ">
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Thu-Fn-xT5">
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                                <vibrancyEffect>
+                                                    <blurEffect style="light"/>
+                                                </vibrancyEffect>
+                                            </visualEffectView>
+                                        </subviews>
+                                    </view>
+                                    <blurEffect style="light"/>
+                                </visualEffectView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh1-hj-30z" userLabel="Error label" customClass="ECSDynamicLabel">
+                                    <rect key="frame" x="15" y="129" width="42" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Xyq-Ns-1ma" firstAttribute="top" secondItem="L5O-Ew-FoW" secondAttribute="top" constant="15" id="76E-Ln-xNv"/>
+                                <constraint firstItem="ftl-Nh-uzD" firstAttribute="leading" secondItem="L5O-Ew-FoW" secondAttribute="leading" constant="15" id="D59-iC-Vxg"/>
+                                <constraint firstAttribute="trailing" secondItem="1rv-Lu-JAr" secondAttribute="trailing" id="DAS-QI-G1E"/>
+                                <constraint firstItem="ftl-Nh-uzD" firstAttribute="top" secondItem="1rv-Lu-JAr" secondAttribute="bottom" constant="15" id="DhY-RA-r96"/>
+                                <constraint firstAttribute="trailing" secondItem="Xyq-Ns-1ma" secondAttribute="trailing" constant="15" id="DmJ-Jc-1DV"/>
+                                <constraint firstAttribute="trailing" secondItem="ftl-Nh-uzD" secondAttribute="trailing" constant="15" id="HX9-1g-bFq"/>
+                                <constraint firstItem="1rv-Lu-JAr" firstAttribute="top" secondItem="Xyq-Ns-1ma" secondAttribute="bottom" constant="15" id="RTA-eN-A32"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Vh1-hj-30z" secondAttribute="bottom" id="Rdh-bm-47U"/>
+                                <constraint firstItem="Vh1-hj-30z" firstAttribute="leading" secondItem="L5O-Ew-FoW" secondAttribute="leading" constant="15" id="Seb-ed-8aB"/>
+                                <constraint firstItem="1rv-Lu-JAr" firstAttribute="leading" secondItem="L5O-Ew-FoW" secondAttribute="leading" id="Sjs-i0-d4H"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vh1-hj-30z" secondAttribute="trailing" constant="15" id="grj-l8-o7j"/>
+                                <constraint firstItem="Vh1-hj-30z" firstAttribute="top" secondItem="ftl-Nh-uzD" secondAttribute="bottom" constant="10" id="snG-Mf-G6t"/>
+                                <constraint firstItem="Xyq-Ns-1ma" firstAttribute="leading" secondItem="L5O-Ew-FoW" secondAttribute="leading" constant="15" id="zAa-BM-bYH"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="L5O-Ew-FoW" firstAttribute="leading" secondItem="Nvo-UX-Gh5" secondAttribute="leading" id="DeR-Az-rwT"/>
+                        <constraint firstAttribute="trailing" secondItem="L5O-Ew-FoW" secondAttribute="trailing" id="Yng-Zc-rRv"/>
+                        <constraint firstAttribute="bottom" secondItem="L5O-Ew-FoW" secondAttribute="bottom" id="ZXu-WP-Zxh"/>
+                        <constraint firstItem="L5O-Ew-FoW" firstAttribute="top" secondItem="Nvo-UX-Gh5" secondAttribute="top" id="slA-of-zLW"/>
+                    </constraints>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-7B-izb" customClass="ECSLoadingView">
+                    <rect key="frame" x="268" y="268" width="64" height="64"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="Gww-Nk-wGl"/>
+                        <constraint firstAttribute="height" constant="64" id="rUd-xO-0qd"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="hidesWhenStopped" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbq-m4-QTP" userLabel="Log In Container">
+                    <rect key="frame" x="0.0" y="526" width="600" height="74"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-7h-abq" userLabel="Log In Button" customClass="ECSButton">
+                            <rect key="frame" x="15" y="15" width="570" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="e3S-jx-Nkg"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="logInTapped:" destination="-1" eventType="touchUpInside" id="GyO-qZ-mut"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="GuB-7h-abq" secondAttribute="centerY" id="0b5-51-S1W"/>
+                        <constraint firstAttribute="trailing" secondItem="GuB-7h-abq" secondAttribute="trailing" constant="15" id="KaE-dA-hut"/>
+                        <constraint firstItem="GuB-7h-abq" firstAttribute="leading" secondItem="Dbq-m4-QTP" secondAttribute="leading" constant="15" id="Nnl-hJ-qq8"/>
+                        <constraint firstAttribute="height" constant="74" id="muk-uG-m6m"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Nvo-UX-Gh5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BDI-e4-a0N"/>
+                <constraint firstAttribute="bottom" secondItem="Nvo-UX-Gh5" secondAttribute="bottom" id="Cqe-wi-hF4"/>
+                <constraint firstItem="Nvo-UX-Gh5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QiY-fh-gH8"/>
+                <constraint firstAttribute="centerY" secondItem="UPN-7B-izb" secondAttribute="centerY" id="QkZ-Ux-TTL"/>
+                <constraint firstAttribute="bottom" secondItem="Dbq-m4-QTP" secondAttribute="bottom" id="WME-ZJ-2BG"/>
+                <constraint firstAttribute="trailing" secondItem="Nvo-UX-Gh5" secondAttribute="trailing" id="XdQ-ci-ZPm"/>
+                <constraint firstItem="Dbq-m4-QTP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aph-Zs-PqQ"/>
+                <constraint firstAttribute="centerX" secondItem="UPN-7B-izb" secondAttribute="centerX" id="cns-FU-RXP"/>
+                <constraint firstAttribute="trailing" secondItem="Dbq-m4-QTP" secondAttribute="trailing" id="vBp-16-zi4"/>
+            </constraints>
+            <point key="canvasLocation" x="316" y="451"/>
+        </view>
+    </objects>
+</document>
