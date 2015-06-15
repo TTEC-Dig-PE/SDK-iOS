@@ -166,7 +166,7 @@
     
     ECSCallbackActionType *callbackAction = (ECSCallbackActionType*)self.actionType;
     
-    if (callbackAction.agentId && callbackAction.agentId.length > 0)
+    if ([callbackAction.agentId isKindOfClass:[NSString class]] && callbackAction.agentId.length > 0)
     {
         configuration.to = callbackAction.agentId;
     }
@@ -174,9 +174,9 @@
     {
         configuration.to = callbackAction.agentSkill;
     }
-#ifdef DEBUG
-    configuration.to = @"Calls for erik_mktwebextc";
-#endif
+//#ifdef DEBUG
+//    configuration.to = @"Calls for erik_mktwebextc";
+//#endif
     
     configuration.from = userManager.userToken;
     configuration.subject = @"help";

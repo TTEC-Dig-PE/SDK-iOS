@@ -1422,8 +1422,15 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     ECSCallbackViewController *callback = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
+
+    // Set the parent agent skill and id for callback.
+    ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
+    callbackAction.agentSkill = chatAction.agentSkill;
+    callbackAction.agentId = chatAction.agentId;
+
     callback.actionType = callbackAction;
     callback.skipConfirmationView = YES;
+    
     
     if (![message.mediaType isEqualToString:@"voice"])
     {

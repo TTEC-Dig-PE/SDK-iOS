@@ -128,9 +128,9 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
     {
         configuration.to = chatAction.agentSkill;
     }
-#ifdef DEBUG
-    configuration.to = @"Calls for erik_mktwebextc";
-#endif
+//#ifdef DEBUG
+//    configuration.to = @"Calls for erik_mktwebextc";
+//#endif
     configuration.from = userManager.userToken;
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";
