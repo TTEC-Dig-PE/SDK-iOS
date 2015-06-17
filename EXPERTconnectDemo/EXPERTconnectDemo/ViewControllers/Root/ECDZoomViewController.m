@@ -239,8 +239,6 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
     [self replaceController:currentContentViewController
               newController:_contentViewController
                   container:[self contentView]];
-    
-    [self.view setNeedsLayout];
 }
 
 - (void)setLeftViewController:(UIViewController *)leftViewController
@@ -281,11 +279,13 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
         }
         else
         {
+            [newController beginAppearanceTransition:YES animated:YES];
             [container addSubview:[newController view]];
          
             [self constrainView:newController.view toParentView:container];
             
             [newController didMoveToParentViewController:self];
+            [newController endAppearanceTransition];
         }
     }
     else

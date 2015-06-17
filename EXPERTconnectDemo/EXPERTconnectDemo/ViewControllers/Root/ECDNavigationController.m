@@ -48,10 +48,6 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-}
-
 - (void)showMainMenu:(id)sender
 {
     if ([[self ecd_zoomViewController] isLeftViewVisible])
