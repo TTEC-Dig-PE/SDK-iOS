@@ -151,6 +151,11 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return tableView.sectionHeaderHeight;
+}
+
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSString *title = nil;
