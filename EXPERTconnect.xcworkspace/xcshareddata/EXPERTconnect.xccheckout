@@ -12,20 +12,24 @@
 	<dict>
 		<key>5785F79D5DD9066B22B1A8BDF7FFFC1261070EDB</key>
 		<string>https://github.com/willowtreeapps/humanify-ios.git</string>
+		<key>756FC1BEC9980560AA5AFD0F979764BD7B5B9E9A</key>
+		<string>github.com:humanifydev/SDK-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>EXPERTconnect.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5785F79D5DD9066B22B1A8BDF7FFFC1261070EDB</key>
+		<string>../../humanify-ios</string>
+		<key>756FC1BEC9980560AA5AFD0F979764BD7B5B9E9A</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/willowtreeapps/humanify-ios.git</string>
+	<string>github.com:humanifydev/SDK-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5785F79D5DD9066B22B1A8BDF7FFFC1261070EDB</string>
+	<string>756FC1BEC9980560AA5AFD0F979764BD7B5B9E9A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>5785F79D5DD9066B22B1A8BDF7FFFC1261070EDB</string>
 			<key>IDESourceControlWCCName</key>
 			<string>humanify-ios</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>756FC1BEC9980560AA5AFD0F979764BD7B5B9E9A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDK-iOS</string>
 		</dict>
 	</array>
 </dict>

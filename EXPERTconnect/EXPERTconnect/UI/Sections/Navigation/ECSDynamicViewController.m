@@ -143,7 +143,6 @@ static NSString *const ECSQuestionCellId = @"ECSQuestionCellId";
             [featuredCell.leftImageView setImageWithPath:rowItem.icon];
           
             featuredCell.leftViewEnabled = [rowItem.enabled boolValue];
-              featuredCell.leftViewEnabled = YES;
             
             NSInteger secondRowItemIndex = (indexPath.row * 2) + 1;
             
@@ -155,7 +154,6 @@ static NSString *const ECSQuestionCellId = @"ECSQuestionCellId";
                 [featuredCell.rightTitleLabel setText:secondRowItem.displayName];
                 [featuredCell.rightImageView setImageWithPath:secondRowItem.icon];
                 featuredCell.rightViewEnabled = [secondRowItem.enabled boolValue];
-                  featuredCell.rightViewEnabled = YES;
             }
             else
             {
@@ -237,7 +235,7 @@ static NSString *const ECSQuestionCellId = @"ECSQuestionCellId";
             break;
     }
     
-    if (actiontype /*&& actiontype.enabled.boolValue*/)
+    if (actiontype && actiontype.enabled.boolValue)
     {
         [self handleAction:actiontype];
     }
