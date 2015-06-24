@@ -28,6 +28,7 @@
 		033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB4D1A602CC00024F48F /* ECDMainMenuTableViewCell.m */; };
 		033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB4E1A602CC00024F48F /* ECDMainMenuTableViewCell.xib */; };
 		033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB511A602CC00024F48F /* ECDDefaultTheme.m */; };
+		0368D77D1B3AEADC00985673 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0368D77A1B3AEAD800985673 /* Localizable.strings */; };
 		038C9D8F1AC34003006B04CD /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; };
 		038C9D901AC34033006B04CD /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03978F0D1A602B2D007793D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
@@ -38,7 +39,6 @@
 		03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CF885D1AD5B45E0064085E /* ECDSettingsViewController.m */; };
 		03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CF885E1AD5B45E0064085E /* ECDSettingsViewController.xib */; };
 		03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D452181AC1DB4C003607C4 /* AirshipConfig.plist */; };
-		03F0BD3A1A704FAA00E90E7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03F0BD391A704FAA00E90E7F /* Localizable.strings */; };
 		22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
 		22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
 		3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
@@ -100,6 +100,10 @@
 		033ACB4E1A602CC00024F48F /* ECDMainMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDMainMenuTableViewCell.xib; sourceTree = "<group>"; };
 		033ACB501A602CC00024F48F /* ECDDefaultTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDDefaultTheme.h; sourceTree = "<group>"; };
 		033ACB511A602CC00024F48F /* ECDDefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDDefaultTheme.m; sourceTree = "<group>"; };
+		0368D7771B3AEACF00985673 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		0368D7791B3AEAD800985673 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0368D77B1B3AEADB00985673 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0368D77C1B3AEADC00985673 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		038C9D8E1AC34003006B04CD /* AirshipKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AirshipKit.framework; path = "ThirdParty/libUAirship-latest/Airship/AirshipKit.framework"; sourceTree = SOURCE_ROOT; };
 		03978F071A602B2D007793D6 /* EXPERTconnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EXPERTconnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03978F0B1A602B2D007793D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,7 +120,6 @@
 		03CF885E1AD5B45E0064085E /* ECDSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSettingsViewController.xib; sourceTree = "<group>"; };
 		03CF88611AD5C7220064085E /* ECDUserDefaultKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDUserDefaultKeys.h; sourceTree = "<group>"; };
 		03D452181AC1DB4C003607C4 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
-		03F0BD391A704FAA00E90E7F /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = EXPERTconnectDemo/Localizable.strings; sourceTree = "<group>"; };
 		22CD2EEC1A840142003ED9E4 /* ECDSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDSplashViewController.h; sourceTree = "<group>"; };
 		22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDSplashViewController.m; sourceTree = "<group>"; };
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
@@ -241,7 +244,7 @@
 			children = (
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
-				03F0BD391A704FAA00E90E7F /* Localizable.strings */,
+				0368D77A1B3AEAD800985673 /* Localizable.strings */,
 				03243FD01A65570300A4CE6D /* Frameworks */,
 				03978F091A602B2D007793D6 /* EXPERTconnectDemo */,
 				03978F231A602B2D007793D6 /* EXPERTconnectDemoTests */,
@@ -383,6 +386,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -400,6 +404,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0368D77D1B3AEADC00985673 /* Localizable.strings in Resources */,
 				0301CBFC1B0626900068A0E1 /* ECDDefaultTheme.css in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
@@ -410,7 +415,6 @@
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
-				03F0BD3A1A704FAA00E90E7F /* Localizable.strings in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
@@ -517,10 +521,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0368D77A1B3AEAD800985673 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0368D7791B3AEAD800985673 /* Base */,
+				0368D77B1B3AEADB00985673 /* en */,
+				0368D77C1B3AEADC00985673 /* fr */,
+			);
+			name = Localizable.strings;
+			path = EXPERTconnectDemo;
+			sourceTree = "<group>";
+		};
 		03978F191A602B2D007793D6 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03978F1A1A602B2D007793D6 /* Base */,
+				0368D7771B3AEACF00985673 /* fr */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
