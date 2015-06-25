@@ -52,6 +52,7 @@ NSString *const ECSActionTypeProfile = @"profile";
              @"enabled": @"enabled",
              @"presurvey": @"presurvey",
              @"journeybegin": @"journeybegin",
+             @"navigationContext": @"navigationContext",
              @"configuration": @"configuration",
              };
 }
