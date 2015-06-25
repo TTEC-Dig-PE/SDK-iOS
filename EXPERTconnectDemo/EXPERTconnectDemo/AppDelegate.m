@@ -74,7 +74,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appVersion = @"1.0";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
-    configuration.clientID = @"mktwebextc";
+    configuration.clientID = @"horizon";
     configuration.clientSecret = @"secret123";
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = @"Personas";
@@ -98,6 +98,9 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         [[NSUserDefaults standardUserDefaults] synchronize];
         [[EXPERTconnect shared] setUserToken:nil];
     }
+    
+    
+    [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
         
     // If we are authenticated, skip the login view.
     if ([[EXPERTconnect shared] authenticationRequired])
@@ -165,7 +168,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     if (!url || url.length == 0)
     {
-        url = @"http://uldcd-cldap02.ttechenabled.net:8080";
+        // url = @"http://uldcd-cldap02.ttechenabled.net:8080";
+        url = @"http://api.humanify.com:8080";
     }
     
     return url;

@@ -313,6 +313,9 @@
     
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
     
+    NSString *userIntent = [[EXPERTconnect shared] userIntent];
+    formAction.intent = userIntent;
+    
     __weak typeof(self) weakSelf = self;
     
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];

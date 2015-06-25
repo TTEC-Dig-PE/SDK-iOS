@@ -80,4 +80,10 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeProfile;
 // Indicates if this action item starts a user journey
 @property (nonatomic, strong) NSNumber *journeybegin;
 
+// The navigation context for this action type
+@property (nonatomic, strong) NSString *navigationContext;
+
+// The navigation context for this action type
+@property (nonatomic, strong) NSString *intent;
+
 @end

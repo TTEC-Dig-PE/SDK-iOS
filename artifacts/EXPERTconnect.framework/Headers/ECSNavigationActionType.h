@@ -12,7 +12,4 @@
  */
 @interface ECSNavigationActionType : ECSActionType <NSCopying>
 
-// The navigation context for this action type
-@property (nonatomic, strong) NSString *navigationContext;
-
 @end

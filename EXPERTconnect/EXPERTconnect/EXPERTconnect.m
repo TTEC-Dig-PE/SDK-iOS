@@ -59,6 +59,18 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:theme forClass:[ECSTheme class]];
 }
 
+- (void)setUserIntent:(NSString *)intent
+{
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    userManager.userIntent = intent;
+}
+
+- (NSString *)userIntent
+{
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    return userManager.userIntent;
+}
+
 - (ECSURLSessionManager *)urlSession
 {
     return [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];

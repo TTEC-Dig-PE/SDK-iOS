@@ -8,6 +8,7 @@
 #import "ECSActionType.h"
 
 #import "ECSJSONSerializer.h"
+#import "ECSFormActionType.h"
 #import "ECSPreSurvey.h"
 #import "ECSUtilities.h"
 
@@ -74,8 +75,16 @@ NSString *const ECSActionTypeProfile = @"profile";
     actionType.configuration = [[NSDictionary alloc] initWithDictionary:self.configuration copyItems:YES];
     actionType.journeybegin = [self.journeybegin copyWithZone:zone];
     actionType.presurvey = [self.configuration copyWithZone:zone];
+    actionType.navigationContext = [self.navigationContext copyWithZone:zone];
+    
+    // TODO: REMOVE REMOVE REMOVE
+    //
+    // if ([actionType isKindOfClass:[ECSFormActionType class]])  {
+    //     actionType.navigationContext = @"mobile_to_mobile~action_form";
+    // }
     
     return actionType;
 }
+
 
 @end

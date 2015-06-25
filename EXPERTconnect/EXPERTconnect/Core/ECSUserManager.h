@@ -15,6 +15,9 @@
 // The current user token
 @property (strong, nonatomic) NSString *userToken;
 
+// The current intent of the user (i.e., mutual funds)
+@property (strong, nonatomic) NSString *userIntent;
+
 // The current generated device id
 @property (readonly, nonatomic) NSString *deviceID;
 

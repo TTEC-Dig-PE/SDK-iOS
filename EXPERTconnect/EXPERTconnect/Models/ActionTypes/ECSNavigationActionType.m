@@ -30,13 +30,4 @@
     return mapping;
 }
 
-- (id)copyWithZone:(NSZone *)zone
-{
-    ECSNavigationActionType *actionType = [super copyWithZone:zone];
-    
-    actionType.navigationContext = [self.navigationContext copyWithZone:zone];
-    
-    return actionType;
-}
-
 @end

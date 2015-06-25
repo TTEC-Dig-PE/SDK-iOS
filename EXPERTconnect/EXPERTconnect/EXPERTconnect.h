@@ -61,6 +61,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) BOOL authenticationRequired;
 @property (strong, nonatomic) ECSTheme *theme;
 @property (strong, nonatomic) NSString *userToken;
+@property (strong, nonatomic) NSString *userIntent;
 @property (strong, nonatomic) NSString *userDisplayName;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 
