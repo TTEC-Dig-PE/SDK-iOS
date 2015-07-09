@@ -705,6 +705,8 @@
 		2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemText.m; sourceTree = "<group>"; };
 		2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormItemTextArea.h; sourceTree = "<group>"; };
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
+		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1565,6 +1567,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
+				es,
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -1831,6 +1835,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				03F0BD371A70383B00E90E7F /* en */,
+				463E815B1B4ED2F900396B7A /* fr */,
+				463E815C1B4ED30F00396B7A /* es */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect;

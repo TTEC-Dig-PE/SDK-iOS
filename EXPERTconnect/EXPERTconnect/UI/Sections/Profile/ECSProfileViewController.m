@@ -75,7 +75,7 @@
                                                                        constant:0.0f];
     
     [self.view addConstraints:@[leftConstraint, rightConstraint, heightConstraint]];
-    
+
     self.navigationItem.title = ECSLocalizedString(ECSLocalizeProfile, @"Profile");
     self.leftItemLabel.text = [ECSLocalizedString(ECSLocalizeChatLogs, @"Chat Logs") uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.rightItemLabel.text = [ECSLocalizedString(ECSLocalizeHistory, @"History") uppercaseStringWithLocale:[NSLocale currentLocale]];

@@ -293,6 +293,9 @@
 /* Edit Profile */
 "ECSLocalizeEditProfile" = "Edit Profile";
 
+/* Edit Profile */
+"ECSLocalizeUpdateProfile" = "Update Profile";
+
 /* Answers */
 "ECSLocalizeAnswers" = "Answers";
 

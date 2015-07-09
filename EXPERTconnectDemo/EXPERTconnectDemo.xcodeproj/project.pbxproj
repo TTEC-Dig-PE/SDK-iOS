@@ -643,7 +643,7 @@
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "454bee41-3fb5-4bea-95a7-a38854cf9317";
+				PROVISIONING_PROFILE = "c5fc450d-1827-41d3-81f3-bf5d061f90eb";
 			};
 			name = Debug;
 		};
