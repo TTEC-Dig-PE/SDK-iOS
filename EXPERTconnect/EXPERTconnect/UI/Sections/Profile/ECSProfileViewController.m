@@ -42,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UIView *topButtonView;
 @property (weak, nonatomic) IBOutlet UIView *leftFeaturedView;
 @property (weak, nonatomic) IBOutlet UIView *rightFeaturedView;
+@property (weak, nonatomic) IBOutlet UIButton *updateProfileButton;
+
 
 @property (strong, nonatomic) ECSForm *form;
 @property (strong, nonatomic) NSMutableArray *textFields;
@@ -80,6 +82,7 @@
     self.leftItemLabel.text = [ECSLocalizedString(ECSLocalizeChatLogs, @"Chat Logs") uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.rightItemLabel.text = [ECSLocalizedString(ECSLocalizeHistory, @"History") uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.editProfileSectionHeader.text = [ECSLocalizedString(ECSLocalizeEditProfile, @"Edit Profile") uppercaseStringWithLocale:[NSLocale currentLocale]];
+    [self.updateProfileButton setTitle:ECSLocalizedString(ECSLocalizeEditProfile, @"Update Profile") forState:UIControlStateNormal];
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     self.view.backgroundColor = theme.primaryBackgroundColor;

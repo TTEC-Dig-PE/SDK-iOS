@@ -20,6 +20,7 @@
                 <outlet property="scrollView" destination="8y2-K5-iYz" id="7C9-Hx-7Vf"/>
                 <outlet property="textFieldContainer" destination="8BT-bk-9RG" id="a3Y-Em-2eZ"/>
                 <outlet property="topButtonView" destination="3mM-Ga-WU1" id="vdo-x8-9Sk"/>
+                <outlet property="updateProfileButton" destination="why-o9-j3w" id="dC9-gg-r5d"/>
                 <outlet property="verticalDivider" destination="YUe-8s-bE6" id="voR-Bx-DPi"/>
                 <outlet property="verticalSeparatorWidthConstraint" destination="NJ0-PM-SMh" id="RHg-Fx-1mf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
