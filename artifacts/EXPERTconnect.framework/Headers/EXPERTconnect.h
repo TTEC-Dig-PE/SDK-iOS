@@ -63,6 +63,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (strong, nonatomic) NSString *userToken;
 @property (strong, nonatomic) NSString *userIntent;
 @property (strong, nonatomic) NSString *userDisplayName;
+@property (strong, nonatomic) NSString *userCallbackNumber;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;

@@ -1,6 +1,6 @@
 {
   "name": "Bugsnag",
-  "version": "4.0.3",
+  "version": "4.0.7",
   "summary": "Cocoa notifier for SDK for bugsnag.com",
   "homepage": "https://bugsnag.com",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/bugsnag/bugsnag-cocoa.git",
-    "tag": "v4.0.3",
+    "tag": "v4.0.7",
     "submodules": true
   },
   "frameworks": "Foundation",
@@ -30,6 +30,10 @@
     "KSCrash/Source/KSCrash/Recording/Tools/KSZombie.{h,m}"
   ],
   "requires_arc": true,
+  "public_header_files": [
+    "Source/Bugsnag/*.h",
+    "KSCrash/Source/KSCrash/Reporting/Filters/KSCrashReportFilter.h"
+  ],
   "subspecs": [
     {
       "name": "no-arc",

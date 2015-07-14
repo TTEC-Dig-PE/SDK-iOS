@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HZMainScreenViewController">
+            <connections>
+                <outlet property="agentSelectButton" destination="czA-DF-kOz" id="BAc-yh-frQ"/>
+                <outlet property="debugMenuView" destination="kui-as-ln3" id="504-D7-lce"/>
+                <outlet property="view" destination="iN0-l3-epB" id="TCE-K4-LC1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horizon-checking" translatesAutoresizingMaskIntoConstraints="NO" id="aqe-l9-q32">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVQ-Mo-OQA">
+                    <rect key="frame" x="624" y="936" width="144" height="88"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="144" id="77A-JG-4MS"/>
+                        <constraint firstAttribute="height" constant="88" id="kjf-Bw-4qc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="tintColor" white="0.51012541119999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="10"/>
+                    <state key="normal" title="Debug Menu">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="debugMenuTapped:" destination="-1" eventType="touchUpInside" id="Cst-Lb-byV"/>
+                    </connections>
+                </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kui-as-ln3">
+                    <rect key="frame" x="0.0" y="980" width="614" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czA-DF-kOz">
+                            <rect key="frame" x="476" y="7" width="118" height="30"/>
+                            <state key="normal" title="Set Debug Agent">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="agentSelectButtonTapped:" destination="-1" eventType="touchUpInside" id="Hwe-kJ-cJn"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="8CD-h3-Agw"/>
+                        <constraint firstAttribute="bottom" secondItem="czA-DF-kOz" secondAttribute="bottom" constant="7" id="D1g-YS-Lh4"/>
+                        <constraint firstItem="czA-DF-kOz" firstAttribute="top" secondItem="kui-as-ln3" secondAttribute="top" constant="7" id="IoS-zm-xXv"/>
+                        <constraint firstAttribute="trailing" secondItem="czA-DF-kOz" secondAttribute="trailing" constant="20" id="JjL-XB-YyK"/>
+                        <constraint firstItem="czA-DF-kOz" firstAttribute="leading" secondItem="kui-as-ln3" secondAttribute="leading" constant="476" id="LFd-Wv-7uh"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qvq-3D-KMV">
+                    <rect key="frame" x="20" y="30" width="20" height="22"/>
+                    <state key="normal" image="hamburger">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="hamburgerButtonTapped:" destination="-1" eventType="touchUpInside" id="2eg-5x-OHZ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Qvq-3D-KMV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="6bS-jS-AQa"/>
+                <constraint firstAttribute="bottom" secondItem="VVQ-Mo-OQA" secondAttribute="bottom" id="7Hh-LJ-0Jr"/>
+                <constraint firstItem="Qvq-3D-KMV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="AYi-gO-guU"/>
+                <constraint firstAttribute="trailing" secondItem="VVQ-Mo-OQA" secondAttribute="trailing" id="D8d-HZ-lHn"/>
+                <constraint firstAttribute="bottom" secondItem="kui-as-ln3" secondAttribute="bottom" id="Dof-MR-RAT"/>
+                <constraint firstItem="aqe-l9-q32" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Fa7-kd-YlM"/>
+                <constraint firstItem="kui-as-ln3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OKR-Zb-Yqo"/>
+                <constraint firstItem="VVQ-Mo-OQA" firstAttribute="leading" secondItem="kui-as-ln3" secondAttribute="trailing" constant="10" id="kWw-47-5dQ"/>
+                <constraint firstAttribute="trailing" secondItem="aqe-l9-q32" secondAttribute="trailing" id="s4t-rz-hWw"/>
+                <constraint firstAttribute="bottom" secondItem="aqe-l9-q32" secondAttribute="bottom" id="uaS-kv-Snx"/>
+                <constraint firstItem="aqe-l9-q32" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wdQ-DJ-ivR"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="hamburger" width="20" height="16"/>
+        <image name="horizon-checking" width="768" height="1024"/>
+    </resources>
+</document>

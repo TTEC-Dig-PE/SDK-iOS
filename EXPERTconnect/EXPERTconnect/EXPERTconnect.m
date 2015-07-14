@@ -41,6 +41,8 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:[ECSImageCache new] forClass:[ECSImageCache class]];
     [[ECSInjector defaultInjector] setObject:[ECSTheme new] forClass:[ECSTheme class]];
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
+
+    _userCallbackNumber = nil;
 }
 
 - (BOOL)authenticationRequired

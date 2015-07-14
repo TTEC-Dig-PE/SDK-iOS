@@ -107,6 +107,26 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    // NK 6/24/2015 - Get the user's callback number from the profile and use that as
+    // both the default AND the placeholder text:
+    NSString *num = [EXPERTconnect shared].userCallbackNumber;
+    if (num != nil) {
+        NSMutableCharacterSet *phoneNumberSet = [NSMutableCharacterSet decimalDigitCharacterSet];
+        
+        NSMutableString *phone = [NSMutableString stringWithString:@""];
+        for(int i = 0; i < num.length; i++) {
+            if ([phoneNumberSet characterIsMember:[num characterAtIndex:i]]) {
+                [phone appendFormat:@"%c",[num characterAtIndex:i]];
+            }
+        }
+        
+        self.callbackTextField.text = [self formatPhoneString:phone];
+        self.callbackTextField.placeholder = [self formatPhoneString:phone];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -193,6 +213,9 @@
     {
         configuration.sourceAddress = phoneNumber;
     }
+    
+    // Update saved version
+    [EXPERTconnect shared].userCallbackNumber = configuration.sourceAddress;
     
     configuration.mediaType = @"Voice";
     configuration.deviceId = userManager.deviceID;

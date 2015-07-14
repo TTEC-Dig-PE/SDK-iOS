@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="RobotoCondensed-Regular.ttf">
+            <string>RobotoCondensed-Regular</string>
+            <string>RobotoCondensed-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HZLoginViewController">
+            <connections>
+                <outlet property="emailField" destination="A66-Tg-ifB" id="w1H-ZY-rZP"/>
+                <outlet property="loadingIndicator" destination="Xyr-JO-45t" id="5b3-Um-q3x"/>
+                <outlet property="touchIdButton" destination="GJd-Yt-1bZ" id="zqZ-xp-EAq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Login" translatesAutoresizingMaskIntoConstraints="NO" id="Wbf-iq-WtW" userLabel="Background">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOO-V3-kkC">
+                    <rect key="frame" x="148" y="296" width="305" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="login-login-btn">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginButtonTapped:" destination="-1" eventType="touchUpInside" id="h12-Ig-B5f"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yt-1bZ">
+                    <rect key="frame" x="146" y="370" width="310" height="33"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="login-touchid-btn">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" image="login-touchid-btn-active"/>
+                    <connections>
+                        <action selector="touchIdButtonTapped:" destination="-1" eventType="touchUpInside" id="fGK-e0-KgL"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A66-Tg-ifB">
+                    <rect key="frame" x="140" y="167" width="320" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.85882352939999995" green="0.17254901959999999" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="301" id="B74-iw-7HI"/>
+                        <constraint firstAttribute="height" constant="30" id="RyD-Im-uCO"/>
+                    </constraints>
+                    <color key="textColor" red="0.27450980392156865" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="B74-iw-7HI"/>
+                            <exclude reference="RyD-Im-uCO"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="B74-iw-7HI"/>
+                            <include reference="RyD-Im-uCO"/>
+                        </mask>
+                    </variation>
+                </textField>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Xyr-JO-45t">
+                    <rect key="frame" x="291" y="435" width="37" height="37"/>
+                </activityIndicatorView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="00000" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pJ1-1p-cT1">
+                    <rect key="frame" x="140" y="167" width="320" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.85882352939999995" green="0.17254901959999999" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="kMS-SZ-eW4"/>
+                        <constraint firstAttribute="width" constant="320" id="yol-Kr-YuT">
+                            <variation key="heightClass=regular-widthClass=regular" constant="301"/>
+                        </constraint>
+                    </constraints>
+                    <color key="textColor" red="0.27450980392156865" green="0.30588235294117649" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="kMS-SZ-eW4"/>
+                            <exclude reference="yol-Kr-YuT"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="kMS-SZ-eW4"/>
+                            <include reference="yol-Kr-YuT"/>
+                        </mask>
+                    </variation>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="0.95426432289999996" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0ig-9U-Xhk"/>
+                <constraint firstAttribute="trailing" secondItem="Wbf-iq-WtW" secondAttribute="trailing" id="4ih-Yb-1Zs"/>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CSb-K2-Df1"/>
+                <constraint firstItem="pJ1-1p-cT1" firstAttribute="top" secondItem="A66-Tg-ifB" secondAttribute="bottom" constant="23" id="Fo2-bJ-lQo"/>
+                <constraint firstItem="Xyr-JO-45t" firstAttribute="top" secondItem="Wbf-iq-WtW" secondAttribute="bottom" constant="-318" id="GX7-Hp-TPQ"/>
+                <constraint firstItem="GJd-Yt-1bZ" firstAttribute="top" secondItem="IOO-V3-kkC" secondAttribute="bottom" constant="20" id="H6h-Dm-Vx4">
+                    <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                </constraint>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="top" secondItem="A66-Tg-ifB" secondAttribute="bottom" constant="-424" id="Ljf-bc-jAO">
+                    <variation key="heightClass=regular-widthClass=regular" constant="-420"/>
+                </constraint>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="centerX" secondItem="Xyr-JO-45t" secondAttribute="centerX" constant="-0.5" id="WbC-pY-ESx"/>
+                <constraint firstItem="pJ1-1p-cT1" firstAttribute="centerX" secondItem="Wbf-iq-WtW" secondAttribute="centerX" constant="10" id="b09-Po-6jg">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="Wbf-iq-WtW" secondAttribute="bottom" id="enY-Xo-G6n"/>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="centerX" secondItem="GJd-Yt-1bZ" secondAttribute="centerX" constant="-0.5" id="oCs-YM-q0v">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="A66-Tg-ifB" firstAttribute="centerX" secondItem="Wbf-iq-WtW" secondAttribute="centerX" constant="0.5" id="rXu-K5-3IZ">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="Wbf-iq-WtW" firstAttribute="centerX" secondItem="IOO-V3-kkC" secondAttribute="centerX" constant="-0.5" id="tAS-Ax-d7A">
+                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                </constraint>
+                <constraint firstItem="IOO-V3-kkC" firstAttribute="top" secondItem="pJ1-1p-cT1" secondAttribute="bottom" constant="28" id="tqg-ZZ-ZVO">
+                    <variation key="heightClass=regular-widthClass=regular" constant="35"/>
+                </constraint>
+            </constraints>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="pJ1-1p-cT1"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="Fo2-bJ-lQo"/>
+                    <exclude reference="b09-Po-6jg"/>
+                    <exclude reference="0ig-9U-Xhk"/>
+                    <exclude reference="4ih-Yb-1Zs"/>
+                    <exclude reference="CSb-K2-Df1"/>
+                    <exclude reference="Ljf-bc-jAO"/>
+                    <exclude reference="WbC-pY-ESx"/>
+                    <exclude reference="enY-Xo-G6n"/>
+                    <exclude reference="oCs-YM-q0v"/>
+                    <exclude reference="tAS-Ax-d7A"/>
+                    <exclude reference="rXu-K5-3IZ"/>
+                    <exclude reference="tqg-ZZ-ZVO"/>
+                    <exclude reference="H6h-Dm-Vx4"/>
+                    <exclude reference="GX7-Hp-TPQ"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="subviews">
+                    <include reference="pJ1-1p-cT1"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="Fo2-bJ-lQo"/>
+                    <include reference="b09-Po-6jg"/>
+                    <include reference="0ig-9U-Xhk"/>
+                    <include reference="4ih-Yb-1Zs"/>
+                    <include reference="CSb-K2-Df1"/>
+                    <include reference="Ljf-bc-jAO"/>
+                    <include reference="WbC-pY-ESx"/>
+                    <include reference="enY-Xo-G6n"/>
+                    <include reference="oCs-YM-q0v"/>
+                    <include reference="tAS-Ax-d7A"/>
+                    <include reference="rXu-K5-3IZ"/>
+                    <include reference="tqg-ZZ-ZVO"/>
+                    <include reference="H6h-Dm-Vx4"/>
+                    <include reference="GX7-Hp-TPQ"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="Login" width="768" height="1024"/>
+        <image name="login-login-btn" width="301" height="50"/>
+        <image name="login-touchid-btn" width="301" height="50"/>
+        <image name="login-touchid-btn-active" width="301" height="50"/>
+    </resources>
+</document>
