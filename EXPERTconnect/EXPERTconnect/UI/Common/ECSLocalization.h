@@ -137,6 +137,7 @@ static NSString *const ECSLocalizeErrorText = @"ECSLocalizeErrorText";
 static NSString *const ECSLocalizeProfile =  @"ECSLocalizeProfile";
 static NSString *const ECSLocalizeChatLogs = @"ECSLocalizeChatLogs";
 static NSString *const ECSLocalizeHistory = @"ECSLocalizeHistory";
+static NSString *const ECSLocalizeUpdateProfile = @"ECSLocalizeUpdateProfile";
 static NSString *const ECSLocalizeEditProfile = @"ECSLocalizeEditProfile";
 static NSString *const ECSLocalizeProfileError = @"ECSLocalizeProfileError";
 

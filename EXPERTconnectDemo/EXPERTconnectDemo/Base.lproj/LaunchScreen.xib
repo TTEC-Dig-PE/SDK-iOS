@@ -10,8 +10,8 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_launchImage_logo" translatesAutoresizingMaskIntoConstraints="NO" id="mPx-Ab-5Rf">
-                    <rect key="frame" x="177.5" y="140" width="125" height="151"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_launchImage_logo" translatesAutoresizingMaskIntoConstraints="NO" id="mPx-Ab-5Rf">
+                    <rect key="frame" x="178" y="140" width="125" height="151"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.11372549019607843" green="0.59999999999999998" blue="0.7686274509803922" alpha="1" colorSpace="calibratedRGB"/>
