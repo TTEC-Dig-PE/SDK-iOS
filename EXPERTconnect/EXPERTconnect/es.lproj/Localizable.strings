@@ -1,26 +1,26 @@
 /*
-  Localization.strings
-  EXPERTconnect
+ Localization.strings
+ EXPERTconnect
+ 
+ Copyright (c) 2015 Humanify, Inc. All rights reserved.
+ */
 
-  Derechos de autor (c) 2015 humanizar, Inc. Todos los derechos reservados.
-*/
+/* Name of the company */
+"ECSLocalizedCompanyNameKey" = "Humanizar";
 
-/* Nombre de la compania */
-"ECSLocalizedCompanyNameKey" = "humanizar";
-
-/* Cerrar */
+/* Close */
 "ECSLocalizedCloseKey" = "Cerrar";
 
 /* Error */
-"ECSLocalizeErrorKey" = "error";
+"ECSLocalizeErrorKey" = "Error";
 
-/* Cerrar Sesión */
+/* Logout */
 "ECSLocalizeLogoutTitle" = "Salir?";
 
 /* Salir de texto */
 "ECSLocalizeLogoutText" = "¿Seguro que desea salir?";
 
-/* * ECSLocalizedFrequentlyAskedQuestionsKey /
+/* ECSLocalizedFrequentlyAskedQuestionsKey */
 "ECSLocalizedAskAQuestionKey" = "Haz una pregunta";
 
 /* Preguntas más frecuentes Preguntas cabecera */
@@ -32,7 +32,7 @@
 /* Ocultar FAQ */
 "ECSLocalizeShortHideFAQKey" = "Ocultar FAQ";
 
-/* Email * Dirección de marcador de posición /
+/* Email Dirección de marcador de posición */
 "ECSLocalizeEmailFieldPlaceholder" = "Dirección de correo electrónico";
 
 /* Número de móvil Placeholder */
@@ -71,7 +71,7 @@
 /* Pregunta anterior */
 "ECSLocalizePreviousQuestionKey" = "Anterior";
 
-/* Pregunta * Opcional /
+/* Pregunta Opcional */
 "ECSLocalizeOptionalKey" = "Opcional";
 
 /* Pregunta Requerida */
@@ -113,7 +113,7 @@
 /* Notificaciones Push */
 "ECSLocalizedPushNotificationsHeader" = "Notificaciones Push";
 
-/* * IBeacons /
+/* IBeacons */
 "ECSLocalizedBeaconsHeader" = "iBeacons";
 
 /* Version */
@@ -181,14 +181,15 @@
 
 /* Solicitar un mensaje SMS */
 "ECSLocalizeRequestASMS" = "Solicitud de un mensaje SMS";
- 
-/* Toque para
 
-/* * Desconectado /
+
+/* Toque para */
+
+/* Desconectado */
 "ECSLocalizeChatDisconnected" = "Has sido desconectado de la charla";
 
 /* Mantente conectado */
-"ECSLocalizedStayConnectedKey" = "Stay Connected";
+"ECSLocalizedStayConnectedKey" = "Mantente Conectado";
 
 
 /* Le Chat sesión finalizó */
@@ -203,7 +204,7 @@
 /* Charla Sesión botón Finalizado */
 "ECSLocalizedExitChatButton" = "Salir de Chat";
 
-/* * Mensaje SMS /
+/* Mensaje SMS */
 "ECSLocalizeCallNavigationTitle" = "llamada telefónica";
 
 /* Solicitar una llamada */
@@ -212,13 +213,13 @@
 /* Introduzca su número de teléfono para recibir una llamada: */
 "ECSLocalizeRequestCallText" = "Introduzca su número de teléfono para recibir una llamada:";
 
-/* Se pueden aplicar tarifas de voz y de datos * Carrier /
-"Se pueden aplicar tarifas de voz y datos del portador." = "ECSLocalizeRequestCallDisclaimerText";
+/* Se pueden aplicar tarifas de voz y de datos Carrier */
+"ECSLocalizeRequestCallDisclaimerText" = "Se pueden aplicar tarifas de voz y datos del portador.";
 
 /* Procesamiento ... */
 "ECSLocalizeProcessingButton" = "Procesando ...";
 
-/* * Mensaje SMS /
+/* Mensaje SMS */
 "ECSLocalizeSMSNavigationTitle" = "Mensaje SMS";
 
 /* Solicitar un SMS */
@@ -227,7 +228,7 @@
 /* Introduzca su número de teléfono para recibir un SMS: */
 "ECSLocalizeRequestSMSText" = "Introduzca su número de teléfono para recibir un SMS:";
 
-/* Se pueden aplicar tarifas de voz y de datos * Carrier /
+/* Se pueden aplicar tarifas de voz y de datos Carrier */
 "Se pueden aplicar tarifas de voz y datos del portador." = "ECSLocalizeRequestSMSDisclaimerText";
 
 /* Nos lo llamemos. */
@@ -281,7 +282,7 @@
 /* Perfil */
 "ECSLocalizeProfile" = "Perfil";
 
-/* Charla * Registros /
+/* Charla Registros */
 "ECSLocalizeChatLogs" = "registros de chat";
 
 /* Charla Únete usuario */
@@ -293,14 +294,15 @@
 /* Editar Perfil */
 "ECSLocalizeEditProfile" = "Editar Perfil";
 
-/* Editar Perfil */
+/* Actualizar Perfil */
 "ECSLocalizeUpdateProfile" = "Actualizar perfil";
 
 /* Respuestas */
 "ECSLocalizeAnswers" = "respuestas";
 
 /* Las direcciones de localización */
-"ECSLocalizeDirections" = "<h1> No se puede determinar la ubicación </ h1> <h2> Por favor, siga estas instrucciones para habilitar la ubicación de acceso </ h2> <ol> <li> Lanzamiento <b> Configuración </ b> en tu iPhone o iPad. </ li> <li> Desplácese hacia abajo para seleccionar <b> Privacidad </ b>, entonces <b> Localizaciones </ b> </ li> <li> Asegúrese de que el interruptor de palanca superior es <b> Green </ b> </ li> <li> Desplácese hacia abajo y seleccione *% @ * y asegúrese de que está ajustado a \ "durante el uso de la App \" o \ "Siempre \" </ li> </ ol> ";
+"ECSLocalizeDirections" = "<h1> No se puede determinar la ubicación </ h1> <h2> Por favor, siga estas instrucciones para habilitar la ubicación de acceso </ h2> <ol> <li> Lanzamiento <b> Configuración </ b> en tu iPhone o iPad. </ li> <li> Desplácese hacia abajo para seleccionar <b> Privacidad </ b>, entonces <b> Localizaciones </ b> </ li> <li> Asegúrese de que el interruptor de palanca superior es <b> Green </ b> </ li> <li> Desplácese hacia abajo y seleccione *% @ * y asegúrese de que está ajustado a durante el uso de la App o Siempre </ li> </ ol> ";
 
 /* Perfil de error */
 "ECSLocalizeProfileError" = "Se ha producido un error al crear su perfil ¡Por favor rellene todos los campos y vuelva a intentarlo..";
+
