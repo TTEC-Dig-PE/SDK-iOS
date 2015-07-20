@@ -74,8 +74,8 @@
 /* Question optionnelle */
 "ECSLocalizeOptionalKey" = "facultatif";
 
-/* Question * Obligatoire /
- "ECSLocalizeRequiredKey" = "requis";
+/* Question Obligatoire */
+"ECSLocalizeRequiredKey" = "requis";
  
  /* Sélectionnez toutes les cases */
 "ECSLocalizeSelectAllThatApplyKey" = "Sélectionnez toutes les cases";
