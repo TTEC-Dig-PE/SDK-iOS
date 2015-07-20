@@ -218,7 +218,8 @@
 		22CD2EEC1A840142003ED9E4 /* ECDSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDSplashViewController.h; sourceTree = "<group>"; };
 		22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDSplashViewController.m; sourceTree = "<group>"; };
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
-		4660CA431B5562CF00BE3634 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		46004D521B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		46004D531B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		72C4C39460082123433B137E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -899,6 +900,7 @@
 				0368D7791B3AEAD800985673 /* Base */,
 				0368D77B1B3AEADB00985673 /* en */,
 				0368D77C1B3AEADC00985673 /* fr */,
+				46004D531B5D60F900E78A83 /* es */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -909,7 +911,7 @@
 			children = (
 				03978F1A1A602B2D007793D6 /* Base */,
 				0368D7771B3AEACF00985673 /* fr */,
-				4660CA431B5562CF00BE3634 /* es */,
+				46004D521B5D60F900E78A83 /* es */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
