@@ -5,4 +5,9 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
+
+/* Log in button text */
+"ECSLocalizeLogInButton" = "(FR)Log Me In!!!";
+
+/* Unknown User text */
 "ECDLocalizedUnknownUser" = "Utilisateur inconnu, s'il vous plaît inscrivez-vous pour créer un compte.";

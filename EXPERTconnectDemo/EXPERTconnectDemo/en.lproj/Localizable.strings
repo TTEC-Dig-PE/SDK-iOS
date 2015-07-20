@@ -6,4 +6,8 @@
 */
 
 
+/* Log in button text */
+"ECSLocalizeLogInButton" = "Log Me In!!!";
+
+/* Unknown User text */
 "ECDLocalizedUnknownUser" = "Unknown user, please register to create an account.";

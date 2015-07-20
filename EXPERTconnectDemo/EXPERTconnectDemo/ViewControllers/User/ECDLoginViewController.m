@@ -6,6 +6,7 @@
 //
 
 #import "ECDLoginViewController.h"
+#import "ECDLocalization.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
@@ -128,10 +129,14 @@
 
 - (void)showLoginAlert
 {
-    UIAlertController *loginAlert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                        message:@"Unknown user, please register to create an account."
+    NSString *ok_label = ECSLocalizedString(ECSLocalizedOkButton, @"OK");
+    NSString *error_label = ECSLocalizedString(ECSLocalizeErrorKey, @"Error");
+    NSString *error_message = ECDLocalizedString(ECDLocalizedUnknownUser, @"Unknown user, please register to create an account.");
+    
+    UIAlertController *loginAlert = [UIAlertController alertControllerWithTitle:error_label
+                                                                        message:error_message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-    [loginAlert addAction:[UIAlertAction actionWithTitle:@"OK"
+    [loginAlert addAction:[UIAlertAction actionWithTitle:ok_label
                                                    style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                        [[EXPERTconnect shared] setUserToken:nil];
                                                    }]];
