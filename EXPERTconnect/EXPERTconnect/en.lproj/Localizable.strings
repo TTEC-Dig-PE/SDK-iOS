@@ -296,6 +296,15 @@
 /* Edit Profile */
 "ECSLocalizeUpdateProfile" = "Update Profile";
 
+/* Submit Form */
+"ECSLocalizedSubmittedFormHeaderLabel" = "Thank You";
+
+/* Submit Form */
+"ECSLocalizedSubmittedFormDescriptionLabel" = "Your response will help us better assist you and others in the future";
+
+/* Submit Form */
+"ECSLocalizedSubmittedFormCloseLabel" = "Close";
+
 /* Answers */
 "ECSLocalizeAnswers" = "Answers";
 

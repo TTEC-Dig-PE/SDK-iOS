@@ -8,6 +8,7 @@
 #import "ECDSplashViewController.h"
 
 #import "AppDelegate.h"
+#import "ECDLocalization.h"
 #import "ECDRootViewController.h"
 #import "ECDLoginViewController.h"
 #import "ECDRegisterViewController.h"
@@ -22,6 +23,8 @@ static char ECSUserActionCompletionBlockKey;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButtton;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipRegistrationButton;
+
 
 @end
 
@@ -32,6 +35,13 @@ static char ECSUserActionCompletionBlockKey;
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];
+    
+    [self.loginButtton setTitle:ECDLocalizedString(ECDLocalizedLoginButton, @"Login")
+                       forState:UIControlStateNormal];
+    [self.registerButton setTitle:ECDLocalizedString(ECDLocalizedRegisterButton, @"Register")
+                       forState:UIControlStateNormal];
+    [self.skipRegistrationButton setTitle:ECDLocalizedString(ECDLocalizedSkipRegistrationButton, @"Skip Registration")
+                       forState:UIControlStateNormal];
     
     [self themeButton:self.loginButtton];
     [self themeButton:self.registerButton];

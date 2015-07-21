@@ -11,3 +11,12 @@
 
 /* Unknown User text */
 "ECDLocalizedUnknownUser" = "Utilisateur inconnu, s'il vous plaît inscrivez-vous pour créer un compte.";
+
+/* Splash Page Login Button   */
+"ECDLocalizedLoginButton" = "S'identifier";
+
+/* Splash Page Register Button   */
+"ECDLocalizedRegisterButton" = "Inscription";
+
+/* Splash Page Skip REgistration Button   */
+"ECDLocalizedSkipRegistrationButton" = "Passer inscription";

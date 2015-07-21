@@ -55,8 +55,8 @@ static NSString *const ECSLocalizedOkButton = @"ECSLocalizedOkButton";
 // Chat View
 static NSString *const ECSLocalizedChatViewPlaceholder = @"ECSLocalizedChatViewPlaceholder";
 static NSString *const ECSLocalizeTakeAPhoto = @"ECSLocalizeTakeAPhoto";
-static NSString *const ECSLocalizeRecordVideo = @"Record a Video";
-static NSString *const ECSLocalizeExistingFromAlbum = @"Existing from Album";
+static NSString *const ECSLocalizeRecordVideo = @"ECSLocalizeRecordVideo";
+static NSString *const ECSLocalizeExistingFromAlbum = @"ECSLocalizeExistingFromAlbum";
 static NSString *const ECSLocalizeSend = @"ECSLocalizeSend";
 static NSString *const ECSLocalizeCancel = @"ECSLocalizeCancel";
 static NSString *const ECSLocalizeChatJoin = @"ECSLocalizeChatJoin";
@@ -81,8 +81,8 @@ static NSString *const ECSLocalizeChatDisconnected = @"ECSLocalizeChatDisconnect
 static NSString *const ECSLocalizeWarningKey = @"ECSLocalizeWarningKey";
 static NSString *const ECSLocalizeChatDisconnectPrompt = @"ECSLocalizeChatDisconnectPrompt";
 static NSString *const ECSLocalizeChatDisconnectPromptSurvey = @"ECSLocalizeChatDisconnectPromptSurvey";
-static NSString *const ECSLocalizeYes = @"YES";
-static NSString *const ECSLocalizeNo = @"NO";
+static NSString *const ECSLocalizeYes = @"ECSLocalizeYes";
+static NSString *const ECSLocalizeNo = @"ECSLocalizeNo";
 static NSString *const ECSLocalizeTapToRespond = @"ECSLocalizeTapToRespond";
 static NSString *const ECSLocalizeRequestAPhoneCall = @"ECSLocalizeRequestAPhoneCall";
 static NSString *const ECSLocalizeRequestASMS = @"ECSLocalizeRequestASMS";
@@ -140,6 +140,10 @@ static NSString *const ECSLocalizeHistory = @"ECSLocalizeHistory";
 static NSString *const ECSLocalizeUpdateProfile = @"ECSLocalizeUpdateProfile";
 static NSString *const ECSLocalizeEditProfile = @"ECSLocalizeEditProfile";
 static NSString *const ECSLocalizeProfileError = @"ECSLocalizeProfileError";
+
+static NSString *const ECSLocalizedSubmittedFormHeaderLabel = @"ECSLocalizedSubmittedFormHeaderLabel";
+static NSString *const ECSLocalizedSubmittedFormDescriptionLabel = @"ECSLocalizedSubmittedFormDescriptionLabel";
+static NSString *const ECSLocalizedSubmittedFormCloseLabel = @"ECSLocalizedSubmittedFormCloseLabel";
 
 static NSString *const ECSLocalizeAnswers = @"ECSLocalizeAnswers";
 

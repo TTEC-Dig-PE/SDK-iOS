@@ -32,8 +32,11 @@
     self.headerLabel.textColor = theme.primaryTextColor;
     self.descriptionLabel.font = theme.bodyFont;
     self.descriptionLabel.textColor = theme.primaryTextColor;
+
     
-    [self.closeButton setTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close") forState:UIControlStateNormal];
+    self.headerLabel.text = ECSLocalizedString(ECSLocalizedSubmittedFormHeaderLabel, @"Thank You");
+    self.descriptionLabel.text = ECSLocalizedString(ECSLocalizedSubmittedFormDescriptionLabel, @"Your response will help us better assist you and others in the future");
+    [self.closeButton setTitle:ECSLocalizedString(ECSLocalizedSubmittedFormCloseLabel, @"Close") forState:UIControlStateNormal];
 }
 
 - (IBAction)closeButtonTapped:(id)sender {

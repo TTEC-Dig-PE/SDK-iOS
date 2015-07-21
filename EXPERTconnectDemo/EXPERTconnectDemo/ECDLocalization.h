@@ -17,6 +17,9 @@
 
 // Keys used in localization files
 static NSString* const ECDLocalizedUnknownUser = @"ECDLocalizedUnknownUser";
+static NSString* const ECDLocalizedLoginButton = @"ECDLocalizedLoginButton";
+static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton";
+static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

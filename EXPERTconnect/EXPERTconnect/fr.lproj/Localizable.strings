@@ -297,6 +297,15 @@
 /* Modifier le profil */
 "ECSLocalizeUpdateProfile" = "Profil de mise à jour";
 
+/* soumettre Le Formulaire */
+"ECSLocalizedSubmittedFormHeaderLabel" = "Merci";
+
+/* soumettre Le Formulaire */
+"ECSLocalizedSubmittedFormDescriptionLabel" = "Votre réponse nous aidera à mieux vous aider et d'autres à l'avenir";
+
+/* soumettre Le Formulaire */
+"ECSLocalizedSubmittedFormCloseLabel" = "Fermer";
+
 /* Réponses */
 "ECSLocalizeAnswers" = "Answers";
 

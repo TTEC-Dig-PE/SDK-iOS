@@ -21,6 +21,12 @@
 
 @implementation ECSChatPhotoOptionsViewController
 
+
+- (void)viewDidLoad {
+    [self setup];
+}
+
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -37,9 +43,9 @@
     [self.takePhotoButton setTitle:ECSLocalizedString(ECSLocalizeTakeAPhoto, @"Take a Photo")
                           forState:UIControlStateNormal];
     [self.recordVideoButton setTitle:ECSLocalizedString(ECSLocalizeRecordVideo, @"Record a Video")
-                          forState:UIControlStateNormal];
+                            forState:UIControlStateNormal];
     [self.existingImageButton setTitle:ECSLocalizedString(ECSLocalizeExistingFromAlbum, @"Existing from Album")
-                          forState:UIControlStateNormal];
+                              forState:UIControlStateNormal];
     
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {

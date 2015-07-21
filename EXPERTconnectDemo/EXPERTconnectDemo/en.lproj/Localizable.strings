@@ -5,9 +5,17 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-
 /* Log in button text */
 "ECSLocalizeLogInButton" = "Log Me In!!!";
 
 /* Unknown User text */
 "ECDLocalizedUnknownUser" = "Unknown user, please register to create an account.";
+
+/* Splash Page Login Button   */
+"ECDLocalizedLoginButton" = "Login";
+
+/* Splash Page Register Button   */
+"ECDLocalizedRegisterButton" = "Register";
+
+/* Splash Page Skip Registration Button   */
+"ECDLocalizedSkipRegistrationButton" = "Skip Registration";
