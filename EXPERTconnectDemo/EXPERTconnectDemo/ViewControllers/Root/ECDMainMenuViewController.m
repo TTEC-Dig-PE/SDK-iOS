@@ -11,6 +11,7 @@
 #import "ECDNavigationController.h"
 #import "ECDZoomViewController.h"
 #import "ECDSettingsViewController.h"
+#import "ECDLocalization.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
@@ -56,6 +57,14 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         {
             self.navigationContext = [ECSJSONSerializer objectFromJSONDictionary:configJSON
                                                                        withClass:[ECSNavigationContext class]];
+            
+            // Localize the Titles in MainMenuConfig.json
+            //
+            for (ECSNavigationSection *sect in self.navigationContext.sections) {
+                for(ECSActionType *action in sect.items)   {
+                    action.displayName = ECDLocalizedString(action.displayName, nil);
+                }
+            }
         }
     }
     

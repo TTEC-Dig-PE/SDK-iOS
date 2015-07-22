@@ -6,7 +6,7 @@
             "sectionType": "list", 
             "items": [
                 {
-                    "displayName": "Personas", 
+                    "displayName": "ECDLocalizedPersonasLabel",
                     "enabled": true, 
                     "configuration": {
                         "navigationContext": "personas"
@@ -15,7 +15,7 @@
                     "icon": "ecs_ic_nav_personas"
                 }, 
                 {
-                    "displayName": "Humanify", 
+                    "displayName": "ECDLocalizedHumanifyLabel",
                     "enabled": true, 
                     "configuration": {
                         "url": "http://www.humanify.com"
@@ -24,14 +24,14 @@
                     "icon": "ecs_ic_nav_humanify"
                 }, 
                 {
-                    "displayName": "Profile", 
+                    "displayName": "ECDLocalizedProfileLabel",
                     "enabled": true, 
                     "configuration": {}, 
                     "type": "profile",
                     "icon": "ecs_ic_nav_profile"
                 }, 
                 {
-                    "displayName": "Settings", 
+                    "displayName": "ECDLocalizedSettingsLabel", 
                     "enabled": true, 
                     "configuration": {}, 
                     "type": "settings", 

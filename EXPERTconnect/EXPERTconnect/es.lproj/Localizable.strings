@@ -57,7 +57,7 @@
 "ECSLocalizedLogoutButton" = "Cerrar sesión";
 
 /* Solicitud para crear una cuenta */
-"ECSCreateAccountPromptKey" = "Crear una cuenta de humanizar";
+"ECSCreateAccountPromptKey" = "Crear una cuenta de Humanify";
 
 /* Nombre Completo texto del marcador de campo */
 "ECSLocalizeFullNameFieldPlaceholderKey" = "Nombre completo";

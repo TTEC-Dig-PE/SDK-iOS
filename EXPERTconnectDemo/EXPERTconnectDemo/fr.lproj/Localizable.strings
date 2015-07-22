@@ -20,3 +20,15 @@
 
 /* Splash Page Skip REgistration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Passer inscription";
+
+/* Localized displayName for Personas in MainMenuConfig.json */
+"ECDLocalizedPersonasLabel" = "Personas";
+
+/* Localized displayName for Humanify in MainMenuConfig.json */
+"ECDLocalizedHumanifyLabel" = "Humanify";
+
+/* Localized displayName for Profile in MainMenuConfig.json */
+"ECDLocalizedProfileLabel" = "Profil";
+
+/* Localized displayName for Settings in MainMenuConfig.json */
+"ECDLocalizedSettingsLabel" = "Paramètres";
