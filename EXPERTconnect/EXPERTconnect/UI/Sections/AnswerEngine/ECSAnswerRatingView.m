@@ -50,6 +50,8 @@
     [self.thumbsDownButton setImage:[imageCache imageForPath:@"ecs_ic_thumb_down"] forState:UIControlStateNormal];
     UIImage *thumbsUpTint = [[imageCache imageForPath:@"ecs_ic_thumb_up_active"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *thumbsDownTint = [[imageCache imageForPath:@"ecs_ic_thumb_down_active"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    self.label.text = ECSLocalizedString(ECSLocalizeWasThisResponseHelpful, @"Was this response helpful");
 
     self.thumbsUpButton.tintColor = theme.primaryColor;
     self.thumbsDownButton.tintColor = theme.primaryColor;
