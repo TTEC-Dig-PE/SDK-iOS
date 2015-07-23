@@ -16,6 +16,7 @@
 #import "ECDRootViewController.h"
 #import "ECDSplashViewController.h"
 #import "ECDUserDefaultKeys.h"
+#import "ECDLocalization.h"
 
 static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
@@ -77,7 +78,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.clientID = @"mktwebextc";
     configuration.clientSecret = @"secret123";
     configuration.defaultNavigationContext = @"personas";
-    configuration.defaultNavigationDisplayName = @"Personas";
+    configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [self setThemeFromSettings];

@@ -16,6 +16,8 @@
  */
 
 // Keys used in localization files
+//
+static NSString* const ECDLocalizedLandingViewTitle = @"ECDLocalizedLandingViewTitle";
 static NSString* const ECDLocalizedUnknownUser = @"ECDLocalizedUnknownUser";
 static NSString* const ECDLocalizedLoginButton = @"ECDLocalizedLoginButton";
 static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton";

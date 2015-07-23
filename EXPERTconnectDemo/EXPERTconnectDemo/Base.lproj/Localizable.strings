@@ -20,6 +20,9 @@
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Skip Registration";
 
+/* Localized Title for Personas Navigation View */
+"ECDLocalizedLandingViewTitle" = "Personas Navigation View";
+
 /* Localized displayName for Personas in MainMenuConfig.json */
 "ECDLocalizedPersonasLabel" = "Personas";
 
