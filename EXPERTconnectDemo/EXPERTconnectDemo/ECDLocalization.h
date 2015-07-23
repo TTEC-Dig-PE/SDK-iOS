@@ -20,6 +20,8 @@ static NSString* const ECDLocalizedUnknownUser = @"ECDLocalizedUnknownUser";
 static NSString* const ECDLocalizedLoginButton = @"ECDLocalizedLoginButton";
 static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton";
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
+static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
+static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

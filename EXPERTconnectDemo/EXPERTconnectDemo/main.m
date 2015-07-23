@@ -9,14 +9,30 @@
 #import "AppDelegate.h"
 #import "HZAppDelegate.h"
 
+
+static int const startExpertDemo = 0;
+static int const startHorizonDemo = 1;
+
+static NSString *const applicationRunMode = @"applicationRunMode";
+
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+
         
-#ifdef HORIZON_TARGET
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HZAppDelegate class]));
-#else
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-#endif
+        int demo_mode = [[[NSUserDefaults standardUserDefaults] objectForKey:applicationRunMode] intValue];
+        
+        switch (demo_mode) {
+            case startExpertDemo:
+                // [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:startHorizonDemo] forKey:applicationRunMode];
+                return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+                break;
+                
+            default:
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:startExpertDemo] forKey:applicationRunMode];
+                return UIApplicationMain(argc, argv, nil, NSStringFromClass([HZAppDelegate class]));
+                break;
+
+        }
     }
 }
 

@@ -9,6 +9,6 @@
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
-@interface ECDSettingsViewController : ECSRootViewController
+@interface ECDSettingsViewController : ECSRootViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
 @end

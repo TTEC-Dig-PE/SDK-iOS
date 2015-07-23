@@ -7,7 +7,7 @@
 
 
 /* Log in button text */
-"ECSLocalizeLogInButton" = "(FR)Log Me In!!!";
+// "ECSLocalizeLogInButton" = "(FR)Log Me In!!!";
 
 /* Unknown User text */
 "ECDLocalizedUnknownUser" = "Utilisateur inconnu, s'il vous plaît inscrivez-vous pour créer un compte.";
@@ -32,3 +32,9 @@
 
 /* Localized displayName for Settings in MainMenuConfig.json */
 "ECDLocalizedSettingsLabel" = "Paramètres";
+
+/* Runtime Environment Header */
+"ECDLocalizedEnvironmentsHeader" = "(FR) Select Environment";
+
+/* Runtime Startup Application Header */
+"ECDLocalizedRunModeHeader" = "(FR) Select Runtime Application";

@@ -11,6 +11,10 @@
 
 #import "ECDLicenseViewController.h"
 #import "ECDUserDefaultKeys.h"
+#import "ECDEnvironmentPicker.h"
+#import "ECDRunModePicker.h"
+#import "ECDLocalization.h"
+
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 
@@ -18,6 +22,8 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 {
     SettingsSectionPushNotifications,
     SettingsSectionVersion,
+    SettingsSectionEnvironment,
+    SettingsSectionRunMode,
     SettingsSectionCount
 };
 
@@ -33,12 +39,30 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
     LicenseSectionRowCount
 };
 
+typedef NS_ENUM(NSInteger, EnvironmentSectionRows)
+{
+    EnvironmentSectionRowLicenses,
+    EnvironmentSectionRowCount
+};
+
+typedef NS_ENUM(NSInteger, RunModeSectionRows)
+{
+    RunModeSectionRowLicenses,
+    RunModeSectionRowCount
+};
+
 @interface ECDSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet ECSButton *logoutButton;
 @property (strong, nonatomic) UISwitch *pushNotificationSwitch;
+@property (strong, nonatomic) ECDEnvironmentPicker *selectEnvironmentPicker;
+@property (strong, nonatomic) ECDRunModePicker *selectRunModePicker;
 @property (weak, nonatomic) IBOutlet UIView *bottomContainer;
+
+
+@property (nonatomic, retain) NSMutableArray *environmentsArray;
+@property (nonatomic, retain) NSMutableArray *runModeArray;
 
 @end
 
@@ -71,11 +95,50 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
                                     action:@selector(pushNotificationSwitchChanged:)
                           forControlEvents:UIControlEventValueChanged];
     self.bottomContainer.backgroundColor = theme.secondaryBackgroundColor;
+    
+    // self.environmentsArray = [NSMutableArray new];
+    // self.runModeArray = [NSMutableArray new];
+    
+    self.selectEnvironmentPicker = [ECDEnvironmentPicker new];
+    self.selectRunModePicker = [ECDRunModePicker new];
+    
+    // [self.environmentsArray addObject:@"IntDev"];
+    // [self.environmentsArray addObject:@"Demo"];
+    
+    // [self.runModeArray addObject:@"Expert Demo"];
+    // [self.runModeArray addObject:@"Horizon Demo"];
+    
+    // [self.selectEnvironmentPicker setDataSource: self];
+    // [self.selectEnvironmentPicker setDelegate: self];
+    // [self.selectEnvironmentPicker setFrame: CGRectMake(10.0f, 50.0f, 100.0f, 200.0f)];
+    [self.selectEnvironmentPicker setup];
+    [self.selectRunModePicker setup];
+    // [self.selectEnvironmentPicker setFrame: CGRectMake(0.0f, 0.0f, 100.0f, 200.0f)];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Number of components.
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+// Total rows in our component.
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return [self.environmentsArray count];
+}
+
+// Display each row's data.
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [self.environmentsArray objectAtIndex: row];
+}
+
+// Do something with the selected row.
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    NSLog(@"You selected this: %@", [self.environmentsArray objectAtIndex: row]);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -90,9 +153,17 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
         case SettingsSectionPushNotifications:
             rowCount = PushSectionRowCount;
             break;
-        
+            
         case SettingsSectionVersion:
             rowCount = LicenseSectionRowCount;
+            break;
+            
+        case SettingsSectionEnvironment:
+            rowCount = EnvironmentSectionRowCount;
+            break;
+            
+        case SettingsSectionRunMode:
+            rowCount = RunModeSectionRowCount;
             break;
         default:
             break;
@@ -125,7 +196,7 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
                     break;
             }
             break;
-
+            
         case SettingsSectionVersion:
             switch (indexPath.row) {
                 case LicenseSectionRowLicenses:
@@ -136,6 +207,35 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
                 default:
                     break;
             }
+            break;
+            
+            
+        case SettingsSectionEnvironment:
+            switch (indexPath.row) {
+                case LicenseSectionRowLicenses:
+                    cell.textLabel.text = @"Dev";
+                    cell.accessoryView = self.selectEnvironmentPicker;
+
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+            
+        case SettingsSectionRunMode:
+            switch (indexPath.row) {
+                case LicenseSectionRowLicenses:
+                    cell.textLabel.text = @"Expert Demo";
+                    cell.accessoryView = self.selectRunModePicker;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -167,6 +267,22 @@ typedef NS_ENUM(NSInteger, LicenseSectionRows)
         case SettingsSectionVersion:
         {
             NSString *versionString = ECSLocalizedString(ECSLocalizedVersionHeader, @"Version");
+            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+            title = versionString;
+        }
+            break;
+            
+        case SettingsSectionEnvironment:
+        {
+            NSString *versionString = ECDLocalizedString(ECDLocalizedEnvironmentsHeader, @"Version");
+            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+            title = versionString;
+        }
+            break;
+            
+        case SettingsSectionRunMode:
+        {
+            NSString *versionString = ECDLocalizedString(ECDLocalizedRunModeHeader, @"Version");
             versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
             title = versionString;
         }
