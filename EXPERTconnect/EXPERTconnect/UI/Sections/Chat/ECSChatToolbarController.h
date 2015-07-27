@@ -22,4 +22,6 @@
 
 @property (assign, nonatomic) BOOL sendEnabled;
 
+- (void)initializeSendState;
+
 @end

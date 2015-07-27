@@ -12,6 +12,7 @@
 
 @class ECSActionType;
 @class ECSChatAddChannelMessage;
+@class ECSChatCoBrowseMessage;
 @class ECSChatTextMessage;
 @class ECSChatNotificationMessage;
 @class ECSStompChatClient;
@@ -32,6 +33,13 @@
  @param stompClient the chat client that connected
  */
 - (void)chatClientDidConnect:(ECSStompChatClient *)stompClient;
+
+/**
+ Called when an agent answers the voice call.
+ 
+ @param stompClient the chat client that had an agent answer
+ */
+- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient;
 
 /**
  Called when an agent answers the chat call.
@@ -159,5 +167,10 @@
  Sends a notification that an image has been uploaded to the server.
  */
 - (void)sendNotificationMessage:(ECSChatNotificationMessage *)message;
+
+/**
+ Sends a notification that cobrowse is set up and ready to connect
+ */
+- (void)sendCoBrowseMessage:(ECSChatCoBrowseMessage *)message;
 
 @end

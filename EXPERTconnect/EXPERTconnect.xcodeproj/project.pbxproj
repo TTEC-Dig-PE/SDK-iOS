@@ -348,6 +348,16 @@
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
+		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
+		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
+		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
+		D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */; };
+		D87F2F061B66C01700B7B9D5 /* ECSSelectExpertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */; };
+		D87F2F071B66C01700B7B9D5 /* ECSSelectExpertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */; };
+		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
+		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
+		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
+		D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -707,6 +717,16 @@
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertViewController.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.h; sourceTree = SOURCE_ROOT; };
+		D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertViewController.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.m; sourceTree = SOURCE_ROOT; };
+		D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertViewController.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.xib; sourceTree = SOURCE_ROOT; };
+		D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatCoBrowseMessage.h; path = Chat/ECSChatCoBrowseMessage.h; sourceTree = "<group>"; };
+		D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatCoBrowseMessage.m; path = Chat/ECSChatCoBrowseMessage.m; sourceTree = "<group>"; };
+		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
+		D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatVoiceAuthenticationMessage.m; path = Chat/ECSChatVoiceAuthenticationMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1039,42 +1059,46 @@
 		03C3102B1A9B5A86006B3557 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				03A64CF51AFB8B7700AED79D /* ECSAddressableChatMessage.h */,
+				0390624A1AC9D3B100E006BE /* ECSChannelStateMessage.h */,
+				0390624B1AC9D3B100E006BE /* ECSChannelStateMessage.m */,
+				030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */,
+				030AF2111AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m */,
+				039CDFBE1AD6CBA300F52600 /* ECSChatAddParticipantMessage.h */,
+				039CDFBF1AD6CBA300F52600 /* ECSChatAddParticipantMessage.m */,
+				031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */,
+				031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */,
+				D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */,
+				D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */,
+				03272A0C1AE7E36F009C6EDF /* ECSChatFormMessage.h */,
+				03272A0D1AE7E36F009C6EDF /* ECSChatFormMessage.m */,
+				030AF2141AF807E30056BFB0 /* ECSChatHistoryMessage.h */,
+				030AF2151AF807E30056BFB0 /* ECSChatHistoryMessage.m */,
+				030AF2181AF8080A0056BFB0 /* ECSChatHistoryResponse.h */,
+				030AF2191AF8080A0056BFB0 /* ECSChatHistoryResponse.m */,
+				031B27481ADFFADD004AF3AA /* ECSChatInfoMessage.h */,
+				031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */,
+				03BE8F211AE037EB00BEC8B5 /* ECSChatMediaMessage.h */,
+				03BE8F221AE037EB00BEC8B5 /* ECSChatMediaMessage.m */,
 				039E13231A8E2F9F00AD4927 /* ECSChatMessage.h */,
 				039E13241A8E2F9F00AD4927 /* ECSChatMessage.m */,
+				030AF2551AF91FAE0056BFB0 /* ECSChatNotificationMessage.h */,
+				030AF2561AF91FAE0056BFB0 /* ECSChatNotificationMessage.m */,
 				0390622E1AC588E300E006BE /* ECSChatStateMessage.h */,
 				0390622F1AC588E300E006BE /* ECSChatStateMessage.m */,
 				039062381AC5C73000E006BE /* ECSChatTextMessage.h */,
 				039062391AC5C73000E006BE /* ECSChatTextMessage.m */,
 				0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */,
 				0390623D1AC9A11E00E006BE /* ECSChatURLMessage.m */,
-				03272A0C1AE7E36F009C6EDF /* ECSChatFormMessage.h */,
-				03272A0D1AE7E36F009C6EDF /* ECSChatFormMessage.m */,
-				0390624A1AC9D3B100E006BE /* ECSChannelStateMessage.h */,
-				0390624B1AC9D3B100E006BE /* ECSChannelStateMessage.m */,
-				039CDFBE1AD6CBA300F52600 /* ECSChatAddParticipantMessage.h */,
-				039CDFBF1AD6CBA300F52600 /* ECSChatAddParticipantMessage.m */,
-				030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */,
-				030AF2111AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m */,
-				031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */,
-				031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */,
-				031B27481ADFFADD004AF3AA /* ECSChatInfoMessage.h */,
-				031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */,
-				03BE8F211AE037EB00BEC8B5 /* ECSChatMediaMessage.h */,
-				03BE8F221AE037EB00BEC8B5 /* ECSChatMediaMessage.m */,
-				030AF2551AF91FAE0056BFB0 /* ECSChatNotificationMessage.h */,
-				030AF2561AF91FAE0056BFB0 /* ECSChatNotificationMessage.m */,
-				030AF2141AF807E30056BFB0 /* ECSChatHistoryMessage.h */,
-				030AF2151AF807E30056BFB0 /* ECSChatHistoryMessage.m */,
-				030AF2181AF8080A0056BFB0 /* ECSChatHistoryResponse.h */,
-				030AF2191AF8080A0056BFB0 /* ECSChatHistoryResponse.m */,
+				D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */,
+				D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */,
+				03A64D301B01042000AED79D /* ECSEndChatSurveyView.h */,
+				03A64D311B01042000AED79D /* ECSEndChatSurveyView.m */,
+				03A64D341B01044700AED79D /* ECSEndChatSurveyView.xib */,
 				030AF2591AF9533E0056BFB0 /* ECSHistoryList.h */,
 				030AF25A1AF9533E0056BFB0 /* ECSHistoryList.m */,
 				030AF25D1AF954190056BFB0 /* ECSHistoryListItem.h */,
 				030AF25E1AF954190056BFB0 /* ECSHistoryListItem.m */,
-				03A64CF51AFB8B7700AED79D /* ECSAddressableChatMessage.h */,
-				03A64D301B01042000AED79D /* ECSEndChatSurveyView.h */,
-				03A64D311B01042000AED79D /* ECSEndChatSurveyView.m */,
-				03A64D341B01044700AED79D /* ECSEndChatSurveyView.xib */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1083,25 +1107,31 @@
 			isa = PBXGroup;
 			children = (
 				039062321AC5A3C700E006BE /* Cells */,
-				039062331AC5A3DB00E006BE /* ToolbarViews */,
-				0342AFC31A9B60950009959E /* ECSWebTableViewCell.h */,
-				0342AFC41A9B60950009959E /* ECSWebTableViewCell.m */,
-				0342AFC51A9B60950009959E /* ECSWebTableViewCell.xib */,
 				0342AFCC1A9B60950009959E /* ECSChatToolbarController.h */,
 				0342AFCD1A9B60950009959E /* ECSChatToolbarController.m */,
 				0342AFCE1A9B60950009959E /* ECSChatToolbarController.xib */,
 				0342AFCF1A9B60950009959E /* ECSChatViewController.h */,
 				0342AFD01A9B60950009959E /* ECSChatViewController.m */,
 				0342AFD11A9B60950009959E /* ECSChatViewController.xib */,
-				0380DEB81AA09EBB003D9248 /* ECSSendConfirmationViewController.h */,
-				0380DEB91AA09EBB003D9248 /* ECSSendConfirmationViewController.m */,
-				0380DEBA1AA09EBB003D9248 /* ECSSendConfirmationViewController.xib */,
 				039062441AC9C6A800E006BE /* ECSChatWaitView.h */,
 				039062451AC9C6A800E006BE /* ECSChatWaitView.m */,
 				039062481AC9C6BA00E006BE /* ECSChatWaitView.xib */,
 				03BD9E281AF2A1F2003D808C /* ECSInlineFormViewController.h */,
 				03BD9E291AF2A1F2003D808C /* ECSInlineFormViewController.m */,
 				03BD9E2A1AF2A1F2003D808C /* ECSInlineFormViewController.xib */,
+				D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */,
+				D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */,
+				D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */,
+				D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */,
+				D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */,
+				D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */,
+				0380DEB81AA09EBB003D9248 /* ECSSendConfirmationViewController.h */,
+				0380DEB91AA09EBB003D9248 /* ECSSendConfirmationViewController.m */,
+				0380DEBA1AA09EBB003D9248 /* ECSSendConfirmationViewController.xib */,
+				0342AFC31A9B60950009959E /* ECSWebTableViewCell.h */,
+				0342AFC41A9B60950009959E /* ECSWebTableViewCell.m */,
+				0342AFC51A9B60950009959E /* ECSWebTableViewCell.xib */,
+				039062331AC5A3DB00E006BE /* ToolbarViews */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1417,11 +1447,13 @@
 				030F77BF1A77F62B006BD8B1 /* ECSUserManager.h in Headers */,
 				03BD9E2B1AF2A1F2003D808C /* ECSInlineFormViewController.h in Headers */,
 				0342AFDE1A9B60950009959E /* ECSChatToolbarController.h in Headers */,
+				D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */,
 				03E9013B1AAE398300BA60CF /* ECSProfileViewController.h in Headers */,
 				0342AFAB1A9B60700009959E /* ECSAnswerRatingView.h in Headers */,
 				030AF25F1AF954190056BFB0 /* ECSHistoryListItem.h in Headers */,
 				038781CA1AEA93C4008786A8 /* UIImage+ECSBundle.h in Headers */,
 				03B47F8D1A85BD6600B2686F /* ECSPresurveyFormItem.h in Headers */,
+				D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */,
 				2252C6A51A7BE9E200B99912 /* ECSForm.h in Headers */,
 				0342AFDB1A9B60950009959E /* ECSChatCellBackground.h in Headers */,
 				03C3102E1A9B5B39006B3557 /* ECSPreSurvey.h in Headers */,
@@ -1456,6 +1488,7 @@
 				031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */,
 				03AF24A91A9B601E00407BE5 /* ECSPlaceholderTextView.h in Headers */,
 				0342B0701A9B60EF0009959E /* ECSMessageViewController.h in Headers */,
+				D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */,
 				0342B0281A9B60AE0009959E /* ECSTextFormItemViewController.h in Headers */,
 				03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */,
 				039E13101A8BBACC00AD4927 /* ECSKeychainSupport.h in Headers */,
@@ -1488,6 +1521,7 @@
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
 				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
+				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
 				03BE27521ADC1BD60099F2EB /* ECSChatNetworkActionCell.h in Headers */,
 				030AF21A1AF8080A0056BFB0 /* ECSChatHistoryResponse.h in Headers */,
@@ -1614,6 +1648,7 @@
 				0342B0101A9B60AE0009959E /* ECSRadioTableViewCell.xib in Resources */,
 				03A64D351B01044700AED79D /* ECSEndChatSurveyView.xib in Resources */,
 				03101F301AAF356900D7562B /* ECSChatLogsViewController.xib in Resources */,
+				D87F2F071B66C01700B7B9D5 /* ECSSelectExpertViewController.xib in Resources */,
 				03BE27541ADC1BD60099F2EB /* ECSChatNetworkActionCell.xib in Resources */,
 				0342AFAA1A9B60700009959E /* ECSTopQuestionsViewController.xib in Resources */,
 				0342B0171A9B60AE0009959E /* ECSFormViewController.xib in Resources */,
@@ -1631,6 +1666,7 @@
 				0342B06C1A9B60EF0009959E /* ECSWebViewController.xib in Resources */,
 				0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */,
 				03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */,
+				D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */,
 				0342B04B1A9B60C10009959E /* ECSListTableViewCell.xib in Resources */,
 				0342AFE31A9B60950009959E /* ECSChatViewController.xib in Resources */,
 				0342B0481A9B60C10009959E /* ECSFeaturedTableViewCell.xib in Resources */,
@@ -1710,6 +1746,7 @@
 				0342AFAF1A9B60700009959E /* ECSAnswerEngineViewController.m in Sources */,
 				0342B06B1A9B60EF0009959E /* ECSWebViewController.m in Sources */,
 				030AF2601AF954190056BFB0 /* ECSHistoryListItem.m in Sources */,
+				D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */,
 				0390623F1AC9A11E00E006BE /* ECSChatURLMessage.m in Sources */,
 				0342AFA61A9B60700009959E /* ECSPullUpView.m in Sources */,
 				2252C6A61A7BE9E200B99912 /* ECSForm.m in Sources */,
@@ -1728,6 +1765,7 @@
 				0342B00C1A9B60AE0009959E /* ECSCheckboxTableViewCell.m in Sources */,
 				03B3FA1F1A670C6E00D872B1 /* ECSResponseSerializer.m in Sources */,
 				03AF24AC1A9B601E00407BE5 /* ECSBorderContainerView.m in Sources */,
+				D87F2F061B66C01700B7B9D5 /* ECSSelectExpertViewController.m in Sources */,
 				2252C6AC1A7BE9E200B99912 /* ECSFormItemClassTransformer.m in Sources */,
 				03C3103D1A9B5B46006B3557 /* ECSCallbackSetupResponse.m in Sources */,
 				0342B04A1A9B60C10009959E /* ECSListTableViewCell.m in Sources */,
@@ -1754,10 +1792,12 @@
 				038E43FE1AA50C7F00FF1D48 /* ECSChannelConfiguration.m in Sources */,
 				0380DEC51AA0E9E6003D9248 /* ECSConversationLink.m in Sources */,
 				03C310611A9B5B56006B3557 /* ECSMessageActionType.m in Sources */,
+				D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */,
 				0342B02B1A9B60AE0009959E /* ECSSliderFormItemViewController.m in Sources */,
 				030AF2171AF807E30056BFB0 /* ECSChatHistoryMessage.m in Sources */,
 				035931441AE6EBAB00F2EB4C /* ECSAttributedDynamicLabel.m in Sources */,
 				0342B04D1A9B60C10009959E /* ECSSectionHeader.m in Sources */,
+				D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */,
 				030AF2581AF91FAF0056BFB0 /* ECSChatNotificationMessage.m in Sources */,
 				2252C6A81A7BE9E200B99912 /* ECSFormItem.m in Sources */,
 				03C310631A9B5B56006B3557 /* ECSNavigationActionType.m in Sources */,

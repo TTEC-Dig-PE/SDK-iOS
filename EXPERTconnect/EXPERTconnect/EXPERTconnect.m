@@ -117,6 +117,10 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:actionType];
 }
 
+- (void)setDelegate:(id)delegate {
+    _externalDelegate = delegate;
+}
+
 - (UIViewController*)landingViewController
 {
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];

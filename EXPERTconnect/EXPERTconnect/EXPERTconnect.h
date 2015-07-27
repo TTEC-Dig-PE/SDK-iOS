@@ -56,6 +56,17 @@ FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 //! Project version string for EXPERTconnect.
 FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
+#pragma mark -
+//Delegate for the Host App to handle Moxtra events. This is TEMPORARY until Moxtra releases an embeddable framework.
+@protocol ExpertConnectDelegate <NSObject>
+/**
+ * Called when Expert requests a Moxtra meeting
+ */
+- (void)meetRequested:(void(^)(NSString *meetID))meetStartedCallback;
+- (void)meetNeedstoEnd;
+
+@end
+
 @interface EXPERTconnect : NSObject
 
 @property (readonly, nonatomic) BOOL authenticationRequired;
@@ -65,6 +76,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (strong, nonatomic) NSString *userDisplayName;
 @property (strong, nonatomic) NSString *userCallbackNumber;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
+@property (weak) id <ExpertConnectDelegate> externalDelegate;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
@@ -82,6 +94,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
          action
  */
 - (UIViewController*)viewControllerForActionType:(ECSActionType*)actionType;
+
+/**
+ Sets a host app delegate to be used for Moxtra event handling. This is TEMPORARY until Moxtra releases an embeddable framework.
+ 
+ @param delegate The ExpertConnectDelegate instance that the host app would like to use to receive Moxtra events.
+ */
+- (void)setDelegate:(id)delegate;
 
 /**
  Returns a landing view controller that points to the default view controller for the SDK

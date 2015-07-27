@@ -57,6 +57,17 @@
     
 }
 
+- (BOOL)resignFirstResponder {
+    return [self.textView resignFirstResponder];
+}
+
+- (void)initializeSendState {
+    // Ready to be sent
+    self.sendEnabled = YES;
+    // Send button disabled as the textView is displaying placeholder text at this point
+    self.sendButton.enabled = NO;
+}
+
 - (void)setSendEnabled:(BOOL)sendEnabled
 {
     _sendEnabled = sendEnabled;

@@ -18,6 +18,8 @@
 #import "ECSChannelCreateResponse.h"
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
+#import "ECSChatCoBrowseMessage.h"
+#import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChatCellBackground.h"
 #import "ECSChatHistoryResponse.h"
 #import "ECSChatTableViewCell.h"
@@ -99,6 +101,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 @property (strong, nonatomic) NSMutableDictionary *participants;
 
 @property (strong, nonatomic) ECSChatWaitView *waitView;
+@property (strong, nonatomic) ECSCallbackViewController *callbackViewController;
 
 @property (strong, nonatomic) ECSChatToolbarController *chatToolbar;
 @property (assign, nonatomic) CGRect keyboardFrame;
@@ -124,6 +127,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _showingMoxtra = FALSE;
     
     self.navigationItem.title = self.actionType.displayName;
     self.agentInteractionCount = 0;
@@ -153,6 +158,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                              selector:@selector(networkConnectionChanged:)
                                                  name:ECSReachabilityChangedNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:) name:@"NotificationScreenShareEnded" object:nil];
     
 #ifdef DEBUG
 //    ECSChatTextMessage *textMessage = [ECSChatTextMessage new];
@@ -510,6 +516,31 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
+// NK 6/17
+- (void)sendSystemText:(NSString *)text
+{
+    ECSChatTextMessage *message = [ECSChatTextMessage new];
+    
+    message.from = @"System";
+    message.fromAgent = NO;
+    message.channelId = self.chatClient.currentChannelId;
+    message.conversationId = self.chatClient.currentConversation.conversationID;
+    
+    message.body = text;
+    [self.messages addObject:message];
+    [self.chatClient sendChatMessage:message];
+    
+    /* NK 6/29/2015 I've decided to not show the Consumer when he/she sends a System message. These are intended for
+     the Expert to view, only. Also, this doesn't work well and would need to be refactored. */
+    
+    /*
+     [self.tableView beginUpdates];
+     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+     [self.tableView endUpdates];
+     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+     */
+}
+
 - (void)sendMedia:(NSDictionary *)mediaInfo
 {
     ECSChatMediaMessage *message = [ECSChatMediaMessage new];
@@ -582,11 +613,99 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         self.currentReconnectIndex = -1;
     }
     
-    self.chatToolbar.sendEnabled = YES;
+    [self.chatToolbar initializeSendState];
+}
+
+-(void) screenShareEnded:(NSNotification*)notification
+{
+    if ([notification.name isEqualToString:@"NotificationScreenShareEnded"])
+    {
+        _showingMoxtra = FALSE;
+        
+        [self updateEdgeInsets];
+    }
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message
 {
+    if ([message isKindOfClass:[ECSChatCoBrowseMessage class]])
+    {
+        ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
+        NSString *expertName = [participant firstName];
+        if (expertName == nil || expertName.length == 0) {
+            expertName = @"The Expert"; // TODO: Translate
+        }
+        // Confirm with User:
+        NSString *alertTitle = @"Share Screen?"; // TODO: Translate
+        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested to see your screen. Allow?", expertName]; // TODO: Translate
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                 message:alertMessage
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              // Yes
+                                                              [[EXPERTconnect shared].externalDelegate meetRequested:^(NSString *meetID) {
+                                                                  if (meetID != nil) {
+                                                                      // Delegate should call this callback with a Meet ID
+                                                                      NSLog(@"Start meet successfully with MeetID [%@]", meetID);
+                                                                      
+                                                                      // Alert Agent to the MeetID:
+                                                                      [self sendCoBrowseMessage:meetID];
+                                                                      
+                                                                      // Make room for Moxtra panel:
+                                                                      _showingMoxtra = TRUE;
+                                                                      [self updateEdgeInsets];
+                                                                  } else {
+                                                                      NSLog(@"Start meet failed! No Meet ID returned by delegate");
+                                                                      _showingMoxtra = FALSE;
+                                                                      [self updateEdgeInsets];
+                                                                      // Alert agent of failure
+                                                                      [self sendSystemText:@"Screen Share request failed. No Meet ID created."];
+                                                                  }
+                                                              }];
+                                                          }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
+                                                              // No
+                                                              _showingMoxtra = FALSE;
+                                                              [self updateEdgeInsets];
+                                                              NSLog(@"User rejected Screen Share request.");
+                                                              [self sendSystemText:@"User rejected Screen Share request."];
+                                                          }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return; // no UI
+    }
+    if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]])
+    {
+        ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
+        NSString *expertName = [participant firstName];
+        if (expertName == nil || expertName.length == 0) {
+            expertName = @"The Expert"; // TODO: Translate
+        }
+        // Confirm with User:
+        NSString *alertTitle = @"Voice Authentication"; // TODO: Translate
+        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested that you authenticate by voice print. Press OK to continue.", expertName]; // TODO: Translate
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                 message:alertMessage
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              /* TODO: Kick off internal VoiceIT auth check */
+                                                              
+                                                              /* When response comes back from VoiceIT, send:
+                                                                  // Alert Agent to the response:
+                                                                  [self sendVoiceAuthConfirmation:response];
+                                                               */
+                                                          }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return; // no UI
+    }
+
     if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
     {
         [self.participants setObject:message forKey:((ECSChatAddParticipantMessage*)message).userId];
@@ -623,7 +742,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         
         [self.messages addObject:message];
         [self.tableView beginUpdates];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        /* NK 7/27/2015 Note that this change (indexPathsToUpdate) was made to fix a crash with scrolling to the
+         bottom of the chat list under certain circumstances. Change made by Mutual Mobile. */
+        [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
         [self.tableView endUpdates];
     }
     
@@ -660,7 +783,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
     NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
-    if (error && error.userInfo[NSLocalizedDescriptionKey])
+    
+    BOOL validError = (![error.userInfo[NSLocalizedDescriptionKey] isEqual:[NSNull null]] &&
+                       error.userInfo[NSLocalizedDescriptionKey]);
+    
+    if (error && validError)
     {
         errorMessage = error.userInfo[NSLocalizedDescriptionKey];
     }
@@ -698,6 +825,14 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [self hideWaitView];
 }
 
+- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient
+{
+    if (_callbackViewController != nil) {
+        [self.navigationController popToViewController:self animated:YES];
+        _callbackViewController = nil;
+    }
+}
+
 - (void)hideWaitView
 {
     if (self.waitView)
@@ -716,6 +851,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     ECSLogVerbose(@"Chat client was disconnected.");
     
+    [[EXPERTconnect shared].externalDelegate meetNeedstoEnd];
+    
     [self handleDisconnectPostSurveyCall];
     self.chatToolbar.sendEnabled = NO;
 }
@@ -727,6 +864,24 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
+}
+
+#pragma mark - Convenience
+
+- (NSArray *)indexPathsToUpdate {
+    NSInteger numberOfIndexPathsToBeInserted = (self.messages.count - [self.tableView numberOfRowsInSection:0]);
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:numberOfIndexPathsToBeInserted];
+    for (NSInteger i = 1; i <= numberOfIndexPathsToBeInserted; i++) {
+        NSInteger row = (self.messages.count - i);
+        [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:0]];
+    }
+    
+    return [NSArray arrayWithArray:indexPaths];
+}
+
+- (NSIndexPath*)indexPathForLastRow
+{
+    return [NSIndexPath indexPathForRow:[self.tableView numberOfRowsInSection:0] - 1 inSection:0];
 }
 
 #pragma mark - UITableView
@@ -941,6 +1096,27 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     notification.type = @"interview";
     notification.objectData = nil;
     [self.chatClient sendNotificationMessage:notification];
+}
+
+- (void)sendCoBrowseMessage:(NSString *)meetID
+{
+    // meetID is an 8-digit number, which will get flagged as a SSN on the
+    // backend. So, we must obfuscate it:
+    meetID = [meetID stringByAppendingString:@"0000"];
+    
+    ECSLogVerbose(@"Co Browse Meet Started notification");
+    ECSChatCoBrowseMessage *notification = [ECSChatCoBrowseMessage new];
+    notification.from = self.chatClient.fromUsername;
+    notification.channelId = self.chatClient.currentChannelId;
+    notification.conversationId = self.chatClient.currentConversation.conversationID;
+    notification.start = @"true";
+    notification.guid = meetID;
+    [self.chatClient sendCoBrowseMessage:notification];
+}
+
+- (void)sendVoiceAuthConfirmation:(NSString *)response
+{
+    [self sendSystemText:response];
 }
 
 - (BOOL)formItemHasResponse:(ECSFormActionType*)formActionType
@@ -1387,13 +1563,19 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)updateEdgeInsets
 {
     UIEdgeInsets insets = self.tableView.contentInset;
-
-    insets.bottom = CGRectGetHeight(self.chatToolbarContainer.frame) + CGRectGetHeight(self.keyboardFrame);
-
+    
+    CGFloat bottomOffset = 0;
+    if (self.keyboardFrame.size.height) {
+        CGRect viewFrameInWindow = [self.view.window convertRect:self.view.frame fromView:self.view.superview];
+        bottomOffset = viewFrameInWindow.origin.y + viewFrameInWindow.size.height - self.keyboardFrame.origin.y;
+    }
+    
+    insets.bottom = bottomOffset;
+    
     self.tableView.contentInset = insets;
     self.tableView.scrollIndicatorInsets = insets;
     
-    self.chatToolbarBottomConstraint.constant = CGRectGetHeight(self.keyboardFrame);
+    self.chatToolbarBottomConstraint.constant = bottomOffset;
 }
 
 - (BOOL)showAvatarAtIndexPath:(NSIndexPath*)indexPath
@@ -1420,24 +1602,24 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)showAddChannelModalForMessage:(ECSChatAddChannelMessage*)message
 {
-    ECSCallbackViewController *callback = [ECSCallbackViewController ecs_loadFromNib];
+    _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
 
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
     callbackAction.agentSkill = chatAction.agentSkill;
     callbackAction.agentId = chatAction.agentId;
+    callbackAction.actionId = @""; // NK 6/24 - This seemed to be missing, and was throwing an exception later when nil
+    
+    _callbackViewController.actionType = callbackAction;
+    _callbackViewController.skipConfirmationView = YES;
 
-    callback.actionType = callbackAction;
-    callback.skipConfirmationView = YES;
-    
-    
     if (![message.mediaType isEqualToString:@"voice"])
     {
-        callback.displaySMSOption = YES;
+        _callbackViewController.displaySMSOption = YES;
     }
 
-    [self presentModal:callback withParentNavigationController:self.navigationController];
+    [self presentModal:_callbackViewController withParentNavigationController:self.navigationController];
 }
 
 #pragma mark - UIScrollView
@@ -1526,7 +1708,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     } completion:^(BOOL finished) {
         if (self.messages.count > 0)
         {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]
+            [self.tableView scrollToRowAtIndexPath:[self indexPathForLastRow]
              
                                   atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }

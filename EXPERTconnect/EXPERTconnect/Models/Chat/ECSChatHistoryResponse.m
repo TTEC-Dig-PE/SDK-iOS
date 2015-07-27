@@ -20,6 +20,8 @@
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
+#import "ECSChatCoBrowseMessage.h"
+#import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChatInfoMessage.h"
 #import "ECSChatMediaMessage.h"
 #import "ECSChatNotificationMessage.h"
@@ -48,6 +50,8 @@
                                      @"ChatMessage": [ECSChatTextMessage class],
                                      @"ChatState": [ECSChatStateMessage class],
                                      @"AssociateInfoCommand": [ECSChatAssociateInfoMessage class],
+                                     @"CoBrowseMessage": [ECSChatCoBrowseMessage class],
+                                     @"VoiceAuthenticationMessage": [ECSChatVoiceAuthenticationMessage class],
                                      @"NotificationMessage": [ECSChatNotificationMessage class]
                                      
                                      };

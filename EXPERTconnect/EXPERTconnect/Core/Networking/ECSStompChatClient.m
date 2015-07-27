@@ -11,6 +11,8 @@
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
+#import "ECSChatCoBrowseMessage.h"
+#import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChannelConfiguration.h"
 #import "ECSChatFormMessage.h"
 #import "ECSChatNotificationMessage.h"
@@ -42,6 +44,8 @@ static NSString * const kECSChatRenderURLMessage = @"RenderURLCommand";
 static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";
 static NSString * const kECSChatAddChannelMessage = @"AddChannelCommand";
 static NSString * const kECSChatAssociateInfoMessage = @"AssociateInfoCommand";
+static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
+static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 
 @interface ECSStompChatClient() <ECSStompDelegate>
@@ -51,6 +55,7 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 
 @property (strong, nonatomic) NSString *sendMessageDestination;
 @property (strong, nonatomic) NSString *sendNotificationDestination;
+@property (strong, nonatomic) NSString *sendCoBrowseDestination;
 
 @property (assign, nonatomic) NSInteger agentInteractionCount;
 
@@ -241,6 +246,9 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
         notificationURL = [notificationURL URLByAppendingPathComponent:@"notifications"];
         self.sendNotificationDestination = [notificationURL path];
         
+        NSURL *cobrowseURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingLastPathComponent];
+        cobrowseURL = [cobrowseURL URLByAppendingPathComponent:@"cobrowse"];
+        self.sendCoBrowseDestination = [cobrowseURL path];
     }
 }
 
@@ -301,6 +309,34 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
         if (!serializingError)
         {
             NSString *destination = self.sendNotificationDestination;
+            
+            [self.stompClient sendMessage:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]
+                            toDestination:destination
+                              contentType:@"application/json"
+                        additionalHeaders:additionalHeaders];
+        }
+    }
+    else
+    {
+        ECSLogError(@"Attempting to send message when destination is not set.");
+    }
+}
+
+- (void)sendCoBrowseMessage:(ECSChatCoBrowseMessage *)message
+{
+    if (self.sendCoBrowseDestination)
+    {
+        NSDictionary *additionalHeaders = @{
+                                            kECSHeaderBodyType: kECSChatCoBrowseMessage,
+                                            kECSHeaderBodyVersion: kECSMessageBodyVersion
+                                            };
+        NSDictionary *jsonDictionary = [ECSJSONSerializer jsonDictionaryFromObject:message];
+        NSError *serializingError = nil;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:0 error:&serializingError];
+        
+        if (!serializingError)
+        {
+            NSString *destination = self.sendCoBrowseDestination;
             
             [self.stompClient sendMessage:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]
                             toDestination:destination
@@ -377,6 +413,14 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
     else if ([bodyType isEqualToString:kECSChatAssociateInfoMessage])
     {
         [self handleAssociateInfoMessage:message forClient:stompClient];
+    }
+    else if ([bodyType isEqualToString:kECSChatCoBrowseMessage])
+    {
+        [self handleCoBrowseMessage:message forClient:stompClient];
+    }
+    else if ([bodyType isEqualToString:kECSVoiceAuthenticationMessage])
+    {
+        [self handleVoiceAuthenticationMessage:message forClient:stompClient];
     }
 }
 
@@ -473,6 +517,15 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
         {
             [self.delegate chatClientAgentDidAnswer:self];
         }
+        
+        // NK 6/24 check for a voice callback channel
+        if ((message.channelState == ECSChannelStateConnected) &&
+            ![message.channelId isEqualToString:self.currentChannelId] &&
+            [self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)])
+        {
+            [self.delegate voiceCallbackDidAnswer:self];
+        }
+        
         // Check to make sure that the disconnect is based on the chat channel and not another channel
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
@@ -589,6 +642,50 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
         {
             ECSChatAssociateInfoMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSChatAssociateInfoMessage class]];
+            message.fromAgent = YES;
+            [self.delegate chatClient:self didReceiveMessage:message];
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
+}
+
+- (void)handleCoBrowseMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0
+                                                      error:&serializationError];
+        if (!serializationError)
+        {
+            ECSChatCoBrowseMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                withClass:[ECSChatCoBrowseMessage class]];
+            message.fromAgent = YES;
+            [self.delegate chatClient:self didReceiveMessage:message];
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
+}
+
+- (void)handleVoiceAuthenticationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0
+                                                      error:&serializationError];
+        if (!serializationError)
+        {
+            ECSChatVoiceAuthenticationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                           withClass:[ECSChatVoiceAuthenticationMessage class]];
             message.fromAgent = YES;
             [self.delegate chatClient:self didReceiveMessage:message];
         }

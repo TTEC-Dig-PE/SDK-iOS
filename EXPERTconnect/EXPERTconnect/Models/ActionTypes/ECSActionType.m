@@ -23,6 +23,7 @@ NSString *const ECSActionTypeFormString = @"form";
 NSString *const ECSActionTypeAnswerHistory = @"answerhistory";
 NSString *const ECSActionTypeChatHistory = @"chathistory";
 NSString *const ECSActionTypeProfile = @"profile";
+NSString *const ECSActionTypeSelectExpert = @"selectExpert";
 
 @implementation ECSActionType
 

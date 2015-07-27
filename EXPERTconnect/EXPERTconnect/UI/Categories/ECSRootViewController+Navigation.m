@@ -27,6 +27,7 @@
 #import "ECSProfileViewController.h"
 #import "ECSSMSActionType.h"
 #import "ECSMessageViewController.h"
+#import "ECSSelectExpertViewController.h"
 #import "UIViewController+ECSNibLoading.h"
 
 @implementation ECSRootViewController (Navigation)
@@ -47,6 +48,11 @@
     else if ([actionType.type isEqualToString:ECSActionTypeChatHistory])
     {
         actionViewController = [ECSChatLogsViewController ecs_loadFromNib];
+    }
+    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpert])
+    {
+        actionViewController = [ECSSelectExpertViewController ecs_loadFromNib];
+        actionViewController.actionType = actionType;
     }
     else if ([actionType isKindOfClass:[ECSNavigationActionType class]])
     {
