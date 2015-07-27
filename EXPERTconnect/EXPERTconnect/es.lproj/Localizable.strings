@@ -27,7 +27,7 @@
 "ECSLocalizedFrequentlyAskedQuestionsKey" = "PREGUNTAS FRECUENTES";
 
 /* PF */
-"ECSLocalizeShortFAQKey" = "FAQ";
+"ECSLocalizeShortFAQKey" = "PF";
 
 /* Ocultar FAQ */
 "ECSLocalizeShortHideFAQKey" = "Ocultar FAQ";
@@ -99,7 +99,7 @@
 "ECSLocalizedViewNextAnswer" = "Ver Siguiente respuesta";
 
 /* Respuesta título no encontrado */
-"ECSLocalizedAnswerNotFoundTitle" = "Try Again";
+"ECSLocalizedAnswerNotFoundTitle" = "Inténtalo De Nuevo";
 
 /* Respuesta no encontrado mensaje */
 "ECSLocalizedAnswerNotFoundMessage" = ". No hemos podido encontrar una respuesta a su consulta, por favor, inténtelo de nuevo";
@@ -168,7 +168,7 @@
 "ECSLocalizeChatDisconnectPromptSurvey" = "¿Está seguro que desea salir del chat y continuar con la encuesta";
 
 /* Localizar el SI */
-"ECSLocalizeYes" = "YES";
+"ECSLocalizeYes" = "Sí";
 
 /* Localizar NO */
 "ECSLocalizeNo" = "NO";
