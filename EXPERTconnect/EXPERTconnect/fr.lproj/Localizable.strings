@@ -307,7 +307,7 @@
 "ECSLocalizedSubmittedFormCloseLabel" = "Fermer";
 
 /* Réponses */
-"ECSLocalizeAnswers" = "Answers";
+"ECSLocalizeAnswers" = "Réponses";
 
 /* Indications Localisation */
 "ECSLocalizeDirections" = "<h1> Impossible de déterminer l'emplacement </ h1> <h2> S'il vous plaît suivez ces instructions pour activer Situation Accès </ h2> <ol> <li> Lancement <b> Paramètres </ b> sur votre iPhone ou iPad. </ li> <li> Faites défiler pour sélectionner <b> Confidentialité </ b>, puis sur <b> Location Services </ b> </ li> <li> Assurez-vous que l'interrupteur à bascule du haut est <b> Green </ b> </ li> <li> Faites défiler et sélectionnez *% @ * et assurez-vous qu'il est réglé sur \"Alors que l'aide de l'App \" ou \"toujours \" </ li> </ ol> ";
