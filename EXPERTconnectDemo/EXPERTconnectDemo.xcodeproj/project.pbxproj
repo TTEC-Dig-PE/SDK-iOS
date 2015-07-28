@@ -52,6 +52,39 @@
 		D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
 		D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA691B66A25D00DA1762 /* MoxtraSDK */; };
 		D87F2F581B68309100B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
+		D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA731B66A2EC00DA1762 /* libc++.dylib */; };
+		D87F2F5A1B68354200B7B9D5 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */; };
+		D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
+		D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA791B66A30D00DA1762 /* libz.dylib */; };
+		D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */; };
+		D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7C1B66A36F00DA1762 /* AddressBook.framework */; };
+		D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7D1B66A36F00DA1762 /* AddressBookUI.framework */; };
+		D87F2F601B6835A400B7B9D5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7E1B66A36F00DA1762 /* AssetsLibrary.framework */; };
+		D87F2F611B6835A400B7B9D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7F1B66A36F00DA1762 /* AudioToolbox.framework */; };
+		D87F2F621B6835A400B7B9D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA801B66A36F00DA1762 /* AVFoundation.framework */; };
+		D87F2F631B6835A400B7B9D5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA811B66A36F00DA1762 /* CFNetwork.framework */; };
+		D87F2F641B6835A400B7B9D5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA821B66A36F00DA1762 /* CoreBluetooth.framework */; };
+		D87F2F651B6835A400B7B9D5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA831B66A36F00DA1762 /* CoreFoundation.framework */; };
+		D87F2F661B6835A400B7B9D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA841B66A36F00DA1762 /* CoreGraphics.framework */; };
+		D87F2F671B6835A400B7B9D5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA851B66A36F00DA1762 /* CoreImage.framework */; };
+		D87F2F681B6835A400B7B9D5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA861B66A36F00DA1762 /* CoreLocation.framework */; };
+		D87F2F691B6835A400B7B9D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA871B66A36F00DA1762 /* CoreMedia.framework */; };
+		D87F2F6A1B6835A400B7B9D5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA881B66A36F00DA1762 /* CoreTelephony.framework */; };
+		D87F2F6B1B6835A400B7B9D5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA891B66A36F00DA1762 /* CoreText.framework */; };
+		D87F2F6C1B6835A400B7B9D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8A1B66A36F00DA1762 /* CoreVideo.framework */; };
+		D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8B1B66A36F00DA1762 /* EventKit.framework */; };
+		D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8C1B66A36F00DA1762 /* Foundation.framework */; };
+		D87F2F6F1B6835A400B7B9D5 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8D1B66A36F00DA1762 /* ImageIO.framework */; };
+		D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8E1B66A36F00DA1762 /* MapKit.framework */; };
+		D87F2F711B6835A400B7B9D5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8F1B66A36F00DA1762 /* MediaPlayer.framework */; };
+		D87F2F721B6835A400B7B9D5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA901B66A36F00DA1762 /* MessageUI.framework */; };
+		D87F2F731B6835A400B7B9D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA911B66A36F00DA1762 /* MobileCoreServices.framework */; };
+		D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */; };
+		D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */; };
+		D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA941B66A36F00DA1762 /* Security.framework */; };
+		D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA951B66A36F00DA1762 /* StoreKit.framework */; };
+		D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
+		D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
 		D88696611B556CD000C8F955 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
 		D8CEBE131B546DC20053E9A0 /* HZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */; };
 		D8CEBE141B546DC20053E9A0 /* HZDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */; };
@@ -363,6 +396,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */,
+				D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */,
+				D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */,
+				D87F2F601B6835A400B7B9D5 /* AssetsLibrary.framework in Frameworks */,
+				D87F2F611B6835A400B7B9D5 /* AudioToolbox.framework in Frameworks */,
+				D87F2F621B6835A400B7B9D5 /* AVFoundation.framework in Frameworks */,
+				D87F2F631B6835A400B7B9D5 /* CFNetwork.framework in Frameworks */,
+				D87F2F641B6835A400B7B9D5 /* CoreBluetooth.framework in Frameworks */,
+				D87F2F651B6835A400B7B9D5 /* CoreFoundation.framework in Frameworks */,
+				D87F2F661B6835A400B7B9D5 /* CoreGraphics.framework in Frameworks */,
+				D87F2F671B6835A400B7B9D5 /* CoreImage.framework in Frameworks */,
+				D87F2F681B6835A400B7B9D5 /* CoreLocation.framework in Frameworks */,
+				D87F2F691B6835A400B7B9D5 /* CoreMedia.framework in Frameworks */,
+				D87F2F6A1B6835A400B7B9D5 /* CoreTelephony.framework in Frameworks */,
+				D87F2F6B1B6835A400B7B9D5 /* CoreText.framework in Frameworks */,
+				D87F2F6C1B6835A400B7B9D5 /* CoreVideo.framework in Frameworks */,
+				D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */,
+				D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */,
+				D87F2F6F1B6835A400B7B9D5 /* ImageIO.framework in Frameworks */,
+				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
+				D87F2F711B6835A400B7B9D5 /* MediaPlayer.framework in Frameworks */,
+				D87F2F721B6835A400B7B9D5 /* MessageUI.framework in Frameworks */,
+				D87F2F731B6835A400B7B9D5 /* MobileCoreServices.framework in Frameworks */,
+				D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */,
+				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
+				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
+				D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */,
+				D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */,
+				D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */,
+				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
+				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
+				D87F2F5A1B68354200B7B9D5 /* libstdc++.6.dylib in Frameworks */,
+				D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */,
 				03243FD71A655C0A00A4CE6D /* EXPERTconnect.framework in Frameworks */,
 				3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */,
 				D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */,
