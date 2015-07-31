@@ -105,7 +105,7 @@
 "ECSLocalizedAnswerNotFoundMessage" = ". No hemos podido encontrar una respuesta a su consulta, por favor, inténtelo de nuevo";
 
 /* Aceptar Botón de texto */
-"ECSLocalizedOkButton" = "OK";
+"ECSLocalizedOkButton" = "Aceptar";
 
 /* Error Accesibilidad conectarse a la página web */
 "ECSLocalizeReachabilityErrorKey" = ". No somos capaces de conectarse a la Red de humanizar a favor, compruebe su conexión a Internet.";
