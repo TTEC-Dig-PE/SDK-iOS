@@ -42,6 +42,10 @@
 		22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
 		22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
 		3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
+		46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
+		46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
+		466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
+		466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */; };
 		4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
 		4695C37D1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
 		46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */; };
@@ -298,6 +302,13 @@
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
 		46004D521B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		46004D531B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocChatPicker.h; sourceTree = "<group>"; };
+		46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocChatPicker.m; sourceTree = "<group>"; };
+		46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocAnswerEngineContextPicker.m; sourceTree = "<group>"; };
+		46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocAnswerEngineContextPicker.h; sourceTree = "<group>"; };
+		466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDAdHocViewController.xib; sourceTree = "<group>"; };
+		466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocViewController.h; sourceTree = "<group>"; };
+		466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocViewController.m; sourceTree = "<group>"; };
 		4695C37B1B5D802F00C95878 /* ECDLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDLocalization.m; sourceTree = "<group>"; };
 		4695C37E1B5D805200C95878 /* ECDLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDLocalization.h; sourceTree = "<group>"; };
 		46BA32F61B604E6600E5C270 /* ECDEnvironmentPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDEnvironmentPicker.h; sourceTree = "<group>"; };
@@ -556,6 +567,13 @@
 				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
 				46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */,
 				46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */,
+				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
+				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
+				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
+				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
+				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
+				46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */,
+				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -939,6 +957,7 @@
 				D8CEBE231B546DC20053E9A0 /* HZRootViewController.xib in Resources */,
 				D8CEBE2A1B546DC20053E9A0 /* RobotoCondensed-Regular.ttf in Resources */,
 				D8CEBE161B546DC20053E9A0 /* HZExpertConnectSDKTheme.css in Resources */,
+				466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1112,9 +1131,12 @@
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
 				22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */,
+				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,
 				D8CEBE1A1B546DC20053E9A0 /* HZMainScreenViewController.m in Sources */,
 				46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */,
 				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
+				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
+				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
 				4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */,
 			);

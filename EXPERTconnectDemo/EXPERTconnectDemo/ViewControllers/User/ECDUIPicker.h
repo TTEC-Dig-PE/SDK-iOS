@@ -13,8 +13,11 @@
 @interface ECDUIPicker : UIPickerView <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic, retain) NSMutableArray *dataArray;
+@property (nonatomic, retain) NSString *selection;
 
 -(void)setup:(NSMutableArray *)data;
+-(void)setup:(NSMutableArray *)data withSelection:(int)rowToSelect;
+-(NSString *)currentSelection;
 
 @end
 

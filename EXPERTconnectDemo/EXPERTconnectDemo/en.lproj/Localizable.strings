@@ -17,6 +17,18 @@
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Register";
 
+/* Start Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatLabel" = "Start Chat";
+
+/* Start Answer Engine Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineLabel" = "Answer Engine";
+
+/* Start Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
+
+/* Start Answer Engine Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHeader" = "Start AdHoc Answer Engine Session";
+
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Skip Registration";
 
@@ -34,6 +46,9 @@
 
 /* Localized displayName for Settings in MainMenuConfig.json */
 "ECDLocalizedSettingsLabel" = "Settings";
+
+/* Localized displayName for Settings in MainMenuConfig.json */
+"ECDLocalizedAdHocLabel" = "Ad Hoc";
 
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "Select Environment";

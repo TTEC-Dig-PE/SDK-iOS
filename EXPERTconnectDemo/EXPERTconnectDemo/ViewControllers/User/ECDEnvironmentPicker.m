@@ -32,8 +32,6 @@ static NSString *const serverUrlKey = @"serverURL";
     [self.serverUrlsArray addObject:@"http://api.humanify.com:8080"];
     [self.serverUrlsArray addObject:@"http://demo.humanify.com"];
     
-    [super setup:environmentsArray];
-    
     NSString *currentUrl = [[NSUserDefaults standardUserDefaults] objectForKey:serverUrlKey];
     
     // Select the "current" Environment
@@ -49,13 +47,14 @@ static NSString *const serverUrlKey = @"serverURL";
         }
     }
     
-    [self selectRow:rowToSelect inComponent:0 animated:YES];
+    [super setup:environmentsArray withSelection:rowToSelect];
 }
 
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    [super pickerView:pickerView didSelectRow:row inComponent:component];
+
     NSString *url = [self.serverUrlsArray objectAtIndex: row];
-    
     [[NSUserDefaults standardUserDefaults] setObject:url forKey:serverUrlKey];
 }
 

@@ -36,6 +36,9 @@
 /* Localized displayName for Settings in MainMenuConfig.json */
 "ECDLocalizedSettingsLabel" = "Ajustes";
 
+/* Localized displayName for Settings in MainMenuConfig.json */
+"ECDLocalizedAdHocLabel" = "Ad Hoc";
+
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "(ES) Select Environment";
 

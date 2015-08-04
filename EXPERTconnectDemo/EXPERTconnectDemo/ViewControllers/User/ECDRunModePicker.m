@@ -20,16 +20,15 @@ static NSString *const applicationRunMode = @"applicationRunMode";
     [runModeArray addObject:@"Expert Demo"];  // 0 - startExpertDemo in main()
     [runModeArray addObject:@"Horizon Demo"]; // 1 - startHorizonDemo in main()
     
-    [super setup:runModeArray];
-    
     // Always Select "Expert Demo" to start. Other Apps will have to have their own settings
     // to set this back to "Expert Demo"
     //
     int rowToSelect = 0;
-    [self selectRow:rowToSelect inComponent:0 animated:YES];
+    [super setup:runModeArray withSelection:rowToSelect];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    [super pickerView:pickerView didSelectRow:row inComponent:component];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(int)row] forKey:applicationRunMode];
 }
 

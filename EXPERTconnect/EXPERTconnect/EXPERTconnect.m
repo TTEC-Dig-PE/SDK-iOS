@@ -16,6 +16,7 @@
 
 #import "NSBundle+ECSBundle.h"
 #import "UIViewController+ECSNibLoading.h"
+#import "ECSAnswerEngineViewController.h"
 
 static EXPERTconnect* _sharedInstance;
 
@@ -110,6 +111,34 @@ static EXPERTconnect* _sharedInstance;
 - (NSString*)EXPERTconnectVersion
 {
     return [NSBundle ecs_bundleVersion];
+}
+
+- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+{
+    ECSChatActionType *chatAction = [ECSChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = chatSkill;
+    chatAction.displayName = displayName;
+    
+    UIViewController *chatController = [self viewControllerForActionType:chatAction];
+    
+    return chatController;
+}
+
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext
+{
+    ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
+    
+    answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:NO];
+    answerEngineAction.actionId = @"";
+    answerEngineAction.answerEngineContext = aeContext;
+    answerEngineAction.navigationContext = @"";
+    
+    UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
+    ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
+    
+    return answerEngineController;
 }
 
 - (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType

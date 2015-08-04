@@ -84,8 +84,28 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration;
 
+
 /**
- Returns a view controller for a specified EXPERTconnect action. If no view controller is 
+ Returns a view controller for an EXPERTconnect Chat session.
+ 
+ @param chatSkill the Agent Chat Skill for the Chat
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Chat
+ */
+- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
+ Returns a view controller for an EXPERTconnect Answer Engine session.
+ 
+ @param aeContext the Answer Engine Context to post the question to
+ 
+ @return the view controller for the Answer Engine Session
+ */
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext;
+
+/**
+ Returns a view controller for a specified EXPERTconnect action. If no view controller is
  implemented, then nil is returned.
  
  @param actionType the EXPERTconnect action to get the view controller for.

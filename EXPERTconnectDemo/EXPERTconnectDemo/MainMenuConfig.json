@@ -37,6 +37,13 @@
                     "type": "settings", 
                     "icon": "ecs_ic_nav_settings"
                 },
+                {
+                    "displayName": "ECDLocalizedAdHocLabel",
+                    "enabled": true,
+                    "configuration": {},
+                    "type": "adhoc",
+                    "icon": "ecs_ic_nav_adhoc"
+                },
             ]
         }
     ],
