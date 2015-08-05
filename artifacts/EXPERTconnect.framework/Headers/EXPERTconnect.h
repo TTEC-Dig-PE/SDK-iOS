@@ -105,6 +105,29 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startAnswerEngine:(NSString*)aeContext;
 
 /**
+ Returns a view controller for an EXPERTconnect Survey
+ 
+ @param form the Name of the Form to launch
+ 
+ @return the view controller for the Survey
+ */
+- (UIViewController*)startSurvey:(NSString*)formName;
+
+
+
+
+/**
+ Returns a Form by Name
+ 
+ @param form the Name of the Form to launch
+ 
+ @return the view controller for the Survey
+ */
+- (ECSForm*)retrieveForm:(NSString*)formName;
+
+
+
+/**
  Returns a view controller for a specified EXPERTconnect action. If no view controller is
  implemented, then nil is returned.
  
@@ -114,6 +137,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
          action
  */
 - (UIViewController*)viewControllerForActionType:(ECSActionType*)actionType;
+
 
 /**
  Sets a host app delegate to be used for Moxtra event handling. This is TEMPORARY until Moxtra releases an embeddable framework.

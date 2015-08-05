@@ -17,17 +17,25 @@
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Register";
 
+/* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
 
 /* Start Answer Engine Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAnswerEngineLabel" = "Answer Engine";
 
+/* Start Forms Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsLabel" = "Forms";
+
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
 
 /* Start Answer Engine Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAnswerEngineHeader" = "Start AdHoc Answer Engine Session";
+
+/* Start Forms Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsHeader" = "Start AdHoc Forms Interview";
+/* End AdHoc Section */
 
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Skip Registration";

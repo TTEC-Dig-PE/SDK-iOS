@@ -14,6 +14,7 @@
 #import "ECDUserDefaultKeys.h"
 #import "ECDAdHocChatPicker.h"
 #import "ECDAdHocAnswerEngineContextPicker.h"
+#import "ECDAdHocFormsPicker.h"
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
@@ -30,7 +31,9 @@
 // Retrieve my Conversation History
 // View my Chat History
 // View my Answer Engine History
+// Get list of available Forms
 // Render an AdHoc Form
+// Submit Form (AdHoc)
 // Retrieve Navigation or Navigation Segment
 // Upload an AdHoc image
 // Download and AdHoc image
@@ -41,13 +44,18 @@
 // Retrieve Available Agents by Skill?
 // Display the Expert Select Dialog?
 // Invoke a "new" API Endpoint?
+// Retrieve list of skills with availability of each (# agents online, # agents available)
+// Retrieve list of agents (all) with availability state of each
+// estimated time to wait for skill X" and
+// leave a message via email
+// generic API endpoint
 //
 
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
     SettingsSectionAdHocChat,
-    SettingsSectionAnswerEngine,
-    SettingsSectionThree,
+    SettingsSectionAdHocAnswerEngine,
+    SettingsSectionAdHocForms,
     SettingsSectionFour,
     SettingsSectionFive,
     SettingsSectionSix,
@@ -65,20 +73,20 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 
 typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 {
-    AdHocChatSectionRowStartChat,
+    AdHocChatSectionRowStart,
     AdHocChatSectionRowCount
 };
 
 typedef NS_ENUM(NSInteger, AnswerEngineSectionRows)
 {
-    AdHocAnswerEngineRowStartAnswerEngine,
-    AnswerEngineSectionRowCount
+    AdHocAnswerEngineRowStart,
+    AdHocAnswerEngineSectionRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowThreeRows)
+typedef NS_ENUM(NSInteger, FormsSectionRows)
 {
-    SettingsSectionThreeRowStart,
-    SettingsSectionThreeRowCount
+    AdHocFormsSectionRowStart,
+    AdHocFormsSectionRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowFourRows)
@@ -158,6 +166,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectAdHocChatPicker;
 @property (strong, nonatomic) ECDAdHocAnswerEngineContextPicker *selectAdHocAnswerEngineContextPicker;
+@property (strong, nonatomic) ECDAdHocFormsPicker *selectAdHocFormsPicker;
 @end
 
 @implementation ECDAdHocViewController
@@ -179,9 +188,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 
     self.selectAdHocChatPicker = [ECDAdHocChatPicker new];
     self.selectAdHocAnswerEngineContextPicker = [ECDAdHocAnswerEngineContextPicker new];
+    self.selectAdHocFormsPicker = [ECDAdHocFormsPicker new];
     
     [self.selectAdHocChatPicker setup];
     [self.selectAdHocAnswerEngineContextPicker setup];
+    [self.selectAdHocFormsPicker setup];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,12 +213,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             rowCount = AdHocChatSectionRowCount;
             break;
             
-        case SettingsSectionAnswerEngine:
-            rowCount = AnswerEngineSectionRowCount;
+        case SettingsSectionAdHocAnswerEngine:
+            rowCount = AdHocAnswerEngineSectionRowCount;
             break;
             
-        case SettingsSectionThree:
-            rowCount = SettingsSectionThreeRowCount;
+        case SettingsSectionAdHocForms:
+            rowCount = AdHocFormsSectionRowCount;
             break;
             
         case SettingsSectionFour:
@@ -278,7 +289,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     switch (indexPath.section) {
         case SettingsSectionAdHocChat:
             switch (indexPath.row) {
-                case AdHocChatSectionRowStartChat:
+                case AdHocChatSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"AdHoc Chat");
                     cell.accessoryView = self.selectAdHocChatPicker;
                     break;
@@ -287,9 +298,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             }
             break;
             
-        case SettingsSectionAnswerEngine:
+        case SettingsSectionAdHocAnswerEngine:
             switch (indexPath.row) {
-                case AdHocAnswerEngineRowStartAnswerEngine:
+                case AdHocAnswerEngineRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAnswerEngineLabel, @"AdHoc Answer Engine");
                     cell.accessoryView = self.selectAdHocAnswerEngineContextPicker;
                     break;
@@ -299,11 +310,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             }
             break;
             
-        case SettingsSectionThree:
+        case SettingsSectionAdHocForms:
             switch (indexPath.row) {
-                case SettingsSectionThreeRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Three", @"Section Three");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                case AdHocFormsSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartFormsLabel, @"AdHoc Forms Interview");
+                    cell.accessoryView = self.selectAdHocFormsPicker;
                     break;
                     
                 default:
@@ -474,19 +485,19 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowStartChat)
+    if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowStart)
     {
         [self handleAdHocStartChat];
     }
     
-    if (indexPath.section == SettingsSectionAnswerEngine && indexPath.row == AdHocAnswerEngineRowStartAnswerEngine)
+    if (indexPath.section == SettingsSectionAdHocAnswerEngine && indexPath.row == AdHocAnswerEngineRowStart)
     {
         [self handleAdHocStartAnswerEngine];
     }
     
-    if (indexPath.section == SettingsSectionThree && indexPath.row == SettingsSectionThreeRowStart)
+    if (indexPath.section == SettingsSectionAdHocForms && indexPath.row == AdHocFormsSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocRenderForm];
     }
     
     if (indexPath.section == SettingsSectionFour && indexPath.row == SettingsSectionFourRowStart)
@@ -565,15 +576,15 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         }
             break;
             
-        case SettingsSectionAnswerEngine:
+        case SettingsSectionAdHocAnswerEngine:
         {
             title = ECDLocalizedString(ECDLocalizedStartAnswerEngineHeader, @"AdHoc Answer Engine Session");
         }
             break;
             
-        case SettingsSectionThree:
+        case SettingsSectionAdHocForms:
         {
-            title = ECDLocalizedString(@"Localized Section Three Header", @"Three Header");
+            title = ECDLocalizedString(ECDLocalizedStartFormsHeader, @"AdHoc Forms Interview");
         }
             break;
             
@@ -697,6 +708,17 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
     [self.navigationController pushViewController:answerEngineController animated:YES];
+}
+
+
+-(void)handleAdHocRenderForm
+{
+    NSLog(@"Rendering an ad-hoc Form");
+    
+    NSString *formName = [self.selectAdHocFormsPicker currentSelection];
+    
+    UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
+    [self.navigationController pushViewController:formsController animated:YES];
 }
 
 -(void)handleAdHocShowLicense

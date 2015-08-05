@@ -16,7 +16,7 @@
 
 #import "NSBundle+ECSBundle.h"
 #import "UIViewController+ECSNibLoading.h"
-#import "ECSAnswerEngineViewController.h"
+#import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
 static EXPERTconnect* _sharedInstance;
 
@@ -139,6 +139,17 @@ static EXPERTconnect* _sharedInstance;
     ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
     
     return answerEngineController;
+}
+
+- (UIViewController*)startSurvey:(NSString*)formName
+{
+    ECSFormActionType *formAction = [ECSFormActionType new];
+    
+    formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
+    
+    UIViewController *formController = [self viewControllerForActionType:formAction];
+    
+    return formController;
 }
 
 - (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType

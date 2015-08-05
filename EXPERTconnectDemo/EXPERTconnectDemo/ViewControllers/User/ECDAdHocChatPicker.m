@@ -34,6 +34,7 @@ static NSString *const lastSkillSelected = @"lastSkillSelected";
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
     
     [super setup:chatSkillsArray withSelection:rowToSelect];
+    [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

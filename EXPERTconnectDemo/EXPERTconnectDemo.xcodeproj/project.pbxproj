@@ -42,6 +42,7 @@
 		22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
 		22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
 		3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
+		46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
 		46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
 		46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
 		466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
@@ -302,6 +303,8 @@
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
 		46004D521B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		46004D531B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocFormsPicker.m; sourceTree = "<group>"; };
+		46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocFormsPicker.h; sourceTree = "<group>"; };
 		46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocChatPicker.h; sourceTree = "<group>"; };
 		46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocChatPicker.m; sourceTree = "<group>"; };
 		46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocAnswerEngineContextPicker.m; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
 				46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */,
 				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
+				46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */,
+				46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1136,6 +1141,7 @@
 				46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */,
 				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
+				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
 				4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */,

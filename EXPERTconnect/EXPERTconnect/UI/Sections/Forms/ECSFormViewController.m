@@ -78,11 +78,21 @@
     [urlSession startConversationForAction:self.actionType
                            andAlwaysCreate:NO
                              withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                 [weakSelf setLoadingIndicatorVisible:NO];
+                                 
+                                 ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+                                 if(!formAction.form)
+                                 {
+                                     [urlSession getFormByName:formAction.actionId withCompletion:^(ECSForm *form, NSError *error) {
+                                         formAction.form = [form copy];
+                                         [weakSelf setLoadingIndicatorVisible:NO];
+                                         
+                                         [self transitionToCurrentQuestionForwards:YES];
+                                     }];
+                                 } else {
+                                    [weakSelf setLoadingIndicatorVisible:NO];
+                                    [self transitionToCurrentQuestionForwards:YES];
+                                 }
                              }];
-
-    
-    [self transitionToCurrentQuestionForwards:YES];
 }
 
 - (void)viewWillLayoutSubviews

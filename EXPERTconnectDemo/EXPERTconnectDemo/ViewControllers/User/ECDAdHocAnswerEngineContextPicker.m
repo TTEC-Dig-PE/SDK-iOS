@@ -34,6 +34,7 @@ static NSString *const lastAnswerEngineContextSelected = @"lastAnswerEngineConte
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastAnswerEngineContextSelected] intValue];
     
     [super setup:answerEngineContextsArray withSelection:rowToSelect];
+    [self setFrame: CGRectMake(0.0f, 0.0f, 420.0f, 180.0f)];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
