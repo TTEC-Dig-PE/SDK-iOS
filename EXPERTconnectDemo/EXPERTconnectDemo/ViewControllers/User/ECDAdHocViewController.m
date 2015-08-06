@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocChat,
     SettingsSectionAdHocAnswerEngine,
     SettingsSectionAdHocForms,
-    SettingsSectionFour,
+    SettingsSectionAdHocUserProfile,
     SettingsSectionFive,
     SettingsSectionSix,
     SettingsSectionSeven,
@@ -89,10 +89,10 @@ typedef NS_ENUM(NSInteger, FormsSectionRows)
     AdHocFormsSectionRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowFourRows)
+typedef NS_ENUM(NSInteger, UserProfileSectionRows)
 {
-    SettingsSectionFourRowStart,
-    SettingsSectionFourRowCount
+    AdHocUserProfileSectionRowStart,
+    AdHocUserProfileRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowFiveRows)
@@ -221,8 +221,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             rowCount = AdHocFormsSectionRowCount;
             break;
             
-        case SettingsSectionFour:
-            rowCount = SettingsSectionFourRowCount;
+        case SettingsSectionAdHocUserProfile:
+            rowCount = AdHocUserProfileRowCount;
             break;
             
         case SettingsSectionFive:
@@ -322,10 +322,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             }
             break;
             
-        case SettingsSectionFour:
+        case SettingsSectionAdHocUserProfile:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Four", @"Section Four");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartUserProfileLabel, @"AdHoc User Profile");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -337,7 +337,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionFive:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Five", @"Section Five");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -350,7 +350,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionSix:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Six", @"Section Six");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -363,7 +363,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionSeven:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Seven", @"Section Seven");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -376,7 +376,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionEight:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Eight", @"Section Eight");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -389,7 +389,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionNine:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Nine", @"Section Nine");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -402,7 +402,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionTen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Ten", @"Section Ten");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -415,7 +415,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionEleven:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Eleven", @"Section Eleven");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -428,7 +428,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionTwelve:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Twelve", @"Section Twelve");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -441,7 +441,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionThirteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Thirteen", @"Section Thirteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -454,7 +454,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionFourteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Fourteen", @"Section Fourteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -467,7 +467,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionFifteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
+                case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECSLocalizedString(@"Localized Section Fifteen", @"Section Fifteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -500,9 +500,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         [self handleAdHocRenderForm];
     }
     
-    if (indexPath.section == SettingsSectionFour && indexPath.row == SettingsSectionFourRowStart)
+    if (indexPath.section == SettingsSectionAdHocUserProfile && indexPath.row == AdHocUserProfileSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocEditUserProfile];
     }
     
     if (indexPath.section == SettingsSectionFive && indexPath.row == SettingsSectionFiveRowStart)
@@ -588,9 +588,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         }
             break;
             
-        case SettingsSectionFour:
+        case SettingsSectionAdHocUserProfile:
         {
-            title = ECDLocalizedString(@"Localized Section Four Header", @"Four Header");
+            title = ECDLocalizedString(ECDLocalizedStartUserProfileHeader, @"AdHoc Edit User Profile");
         }
             break;
     
@@ -719,6 +719,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
     [self.navigationController pushViewController:formsController animated:YES];
+}
+
+-(void)handleAdHocEditUserProfile
+{
+    NSLog(@"Rendering an ad-hoc User Profile Form");
+    
+    UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];
+    [self.navigationController pushViewController:profileController animated:YES];
 }
 
 -(void)handleAdHocShowLicense

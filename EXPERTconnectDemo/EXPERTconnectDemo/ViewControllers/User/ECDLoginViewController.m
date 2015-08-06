@@ -97,6 +97,8 @@
 
         __weak typeof(self) weakSelf = self;
         [weakSelf setLoadingIndicatorVisible:YES];
+
+/*
         ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
         [[EXPERTconnect shared] setUserToken:self.emailAddressField.text];
         
@@ -121,6 +123,23 @@
             else
             {
                 
+                [weakSelf showLoginAlert];
+            }
+        }];
+ */
+        
+        [[EXPERTconnect shared] login:self.emailAddressField.text withCompletion:^(ECSForm *form, NSError *error) {
+            if (form && form.formData)
+            {
+                if (weakSelf.delegate)
+                {
+                    [weakSelf setLoadingIndicatorVisible:NO];
+                    [weakSelf.delegate loginViewController:weakSelf
+                                      didLoginWithUserInfo:weakSelf.emailAddressField.text];
+                }
+            }
+            else
+            {
                 [weakSelf showLoginAlert];
             }
         }];

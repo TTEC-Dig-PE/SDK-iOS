@@ -152,6 +152,44 @@ static EXPERTconnect* _sharedInstance;
     return formController;
 }
 
+
+- (UIViewController*)startUserProfile
+{
+    ECSActionType *profileAction = [ECSActionType new];
+    profileAction.type = ECSActionTypeProfile;
+    profileAction.actionId = self.userDisplayName;
+    
+    UIViewController *profileController = [self viewControllerForActionType:profileAction];
+    
+    return profileController;
+}
+
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
+{
+    [self setUserToken:username];
+
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error) {
+        if (form && form.formData)
+        {
+            for (ECSFormItem *item in form.formData)
+            {
+                if ([item.metadata isEqualToString:@"profile.fullname"])
+                {
+                    self.userDisplayName = item.formValue;
+                    break;
+                }
+            }
+            
+            completion(form, error);
+        }
+        else
+        {
+            completion(nil, error);
+        }
+    }];
+}
+
 - (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
 {
     return [ECSRootViewController ecs_viewControllerForActionType:actionType];

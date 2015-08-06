@@ -113,19 +113,21 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (UIViewController*)startSurvey:(NSString*)formName;
 
-
-
+/**
+ Returns a view controller for an EXPERTconnect User Profile Form for the current user
+ 
+ @return the view controller for the User Profile Controller
+ */
+- (UIViewController*)startUserProfile;
 
 /**
- Returns a Form by Name
+ Login support
  
- @param form the Name of the Form to launch
+ @param username the Name of the user attempting to login
  
- @return the view controller for the Survey
+ @return the Form returned from the login attempt
  */
-- (ECSForm*)retrieveForm:(NSString*)formName;
-
-
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion;
 
 /**
  Returns a view controller for a specified EXPERTconnect action. If no view controller is

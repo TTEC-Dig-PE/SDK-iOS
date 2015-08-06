@@ -27,6 +27,9 @@
 /* Start Forms Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartFormsLabel" = "Forms";
 
+/* Start User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileLabel" = "User Profile";
+
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
 
@@ -35,6 +38,9 @@
 
 /* Start Forms Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartFormsHeader" = "Start AdHoc Forms Interview";
+
+/* Start User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 /* End AdHoc Section */
 
 /* Splash Page Skip Registration Button   */
