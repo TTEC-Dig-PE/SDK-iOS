@@ -125,6 +125,18 @@ static EXPERTconnect* _sharedInstance;
     return chatController;
 }
 
+- (UIViewController*)startVoiceCallback:(NSString*)callSkill withDisplayName:(NSString*)displayName
+{
+    ECSCallbackActionType *cbAction = [ECSCallbackActionType new];
+    cbAction.actionId = @"";
+    cbAction.agentSkill = callSkill;
+    cbAction.displayName = displayName;
+    
+    UIViewController *cbController = [self viewControllerForActionType:cbAction];
+    
+    return cbController;
+}
+
 - (UIViewController*)startAnswerEngine:(NSString*)aeContext
 {
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
@@ -152,7 +164,6 @@ static EXPERTconnect* _sharedInstance;
     return formController;
 }
 
-
 - (UIViewController*)startUserProfile
 {
     ECSActionType *profileAction = [ECSActionType new];
@@ -162,6 +173,47 @@ static EXPERTconnect* _sharedInstance;
     UIViewController *profileController = [self viewControllerForActionType:profileAction];
     
     return profileController;
+}
+
+- (UIViewController*)startEmailMessage
+{
+    ECSMessageActionType *messageAction = [ECSMessageActionType new];
+    messageAction.actionId = @"";
+    messageAction.email = ECSLocalizedString(@"callcenter@humanify.com", @"callcenter@humanify.com");
+    messageAction.messageHeader = ECSLocalizedString(@"Leave a Message", @"Leave a Message");
+    messageAction.hoursText = ECSLocalizedString(@"The Call Center is open between the hours of 8:00 AM and 8:00 PM.", @"The Call Center is open between the hours of 8:00 AM and 8:00 PM.");
+    messageAction.messageText = ECSLocalizedString(@"The call center is closed!", @"The call center is closed!");
+    messageAction.emailSubject = ECSLocalizedString(@"Important Message", @"Important Message");
+    messageAction.emailButtonText = ECSLocalizedString(@"Submit Message", @"Submit Message");
+    
+    return [self startEmailMessage:messageAction];
+}
+
+- (UIViewController*)startEmailMessage:(ECSActionType *)messageAction
+{
+    UIViewController *messageController = [self viewControllerForActionType:messageAction];
+    return messageController;
+}
+
+- (UIViewController*)startSMSMessage
+{
+    ECSSMSActionType *smsAction = [ECSSMSActionType new];
+    smsAction.actionId = @"";
+    
+    UIViewController *smsController = [self viewControllerForActionType:smsAction];
+    
+    return smsController;
+}
+
+- (UIViewController*)startWebPage:(NSString *)url
+{
+    ECSWebActionType *webAction = [ECSWebActionType new];
+    webAction.actionId = @"";
+    webAction.url = url;
+    
+    UIViewController *webController = [self viewControllerForActionType:webAction];
+    
+    return webController;
 }
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion

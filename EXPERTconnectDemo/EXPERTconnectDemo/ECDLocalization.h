@@ -29,12 +29,20 @@ static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHead
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
 static NSString* const ECDLocalizedStartFormsHeader = @"ECDLocalizedStartFormsHeader";
 static NSString* const ECDLocalizedStartUserProfileHeader = @"ECDLocalizedStartUserProfileHeader";
+static NSString* const ECDLocalizedStartVoiceCallbackHeader = @"ECDLocalizedStartVoiceCallbackHeader";
+static NSString* const ECDLocalizedStartEmailMessageHeader = @"ECDLocalizedStartEmailMessageHeader";
+static NSString* const ECDLocalizedStartSMSMessageHeader = @"ECDLocalizedStartSMSMessageHeader";
+static NSString* const ECDLocalizedStartWebPageHeader = @"ECDLocalizedStartWebPageHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedStartFormsLabel = @"ECDLocalizedStartFormsLabel";
 static NSString* const ECDLocalizedStartUserProfileLabel = @"ECDLocalizedStartUserProfileLabel";
+static NSString* const ECDLocalizedStartVoiceCallbackLabel = @"ECDLocalizedStartVoiceCallbackLabel";
+static NSString* const ECDLocalizedStartEmailMessageLabel = @"ECDLocalizedStartEmailMessageLabel";
+static NSString* const ECDLocalizedStartSMSMessageLabel = @"ECDLocalizedStartSMSMessageLabel";
+static NSString* const ECDLocalizedStartWebPageLabel = @"ECDLocalizedStartWebPageLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

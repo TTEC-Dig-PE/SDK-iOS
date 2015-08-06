@@ -45,6 +45,8 @@
 		46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
 		46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
 		46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
+		4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */; };
+		4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */; };
 		466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
 		466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */; };
 		4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
@@ -309,6 +311,10 @@
 		46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocChatPicker.m; sourceTree = "<group>"; };
 		46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocAnswerEngineContextPicker.m; sourceTree = "<group>"; };
 		46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocAnswerEngineContextPicker.h; sourceTree = "<group>"; };
+		4643F6111B73E26600F0AF7E /* ECDAdHocVoiceCallbackPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocVoiceCallbackPicker.h; sourceTree = "<group>"; };
+		4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocVoiceCallbackPicker.m; sourceTree = "<group>"; };
+		4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocWebPagePicker.m; sourceTree = "<group>"; };
+		4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocWebPagePicker.h; sourceTree = "<group>"; };
 		466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDAdHocViewController.xib; sourceTree = "<group>"; };
 		466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocViewController.h; sourceTree = "<group>"; };
 		466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocViewController.m; sourceTree = "<group>"; };
@@ -579,6 +585,10 @@
 				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
 				46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */,
 				46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */,
+				4643F6111B73E26600F0AF7E /* ECDAdHocVoiceCallbackPicker.h */,
+				4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */,
+				4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */,
+				4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1118,8 +1128,10 @@
 				D8CEBE201B546DC20053E9A0 /* HZRiskViewController.m in Sources */,
 				D8CEBE141B546DC20053E9A0 /* HZDrawerViewController.m in Sources */,
 				0301CC001B0634C50068A0E1 /* ECDLicenseViewController.m in Sources */,
+				4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				033A398E1AD579FC006B34B2 /* ECDRegisterViewController.m in Sources */,
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
+				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
 				03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */,
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,

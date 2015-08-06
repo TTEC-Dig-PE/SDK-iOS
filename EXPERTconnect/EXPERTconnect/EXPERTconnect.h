@@ -96,6 +96,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
+ Returns a view controller for an EXPERTconnect Voice Callback session.
+ 
+ @param chatSkill the Agent Skill for the Callback
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Callback
+ */
+- (UIViewController*)startVoiceCallback:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
  Returns a view controller for an EXPERTconnect Answer Engine session.
  
  @param aeContext the Answer Engine Context to post the question to
@@ -119,6 +129,28 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the User Profile Controller
  */
 - (UIViewController*)startUserProfile;
+
+/**
+ Returns a view controller for an EXPERTconnect Email Message
+ 
+ @return the view controller for the Messaging Controller
+ */
+- (UIViewController*)startEmailMessage;
+- (UIViewController*)startEmailMessage:(ECSActionType *)messageAction;
+
+/**
+ Returns a view controller for an EXPERTconnect SMS Message
+ 
+ @return the view controller for the Messaging Controller
+ */
+- (UIViewController*)startSMSMessage;
+
+/**
+ Returns a view controller for an EXPERTconnect Web Page View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startWebPage:(NSString *)url;
 
 /**
  Login support

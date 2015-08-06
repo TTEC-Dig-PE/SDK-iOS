@@ -30,6 +30,18 @@
 /* Start User Profile Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartUserProfileLabel" = "User Profile";
 
+/* Start Voice Callback Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackLabel" = "Voice Callback";
+
+/* Start Email Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageLabel" = "Email Message";
+
+/* Start SMS Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageLabel" = "SMS Message";
+
+/* Start Web Page Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageLabel" = "Web Page";
+
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
 
@@ -41,6 +53,19 @@
 
 /* Start User Profile Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
+
+/* Start Voice Callback Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackHeader" = "AdHoc Voice Callback";
+
+/* Start Email Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageHeader" = "AdHoc Email Message";
+
+/* Start SMS Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageHeader" = "AdHoc SMS Message";
+
+/* Start Web Page Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageHeader" = "AdHoc Web Page";
+
 /* End AdHoc Section */
 
 /* Splash Page Skip Registration Button   */
