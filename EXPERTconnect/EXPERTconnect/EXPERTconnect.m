@@ -216,6 +216,39 @@ static EXPERTconnect* _sharedInstance;
     return webController;
 }
 
+- (UIViewController*)startAnswerEngineHistory
+{
+    ECSActionType *aeAction = [ECSActionType new];
+    aeAction.type = ECSActionTypeAnswerHistory;
+    aeAction.actionId = @"";
+    
+    UIViewController *aeController = [self viewControllerForActionType:aeAction];
+    
+    return aeController;
+}
+
+- (UIViewController*)startChatHistory
+{
+    ECSActionType *chistAction = [ECSActionType new];
+    chistAction.type = ECSActionTypeChatHistory;
+    chistAction.actionId = @"";
+    
+    UIViewController *chistController = [self viewControllerForActionType:chistAction];
+    
+    return chistController;
+}
+
+- (UIViewController*)startSelectExpert
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpert;
+    expertAction.actionId = @"";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     [self setUserToken:username];

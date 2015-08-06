@@ -42,6 +42,15 @@
 /* Start Web Page Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartWebPageLabel" = "Web Page";
 
+/* Start Answer Engine History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryLabel" = "Answer Engine History";
+
+/* Start Chat History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryLabel" = "Chat History";
+
+/* Start Select Expert Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertLabel" = "Select Expert";
+
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
 
@@ -65,6 +74,15 @@
 
 /* Start Web Page Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartWebPageHeader" = "AdHoc Web Page";
+
+/* Start Answer Engine History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryHeader" = "AdHoc Answer Engine History";
+
+/* Start Chat History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryHeader" = "AdHoc Chat History";
+
+/* Start Select Expert Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertHeader" = "AdHoc Select Expert";
 
 /* End AdHoc Section */
 

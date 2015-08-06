@@ -153,6 +153,27 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startWebPage:(NSString *)url;
 
 /**
+ Returns a view controller for an EXPERTconnect Answer Engine History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startAnswerEngineHistory;
+
+/**
+ Returns a view controller for an EXPERTconnect Chat History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startChatHistory;
+
+/**
+ Returns a view controller for an EXPERTconnect Answer Engine History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startSelectExpert;
+
+/**
  Login support
  
  @param username the Name of the user attempting to login

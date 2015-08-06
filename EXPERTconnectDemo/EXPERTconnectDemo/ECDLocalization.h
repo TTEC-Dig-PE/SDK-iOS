@@ -33,6 +33,9 @@ static NSString* const ECDLocalizedStartVoiceCallbackHeader = @"ECDLocalizedStar
 static NSString* const ECDLocalizedStartEmailMessageHeader = @"ECDLocalizedStartEmailMessageHeader";
 static NSString* const ECDLocalizedStartSMSMessageHeader = @"ECDLocalizedStartSMSMessageHeader";
 static NSString* const ECDLocalizedStartWebPageHeader = @"ECDLocalizedStartWebPageHeader";
+static NSString* const ECDLocalizedStartAnswerEngineHistoryHeader = @"ECDLocalizedStartAnswerEngineHistoryHeader";
+static NSString* const ECDLocalizedStartChatHistoryHeader = @"ECDLocalizedStartChatHistoryHeader";
+static NSString* const ECDLocalizedStartSelectExpertHeader = @"ECDLocalizedStartSelectExpertHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
@@ -43,6 +46,9 @@ static NSString* const ECDLocalizedStartVoiceCallbackLabel = @"ECDLocalizedStart
 static NSString* const ECDLocalizedStartEmailMessageLabel = @"ECDLocalizedStartEmailMessageLabel";
 static NSString* const ECDLocalizedStartSMSMessageLabel = @"ECDLocalizedStartSMSMessageLabel";
 static NSString* const ECDLocalizedStartWebPageLabel = @"ECDLocalizedStartWebPageLabel";
+static NSString* const ECDLocalizedStartAnswerEngineHistoryLabel = @"ECDLocalizedStartAnswerEngineHistoryLabel";
+static NSString* const ECDLocalizedStartChatHistoryLabel = @"ECDLocalizedStartChatHistoryLabel";
+static NSString* const ECDLocalizedStartSelectExpertLabel = @"ECDLocalizedStartSelectExpertLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
