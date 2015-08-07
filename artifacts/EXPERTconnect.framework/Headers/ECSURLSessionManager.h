@@ -126,6 +126,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                    questionCount:(NSNumber*)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
 
+- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSFormSubmitResponse *, NSError *))completion;
+
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *formNames, NSError *error))completion;
 
 - (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *form , NSError *error))completion;

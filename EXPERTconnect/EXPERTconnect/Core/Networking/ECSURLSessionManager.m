@@ -267,6 +267,18 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+
+// TODO: Create ECSSelectExpertsResponse
+//
+- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSFormSubmitResponse *, NSError *))completion
+{
+    ECSLogVerbose(@"Get Experts matching by User");
+    return [self GET:@"registration/v1/experts"
+          parameters:nil
+             success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
     ECSLogVerbose(@"Get form names");
@@ -288,7 +300,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion;
+- (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     NSAssert(formName != nil && formName.length > 0, @"formName must be specified");
     ECSLogVerbose(@"Get form %@", formName);
@@ -300,7 +312,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
-                          completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
+                          completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
     ECSLogVerbose(@"Submit form %@", form);
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
@@ -331,7 +343,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)performRegistrationWithFullName:(NSString*)fullName
                                             emailAddress:(NSString*)email
                                             mobileNumber:(NSString*)mobileNumber
-                                              completion:(void (^)(id userData, NSError* error))completion;
+                                              completion:(void (^)(id userData, NSError* error))completion
 {
     NSDictionary *parameters = @{ @"name": fullName, @"email": email, @"mobileNumber": mobileNumber };
     
@@ -348,7 +360,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask*)startConversationForAction:(ECSActionType*)actionType
                                     andAlwaysCreate:(BOOL)alwaysCreate
-                                     withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion;
+                                     withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
     if ([actionType.journeybegin boolValue] || alwaysCreate)
     {

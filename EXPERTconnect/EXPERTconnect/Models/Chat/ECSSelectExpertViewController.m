@@ -52,6 +52,24 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
                                         bundle:[NSBundle bundleForClass:[ECSSelectExpertTableViewCell class]]];
     [self.tableView registerNib:featuredNib forCellReuseIdentifier:ECSExpertCellId];
     
+    if(self.experts == nil) {
+        __weak typeof(self) weakSelf = self;
+        
+        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+        [urlSession getExpertsWithCompletion:^(ECSFormSubmitResponse *response, NSError *error) {
+            [weakSelf setLoadingIndicatorVisible:NO];
+            if (!error)
+            {
+                weakSelf.experts = response.action.configuration[@"experts"];
+                [weakSelf.tableView reloadData];
+            }
+            else
+            {
+                [weakSelf showMessageForError:error];
+            }
+        }];
+    }
+    
     [self.tableView reloadData];
 }
 
