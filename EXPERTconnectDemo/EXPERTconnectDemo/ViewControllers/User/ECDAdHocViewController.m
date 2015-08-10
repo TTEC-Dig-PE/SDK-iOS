@@ -26,16 +26,21 @@
 
 // Start an AdHoc Chat
 // Start an AdHoc Answer Engine Session
+// Start an AdHoc Voice Callback Request
+// Start an AdHoc Survey (Form) by Name
+// Start an AdHoc User Profile Form
+// Start an AdHoc SMS Message
+// View my Chat History
+// View my Answer Engine History
+// Launch an AdHoc Web Page View
+// Display the Expert Select Chat Dialog
+//
+// Start (all of the above) with Host App ViewController or at least Host App controlled Navigation
+//
 // Get Answer Engine Top Questions
 // Ask an AdHoc Question from the Answer Engine
 // Rate an Answer Engine Response
-// Initiate an AdHoc Voice Callback
-// Retrieve my Conversation History
-// View my Chat History
-// View my Answer Engine History
 // Get list of available Forms
-// Render an AdHoc Form
-// Submit Form (AdHoc)
 // Retrieve Navigation or Navigation Segment
 // Upload an AdHoc image
 // Download and AdHoc image
@@ -43,14 +48,18 @@
 // Update my User Profile
 // Update User Profile Extended Attributes
 //
+// Display the Expert Select Voice Callback Dialog
+// Display the Expert Select Video Dialog
+// Display the Select Expert and Channel Dialog
+//
 // Retrieve Available Agents by Skill?
-// Display the Expert Select Dialog?
 // Invoke a "new" API Endpoint?
 // Retrieve list of skills with availability of each (# agents online, # agents available)
 // Retrieve list of agents (all) with availability state of each
 // estimated time to wait for skill X" and
 // leave a message via email
 // generic API endpoint
+// Push Notifications
 //
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
