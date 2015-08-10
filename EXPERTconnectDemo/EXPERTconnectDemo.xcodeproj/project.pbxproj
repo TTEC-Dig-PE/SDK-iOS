@@ -55,6 +55,15 @@
 		46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
 		46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
+		46BD59261B794FBE00032628 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
+		46BD59271B794FCC00032628 /* ECDAdHocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */; };
+		46BD59281B794FD900032628 /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
+		46BD59291B794FFA00032628 /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
+		46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */; };
+		46BD592B1B79500300032628 /* ECDAdHocWebPagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */; };
+		46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
+		46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
+		46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
 		D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
 		D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA691B66A25D00DA1762 /* MoxtraSDK */; };
@@ -1172,18 +1181,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46BD59291B794FFA00032628 /* ECDAdHocFormsPicker.m in Sources */,
 				D8CEBE9C1B55690C0053E9A0 /* HZAppDelegate.m in Sources */,
 				D8CEBE9D1B55690C0053E9A0 /* HZRiskViewController.m in Sources */,
 				D8CEBE9E1B55690C0053E9A0 /* HZDrawerViewController.m in Sources */,
 				D8CEBE9F1B55690C0053E9A0 /* ECDLicenseViewController.m in Sources */,
 				D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */,
+				46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */,
+				46BD59281B794FD900032628 /* ECDAdHocChatPicker.m in Sources */,
 				D8CEBEA01B55690C0053E9A0 /* ECDRegisterViewController.m in Sources */,
 				D8CEBEA11B55690C0053E9A0 /* ECDDefaultTheme.m in Sources */,
+				46BD59271B794FCC00032628 /* ECDAdHocViewController.m in Sources */,
+				46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
 				D8CEBEA21B55690C0053E9A0 /* ECDNavigationController.m in Sources */,
+				46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
 				D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */,
 				D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */,
 				D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */,
+				46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */,
 				D8CEBEA71B55690C0053E9A0 /* HZLoginViewController.m in Sources */,
 				D8CEBEA81B55690C0053E9A0 /* HZRootViewController.m in Sources */,
 				D8CEBEA91B55690C0053E9A0 /* ECDLoginViewController.m in Sources */,
@@ -1194,7 +1210,9 @@
 				D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */,
 				D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */,
 				D88696611B556CD000C8F955 /* main.m in Sources */,
+				46BD59261B794FBE00032628 /* ECDEnvironmentPicker.m in Sources */,
 				D8CEBEB11B55690C0053E9A0 /* HZResearchViewController.m in Sources */,
+				46BD592B1B79500300032628 /* ECDAdHocWebPagePicker.m in Sources */,
 				4695C37D1B5D802F00C95878 /* ECDLocalization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
