@@ -348,12 +348,33 @@
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
+		D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F91B6BC3F7005BD20E /* libxml2.dylib */; };
+		D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FB1B6BC412005BD20E /* CoreImage.framework */; };
+		D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FC1B6BC412005BD20E /* CoreText.framework */; };
+		D81613001B6BC420005BD20E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FF1B6BC420005BD20E /* ImageIO.framework */; };
+		D81613021B6BC42D005BD20E /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613011B6BC42D005BD20E /* libstdc++.6.dylib */; };
+		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
+		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
+		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
+		D81615001B793CAA005BD20E /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
 		D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */; };
 		D87F2F061B66C01700B7B9D5 /* ECSSelectExpertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */; };
 		D87F2F071B66C01700B7B9D5 /* ECSSelectExpertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */; };
+		D87F2F871B697FA500B7B9D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */; };
+		D87F2F881B697FA500B7B9D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */; };
+		D87F2F891B697FA500B7B9D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */; };
+		D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */; };
+		D87F2F8B1B697FA500B7B9D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */; };
+		D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F831B697FA500B7B9D5 /* Foundation.framework */; };
+		D87F2F8D1B697FA500B7B9D5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */; };
+		D87F2F8E1B697FA500B7B9D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */; };
+		D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F861B697FA500B7B9D5 /* UIKit.framework */; };
+		D87F2F911B697FB700B7B9D5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F901B697FB700B7B9D5 /* GLKit.framework */; };
+		D87F2F931B697FBD00B7B9D5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */; };
+		D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F941B697FC800B7B9D5 /* libc++.dylib */; };
 		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
@@ -717,12 +738,36 @@
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D81612FB1B6BC412005BD20E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		D81612FC1B6BC412005BD20E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		D81612FF1B6BC420005BD20E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		D81613011B6BC42D005BD20E /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		D81613031B6BC43C005BD20E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D81613051B6BC44D005BD20E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		D81614EF1B791883005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = "../../fusion_client_ios_sdk-2.1.30/Frameworks/ACBClientSDK.framework"; sourceTree = "<group>"; };
+		D81614F11B791971005BD20E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D81614F21B791971005BD20E /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
+		D81614F51B7919A7005BD20E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertViewController.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.h; sourceTree = SOURCE_ROOT; };
 		D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertViewController.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.m; sourceTree = SOURCE_ROOT; };
 		D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertViewController.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.xib; sourceTree = SOURCE_ROOT; };
+		D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../ACBClientSDK.framework; sourceTree = "<group>"; };
+		D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		D87F2F831B697FA500B7B9D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D87F2F861B697FA500B7B9D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D87F2F901B697FB700B7B9D5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D87F2F941B697FC800B7B9D5 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatCoBrowseMessage.h; path = Chat/ECSChatCoBrowseMessage.h; sourceTree = "<group>"; };
 		D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatCoBrowseMessage.m; path = Chat/ECSChatCoBrowseMessage.m; sourceTree = "<group>"; };
 		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
@@ -734,6 +779,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81615001B793CAA005BD20E /* ACBClientSDK.framework in Frameworks */,
+				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
+				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
+				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
+				D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */,
+				D81613021B6BC42D005BD20E /* libstdc++.6.dylib in Frameworks */,
+				D81613001B6BC420005BD20E /* ImageIO.framework in Frameworks */,
+				D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */,
+				D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */,
+				D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */,
+				D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */,
+				D87F2F931B697FBD00B7B9D5 /* libsqlite3.dylib in Frameworks */,
+				D87F2F911B697FB700B7B9D5 /* GLKit.framework in Frameworks */,
+				D87F2F871B697FA500B7B9D5 /* AudioToolbox.framework in Frameworks */,
+				D87F2F881B697FA500B7B9D5 /* AVFoundation.framework in Frameworks */,
+				D87F2F891B697FA500B7B9D5 /* CoreGraphics.framework in Frameworks */,
+				D87F2F8B1B697FA500B7B9D5 /* CoreVideo.framework in Frameworks */,
+				D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */,
+				D87F2F8D1B697FA500B7B9D5 /* OpenGLES.framework in Frameworks */,
+				D87F2F8E1B697FA500B7B9D5 /* QuartzCore.framework in Frameworks */,
+				D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */,
 				03CDD3FF1AB0BBE600E0C328 /* MapKit.framework in Frameworks */,
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
 				0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */,
@@ -1220,6 +1286,30 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D81614F51B7919A7005BD20E /* VideoToolbox.framework */,
+				D81614F11B791971005BD20E /* MediaPlayer.framework */,
+				D81614F21B791971005BD20E /* MediaToolbox.framework */,
+				D81614EF1B791883005BD20E /* ACBClientSDK.framework */,
+				D81613051B6BC44D005BD20E /* CoreAudio.framework */,
+				D81613031B6BC43C005BD20E /* SystemConfiguration.framework */,
+				D81613011B6BC42D005BD20E /* libstdc++.6.dylib */,
+				D81612FF1B6BC420005BD20E /* ImageIO.framework */,
+				D81612FB1B6BC412005BD20E /* CoreImage.framework */,
+				D81612FC1B6BC412005BD20E /* CoreText.framework */,
+				D81612F91B6BC3F7005BD20E /* libxml2.dylib */,
+				D87F2F941B697FC800B7B9D5 /* libc++.dylib */,
+				D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */,
+				D87F2F901B697FB700B7B9D5 /* GLKit.framework */,
+				D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */,
+				D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */,
+				D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */,
+				D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */,
+				D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */,
+				D87F2F831B697FA500B7B9D5 /* Foundation.framework */,
+				D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */,
+				D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */,
+				D87F2F861B697FA500B7B9D5 /* UIKit.framework */,
+				D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */,
 				03CDD3FE1AB0BBE600E0C328 /* MapKit.framework */,
 				0380DEB41A9F6595003D9248 /* CFNetwork.framework */,
 				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
@@ -1974,15 +2064,32 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLEID = com.humanify.EXPERTconnect;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1.0.0;
 				DYLIB_CURRENT_VERSION = 1.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
+					"/Users/nathan/Desktop/Workspaces/fusion_client_ios_sdk-2.1.30/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1993,16 +2100,33 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLEID = com.humanify.EXPERTconnect;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1.0.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1.0.0;
 				DYLIB_CURRENT_VERSION = 1.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
+					"/Users/nathan/Desktop/Workspaces/fusion_client_ios_sdk-2.1.30/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "83f914b0-f54a-4e15-9306-5bfb015af4ca";
 				SKIP_INSTALL = YES;
