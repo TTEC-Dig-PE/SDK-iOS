@@ -9,6 +9,7 @@
 
 #import "ECSChannelStateMessage.h"
 #import "ECSChatStateMessage.h"
+#import "ECSChatVoiceAuthenticationMessage.h"
 
 @class ECSActionType;
 @class ECSChatAddChannelMessage;

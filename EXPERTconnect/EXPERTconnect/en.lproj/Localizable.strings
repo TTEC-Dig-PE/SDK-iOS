@@ -177,7 +177,7 @@
 "ECSLocalizeTapToRespond" = "Tap to respond";
 
 /* Request a phone call */
-"ECSLocalizeRequestAPhoneCall" = "Request a Phone Call";
+"ECSLocalizeRequestAPhoneCall" = "Tap here to accept phone call";
 
 /* Request a SMS message */
 "ECSLocalizeRequestASMS" = "Request a SMS Message";
@@ -207,7 +207,7 @@
 "ECSLocalizeCallNavigationTitle" = "Phone Call";
 
 /* Request a Phone Call */
-"ECSLocalizeRequestCallButton" = "Request a Phone Call";
+"ECSLocalizeRequestCallButton" = "Confirm Phone Number";
 
 /* Enter your phone number to receive a call: */
 "ECSLocalizeRequestCallText" = "Enter your phone number to receive a call:";
@@ -285,7 +285,7 @@
 "ECSLocalizeChatLogs" = "Chat Logs";
 
 /* Chat Join User */
-"ECSLocalizeChatJoin" = "%1@ Joined";
+"ECSLocalizeChatJoin" = "You are connected with %1@.";
 
 /* History */
 "ECSLocalizeHistory" = "History";

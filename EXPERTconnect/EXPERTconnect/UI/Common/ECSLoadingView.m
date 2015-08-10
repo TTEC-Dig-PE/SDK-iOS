@@ -36,6 +36,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.activityIndicator = [[ECSCachingImageView alloc] initWithImagePath:@"ecs_activity_indicator"];
+    self.activityIndicator.image = [self.activityIndicator.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
     
