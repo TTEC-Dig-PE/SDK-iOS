@@ -23,6 +23,7 @@
 @class ECSHistoryResponse;
 @class ECSNavigationContext;
 @class ECSForm;
+@class ECSUserProfile;
 
 FOUNDATION_EXPORT NSString *const ECSReachabilityChangedNotification;
 
@@ -126,6 +127,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           rating:(NSNumber*)rating
                                    questionCount:(NSNumber*)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
+
+- (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion;
 
 - (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion;
 

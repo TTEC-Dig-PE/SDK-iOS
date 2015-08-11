@@ -42,6 +42,7 @@
 #import <EXPERTconnect/ECSLoadingView.h>
 #import <EXPERTconnect/ECSSectionHeader.h>
 #import <EXPERTconnect/ECSTheme.h>
+#import <EXPERTconnect/ECSUserProfile.h>
 
 #import <EXPERTconnect/ECSJSONSerializing.h>
 #import <EXPERTconnect/ECSNotifications.h>

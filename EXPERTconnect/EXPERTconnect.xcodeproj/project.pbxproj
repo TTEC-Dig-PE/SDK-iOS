@@ -348,6 +348,7 @@
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
+		46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4679BD941B7A493D002E2D9E /* ECSUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
 		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
@@ -1499,6 +1500,7 @@
 				0342B0401A9B60C10009959E /* ECSQuestionTableViewCell.h in Headers */,
 				035C4C0F1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h in Headers */,
 				03101F281AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.h in Headers */,
+				46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */,
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,

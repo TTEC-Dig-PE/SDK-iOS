@@ -10,6 +10,7 @@
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
+#import <EXPERTconnect/ECSUserProfile.h>
 
 @interface ECDExtendedUserProfileViewController ()
 
@@ -32,11 +33,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setLoadingIndicatorVisible:YES];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];    
+    [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)   {
+        
+        weakSelf.firstNameField.text = profile.firstName;
+        weakSelf.lastNameField.text = profile.lastName;
+        weakSelf.emailAddressField.text = profile.userID;
+        weakSelf.cityField.text = profile.city;
+        weakSelf.stateField.text = profile.state;
+        weakSelf.zipCodeField.text = profile.postalCode;
+        weakSelf.countryField.text = profile.country;
+        weakSelf.homePhoneField.text = profile.homePhone;
+        weakSelf.mobilePhoneField.text = profile.mobilePhone;
+        weakSelf.alternateEmailField.text = profile.alternativeEmail;
+        weakSelf.extendedAttibutesView.text = @"Deserialize: profile.customData";
+        
+        [weakSelf setLoadingIndicatorVisible:NO];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+    [super didReceiveMemoryWarning];}
 
 @end
