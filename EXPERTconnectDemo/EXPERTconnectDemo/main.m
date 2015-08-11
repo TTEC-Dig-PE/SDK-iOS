@@ -21,6 +21,10 @@ int main(int argc, char * argv[]) {
         
         int demo_mode = [[[NSUserDefaults standardUserDefaults] objectForKey:applicationRunMode] intValue];
         
+#ifdef HORIZON_TARGET
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([HZAppDelegate class]));
+#endif
+        
         switch (demo_mode) {
             case startExpertDemo:
                 // [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:startHorizonDemo] forKey:applicationRunMode];
