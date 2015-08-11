@@ -10,6 +10,7 @@
 #import <AirshipKit/AirshipKit.h>
 
 #import "ECDLicenseViewController.h"
+#import "ECDExtendedUserProfileViewController.h"
 #import "ECDAdHocViewController.h"
 #import "ECDUserDefaultKeys.h"
 #import "ECDAdHocChatPicker.h"
@@ -558,7 +559,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     if (indexPath.section == SettingsSectionTwelve && indexPath.row == SettingsSectionTwelveRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocEditUserProfileExtended];
     }
     
     if (indexPath.section == SettingsSectionThirteen && indexPath.row == SettingsSectionThirteenRowStart)
@@ -804,6 +805,15 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpert];
     [self.navigationController pushViewController:selectExpertController animated:YES];
 }
+
+-(void)handleAdHocEditUserProfileExtended
+{
+    NSLog(@"Rendering an ad-hoc User Profile Form with Extended Attributes");
+    
+    ECDExtendedUserProfileViewController *profileController = [[ECDExtendedUserProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:profileController animated:YES];
+}
+
 
 -(void)handleAdHocShowLicense
 {

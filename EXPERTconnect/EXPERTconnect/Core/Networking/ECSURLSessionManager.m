@@ -24,6 +24,7 @@
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
 #import "ECSSelectExpertsResponse.h"
+#import "ECSUserProfile.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
 #import "ECSKeychainSupport.h"
@@ -268,10 +269,21 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+- (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion
+{
+    ECSLogVerbose(@"Get User's Profile");
+    
+    return [self GET:@"registration/v1/profile"
+          parameters:nil
+             success:[self successWithExpectedType:[ECSUserProfile class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
 
 - (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
 {
     ECSLogVerbose(@"Get Experts matching by User");
+    
     return [self GET:@"registration/v1/experts"
           parameters:nil
              success:[self successWithExpectedType:[ECSSelectExpertsResponse class] completion:completion]

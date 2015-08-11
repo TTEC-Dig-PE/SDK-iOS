@@ -349,6 +349,7 @@
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
 		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
+		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -720,6 +721,8 @@
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSelectExpertsResponse.m; sourceTree = "<group>"; };
 		4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSSelectExpertsResponse.h; sourceTree = "<group>"; };
+		4679BD941B7A493D002E2D9E /* ECSUserProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSUserProfile.h; sourceTree = "<group>"; };
+		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -772,6 +775,7 @@
 		033ACB101A602C9C0024F48F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4679BD931B7A491E002E2D9E /* Registration */,
 				03C310291A9B59E3006B3557 /* ActionTypes */,
 				03C3102B1A9B5A86006B3557 /* Chat */,
 				2252C6921A7BE9CE00B99912 /* Forms */,
@@ -1384,6 +1388,15 @@
 			path = Forms;
 			sourceTree = "<group>";
 		};
+		4679BD931B7A491E002E2D9E /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				4679BD941B7A493D002E2D9E /* ECSUserProfile.h */,
+				4679BD951B7A4949002E2D9E /* ECSUserProfile.m */,
+			);
+			name = Registration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1846,6 +1859,7 @@
 				0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */,
 				039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */,
 				0390624D1AC9D3B100E006BE /* ECSChannelStateMessage.m in Sources */,
+				4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */,
 				031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */,
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,

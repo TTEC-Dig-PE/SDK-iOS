@@ -49,6 +49,9 @@
 		4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */; };
 		466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
 		466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */; };
+		4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */; };
+		4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */; };
+		4679BD9C1B7A6805002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */; };
 		4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
 		4695C37D1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
 		46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */; };
@@ -327,6 +330,9 @@
 		466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDAdHocViewController.xib; sourceTree = "<group>"; };
 		466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocViewController.h; sourceTree = "<group>"; };
 		466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocViewController.m; sourceTree = "<group>"; };
+		4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDExtendedUserProfileViewController.xib; sourceTree = "<group>"; };
+		4679BD991B7A527D002E2D9E /* ECDExtendedUserProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDExtendedUserProfileViewController.h; sourceTree = "<group>"; };
+		4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDExtendedUserProfileViewController.m; sourceTree = "<group>"; };
 		4695C37B1B5D802F00C95878 /* ECDLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDLocalization.m; sourceTree = "<group>"; };
 		4695C37E1B5D805200C95878 /* ECDLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDLocalization.h; sourceTree = "<group>"; };
 		46BA32F61B604E6600E5C270 /* ECDEnvironmentPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDEnvironmentPicker.h; sourceTree = "<group>"; };
@@ -598,6 +604,9 @@
 				4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */,
 				4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */,
 				4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */,
+				4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */,
+				4679BD991B7A527D002E2D9E /* ECDExtendedUserProfileViewController.h */,
+				4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -969,6 +978,7 @@
 				D8CEBE1F1B546DC20053E9A0 /* HZResearchViewController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
 				D8CEBE291B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf in Resources */,
+				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
 				D8CEBE191B546DC20053E9A0 /* HZLoginViewController.xib in Resources */,
 				D8CEBE271B546DC20053E9A0 /* RobotoCondensed-Italic.ttf in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
@@ -1154,6 +1164,7 @@
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				D8CEBE171B546DC20053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
+				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
 				22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */,
@@ -1202,6 +1213,7 @@
 				46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */,
 				D8CEBEA71B55690C0053E9A0 /* HZLoginViewController.m in Sources */,
 				D8CEBEA81B55690C0053E9A0 /* HZRootViewController.m in Sources */,
+				4679BD9C1B7A6805002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				D8CEBEA91B55690C0053E9A0 /* ECDLoginViewController.m in Sources */,
 				D8CEBEAB1B55690C0053E9A0 /* ECDMainMenuTableViewCell.m in Sources */,
 				D8CEBEAC1B55690C0053E9A0 /* ECDRootViewController.m in Sources */,
