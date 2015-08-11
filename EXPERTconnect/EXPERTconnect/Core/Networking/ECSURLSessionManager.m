@@ -23,6 +23,7 @@
 #import "ECSConversationCreateResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
+#import "ECSSelectExpertsResponse.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
 #import "ECSKeychainSupport.h"
@@ -268,14 +269,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-// TODO: Create ECSSelectExpertsResponse
-//
-- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSFormSubmitResponse *, NSError *))completion
+- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
 {
     ECSLogVerbose(@"Get Experts matching by User");
     return [self GET:@"registration/v1/experts"
           parameters:nil
-             success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
+             success:[self successWithExpectedType:[ECSSelectExpertsResponse class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
 

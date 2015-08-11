@@ -348,6 +348,7 @@
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
+		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -717,6 +718,8 @@
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSelectExpertsResponse.m; sourceTree = "<group>"; };
+		4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSSelectExpertsResponse.h; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -1052,6 +1055,8 @@
 				031B2D681AAF443900A00A36 /* ECSHistoryResponse.m */,
 				031B2D6B1AAF453200A00A36 /* ECSAnswerHistoryResponse.h */,
 				031B2D6C1AAF453200A00A36 /* ECSAnswerHistoryResponse.m */,
+				4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */,
+				4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */,
 			);
 			name = Responses;
 			sourceTree = "<group>";
@@ -1709,6 +1714,7 @@
 				03C3105D1A9B5B56006B3557 /* ECSChatActionType.m in Sources */,
 				03EABE371AA7AE38000BCA17 /* ECSConfiguration.m in Sources */,
 				03101F291AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.m in Sources */,
+				4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */,
 				039E13111A8BBACC00AD4927 /* ECSKeychainSupport.m in Sources */,
 				03BD9E2C1AF2A1F2003D808C /* ECSInlineFormViewController.m in Sources */,
 				03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */,

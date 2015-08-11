@@ -8,6 +8,7 @@
 
 #import "ECSSelectExpertViewController.h"
 #import "ECSFeaturedTableViewCell.h"
+#import "ECSSelectExpertsResponse.h"
 
 #import "ECSSelectExpertTableViewCell.h"
 
@@ -56,7 +57,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         __weak typeof(self) weakSelf = self;
         
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        [urlSession getExpertsWithCompletion:^(ECSFormSubmitResponse *response, NSError *error) {
+        [urlSession getExpertsWithCompletion:^(ECSSelectExpertsResponse *response, NSError *error) {
             [weakSelf setLoadingIndicatorVisible:NO];
             if (!error)
             {
