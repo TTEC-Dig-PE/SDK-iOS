@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Sections/Profile/ECSProfileViewController.m \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Sections/Profile/ECSProfileViewController.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSRootViewController.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ActionTypes/ECSActionType.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONObject.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONSerializing.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Sections/History/ECSAnswerEngineHistoryViewController.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Sections/History/ECSChatLogsViewController.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSCircleImageView.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSCachingImageView.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSDynamicLabel.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Forms/ECSForm.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Forms/ECSFormItem.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Core/ECSInjector.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSLocalization.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Core/Networking/ECSURLSessionManager.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Sections/Forms/ECSFormTextField.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Responses/ECSFormSubmitResponse.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Core/ECSUserManager.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSTheme.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Categories/UIViewController+ECSNibLoading.h

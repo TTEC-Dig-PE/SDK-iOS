@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatHistoryResponse.m \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatHistoryResponse.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONObject.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONSerializing.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatHistoryMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONSerializer.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ActionTypes/ECSActionTypeClassTransformer.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/ECSJSONClassTransformer.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatStateMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSAddressableChatMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatTextMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatURLMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatFormMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Forms/ECSForm.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChannelStateMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatAddParticipantMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatAddChannelMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatAssociateInfoMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatCoBrowseMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatVoiceAuthenticationMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatInfoMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatMediaMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/Models/Chat/ECSChatNotificationMessage.h \
+  /Users/nathan/Desktop/Workspaces/SDK-iOS/EXPERTconnect/EXPERTconnect/UI/Common/ECSLocalization.h

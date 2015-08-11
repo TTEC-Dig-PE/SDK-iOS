@@ -356,7 +356,7 @@
 		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
 		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
-		D8695A861B7A6243008FCE75 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
+		D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -779,7 +779,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8695A861B7A6243008FCE75 /* ACBClientSDK.framework in Frameworks */,
+				D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
@@ -2090,11 +2090,14 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-read_only_relocs",
+					suppress,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
@@ -2129,11 +2132,14 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
+					"-read_only_relocs",
+					suppress,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "83f914b0-f54a-4e15-9306-5bfb015af4ca";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};
