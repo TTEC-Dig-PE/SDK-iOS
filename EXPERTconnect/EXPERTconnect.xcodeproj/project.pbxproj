@@ -356,7 +356,7 @@
 		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
 		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
-		D81615001B793CAA005BD20E /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */; };
+		D8695A861B7A6243008FCE75 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -749,13 +749,13 @@
 		D81614F11B791971005BD20E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D81614F21B791971005BD20E /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		D81614F51B7919A7005BD20E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ThirdParty/ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertViewController.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.h; sourceTree = SOURCE_ROOT; };
 		D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertViewController.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.m; sourceTree = SOURCE_ROOT; };
 		D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertViewController.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.xib; sourceTree = SOURCE_ROOT; };
-		D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -779,7 +779,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D81615001B793CAA005BD20E /* ACBClientSDK.framework in Frameworks */,
+				D8695A861B7A6243008FCE75 /* ACBClientSDK.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
@@ -1286,6 +1286,7 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */,
 				D81614F51B7919A7005BD20E /* VideoToolbox.framework */,
 				D81614F11B791971005BD20E /* MediaPlayer.framework */,
 				D81614F21B791971005BD20E /* MediaToolbox.framework */,
@@ -1309,7 +1310,6 @@
 				D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */,
 				D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */,
 				D87F2F861B697FA500B7B9D5 /* UIKit.framework */,
-				D87F2F7C1B697F3300B7B9D5 /* ACBClientSDK.framework */,
 				03CDD3FE1AB0BBE600E0C328 /* MapKit.framework */,
 				0380DEB41A9F6595003D9248 /* CFNetwork.framework */,
 				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
@@ -2063,6 +2063,7 @@
 		03978EF91A602AEF007793D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2074,8 +2075,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
-					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
-					"/Users/nathan/Desktop/Workspaces/fusion_client_ios_sdk-2.1.30/Frameworks",
+					"$(PROJECT_DIR)/ThirdParty",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2086,12 +2086,14 @@
 				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2099,6 +2101,7 @@
 		03978EFA1A602AEF007793D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2111,8 +2114,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
-					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
-					"/Users/nathan/Desktop/Workspaces/fusion_client_ios_sdk-2.1.30/Frameworks",
+					"$(PROJECT_DIR)/ThirdParty",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2123,12 +2125,14 @@
 				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "83f914b0-f54a-4e15-9306-5bfb015af4ca";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
