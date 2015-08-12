@@ -43,6 +43,7 @@
 		22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
 		3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
 		46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
+		462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 462C19261B7BC3CF00E230B7 /* UserProfile.json */; };
 		46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
 		46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
 		4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */; };
@@ -319,6 +320,7 @@
 		46004D531B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocFormsPicker.m; sourceTree = "<group>"; };
 		46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocFormsPicker.h; sourceTree = "<group>"; };
+		462C19261B7BC3CF00E230B7 /* UserProfile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserProfile.json; sourceTree = "<group>"; };
 		46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocChatPicker.h; sourceTree = "<group>"; };
 		46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocChatPicker.m; sourceTree = "<group>"; };
 		46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocAnswerEngineContextPicker.m; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			children = (
 				4695C3781B5D7B8600C95878 /* UI */,
 				033ACB3E1A602CC00024F48F /* MainMenuConfig.json */,
+				462C19261B7BC3CF00E230B7 /* UserProfile.json */,
 				033ACB3F1A602CC00024F48F /* ViewControllers */,
 				033ACB4A1A602CC00024F48F /* Views */,
 				03978F0E1A602B2D007793D6 /* AppDelegate.h */,
@@ -969,6 +972,7 @@
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
+				462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */,
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */,

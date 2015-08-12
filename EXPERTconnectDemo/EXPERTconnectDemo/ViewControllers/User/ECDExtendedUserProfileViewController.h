@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 

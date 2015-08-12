@@ -1,0 +1,15 @@
+{
+    "affinity": {
+        "skill": "financial advisor",
+        "expertId": "chris_horizon",
+        "sat_score": 9
+    },
+    "clv": 75000,
+    "region": "midatlantic",
+    "interests": [
+        "running",
+        "skiing"
+    ],
+    "nps": 4,
+    "klout": 40
+}

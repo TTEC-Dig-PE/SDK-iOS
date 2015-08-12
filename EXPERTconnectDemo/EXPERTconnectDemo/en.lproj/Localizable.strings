@@ -17,6 +17,9 @@
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Register";
 
+/* Profile was updated  */
+"ECDLocalizeProfileWasUpdatedKey" = "Profile was updated";
+
 /* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
@@ -51,6 +54,11 @@
 /* Start Select Expert Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartSelectExpertLabel" = "Select Expert";
 
+/* Start Extended User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileLabel" = "Registration Edit Profile";
+
+/* ----------------------------------------------------- */
+
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
 
@@ -83,6 +91,9 @@
 
 /* Start Select Expert Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartSelectExpertHeader" = "AdHoc Select Expert";
+
+/* Start Extended User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileHeader" = "AdHoc Edit (Extended) User Profile";
 
 /* End AdHoc Section */
 

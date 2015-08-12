@@ -158,6 +158,9 @@
 /* Continuer Bavarder */
 "ECSLocalizeContinueChattingKey" = "Souhaitez-vous continuer à bavarder?";
 
+/* Info */
+"ECSLocalizeInfoKey" = "Infos";
+
 /* Attention */
 "ECSLocalizeWarningKey" = "Avertissement";
 

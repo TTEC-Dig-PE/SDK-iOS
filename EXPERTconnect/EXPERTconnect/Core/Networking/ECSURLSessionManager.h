@@ -130,6 +130,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion;
 
+- (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSString *, NSError *))completion;
+
 - (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion;
 
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *formNames, NSError *error))completion;

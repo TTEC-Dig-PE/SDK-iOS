@@ -65,6 +65,10 @@
                 {
                     convertedJSONValue = [ECSJSONSerializer objectFromJSONDictionary:jsonValue
                                                                            withClass:jsonClassType];
+                    
+                    if([convertedJSONValue isKindOfClass:[NSDictionary class]])  {
+                        convertedJSONValue = jsonValue;
+                    }
                 }
             }
 

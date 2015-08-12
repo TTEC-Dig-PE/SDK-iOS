@@ -7,6 +7,7 @@
 //
 
 #import "ECSUserProfile.h"
+#import "ECSCustomDataClassTransformer.h"
 
 @implementation ECSUserProfile
 
@@ -23,22 +24,22 @@
              @"postalCode": @"postalCode",
              @"country": @"country",
              @"homePhone": @"homePhone",
-             @"mobilePhone": @"mobilePHone",
+             @"mobilePhone": @"mobilePhone",
              @"alternativeEmail": @"alternativeEmail",
              @"customData": @"customData"
              };
 }
 
-/*
+
 - (NSDictionary*)ECSJSONTransformMapping
 {
+    // return @{
+    //          @"action": [ECSActionTypeClassTransformer class],
+    //          };
     return @{
-             @"action": [ECSActionTypeClassTransformer class],
-             };
-    return @{
-            @"customData": [ECSHorizonExtendedAttributesClassTransformer class],
+            @"customData": [ECSCustomDataClassTransformer class],
             };
 }
-*/
+
 
 @end

@@ -279,6 +279,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSLogVerbose(@"Submit User Profile");
+    
+    return [self POST:@"registration/v1/profile"
+          parameters:[ECSJSONSerializer jsonDictionaryFromObject:profile]
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
 
 - (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
 {
@@ -627,6 +636,18 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 id resultObject = [ECSJSONSerializer objectFromJSONDictionary:result
                                                                     withClass:aClass];
                 
+                completion(resultObject, nil);
+            }
+            else if ([result isKindOfClass:[NSNumber class]])
+            {
+                NSNumber *tfbool = (NSNumber *)result;
+                NSString *truefalse = @"true";
+                
+                if([tfbool isEqual:@0]) {
+                    truefalse = @"false";
+                }
+                
+                id resultObject = truefalse;
                 completion(resultObject, nil);
             }
             else

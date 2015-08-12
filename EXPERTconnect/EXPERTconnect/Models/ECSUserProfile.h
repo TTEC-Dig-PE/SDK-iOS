@@ -27,7 +27,7 @@
 @property (strong, nonatomic) NSString *homePhone;
 @property (strong, nonatomic) NSString *mobilePhone;
 @property (strong, nonatomic) NSString *alternativeEmail;
-@property (strong, nonatomic) NSString *customData;
+@property (strong, nonatomic) NSDictionary *customData;
 // fullName
 
 @end

@@ -158,6 +158,9 @@
 /* Continue Chatting */
 "ECSLocalizeContinueChattingKey" = "Would you like to continue chatting?";
 
+/* Info */
+"ECSLocalizeInfoKey" = "Info";
+
 /* Warning */
 "ECSLocalizeWarningKey" = "Warning";
 

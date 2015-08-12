@@ -158,6 +158,9 @@
 /* Continuar Charla */
 "ECSLocalizeContinueChattingKey" = "¿Le gustaría seguir charlando?";
 
+/* Info */
+"ECSLocalizeInfoKey" = "Info";
+
 /* Advertencia */
 "ECSLocalizeWarningKey" = "Advertencia";
 

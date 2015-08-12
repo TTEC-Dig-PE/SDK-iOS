@@ -24,6 +24,7 @@ static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
+static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
@@ -36,6 +37,7 @@ static NSString* const ECDLocalizedStartWebPageHeader = @"ECDLocalizedStartWebPa
 static NSString* const ECDLocalizedStartAnswerEngineHistoryHeader = @"ECDLocalizedStartAnswerEngineHistoryHeader";
 static NSString* const ECDLocalizedStartChatHistoryHeader = @"ECDLocalizedStartChatHistoryHeader";
 static NSString* const ECDLocalizedStartSelectExpertHeader = @"ECDLocalizedStartSelectExpertHeader";
+static NSString* const ECDLocalizedStartExtendedUserProfileHeader = @"ECDLocalizedStartExtendedUserProfileHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
@@ -49,6 +51,7 @@ static NSString* const ECDLocalizedStartWebPageLabel = @"ECDLocalizedStartWebPag
 static NSString* const ECDLocalizedStartAnswerEngineHistoryLabel = @"ECDLocalizedStartAnswerEngineHistoryLabel";
 static NSString* const ECDLocalizedStartChatHistoryLabel = @"ECDLocalizedStartChatHistoryLabel";
 static NSString* const ECDLocalizedStartSelectExpertLabel = @"ECDLocalizedStartSelectExpertLabel";
+static NSString* const ECDLocalizedStartExtendedUserProfileLabel = @"ECDLocalizedStartExtendedUserProfileLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
