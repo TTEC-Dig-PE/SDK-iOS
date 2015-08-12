@@ -42,7 +42,6 @@
 
 NSString *const ECSReachabilityChangedNotification = @"ECSNetworkReachabilityChangedNotification";
 
-
 typedef void (^ECSSessionManagerSuccess)(id result, NSURLResponse *response);
 typedef void (^ECSSessionManagerFailure)(id result, NSURLResponse *response, NSError *error);
 
@@ -267,6 +266,27 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               success:[self successWithExpectedType:[ECSAnswerEngineRateResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 
+}
+
+- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSLogVerbose(@"Get Results from a known endpoint");
+    
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:[self.baseURL.path stringByAppendingString:endpoint]];
+    
+    endpoint = urlComponents.path;
+    NSArray *query = urlComponents.queryItems;
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    for(NSURLQueryItem *item in query)
+    {
+        [parameters setObject:item.value forKey:item.name];
+    }
+
+    return [self GET:endpoint
+          parameters:parameters
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
 }
 
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion
@@ -648,6 +668,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
                 
                 id resultObject = truefalse;
+                completion(resultObject, nil);
+            }
+            else if ([result isKindOfClass:[NSString class]])
+            {
+                id resultObject = result;
                 completion(resultObject, nil);
             }
             else

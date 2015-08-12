@@ -44,6 +44,8 @@
 		3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
 		46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
 		462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 462C19261B7BC3CF00E230B7 /* UserProfile.json */; };
+		462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */; };
+		462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
 		46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
 		4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */; };
@@ -321,6 +323,9 @@
 		46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocFormsPicker.m; sourceTree = "<group>"; };
 		46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocFormsPicker.h; sourceTree = "<group>"; };
 		462C19261B7BC3CF00E230B7 /* UserProfile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserProfile.json; sourceTree = "<group>"; };
+		462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDAPIConfigViewController.xib; sourceTree = "<group>"; };
+		462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAPIConfigViewController.m; sourceTree = "<group>"; };
+		462E1DF41B7BD52B00AFC62D /* ECDAPIConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAPIConfigViewController.h; sourceTree = "<group>"; };
 		46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocChatPicker.h; sourceTree = "<group>"; };
 		46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocChatPicker.m; sourceTree = "<group>"; };
 		46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocAnswerEngineContextPicker.m; sourceTree = "<group>"; };
@@ -609,6 +614,9 @@
 				4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */,
 				4679BD991B7A527D002E2D9E /* ECDExtendedUserProfileViewController.h */,
 				4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */,
+				462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */,
+				462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */,
+				462E1DF41B7BD52B00AFC62D /* ECDAPIConfigViewController.h */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -990,6 +998,7 @@
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
+				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,
 				D8CEBE231B546DC20053E9A0 /* HZRootViewController.xib in Resources */,
@@ -1155,6 +1164,7 @@
 				033A398E1AD579FC006B34B2 /* ECDRegisterViewController.m in Sources */,
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
+				462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */,
 				03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */,
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,

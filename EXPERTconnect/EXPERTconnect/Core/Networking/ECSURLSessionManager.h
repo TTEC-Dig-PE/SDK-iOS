@@ -25,6 +25,10 @@
 @class ECSForm;
 @class ECSUserProfile;
 
+
+typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
+
+
 FOUNDATION_EXPORT NSString *const ECSReachabilityChangedNotification;
 
 typedef NS_ENUM(NSUInteger, ECSHistoryType)
@@ -127,6 +131,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           rating:(NSNumber*)rating
                                    questionCount:(NSNumber*)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
+
+- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion;
 
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion;
 

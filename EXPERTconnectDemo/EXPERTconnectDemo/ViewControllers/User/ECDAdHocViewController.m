@@ -11,6 +11,7 @@
 
 #import "ECDLicenseViewController.h"
 #import "ECDExtendedUserProfileViewController.h"
+#import "ECDAPIConfigViewController.h"
 #import "ECDAdHocViewController.h"
 #import "ECDUserDefaultKeys.h"
 #import "ECDAdHocChatPicker.h"
@@ -572,7 +573,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     if (indexPath.section == SettingsSectionThirteen && indexPath.row == SettingsSectionThirteenRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocAPIConfigEditor];
     }
     
     if (indexPath.section == SettingsSectionFourteen && indexPath.row == SettingsSectionFourteenRowStart)
@@ -820,6 +821,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     ECDExtendedUserProfileViewController *profileController = [[ECDExtendedUserProfileViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:profileController animated:YES];
+}
+
+-(void)handleAdHocAPIConfigEditor
+{
+    NSLog(@"Rendering an ad-hoc API Config Editor with Extended Attributes");
+    
+    ECDAPIConfigViewController *configController = [[ECDAPIConfigViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:configController animated:YES];
 }
 
 

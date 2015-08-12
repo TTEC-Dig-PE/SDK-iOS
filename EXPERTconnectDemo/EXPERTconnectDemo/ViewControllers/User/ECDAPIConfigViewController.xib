@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDAPIConfigViewController">
+            <connections>
+                <outlet property="configEndpointField" destination="1PF-Pt-ipC" id="TYK-Vl-UOc"/>
+                <outlet property="configNameField" destination="wJc-5k-xh6" id="XpJ-76-ebw"/>
+                <outlet property="configValueField" destination="vBJ-Wr-Mds" id="SOw-Ng-Sim"/>
+                <outlet property="submitButton" destination="BIG-7G-Sav" id="9gC-Tz-WZz"/>
+                <outlet property="view" destination="iN0-l3-epB" id="iCI-uG-oc3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygs-Nc-V0m">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIG-7G-Sav">
+                            <rect key="frame" x="116" y="155" width="82" height="30"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="82" id="kGB-An-aRY"/>
+                            </constraints>
+                            <state key="normal" title="Submit">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Server Config Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s6T-hd-ys0">
+                            <rect key="frame" x="8" y="19" width="217" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SvQ-N9-j6Z">
+                            <rect key="frame" x="46" y="48" width="50" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Endpoint" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIP-mh-1py">
+                            <rect key="frame" x="28" y="85" width="75" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-co-U5Q">
+                            <rect key="frame" x="54" y="120" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="appconfig.mktwebextc.default.answerengine" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wJc-5k-xh6">
+                            <rect key="frame" x="116" y="44" width="476" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="476" id="7pC-7R-N5g"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="/appconfig/v1/update_rconfig?name={name}&amp;value={value}" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-Pt-ipC">
+                            <rect key="frame" x="116" y="82" width="476" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Synthetix" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBJ-Wr-Mds">
+                            <rect key="frame" x="116" y="117" width="109" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="109" id="G2l-s0-FPo"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="HLl-co-U5Q" firstAttribute="baseline" secondItem="vBJ-Wr-Mds" secondAttribute="baseline" id="0wo-uh-Fjc"/>
+                        <constraint firstItem="1PF-Pt-ipC" firstAttribute="top" secondItem="wJc-5k-xh6" secondAttribute="bottom" constant="8" symbolic="YES" id="5Iz-Xq-GTg"/>
+                        <constraint firstItem="1PF-Pt-ipC" firstAttribute="leading" secondItem="wJc-5k-xh6" secondAttribute="leading" id="8QI-zk-jXR"/>
+                        <constraint firstItem="1PF-Pt-ipC" firstAttribute="leading" secondItem="uIP-mh-1py" secondAttribute="trailing" constant="13" id="BgY-M8-Bok"/>
+                        <constraint firstItem="wJc-5k-xh6" firstAttribute="trailing" secondItem="1PF-Pt-ipC" secondAttribute="trailing" id="I1b-4E-bVy"/>
+                        <constraint firstItem="1PF-Pt-ipC" firstAttribute="baseline" secondItem="uIP-mh-1py" secondAttribute="baseline" id="KvE-AB-km2"/>
+                        <constraint firstItem="HLl-co-U5Q" firstAttribute="trailing" secondItem="SvQ-N9-j6Z" secondAttribute="trailing" id="McI-vj-RgR"/>
+                        <constraint firstItem="vBJ-Wr-Mds" firstAttribute="leading" secondItem="BIG-7G-Sav" secondAttribute="leading" id="Mzz-ri-bQt"/>
+                        <constraint firstItem="wJc-5k-xh6" firstAttribute="top" secondItem="s6T-hd-ys0" secondAttribute="bottom" constant="4" id="NGa-GM-fHO"/>
+                        <constraint firstItem="vBJ-Wr-Mds" firstAttribute="leading" secondItem="1PF-Pt-ipC" secondAttribute="leading" id="RQk-Rn-gES"/>
+                        <constraint firstItem="wJc-5k-xh6" firstAttribute="leading" secondItem="SvQ-N9-j6Z" secondAttribute="trailing" constant="20" id="WbF-c7-W3E"/>
+                        <constraint firstItem="uIP-mh-1py" firstAttribute="leading" secondItem="Ygs-Nc-V0m" secondAttribute="leading" constant="28" id="XvT-jk-EE8"/>
+                        <constraint firstItem="s6T-hd-ys0" firstAttribute="leading" secondItem="Ygs-Nc-V0m" secondAttribute="leadingMargin" id="crF-Dl-kce"/>
+                        <constraint firstItem="HLl-co-U5Q" firstAttribute="leading" secondItem="Ygs-Nc-V0m" secondAttribute="leading" constant="54" id="dRh-A0-4xH"/>
+                        <constraint firstItem="s6T-hd-ys0" firstAttribute="top" secondItem="Ygs-Nc-V0m" secondAttribute="top" constant="19" id="hZO-WN-Jok"/>
+                        <constraint firstItem="vBJ-Wr-Mds" firstAttribute="top" secondItem="1PF-Pt-ipC" secondAttribute="bottom" constant="5" id="hi3-UP-Cqu"/>
+                        <constraint firstItem="SvQ-N9-j6Z" firstAttribute="top" secondItem="s6T-hd-ys0" secondAttribute="bottom" constant="8" symbolic="YES" id="lPM-d2-ssd"/>
+                        <constraint firstItem="s6T-hd-ys0" firstAttribute="trailing" secondItem="vBJ-Wr-Mds" secondAttribute="trailing" id="oJM-Iy-Tzt"/>
+                        <constraint firstItem="wJc-5k-xh6" firstAttribute="trailing" secondItem="Ygs-Nc-V0m" secondAttribute="trailingMargin" id="r1T-bj-V31"/>
+                        <constraint firstItem="BIG-7G-Sav" firstAttribute="top" secondItem="vBJ-Wr-Mds" secondAttribute="bottom" constant="8" symbolic="YES" id="sWE-Fy-CcE"/>
+                        <constraint firstAttribute="bottom" secondItem="BIG-7G-Sav" secondAttribute="bottom" constant="415" id="wth-0o-me3"/>
+                        <constraint firstItem="SvQ-N9-j6Z" firstAttribute="leading" secondItem="Ygs-Nc-V0m" secondAttribute="leading" constant="46" id="ybf-jY-fjq"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ygs-Nc-V0m" secondAttribute="trailing" id="V1B-EE-IxN"/>
+                <constraint firstItem="Ygs-Nc-V0m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VrD-P6-YfD"/>
+                <constraint firstAttribute="bottom" secondItem="Ygs-Nc-V0m" secondAttribute="bottom" id="kHn-hw-pEV"/>
+                <constraint firstItem="Ygs-Nc-V0m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oBB-Tg-d19"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
