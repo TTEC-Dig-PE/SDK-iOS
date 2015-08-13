@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocChatHistory,
     SettingsSectionAdHocSelectExpert,
     SettingsSectionAdHocExtendedUserProfile,
-    SettingsSectionThirteen,
+    SettingsSectionAdHocAPIConfig,
     SettingsSectionFourteen,
     SettingsSectionFifteen,
     SettingsSectionCount
@@ -163,10 +163,10 @@ typedef NS_ENUM(NSInteger, ExtendedUserProfileSectionRows)
     AdHocExtendedUserProfileRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowThirteenRows)
+typedef NS_ENUM(NSInteger, APIConfigSectionRows)
 {
-    SettingsSectionThirteenRowStart,
-    SettingsSectionThirteenRowCount
+    AdHocAPIConfigRowStart,
+    AdHocAPIConfigRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowFourteenRows)
@@ -283,8 +283,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             rowCount = AdHocExtendedUserProfileRowCount;
             break;
             
-        case SettingsSectionThirteen:
-            rowCount = SettingsSectionThirteenRowCount;
+        case SettingsSectionAdHocAPIConfig:
+            rowCount = AdHocAPIConfigRowCount;
             break;
             
         case SettingsSectionFourteen:
@@ -465,10 +465,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionThirteen:
+        case SettingsSectionAdHocAPIConfig:
             switch (indexPath.row) {
                 case AdHocUserProfileSectionRowStart:
-                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Thirteen", @"Section Thirteen");
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAPIConfigLabel, @"AdHoc Registration Edit User Profile");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -571,7 +571,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         [self handleAdHocEditUserProfileExtended];
     }
     
-    if (indexPath.section == SettingsSectionThirteen && indexPath.row == SettingsSectionThirteenRowStart)
+    if (indexPath.section == SettingsSectionAdHocAPIConfig && indexPath.row == AdHocAPIConfigRowStart)
     {
         [self handleAdHocAPIConfigEditor];
     }
@@ -672,14 +672,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionAdHocExtendedUserProfile:
         {
-            title = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileHeader, @"Twelve Header");
+            title = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileHeader, @"Ad Hoc Extended User Profile");
         }
             break;
             
             
-        case SettingsSectionThirteen:
+        case SettingsSectionAdHocAPIConfig:
         {
-            title = ECDLocalizedString(@"Localized Section Thirteen Header", @"Thirteen Header");
+            title = ECDLocalizedString(ECDLocalizedStartAPIConfigHeader, @"Ad Hoc Extended User Profile");
         }
             break;
             

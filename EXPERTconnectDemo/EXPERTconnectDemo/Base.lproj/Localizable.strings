@@ -60,6 +60,9 @@
 /* Start Extended User Profile Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartExtendedUserProfileLabel" = "Registration Edit Profile";
 
+/* Start Application Configuration Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigLabel" = "Application Configuration";
+
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
@@ -97,6 +100,9 @@
 
 /* Start Extended User Profile Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartExtendedUserProfileHeader" = "AdHoc Edit (Extended) User Profile";
+
+/* Start Applicaton Configuration Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigHeader" = "AdHoc Modify App Config Settings";
 
 /* End AdHoc Section */
 

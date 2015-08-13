@@ -23,6 +23,8 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 @property (weak, nonatomic) IBOutlet UITextField *configValueField;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
+@property (weak, nonatomic) IBOutlet UIButton *askQuestionButton;
+@property (weak, nonatomic) IBOutlet UITextView *answerEngineResponseTextView;
 @property (weak, nonatomic) IBOutlet ECDAdHocAnswerEngineContextPicker *selectAnswerEngineContextPicker;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *topQuestions;
@@ -50,12 +52,14 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 }
 
 -(void) initializeFields {
+    self.answerEngineResponseTextView.text = @"";
 
     // Set the tintColor so we can see the cursor clear;
     //
     self.configNameField.tintColor = UIColor.blueColor;
     self.configEndpointField.tintColor = UIColor.blueColor;
     self.configValueField.tintColor = UIColor.blueColor;
+    self.answerEngineResponseTextView.tintColor = UIColor.blueColor;
     
     // Round button corners
     CALayer *btnLayer = [self.submitButton layer];
@@ -66,19 +70,27 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
     
+    btnLayer = [self.askQuestionButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
     [self.submitButton addTarget:self
                           action:@selector(submitButtonTapped:)
                 forControlEvents:UIControlEventTouchUpInside];
     
     [self.refreshButton addTarget:self
-                          action:@selector(refreshButtonTapped:)
-                forControlEvents:UIControlEventTouchUpInside];
+                           action:@selector(refreshButtonTapped:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.askQuestionButton addTarget:self
+                           action:@selector(askQuestionButtonTapped:)
+                 forControlEvents:UIControlEventTouchUpInside];
 
     
     [self.selectAnswerEngineContextPicker setup];
 
 
-    // self.topQuestions = [NSArray arrayWithObjects:@"Top Question One", @"Top Question Two", @"Top Question Three", @"Top Question Four", nil];
+    self.tableView.delegate = self;
     [self refreshButtonTapped:nil];
 }
 
@@ -99,6 +111,12 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     
     cell.textLabel.text = [self.topQuestions objectAtIndex:indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.answerEngineResponseTextView.text = [self.topQuestions objectAtIndex:indexPath.row];
+    NSLog(@"Row Selected: %d", indexPath.row);
 }
 
 - (void)submitButtonTapped:(UIButton*)button
@@ -132,7 +150,6 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenUpdated];
 }
 
-
 - (void)refreshButtonTapped:(UIButton*)button
 {
     NSString *context = self.selectAnswerEngineContextPicker.currentSelection;
@@ -148,6 +165,22 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
         [weakSelf.tableView reloadData];
         
         NSLog(@"Received %d Top Questions", [response count]);
+    }];
+}
+
+- (void)askQuestionButtonTapped:(UIButton*)button
+{
+    NSString *question = self.answerEngineResponseTextView.text;
+    NSString *context = self.selectAnswerEngineContextPicker.currentSelection;
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getAnswerForQuestion:question inContext:context parentNavigator:@"" actionId:@"" questionCount:0
+                              customData:nil completion:^(ECSAnswerEngineResponse *response, NSError *error) {
+        
+        NSLog(@"Received AnswerEngine Response: %@", @"response.answerContent");
+                                  
+        self.answerEngineResponseTextView.text = response.answer;
     }];
 }
 

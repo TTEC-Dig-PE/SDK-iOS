@@ -288,7 +288,7 @@
 		03C3102F1A9B5B39006B3557 /* ECSPreSurvey.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C3102D1A9B5B39006B3557 /* ECSPreSurvey.m */; };
 		03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310301A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h */; };
 		03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310311A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m */; };
-		03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310321A9B5B46006B3557 /* ECSAnswerEngineResponse.h */; };
+		03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310321A9B5B46006B3557 /* ECSAnswerEngineResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310331A9B5B46006B3557 /* ECSAnswerEngineResponse.m */; };
 		03C3103C1A9B5B46006B3557 /* ECSCallbackSetupResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310341A9B5B46006B3557 /* ECSCallbackSetupResponse.h */; };
 		03C3103D1A9B5B46006B3557 /* ECSCallbackSetupResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310351A9B5B46006B3557 /* ECSCallbackSetupResponse.m */; };
