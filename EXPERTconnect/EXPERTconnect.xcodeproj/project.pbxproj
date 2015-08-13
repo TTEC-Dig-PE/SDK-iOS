@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C6492F341B7C775200CC977E /* ECSUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C6492F371B7C775200CC977E /* Build configuration list for PBXAggregateTarget "ECSUniversal" */;
+			buildPhases = (
+				C6492F381B7C775B00CC977E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = ECSUniversal;
+			productName = ECSUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */; };
 		030AF2131AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 030AF2111AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m */; };
@@ -1593,6 +1607,9 @@
 					03978EEC1A602AEF007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					C6492F341B7C775200CC977E = {
+						CreatedOnToolsVersion = 6.4;
+					};
 				};
 			};
 			buildConfigurationList = 03978EDC1A602AEF007793D6 /* Build configuration list for PBXProject "EXPERTconnect" */;
@@ -1611,6 +1628,7 @@
 			targets = (
 				03978EE11A602AEF007793D6 /* EXPERTconnect */,
 				03978EEC1A602AEF007793D6 /* EXPERTconnectTests */,
+				C6492F341B7C775200CC977E /* ECSUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -1697,6 +1715,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\n\nFRAMEWORK_ARTIFACTS=\"${SRCROOT}/../artifacts\"\nmkdir -p \"${FRAMEWORK_ARTIFACTS}\"\ncp -R \"${TARGET_BUILD_DIR}/EXPERTconnect.framework\" \"${FRAMEWORK_ARTIFACTS}\"";
+		};
+		C6492F381B7C775B00CC977E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2041,6 +2072,20 @@
 			};
 			name = Release;
 		};
+		C6492F351B7C775200CC977E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C6492F361B7C775200CC977E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2070,6 +2115,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C6492F371B7C775200CC977E /* Build configuration list for PBXAggregateTarget "ECSUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6492F351B7C775200CC977E /* Debug */,
+				C6492F361B7C775200CC977E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
