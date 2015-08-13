@@ -1,6 +1,0 @@
-framework module EXPERTconnect {
-  umbrella header "EXPERTconnect.h"
-
-  export *
-  module * { export * }
-}
