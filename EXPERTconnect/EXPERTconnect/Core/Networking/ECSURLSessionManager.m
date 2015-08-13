@@ -728,6 +728,129 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self performRequestWithMethod:@"DELETE" path:path parameters:parameters success:success failure:failure];
 }
 
+- (NSURLSessionDataTask *)externalRequestWithMethod:(NSString *)method
+                                                     path:(NSString *)path
+                                               parameters:(id)parameters
+                                                  success:(void(^)(id result, NSURLResponse *response))success
+                                                  failure:(void(^)(id result, NSURLResponse *response, NSError *error))failure
+
+{
+    NSURL *url = nil;
+    
+    if ([path hasPrefix:@"http"])
+    {
+        url = [NSURL URLWithString:path];
+    }
+    else
+    {
+        url = [self URLByAppendingPathComponent:path];
+    }
+    NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
+    
+    ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *retError = error;
+        
+        id result = nil;
+        
+        if (error == nil)
+        {
+            result = [[self responseSerializer] responseObjectForResponse:response data:data error:&retError];
+            
+            // Allow for an empty reponse if the response code was 200.
+            if ((((NSHTTPURLResponse*)response).statusCode == 200) && retError.code == 3840)
+            {
+                retError = nil;
+            }
+        }
+        
+        if ((error.code != NSURLErrorCancelled) &&
+                 (((NSHTTPURLResponse*)response).statusCode != 200) &&
+                 (((NSHTTPURLResponse*)response).statusCode != 201))
+        {
+            ECSLogVerbose(@"API Error %@", error);
+            NSMutableDictionary *userInfo = [NSMutableDictionary new];
+            
+            if ([result isKindOfClass:[NSDictionary class]])
+            {
+                if (result[@"error"])
+                {
+                    userInfo[NSLocalizedFailureReasonErrorKey] = result[@"error"];
+                }
+                
+                if (result[@"message"])
+                {
+                    userInfo[NSLocalizedDescriptionKey] = result[@"message"];
+                }
+            }
+            
+            retError = [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:userInfo];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (retError == nil)
+            {
+                success(result, response);
+            }
+            else
+            {
+                failure(result, response, retError);
+            }
+        });
+    }];
+    
+    [task resume];
+    
+    return task;
+}
+
+/* NO JSON SERIALIZATION!! */
+- (NSURLSessionDataTask *)externalStringRequestWithMethod:(NSString *)method
+                                               path:(NSString *)path
+                                         parameters:(id)parameters
+                                            success:(void(^)(NSURLResponse *response, NSString *data))success
+                                            failure:(void(^)(NSURLResponse *response, NSError *error))failure
+
+{
+    NSURL *url = nil;
+    
+    if ([path hasPrefix:@"http"])
+    {
+        url = [NSURL URLWithString:path];
+    }
+    else
+    {
+        url = [self URLByAppendingPathComponent:path];
+    }
+    NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
+    
+    ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error == nil)
+            {
+                NSString *stringData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                success(response, stringData);
+            }
+            else
+            {
+                failure(response, error);
+            }
+        });
+    }];
+    
+    [task resume];
+    
+    return task;
+}
+
 - (NSURLSessionDataTask *)performRequestWithMethod:(NSString *)method
                                               path:(NSString *)path
                                         parameters:(id)parameters

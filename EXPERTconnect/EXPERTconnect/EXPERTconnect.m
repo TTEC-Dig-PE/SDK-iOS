@@ -7,6 +7,8 @@
 
 #import "EXPERTconnect.h"
 
+#import "ECSCafeXController.h"
+
 #import "ECSURLSessionManager.h"
 #import "ECSImageCache.h"
 #import "ECSInjector.h"

@@ -71,6 +71,19 @@
 		46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
+		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
+		D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
+		D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
+		D81614EA1B79169B005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614E91B79169B005BD20E /* CoreAudio.framework */; };
+		D81614EC1B7916D7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614EB1B7916D7005BD20E /* libxml2.dylib */; };
+		D81614ED1B7917AF005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614E91B79169B005BD20E /* CoreAudio.framework */; };
+		D81614EE1B7917AF005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614EB1B7916D7005BD20E /* libxml2.dylib */; };
+		D81614FD1B792B71005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
+		D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
+		D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
+		D83F78A41B7BC51A00F307D4 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
+		D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
+		D83F78A61B7BC52200F307D4 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
 		D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA691B66A25D00DA1762 /* MoxtraSDK */; };
 		D87F2F581B68309100B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
@@ -351,6 +364,13 @@
 		72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		72C4C39460082123433B137E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		D81612F41B6AB620005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
+		D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D81614E91B79169B005BD20E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		D81614EB1B7916D7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2F081B66CC0900B7B9D5 /* MoxtraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoxtraController.h; sourceTree = "<group>"; };
 		D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoxtraController.m; sourceTree = "<group>"; };
 		D8CEBDF21B546DC20053E9A0 /* HZAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZAppDelegate.h; sourceTree = "<group>"; };
@@ -438,6 +458,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81614EC1B7916D7005BD20E /* libxml2.dylib in Frameworks */,
+				D87F2F6B1B6835A400B7B9D5 /* CoreText.framework in Frameworks */,
+				D87F2F671B6835A400B7B9D5 /* CoreImage.framework in Frameworks */,
+				D87F2F6F1B6835A400B7B9D5 /* ImageIO.framework in Frameworks */,
+				D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */,
+				D87F2F5A1B68354200B7B9D5 /* libstdc++.6.dylib in Frameworks */,
+				D81614EA1B79169B005BD20E /* CoreAudio.framework in Frameworks */,
+				D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */,
+				D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */,
+				D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */,
 				D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */,
 				D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */,
 				D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */,
@@ -448,15 +478,12 @@
 				D87F2F641B6835A400B7B9D5 /* CoreBluetooth.framework in Frameworks */,
 				D87F2F651B6835A400B7B9D5 /* CoreFoundation.framework in Frameworks */,
 				D87F2F661B6835A400B7B9D5 /* CoreGraphics.framework in Frameworks */,
-				D87F2F671B6835A400B7B9D5 /* CoreImage.framework in Frameworks */,
 				D87F2F681B6835A400B7B9D5 /* CoreLocation.framework in Frameworks */,
 				D87F2F691B6835A400B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D87F2F6A1B6835A400B7B9D5 /* CoreTelephony.framework in Frameworks */,
-				D87F2F6B1B6835A400B7B9D5 /* CoreText.framework in Frameworks */,
 				D87F2F6C1B6835A400B7B9D5 /* CoreVideo.framework in Frameworks */,
 				D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */,
 				D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */,
-				D87F2F6F1B6835A400B7B9D5 /* ImageIO.framework in Frameworks */,
 				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
 				D87F2F711B6835A400B7B9D5 /* MediaPlayer.framework in Frameworks */,
 				D87F2F721B6835A400B7B9D5 /* MessageUI.framework in Frameworks */,
@@ -465,11 +492,9 @@
 				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
 				D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */,
-				D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */,
 				D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */,
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
-				D87F2F5A1B68354200B7B9D5 /* libstdc++.6.dylib in Frameworks */,
 				D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */,
 				03243FD71A655C0A00A4CE6D /* EXPERTconnect.framework in Frameworks */,
 				3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */,
@@ -489,6 +514,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */,
+				D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */,
+				D81614FD1B792B71005BD20E /* libsqlite3.dylib in Frameworks */,
+				D81614ED1B7917AF005BD20E /* CoreAudio.framework in Frameworks */,
+				D8D3AAA21B66A36F00DA1762 /* CoreImage.framework in Frameworks */,
+				D8D3AAA61B66A36F00DA1762 /* CoreText.framework in Frameworks */,
+				D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */,
+				D81614EE1B7917AF005BD20E /* libxml2.dylib in Frameworks */,
+				D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */,
 				D8D3AA981B66A36F00DA1762 /* Accelerate.framework in Frameworks */,
 				D8D3AA991B66A36F00DA1762 /* AddressBook.framework in Frameworks */,
 				D8D3AA9A1B66A36F00DA1762 /* AddressBookUI.framework in Frameworks */,
@@ -499,11 +533,9 @@
 				D8D3AA9F1B66A36F00DA1762 /* CoreBluetooth.framework in Frameworks */,
 				D8D3AAA01B66A36F00DA1762 /* CoreFoundation.framework in Frameworks */,
 				D8D3AAA11B66A36F00DA1762 /* CoreGraphics.framework in Frameworks */,
-				D8D3AAA21B66A36F00DA1762 /* CoreImage.framework in Frameworks */,
 				D8D3AAA31B66A36F00DA1762 /* CoreLocation.framework in Frameworks */,
 				D8D3AAA41B66A36F00DA1762 /* CoreMedia.framework in Frameworks */,
 				D8D3AAA51B66A36F00DA1762 /* CoreTelephony.framework in Frameworks */,
-				D8D3AAA61B66A36F00DA1762 /* CoreText.framework in Frameworks */,
 				D8D3AAA71B66A36F00DA1762 /* CoreVideo.framework in Frameworks */,
 				D8D3AAA81B66A36F00DA1762 /* EventKit.framework in Frameworks */,
 				D8D3AAA91B66A36F00DA1762 /* Foundation.framework in Frameworks */,
@@ -516,11 +548,9 @@
 				D8D3AAB01B66A36F00DA1762 /* QuartzCore.framework in Frameworks */,
 				D8D3AAB11B66A36F00DA1762 /* Security.framework in Frameworks */,
 				D8D3AAB21B66A36F00DA1762 /* StoreKit.framework in Frameworks */,
-				D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */,
 				D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */,
 				D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */,
 				D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */,
-				D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */,
 				D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */,
 				D8CEBEB31B55690C0053E9A0 /* EXPERTconnect.framework in Frameworks */,
 				D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */,
@@ -535,6 +565,13 @@
 		03243FD01A65570300A4CE6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */,
+				D81614EB1B7916D7005BD20E /* libxml2.dylib */,
+				D81614E91B79169B005BD20E /* CoreAudio.framework */,
+				D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */,
+				D81612F41B6AB620005BD20E /* ACBClientSDK.framework */,
+				D81612F21B6AB60D005BD20E /* GLKit.framework */,
+				D81612F01B6AB607005BD20E /* libicucore.dylib */,
 				D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */,
 				D8D3AA7C1B66A36F00DA1762 /* AddressBook.framework */,
 				D8D3AA7D1B66A36F00DA1762 /* AddressBookUI.framework */,
@@ -1215,6 +1252,8 @@
 				46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */,
 				46BD59281B794FD900032628 /* ECDAdHocChatPicker.m in Sources */,
 				D8CEBEA01B55690C0053E9A0 /* ECDRegisterViewController.m in Sources */,
+				D83F78A61B7BC52200F307D4 /* ECDUIPicker.m in Sources */,
+				D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */,
 				D8CEBEA11B55690C0053E9A0 /* ECDDefaultTheme.m in Sources */,
 				46BD59271B794FCC00032628 /* ECDAdHocViewController.m in Sources */,
 				46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
@@ -1233,6 +1272,7 @@
 				D8CEBEAC1B55690C0053E9A0 /* ECDRootViewController.m in Sources */,
 				D8CEBEAD1B55690C0053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
 				D8CEBEAE1B55690C0053E9A0 /* ECDMainMenuViewController.m in Sources */,
+				D83F78A41B7BC51A00F307D4 /* ECDRunModePicker.m in Sources */,
 				D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */,
 				D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */,
 				D88696611B556CD000C8F955 /* main.m in Sources */,
@@ -1375,9 +1415,23 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
 					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-Bugsnag\"",
+					"-l\"Pods-MMDrawerController\"",
+					"-l\"c++\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1395,9 +1449,23 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
 					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				LD_NO_PIE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-Bugsnag\"",
+					"-l\"Pods-MMDrawerController\"",
+					"-l\"c++\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-lc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1449,6 +1517,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
 					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1474,6 +1543,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
 					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
+					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
