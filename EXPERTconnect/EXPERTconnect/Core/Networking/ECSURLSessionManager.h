@@ -264,4 +264,19 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 - (NSURLSessionDataTask*)getChatHistoryDetailsForJourneyId:(NSString*)journeyId
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion;
+
+#pragma mark - Utilities
+
+- (NSURLSessionDataTask *)externalRequestWithMethod:(NSString *)method
+                                               path:(NSString *)path
+                                         parameters:(id)parameters
+                                            success:(void(^)(id result, NSURLResponse *response))success
+                                            failure:(void(^)(id result, NSURLResponse *response, NSError *error))failure;
+
+/* NO JSON SERIALIZATION! */
+- (NSURLSessionDataTask *)externalStringRequestWithMethod:(NSString *)method
+                                               path:(NSString *)path
+                                         parameters:(id)parameters
+                                            success:(void(^)(NSURLResponse *response, NSString *data))success
+                                            failure:(void(^)(NSURLResponse *response, NSError *error))failure;
 @end

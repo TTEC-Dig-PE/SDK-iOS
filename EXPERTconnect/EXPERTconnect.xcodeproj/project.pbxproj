@@ -357,6 +357,9 @@
 		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
 		D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
+		D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */; };
+		D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */; };
+		D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -749,6 +752,11 @@
 		D81614F11B791971005BD20E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D81614F21B791971005BD20E /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		D81614F51B7919A7005BD20E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXController.m; path = Core/Networking/ECSCafeXController.m; sourceTree = "<group>"; };
+		D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXController.h; path = Core/Networking/ECSCafeXController.h; sourceTree = "<group>"; };
+		D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSCafeXVideoViewController.xib; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.xib; sourceTree = SOURCE_ROOT; };
+		D83F78AA1B7BE2E100F307D4 /* ECSCafeXVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXVideoViewController.h; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.h; sourceTree = SOURCE_ROOT; };
+		D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXVideoViewController.m; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.m; sourceTree = SOURCE_ROOT; };
 		D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ThirdParty/ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -867,6 +875,7 @@
 		033ACB1D1A602C9C0024F48F /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				D83F78A71B7BE25000F307D4 /* Video */,
 				03101F241AAF266E00D7562B /* History */,
 				03C3106A1A9B5BF2006B3557 /* AnswerEngine */,
 				03C3106D1A9B5C4A006B3557 /* Callback */,
@@ -1064,6 +1073,8 @@
 				0380DEC71AA10126003D9248 /* ECSStompClient.m */,
 				03639B731AA4E3EA00B617F6 /* ECSStompChatClient.h */,
 				03639B741AA4E3EA00B617F6 /* ECSStompChatClient.m */,
+				D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */,
+				D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -1469,6 +1480,16 @@
 			path = Forms;
 			sourceTree = "<group>";
 		};
+		D83F78A71B7BE25000F307D4 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				D83F78AA1B7BE2E100F307D4 /* ECSCafeXVideoViewController.h */,
+				D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */,
+				D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1732,6 +1753,7 @@
 				039062491AC9C6BA00E006BE /* ECSChatWaitView.xib in Resources */,
 				03BD9E2D1AF2A1F2003D808C /* ECSInlineFormViewController.xib in Resources */,
 				0342AFA41A9B60700009959E /* ECSPullDownView.xib in Resources */,
+				D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */,
 				03101F2A1AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.xib in Resources */,
 				0342B0261A9B60AE0009959E /* ECSSliderFormItemViewController.xib in Resources */,
 				0342B0181A9B60AE0009959E /* ECSRatingFormItemViewController.xib in Resources */,
@@ -1821,6 +1843,7 @@
 				03AF24A81A9B601E00407BE5 /* ECSLoadingView.m in Sources */,
 				030AF2131AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m in Sources */,
 				0342B07D1A9B61280009959E /* ECSRootViewController.m in Sources */,
+				D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */,
 				039E13261A8E2F9F00AD4927 /* ECSChatMessage.m in Sources */,
 				038781CB1AEA93C4008786A8 /* UIImage+ECSBundle.m in Sources */,
 				03A7D2991ABC67C0000A21AE /* ECSFormTextField.m in Sources */,
@@ -1901,6 +1924,7 @@
 				03C3105B1A9B5B56006B3557 /* ECSCallbackActionType.m in Sources */,
 				03C3105F1A9B5B56006B3557 /* ECSFormActionType.m in Sources */,
 				03C3102F1A9B5B39006B3557 /* ECSPreSurvey.m in Sources */,
+				D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */,
 				03F0BD331A70095E00E90E7F /* ECSLocalization.m in Sources */,
 				03272A0F1AE7E36F009C6EDF /* ECSChatFormMessage.m in Sources */,
 				2252C6B21A7BE9E200B99912 /* ECSFormItemSlider.m in Sources */,
@@ -2075,11 +2099,12 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
-					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)/ThirdParty/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/ThirdParty/**",
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2117,11 +2142,12 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
-					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)/ThirdParty/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/ThirdParty/**",
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

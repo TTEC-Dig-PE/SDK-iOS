@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSCafeXVideoViewController">
+            <connections>
+                <outlet property="previewVideoView" destination="hwQ-vF-NMn" id="jbi-TU-jsS"/>
+                <outlet property="remoteVideoView" destination="VJ5-pd-93c" id="EFO-nv-joe"/>
+                <outlet property="view" destination="iN0-l3-epB" id="bet-TQ-yL3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ego-20-3zE" userLabel="Container View">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-pd-93c" userLabel="Remote Video">
+                            <rect key="frame" x="56" y="30" width="489" height="506"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwQ-vF-NMn" userLabel="Preview Video">
+                            <rect key="frame" x="56" y="415" width="120" height="121"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ego-20-3zE" secondAttribute="trailing" id="HjH-B2-tjx"/>
+                <constraint firstItem="ego-20-3zE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aA4-Zf-o7I"/>
+                <constraint firstAttribute="bottom" secondItem="ego-20-3zE" secondAttribute="bottom" id="oyg-oL-oIi"/>
+                <constraint firstItem="ego-20-3zE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rXA-PK-hOQ"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

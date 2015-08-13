@@ -7,7 +7,7 @@
 
 #import "EXPERTconnect.h"
 
-#import <ACBClientSDK/ACBUC.h>
+#import "ECSCafeXController.h"
 
 #import "ECSURLSessionManager.h"
 #import "ECSImageCache.h"
@@ -129,8 +129,6 @@ static EXPERTconnect* _sharedInstance;
     ECSNavigationActionType *navigationAction = [ECSNavigationActionType new];
     navigationAction.displayName = configuration.defaultNavigationDisplayName;
     navigationAction.navigationContext = configuration.defaultNavigationContext;
-    
-    
     
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }

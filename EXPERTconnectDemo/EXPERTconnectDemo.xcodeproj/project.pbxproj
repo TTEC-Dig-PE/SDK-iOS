@@ -59,6 +59,9 @@
 		D81614FD1B792B71005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
 		D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
 		D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
+		D83F78A41B7BC51A00F307D4 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
+		D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
+		D83F78A61B7BC52200F307D4 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
 		D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA691B66A25D00DA1762 /* MoxtraSDK */; };
 		D87F2F581B68309100B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
@@ -1172,6 +1175,8 @@
 				D8CEBE9F1B55690C0053E9A0 /* ECDLicenseViewController.m in Sources */,
 				D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */,
 				D8CEBEA01B55690C0053E9A0 /* ECDRegisterViewController.m in Sources */,
+				D83F78A61B7BC52200F307D4 /* ECDUIPicker.m in Sources */,
+				D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */,
 				D8CEBEA11B55690C0053E9A0 /* ECDDefaultTheme.m in Sources */,
 				D8CEBEA21B55690C0053E9A0 /* ECDNavigationController.m in Sources */,
 				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
@@ -1185,6 +1190,7 @@
 				D8CEBEAC1B55690C0053E9A0 /* ECDRootViewController.m in Sources */,
 				D8CEBEAD1B55690C0053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
 				D8CEBEAE1B55690C0053E9A0 /* ECDMainMenuViewController.m in Sources */,
+				D83F78A41B7BC51A00F307D4 /* ECDRunModePicker.m in Sources */,
 				D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */,
 				D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */,
 				D88696611B556CD000C8F955 /* main.m in Sources */,
