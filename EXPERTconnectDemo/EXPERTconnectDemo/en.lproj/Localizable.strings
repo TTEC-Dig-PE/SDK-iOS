@@ -20,6 +20,9 @@
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Profile was updated";
 
+/* Application Config Value was updated  */
+"ECDLocalizeConfigWasUpdatedKey" = "Application Configuration Value was updated";
+
 /* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";

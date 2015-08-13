@@ -25,6 +25,7 @@ static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRe
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
+static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
