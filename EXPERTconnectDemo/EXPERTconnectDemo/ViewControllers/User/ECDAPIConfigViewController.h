@@ -12,6 +12,6 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 
 
-@interface ECDAPIConfigViewController : ECSRootViewController
+@interface ECDAPIConfigViewController : ECSRootViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

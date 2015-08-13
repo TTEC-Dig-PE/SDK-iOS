@@ -12,6 +12,7 @@
 #import <EXPERTconnect/ECSJSONObject.h>
 #import <EXPERTconnect/ECSActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineActionType.h>
+#import <EXPERTconnect/ECSAnswerEngineTopQuestionsResponse.h>
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
 #import <EXPERTconnect/ECSFormActionType.h>

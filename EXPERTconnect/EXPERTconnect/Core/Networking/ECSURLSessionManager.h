@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ECSActionType;
+@class ECSAnswerEngineTopQuestionsResponse;
 @class ECSAnswerEngineRateResponse;
 @class ECSAnswerEngineResponse;
 @class ECSCallbackSetupResponse;
@@ -89,7 +90,18 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)getNavigationContextWithName:(NSString*)name
                                             completion:(void (^)(ECSNavigationContext *context, NSError *error))completion;
-
+/**
+ Retrieves the Top Questions from the answer engine system.
+ 
+ @param num the max number of Top Questions to retrieve
+ 
+ @return the data task for the answer engine call
+ */
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+                                           forContext:(NSString*)context
+                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
 /**
  Asks a question of the answer engine system.
  

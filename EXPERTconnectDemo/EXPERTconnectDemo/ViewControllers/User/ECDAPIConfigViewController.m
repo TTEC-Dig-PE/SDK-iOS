@@ -5,7 +5,6 @@
 //  Created by Ken Washington on 8/12/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-
 #import "ECDAdHocAnswerEngineContextPicker.h"
 #import "ECDAPIConfigViewController.h"
 #import "ECDLocalization.h"
@@ -23,8 +22,10 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 @property (weak, nonatomic) IBOutlet UITextField *configEndpointField;
 @property (weak, nonatomic) IBOutlet UITextField *configValueField;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property (strong, nonatomic) IBOutlet ECDAdHocAnswerEngineContextPicker *selectAnswerEngineContextPicker;
-
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
+@property (weak, nonatomic) IBOutlet ECDAdHocAnswerEngineContextPicker *selectAnswerEngineContextPicker;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *topQuestions;
 
 @end
 
@@ -41,7 +42,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     __weak typeof(self) weakSelf = self;
     
     ECSCodeBlock whenCompleted = ^(NSString *response, NSError *error)   {
-        self.configValueField.text = response;
+        weakSelf.configValueField.text = response;
     };
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
@@ -61,12 +62,43 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
     
+    btnLayer = [self.refreshButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
     [self.submitButton addTarget:self
                           action:@selector(submitButtonTapped:)
+                forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.refreshButton addTarget:self
+                          action:@selector(refreshButtonTapped:)
                 forControlEvents:UIControlEventTouchUpInside];
 
     
     [self.selectAnswerEngineContextPicker setup];
+
+
+    // self.topQuestions = [NSArray arrayWithObjects:@"Top Question One", @"Top Question Two", @"Top Question Three", @"Top Question Four", nil];
+    [self refreshButtonTapped:nil];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.topQuestions count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *simpleTableIdentifier = @"Top Questions";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    
+    cell.textLabel.text = [self.topQuestions objectAtIndex:indexPath.row];
+    return cell;
 }
 
 - (void)submitButtonTapped:(UIButton*)button
@@ -89,7 +121,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     
     ECSCodeBlock whenUpdated = ^(NSString *response, NSError *error)   {
         NSString *profileMessage = ECDLocalizedString(ECDLocalizeConfigWasUpdatedKey, @"Config Value was updated:");
-        NSLog(profileMessage);
+        NSLog(@"%@", profileMessage);
         
         // Now that the Config Value has been updated, Clear the Answer Engine Cache so our next request
         // will go against the requested Answer Engine Type (Synthetix / IntelliResponse)
@@ -98,6 +130,25 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     };
     
     [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenUpdated];
+}
+
+
+- (void)refreshButtonTapped:(UIButton*)button
+{
+    NSString *context = self.selectAnswerEngineContextPicker.currentSelection;
+    NSNumber *num_questions = [NSNumber numberWithInt:4];
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [sessionManager getAnswerEngineTopQuestions:num_questions forContext:context withCompletion:^(NSArray *response, NSError *error)   {
+        weakSelf.topQuestions = response;
+        
+        [weakSelf.tableView reloadData];
+        
+        NSLog(@"Received %d Top Questions", [response count]);
+    }];
 }
 
 - (void) showAlert:(NSString *)title withMessage:(NSString *)message {

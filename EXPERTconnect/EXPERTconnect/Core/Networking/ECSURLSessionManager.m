@@ -13,6 +13,7 @@
 #import "ECSActionType.h"
 #import "ECSActionTypeClassTransformer.h"
 #import "ECSAnswerEngineResponse.h"
+#import "ECSAnswerEngineTopQuestionsResponse.h"
 #import "ECSAnswerEngineRateResponse.h"
 #import "ECSCallbackSetupResponse.h"
 #import "ECSChannelConfiguration.h"
@@ -209,6 +210,40 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              success:[self successWithExpectedType:[ECSNavigationContext class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 
+}
+
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+{
+    NSDictionary *parameters = nil;
+    
+    if (num)
+    {
+        parameters = @{@"num": num};
+    }
+    return [self GET:@"answerengine/v1/questions"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
+}
+
+
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+                                           forContext:(NSString*)context
+                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+{
+    NSDictionary *parameters = nil;
+    
+    if (num)
+    {
+        parameters = @{@"num": num, @"context": context};
+    }
+    return [self GET:@"answerengine/v1/questions"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
 }
 
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
@@ -657,6 +692,21 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                                     withClass:aClass];
                 
                 completion(resultObject, nil);
+            }
+            else if ([result isKindOfClass:[NSArray class]])
+            {
+                if([aClass conformsToProtocol:@protocol(ECSJSONClassTransformer)] ||
+                   [aClass conformsToProtocol:@protocol(ECSJSONSerializing)])  {
+                    id resultObject = [ECSJSONSerializer arrayFromJSONArray:result
+                                                                  withClass:aClass];
+                    completion(resultObject, nil);
+                }
+                else  {
+                    // Simple JSON Array ["", "", "", ""]
+                    //
+                    id resultObject = result;
+                    completion(resultObject, nil);
+                }
             }
             else if ([result isKindOfClass:[NSNumber class]])
             {
