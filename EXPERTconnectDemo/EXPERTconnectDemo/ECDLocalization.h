@@ -24,15 +24,34 @@ static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
+static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
 static NSString* const ECDLocalizedStartFormsHeader = @"ECDLocalizedStartFormsHeader";
+static NSString* const ECDLocalizedStartUserProfileHeader = @"ECDLocalizedStartUserProfileHeader";
+static NSString* const ECDLocalizedStartVoiceCallbackHeader = @"ECDLocalizedStartVoiceCallbackHeader";
+static NSString* const ECDLocalizedStartEmailMessageHeader = @"ECDLocalizedStartEmailMessageHeader";
+static NSString* const ECDLocalizedStartSMSMessageHeader = @"ECDLocalizedStartSMSMessageHeader";
+static NSString* const ECDLocalizedStartWebPageHeader = @"ECDLocalizedStartWebPageHeader";
+static NSString* const ECDLocalizedStartAnswerEngineHistoryHeader = @"ECDLocalizedStartAnswerEngineHistoryHeader";
+static NSString* const ECDLocalizedStartChatHistoryHeader = @"ECDLocalizedStartChatHistoryHeader";
+static NSString* const ECDLocalizedStartSelectExpertHeader = @"ECDLocalizedStartSelectExpertHeader";
+static NSString* const ECDLocalizedStartExtendedUserProfileHeader = @"ECDLocalizedStartExtendedUserProfileHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedStartFormsLabel = @"ECDLocalizedStartFormsLabel";
+static NSString* const ECDLocalizedStartUserProfileLabel = @"ECDLocalizedStartUserProfileLabel";
+static NSString* const ECDLocalizedStartVoiceCallbackLabel = @"ECDLocalizedStartVoiceCallbackLabel";
+static NSString* const ECDLocalizedStartEmailMessageLabel = @"ECDLocalizedStartEmailMessageLabel";
+static NSString* const ECDLocalizedStartSMSMessageLabel = @"ECDLocalizedStartSMSMessageLabel";
+static NSString* const ECDLocalizedStartWebPageLabel = @"ECDLocalizedStartWebPageLabel";
+static NSString* const ECDLocalizedStartAnswerEngineHistoryLabel = @"ECDLocalizedStartAnswerEngineHistoryLabel";
+static NSString* const ECDLocalizedStartChatHistoryLabel = @"ECDLocalizedStartChatHistoryLabel";
+static NSString* const ECDLocalizedStartSelectExpertLabel = @"ECDLocalizedStartSelectExpertLabel";
+static NSString* const ECDLocalizedStartExtendedUserProfileLabel = @"ECDLocalizedStartExtendedUserProfileLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

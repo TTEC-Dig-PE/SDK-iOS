@@ -125,7 +125,8 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
     
-    if (chatAction.agentId && chatAction.agentId.length > 0)
+    if ((chatAction.agentId && chatAction.agentId.length > 0) &&
+        (chatAction.agentSkill.length <= 0))
     {
         configuration.to = chatAction.agentId;
     }

@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ecs_ic_nav_adhoc.jpg"
+      "filename" : "ic_nav_adhoc.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ecs_ic_nav_adhoc-1.jpg"
+      "filename" : "ic_nav_adhoc@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ecs_ic_nav_adhoc-2.jpg"
+      "filename" : "ic_nav_adhoc@3x.png"
     }
   ],
   "info" : {

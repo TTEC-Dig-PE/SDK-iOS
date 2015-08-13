@@ -336,13 +336,17 @@
                     if (!error)
                     {
                         formAction.form.submitted = YES;
-                        ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-                        submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
-                        submitController.descriptionLabel.text = formAction.form.submitCompleteText;
-                        
-                        if (weakSelf.navigationController)
-                        {
-                            [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
+                        if (response.action) {
+                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
+                        } else {
+                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
+                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
+                            
+                            if (weakSelf.navigationController)
+                            {
+                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
+                            }
                         }
                     }
                     else

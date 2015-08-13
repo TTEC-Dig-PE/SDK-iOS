@@ -10,11 +10,15 @@
 #import <AirshipKit/AirshipKit.h>
 
 #import "ECDLicenseViewController.h"
+#import "ECDExtendedUserProfileViewController.h"
+#import "ECDAPIConfigViewController.h"
 #import "ECDAdHocViewController.h"
 #import "ECDUserDefaultKeys.h"
 #import "ECDAdHocChatPicker.h"
+#import "ECDAdHocVoiceCallbackPicker.h"
 #import "ECDAdHocAnswerEngineContextPicker.h"
 #import "ECDAdHocFormsPicker.h"
+#import "ECDAdHocWebPagePicker.h"
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
@@ -22,49 +26,65 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 
+// High-level SDK Services
+// =======================
+//
 // Start an AdHoc Chat
 // Start an AdHoc Answer Engine Session
+// Start an AdHoc Survey (Form) by Name
+// Start an AdHoc User Profile Form
+// Start an AdHoc Voice Callback Request
+// Start an AdHoc Email Message
+// Start an AdHoc SMS Message
+// Launch an AdHoc Web Page View
+// View my Answer Engine History
+// View my Chat History
+// Display the Expert Select Chat Dialog
+//
+// Lower-level SDK Services
+// ========================
+//
+// CRUD User Profile, including Extended Attributes
+//
 // Get Answer Engine Top Questions
 // Ask an AdHoc Question from the Answer Engine
 // Rate an Answer Engine Response
-// Initiate an AdHoc Voice Callback
-// Retrieve my Conversation History
-// View my Chat History
-// View my Answer Engine History
 // Get list of available Forms
-// Render an AdHoc Form
-// Submit Form (AdHoc)
+// Get list of available Media Files
 // Retrieve Navigation or Navigation Segment
 // Upload an AdHoc image
 // Download and AdHoc image
-// Retrieve my User Profile
-// Update my User Profile
-// Update User Profile Extended Attributes
+//
+// Display the Expert Select Voice Callback Dialog
+// Display the Expert Select Video Dialog
+// Display the Select Expert and Channel Dialog
+//
+// Additional SDK Services (may require new APIs to support)
+// =========================================================
 //
 // Retrieve Available Agents by Skill?
-// Display the Expert Select Dialog?
 // Invoke a "new" API Endpoint?
 // Retrieve list of skills with availability of each (# agents online, # agents available)
 // Retrieve list of agents (all) with availability state of each
 // estimated time to wait for skill X" and
-// leave a message via email
 // generic API endpoint
+// Push Notifications
+// Start any High-level SDK Services with Host App ViewController or at least Host App controlled Navigation
 //
-
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
     SettingsSectionAdHocChat,
     SettingsSectionAdHocAnswerEngine,
     SettingsSectionAdHocForms,
-    SettingsSectionFour,
-    SettingsSectionFive,
-    SettingsSectionSix,
-    SettingsSectionSeven,
-    SettingsSectionEight,
-    SettingsSectionNine,
-    SettingsSectionTen,
-    SettingsSectionEleven,
-    SettingsSectionTwelve,
+    SettingsSectionAdHocUserProfile,
+    SettingsSectionAdHocVoiceCallback,
+    SettingsSectionAdHocEmailMessage,
+    SettingsSectionAdHocSMSMessage,
+    SettingsSectionAdHocWebPage,
+    SettingsSectionAdHocAnswerEngineHistory,
+    SettingsSectionAdHocChatHistory,
+    SettingsSectionAdHocSelectExpert,
+    SettingsSectionAdHocExtendedUserProfile,
     SettingsSectionThirteen,
     SettingsSectionFourteen,
     SettingsSectionFifteen,
@@ -89,58 +109,58 @@ typedef NS_ENUM(NSInteger, FormsSectionRows)
     AdHocFormsSectionRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowFourRows)
+typedef NS_ENUM(NSInteger, UserProfileSectionRows)
 {
-    SettingsSectionFourRowStart,
-    SettingsSectionFourRowCount
+    AdHocUserProfileSectionRowStart,
+    AdHocUserProfileRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowFiveRows)
+typedef NS_ENUM(NSInteger, VoiceCallbackSectionRows)
 {
-    SettingsSectionFiveRowStart,
-    SettingsSectionFiveRowCount
+    AdHocVoiceCallbackSectionRowStart,
+    AdHocVoiceCallbackRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowSixRows)
+typedef NS_ENUM(NSInteger, EmailMessageSectionRows)
 {
-    SettingsSectionSixRowStart,
-    SettingsSectionSixRowCount
+    AdHocEmailMessageSectionRowStart,
+    AdHocEmailMessageRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowSevenRows)
+typedef NS_ENUM(NSInteger, SMSMessageSectionRows)
 {
-    SettingsSectionSevenRowStart,
-    SettingsSectionSevenRowCount
+    AdHocSMSMessageSectionRowStart,
+    AdHocSMSMessageRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowEightRows)
+typedef NS_ENUM(NSInteger, WebPagebackSectionRows)
 {
-    SettingsSectionEightRowStart,
-    SettingsSectionEightRowCount
+    AdHocWebPageSectionRowStart,
+    AdHocWebPageRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowNineRows)
+typedef NS_ENUM(NSInteger, AnswerEngineHistorySectionRows)
 {
-    SettingsSectionNineRowStart,
-    SettingsSectionNineRowCount
+    AdHocAnswerEngineHistoryRowStart,
+    AdHocAnswerEngineHistoryRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowTenRows)
+typedef NS_ENUM(NSInteger, ChatHistorySectionRows)
 {
-    SettingsSectionTenRowStart,
-    SettingsSectionTenRowCount
+    AdHocChatHistoryRowStart,
+    AdHocChatHistoryRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowElevenRows)
+typedef NS_ENUM(NSInteger, SelectExpertSectionRows)
 {
-    SettingsSectionElevenRowStart,
-    SettingsSectionElevenRowCount
+    AdHocSelectExpertRowStart,
+    AdHocSelectExpertRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowTwelveRows)
+typedef NS_ENUM(NSInteger, ExtendedUserProfileSectionRows)
 {
-    SettingsSectionTwelveRowStart,
-    SettingsSectionTwelveRowCount
+    AdHocExtendedUserProfileRowStart,
+    AdHocExtendedUserProfileRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowThirteenRows)
@@ -165,8 +185,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectAdHocChatPicker;
+@property (strong, nonatomic) ECDAdHocVoiceCallbackPicker *selectAdHocVoiceCallbackPicker;
 @property (strong, nonatomic) ECDAdHocAnswerEngineContextPicker *selectAdHocAnswerEngineContextPicker;
 @property (strong, nonatomic) ECDAdHocFormsPicker *selectAdHocFormsPicker;
+@property (strong, nonatomic) ECDAdHocWebPagePicker *selectAdHocWebPagePicker;
 @end
 
 @implementation ECDAdHocViewController
@@ -189,10 +211,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     self.selectAdHocChatPicker = [ECDAdHocChatPicker new];
     self.selectAdHocAnswerEngineContextPicker = [ECDAdHocAnswerEngineContextPicker new];
     self.selectAdHocFormsPicker = [ECDAdHocFormsPicker new];
+    self.selectAdHocVoiceCallbackPicker = [ECDAdHocVoiceCallbackPicker new];
+    self.selectAdHocWebPagePicker = [ECDAdHocWebPagePicker new];
     
     [self.selectAdHocChatPicker setup];
     [self.selectAdHocAnswerEngineContextPicker setup];
     [self.selectAdHocFormsPicker setup];
+    [self.selectAdHocVoiceCallbackPicker setup];
+    [self.selectAdHocWebPagePicker setup];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -221,40 +247,40 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             rowCount = AdHocFormsSectionRowCount;
             break;
             
-        case SettingsSectionFour:
-            rowCount = SettingsSectionFourRowCount;
+        case SettingsSectionAdHocUserProfile:
+            rowCount = AdHocUserProfileRowCount;
             break;
             
-        case SettingsSectionFive:
-            rowCount = SettingsSectionFiveRowCount;
+        case SettingsSectionAdHocVoiceCallback:
+            rowCount = AdHocVoiceCallbackRowCount;
             break;
             
-        case SettingsSectionSix:
-            rowCount = SettingsSectionSixRowCount;
+        case SettingsSectionAdHocEmailMessage:
+            rowCount = AdHocEmailMessageRowCount;
             break;
             
-        case SettingsSectionSeven:
-            rowCount = SettingsSectionSevenRowCount;
+        case SettingsSectionAdHocSMSMessage:
+            rowCount = AdHocSMSMessageRowCount;
             break;
             
-        case SettingsSectionEight:
-            rowCount = SettingsSectionEightRowCount;
+        case SettingsSectionAdHocWebPage:
+            rowCount = AdHocWebPageRowCount;
             break;
             
-        case SettingsSectionNine:
-            rowCount = SettingsSectionNineRowCount;
+        case SettingsSectionAdHocAnswerEngineHistory:
+            rowCount = AdHocAnswerEngineHistoryRowCount;
             break;
             
-        case SettingsSectionTen:
-            rowCount = SettingsSectionTenRowCount;
+        case SettingsSectionAdHocChatHistory:
+            rowCount = AdHocChatHistoryRowCount;
             break;
             
-        case SettingsSectionEleven:
-            rowCount = SettingsSectionElevenRowCount;
+        case SettingsSectionAdHocSelectExpert:
+            rowCount = AdHocSelectExpertRowCount;
             break;
             
-        case SettingsSectionTwelve:
-            rowCount = SettingsSectionTwelveRowCount;
+        case SettingsSectionAdHocExtendedUserProfile:
+            rowCount = AdHocExtendedUserProfileRowCount;
             break;
             
         case SettingsSectionThirteen:
@@ -322,10 +348,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             }
             break;
             
-        case SettingsSectionFour:
+        case SettingsSectionAdHocUserProfile:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Four", @"Section Four");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartUserProfileLabel, @"AdHoc User Profile");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -335,10 +361,23 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionFive:
+        case SettingsSectionAdHocVoiceCallback:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Five", @"Section Five");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVoiceCallbackLabel, @"AdHoc Voice Callback");
+                    cell.accessoryView = self.selectAdHocVoiceCallbackPicker;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+            
+        case SettingsSectionAdHocEmailMessage:
+            switch (indexPath.row) {
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartEmailMessageLabel, @"AdHoc Email Message");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -348,10 +387,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionSix:
+        case SettingsSectionAdHocSMSMessage:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Six", @"Section Six");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSMSMessageLabel, @"AdHoc SMS Message");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -361,10 +400,23 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionSeven:
+        case SettingsSectionAdHocWebPage:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Seven", @"Section Seven");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWebPageLabel, @"AdHoc Web Page");
+                    cell.accessoryView = self.selectAdHocWebPagePicker;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+            
+        case SettingsSectionAdHocAnswerEngineHistory:
+            switch (indexPath.row) {
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAnswerEngineHistoryLabel, @"AdHoc Answer Engine History");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -374,10 +426,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionEight:
+        case SettingsSectionAdHocChatHistory:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Eight", @"Section Eight");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatHistoryLabel, @"AdHoc Chat History");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -387,10 +439,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionNine:
+        case SettingsSectionAdHocSelectExpert:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Nine", @"Section Nine");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSelectExpertLabel, @"AdHoc Select Expert Dialog");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -400,36 +452,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionTen:
+        case SettingsSectionAdHocExtendedUserProfile:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Ten", @"Section Ten");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-            
-        case SettingsSectionEleven:
-            switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Eleven", @"Section Eleven");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-            
-        case SettingsSectionTwelve:
-            switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Twelve", @"Section Twelve");
+                case AdHocExtendedUserProfileRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileLabel, @"AdHoc Registration Edit User Profile");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -441,8 +467,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionThirteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Thirteen", @"Section Thirteen");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Thirteen", @"Section Thirteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -454,8 +480,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionFourteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Fourteen", @"Section Fourteen");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Fourteen", @"Section Fourteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -467,8 +493,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionFifteen:
             switch (indexPath.row) {
-                case SettingsSectionFourRowStart:
-                    cell.textLabel.text = ECSLocalizedString(@"Localized Section Fifteen", @"Section Fifteen");
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Fifteen", @"Section Fifteen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -500,54 +526,54 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         [self handleAdHocRenderForm];
     }
     
-    if (indexPath.section == SettingsSectionFour && indexPath.row == SettingsSectionFourRowStart)
+    if (indexPath.section == SettingsSectionAdHocUserProfile && indexPath.row == AdHocUserProfileSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocEditUserProfile];
     }
     
-    if (indexPath.section == SettingsSectionFive && indexPath.row == SettingsSectionFiveRowStart)
+    if (indexPath.section == SettingsSectionAdHocVoiceCallback && indexPath.row == AdHocVoiceCallbackSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocVoiceCallback];
     }
     
-    if (indexPath.section == SettingsSectionSix && indexPath.row == SettingsSectionSixRowStart)
+    if (indexPath.section == SettingsSectionAdHocEmailMessage && indexPath.row == AdHocEmailMessageSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocEmailMessage];
     }
     
-    if (indexPath.section == SettingsSectionSeven && indexPath.row == SettingsSectionSevenRowStart)
+    if (indexPath.section == SettingsSectionAdHocSMSMessage && indexPath.row == AdHocSMSMessageSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocSMSMessage];
     }
     
-    if (indexPath.section == SettingsSectionEight && indexPath.row == SettingsSectionEightRowStart)
+    if (indexPath.section == SettingsSectionAdHocWebPage && indexPath.row == AdHocWebPageSectionRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocWebPage];
     }
     
-    if (indexPath.section == SettingsSectionNine && indexPath.row == SettingsSectionNineRowStart)
+    if (indexPath.section == SettingsSectionAdHocAnswerEngineHistory && indexPath.row == AdHocAnswerEngineHistoryRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocAnswerEngineHistory];
     }
     
-    if (indexPath.section == SettingsSectionTen && indexPath.row == SettingsSectionTenRowStart)
+    if (indexPath.section == SettingsSectionAdHocChatHistory && indexPath.row == AdHocChatHistoryRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocChatHistory];
     }
     
-    if (indexPath.section == SettingsSectionEleven && indexPath.row == SettingsSectionElevenRowStart)
+    if (indexPath.section == SettingsSectionAdHocSelectExpert && indexPath.row == AdHocSelectExpertRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocSelectExpert];
     }
     
-    if (indexPath.section == SettingsSectionTwelve && indexPath.row == SettingsSectionTwelveRowStart)
+    if (indexPath.section == SettingsSectionAdHocExtendedUserProfile && indexPath.row == AdHocExtendedUserProfileRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocEditUserProfileExtended];
     }
     
     if (indexPath.section == SettingsSectionThirteen && indexPath.row == SettingsSectionThirteenRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocAPIConfigEditor];
     }
     
     if (indexPath.section == SettingsSectionFourteen && indexPath.row == SettingsSectionFourteenRowStart)
@@ -588,65 +614,65 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         }
             break;
             
-        case SettingsSectionFour:
+        case SettingsSectionAdHocUserProfile:
         {
-            title = ECDLocalizedString(@"Localized Section Four Header", @"Four Header");
+            title = ECDLocalizedString(ECDLocalizedStartUserProfileHeader, @"AdHoc Edit User Profile");
         }
             break;
     
             
-        case SettingsSectionFive:
+        case SettingsSectionAdHocVoiceCallback:
         {
-            title = ECDLocalizedString(@"Localized Section Five Header", @"Five Header");
+            title = ECDLocalizedString(ECDLocalizedStartVoiceCallbackHeader, @"AdHoc Voice Callback");
         }
             break;
             
             
-        case SettingsSectionSix:
+        case SettingsSectionAdHocEmailMessage:
         {
-            title = ECDLocalizedString(@"Localized Section Six Header", @"Six Header");
+            title = ECDLocalizedString(ECDLocalizedStartEmailMessageHeader, @"AdHoc Email Messsage");
         }
             break;
             
             
-        case SettingsSectionSeven:
+        case SettingsSectionAdHocSMSMessage:
         {
-            title = ECDLocalizedString(@"Localized Section Seven Header", @"Seven Header");
+            title = ECDLocalizedString(ECDLocalizedStartSMSMessageHeader, @"AdHoc SMS Message");
         }
             break;
             
             
-        case SettingsSectionEight:
+        case SettingsSectionAdHocWebPage:
         {
-            title = ECDLocalizedString(@"Localized Section Eight Header", @"Eight Header");
+            title = ECDLocalizedString(ECDLocalizedStartWebPageHeader, @"AdHoc Launch Web Page");
         }
             break;
             
             
-        case SettingsSectionNine:
+        case SettingsSectionAdHocAnswerEngineHistory:
         {
-            title = ECDLocalizedString(@"Localized Section Nine Header", @"Nine Header");
+            title = ECDLocalizedString(ECDLocalizedStartAnswerEngineHistoryHeader, @"AdHoc Answer Engine History");
         }
             break;
             
             
-        case SettingsSectionTen:
+        case SettingsSectionAdHocChatHistory:
         {
-            title = ECDLocalizedString(@"Localized Section Ten Header", @"Ten Header");
+            title = ECDLocalizedString(ECDLocalizedStartChatHistoryHeader, @"AdHoc Chat History");
         }
             break;
             
             
-        case SettingsSectionEleven:
+        case SettingsSectionAdHocSelectExpert:
         {
-            title = ECDLocalizedString(@"Localized Section Eleven Header", @"Eleven Header");
+            title = ECDLocalizedString(ECDLocalizedStartSelectExpertHeader, @"AdHoc Select Expert Dialog");
         }
             break;
             
             
-        case SettingsSectionTwelve:
+        case SettingsSectionAdHocExtendedUserProfile:
         {
-            title = ECDLocalizedString(@"Localized Section Twelve Header", @"Twelve Header");
+            title = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileHeader, @"Twelve Header");
         }
             break;
             
@@ -700,6 +726,16 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     [self.navigationController pushViewController:chatController animated:YES];
 }
 
+-(void)handleAdHocVoiceCallback
+{
+    NSLog(@"Starting an ad-hoc Voice Callback Session");
+    
+    NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
+    
+    UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill withDisplayName:@"Voice Callback"];
+    [self.navigationController pushViewController:chatController animated:YES];
+}
+
 -(void)handleAdHocStartAnswerEngine
 {
     NSLog(@"Starting an ad-hoc Answer Engine Session");
@@ -720,6 +756,81 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
     [self.navigationController pushViewController:formsController animated:YES];
 }
+
+-(void)handleAdHocEditUserProfile
+{
+    NSLog(@"Rendering an ad-hoc User Profile Form");
+    
+    UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];
+    [self.navigationController pushViewController:profileController animated:YES];
+}
+
+-(void)handleAdHocEmailMessage
+{
+    NSLog(@"Rendering an ad-hoc Email Form");
+    
+    UIViewController *emailController = [[EXPERTconnect shared] startEmailMessage];
+    [self.navigationController pushViewController:emailController animated:YES];
+}
+
+-(void)handleAdHocSMSMessage
+{
+    NSLog(@"Rendering an ad-hoc SMS Messaging Form");
+    
+    UIViewController *smsController = [[EXPERTconnect shared] startSMSMessage];
+    [self.navigationController pushViewController:smsController animated:YES];
+}
+
+-(void)handleAdHocWebPage
+{
+    NSLog(@"Rendering an ad-hoc Web Page");
+    
+    NSString *url = [self.selectAdHocWebPagePicker currentSelection];
+    
+    UIViewController *webController = [[EXPERTconnect shared] startWebPage:url];
+    [self.navigationController pushViewController:webController animated:YES];
+}
+
+-(void)handleAdHocAnswerEngineHistory
+{
+    NSLog(@"Rendering an ad-hoc Answer Engine History Page");
+    
+    UIViewController *aeController = [[EXPERTconnect shared] startAnswerEngineHistory];
+    [self.navigationController pushViewController:aeController animated:YES];
+}
+
+-(void)handleAdHocChatHistory
+{
+    NSLog(@"Rendering an ad-hoc Chat History Page");
+    
+    UIViewController *chistController = [[EXPERTconnect shared] startChatHistory];
+    [self.navigationController pushViewController:chistController animated:YES];
+}
+
+-(void)handleAdHocSelectExpert
+{
+    NSLog(@"Rendering an ad-hoc Answer Engine History Page");
+    
+    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpert];
+    [self.navigationController pushViewController:selectExpertController animated:YES];
+}
+
+-(void)handleAdHocEditUserProfileExtended
+{
+    NSLog(@"Rendering an ad-hoc User Profile Form with Extended Attributes");
+    
+    ECDExtendedUserProfileViewController *profileController = [[ECDExtendedUserProfileViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:profileController animated:YES];
+}
+
+-(void)handleAdHocAPIConfigEditor
+{
+    NSLog(@"Rendering an ad-hoc API Config Editor with Extended Attributes");
+    
+    ECDAPIConfigViewController *configController = [[ECDAPIConfigViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:configController animated:YES];
+}
+
 
 -(void)handleAdHocShowLicense
 {

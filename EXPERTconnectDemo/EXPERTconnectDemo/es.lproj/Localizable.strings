@@ -44,3 +44,6 @@
 
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "(ES) Select Runtime Application";
+
+/* Profile was updated  */
+"ECDLocalizeProfileWasUpdatedKey" = "Perfil se actualiza";

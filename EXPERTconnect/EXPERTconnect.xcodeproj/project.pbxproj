@@ -362,6 +362,11 @@
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
 		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
+		46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4679BD941B7A493D002E2D9E /* ECSUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */; };
+		462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */; };
+		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
+		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -729,8 +734,16 @@
 		2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemText.m; sourceTree = "<group>"; };
 		2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormItemTextArea.h; sourceTree = "<group>"; };
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
+		462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSCustomDataClassTransformer.m; sourceTree = "<group>"; };
+		462C19221B7B88BB00E230B7 /* ECSCustomDataClassTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSCustomDataClassTransformer.h; sourceTree = "<group>"; };
+		462C19231B7B9EEE00E230B7 /* ECSUserProfileSubmitResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSUserProfileSubmitResponse.h; sourceTree = "<group>"; };
+		462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfileSubmitResponse.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSelectExpertsResponse.m; sourceTree = "<group>"; };
+		4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSSelectExpertsResponse.h; sourceTree = "<group>"; };
+		4679BD941B7A493D002E2D9E /* ECSUserProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSUserProfile.h; sourceTree = "<group>"; };
+		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -783,6 +796,7 @@
 		033ACB101A602C9C0024F48F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4679BD931B7A491E002E2D9E /* Registration */,
 				03C310291A9B59E3006B3557 /* ActionTypes */,
 				03C3102B1A9B5A86006B3557 /* Chat */,
 				2252C6921A7BE9CE00B99912 /* Forms */,
@@ -1066,6 +1080,10 @@
 				031B2D681AAF443900A00A36 /* ECSHistoryResponse.m */,
 				031B2D6B1AAF453200A00A36 /* ECSAnswerHistoryResponse.h */,
 				031B2D6C1AAF453200A00A36 /* ECSAnswerHistoryResponse.m */,
+				4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */,
+				4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */,
+				462C19231B7B9EEE00E230B7 /* ECSUserProfileSubmitResponse.h */,
+				462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */,
 			);
 			name = Responses;
 			sourceTree = "<group>";
@@ -1393,6 +1411,17 @@
 			path = Forms;
 			sourceTree = "<group>";
 		};
+		4679BD931B7A491E002E2D9E /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				4679BD941B7A493D002E2D9E /* ECSUserProfile.h */,
+				4679BD951B7A4949002E2D9E /* ECSUserProfile.m */,
+				462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */,
+				462C19221B7B88BB00E230B7 /* ECSCustomDataClassTransformer.h */,
+			);
+			name = Registration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1495,6 +1524,7 @@
 				0342B0401A9B60C10009959E /* ECSQuestionTableViewCell.h in Headers */,
 				035C4C0F1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h in Headers */,
 				03101F281AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.h in Headers */,
+				46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */,
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
@@ -1740,10 +1770,12 @@
 				03C3105D1A9B5B56006B3557 /* ECSChatActionType.m in Sources */,
 				03EABE371AA7AE38000BCA17 /* ECSConfiguration.m in Sources */,
 				03101F291AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.m in Sources */,
+				4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */,
 				039E13111A8BBACC00AD4927 /* ECSKeychainSupport.m in Sources */,
 				03BD9E2C1AF2A1F2003D808C /* ECSInlineFormViewController.m in Sources */,
 				03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */,
 				0342B0711A9B60EF0009959E /* ECSMessageViewController.m in Sources */,
+				462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */,
 				033ACB3D1A602C9C0024F48F /* ECSUtilities.m in Sources */,
 				03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */,
 				03C310671A9B5B56006B3557 /* ECSWebActionType.m in Sources */,
@@ -1871,7 +1903,9 @@
 				0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */,
 				039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */,
 				0390624D1AC9D3B100E006BE /* ECSChannelStateMessage.m in Sources */,
+				4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */,
 				031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */,
+				462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */,
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,
 				03F0BD091A6D425200E90E7F /* ECSTheme.m in Sources */,

@@ -42,6 +42,7 @@
 #import <EXPERTconnect/ECSLoadingView.h>
 #import <EXPERTconnect/ECSSectionHeader.h>
 #import <EXPERTconnect/ECSTheme.h>
+#import <EXPERTconnect/ECSUserProfile.h>
 
 #import <EXPERTconnect/ECSJSONSerializing.h>
 #import <EXPERTconnect/ECSNotifications.h>
@@ -96,6 +97,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
+ Returns a view controller for an EXPERTconnect Voice Callback session.
+ 
+ @param chatSkill the Agent Skill for the Callback
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Callback
+ */
+- (UIViewController*)startVoiceCallback:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
  Returns a view controller for an EXPERTconnect Answer Engine session.
  
  @param aeContext the Answer Engine Context to post the question to
@@ -113,19 +124,64 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (UIViewController*)startSurvey:(NSString*)formName;
 
-
-
+/**
+ Returns a view controller for an EXPERTconnect User Profile Form for the current user
+ 
+ @return the view controller for the User Profile Controller
+ */
+- (UIViewController*)startUserProfile;
 
 /**
- Returns a Form by Name
+ Returns a view controller for an EXPERTconnect Email Message
  
- @param form the Name of the Form to launch
- 
- @return the view controller for the Survey
+ @return the view controller for the Messaging Controller
  */
-- (ECSForm*)retrieveForm:(NSString*)formName;
+- (UIViewController*)startEmailMessage;
+- (UIViewController*)startEmailMessage:(ECSActionType *)messageAction;
 
+/**
+ Returns a view controller for an EXPERTconnect SMS Message
+ 
+ @return the view controller for the Messaging Controller
+ */
+- (UIViewController*)startSMSMessage;
 
+/**
+ Returns a view controller for an EXPERTconnect Web Page View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startWebPage:(NSString *)url;
+
+/**
+ Returns a view controller for an EXPERTconnect Answer Engine History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startAnswerEngineHistory;
+
+/**
+ Returns a view controller for an EXPERTconnect Chat History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startChatHistory;
+
+/**
+ Returns a view controller for an EXPERTconnect Answer Engine History View
+ 
+ @return the view controller for the Web Page Controller
+ */
+- (UIViewController*)startSelectExpert;
+
+/**
+ Login support
+ 
+ @param username the Name of the user attempting to login
+ 
+ @return the Form returned from the login attempt
+ */
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion;
 
 /**
  Returns a view controller for a specified EXPERTconnect action. If no view controller is

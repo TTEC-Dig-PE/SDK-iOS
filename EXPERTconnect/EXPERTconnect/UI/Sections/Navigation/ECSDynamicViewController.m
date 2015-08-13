@@ -87,12 +87,48 @@ static NSString *const ECSQuestionCellId = @"ECSQuestionCellId";
                                                                            {
                                                                                weakSelf.navigationContext = context;
                                                                                [weakSelf.tableView reloadData];
+                                                                               
+                                                                               [self tryToAutoRoute];
                                                                            }
                                                                            
                                                                            [weakSelf setLoadingIndicatorVisible:NO];
                                                                        }];
 
                                  }];
+}
+
+- (void)tryToAutoRoute {
+    /* NK 8/10/2015 - We want to check for autoRoute tags - if it exists when only
+     one nav item exists, then don't display the navigation UI and instead launch
+     the Action. */
+    if (self.navigationContext.sections.count == 1) {
+        int actionCount = 0;
+        ECSNavigationSection *navSection = self.navigationContext.sections[0];
+        ECSActionType *actiontype = nil;
+        switch (navSection.sectionType) {
+            case ECSNavigationSectionFeatured:
+                if (navSection.items.count == 1) {
+                    actionCount = navSection.items.count;
+                    actiontype = navSection.items[0];
+                }
+                break;
+                
+            case ECSNavigationSectionQuestion:
+                break;
+            case ECSNavigationSectionButtons:
+            case ECSNavigationSectionList:
+                actionCount = navSection.items.count;
+                actiontype = navSection.items[0];
+                break;
+            default:
+                break;
+        }
+        
+        if (actiontype && actionCount == 1 && actiontype.autoRoute.boolValue)
+        {
+            [self handleAction:actiontype];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

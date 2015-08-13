@@ -23,6 +23,8 @@
 #import "ECSConversationCreateResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
+#import "ECSSelectExpertsResponse.h"
+#import "ECSUserProfile.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
 #import "ECSKeychainSupport.h"
@@ -39,7 +41,6 @@
 #import "ECSUserManager.h"
 
 NSString *const ECSReachabilityChangedNotification = @"ECSNetworkReachabilityChangedNotification";
-
 
 typedef void (^ECSSessionManagerSuccess)(id result, NSURLResponse *response);
 typedef void (^ECSSessionManagerFailure)(id result, NSURLResponse *response, NSError *error);
@@ -267,6 +268,57 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSLogVerbose(@"Get Results from a known endpoint");
+    
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:[self.baseURL.path stringByAppendingString:endpoint]];
+    
+    endpoint = urlComponents.path;
+    NSArray *query = urlComponents.queryItems;
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    for(NSURLQueryItem *item in query)
+    {
+        [parameters setObject:item.value forKey:item.name];
+    }
+
+    return [self GET:endpoint
+          parameters:parameters
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion
+{
+    ECSLogVerbose(@"Get User's Profile");
+    
+    return [self GET:@"registration/v1/profile"
+          parameters:nil
+             success:[self successWithExpectedType:[ECSUserProfile class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSLogVerbose(@"Submit User Profile");
+    
+    return [self POST:@"registration/v1/profile"
+          parameters:[ECSJSONSerializer jsonDictionaryFromObject:profile]
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
+{
+    ECSLogVerbose(@"Get Experts matching by User");
+    
+    return [self GET:@"registration/v1/experts"
+          parameters:nil
+             success:[self successWithExpectedType:[ECSSelectExpertsResponse class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
     ECSLogVerbose(@"Get form names");
@@ -288,7 +340,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion;
+- (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     NSAssert(formName != nil && formName.length > 0, @"formName must be specified");
     ECSLogVerbose(@"Get form %@", formName);
@@ -300,7 +352,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
-                          completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
+                          completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
     ECSLogVerbose(@"Submit form %@", form);
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
@@ -331,7 +383,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)performRegistrationWithFullName:(NSString*)fullName
                                             emailAddress:(NSString*)email
                                             mobileNumber:(NSString*)mobileNumber
-                                              completion:(void (^)(id userData, NSError* error))completion;
+                                              completion:(void (^)(id userData, NSError* error))completion
 {
     NSDictionary *parameters = @{ @"name": fullName, @"email": email, @"mobileNumber": mobileNumber };
     
@@ -348,7 +400,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask*)startConversationForAction:(ECSActionType*)actionType
                                     andAlwaysCreate:(BOOL)alwaysCreate
-                                     withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion;
+                                     withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
     if ([actionType.journeybegin boolValue] || alwaysCreate)
     {
@@ -604,6 +656,23 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 id resultObject = [ECSJSONSerializer objectFromJSONDictionary:result
                                                                     withClass:aClass];
                 
+                completion(resultObject, nil);
+            }
+            else if ([result isKindOfClass:[NSNumber class]])
+            {
+                NSNumber *tfbool = (NSNumber *)result;
+                NSString *truefalse = @"true";
+                
+                if([tfbool isEqual:@0]) {
+                    truefalse = @"false";
+                }
+                
+                id resultObject = truefalse;
+                completion(resultObject, nil);
+            }
+            else if ([result isKindOfClass:[NSString class]])
+            {
+                id resultObject = result;
                 completion(resultObject, nil);
             }
             else
