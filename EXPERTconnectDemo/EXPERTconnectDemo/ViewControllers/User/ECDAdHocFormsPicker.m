@@ -16,19 +16,19 @@ static NSString *const lastFormSelected = @"lastFormSelected";
 -(void)setup {
     NSMutableArray *formsArray = [NSMutableArray new];
     
-    // TODO: Get this list from SDK
-    //
-    [formsArray addObject:@"AgentPerformance"];
-    [formsArray addObject:@"UserProfile"];
-    [formsArray addObject:@"Inline Site Map"];
-    [formsArray addObject:@"QuickAgentRating"];
-    [formsArray addObject:@"QuickIdentity"];
-    [formsArray addObject:@"Willow"];
-    
-    int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
-    
-    [super setup:formsArray withSelection:rowToSelect];
-    [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+
+    [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error) {
+        for(NSString *formName in formNames)  {
+            [formsArray addObject:formName];
+        }
+        
+        int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
+        
+        [super setup:formsArray withSelection:rowToSelect];
+        
+        [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+    }];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
