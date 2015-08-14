@@ -40,6 +40,7 @@ static NSString* const ECDLocalizedStartChatHistoryHeader = @"ECDLocalizedStartC
 static NSString* const ECDLocalizedStartSelectExpertHeader = @"ECDLocalizedStartSelectExpertHeader";
 static NSString* const ECDLocalizedStartExtendedUserProfileHeader = @"ECDLocalizedStartExtendedUserProfileHeader";
 static NSString* const ECDLocalizedStartAPIConfigHeader = @"ECDLocalizedStartAPIConfigHeader";
+static NSString* const ECDLocalizedStartSubmitFormHeader = @"ECDLocalizedStartSubmitFormHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
@@ -55,6 +56,7 @@ static NSString* const ECDLocalizedStartChatHistoryLabel = @"ECDLocalizedStartCh
 static NSString* const ECDLocalizedStartSelectExpertLabel = @"ECDLocalizedStartSelectExpertLabel";
 static NSString* const ECDLocalizedStartExtendedUserProfileLabel = @"ECDLocalizedStartExtendedUserProfileLabel";
 static NSString* const ECDLocalizedStartAPIConfigLabel = @"ECDLocalizedStartAPIConfigLabel";
+static NSString* const ECDLocalizedStartSubmitFormLabel = @"ECDLocalizedStartSubmitFormLabel";
 
 
 /**

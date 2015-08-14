@@ -63,6 +63,9 @@
 /* Start Application Configuration Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAPIConfigLabel" = "Application Configuration";
 
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormLabel" = "Submit AdHoc Form";
+
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
@@ -103,6 +106,9 @@
 
 /* Start Applicaton Configuration Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAPIConfigHeader" = "AdHoc Modify App Config Settings";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormHeader" = "AdHoc Submit Form";
 
 /* End AdHoc Section */
 
