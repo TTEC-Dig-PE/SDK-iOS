@@ -15,7 +15,7 @@
   - Use the logged-in SDK username instead of below identifierForVendor  (make unique by prepending with tenant? etc?)
   - Get new iPad and test/finish video code
   - Create View / VC to house preview & remote videos and to show option buttons (transparent? fullscreen?)
-  - Handle Reachability (research) and connectivity errors
+  - Handle connectivity errors
   - Implement (at least for logging) all Delegate methods
   - Consumer should end Session and clear out cafeXConnection object when video session ends (or chat ends?! Decide).
  
@@ -40,7 +40,7 @@
   - Voice auto start [mutually exclusive with video auto, and voice/video escalation]
   - Video escalation allowed [mutually exclusive with voice and video auto start]
   - Voice escalation allowed [mutually exclusive with voice and video auto start]
-  - CafeX Co-Browse escalation allowed
+  - CafeX Co-Browse escalation allowed (existing Co-Browse Button w/software switch)
  */
 
 /* Options to expose (somewhere?)
@@ -57,11 +57,22 @@
 #import "ECSConfiguration.h"
 #import "ECSCafeXController.h"
 #import "ECSURLSessionManager.h"
+#import "ECSRootViewController.h"
 #import "ECSInjector.h"
+#import "UIViewController+ECSNibLoading.h"
 
 @implementation ECSCafeXController
 
 - (void) setupCafeXSession {
+    if (cafeXConnection == nil) {
+        [self loginToCafeX];
+    } else {
+        [cafeXConnection startSession];
+    }
+}
+
+- (void) setupCafeXSessionWithTask:(void (^)(void))task {
+    self.postLoginTask = task;
     if (cafeXConnection == nil) {
         [self loginToCafeX];
     } else {
@@ -93,11 +104,10 @@
                                               NSLog(@"CafeX Got session ID: %@", configuration);
                                               cafeXConnection = [ACBUC ucWithConfiguration:configuration delegate:self];
                                               
+                                              [self registerForReachabilityCallback];
+                                              
                                               // TODO?
-                                              /*             
-                                               [self registerForReachabilityCallback];
-                                               
-                                               
+                                              /*
                                                BOOL acceptUntrustedCertificates = [[[NSUserDefaults standardUserDefaults] objectForKey:@"acceptUntrustedCertificates"] boolValue];
                                                [_uc acceptAnyCertificate:acceptUntrustedCertificates];
                                                
@@ -116,6 +126,27 @@
                                       failure:^(id result, NSURLResponse *response, NSError *error) {
                                           NSLog(@"CafeX Error calling getSession: %@", error);
                                       }];
+}
+
+- (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent {
+    [ECSCafeXController requestCameraAccess];
+    
+    _cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    [parent presentModal:_cafeXVideoViewController withParentNavigationController:parent.navigationController];
+    
+    ACBClientPhone* phone = cafeXConnection.phone;
+    phone.delegate = self;
+    phone.previewView = _cafeXVideoViewController.previewVideoView;
+    ACBClientCall* call = [phone createCallToAddress:target audio:aud video:vid delegate:self];
+    
+    if (call)
+    {
+        call.videoView = _cafeXVideoViewController.remoteVideoView;
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"A call must be created with media." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 - (void) endCafeXSession {
@@ -148,26 +179,10 @@
 - (void) ucDidStartSession:(ACBUC *)uc
 {
     NSLog(@"CafeX DidStartSession (Success)");
-    // no op
     
-    // TESTING ONLY!!
-    /*
-    [ECSCafeXController requestCameraAccess];
-     
-    ACBClientPhone* phone = cafeXConnection.phone;
-    phone.delegate = self;
-    //phone.previewView = previewView; // TODO
-    ACBClientCall* call = [phone createCallToAddress:@"NathanTest1" audio:YES video:YES delegate:self];
-    
-    if (call)
-    {
-        // call.videoView = aVideoView; // TODO
+    if (self.postLoginTask) {
+        self.postLoginTask();
     }
-    else
-    {
-        [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"A call must be created with media." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-     */
 }
 
 /**
@@ -218,6 +233,31 @@
     [[[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Unable to initiate call: You have not given permission to access the camera or microphone." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     
     // TODO: Kill session?
+}
+
+#pragma mark - Reachability
+- (void)registerForReachabilityCallback
+{
+    // Do any additional setup after loading the view.
+    self.reachabilityManager = [[ReachabilityManager alloc] init];
+    [self.reachabilityManager addListener:self];
+    [self.reachabilityManager registerForReachabilityTo:server];
+}
+
+- (void)unregisterForReachabilityCallback
+{
+    // remove the reachability callback listener
+    if (self.reachabilityManager != nil)
+    {
+        [self.reachabilityManager removeListener:self];
+    }
+}
+
+#pragma mark - ReachabilityManagerListener
+- (void) reachabilityDetermined:(BOOL)reachability
+{
+    NSLog(@"Network reachability changed to:%@ - here the application has the chance to inform the user that connectivitiy is lost", reachability ? @"YES" : @"NO");
+    [cafeXConnection setNetworkReachable:reachability];
 }
 
 @end

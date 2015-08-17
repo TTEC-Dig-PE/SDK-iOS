@@ -21,6 +21,7 @@
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
+#import "ECSCafeXMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChatInfoMessage.h"
 #import "ECSChatMediaMessage.h"
@@ -51,6 +52,7 @@
                                      @"ChatState": [ECSChatStateMessage class],
                                      @"AssociateInfoCommand": [ECSChatAssociateInfoMessage class],
                                      @"CoBrowseMessage": [ECSChatCoBrowseMessage class],
+                                     @"CafeXMessage": [ECSCafeXMessage class],
                                      @"VoiceAuthenticationMessage": [ECSChatVoiceAuthenticationMessage class],
                                      @"NotificationMessage": [ECSChatNotificationMessage class]
                                      

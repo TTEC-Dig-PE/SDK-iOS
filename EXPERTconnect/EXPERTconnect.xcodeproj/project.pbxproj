@@ -379,6 +379,10 @@
 		D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */; };
 		D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */; };
 		D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */; };
+		D83F78BB1B7D2D0B00F307D4 /* ReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D83F78B91B7D2D0B00F307D4 /* ReachabilityManager.h */; };
+		D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78BA1B7D2D0B00F307D4 /* ReachabilityManager.m */; };
+		D83F78BE1B7D516100F307D4 /* ECSCafeXMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */; };
+		D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -784,6 +788,10 @@
 		D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSCafeXVideoViewController.xib; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.xib; sourceTree = SOURCE_ROOT; };
 		D83F78AA1B7BE2E100F307D4 /* ECSCafeXVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXVideoViewController.h; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.h; sourceTree = SOURCE_ROOT; };
 		D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXVideoViewController.m; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.m; sourceTree = SOURCE_ROOT; };
+		D83F78B91B7D2D0B00F307D4 /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReachabilityManager.h; path = Core/Networking/ReachabilityManager.h; sourceTree = "<group>"; };
+		D83F78BA1B7D2D0B00F307D4 /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReachabilityManager.m; path = Core/Networking/ReachabilityManager.m; sourceTree = "<group>"; };
+		D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXMessage.m; path = Chat/ECSCafeXMessage.m; sourceTree = "<group>"; };
+		D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXMessage.h; path = Chat/ECSCafeXMessage.h; sourceTree = "<group>"; };
 		D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ThirdParty/ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -1087,6 +1095,8 @@
 		03B3FA201A670C7400D872B1 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D83F78B91B7D2D0B00F307D4 /* ReachabilityManager.h */,
+				D83F78BA1B7D2D0B00F307D4 /* ReachabilityManager.m */,
 				03C310241A9B59C0006B3557 /* ECSURLSessionManager.h */,
 				03C310251A9B59C0006B3557 /* ECSURLSessionManager.m */,
 				03B3FA1C1A670C6E00D872B1 /* ECSResponseSerializer.h */,
@@ -1179,6 +1189,8 @@
 				031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */,
 				D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */,
 				D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */,
+				D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */,
+				D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */,
 				03272A0C1AE7E36F009C6EDF /* ECSChatFormMessage.h */,
 				03272A0D1AE7E36F009C6EDF /* ECSChatFormMessage.m */,
 				030AF2141AF807E30056BFB0 /* ECSChatHistoryMessage.h */,
@@ -1587,6 +1599,7 @@
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
+				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
 				035C4C0A1A9B7E900016BCE8 /* ECSFormSubmittedViewController.h in Headers */,
 				039062461AC9C6A800E006BE /* ECSChatWaitView.h in Headers */,
 				03AF24AD1A9B601E00407BE5 /* ECSButton.h in Headers */,
@@ -1681,6 +1694,7 @@
 				03BE27521ADC1BD60099F2EB /* ECSChatNetworkActionCell.h in Headers */,
 				030AF21A1AF8080A0056BFB0 /* ECSChatHistoryResponse.h in Headers */,
 				03F0BD4B1A7130CA00E90E7F /* UIViewController+ECSNibLoading.h in Headers */,
+				D83F78BB1B7D2D0B00F307D4 /* ReachabilityManager.h in Headers */,
 				0342B0201A9B60AE0009959E /* ECSCheckboxFormItemViewController.h in Headers */,
 				03978EE81A602AEF007793D6 /* EXPERTconnect.h in Headers */,
 				0342AFBD1A9B60840009959E /* ECSCancelCallbackViewController.h in Headers */,
@@ -1937,6 +1951,7 @@
 				039062471AC9C6A800E006BE /* ECSChatWaitView.m in Sources */,
 				03F1896C1A644532003C6E14 /* ECSInjector.m in Sources */,
 				033ACB6A1A6053260024F48F /* ECSRootViewController+Navigation.m in Sources */,
+				D83F78BE1B7D516100F307D4 /* ECSCafeXMessage.m in Sources */,
 				03C310571A9B5B56006B3557 /* ECSActionType.m in Sources */,
 				0342B00C1A9B60AE0009959E /* ECSCheckboxTableViewCell.m in Sources */,
 				03B3FA1F1A670C6E00D872B1 /* ECSResponseSerializer.m in Sources */,
@@ -1980,6 +1995,7 @@
 				03F1896E1A644B9E003C6E14 /* EXPERTconnect.m in Sources */,
 				038E43FA1AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m in Sources */,
 				039E13541A9517F100AD4927 /* ECSQuickRatingForm.m in Sources */,
+				D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */,
 				03B47F8E1A85BD6600B2686F /* ECSPresurveyFormItem.m in Sources */,
 				0342AFD91A9B60950009959E /* ECSChatImageTableViewCell.m in Sources */,
 				039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */,
@@ -2317,6 +2333,7 @@
 				C6492F361B7C775200CC977E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

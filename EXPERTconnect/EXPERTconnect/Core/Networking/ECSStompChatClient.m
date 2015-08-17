@@ -12,6 +12,7 @@
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
+#import "ECSCafeXMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChannelConfiguration.h"
 #import "ECSChatFormMessage.h"
@@ -45,6 +46,7 @@ static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";
 static NSString * const kECSChatAddChannelMessage = @"AddChannelCommand";
 static NSString * const kECSChatAssociateInfoMessage = @"AssociateInfoCommand";
 static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
+static NSString * const kECSCafeXMessage = @"CafeXMessage";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 
@@ -419,6 +421,10 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
     {
         [self handleCoBrowseMessage:message forClient:stompClient];
     }
+    else if ([bodyType isEqualToString:kECSCafeXMessage])
+    {
+        [self handleCafeXMessage:message forClient:stompClient];
+    }
     else if ([bodyType isEqualToString:kECSVoiceAuthenticationMessage])
     {
         [self handleVoiceAuthenticationMessage:message forClient:stompClient];
@@ -665,6 +671,28 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
         {
             ECSChatCoBrowseMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                                 withClass:[ECSChatCoBrowseMessage class]];
+            message.fromAgent = YES;
+            [self.delegate chatClient:self didReceiveMessage:message];
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
+}
+
+- (void)handleCafeXMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0
+                                                      error:&serializationError];
+        if (!serializationError)
+        {
+            ECSCafeXMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                withClass:[ECSCafeXMessage class]];
             message.fromAgent = YES;
             [self.delegate chatClient:self didReceiveMessage:message];
         }

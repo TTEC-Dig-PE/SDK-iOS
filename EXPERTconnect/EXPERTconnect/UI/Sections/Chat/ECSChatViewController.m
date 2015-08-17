@@ -19,6 +19,7 @@
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
+#import "ECSCafeXMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSChatCellBackground.h"
 #import "ECSChatHistoryResponse.h"
@@ -60,6 +61,7 @@
 #import "ECSChatAddChannelMessage.h"
 #import "ECSEndChatSurveyView.h"
 #import "ECSRootViewController+Navigation.h"
+#import "ECSCafeXController.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -678,6 +680,58 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         
         return; // no UI
     }
+    
+    if ([message isKindOfClass:[ECSCafeXMessage class]])
+    {
+        ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
+        NSString *expertName = [participant firstName];
+        if (expertName == nil || expertName.length == 0) {
+            expertName = @"The Expert"; // TODO: Translate
+        }
+        NSString *channelName = nil;
+        NSString *channelType = ((ECSCafeXMessage*)message).parameter1;
+        if ([channelType isEqualToString:@"voice_escalate"]) {
+            channelName = @"a Voice Call"; // TODO: Translate
+        } else if ([channelType isEqualToString:@"video_escalate"]) {
+            channelName = @"a Video Call"; // TODO: Translate
+        } else {
+            NSLog(@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
+            return; // no UI
+        }
+        NSString *targetID = ((ECSCafeXMessage*)message).parameter2;
+        // Confirm with User:
+        NSString *alertTitle = @"Accept Call?"; // TODO: Translate
+        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName]; // TODO: Translate
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                 message:alertMessage
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              // TODO: Dial agent using parameter2 (target)
+                                                              ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+                                                              
+                                                              // Do a login if there's no session:
+                                                              if (![cafeXController hasCafeXSession]) {
+                                                                  [cafeXController setupCafeXSessionWithTask:^{
+                                                                      [cafeXController dial:targetID withVideo:[channelType isEqualToString:@"video_escalate"] andAudio:YES usingParentViewController:self];
+                                                                  }];
+                                                              } else {
+                                                                  [cafeXController dial:targetID withVideo:[channelType isEqualToString:@"video_escalate"] andAudio:YES usingParentViewController:self];
+                                                              }
+                                                          }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
+                                                              // No
+                                                              NSLog(@"User rejected %@ request.", channelType);
+                                                              [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
+                                                          }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        return; // no UI
+    }
+    
     if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]])
     {
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
