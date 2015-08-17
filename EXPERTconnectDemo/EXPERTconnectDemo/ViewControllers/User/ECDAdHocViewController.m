@@ -12,6 +12,7 @@
 #import "ECDLicenseViewController.h"
 #import "ECDExtendedUserProfileViewController.h"
 #import "ECDAPIConfigViewController.h"
+#import "ECDAdHocFormsController.h"
 #import "ECDAdHocViewController.h"
 #import "ECDUserDefaultKeys.h"
 #import "ECDAdHocChatPicker.h"
@@ -52,6 +53,7 @@
 // Get list of available Forms
 // Get list of available Media Files
 // Retrieve Navigation or Navigation Segment
+// Submit an AdHoc Form
 // Upload an AdHoc image
 // Download and AdHoc image
 //
@@ -62,12 +64,10 @@
 // Additional SDK Services (may require new APIs to support)
 // =========================================================
 //
-// Retrieve Available Agents by Skill?
-// Invoke a "new" API Endpoint?
-// Retrieve list of skills with availability of each (# agents online, # agents available)
+// Retrieve Available Agents by Skill?// Retrieve list of skills with availability of each (# agents online, # agents available)
 // Retrieve list of agents (all) with availability state of each
-// estimated time to wait for skill X" and
-// generic API endpoint
+// Estimated time to wait for skill X" and ?
+// Generic API endpoint
 // Push Notifications
 // Start any High-level SDK Services with Host App ViewController or at least Host App controlled Navigation
 //
@@ -85,8 +85,8 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocChatHistory,
     SettingsSectionAdHocSelectExpert,
     SettingsSectionAdHocExtendedUserProfile,
-    SettingsSectionThirteen,
-    SettingsSectionFourteen,
+    SettingsSectionAdHocAPIConfig,
+    SettingsSectionAdHocSubmitForm,
     SettingsSectionFifteen,
     SettingsSectionCount
 };
@@ -163,16 +163,16 @@ typedef NS_ENUM(NSInteger, ExtendedUserProfileSectionRows)
     AdHocExtendedUserProfileRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowThirteenRows)
+typedef NS_ENUM(NSInteger, APIConfigSectionRows)
 {
-    SettingsSectionThirteenRowStart,
-    SettingsSectionThirteenRowCount
+    AdHocAPIConfigRowStart,
+    AdHocAPIConfigRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowFourteenRows)
+typedef NS_ENUM(NSInteger, AdHocSubmitFormRows)
 {
-    SettingsSectionFourteenRowStart,
-    SettingsSectionFourteenRowCount
+    AdHocSubmitFormRowStart,
+    AdHocSubmitFormRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
@@ -283,12 +283,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             rowCount = AdHocExtendedUserProfileRowCount;
             break;
             
-        case SettingsSectionThirteen:
-            rowCount = SettingsSectionThirteenRowCount;
+        case SettingsSectionAdHocAPIConfig:
+            rowCount = AdHocAPIConfigRowCount;
             break;
             
-        case SettingsSectionFourteen:
-            rowCount = SettingsSectionFourteenRowCount;
+        case SettingsSectionAdHocSubmitForm:
+            rowCount = AdHocSubmitFormRowCount;
             break;
             
         case SettingsSectionFifteen:
@@ -465,10 +465,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionThirteen:
+        case SettingsSectionAdHocAPIConfig:
             switch (indexPath.row) {
                 case AdHocUserProfileSectionRowStart:
-                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Thirteen", @"Section Thirteen");
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAPIConfigLabel, @"AdHoc API Configuration");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -478,10 +478,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             break;
             
             
-        case SettingsSectionFourteen:
+        case SettingsSectionAdHocSubmitForm:
             switch (indexPath.row) {
                 case AdHocUserProfileSectionRowStart:
-                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Fourteen", @"Section Fourteen");
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSubmitFormLabel, @"AdHoc Submit Form");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -571,14 +571,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         [self handleAdHocEditUserProfileExtended];
     }
     
-    if (indexPath.section == SettingsSectionThirteen && indexPath.row == SettingsSectionThirteenRowStart)
+    if (indexPath.section == SettingsSectionAdHocAPIConfig && indexPath.row == AdHocAPIConfigRowStart)
     {
         [self handleAdHocAPIConfigEditor];
     }
     
-    if (indexPath.section == SettingsSectionFourteen && indexPath.row == SettingsSectionFourteenRowStart)
+    if (indexPath.section == SettingsSectionAdHocSubmitForm && indexPath.row == AdHocSubmitFormRowStart)
     {
-        [self handleAdHocShowLicense];
+        [self handleAdHocSubmitForm];
     }
     
     if (indexPath.section == SettingsSectionFifteen && indexPath.row == SettingsSectionFifteenRowStart)
@@ -672,21 +672,21 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionAdHocExtendedUserProfile:
         {
-            title = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileHeader, @"Twelve Header");
+            title = ECDLocalizedString(ECDLocalizedStartExtendedUserProfileHeader, @"Ad Hoc Extended User Profile");
         }
             break;
             
             
-        case SettingsSectionThirteen:
+        case SettingsSectionAdHocAPIConfig:
         {
-            title = ECDLocalizedString(@"Localized Section Thirteen Header", @"Thirteen Header");
+            title = ECDLocalizedString(ECDLocalizedStartAPIConfigHeader, @"Ad Hoc Extended User Profile");
         }
             break;
             
             
-        case SettingsSectionFourteen:
+        case SettingsSectionAdHocSubmitForm:
         {
-            title = ECDLocalizedString(@"Localized Section Fourteen Header", @"Fourteen Header");
+            title = ECDLocalizedString(ECDLocalizedStartSubmitFormHeader, @"Ad Hoc Submit Form");
         }
             break;
             
@@ -829,6 +829,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     ECDAPIConfigViewController *configController = [[ECDAPIConfigViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:configController animated:YES];
+}
+
+-(void)handleAdHocSubmitForm
+{
+    NSLog(@"Rendering an ad-hoc Form");
+    
+    ECDAdHocFormsController *formsController = [[ECDAdHocFormsController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:formsController animated:YES];
 }
 
 

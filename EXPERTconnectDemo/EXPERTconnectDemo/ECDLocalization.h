@@ -25,6 +25,7 @@ static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRe
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
+static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
@@ -38,6 +39,8 @@ static NSString* const ECDLocalizedStartAnswerEngineHistoryHeader = @"ECDLocaliz
 static NSString* const ECDLocalizedStartChatHistoryHeader = @"ECDLocalizedStartChatHistoryHeader";
 static NSString* const ECDLocalizedStartSelectExpertHeader = @"ECDLocalizedStartSelectExpertHeader";
 static NSString* const ECDLocalizedStartExtendedUserProfileHeader = @"ECDLocalizedStartExtendedUserProfileHeader";
+static NSString* const ECDLocalizedStartAPIConfigHeader = @"ECDLocalizedStartAPIConfigHeader";
+static NSString* const ECDLocalizedStartSubmitFormHeader = @"ECDLocalizedStartSubmitFormHeader";
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
@@ -52,6 +55,9 @@ static NSString* const ECDLocalizedStartAnswerEngineHistoryLabel = @"ECDLocalize
 static NSString* const ECDLocalizedStartChatHistoryLabel = @"ECDLocalizedStartChatHistoryLabel";
 static NSString* const ECDLocalizedStartSelectExpertLabel = @"ECDLocalizedStartSelectExpertLabel";
 static NSString* const ECDLocalizedStartExtendedUserProfileLabel = @"ECDLocalizedStartExtendedUserProfileLabel";
+static NSString* const ECDLocalizedStartAPIConfigLabel = @"ECDLocalizedStartAPIConfigLabel";
+static NSString* const ECDLocalizedStartSubmitFormLabel = @"ECDLocalizedStartSubmitFormLabel";
+
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

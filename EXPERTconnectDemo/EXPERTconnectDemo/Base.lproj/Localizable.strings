@@ -20,6 +20,9 @@
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Profile was updated";
 
+/* Application Config Value was updated  */
+"ECDLocalizeConfigWasUpdatedKey" = "Application Configuration Value was updated";
+
 /* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
@@ -56,6 +59,12 @@
 
 /* Start Extended User Profile Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartExtendedUserProfileLabel" = "Registration Edit Profile";
+
+/* Start Application Configuration Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigLabel" = "Application Configuration";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormLabel" = "Submit AdHoc Form";
 
 /* ----------------------------------------------------- */
 
@@ -94,6 +103,12 @@
 
 /* Start Extended User Profile Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartExtendedUserProfileHeader" = "AdHoc Edit (Extended) User Profile";
+
+/* Start Applicaton Configuration Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigHeader" = "AdHoc Modify App Config Settings";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormHeader" = "AdHoc Submit Form";
 
 /* End AdHoc Section */
 
