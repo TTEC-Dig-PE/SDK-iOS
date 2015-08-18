@@ -85,7 +85,6 @@
 		D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
 		D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
 		D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
-		D83F78C11B7E764900F307D4 /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		D87F2F0A1B66CC0900B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
 		D87F2F571B68308D00B7B9D5 /* MoxtraSDK in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA691B66A25D00DA1762 /* MoxtraSDK */; };
 		D87F2F581B68309100B7B9D5 /* MoxtraController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */; };
@@ -1272,7 +1271,6 @@
 				46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
 				D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */,
-				D83F78C11B7E764900F307D4 /* ECDAPIConfigViewController.m in Sources */,
 				D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */,
 				D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */,
 				46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */,
