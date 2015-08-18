@@ -1,4 +1,5 @@
 PODS:
+  - AXRatingView (1.0.3)
   - Bugsnag (4.0.7):
     - Bugsnag/no-arc (= 4.0.7)
   - Bugsnag/no-arc (4.0.7)
@@ -16,6 +17,7 @@ PODS:
     - MMDrawerController/Core
 
 DEPENDENCIES:
+  - AXRatingView (~> 1.0)
   - Bugsnag (from `https://github.com/bugsnag/bugsnag-cocoa.git`)
   - MMDrawerController (~> 0.6)
 
@@ -25,11 +27,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Bugsnag:
-    :commit: 94779161ebb4122c1753946c45e8c5b8350f72b0
+    :commit: 10842c8160496dec55cf8c4f4fb9729ac3e3ea97
     :git: https://github.com/bugsnag/bugsnag-cocoa.git
 
 SPEC CHECKSUMS:
+  AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
   Bugsnag: 5861d8519d30063abe7b3fcdcf4114a6dddab27a
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

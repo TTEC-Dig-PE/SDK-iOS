@@ -1431,8 +1431,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-Bugsnag\"",
-					"-l\"Pods-MMDrawerController\"",
 					"-l\"c++\"",
 					"-framework",
 					"\"Foundation\"",
@@ -1466,8 +1464,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"Pods-Bugsnag\"",
-					"-l\"Pods-MMDrawerController\"",
 					"-l\"c++\"",
 					"-framework",
 					"\"Foundation\"",
