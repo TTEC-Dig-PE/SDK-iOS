@@ -88,6 +88,13 @@
 
 #pragma mark - Present/Dismiss methods
 
+- (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
+                                                  animated:(BOOL)shouldAnimate
+                                                completion:(completionBlock)completion {
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewControllerModally:navController animated:YES completion:completion];
+}
+
 - (void)presentViewControllerModally:(UIViewController *)viewController
                             animated:(BOOL)shouldAnimate
                           completion:(completionBlock)completion {

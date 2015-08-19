@@ -16,6 +16,10 @@ typedef void(^completionBlock)(void);
 
 - (void)kickOffOnViewController:(UIViewController *)hostViewController;
 
+- (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
+                                                  animated:(BOOL)shouldAnimate
+                                                completion:(completionBlock)completion;
+
 - (void)presentViewControllerModally:(UIViewController *)viewController
                             animated:(BOOL)shouldAnimate
                           completion:(completionBlock)completion;
