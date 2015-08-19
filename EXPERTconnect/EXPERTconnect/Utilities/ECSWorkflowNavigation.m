@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIView *dimmingOverlay;
 @property (nonatomic, strong) UIView *containerView;
 
+@property (nonatomic, strong) UIButton *minimizedButton;
+
 @end
 
 @implementation ECSWorkflowNavigation
@@ -28,7 +30,7 @@
     [self addContainerView];
 }
 
-#pragma mark - Dimming Overlay & Container View
+#pragma mark - Dimming Overlay
 
 - (void)addDimmingOverlay {
     self.dimmingOverlay = [UIView new];
@@ -69,6 +71,7 @@
     UIView *containerView = self.containerView;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(containerView);
+    
     NSArray *h = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[containerView]|"
                                                          options:0
                                                          metrics:nil
@@ -87,12 +90,7 @@
 
 - (void)presentViewControllerModally:(UIViewController *)viewController
                             animated:(BOOL)shouldAnimate
-        wrapWithNavigationController:(BOOL)wrapWithNavigationController
                           completion:(completionBlock)completion {
-    
-    if(wrapWithNavigationController) {
-        viewController = [self wrapWithNavigationController:viewController];
-    }
     
     CGSize modalSize = [self modalSize];
     UIView *newView = viewController.view;
@@ -138,14 +136,12 @@
     // visuals
     newView.layer.cornerRadius = [self modalBorderRadius];
     newView.layer.borderWidth = [self modalBorderWidth];
-    newView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    newView.layer.borderColor = [[self modalBorderColor] CGColor];
     newView.clipsToBounds = YES;
     
     // animate
-    CGFloat initialAlpha = self.dimmingOverlay.alpha;
-    CGFloat finalAlpha = initialAlpha + [self modalOverlayDimmingFactor];
+    CGFloat dimmingAlpha = ([self.modalStack viewControllerCount] + 1) * [self modalOverlayDimmingFactor];
     
-    [self.dimmingOverlay setAlpha:initialAlpha];
     [self.containerView setHidden:NO];
     newView.transform = CGAffineTransformMakeTranslation(0, 1000);
     
@@ -153,7 +149,7 @@
      animateWithDuration: shouldAnimate ? [self modalAnimationDuration] : 0.0f
      animations:^{
          newView.transform = CGAffineTransformMakeTranslation(0, 0);
-         [self.dimmingOverlay setAlpha:finalAlpha];
+         [self.dimmingOverlay setAlpha:dimmingAlpha];
      }
      completion:^(BOOL finished) {
          
@@ -169,14 +165,13 @@
     UIViewController *viewController = [self.modalStack popViewController];
     
     // animate out
-    CGFloat initialAlpha = self.dimmingOverlay.alpha;
-    CGFloat finalAlpha = initialAlpha - [self modalOverlayDimmingFactor];
+    CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
     
     [UIView
      animateWithDuration: shouldAnimate ? [self modalAnimationDuration] : 0.0f
      animations:^{
          viewController.view.transform = CGAffineTransformMakeTranslation(0, 1000);
-         [self.dimmingOverlay setAlpha:finalAlpha];
+         [self.dimmingOverlay setAlpha:dimmingAlpha];
      }
      completion:^(BOOL finished) {
          
@@ -200,6 +195,83 @@
     };
 }
 
+#pragma mark - Minimize Restore
+
+- (void)minmizeAllViewControllersWithCompletion:(completionBlock)completion {
+    
+    // take screenshot
+    UIView *viewToDraw = [[[self modalStack] topViewController] view];
+    UIGraphicsBeginImageContextWithOptions(viewToDraw.bounds.size, NO, [UIScreen mainScreen].scale);
+    [viewToDraw drawViewHierarchyInRect:viewToDraw.bounds afterScreenUpdates:YES];
+    UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImage *targetImage = [UIImage imageNamed:@"avatar"];
+    
+    // make minimize button
+    self.minimizedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.minimizedButton.layer.borderWidth = [self modalBorderWidth];
+    self.minimizedButton.layer.borderColor = [[self modalBorderColor] CGColor];
+    self.minimizedButton.layer.cornerRadius = [self modalBorderRadius];
+    self.minimizedButton.clipsToBounds = YES;
+    [self.minimizedButton addTarget:self
+                             action:@selector(maxmimizeButtonTapped:)
+                   forControlEvents:UIControlEventTouchUpInside];
+    [self.containerView.superview addSubview:self.minimizedButton];
+    
+    // animate
+    self.minimizedButton.frame = viewToDraw.bounds;
+    self.minimizedButton.center = self.containerView.center;
+    [self.containerView setAlpha:0.0];
+    
+    [UIView
+     animateWithDuration: [self modalAnimationDuration]
+     animations:^{
+         [self.dimmingOverlay setAlpha:0.0];
+         self.minimizedButton.frame = CGRectMake(0, 0, targetImage.size.width, targetImage.size.width);
+         self.minimizedButton.center = [self minimizePosition];
+     }
+     completion:^(BOOL finished) {
+         if (completion) completion();
+     }];
+    
+    // animate image transition
+    //self.minimizedButton.screenshotImage = screenshot;
+    //self.minimizedButton.minimizedImage = targetImage;
+    //[self.minimizedButton transitionToScreenshotWithDuration:0.0];
+    //[self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
+}
+
+- (void)restoreAllViewControllersWithCompletion:(completionBlock)completion {
+    
+    // animate out
+    CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
+    CGSize modalSize = [self modalSize];
+    
+    [UIView
+     animateWithDuration: [self modalAnimationDuration]
+     animations:^{
+         [self.dimmingOverlay setAlpha:dimmingAlpha];
+         self.minimizedButton.frame = CGRectMake(0, 0, modalSize.width, modalSize.height);
+         self.minimizedButton.center = self.containerView.center;
+     }
+     completion:^(BOOL finished) {
+         [self.containerView setAlpha:1.0];
+         [self.minimizedButton removeFromSuperview];
+         self.minimizedButton = nil;
+         
+         if (completion) completion();
+     }];
+}
+
+- (void)maxmimizeButtonTapped:(id)sender {
+    [self restoreAllViewControllersWithCompletion:nil];
+}
+
+- (CGPoint)minimizePosition {
+    return CGPointMake(72, 144);
+}
+
 #pragma mark - Modal VC Parameters
 
 - (CGSize)modalSize {
@@ -211,7 +283,7 @@
 }
 
 - (CGFloat)modalBorderWidth {
-    return 1.0f;
+    return 2.0f;
 }
 
 - (CGFloat)modalAnimationDuration {
@@ -224,16 +296,6 @@
 
 - (CGFloat)modalBorderRadius {
     return 10.0f;
-}
-
-#pragma mark - Convenience Methods
-
-
--(UINavigationController *)wrapWithNavigationController:(UIViewController *)viewController {
-    
-    UINavigationController *navigationController = [[UINavigationController alloc]init];
-    [navigationController setViewControllers:@[viewController]];
-    return navigationController;
 }
 
 @end
