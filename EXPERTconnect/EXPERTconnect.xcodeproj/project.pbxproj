@@ -377,7 +377,7 @@
 		91E63BF61B834EA30019F9EF /* ECSViewControllerStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BEB1B834EA30019F9EF /* ECSViewControllerStack.m */; };
 		91E63BF71B834EA30019F9EF /* ECSWorkflowNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEC1B834EA30019F9EF /* ECSWorkflowNavigation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91E63BF81B834EA30019F9EF /* ECSWorkflowNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BED1B834EA30019F9EF /* ECSWorkflowNavigation.m */; };
-		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; };
+		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
 		D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F91B6BC3F7005BD20E /* libxml2.dylib */; };

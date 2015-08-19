@@ -20,6 +20,13 @@
 #import "UIViewController+ECSNibLoading.h"
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
+#import "ECSWorkflowNavigation.h"
+
+@interface EXPERTconnect ()
+@property (nonatomic, strong) ECSWorkflow *currentWorkflow;
+@property (nonatomic, strong) ECSWorkflowNavigation *currentWorkflowNavigation;
+@end
+
 static EXPERTconnect* _sharedInstance;
 
 @implementation EXPERTconnect
@@ -296,14 +303,21 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)startWorkflowOnViewController:(UIViewController *)vc {
-    UIViewController *landingController = [self landingViewController];
+-(void)startWorkflowWithName:(NSString *)workflowName
+                     delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+              viewController:(UIViewController *)viewController {
+    
+    self.currentWorkflowNavigation = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
 
-    self.navigationManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:vc];
-    [self.navigationManager presentViewControllerInNavigationControllerModally:landingController
+    self.currentWorkflow = [[ECSWorkflow alloc] initWithWorkflowName:workflowName
+                                                    workflowDelegate:workflowDelegate
+                                                   navigationManager:self.currentWorkflowNavigation];
+
+    //DEBUG:START
+    [self.currentWorkflowNavigation presentViewControllerInNavigationControllerModally:[self landingViewController]
                                                                       animated:YES
                                                                     completion:nil];
+    //DEBUG:END
 }
 
 @end
-

@@ -12,7 +12,7 @@
 
 #import <MMDrawerController/UIViewController+MMDrawerController.h>
 
-@interface HZPerformanceViewController ()
+@interface HZPerformanceViewController () <ECSWorkflowDelegate>
 
 @end
 
@@ -28,7 +28,9 @@
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
-    [[EXPERTconnect shared] startWorkflowOnViewController:self];
+    [[EXPERTconnect shared] startWorkflowWithName:@""
+                                          delgate:self
+                                   viewController:self];
 }
 
 @end

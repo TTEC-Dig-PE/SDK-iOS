@@ -7,7 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ECSWorkflowNavigation.h"
+
+@class ECSWorkflow;
+
+@protocol ECSWorkflowDelegate <NSObject>
+
+- (NSDictionary *)workflowResponseForWorkflow:(ECSWorkflow *)workflow request:(NSDictionary *)request;
+
+@end
 
 @interface ECSWorkflow : NSObject
+
+@property (nonatomic, copy, readonly) NSString *workflowName;
+
+- (instancetype)initWithWorkflowName:(NSString *)workflowName
+                    workflowDelegate:(id <ECSWorkflowDelegate>)workflowDelegate
+                   navigationManager:(ECSWorkflowNavigation *)navigationManager;
+
+- (void)start;
+- (void)end;
 
 @end

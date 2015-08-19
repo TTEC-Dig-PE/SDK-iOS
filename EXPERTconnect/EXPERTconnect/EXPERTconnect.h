@@ -55,7 +55,7 @@
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
 
-#import <EXPERTconnect/ECSWorkflowNavigation.h>
+#import <EXPERTconnect/ECSWorkflow.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -84,7 +84,6 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (strong, nonatomic) NSString *userCallbackNumber;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
-@property (strong, nonatomic) ECSWorkflowNavigation *navigationManager;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
@@ -215,8 +214,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)landingViewController;
 
 /**
- *  Uses a ViewController passed to it as a base for all SDK operations
+ *  Starts SDK workflow with a workflowName(workflowID), a delegate, and a viewController to present it on
  */
--(void)startWorkflowOnViewController:(UIViewController *)vc;
+-(void)startWorkflowWithName:(NSString *)workflowName
+                     delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+              viewController:(UIViewController *)viewController;
+
 @end
 
