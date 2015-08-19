@@ -369,6 +369,14 @@
 		4665F6FF1B7D1E6700C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
 		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
+		91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BE61B834EA30019F9EF /* ECSMappingReference.h */; };
+		91E63BF21B834EA30019F9EF /* ECSMappingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BE71B834EA30019F9EF /* ECSMappingReference.m */; };
+		91E63BF31B834EA30019F9EF /* ECSModalPresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BE81B834EA30019F9EF /* ECSModalPresentation.h */; };
+		91E63BF41B834EA30019F9EF /* ECSModalPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BE91B834EA30019F9EF /* ECSModalPresentation.m */; };
+		91E63BF51B834EA30019F9EF /* ECSModalStackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEA1B834EA30019F9EF /* ECSModalStackManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91E63BF61B834EA30019F9EF /* ECSModalStackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BEB1B834EA30019F9EF /* ECSModalStackManager.m */; };
+		91E63BF71B834EA30019F9EF /* ECSNavigationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEC1B834EA30019F9EF /* ECSNavigationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91E63BF81B834EA30019F9EF /* ECSNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BED1B834EA30019F9EF /* ECSNavigationManager.m */; };
 		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
 		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -784,6 +792,14 @@
 		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		91E63BE61B834EA30019F9EF /* ECSMappingReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSMappingReference.h; path = ../Utilities/ECSMappingReference.h; sourceTree = "<group>"; };
+		91E63BE71B834EA30019F9EF /* ECSMappingReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSMappingReference.m; path = ../Utilities/ECSMappingReference.m; sourceTree = "<group>"; };
+		91E63BE81B834EA30019F9EF /* ECSModalPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSModalPresentation.h; path = ../Utilities/ECSModalPresentation.h; sourceTree = "<group>"; };
+		91E63BE91B834EA30019F9EF /* ECSModalPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSModalPresentation.m; path = ../Utilities/ECSModalPresentation.m; sourceTree = "<group>"; };
+		91E63BEA1B834EA30019F9EF /* ECSModalStackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSModalStackManager.h; path = ../Utilities/ECSModalStackManager.h; sourceTree = "<group>"; };
+		91E63BEB1B834EA30019F9EF /* ECSModalStackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSModalStackManager.m; path = ../Utilities/ECSModalStackManager.m; sourceTree = "<group>"; };
+		91E63BEC1B834EA30019F9EF /* ECSNavigationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSNavigationManager.h; path = ../Utilities/ECSNavigationManager.h; sourceTree = "<group>"; };
+		91E63BED1B834EA30019F9EF /* ECSNavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSNavigationManager.m; path = ../Utilities/ECSNavigationManager.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D81612FB1B6BC412005BD20E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D81612FC1B6BC412005BD20E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -922,6 +938,7 @@
 		033ACB1C1A602C9C0024F48F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				91E63BFC1B834EAE0019F9EF /* Rework */,
 				03F189681A644178003C6E14 /* Common */,
 				033ACB621A6052000024F48F /* Category */,
 				033ACB1D1A602C9C0024F48F /* Sections */,
@@ -1563,6 +1580,21 @@
 			name = Registration;
 			sourceTree = "<group>";
 		};
+		91E63BFC1B834EAE0019F9EF /* Rework */ = {
+			isa = PBXGroup;
+			children = (
+				91E63BE61B834EA30019F9EF /* ECSMappingReference.h */,
+				91E63BE71B834EA30019F9EF /* ECSMappingReference.m */,
+				91E63BE81B834EA30019F9EF /* ECSModalPresentation.h */,
+				91E63BE91B834EA30019F9EF /* ECSModalPresentation.m */,
+				91E63BEA1B834EA30019F9EF /* ECSModalStackManager.h */,
+				91E63BEB1B834EA30019F9EF /* ECSModalStackManager.m */,
+				91E63BEC1B834EA30019F9EF /* ECSNavigationManager.h */,
+				91E63BED1B834EA30019F9EF /* ECSNavigationManager.m */,
+			);
+			name = Rework;
+			sourceTree = "<group>";
+		};
 		D83F78A71B7BE25000F307D4 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -1580,6 +1612,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91E63BF71B834EA30019F9EF /* ECSNavigationManager.h in Headers */,
 				03101F2E1AAF356900D7562B /* ECSChatLogsViewController.h in Headers */,
 				0342B0461A9B60C10009959E /* ECSFeaturedTableViewCell.h in Headers */,
 				0342B06A1A9B60EF0009959E /* ECSWebViewController.h in Headers */,
@@ -1669,6 +1702,7 @@
 				03C310261A9B59C0006B3557 /* ECSURLSessionManager.h in Headers */,
 				031B2D691AAF443900A00A36 /* ECSHistoryResponse.h in Headers */,
 				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
+				91E63BF51B834EA30019F9EF /* ECSModalStackManager.h in Headers */,
 				0342AFA51A9B60700009959E /* ECSPullUpView.h in Headers */,
 				037D19191A69707800B27B48 /* ECSJSONClassTransformer.h in Headers */,
 				037DD2E01AA9F107009C9637 /* ECSJSONObject.h in Headers */,
@@ -1701,6 +1735,7 @@
 				033ACB691A6053260024F48F /* ECSRootViewController+Navigation.h in Headers */,
 				0342B0291A9B60AE0009959E /* ECSRatingFormItemViewController.h in Headers */,
 				03B3FA2B1A670CDB00D872B1 /* ECSJSONRequestSerializer.h in Headers */,
+				91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */,
 				033ACB2C1A602C9C0024F48F /* ECSJSONSerializer.h in Headers */,
 				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
 				0380DEC81AA10126003D9248 /* ECSStompClient.h in Headers */,
@@ -1718,6 +1753,7 @@
 				0342AFA21A9B60700009959E /* ECSPullDownView.h in Headers */,
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
+				91E63BF31B834EA30019F9EF /* ECSModalPresentation.h in Headers */,
 				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
@@ -1989,6 +2025,7 @@
 				03AF24B21A9B601E00407BE5 /* ECSCircleImageView.m in Sources */,
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
+				91E63BF41B834EA30019F9EF /* ECSModalPresentation.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
 				03BE8F241AE037EB00BEC8B5 /* ECSChatMediaMessage.m in Sources */,
@@ -2003,6 +2040,7 @@
 				038781CB1AEA93C4008786A8 /* UIImage+ECSBundle.m in Sources */,
 				03A7D2991ABC67C0000A21AE /* ECSFormTextField.m in Sources */,
 				03BE27531ADC1BD60099F2EB /* ECSChatNetworkActionCell.m in Sources */,
+				91E63BF81B834EA30019F9EF /* ECSNavigationManager.m in Sources */,
 				0342AFA31A9B60700009959E /* ECSPullDownView.m in Sources */,
 				03F189671A64416B003C6E14 /* ECSImageCache.m in Sources */,
 				0342B0411A9B60C10009959E /* ECSQuestionTableViewCell.m in Sources */,
@@ -2088,6 +2126,7 @@
 				2252C6B21A7BE9E200B99912 /* ECSFormItemSlider.m in Sources */,
 				4665F6FD1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m in Sources */,
 				2252C6AA1A7BE9E200B99912 /* ECSFormItemCheckbox.m in Sources */,
+				91E63BF61B834EA30019F9EF /* ECSModalStackManager.m in Sources */,
 				03B3FA2C1A670CDB00D872B1 /* ECSJSONRequestSerializer.m in Sources */,
 				03F0BD481A71300400E90E7F /* UIView+ECSNibLoading.m in Sources */,
 				03C3103F1A9B5B46006B3557 /* ECSFormSubmitResponse.m in Sources */,
@@ -2113,6 +2152,7 @@
 				0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */,
 				039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */,
 				0390624D1AC9D3B100E006BE /* ECSChannelStateMessage.m in Sources */,
+				91E63BF21B834EA30019F9EF /* ECSMappingReference.m in Sources */,
 				4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */,
 				031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */,
 				462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */,

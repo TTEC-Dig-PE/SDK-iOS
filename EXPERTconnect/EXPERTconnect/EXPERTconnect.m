@@ -296,5 +296,11 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
+-(void)launchOnViewController:(UIViewController *)vc {
+    self.navigationManager = [ECSNavigationManager new];
+    [self.navigationManager kickOffOnViewController:vc];
+    [self.navigationManager presentViewControllerModally:[self landingViewController] animated:YES wrapWithNavigationController:YES completion:nil];
+}
+
 @end
 
