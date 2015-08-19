@@ -74,7 +74,7 @@
 		0342AFA81A9B60700009959E /* ECSTopQuestionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AF961A9B60700009959E /* ECSTopQuestionsViewController.h */; };
 		0342AFA91A9B60700009959E /* ECSTopQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342AF971A9B60700009959E /* ECSTopQuestionsViewController.m */; };
 		0342AFAA1A9B60700009959E /* ECSTopQuestionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0342AF981A9B60700009959E /* ECSTopQuestionsViewController.xib */; };
-		0342AFAB1A9B60700009959E /* ECSAnswerRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AF991A9B60700009959E /* ECSAnswerRatingView.h */; };
+		0342AFAB1A9B60700009959E /* ECSAnswerRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AF991A9B60700009959E /* ECSAnswerRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0342AFAC1A9B60700009959E /* ECSAnswerRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342AF9A1A9B60700009959E /* ECSAnswerRatingView.m */; };
 		0342AFAD1A9B60700009959E /* ECSAnswerRatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0342AF9B1A9B60700009959E /* ECSAnswerRatingView.xib */; };
 		0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AF9C1A9B60700009959E /* ECSAnswerEngineViewController.h */; };
@@ -332,7 +332,7 @@
 		03F0BD321A70095E00E90E7F /* ECSLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD301A70095E00E90E7F /* ECSLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F0BD331A70095E00E90E7F /* ECSLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD311A70095E00E90E7F /* ECSLocalization.m */; };
 		03F0BD361A70383B00E90E7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03F0BD381A70383B00E90E7F /* Localizable.strings */; };
-		03F0BD471A71300400E90E7F /* UIView+ECSNibLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD451A71300400E90E7F /* UIView+ECSNibLoading.h */; };
+		03F0BD471A71300400E90E7F /* UIView+ECSNibLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD451A71300400E90E7F /* UIView+ECSNibLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F0BD481A71300400E90E7F /* UIView+ECSNibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD461A71300400E90E7F /* UIView+ECSNibLoading.m */; };
 		03F0BD4B1A7130CA00E90E7F /* UIViewController+ECSNibLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD491A7130CA00E90E7F /* UIViewController+ECSNibLoading.h */; };
 		03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD4A1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m */; };
@@ -371,6 +371,9 @@
 		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
 		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
+		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BE61B834EA30019F9EF /* ECSMappingReference.h */; };
 		91E63BF21B834EA30019F9EF /* ECSMappingReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BE71B834EA30019F9EF /* ECSMappingReference.m */; };
 		91E63BF51B834EA30019F9EF /* ECSViewControllerStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEA1B834EA30019F9EF /* ECSViewControllerStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -791,6 +794,9 @@
 		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
+		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
+		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
+		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		91E63BE61B834EA30019F9EF /* ECSMappingReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSMappingReference.h; path = ../Utilities/ECSMappingReference.h; sourceTree = "<group>"; };
 		91E63BE71B834EA30019F9EF /* ECSMappingReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSMappingReference.m; path = ../Utilities/ECSMappingReference.m; sourceTree = "<group>"; };
@@ -970,6 +976,9 @@
 				03F1895C1A641D67003C6E14 /* Cells */,
 				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
 				468EBC611B83710F008A0826 /* ECSRatingView.h */,
+				46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */,
+				46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */,
+				46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1716,6 +1725,7 @@
 				031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
+				46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */,
 				031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */,
 				03AF24A91A9B601E00407BE5 /* ECSPlaceholderTextView.h in Headers */,
 				0342B0701A9B60EF0009959E /* ECSMessageViewController.h in Headers */,
@@ -1752,6 +1762,7 @@
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
 				0342AFA21A9B60700009959E /* ECSPullDownView.h in Headers */,
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
+				46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
 				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
@@ -2159,6 +2170,7 @@
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,
 				03F0BD091A6D425200E90E7F /* ECSTheme.m in Sources */,
+				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
 				0342AFAC1A9B60700009959E /* ECSAnswerRatingView.m in Sources */,

@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDAdHocFormsController">
             <connections>
                 <outlet property="agentRatingSlider" destination="R9P-us-mKK" id="hRr-kJ-IO5"/>
+                <outlet property="binaryView" destination="dVc-GW-04s" id="hpc-Vr-LHF"/>
                 <outlet property="commentsTextView" destination="j7P-Io-1L1" id="N64-lw-Q40"/>
                 <outlet property="emailAddressField" destination="0ju-wD-VRa" id="mDT-DW-OIk"/>
                 <outlet property="submitButton" destination="Rdt-5F-lGu" id="hG5-xx-eJB"/>
@@ -62,6 +63,10 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVc-GW-04s" customClass="ECSBinaryImageView">
+                            <rect key="frame" x="430" y="126" width="135" height="37"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                 </scrollView>
             </subviews>
