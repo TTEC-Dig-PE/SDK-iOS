@@ -12,6 +12,7 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 #import <EXPERTconnect/ECSUserProfile.h>
+#import <EXPERTconnect/ECSRatingView.h>         // kdw: Causes Warning: "Missing submodule EXPERTconnect.ECSRatingView"
 
 static NSString * const kReadConfigUrlPath = @"/appconfig/v1/read_rconfig?name={name}";
 static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
@@ -30,6 +31,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 @property (weak, nonatomic) IBOutlet ECDAdHocAnswerEngineContextPicker *selectAnswerEngineContextPicker;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISlider *rateResponseSlider;
+@property (weak, nonatomic) IBOutlet ECSRatingView *rateResponseStars;
 @property (strong, nonatomic) NSArray *topQuestions;
 @property (strong, nonatomic) ECSAnswerEngineResponse *lastAnswerEngineResponse;
 
@@ -103,6 +105,12 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     [self.selectAnswerEngineContextPicker setup];
 
     self.sliderValueField.text = @"5";
+    self.rateResponseStars.value = 2.5;
+    [self.rateResponseStars setStepInterval:0.5];
+    
+    // [self.rateResponseStars sizeToFit];
+    
+    [self.rateResponseStars addTarget:self action:@selector(ratingChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.tableView.delegate = self;
     [self refreshButtonTapped:nil];
@@ -227,6 +235,12 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 
 - (IBAction)sliderValueChanged:(id)sender {
     self.sliderValueField.text = [NSString stringWithFormat:@"%d", (int)self.rateResponseSlider.value];
+    self.rateResponseStars.value = ((int)self.rateResponseSlider.value) / 2.0;
+}
+
+- (IBAction)ratingChanged:(id)sender {
+    self.sliderValueField.text = [NSString stringWithFormat:@"%d", (int)(self.rateResponseStars.value * 2.0)];
+    self.rateResponseSlider.value = self.rateResponseStars.value * 2.0;
 }
 
 - (void) showAlert:(NSString *)title withMessage:(NSString *)message {

@@ -377,6 +377,8 @@
 		91E63BF61B834EA30019F9EF /* ECSModalStackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BEB1B834EA30019F9EF /* ECSModalStackManager.m */; };
 		91E63BF71B834EA30019F9EF /* ECSNavigationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEC1B834EA30019F9EF /* ECSNavigationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91E63BF81B834EA30019F9EF /* ECSNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BED1B834EA30019F9EF /* ECSNavigationManager.m */; };
+		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
+		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
 		D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F91B6BC3F7005BD20E /* libxml2.dylib */; };
 		D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FB1B6BC412005BD20E /* CoreImage.framework */; };
@@ -787,6 +789,8 @@
 		4679BD921B7A4004002E2D9E /* ECSSelectExpertsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSSelectExpertsResponse.h; sourceTree = "<group>"; };
 		4679BD941B7A493D002E2D9E /* ECSUserProfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSUserProfile.h; sourceTree = "<group>"; };
 		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
+		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
+		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		91E63BE61B834EA30019F9EF /* ECSMappingReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSMappingReference.h; path = ../Utilities/ECSMappingReference.h; sourceTree = "<group>"; };
 		91E63BE71B834EA30019F9EF /* ECSMappingReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSMappingReference.m; path = ../Utilities/ECSMappingReference.m; sourceTree = "<group>"; };
@@ -964,6 +968,8 @@
 			isa = PBXGroup;
 			children = (
 				03F1895C1A641D67003C6E14 /* Cells */,
+				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
+				468EBC611B83710F008A0826 /* ECSRatingView.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1740,6 +1746,7 @@
 				0342B0091A9B60AE0009959E /* ECSFormQuestionView.h in Headers */,
 				039CDFC51AD6EC2900F52600 /* ECSChatTextTableViewCell.h in Headers */,
 				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
+				468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */,
 				035931431AE6EBAB00F2EB4C /* ECSAttributedDynamicLabel.h in Headers */,
 				033ACB2E1A602C9C0024F48F /* ECSJSONSerializing.h in Headers */,
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
@@ -2110,6 +2117,7 @@
 				039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */,
 				0342AFDC1A9B60950009959E /* ECSChatCellBackground.m in Sources */,
 				03C3105B1A9B5B56006B3557 /* ECSCallbackActionType.m in Sources */,
+				468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */,
 				03C3105F1A9B5B56006B3557 /* ECSFormActionType.m in Sources */,
 				03C3102F1A9B5B39006B3557 /* ECSPreSurvey.m in Sources */,
 				D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */,

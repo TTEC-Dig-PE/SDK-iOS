@@ -13,6 +13,7 @@
                 <outlet property="configNameField" destination="wJc-5k-xh6" id="XpJ-76-ebw"/>
                 <outlet property="configValueField" destination="vBJ-Wr-Mds" id="SOw-Ng-Sim"/>
                 <outlet property="rateResponseSlider" destination="Lv9-AE-Z7C" id="And-wL-Sgh"/>
+                <outlet property="rateResponseStars" destination="Pz6-LR-01e" id="U3P-Ws-n9M"/>
                 <outlet property="refreshButton" destination="HNY-ha-3Db" id="VsK-up-wEz"/>
                 <outlet property="selectAnswerEngineContextPicker" destination="aHO-86-AZV" id="a4U-Hy-img"/>
                 <outlet property="sliderValueField" destination="wRi-D1-FIx" id="S6G-2l-UMe"/>
@@ -206,6 +207,13 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pz6-LR-01e" customClass="ECSRatingView">
+                            <rect key="frame" x="156" y="805" width="119" height="31"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="ratingChanged:" destination="-1" eventType="valueChanged" id="A3a-6F-cJG"/>
+                            </connections>
+                        </view>
                     </subviews>
                     <constraints>
                         <constraint firstItem="HNY-ha-3Db" firstAttribute="leading" secondItem="oFu-Vt-H5m" secondAttribute="leading" id="007-kx-dTz"/>
@@ -302,5 +310,12 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-1699" y="-5491"/>
         </view>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vm6-cN-S3l">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+            <nil key="highlightedColor"/>
+        </label>
     </objects>
 </document>

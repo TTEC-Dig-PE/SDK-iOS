@@ -61,6 +61,16 @@
 // Display the Expert Select Video Dialog
 // Display the Select Expert and Channel Dialog
 //
+//
+// SDK Provided UI Supports - Carousel Items
+// =========================================
+// Five Stars Control
+// Thumbs Up / Thumbs Down Control
+// WYSIWYG Editor
+// Date Picker
+// Date Range
+//
+//
 // Additional SDK Services (may require new APIs to support)
 // =========================================================
 //
@@ -70,6 +80,7 @@
 // Generic API endpoint
 // Push Notifications
 // Start any High-level SDK Services with Host App ViewController or at least Host App controlled Navigation
+// AdHoc startup Async Stomp Channel, Register for Notifications
 //
 typedef NS_ENUM(NSInteger, SettingsSections)
 {

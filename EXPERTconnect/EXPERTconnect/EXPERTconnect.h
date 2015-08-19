@@ -38,6 +38,8 @@
 #import <EXPERTconnect/ECSRootViewController+Navigation.h>
 #import <EXPERTconnect/ECSWebViewController.h>
 
+// #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
+
 #import <EXPERTconnect/ECSButton.h>
 #import <EXPERTconnect/ECSDynamicLabel.h>
 #import <EXPERTconnect/ECSFormTextField.h>
