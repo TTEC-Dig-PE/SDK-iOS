@@ -28,7 +28,7 @@
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
-    [[EXPERTconnect shared] launchOnViewController:self];
+    [[EXPERTconnect shared] startWorkflowOnViewController:self];
 }
 
 @end

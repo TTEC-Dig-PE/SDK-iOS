@@ -14,7 +14,7 @@ typedef void(^completionBlock)(void);
 
 @interface ECSWorkflowNavigation : NSObject
 
-- (void)kickOffOnViewController:(UIViewController *)hostViewController;
+- (instancetype)initWithHostViewController:(UIViewController *)hostViewController;
 
 - (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
                                                   animated:(BOOL)shouldAnimate

@@ -217,6 +217,6 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  *  Uses a ViewController passed to it as a base for all SDK operations
  */
--(void)launchOnViewController:(UIViewController *)vc;
+-(void)startWorkflowOnViewController:(UIViewController *)vc;
 @end
 

@@ -23,11 +23,15 @@
 
 @implementation ECSWorkflowNavigation
 
-- (void)kickOffOnViewController:(UIViewController *)hostViewController {
-    _hostViewController = hostViewController;
-    _modalStack = [ECSViewControllerStack new];
-    [self addDimmingOverlay];
-    [self addContainerView];
+- (instancetype)initWithHostViewController:(UIViewController *)hostViewController {
+    self = [super init];
+    if (self) {
+        _hostViewController = hostViewController;
+        _modalStack = [ECSViewControllerStack new];
+        [self addDimmingOverlay];
+        [self addContainerView];
+    }
+    return self;
 }
 
 #pragma mark - Dimming Overlay

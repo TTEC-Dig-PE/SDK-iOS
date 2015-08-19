@@ -296,12 +296,13 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)launchOnViewController:(UIViewController *)vc {
-    self.navigationManager = [ECSWorkflowNavigation new];
-    [self.navigationManager kickOffOnViewController:vc];
-    [self.navigationManager presentViewControllerModally:[self landingViewController]
-                                                animated:YES
-                                              completion:nil];
+-(void)startWorkflowOnViewController:(UIViewController *)vc {
+    UIViewController *landingController = [self landingViewController];
+
+    self.navigationManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:vc];
+    [self.navigationManager presentViewControllerInNavigationControllerModally:landingController
+                                                                      animated:YES
+                                                                    completion:nil];
 }
 
 @end
