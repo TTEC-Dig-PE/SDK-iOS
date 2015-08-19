@@ -13,7 +13,9 @@
 
 @protocol ECSWorkflowDelegate <NSObject>
 
-- (NSDictionary *)workflowResponseForWorkflow:(ECSWorkflow *)workflow request:(NSDictionary *)request;
+- (NSDictionary *)workflowResponseForWorkflow:(ECSWorkflow *)workflow
+                               requestCommand:(NSString *)command
+                                requestParams:(NSDictionary *)params;
 
 @end
 
