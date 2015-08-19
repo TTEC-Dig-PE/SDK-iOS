@@ -8,7 +8,7 @@
 
 #import "HZPerformanceViewController.h"
 
-#import "HZAppDelegate.h"
+#import <EXPERTconnect/EXPERTconnect.h>
 
 #import <MMDrawerController/UIViewController+MMDrawerController.h>
 
@@ -28,9 +28,7 @@
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
-    
-    HZAppDelegate *appDelegate = (HZAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate presentChatWindow];
+    [[EXPERTconnect shared] launchOnViewController:self];
 }
 
 @end
