@@ -23,8 +23,7 @@
 #import "ECSWorkflowNavigation.h"
 
 @interface EXPERTconnect ()
-@property (nonatomic, strong) ECSWorkflow *currentWorkflow;
-@property (nonatomic, strong) ECSWorkflowNavigation *currentWorkflowNavigation;
+@property (nonatomic, strong) ECSWorkflow *workflow;
 @end
 
 static EXPERTconnect* _sharedInstance;
@@ -307,14 +306,14 @@ static EXPERTconnect* _sharedInstance;
                      delgate:(id <ECSWorkflowDelegate>)workflowDelegate
               viewController:(UIViewController *)viewController {
     
-    self.currentWorkflowNavigation = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
 
-    self.currentWorkflow = [[ECSWorkflow alloc] initWithWorkflowName:workflowName
-                                                    workflowDelegate:workflowDelegate
-                                                   navigationManager:self.currentWorkflowNavigation];
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workflowName
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
 
     //DEBUG:START
-    [self.currentWorkflowNavigation presentViewControllerInNavigationControllerModally:[self landingViewController]
+    [navManager presentViewControllerInNavigationControllerModally:[self landingViewController]
                                                                       animated:YES
                                                                     completion:nil];
     //DEBUG:END

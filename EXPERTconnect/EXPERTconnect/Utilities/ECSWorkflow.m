@@ -10,7 +10,7 @@
 
 @interface ECSWorkflow ()
 
-@property (nonatomic, weak) ECSWorkflowNavigation *navigationManager;
+@property (nonatomic, strong) ECSWorkflowNavigation *navigationManager;
 @property (nonatomic, weak) id <ECSWorkflowDelegate> workflowDelegate;
 @property (nonatomic, copy) NSString *workflowName;
 
