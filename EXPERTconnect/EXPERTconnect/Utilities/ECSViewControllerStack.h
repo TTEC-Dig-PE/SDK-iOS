@@ -1,5 +1,5 @@
 //
-//  ECSModalStackManager.h
+//  ECSViewControllerStack.h
 //  EXPERTconnect
 //
 //  Created by Sam Solomon on 8/17/15.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @import UIKit;
 
-@interface ECSModalStackManager : NSObject
+@interface ECSViewControllerStack : NSObject
 
 - (void)pushViewController:(UIViewController *)viewController;
 - (UIViewController *)popViewController;

@@ -1,30 +1,29 @@
 //
-//  ECSNavigationManager.m
+//  ECSWorkflowNavigation.m
 //  EXPERTconnect
 //
 //  Created by Sam Solomon on 8/17/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#import "ECSNavigationManager.h"
-#import "ECSModalPresentation.h"
-#import "ECSModalStackManager.h"
+#import "ECSWorkflowNavigation.h"
+#import "ECSViewControllerStack.h"
 
-@interface ECSNavigationManager ()
+@interface ECSWorkflowNavigation ()
 
 @property (nonatomic, weak) UIViewController *hostViewController;
-@property (nonatomic, strong) ECSModalStackManager *modalStack;
+@property (nonatomic, strong) ECSViewControllerStack *modalStack;
 
 @property (nonatomic, strong) UIView *dimmingOverlay;
 @property (nonatomic, strong) UIView *containerView;
 
 @end
 
-@implementation ECSNavigationManager
+@implementation ECSWorkflowNavigation
 
 - (void)kickOffOnViewController:(UIViewController *)hostViewController {
     _hostViewController = hostViewController;
-    _modalStack = [ECSModalStackManager new];
+    _modalStack = [ECSViewControllerStack new];
     [self addDimmingOverlay];
     [self addContainerView];
 }

@@ -1,20 +1,20 @@
 //
-//  ECSModalStackManager.m
+//  ECSViewControllerStack.m
 //  EXPERTconnect
 //
 //  Created by Sam Solomon on 8/17/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#import "ECSModalStackManager.h"
+#import "ECSViewControllerStack.h"
 
-@interface ECSModalStackManager()
+@interface ECSViewControllerStack()
 
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 
 @end
 
-@implementation ECSModalStackManager
+@implementation ECSViewControllerStack
 
 - (instancetype)init {
     self = [super init];

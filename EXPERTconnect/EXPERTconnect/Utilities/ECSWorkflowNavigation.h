@@ -1,5 +1,5 @@
 //
-//  ECSNavigationManager.h
+//  ECSWorkflowNavigation.h
 //  EXPERTconnect
 //
 //  Created by Sam Solomon on 8/17/15.
@@ -12,7 +12,7 @@
 
 typedef void(^completionBlock)(void);
 
-@interface ECSNavigationManager : NSObject
+@interface ECSWorkflowNavigation : NSObject
 
 //TODO: easy
 - (void)pushViewController:(UIViewController *)viewController completion:(completionBlock)completion;

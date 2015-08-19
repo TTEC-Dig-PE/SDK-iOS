@@ -55,8 +55,7 @@
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
 
-#import <EXPERTconnect/ECSNavigationManager.h>
-#import <EXPERTconnect/ECSModalStackManager.h>
+#import <EXPERTconnect/ECSWorkflowNavigation.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -85,7 +84,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (strong, nonatomic) NSString *userCallbackNumber;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
-@property (strong, nonatomic) ECSNavigationManager *navigationManager;
+@property (strong, nonatomic) ECSWorkflowNavigation *navigationManager;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 

@@ -297,7 +297,7 @@ static EXPERTconnect* _sharedInstance;
 }
 
 -(void)launchOnViewController:(UIViewController *)vc {
-    self.navigationManager = [ECSNavigationManager new];
+    self.navigationManager = [ECSWorkflowNavigation new];
     [self.navigationManager kickOffOnViewController:vc];
     [self.navigationManager presentViewControllerModally:[self landingViewController] animated:YES wrapWithNavigationController:YES completion:nil];
 }
