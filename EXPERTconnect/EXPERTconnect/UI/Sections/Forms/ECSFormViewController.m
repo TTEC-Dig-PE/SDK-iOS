@@ -330,8 +330,9 @@
     
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [urlSession submitForm:[formAction.form formResponseValue]
-
-                completion:^(ECSFormSubmitResponse *response, NSError *error) {
+                    intent:userIntent
+         navigationContext:formAction.navigationContext
+                withCompletion:^(ECSFormSubmitResponse *response, NSError *error) {
                     [weakSelf setLoadingIndicatorVisible:NO];
                     if (!error)
                     {

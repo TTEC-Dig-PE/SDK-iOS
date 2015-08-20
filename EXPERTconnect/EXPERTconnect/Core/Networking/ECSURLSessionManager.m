@@ -396,6 +396,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask *)submitForm:(ECSForm*)form
+                              intent:(NSString*)intent
+                   navigationContext:(NSString*)navigationContext
+                      withCompletion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
+{
+    NSMutableDictionary *formWithIntentAndNavContext = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
+    
+    [formWithIntentAndNavContext setObject:@"intent" forKey:intent];
+    [formWithIntentAndNavContext setObject:@"navigationContext" forKey:navigationContext];
+
+    ECSLogVerbose(@"Submit form %@", formWithIntentAndNavContext);
+    
+    return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
+           parameters:formWithIntentAndNavContext
+              success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask*)performLoginWithUsername:(NSString*)username
                                          password:(NSString*)password
                                        completion:(void (^)(id userData, NSError* error))completion

@@ -167,6 +167,11 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
 
+- (NSURLSessionDataTask *)submitForm:(ECSForm*)form
+                              intent:(NSString*)intent
+                   navigationContext:(NSString*)navigationContext
+                      withCompletion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
+
 /**
  Login with username / password
  
