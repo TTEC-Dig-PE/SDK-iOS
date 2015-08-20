@@ -365,6 +365,10 @@
 		46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4679BD941B7A493D002E2D9E /* ECSUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */; };
 		462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */; };
+		466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 466170C51B864D010055A976 /* ECSSendQuestionMessage.h */; };
+		466170C81B864D010055A976 /* ECSSendQuestionMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 466170C61B864D010055A976 /* ECSSendQuestionMessage.m */; };
+		466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 466170C91B867CEA0055A976 /* ECSReceiveAnswerMessage.h */; };
+		466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 466170CA1B867CEA0055A976 /* ECSReceiveAnswerMessage.m */; };
 		4665F6FD1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4665F6FC1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m */; };
 		4665F6FF1B7D1E6700C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4679BD911B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */; };
@@ -786,6 +790,10 @@
 		462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfileSubmitResponse.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		466170C51B864D010055A976 /* ECSSendQuestionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSSendQuestionMessage.h; sourceTree = "<group>"; };
+		466170C61B864D010055A976 /* ECSSendQuestionMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSendQuestionMessage.m; sourceTree = "<group>"; };
+		466170C91B867CEA0055A976 /* ECSReceiveAnswerMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSReceiveAnswerMessage.h; path = Chat/ECSReceiveAnswerMessage.h; sourceTree = "<group>"; };
+		466170CA1B867CEA0055A976 /* ECSReceiveAnswerMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSReceiveAnswerMessage.m; path = Chat/ECSReceiveAnswerMessage.m; sourceTree = "<group>"; };
 		4665F6FC1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAnswerEngineTopQuestionsResponse.m; sourceTree = "<group>"; };
 		4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSAnswerEngineTopQuestionsResponse.h; sourceTree = "<group>"; };
 		4679BD901B7A3FFA002E2D9E /* ECSSelectExpertsResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSelectExpertsResponse.m; sourceTree = "<group>"; };
@@ -1273,6 +1281,10 @@
 				030AF25A1AF9533E0056BFB0 /* ECSHistoryList.m */,
 				030AF25D1AF954190056BFB0 /* ECSHistoryListItem.h */,
 				030AF25E1AF954190056BFB0 /* ECSHistoryListItem.m */,
+				466170C51B864D010055A976 /* ECSSendQuestionMessage.h */,
+				466170C61B864D010055A976 /* ECSSendQuestionMessage.m */,
+				466170C91B867CEA0055A976 /* ECSReceiveAnswerMessage.h */,
+				466170CA1B867CEA0055A976 /* ECSReceiveAnswerMessage.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1733,6 +1745,7 @@
 				0342B0281A9B60AE0009959E /* ECSTextFormItemViewController.h in Headers */,
 				03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */,
 				039E13101A8BBACC00AD4927 /* ECSKeychainSupport.h in Headers */,
+				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
 				2252C6A71A7BE9E200B99912 /* ECSFormItem.h in Headers */,
 				039E13531A9517F100AD4927 /* ECSQuickRatingForm.h in Headers */,
 				039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */,
@@ -1778,6 +1791,7 @@
 				0342AFD51A9B60950009959E /* ECSWebTableViewCell.h in Headers */,
 				03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */,
 				0342B02A1A9B60AE0009959E /* ECSSliderFormItemViewController.h in Headers */,
+				466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */,
 				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
 				03BD9E261AF29819003D808C /* ECSInlineFormTableViewCell.h in Headers */,
 			);
@@ -2036,6 +2050,7 @@
 				03AF24B21A9B601E00407BE5 /* ECSCircleImageView.m in Sources */,
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
+				466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
 				03BE8F241AE037EB00BEC8B5 /* ECSChatMediaMessage.m in Sources */,
@@ -2134,6 +2149,7 @@
 				D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */,
 				03F0BD331A70095E00E90E7F /* ECSLocalization.m in Sources */,
 				03272A0F1AE7E36F009C6EDF /* ECSChatFormMessage.m in Sources */,
+				466170C81B864D010055A976 /* ECSSendQuestionMessage.m in Sources */,
 				2252C6B21A7BE9E200B99912 /* ECSFormItemSlider.m in Sources */,
 				4665F6FD1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m in Sources */,
 				2252C6AA1A7BE9E200B99912 /* ECSFormItemCheckbox.m in Sources */,

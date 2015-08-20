@@ -33,6 +33,8 @@
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatMessage.h"
 #import "ECSChatTextMessage.h"
+#import "ECSSendQuestionMessage.h"
+#import "ECSReceiveAnswerMessage.h"
 #import "ECSChatTypingTableViewCell.h"
 #import "ECSChatActionTableViewCell.h"
 #import "ECSChatWaitView.h"
@@ -408,6 +410,30 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                             }];
 }
 
+
+-(void) handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message {
+    NSString *question = message.questionText;
+    NSString *context = message.interfaceName;
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [sessionManager getAnswerForQuestion:question inContext:context parentNavigator:@"" actionId:@"" questionCount:0
+                              customData:nil completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         ECSReceiveAnswerMessage *answer = [ECSReceiveAnswerMessage new];
+         
+         answer.from = message.from;
+         answer.answerText = response.answer;
+         
+         answer.fromAgent = YES;
+         
+         [weakSelf chatClient:nil didReceiveMessage:answer];
+     }];
+}
+
+
 - (void)closeButtonTapped:(id)sender
 {
     [super closeButtonTapped:sender];
@@ -759,11 +785,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         
         return; // no UI
     }
-
+    
     if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
     {
         [self.participants setObject:message forKey:((ECSChatAddParticipantMessage*)message).userId];
     }
+    
+    if ([message isKindOfClass:[ECSSendQuestionMessage class]])
+    {
+        [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
+        return; // When Response is received, handler will send through an ECSReceiveAnswerMessage
+    }
+    
     if (message.fromAgent)
     {
         self.agentInteractionCount += 1;
@@ -961,9 +994,17 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     if ([message isKindOfClass:[ECSChatTextMessage class]])
     {
         ECSChatTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:MessageCellID
-                                                                               forIndexPath:indexPath];
+                                                                              forIndexPath:indexPath];
         
         [self configureMessageCell:textCell withMessage:(ECSChatTextMessage*)message atIndexPath:(NSIndexPath*)indexPath];
+        cell = textCell;
+    }
+    if ([message isKindOfClass:[ECSReceiveAnswerMessage class]])
+    {
+        ECSChatTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:MessageCellID
+                                                                              forIndexPath:indexPath];
+        
+        [self configureMessageCell:textCell withReceiveAnswerMessage:(ECSReceiveAnswerMessage*)message atIndexPath:(NSIndexPath*)indexPath];
         cell = textCell;
     }
     else if ([message isKindOfClass:[ECSChatAssociateInfoMessage class]])
@@ -1282,6 +1323,23 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     messageCell.messageLabel.text = chatMessage.body;
 }
 
+- (void)configureMessageCell:(ECSChatTableViewCell*)cell
+    withReceiveAnswerMessage:(ECSReceiveAnswerMessage *)receiveAnswerMessage
+                 atIndexPath:(NSIndexPath*)indexPath
+{
+    ECSChatMessageTableViewCell *messageCell = (ECSChatMessageTableViewCell*)cell;
+    
+    messageCell.userMessage = !receiveAnswerMessage.fromAgent;
+    messageCell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
+    
+    if (messageCell.background.showAvatar)
+    {
+        ECSChatAddParticipantMessage *participant = [self participantInfoForID:receiveAnswerMessage.from];
+        [messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
+    }
+    messageCell.messageLabel.text = receiveAnswerMessage.answerText;
+}
+
 - (void)configureAssociateInfoCell:(ECSChatTableViewCell*)cell
                        withMessage:(ECSChatAssociateInfoMessage *)chatMessage
                        atIndexPath:(NSIndexPath*)indexPath
@@ -1484,6 +1542,15 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         messageSizingCell.messageLabel.preferredMaxLayoutWidth = messageSizingCell.contentView.frame.size.width;
         [self configureMessageCell:messageSizingCell
                        withMessage:(ECSChatTextMessage*)chatMessage
+                       atIndexPath:indexPath];
+        height = [self calculateHeightForConfiguredSizingCell:messageSizingCell];
+    }
+    else if ([chatMessage isKindOfClass:[ECSReceiveAnswerMessage class]])
+    {
+        messageSizingCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44.0f);
+        messageSizingCell.messageLabel.preferredMaxLayoutWidth = messageSizingCell.contentView.frame.size.width;
+        [self configureMessageCell:messageSizingCell
+           withReceiveAnswerMessage:(ECSReceiveAnswerMessage*)chatMessage
                        atIndexPath:indexPath];
         height = [self calculateHeightForConfiguredSizingCell:messageSizingCell];
     }
