@@ -12,6 +12,6 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 
 
-@interface ECDAdHocFormsController : ECSRootViewController
+@interface ECDAdHocFormsController : ECSRootViewController <ECSBinaryRatingDelegate>
 
 @end
