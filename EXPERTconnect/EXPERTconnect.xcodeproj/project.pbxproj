@@ -365,6 +365,8 @@
 		46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4679BD941B7A493D002E2D9E /* ECSUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */; };
 		462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */; };
+		464DE2B61B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 464DE2B41B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h */; };
+		464DE2B71B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 464DE2B51B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m */; };
 		466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 466170C51B864D010055A976 /* ECSSendQuestionMessage.h */; };
 		466170C81B864D010055A976 /* ECSSendQuestionMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 466170C61B864D010055A976 /* ECSSendQuestionMessage.m */; };
 		466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 466170C91B867CEA0055A976 /* ECSReceiveAnswerMessage.h */; };
@@ -790,6 +792,8 @@
 		462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfileSubmitResponse.m; sourceTree = "<group>"; };
 		463E815B1B4ED2F900396B7A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		463E815C1B4ED30F00396B7A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		464DE2B41B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSHtmlMessageTableViewCell.h; path = EXPERTconnect/UI/Sections/Chat/ECSHtmlMessageTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		464DE2B51B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSHtmlMessageTableViewCell.m; path = EXPERTconnect/UI/Sections/Chat/ECSHtmlMessageTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		466170C51B864D010055A976 /* ECSSendQuestionMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSSendQuestionMessage.h; sourceTree = "<group>"; };
 		466170C61B864D010055A976 /* ECSSendQuestionMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSSendQuestionMessage.m; sourceTree = "<group>"; };
 		466170C91B867CEA0055A976 /* ECSReceiveAnswerMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSReceiveAnswerMessage.h; path = Chat/ECSReceiveAnswerMessage.h; sourceTree = "<group>"; };
@@ -1060,6 +1064,8 @@
 				039CDFC41AD6EC2900F52600 /* ECSChatTextTableViewCell.xib */,
 				03A7D2901ABB513A000A21AE /* ECSChatTypingTableViewCell.h */,
 				03A7D2911ABB513A000A21AE /* ECSChatTypingTableViewCell.m */,
+				464DE2B41B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h */,
+				464DE2B51B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1770,6 +1776,7 @@
 				039CDFC51AD6EC2900F52600 /* ECSChatTextTableViewCell.h in Headers */,
 				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
 				468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */,
+				464DE2B61B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h in Headers */,
 				035931431AE6EBAB00F2EB4C /* ECSAttributedDynamicLabel.h in Headers */,
 				033ACB2E1A602C9C0024F48F /* ECSJSONSerializing.h in Headers */,
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
@@ -2049,6 +2056,7 @@
 				035D7DE01AE12D930021DF75 /* ECSMediaInfoHelpers.m in Sources */,
 				03AF24B21A9B601E00407BE5 /* ECSCircleImageView.m in Sources */,
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
+				464DE2B71B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
 				466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,

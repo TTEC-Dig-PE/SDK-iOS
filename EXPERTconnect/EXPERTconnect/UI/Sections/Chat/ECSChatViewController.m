@@ -39,6 +39,7 @@
 #import "ECSChatActionTableViewCell.h"
 #import "ECSChatWaitView.h"
 #import "ECSChatMessageTableViewCell.h"
+#import "ECSHtmlMessageTableViewCell.h"
 #import "ECSChatNetworkActionCell.h"
 #import "ECSChatNotificationMessage.h"
 #import "ECSChatTextTableViewCell.h"
@@ -69,6 +70,7 @@
 #import "UIViewController+ECSNibLoading.h"
 
 static NSString *const MessageCellID = @"AgentMessageCellID";
+static NSString *const HtmlMessageCellID = @"HtmlMessageCellID";
 static NSString *const ImageCellID = @"AgentImageCellID";
 static NSString *const MessageTypingCellID = @"MessageTypingCellID";
 static NSString *const ActionCellID = @"ActionCellID";
@@ -187,6 +189,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 #endif
     
     [self.tableView registerClass:[ECSChatMessageTableViewCell class] forCellReuseIdentifier:MessageCellID];
+    [self.tableView registerClass:[ECSHtmlMessageTableViewCell class] forCellReuseIdentifier:HtmlMessageCellID];
     [self.tableView registerClass:[ECSChatImageTableViewCell class]
          forCellReuseIdentifier:ImageCellID];
     [self.tableView registerClass:[ECSChatTypingTableViewCell class] forCellReuseIdentifier:MessageTypingCellID];
@@ -1001,7 +1004,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     if ([message isKindOfClass:[ECSReceiveAnswerMessage class]])
     {
-        ECSChatTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:MessageCellID
+        ECSChatTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:HtmlMessageCellID
                                                                               forIndexPath:indexPath];
         
         [self configureMessageCell:textCell withReceiveAnswerMessage:(ECSReceiveAnswerMessage*)message atIndexPath:(NSIndexPath*)indexPath];
@@ -1327,7 +1330,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     withReceiveAnswerMessage:(ECSReceiveAnswerMessage *)receiveAnswerMessage
                  atIndexPath:(NSIndexPath*)indexPath
 {
-    ECSChatMessageTableViewCell *messageCell = (ECSChatMessageTableViewCell*)cell;
+    ECSHtmlMessageTableViewCell *messageCell = (ECSHtmlMessageTableViewCell*)cell;
     
     messageCell.userMessage = !receiveAnswerMessage.fromAgent;
     messageCell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
@@ -1337,7 +1340,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:receiveAnswerMessage.from];
         [messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
     }
-    messageCell.messageLabel.text = receiveAnswerMessage.answerText;
+    
+    [messageCell.webContent loadHTMLString:receiveAnswerMessage.answerText baseURL:nil];
 }
 
 - (void)configureAssociateInfoCell:(ECSChatTableViewCell*)cell
@@ -1516,6 +1520,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     ECSChatMessage *chatMessage = self.messages[indexPath.row];
     
     static ECSChatMessageTableViewCell *messageSizingCell = nil;
+    static ECSHtmlMessageTableViewCell *htmlSizingCell = nil;
     static ECSChatImageTableViewCell *imageSizingCell = nil;
     static ECSChatTypingTableViewCell *typingCell = nil;
     static ECSChatActionTableViewCell *actionCell = nil;
@@ -1526,6 +1531,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         messageSizingCell = [self.tableView dequeueReusableCellWithIdentifier:MessageCellID];
+        htmlSizingCell = [self.tableView dequeueReusableCellWithIdentifier:HtmlMessageCellID];
         imageSizingCell = [self.tableView dequeueReusableCellWithIdentifier:ImageCellID];
         typingCell = [self.tableView dequeueReusableCellWithIdentifier:MessageTypingCellID];
         actionCell = [self.tableView dequeueReusableCellWithIdentifier:ActionCellID];
@@ -1547,12 +1553,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     else if ([chatMessage isKindOfClass:[ECSReceiveAnswerMessage class]])
     {
-        messageSizingCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44.0f);
-        messageSizingCell.messageLabel.preferredMaxLayoutWidth = messageSizingCell.contentView.frame.size.width;
-        [self configureMessageCell:messageSizingCell
+        [self configureMessageCell:htmlSizingCell
            withReceiveAnswerMessage:(ECSReceiveAnswerMessage*)chatMessage
                        atIndexPath:indexPath];
-        height = [self calculateHeightForConfiguredSizingCell:messageSizingCell];
+        height = [self calculateHeightForConfiguredSizingCell:htmlSizingCell];
+        
+        // htmlSizingCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), height);
     }
     else if ([chatMessage isKindOfClass:[ECSChatAssociateInfoMessage class]])
     {
