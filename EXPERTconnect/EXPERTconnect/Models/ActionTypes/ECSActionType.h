@@ -45,8 +45,17 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeChatHistory;
 // Action type for profile view
 FOUNDATION_EXPORT NSString *const ECSActionTypeProfile;
 
-// Action type for select expert view
-FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpert;
+// Action type for select expert view for chat
+FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertChat;
+
+// Action type for select expert view for chat
+FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVoiceCallback;
+
+// Action type for select expert view for chat
+FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVideo;
+
+// Action type for select expert view for chat
+FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertAndChannel;
 
 /**
  ECSActionType is the base type for defining available actions to the user.  This object type is 

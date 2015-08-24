@@ -176,11 +176,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startChatHistory;
 
 /**
- Returns a view controller for an EXPERTconnect Answer Engine History View
+ Returns a view controller for an EXPERTconnect SelectAgent Chat mode
  
  @return the view controller for the Web Page Controller
  */
-- (UIViewController*)startSelectExpert;
+- (UIViewController*)startSelectExpertChat;
+- (UIViewController*)startSelectExpertVideo;
+- (UIViewController*)startSelectExpertAndChannel;
 
 /**
  Login support

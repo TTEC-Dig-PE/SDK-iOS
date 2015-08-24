@@ -49,7 +49,7 @@
     {
         actionViewController = [ECSChatLogsViewController ecs_loadFromNib];
     }
-    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpert])
+    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpertChat] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVideo] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback] || [actionType.type isEqualToString:ECSActionTypeSelectExpertAndChannel] )
     {
         actionViewController = [ECSSelectExpertViewController ecs_loadFromNib];
         actionViewController.actionType = actionType;

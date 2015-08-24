@@ -18,10 +18,12 @@
 #import "ECSDynamicLabel.h"
 #import "ECSCircleImageView.h"
 #import "ECSChatActionType.h"
+#import "ECSCafeXVideoViewController.h"
+#import "UIViewController+ECSNibLoading.h"
 
 static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
-@interface ECSSelectExpertViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ECSSelectExpertViewController () <UITableViewDataSource, UITableViewDelegate, ECSSelectExpertTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -96,12 +98,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 {
     NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
     ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
+    [featuredCell setSelectExpertCellDelegate:self];
     [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
     [featuredCell.name setText:expert[@"fullName"]];
     [featuredCell.region setText:expert[@"region"]];
     [featuredCell.expertiese setText:expert[@"expertise"]];
     [featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
-    
+    [featuredCell configureCellForActionType:self.actionType.type];
     return featuredCell;
 }
 
@@ -126,7 +129,9 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
      DEBUG CODE: ENDS
      **/
     
-    [self handleAction:actionType];
+//    [EXPERTconnect shared]//
+  //  [self handleAction:actionType];
+    
 }
 
 - (BOOL)handleAction:(ECSActionType *)actionType
@@ -157,5 +162,52 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
     return height;
 }
+
+#pragma mark - ECSSelectExpertTableViewCellDelegate Methods
+
+- (void)chatPressed {
+    NSDictionary *expert = self.experts[0];
+    ECSChatActionType *actionType = [ECSChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    
+    /**
+     DEBUG CODE: BEGINS
+     **/
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    /**
+     DEBUG CODE: ENDS
+     **/
+    
+    //    [EXPERTconnect shared]//
+    [self handleAction:actionType];
+}
+
+- (void)videoPressed {
+    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
+}
+
+- (void)callBackPressed {
+      UIViewController *voiceCallbackvc =  [[EXPERTconnect shared] startVoiceCallback:@"shammiskill" withDisplayName:@"Chatting with test"];
+      [self.navigationController pushViewController:voiceCallbackvc animated:YES];
+}
+
+- (void)actionPressed {
+    if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertChat]) {
+        [self chatPressed];
+    } else if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertVideo]) {
+        [self videoPressed];
+    } else if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback]) {
+        [self callBackPressed];
+    }
+}
+
 
 @end

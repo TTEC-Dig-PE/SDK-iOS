@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="8" y="8" width="404" height="192"/>
                         <subviews>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="143" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="3s6-Ug-SZ7">
-                                <rect key="frame" x="211" y="20" width="193" height="152"/>
+                                <rect key="frame" x="211" y="20" width="103" height="152"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvz-mx-m78" customClass="ECSDynamicLabel">
                                         <rect key="frame" x="0.0" y="56" width="48" height="14.5"/>
@@ -94,13 +94,121 @@
                                     <constraint firstItem="mzf-mf-KVd" firstAttribute="top" secondItem="VgJ-BA-5GZ" secondAttribute="bottom" constant="4.5" id="wwM-c6-B2x"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sy-wU-yrJ">
+                                <rect key="frame" x="334" y="20" width="30" height="152"/>
+                                <subviews>
+                                    <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIv-Aq-D4w">
+                                        <rect key="frame" x="0.0" y="1" width="30" height="30"/>
+                                        <color key="backgroundColor" red="0.95343338820000001" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="I5A-gy-Gxt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" image="messagebtn">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="chatPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YGc-OP-3yJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kpx-fl-Eem">
+                                        <rect key="frame" x="0.0" y="41" width="30" height="30"/>
+                                        <color key="backgroundColor" red="0.95343338820000001" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="GVz-mi-GeW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" image="callbtn">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="callBackPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Bv1-IL-i1t"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fo3-om-VXX">
+                                        <rect key="frame" x="0.0" y="81" width="30" height="30"/>
+                                        <color key="backgroundColor" red="0.95343338820000001" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Lp9-Jc-108"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" image="callbtn">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="voiceCallBackPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gft-qq-CoL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6v-23-ZFJ">
+                                        <rect key="frame" x="0.0" y="121" width="30" height="30"/>
+                                        <color key="backgroundColor" red="0.95343338820000001" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="vCV-op-q7T"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" image="messagebtn">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="videoPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lRj-vI-1EF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="WIv-Aq-D4w" firstAttribute="top" secondItem="3sy-wU-yrJ" secondAttribute="top" constant="1" id="49Q-IJ-VGQ"/>
+                                    <constraint firstItem="WIv-Aq-D4w" firstAttribute="leading" secondItem="3sy-wU-yrJ" secondAttribute="leading" id="9jZ-Vs-epy"/>
+                                    <constraint firstItem="s6v-23-ZFJ" firstAttribute="top" secondItem="Fo3-om-VXX" secondAttribute="bottom" constant="10" id="Kkz-Te-bKe"/>
+                                    <constraint firstItem="Kpx-fl-Eem" firstAttribute="leading" secondItem="3sy-wU-yrJ" secondAttribute="leading" id="Lzg-1p-fu5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fo3-om-VXX" secondAttribute="trailing" id="OpB-NS-mkh"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kpx-fl-Eem" secondAttribute="trailing" id="SI5-2j-aUv"/>
+                                    <constraint firstAttribute="width" constant="30" id="bmA-Pz-LA8"/>
+                                    <constraint firstAttribute="trailing" secondItem="WIv-Aq-D4w" secondAttribute="trailing" id="g2v-Sw-NV0"/>
+                                    <constraint firstAttribute="trailing" secondItem="s6v-23-ZFJ" secondAttribute="trailing" id="gLw-NY-LbV"/>
+                                    <constraint firstItem="Fo3-om-VXX" firstAttribute="top" secondItem="Kpx-fl-Eem" secondAttribute="bottom" constant="10" id="iux-8K-zRf"/>
+                                    <constraint firstItem="Fo3-om-VXX" firstAttribute="leading" secondItem="3sy-wU-yrJ" secondAttribute="leading" id="lYB-KS-qtK"/>
+                                    <constraint firstItem="Kpx-fl-Eem" firstAttribute="top" secondItem="WIv-Aq-D4w" secondAttribute="bottom" constant="10" id="p0i-id-AGd"/>
+                                    <constraint firstItem="s6v-23-ZFJ" firstAttribute="leading" secondItem="3sy-wU-yrJ" secondAttribute="leading" id="qL2-XB-3nO"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Omc-e3-CoI">
+                                <rect key="frame" x="334" y="81" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.95343338820000001" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QBZ-Hw-6CU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" image="callbtn">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cVr-SS-Zbh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3s6-Ug-SZ7" firstAttribute="top" secondItem="ef5-Kd-sx9" secondAttribute="top" constant="20" id="3bV-wC-tcy"/>
                             <constraint firstAttribute="bottom" secondItem="3s6-Ug-SZ7" secondAttribute="bottom" constant="20" id="CDF-Sc-QPL"/>
-                            <constraint firstAttribute="trailing" secondItem="3s6-Ug-SZ7" secondAttribute="trailing" id="b58-xx-WIN"/>
+                            <constraint firstItem="3sy-wU-yrJ" firstAttribute="leading" secondItem="3s6-Ug-SZ7" secondAttribute="trailing" constant="20" id="VXV-Oo-Y1W"/>
+                            <constraint firstAttribute="trailing" secondItem="3s6-Ug-SZ7" secondAttribute="trailing" constant="40" id="b58-xx-WIN"/>
+                            <constraint firstAttribute="bottom" secondItem="3sy-wU-yrJ" secondAttribute="bottom" constant="20" id="h72-c5-9xe"/>
+                            <constraint firstAttribute="trailing" secondItem="Omc-e3-CoI" secondAttribute="trailing" constant="40" id="ido-df-ehr"/>
+                            <constraint firstAttribute="trailing" secondItem="3sy-wU-yrJ" secondAttribute="trailing" constant="40" id="lEa-L9-bBG"/>
+                            <constraint firstItem="3sy-wU-yrJ" firstAttribute="top" secondItem="ef5-Kd-sx9" secondAttribute="top" constant="20" id="wNT-Sn-QdD"/>
+                            <constraint firstAttribute="centerY" secondItem="Omc-e3-CoI" secondAttribute="centerY" id="wxi-YR-HRc"/>
+                            <constraint firstItem="Omc-e3-CoI" firstAttribute="leading" secondItem="3s6-Ug-SZ7" secondAttribute="trailing" constant="20" id="yXG-hz-0Js"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="b58-xx-WIN"/>
+                            </mask>
+                        </variation>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bvD-gZ-DzG" customClass="ECSCircleImageView">
                         <rect key="frame" x="68" y="53" width="80" height="80"/>
@@ -148,6 +256,8 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="actionButton" destination="Omc-e3-CoI" id="VfN-zw-U9c"/>
+                <outlet property="buttonsContainerView" destination="3sy-wU-yrJ" id="JGl-zO-4D3"/>
                 <outlet property="expertiese" destination="mzf-mf-KVd" id="b8i-cw-rOx"/>
                 <outlet property="expertieseTitle" destination="VgJ-BA-5GZ" id="c84-Uh-rn4"/>
                 <outlet property="interests" destination="S29-sn-epQ" id="kYA-fH-3bT"/>
@@ -160,4 +270,8 @@
             <point key="canvasLocation" x="27" y="292"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="callbtn" width="26" height="26"/>
+        <image name="messagebtn" width="26" height="26"/>
+    </resources>
 </document>

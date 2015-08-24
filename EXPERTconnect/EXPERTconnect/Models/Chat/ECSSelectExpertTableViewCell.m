@@ -11,12 +11,17 @@
 #import "ECSDynamicLabel.h"
 #import "ECSTheme.h"
 #import "ECSInjector.h"
+#import "ECSActionType.h"
 
 @interface ECSSelectExpertTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *regionTitle;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *expertieseTitle;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *interestsTitle;
+
+@property (weak, nonatomic) IBOutlet UIView *buttonsContainerView;
+
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
 @end
 
@@ -46,6 +51,40 @@
     self.region.preferredMaxLayoutWidth = self.region.frame.size.width;
     [super layoutSubviews];
     
+}
+
+- (void)configureCellForActionType:(NSString *)actionType {
+    [self.buttonsContainerView setHidden:YES];
+    [self.actionButton setHidden:NO];
+    if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
+      //  [self.actionButton setImage:[UIImage imageNamed:@"messagebtn"] forState:UIControlStateNormal];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
+       // [self.actionButton setImage:[UIImage imageNamed:@"callbtn"] forState:UIControlStateNormal];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){
+      //  [self.actionButton setImage:[UIImage imageNamed:@"callbtn"] forState:UIControlStateNormal];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertAndChannel]) {
+        [self.buttonsContainerView setHidden:NO];
+        [self.actionButton setHidden:YES];
+    }
+}
+
+- (IBAction)chatPressed:(id)sender {
+    [self.selectExpertCellDelegate chatPressed];
+}
+
+- (IBAction)callBackPressed:(id)sender {
+    [self.selectExpertCellDelegate callBackPressed];
+}
+
+- (IBAction)voiceCallBackPressed:(id)sender {
+}
+
+- (IBAction)videoPressed:(id)sender {
+    [self.selectExpertCellDelegate videoPressed];
+}
+
+- (IBAction)actionPressed:(id)sender {
+    [self.selectExpertCellDelegate actionPressed];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
