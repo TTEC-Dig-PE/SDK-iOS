@@ -337,10 +337,29 @@ static EXPERTconnect* _sharedInstance;
                                              workflowDelegate:workflowDelegate
                                             navigationManager:navManager];
 
+    
+    
     //DEBUG:START
-    [navManager presentViewControllerInNavigationControllerModally:[self startSelectExpertAndChannel]
-                                                                      animated:YES
-                                                                    completion:nil];
+    ECSRootViewController *launchViewController = (ECSRootViewController *)[self landingViewController];
+    
+    
+    //TODO: Need to remove these if conditions after Demo.
+    if ([workflowName isEqualToString:@"video"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertVideo];
+    }
+    
+    if ([workflowName isEqualToString:@"expert"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertAndChannel];
+    }
+    
+    if ([workflowName isEqualToString:@"chat"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertChat];
+    }
+    
+    launchViewController.workFlow = self.workflow;
+    [navManager presentViewControllerInNavigationControllerModally:launchViewController
+                                                          animated:YES
+                                                        completion:nil];
     //DEBUG:END
 }
 

@@ -77,7 +77,7 @@
 
 - (void)configureCellForActionType:(NSString *)actionType {
     if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
-        [self displayOnlyCallbackActionButton];
+        [self displayOnlyChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
         [self displayOnlyVideoChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){

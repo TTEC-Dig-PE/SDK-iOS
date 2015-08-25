@@ -195,7 +195,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (void)voiceChatPressed {
-    //TODO: Need to present voice chat view.
+    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
 }
 
 - (void)callBackPressed {

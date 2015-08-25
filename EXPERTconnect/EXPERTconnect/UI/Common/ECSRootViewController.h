@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import <EXPERTconnect/ECSActionType.h>
+#import "ECSWorkflow.h"
 
 /**
  ECSRootViewController is the base view controller used within the framework.  It provides common
@@ -22,6 +23,8 @@
 
 // Indicates if a full screen reachability message should be displayed.  Defaults to YES.
 @property (nonatomic, assign) BOOL showFullScreenReachabilityMessage;
+
+@property (nonatomic, strong) ECSWorkflow *workFlow;
 
 /**
  Sets the loading indicator visible or invisible.
