@@ -52,7 +52,8 @@
         if (!image)
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:ECSImageCacheImageDownloadedNotification object:nil];
-
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloadFailed:) name:ECSImageCacheImageDownloadFailedNotification object:nil];
+            
             [imageCache downloadImageForPath:path];
         }
         else
@@ -74,6 +75,7 @@
         if (!image)
         {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:ECSImageCacheImageDownloadedNotification object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloadFailed:) name:ECSImageCacheImageDownloadFailedNotification object:nil];
             
             [imageCache downloadImageWithRequest:request];
         }
@@ -101,4 +103,29 @@
     }
 }
 
+
+- (void)imageDownloadFailed:(NSNotification*)notification
+{
+    NSString *path = @"error_not_found";
+    NSString *message = [[notification userInfo] objectForKey:ECSImageDownloadFailedMessageKey];
+    UIImage *image = [UIImage imageNamed:path];
+    
+    if(!image)  {
+        image = [UIImage imageNamed:path inBundle:[NSBundle mainBundle] compatibleWithTraitCollection:nil];
+        
+        if (!image)
+        {
+            image = [UIImage imageNamed:path inBundle:[NSBundle bundleForClass:[ECSImageCache class]] compatibleWithTraitCollection:nil];
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setImage:image];
+        
+        if(self.delegate)
+        {
+            [self.delegate errorOccurred:message];
+        }
+    });
+}
 @end

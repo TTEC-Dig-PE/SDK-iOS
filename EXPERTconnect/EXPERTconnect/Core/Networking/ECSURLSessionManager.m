@@ -661,6 +661,28 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return request;
 }
 
+- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
+{
+    ECSLogVerbose(@"Get Media File names");
+    return [self GET:@"utils/v1/media"
+          parameters:nil
+             success:^(id result, NSURLResponse *response) {
+                 if (completion)
+                 {
+                     if ([result isKindOfClass:[NSArray class]])
+                     {
+                         completion(result, nil);
+                     }
+                     else
+                     {
+                         completion(nil, nil);
+                     }
+                 }
+             }
+             failure:[self failureWithCompletion:completion]];
+}
+
+
 #pragma mark - History
 - (NSURLSessionDataTask*)getAnswerEngineHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {

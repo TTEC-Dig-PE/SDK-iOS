@@ -280,6 +280,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                completion:(void (^)(id *response, NSError* error))completion;
 
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name;
+- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 
 #pragma mark - History
 /**

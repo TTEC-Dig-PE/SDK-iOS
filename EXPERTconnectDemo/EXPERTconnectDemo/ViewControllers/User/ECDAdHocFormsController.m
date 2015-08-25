@@ -17,11 +17,12 @@
 @interface ECDAdHocFormsController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailAddressField;
+@property (weak, nonatomic) IBOutlet UITextField *imageNameField;
 @property (weak, nonatomic) IBOutlet UITextView *commentsTextView;
 @property (weak, nonatomic) IBOutlet UISlider *agentRatingSlider;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet ECSBinaryImageView *binaryView;
-
+@property (weak, nonatomic) IBOutlet ECSCachingImageView *imageView;
 
 @end
 
@@ -40,6 +41,7 @@
     //
     self.emailAddressField.tintColor = UIColor.blueColor;
     self.commentsTextView.tintColor = UIColor.blueColor;
+    self.imageNameField.tintColor = UIColor.blueColor;
     
     // Round button corners
     CALayer *btnLayer = [self.submitButton layer];
@@ -64,8 +66,37 @@
     [self.submitButton addTarget:self
                           action:@selector(submitRatingButtonTapped:)
                 forControlEvents:UIControlEventTouchUpInside];
+    
+    self.imageView.delegate = self;
+    NSString *imageName = self.imageNameField.text;
+    [self loadAdHocImage:imageName];
 }
-     
+
+- (void) errorOccurred:(NSString *)errorMessage {
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error) {
+        NSString *delim = @"";
+        NSMutableString *detailedErrorMessage = [[NSMutableString alloc] init];
+        [detailedErrorMessage appendString:errorMessage];
+        [detailedErrorMessage appendString:@" - try one of: "];
+
+        for(NSString *fileName in fileNames)  {
+            [detailedErrorMessage appendString:delim];
+            [detailedErrorMessage appendString:fileName];
+            delim = @", ";
+        }
+        
+        [self showAlert:@"Error!" withMessage:detailedErrorMessage];
+    }];
+}
+
+- (void) loadAdHocImage:(NSString *)imageName {
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    NSURLRequest *request = [sessionManager urlRequestForMediaWithName:imageName];
+    [self.imageView setImageWithRequest:request];
+}
+
 - (void)submitRatingButtonTapped:(UIButton*)button
 {
     NSMutableArray *formData = [NSMutableArray new];
@@ -108,6 +139,10 @@
         
         self.binaryView.currentRating = BinaryRatingUnknown;
     }
+}
+- (IBAction)imageNameUpdated:(id)sender {
+    NSString *imageName = self.imageNameField.text;
+    [self loadAdHocImage:imageName];
 }
 
 - (void)ratingSelected:(BinaryRating)rating {
