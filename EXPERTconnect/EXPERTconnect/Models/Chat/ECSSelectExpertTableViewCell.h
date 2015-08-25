@@ -16,7 +16,7 @@
 - (void)chatPressed;
 - (void)callBackPressed;
 - (void)videoPressed;
-- (void)actionPressed;
+- (void)voiceChatPressed;
 
 @end
 

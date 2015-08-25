@@ -48,13 +48,16 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeProfile;
 // Action type for select expert view for chat
 FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertChat;
 
-// Action type for select expert view for chat
+// Action type for select expert view for voice callback chat
 FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVoiceCallback;
 
-// Action type for select expert view for chat
+// Action type for select expert view for voice chat
+FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVoiceChat;
+
+// Action type for select expert view for video chat
 FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVideo;
 
-// Action type for select expert view for chat
+// Action type for select expert view for all 4 channels chat
 FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertAndChannel;
 
 /**

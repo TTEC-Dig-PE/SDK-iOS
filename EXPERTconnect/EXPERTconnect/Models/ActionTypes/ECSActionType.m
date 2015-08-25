@@ -25,6 +25,7 @@ NSString *const ECSActionTypeChatHistory = @"chathistory";
 NSString *const ECSActionTypeProfile = @"profile";
 NSString *const ECSActionTypeSelectExpertChat = @"selectExpertChat";
 NSString *const ECSActionTypeSelectExpertVoiceCallback = @"selectExpertVoiceCallback";
+NSString *const ECSActionTypeSelectExpertVoiceChat = @"selectExpertVoiceChat";
 NSString *const ECSActionTypeSelectExpertVideo = @"selectExpertVideo";
 NSString *const ECSActionTypeSelectExpertAndChannel = @"selectExpertAndChannel";
 

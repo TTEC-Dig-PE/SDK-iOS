@@ -16,12 +16,19 @@
 @interface ECSSelectExpertTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *regionTitle;
-@property (weak, nonatomic) IBOutlet ECSDynamicLabel *expertieseTitle;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *interestsTitle;
 
 @property (weak, nonatomic) IBOutlet UIView *buttonsContainerView;
-
-@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet UIButton *videoChatButton;
+@property (weak, nonatomic) IBOutlet UIButton *voiceChatButton;
+@property (weak, nonatomic) IBOutlet UIButton *callBackButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsTopLayoutConstraints;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsBottomConstraints;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *voiceButtonCenterY;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *callBackCenterY;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoButtonCenterY;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatButtonCenterY;
 
 @end
 
@@ -39,9 +46,17 @@
     self.name.font = theme.buttonFont;
     self.name.textColor = theme.primaryTextColor;
     
-    self.regionTitle.textColor = theme.secondaryTextColor;
-    self.expertieseTitle.textColor = theme.secondaryTextColor;
-    self.interestsTitle.textColor = theme.secondaryTextColor;
+    self.regionTitle.textColor = theme.primaryTextColor;
+    self.regionTitle.font = theme.buttonFont;
+    
+    self.interestsTitle.textColor = theme.primaryTextColor;
+    
+    self.expertiese.textColor = theme.secondaryTextColor;
+    self.region.textColor = theme.secondaryTextColor;
+    self.interests.textColor = theme.secondaryTextColor;
+    
+    [self configureButtons];
+    
 }
 
 - (void)layoutSubviews
@@ -53,20 +68,74 @@
     
 }
 
-- (void)configureCellForActionType:(NSString *)actionType {
-    [self.buttonsContainerView setHidden:YES];
-    [self.actionButton setHidden:NO];
-    if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
-      //  [self.actionButton setImage:[UIImage imageNamed:@"messagebtn"] forState:UIControlStateNormal];
-    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
-       // [self.actionButton setImage:[UIImage imageNamed:@"callbtn"] forState:UIControlStateNormal];
-    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){
-      //  [self.actionButton setImage:[UIImage imageNamed:@"callbtn"] forState:UIControlStateNormal];
-    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertAndChannel]) {
-        [self.buttonsContainerView setHidden:NO];
-        [self.actionButton setHidden:YES];
-    }
+- (void)configureButtons {
+    [self.chatButton.layer setCornerRadius:3.0];
+    [self.videoChatButton.layer setCornerRadius:3.0];
+    [self.voiceChatButton.layer setCornerRadius:3.0];
+    [self.callBackButton.layer setCornerRadius:3.0];
 }
+
+- (void)configureCellForActionType:(NSString *)actionType {
+    if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
+        [self displayOnlyCallbackActionButton];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
+        [self displayOnlyVideoChatActionButton];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){
+        [self displayOnlyCallbackActionButton];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceChat]) {
+        [self displayOnlyVoiceChatActionButton];
+    } else if ([actionType isEqualToString:ECSActionTypeSelectExpertAndChannel]) {
+        [self displayAllActionButtons];
+    }
+    
+    [self.buttonsContainerView updateConstraintsIfNeeded];
+    [self.buttonsContainerView layoutIfNeeded];
+}
+
+#pragma mark - Configure Methods
+
+- (void)displayOnlyChatActionButton {
+    [self.chatButtonCenterY setPriority:UILayoutPriorityRequired];
+    [self.chatButton setHidden:NO];
+    [self.videoChatButton setHidden:YES];
+    [self.voiceChatButton setHidden:YES];
+    [self.callBackButton setHidden:YES];
+}
+
+- (void)displayOnlyVideoChatActionButton {
+    [self.videoButtonCenterY setPriority:UILayoutPriorityRequired];
+    [self.chatButton setHidden:YES];
+    [self.videoChatButton setHidden:NO];
+    [self.voiceChatButton setHidden:YES];
+    [self.callBackButton setHidden:YES];
+}
+
+- (void)displayOnlyVoiceChatActionButton {
+    [self.voiceButtonCenterY setPriority:UILayoutPriorityRequired];
+    [self.chatButton setHidden:YES];
+    [self.videoChatButton setHidden:YES];
+    [self.voiceChatButton setHidden:NO];
+    [self.callBackButton setHidden:YES];
+}
+
+- (void)displayOnlyCallbackActionButton {
+    [self.callBackCenterY setPriority:UILayoutPriorityRequired];
+    [self.chatButton setHidden:YES];
+    [self.videoChatButton setHidden:YES];
+    [self.voiceChatButton setHidden:YES];
+    [self.callBackButton setHidden:NO];
+}
+
+- (void)displayAllActionButtons {
+    [self.chatButton setHidden:NO];
+    [self.videoChatButton setHidden:NO];
+    [self.voiceChatButton setHidden:NO];
+    [self.callBackButton setHidden:NO];
+    [self.buttonsTopLayoutConstraints setPriority:UILayoutPriorityRequired];
+    [self.buttonsBottomConstraints setPriority:UILayoutPriorityRequired];
+}
+
+#pragma mark - Action Methods
 
 - (IBAction)chatPressed:(id)sender {
     [self.selectExpertCellDelegate chatPressed];
@@ -76,15 +145,12 @@
     [self.selectExpertCellDelegate callBackPressed];
 }
 
-- (IBAction)voiceCallBackPressed:(id)sender {
+- (IBAction)voiceChatPressed:(id)sender {
+    [self.selectExpertCellDelegate voiceChatPressed];
 }
 
 - (IBAction)videoPressed:(id)sender {
     [self.selectExpertCellDelegate videoPressed];
-}
-
-- (IBAction)actionPressed:(id)sender {
-    [self.selectExpertCellDelegate actionPressed];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

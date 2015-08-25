@@ -194,20 +194,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
 }
 
+- (void)voiceChatPressed {
+    //TODO: Need to present voice chat view.
+}
+
 - (void)callBackPressed {
       UIViewController *voiceCallbackvc =  [[EXPERTconnect shared] startVoiceCallback:@"shammiskill" withDisplayName:@"Chatting with test"];
       [self.navigationController pushViewController:voiceCallbackvc animated:YES];
 }
-
-- (void)actionPressed {
-    if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertChat]) {
-        [self chatPressed];
-    } else if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertVideo]) {
-        [self videoPressed];
-    } else if ([self.actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback]) {
-        [self callBackPressed];
-    }
-}
-
 
 @end
