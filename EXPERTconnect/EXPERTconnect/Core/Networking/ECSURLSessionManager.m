@@ -686,7 +686,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 #pragma mark - History
 - (NSURLSessionDataTask*)getAnswerEngineHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {
-    NSString *path = @"/conversationhistory/v1";
+    NSString *path = @"/conversationhistory/v1/";
     return [self GET:path
           parameters:@{@"type": @"answers"}
               success:[self successWithExpectedType:[ECSHistoryList class] completion:completion]
