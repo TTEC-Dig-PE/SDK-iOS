@@ -10,7 +10,10 @@
 #import "ECSUtilities.h"
 
 NSString *const ECSImageCacheImageDownloadedNotification = @"ECSImageCacheImageDownloadedNotification";
+NSString *const ECSImageCacheImageDownloadFailedNotification = @"ECSImageCacheImageDownloadFailedNotification";
+
 NSString *const ECSImageCacheImageUrlKey = @"ECSImageCacheImageUrlKey";
+NSString *const ECSImageDownloadFailedMessageKey = @"ECSImageDownloadFailedMessageKey";
 
 @interface ECSImageCache()
 
@@ -84,6 +87,15 @@ NSString *const ECSImageCacheImageUrlKey = @"ECSImageCacheImageUrlKey";
             {
                 [weakSelf setObject:image forKey:path];
                 [[NSNotificationCenter defaultCenter] postNotificationName:ECSImageCacheImageDownloadedNotification object:nil userInfo:@{ECSImageCacheImageUrlKey: path}];
+            } else  {
+                // kwashington [08/24/2015] - Handle Image Not Found!
+                NSError* error;
+                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data
+                                                                     options:kNilOptions
+                                                                       error:&error];
+                
+                NSString* message = [NSString stringWithFormat:@"%@: %@ [%@]", [json objectForKey:@"error"], [json objectForKey:@"exception"], [json objectForKey:@"message"]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ECSImageCacheImageDownloadFailedNotification object:nil userInfo:@{ECSImageDownloadFailedMessageKey: message}];
             }
         }
     }];

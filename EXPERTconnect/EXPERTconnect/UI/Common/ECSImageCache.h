@@ -11,8 +11,14 @@
 // Notification sent when an image is retrieved from the network
 FOUNDATION_EXPORT NSString *const ECSImageCacheImageDownloadedNotification;
 
+// Notification sent when attempt to download image fails
+FOUNDATION_EXPORT NSString *const ECSImageCacheImageDownloadFailedNotification;
+
 // Key for the user-info dictionary object containing the URL of a downloaded image.
 FOUNDATION_EXPORT NSString *const ECSImageCacheImageUrlKey;
+
+// Key for the Error message returned from the Server for not being able to download the requested image
+FOUNDATION_EXPORT NSString *const ECSImageDownloadFailedMessageKey;
 
 /**
  ECSImageCache provides methods for retrieving and caching images from the network.

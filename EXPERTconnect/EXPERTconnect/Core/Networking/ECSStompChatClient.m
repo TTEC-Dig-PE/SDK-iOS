@@ -21,6 +21,7 @@
 #import "ECSChatURLMessage.h"
 #import "ECSChannelCreateResponse.h"
 #import "ECSChannelStateMessage.h"
+#import "ECSSendQuestionMessage.h"
 #import "ECSConversationCreateResponse.h"
 #import "ECSJSONSerializer.h"
 #import "ECSJSONSerializing.h"
@@ -49,6 +50,7 @@ static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
 static NSString * const kECSCafeXMessage = @"CafeXMessage";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
+static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 @interface ECSStompChatClient() <ECSStompDelegate>
 
@@ -429,6 +431,10 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
     {
         [self handleVoiceAuthenticationMessage:message forClient:stompClient];
     }
+    else if ([bodyType isEqualToString:kECSSendQuestionMessage])
+    {
+        [self handleSendQuestionMessage:message forClient:stompClient];
+    }
 }
 
 - (void)handleChatMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
@@ -723,6 +729,32 @@ static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
             ECSLogError(@"Unable to parse chat message %@", serializationError);
         }
     }
+}
+
+- (void)handleSendQuestionMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    self.agentInteractionCount++;
+    
+    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0 error:&serializationError];
+        if (!serializationError)
+        {
+            ECSSendQuestionMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                            withClass:[ECSSendQuestionMessage class]];
+            
+            message.fromAgent = YES;
+            
+            [self.delegate chatClient:self didReceiveMessage:message];
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
+    
 }
 
 

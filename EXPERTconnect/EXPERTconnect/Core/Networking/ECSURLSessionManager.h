@@ -167,6 +167,11 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
 
+- (NSURLSessionDataTask *)submitForm:(ECSForm*)form
+                              intent:(NSString*)intent
+                   navigationContext:(NSString*)navigationContext
+                      withCompletion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
+
 /**
  Login with username / password
  
@@ -275,6 +280,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                completion:(void (^)(id *response, NSError* error))completion;
 
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name;
+- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 
 #pragma mark - History
 /**
