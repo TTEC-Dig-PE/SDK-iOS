@@ -246,11 +246,36 @@ static EXPERTconnect* _sharedInstance;
     return chistController;
 }
 
-- (UIViewController*)startSelectExpert
+- (UIViewController*)startSelectExpertChat
 {
     ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpert;
+    expertAction.type = ECSActionTypeSelectExpertChat;
     expertAction.actionId = @"";
+    expertAction.displayName = @"Chat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertVideo
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertVideo;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"VideoChat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertAndChannel
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertAndChannel;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Select an Expert";
     
     UIViewController *expertController = [self viewControllerForActionType:expertAction];
     
@@ -312,10 +337,29 @@ static EXPERTconnect* _sharedInstance;
                                              workflowDelegate:workflowDelegate
                                             navigationManager:navManager];
 
+    
+    
     //DEBUG:START
-    [navManager presentViewControllerInNavigationControllerModally:[self landingViewController]
-                                                                      animated:YES
-                                                                    completion:nil];
+    ECSRootViewController *launchViewController = (ECSRootViewController *)[self landingViewController];
+    
+    
+    //TODO: Need to remove these if conditions after Demo.
+    if ([workflowName isEqualToString:@"video"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertVideo];
+    }
+    
+    if ([workflowName isEqualToString:@"expert"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertAndChannel];
+    }
+    
+    if ([workflowName isEqualToString:@"chat"]) {
+        launchViewController = (ECSRootViewController *)[self startSelectExpertChat];
+    }
+    
+    launchViewController.workFlow = self.workflow;
+    [navManager presentViewControllerInNavigationControllerModally:launchViewController
+                                                          animated:YES
+                                                        completion:nil];
     //DEBUG:END
 }
 

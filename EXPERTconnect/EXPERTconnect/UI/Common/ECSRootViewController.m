@@ -65,6 +65,15 @@
     
     [self.view addConstraints:horizontalContstraints];
     [self.view addConstraints:verticalConstraints];
+    
+    //TODO: Need to move this code to custom navigation Controller.
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(closeButtonTapped:)];
+    
+    self.navigationItem.leftBarButtonItem = closeButton;
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -241,7 +250,8 @@ withParentNavigationController:(UINavigationController*)navigationController
 
 - (void)closeButtonTapped:(id)sender
 {
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.workFlow end];
+    //[self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

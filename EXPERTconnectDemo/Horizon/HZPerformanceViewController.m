@@ -59,5 +59,13 @@
                                    viewController:self];
 }
 
-                                          
+
+- (NSDictionary *)workflowResponseForWorkflow:(ECSWorkflow *)workflow
+                               requestCommand:(NSString *)command
+                                requestParams:(NSDictionary *)params {
+    if ([workflow.workflowName isEqualToString:@"agentSelection"]) {
+        return @{@"dfafa":@"dafsd"};
+    }
+    return nil;
+}
 @end
