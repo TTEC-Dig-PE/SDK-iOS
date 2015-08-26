@@ -55,7 +55,7 @@
 // Retrieve Navigation or Navigation Segment
 // Submit an AdHoc Form
 // Upload an AdHoc image
-// Download and AdHoc image
+// Download an AdHoc image
 //
 // Display the Expert Select Voice Callback Dialog
 // Display the Expert Select Video Dialog
@@ -74,7 +74,8 @@
 // Additional SDK Services (may require new APIs to support)
 // =========================================================
 //
-// Retrieve Available Agents by Skill?// Retrieve list of skills with availability of each (# agents online, # agents available)
+// Retrieve Available Agents by Skill?
+// Retrieve list of skills with availability of each (# agents online, # agents available)
 // Retrieve list of agents (all) with availability state of each
 // Estimated time to wait for skill X" and ?
 // Generic API endpoint

@@ -58,6 +58,7 @@
 #import <EXPERTconnect/ECSURLSessionManager.h>
 
 #import <EXPERTconnect/ECSWorkflowNavigation.h>
+#import <EXPERTconnect/ECSMediaInfoHelpers.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;

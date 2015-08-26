@@ -177,7 +177,7 @@
 		035C4C0F1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 035C4C0D1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h */; };
 		035C4C101A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C4C0E1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.m */; };
 		035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035C4C131A9CB9440016BCE8 /* MobileCoreServices.framework */; };
-		035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 035D7DDD1AE12D930021DF75 /* ECSMediaInfoHelpers.h */; };
+		035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 035D7DDD1AE12D930021DF75 /* ECSMediaInfoHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035D7DE01AE12D930021DF75 /* ECSMediaInfoHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 035D7DDE1AE12D930021DF75 /* ECSMediaInfoHelpers.m */; };
 		03639B751AA4E3EA00B617F6 /* ECSStompChatClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 03639B731AA4E3EA00B617F6 /* ECSStompChatClient.h */; };
 		03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 03639B741AA4E3EA00B617F6 /* ECSStompChatClient.m */; };
