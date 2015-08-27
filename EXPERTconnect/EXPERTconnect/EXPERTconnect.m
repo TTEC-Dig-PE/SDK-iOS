@@ -347,7 +347,7 @@ static EXPERTconnect* _sharedInstance;
                                             navigationManager:navManager];
 
     initialViewController.workFlow = self.workflow;
-    navManager.workFlow = self.workflow;
+    [navManager setWorkFlow:self.workflow];
     
     [navManager presentViewControllerInNavigationControllerModally:initialViewController
                                                           animated:YES

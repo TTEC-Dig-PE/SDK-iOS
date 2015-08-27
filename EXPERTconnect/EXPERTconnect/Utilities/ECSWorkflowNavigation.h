@@ -16,7 +16,7 @@ typedef void(^completionBlock)(void);
 
 @interface ECSWorkflowNavigation : NSObject
 
-@property (nonatomic, strong) ECSWorkflow *workFlow;
+@property (nonatomic, weak) ECSWorkflow *workFlow;
 
 - (instancetype)initWithHostViewController:(UIViewController *)hostViewController;
 
