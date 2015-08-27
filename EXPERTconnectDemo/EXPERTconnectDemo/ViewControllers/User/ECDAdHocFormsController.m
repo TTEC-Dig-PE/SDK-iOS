@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "ECDAdHocFormsController.h"
 #import "ECDLocalization.h"
@@ -14,13 +16,15 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 
-@interface ECDAdHocFormsController ()
+@interface ECDAdHocFormsController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailAddressField;
-@property (weak, nonatomic) IBOutlet UITextField *imageNameField;
+@property (weak, nonatomic) IBOutlet UITextField *downloadImageNameField;
+@property (weak, nonatomic) IBOutlet UITextField *uploadImageNameField;
 @property (weak, nonatomic) IBOutlet UITextView *commentsTextView;
 @property (weak, nonatomic) IBOutlet UISlider *agentRatingSlider;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
 @property (weak, nonatomic) IBOutlet ECSBinaryImageView *binaryView;
 @property (weak, nonatomic) IBOutlet ECSCachingImageView *imageView;
 
@@ -41,7 +45,8 @@
     //
     self.emailAddressField.tintColor = UIColor.blueColor;
     self.commentsTextView.tintColor = UIColor.blueColor;
-    self.imageNameField.tintColor = UIColor.blueColor;
+    self.downloadImageNameField.tintColor = UIColor.blueColor;
+    self.uploadImageNameField.tintColor = UIColor.blueColor;
     
     // Round button corners
     CALayer *btnLayer = [self.submitButton layer];
@@ -67,8 +72,12 @@
                           action:@selector(submitRatingButtonTapped:)
                 forControlEvents:UIControlEventTouchUpInside];
     
+    UIImage *cameraImageFill = [self.photoButton.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.photoButton.tintColor = [UIColor blackColor];
+    [self.photoButton setImage:cameraImageFill forState:UIControlStateNormal];
+    
     self.imageView.delegate = self;
-    NSString *imageName = self.imageNameField.text;
+    NSString *imageName = self.downloadImageNameField.text;
     [self loadAdHocImage:imageName];
 }
 
@@ -140,8 +149,9 @@
         self.binaryView.currentRating = BinaryRatingUnknown;
     }
 }
+
 - (IBAction)imageNameUpdated:(id)sender {
-    NSString *imageName = self.imageNameField.text;
+    NSString *imageName = self.downloadImageNameField.text;
     [self loadAdHocImage:imageName];
 }
 
@@ -154,6 +164,50 @@
         self.agentRatingSlider.value = (self.agentRatingSlider.maximumValue - self.agentRatingSlider.minimumValue) / 2.0f;;
     }
     // [self showAlert:@"Rating" withMessage:@"Thank you!"];
+}
+
+- (IBAction)cameraButtonTapped:(id)sender {
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, kUTTypeImage, nil];
+    
+    [self presentViewController:imagePicker
+                       animated:YES
+                     completion:nil];
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [self uploadPhoto:chosenImage withInfo:info];
+}
+
+- (void) uploadPhoto:(UIImage*)chosenImage withInfo:(NSDictionary *) mediaInfo {
+    
+    NSLog(@"Uploading the photo!");
+
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [sessionManager uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
+                   withName:self.uploadImageNameField.text
+            fileContentType:@"image/jpg"
+                 completion:^(__autoreleasing id *response, NSError *error)
+     {
+         if (error)
+         {
+             [self showAlert:@"Error" withMessage: [NSString stringWithFormat:@"Failed to send media %@", error]];
+         }
+         else
+         {
+             [weakSelf.imageView setImage:chosenImage];
+         }
+     }];
 }
 
 - (void) showAlert:(NSString *)title withMessage:(NSString *)message {
