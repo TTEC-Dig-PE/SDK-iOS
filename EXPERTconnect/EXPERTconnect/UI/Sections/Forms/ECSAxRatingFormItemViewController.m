@@ -49,10 +49,11 @@
     if(value < 10) {
         self.rateResponseStars.value = 2;
     }
-    
+
+    float step = ((float)number_of_stars / (float)value);
     [self.rateResponseStars setBaseColor:theme.primaryBackgroundColor];
     [self.rateResponseStars setHighlightColor:theme.primaryColor];
-    [self.rateResponseStars setStepInterval:(number_of_stars / value)];
+    [self.rateResponseStars setStepInterval:step];
     [self.rateResponseStars setMarkFont:[UIFont systemFontOfSize:84.0f]];
     [self.rateResponseStars addTarget:self action:@selector(ratingChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -66,7 +67,7 @@
 
     ECSFormItemRating* ratingItem = (ECSFormItemRating*)self.formItem;
 
-    ratingItem.formValue = [@((int)self.rateResponseStars.value * self.multiplier) stringValue];
+    ratingItem.formValue = [@((int)(self.rateResponseStars.value * self.multiplier)) stringValue];
     
     [self.delegate formItemViewController:self answerDidChange:nil forFormItem:self.formItem];
 }
