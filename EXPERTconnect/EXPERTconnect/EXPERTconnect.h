@@ -220,9 +220,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  *  Starts SDK workflow with a workflowName(workflowID), a delegate, and a viewController to present it on
  */
--(void)startWorkflowWithName:(NSString *)workflowName
-                     delgate:(id <ECSWorkflowDelegate>)workflowDelegate
-              viewController:(UIViewController *)viewController;
+- (void)startWorkflowWithAction:(NSString *)actionType
+                        delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+                 viewController:(UIViewController *)viewController;
 
 @end
 

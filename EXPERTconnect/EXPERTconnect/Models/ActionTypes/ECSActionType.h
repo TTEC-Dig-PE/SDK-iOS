@@ -60,6 +60,10 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertVideo;
 // Action type for select expert view for all 4 channels chat
 FOUNDATION_EXPORT NSString *const ECSActionTypeSelectExpertAndChannel;
 
+FOUNDATION_EXPORT NSString *const ECSRequestVideoAction;
+FOUNDATION_EXPORT NSString *const ECSRequestChatAction;
+FOUNDATION_EXPORT NSString *const ECSRequestCallbackAction;
+
 /**
  ECSActionType is the base type for defining available actions to the user.  This object type is 
  sent to direct the navigation of the framework views.

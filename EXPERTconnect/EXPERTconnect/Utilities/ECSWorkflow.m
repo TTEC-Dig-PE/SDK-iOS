@@ -8,9 +8,11 @@
 
 #import "ECSWorkflow.h"
 
+#import "ECSActionType.h"
+
 @interface ECSWorkflow ()
 
-@property (nonatomic, strong) ECSWorkflowNavigation *navigationManager;
+@property (nonatomic, weak) ECSWorkflowNavigation *navigationManager;
 @property (nonatomic, weak) id <ECSWorkflowDelegate> workflowDelegate;
 @property (nonatomic, copy) NSString *workflowName;
 
@@ -39,6 +41,20 @@
 
 - (void)end {
     [self.navigationManager dismissAllViewControllersAnimated:YES completion:nil];
+}
+
+- (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count {
+    NSDictionary *actions = nil;
+    if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
+       actions = [self.workflowDelegate workflowResponseForWorkflow:self
+                                                     requestCommand:nil
+                                                      requestParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:count] forKey:@"InvalidResponseCount"]];
+    }
+    
+    if (actions) {
+        NSString *actionType = [actions valueForKey:@"ActionType"];
+        [self.navigationManager preformActionForActionType:actionType];
+    }
 }
 
 @end

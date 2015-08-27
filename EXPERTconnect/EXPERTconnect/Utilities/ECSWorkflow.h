@@ -30,4 +30,6 @@
 - (void)start;
 - (void)end;
 
+- (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
+
 @end

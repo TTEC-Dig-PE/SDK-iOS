@@ -150,7 +150,7 @@ static EXPERTconnect* _sharedInstance;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:NO];
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -327,40 +327,31 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)startWorkflowWithName:(NSString *)workflowName
+-(void)startWorkflowWithAction:(NSString *)actionType
                      delgate:(id <ECSWorkflowDelegate>)workflowDelegate
               viewController:(UIViewController *)viewController {
     
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:@"Telecommunications"];
+    }
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
 
-    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workflowName
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
                                              workflowDelegate:workflowDelegate
                                             navigationManager:navManager];
 
+    initialViewController.workFlow = self.workflow;
+    navManager.workFlow = self.workflow;
     
-    
-    //DEBUG:START
-    ECSRootViewController *launchViewController = (ECSRootViewController *)[self landingViewController];
-    
-    
-    //TODO: Need to remove these if conditions after Demo.
-    if ([workflowName isEqualToString:@"video"]) {
-        launchViewController = (ECSRootViewController *)[self startSelectExpertVideo];
-    }
-    
-    if ([workflowName isEqualToString:@"expert"]) {
-        launchViewController = (ECSRootViewController *)[self startSelectExpertAndChannel];
-    }
-    
-    if ([workflowName isEqualToString:@"chat"]) {
-        launchViewController = (ECSRootViewController *)[self startSelectExpertChat];
-    }
-    
-    launchViewController.workFlow = self.workflow;
-    [navManager presentViewControllerInNavigationControllerModally:launchViewController
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
                                                           animated:YES
                                                         completion:nil];
-    //DEBUG:END
 }
 
 @end
