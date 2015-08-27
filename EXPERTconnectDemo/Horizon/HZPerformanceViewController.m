@@ -94,7 +94,7 @@ NSString *const HZCustomerConcierge = @"Concierge";
                 if ([params valueForKey:@"InvalidResponseCount"]) {
                     NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
                     if (count.intValue ==  1) {
-                        return @{@"ActionType":ECSRequestVideoAction};
+                        return @{@"ActionType":ECSRequestChatAction};
                     }
                 }
             }

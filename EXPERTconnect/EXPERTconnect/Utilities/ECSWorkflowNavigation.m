@@ -221,21 +221,42 @@
 }
 
 - (void)preformActionForActionType:(NSString *)actionType {
-    if (actionType) {
-        [self displayRequestVideoChatAlert];
+    if ([actionType isEqualToString:ECSRequestVideoAction] ||
+        [actionType isEqualToString:ECSRequestChatAction] ||
+        [actionType isEqualToString:ECSRequestCallbackAction]) {
+        [self displayAlertForActionType:actionType];
+    } else {
+        ECSActionType *action = [ECSActionType new];
+        action.type = actionType;
+        action.actionId = @"";
+        UIViewController *expertController = [self viewControllerForActionType:action];
+        
+        [self presentViewControllerInNavigationControllerModally:expertController
+                                                        animated:YES completion:nil];
     }
 }
 
-- (void)displayRequestVideoChatAlert {
-    UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:@"Video Chat" message:@"Please try a video chat With an Agent" preferredStyle:UIAlertControllerStyleAlert];
+- (void)displayAlertForActionType:(NSString *)actionType {
+    
+    
+    NSString *alertTitle = @"Video Chat";
+    NSString *alertMsg = @"Please try a video chat With an Agent";
+    if ([actionType isEqualToString:ECSRequestChatAction]) {
+        alertTitle = @"Chat With Agent";
+        alertMsg = @"Please try a chat with agent";
+    } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+        alertTitle = @"Voice Callback";
+        alertMsg = @"Please try talking with an agent";
+    }
+    
+    UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [workflowNameController dismissViewControllerAnimated:YES completion:nil];
     }];
     
     UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:@"Start Video Chat" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertVideo]
-                                                        animated:YES completion:nil];
+        [self displayViewForActionType:actionType];
     }];
     
     [workflowNameController addAction:alertActionStop];
@@ -243,6 +264,28 @@
     [[self.modalStack topViewController] presentViewController:workflowNameController animated:YES completion:nil];
 }
 
+- (void)displayViewForActionType:(NSString *)actionType {
+    if ([actionType isEqualToString:ECSRequestVideoAction]) {
+        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertVideo]
+                                                        animated:YES completion:nil];
+    } else if ([actionType isEqualToString:ECSRequestChatAction]) {
+        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertChat]
+                                                        animated:YES completion:nil];
+    } else {
+        ECSActionType *action = [ECSActionType new];
+        action.type = actionType;
+        
+        if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+            action.type = ECSActionTypeCallbackString;
+        }
+        action.actionId = @"";
+        
+        UIViewController *expertController = [self viewControllerForActionType:action];
+        
+        [self presentViewControllerInNavigationControllerModally:expertController
+                                                        animated:YES completion:nil];
+    }
+}
 
 #pragma mark - Initialize ViewControllers
 
