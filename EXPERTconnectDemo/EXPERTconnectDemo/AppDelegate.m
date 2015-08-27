@@ -60,7 +60,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[UAPush shared] resetBadge];
     
-    [Bugsnag startBugsnagWithApiKey:@"e752129652005fc3911fce42873a1573"];
+    // [Bugsnag startBugsnagWithApiKey:@"e752129652005fc3911fce42873a1573"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setTintColor:[UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1]];
