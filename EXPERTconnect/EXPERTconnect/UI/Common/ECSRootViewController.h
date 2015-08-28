@@ -10,6 +10,7 @@
 #import <EXPERTconnect/ECSActionType.h>
 #import "ECSWorkflow.h"
 
+@protocol ECSWorkflowNavigationDelegate;
 /**
  ECSRootViewController is the base view controller used within the framework.  It provides common
  properties and utilities used across all of the UI elements.
@@ -24,7 +25,7 @@
 // Indicates if a full screen reachability message should be displayed.  Defaults to YES.
 @property (nonatomic, assign) BOOL showFullScreenReachabilityMessage;
 
-@property (nonatomic, strong) ECSWorkflow *workFlow;
+@property (nonatomic, weak) id<ECSWorkflowNavigationDelegate> workflowDelegate;
 
 /**
  Sets the loading indicator visible or invisible.

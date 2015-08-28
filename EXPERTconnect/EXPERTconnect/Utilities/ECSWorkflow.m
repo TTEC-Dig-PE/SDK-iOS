@@ -9,6 +9,7 @@
 #import "ECSWorkflow.h"
 
 #import "ECSActionType.h"
+#import "ECSMappingReference.h"
 
 @interface ECSWorkflow ()
 
@@ -43,18 +44,54 @@
     [self.navigationManager dismissAllViewControllersAnimated:YES completion:nil];
 }
 
+#pragma mark - ECSWorkflowNavigationDelegate Method
+
 - (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count {
     NSDictionary *actions = nil;
     if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
-       actions = [self.workflowDelegate workflowResponseForWorkflow:self
+       actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
                                                      requestCommand:nil
                                                       requestParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:count] forKey:@"InvalidResponseCount"]];
     }
-    
     if (actions) {
         NSString *actionType = [actions valueForKey:@"ActionType"];
-        [self.navigationManager preformActionForActionType:actionType];
+        if ([actionType isEqualToString:ECSRequestVideoAction] ||
+            [actionType isEqualToString:ECSRequestChatAction] ||
+            [actionType isEqualToString:ECSRequestCallbackAction]) {
+            __weak __typeof(self)weakSelf = self;
+            [self.navigationManager displayAlertForActionType:actionType completion:^(BOOL selected) {
+                __strong __typeof(weakSelf)strongSelf = weakSelf;
+                if (selected) {
+                    [strongSelf presentViewControllerForActionType:[strongSelf selectedActionTypeForActionType:actionType]];
+                }
+            }];
+        } else {
+            [self presentViewControllerForActionType:actionType];
+        }
     }
+}
+
+- (NSString *)selectedActionTypeForActionType:(NSString *)actionType {
+    if ([actionType isEqualToString:ECSRequestVideoAction]) {
+        return ECSActionTypeSelectExpertVideo;
+    } else if ([actionType isEqualToString:ECSRequestChatAction]) {
+        return ECSActionTypeSelectExpertChat;
+    } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+        return ECSActionTypeSelectExpertVoiceCallback;
+    }
+    
+    return ECSActionTypeSelectExpertAndChannel;
+}
+
+- (void)presentViewControllerForActionType:(NSString *)actionType {
+    ECSRootViewController *viewController = [[ECSMappingReference new] viewControllerForAction:actionType];
+    viewController.workflowDelegate = self;
+    [self.navigationManager presentViewControllerInNavigationControllerModally:viewController
+                                                                      animated:YES completion:nil];
+}
+
+- (void)endWorkFlow {
+    [self end];
 }
 
 @end

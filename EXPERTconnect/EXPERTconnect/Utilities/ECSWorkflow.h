@@ -8,18 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "ECSWorkflowNavigation.h"
+#import "ECSRootViewController.h"
 
 @class ECSWorkflow;
 
+@protocol ECSWorkflowNavigationDelegate <NSObject>
+
+- (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
+- (void)endWorkFlow;
+
+@end
+
 @protocol ECSWorkflowDelegate <NSObject>
 
-- (NSDictionary *)workflowResponseForWorkflow:(ECSWorkflow *)workflow
+- (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
                                 requestParams:(NSDictionary *)params;
 
 @end
 
-@interface ECSWorkflow : NSObject
+@interface ECSWorkflow : NSObject <ECSWorkflowNavigationDelegate>
 
 @property (nonatomic, copy, readonly) NSString *workflowName;
 
@@ -29,7 +37,5 @@
 
 - (void)start;
 - (void)end;
-
-- (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
 
 @end

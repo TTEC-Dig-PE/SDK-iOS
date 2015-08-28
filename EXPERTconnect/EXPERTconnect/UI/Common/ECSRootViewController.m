@@ -252,7 +252,7 @@ withParentNavigationController:(UINavigationController*)navigationController
 
 - (void)closeButtonTapped:(id)sender
 {
-    [self.workFlow end];
+    [self.workflowDelegate endWorkFlow];
     //[self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

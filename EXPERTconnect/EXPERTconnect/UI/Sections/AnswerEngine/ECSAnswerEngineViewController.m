@@ -289,7 +289,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [alert show];
             [self.searchTextField becomeFirstResponder];
             self.invalidResponseCount++;
-            [self.workFlow invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         }
         else
         {

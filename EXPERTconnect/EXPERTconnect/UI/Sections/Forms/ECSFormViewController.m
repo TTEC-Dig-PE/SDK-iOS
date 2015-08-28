@@ -341,7 +341,7 @@
 //                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
 //                        } else {
                             ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-                            submitController.workFlow = self.workFlow;
+                            submitController.workflowDelegate = self.workflowDelegate;
                             submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
                             submitController.descriptionLabel.text = formAction.form.submitCompleteText;
                             

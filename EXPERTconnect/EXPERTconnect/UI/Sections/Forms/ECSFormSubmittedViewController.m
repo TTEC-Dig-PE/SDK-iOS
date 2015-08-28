@@ -47,7 +47,7 @@
      }
      */
     
-    [self.workFlow end];
+    [self.workflowDelegate endWorkFlow];
 }
 
 @end

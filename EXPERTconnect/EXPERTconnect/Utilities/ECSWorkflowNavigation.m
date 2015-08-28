@@ -28,6 +28,8 @@
 @property (nonatomic, weak) UIViewController *hostViewController;
 @property (nonatomic, strong) ECSViewControllerStack *modalStack;
 
+@property (nonatomic, strong) UINavigationController *navigationController;
+
 @property (nonatomic, strong) UIView *dimmingOverlay;
 @property (nonatomic, strong) UIView *containerView;
 
@@ -109,8 +111,15 @@
 - (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
                                                   animated:(BOOL)shouldAnimate
                                                 completion:(completionBlock)completion {
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewControllerModally:navController animated:YES completion:completion];
+    
+    if (self.navigationController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewControllerModally:navController animated:YES completion:completion];
+        self.navigationController = navController;
+    }
+    
 }
 
 - (void)presentViewControllerModally:(UIViewController *)viewController
@@ -220,25 +229,7 @@
     };
 }
 
-- (void)preformActionForActionType:(NSString *)actionType {
-    if ([actionType isEqualToString:ECSRequestVideoAction] ||
-        [actionType isEqualToString:ECSRequestChatAction] ||
-        [actionType isEqualToString:ECSRequestCallbackAction]) {
-        [self displayAlertForActionType:actionType];
-    } else {
-        ECSActionType *action = [ECSActionType new];
-        action.type = actionType;
-        action.actionId = @"";
-        UIViewController *expertController = [self viewControllerForActionType:action];
-        
-        [self presentViewControllerInNavigationControllerModally:expertController
-                                                        animated:YES completion:nil];
-    }
-}
-
-- (void)displayAlertForActionType:(NSString *)actionType {
-    
-    
+- (void)displayAlertForActionType:(NSString *)actionType completion:(void (^)(BOOL selected))completion {
     NSString *alertTitle = @"Video Chat";
     NSString *alertMsg = @"Please try a video chat With an Agent";
     if ([actionType isEqualToString:ECSRequestChatAction]) {
@@ -252,84 +243,23 @@
     UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [workflowNameController dismissViewControllerAnimated:YES completion:nil];
+        [workflowNameController dismissViewControllerAnimated:YES completion:^{
+            if (completion) {
+                completion(NO);
+            }
+        }];
+        
     }];
     
     UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:@"Start Video Chat" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self displayViewForActionType:actionType];
+        if (completion) {
+            completion(YES);
+        }
     }];
     
     [workflowNameController addAction:alertActionStop];
     [workflowNameController addAction:alertActionContinue];
     [[self.modalStack topViewController] presentViewController:workflowNameController animated:YES completion:nil];
-}
-
-- (void)displayViewForActionType:(NSString *)actionType {
-    if ([actionType isEqualToString:ECSRequestVideoAction]) {
-        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertVideo]
-                                                        animated:YES completion:nil];
-    } else if ([actionType isEqualToString:ECSRequestChatAction]) {
-        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertChat]
-                                                        animated:YES completion:nil];
-    } else {
-        ECSActionType *action = [ECSActionType new];
-        action.type = actionType;
-        
-        if ([actionType isEqualToString:ECSRequestCallbackAction]) {
-            action.type = ECSActionTypeCallbackString;
-        }
-        action.actionId = @"";
-        
-        UIViewController *expertController = [self viewControllerForActionType:action];
-        
-        [self presentViewControllerInNavigationControllerModally:expertController
-                                                        animated:YES completion:nil];
-    }
-}
-
-#pragma mark - Initialize ViewControllers
-
-- (UIViewController*)startSelectExpertChat
-{
-    ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpertChat;
-    expertAction.actionId = @"";
-    expertAction.displayName = @"Chat With an Expert";
-    
-    UIViewController *expertController = [self viewControllerForActionType:expertAction];
-    
-    return expertController;
-}
-
-- (UIViewController*)startSelectExpertVideo
-{
-    ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpertVideo;
-    expertAction.actionId = @"";
-    expertAction.displayName = @"VideoChat With an Expert";
-    
-    UIViewController *expertController = [self viewControllerForActionType:expertAction];
-    
-    return expertController;
-}
-
-- (UIViewController*)startSelectExpertAndChannel
-{
-    ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpertAndChannel;
-    expertAction.actionId = @"";
-    expertAction.displayName = @"Select an Expert";
-    
-    UIViewController *expertController = [self viewControllerForActionType:expertAction];
-    
-    return expertController;
-}
-
-- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
-{
-    ECSRootViewController *vc = [ECSRootViewController ecs_viewControllerForActionType:actionType];
-    vc.workFlow = self.workFlow;
-    return vc;
 }
 
 #pragma mark - Minimize Restore

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class ECSRootViewController;
+
 @interface ECSMappingReference : NSObject
+
+- (ECSRootViewController *)viewControllerForAction:(NSString *)actionType;
 
 @end

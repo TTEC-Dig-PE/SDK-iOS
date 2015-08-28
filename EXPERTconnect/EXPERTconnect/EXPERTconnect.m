@@ -327,9 +327,10 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)startWorkflowWithAction:(NSString *)actionType
-                     delgate:(id <ECSWorkflowDelegate>)workflowDelegate
-              viewController:(UIViewController *)viewController {
+- (void)startWorkflow:(NSString *)workFlowName
+           withAction:(NSString *)actionType
+              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+       viewController:(UIViewController *)viewController {
     
     ECSActionType *action = [ECSActionType new];
     action.type = actionType;
@@ -350,8 +351,7 @@ static EXPERTconnect* _sharedInstance;
                                              workflowDelegate:workflowDelegate
                                             navigationManager:navManager];
 
-    initialViewController.workFlow = self.workflow;
-    [navManager setWorkFlow:self.workflow];
+    initialViewController.workflowDelegate = self.workflow;
     
     [navManager presentViewControllerInNavigationControllerModally:initialViewController
                                                           animated:YES
