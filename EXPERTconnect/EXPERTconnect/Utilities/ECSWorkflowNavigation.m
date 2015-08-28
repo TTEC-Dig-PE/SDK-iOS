@@ -251,7 +251,7 @@
         
     }];
     
-    UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:@"Start Video Chat" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:alertTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if (completion) {
             completion(YES);
         }
