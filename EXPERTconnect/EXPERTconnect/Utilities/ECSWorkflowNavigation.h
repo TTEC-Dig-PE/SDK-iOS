@@ -12,7 +12,11 @@
 
 typedef void(^completionBlock)(void);
 
+@class ECSWorkflow;
+
 @interface ECSWorkflowNavigation : NSObject
+
+@property (nonatomic, weak) ECSWorkflow *workFlow;
 
 - (instancetype)initWithHostViewController:(UIViewController *)hostViewController;
 
@@ -32,5 +36,7 @@ typedef void(^completionBlock)(void);
 
 - (void)minmizeAllViewControllersWithCompletion:(completionBlock)completion;
 - (void)restoreAllViewControllersWithCompletion:(completionBlock)completion;
+
+- (void)preformActionForActionType:(NSString *)actionType;
 
 @end

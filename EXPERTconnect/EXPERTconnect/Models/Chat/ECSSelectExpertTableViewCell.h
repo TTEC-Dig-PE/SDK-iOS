@@ -11,6 +11,15 @@
 @class ECSCircleImageView;
 @class ECSDynamicLabel;
 
+@protocol ECSSelectExpertTableViewCellDelegate <NSObject>
+
+- (void)chatPressed;
+- (void)callBackPressed;
+- (void)videoPressed;
+- (void)voiceChatPressed;
+
+@end
+
 @interface ECSSelectExpertTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet ECSCircleImageView *profileImage;
@@ -18,5 +27,9 @@
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *region;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *expertiese;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *interests;
+
+@property (nonatomic, weak) id <ECSSelectExpertTableViewCellDelegate> selectExpertCellDelegate;
+
+- (void)configureCellForActionType:(NSString *)actionType;
 
 @end

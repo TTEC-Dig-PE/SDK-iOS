@@ -57,6 +57,8 @@
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
 
+
+#import <EXPERTconnect/ECSWorkflow.h>
 #import <EXPERTconnect/ECSWorkflowNavigation.h>
 #import <EXPERTconnect/ECSMediaInfoHelpers.h>
 
@@ -87,7 +89,6 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (strong, nonatomic) NSString *userCallbackNumber;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
-@property (strong, nonatomic) ECSWorkflowNavigation *navigationManager;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
@@ -178,11 +179,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startChatHistory;
 
 /**
- Returns a view controller for an EXPERTconnect Answer Engine History View
+ Returns a view controller for an EXPERTconnect SelectAgent Chat mode
  
  @return the view controller for the Web Page Controller
  */
-- (UIViewController*)startSelectExpert;
+- (UIViewController*)startSelectExpertChat;
+- (UIViewController*)startSelectExpertVideo;
+- (UIViewController*)startSelectExpertAndChannel;
 
 /**
  Login support
@@ -218,8 +221,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)landingViewController;
 
 /**
- *  Uses a ViewController passed to it as a base for all SDK operations
+ *  Starts SDK workflow with a workflowName(workflowID), a delegate, and a viewController to present it on
  */
--(void)startWorkflowOnViewController:(UIViewController *)vc;
+- (void)startWorkflowWithAction:(NSString *)actionType
+                        delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+                 viewController:(UIViewController *)viewController;
+
 @end
 

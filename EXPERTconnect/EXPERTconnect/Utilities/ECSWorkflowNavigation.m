@@ -8,6 +8,20 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSViewControllerStack.h"
+#import "ECSWorkflow.h"
+
+#import "ECSCafeXController.h"
+
+#import "ECSURLSessionManager.h"
+#import "ECSImageCache.h"
+#import "ECSInjector.h"
+#import "ECSTheme.h"
+#import "ECSUserManager.h"
+#import "ECSLocalization.h"
+
+#import "NSBundle+ECSBundle.h"
+#import "UIViewController+ECSNibLoading.h"
+#import "ECSAnswerEngineViewController.h"
 
 @interface ECSWorkflowNavigation ()
 
@@ -204,6 +218,118 @@
     while ( [self.modalStack viewControllerCount] > 0 ) {
         [self dismissViewControllerModallyAnimated:shouldAnimate completion:completion];
     };
+}
+
+- (void)preformActionForActionType:(NSString *)actionType {
+    if ([actionType isEqualToString:ECSRequestVideoAction] ||
+        [actionType isEqualToString:ECSRequestChatAction] ||
+        [actionType isEqualToString:ECSRequestCallbackAction]) {
+        [self displayAlertForActionType:actionType];
+    } else {
+        ECSActionType *action = [ECSActionType new];
+        action.type = actionType;
+        action.actionId = @"";
+        UIViewController *expertController = [self viewControllerForActionType:action];
+        
+        [self presentViewControllerInNavigationControllerModally:expertController
+                                                        animated:YES completion:nil];
+    }
+}
+
+- (void)displayAlertForActionType:(NSString *)actionType {
+    
+    
+    NSString *alertTitle = @"Video Chat";
+    NSString *alertMsg = @"Please try a video chat With an Agent";
+    if ([actionType isEqualToString:ECSRequestChatAction]) {
+        alertTitle = @"Chat With Agent";
+        alertMsg = @"Please try a chat with agent";
+    } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+        alertTitle = @"Voice Callback";
+        alertMsg = @"Please try talking with an agent";
+    }
+    
+    UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [workflowNameController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:@"Start Video Chat" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self displayViewForActionType:actionType];
+    }];
+    
+    [workflowNameController addAction:alertActionStop];
+    [workflowNameController addAction:alertActionContinue];
+    [[self.modalStack topViewController] presentViewController:workflowNameController animated:YES completion:nil];
+}
+
+- (void)displayViewForActionType:(NSString *)actionType {
+    if ([actionType isEqualToString:ECSRequestVideoAction]) {
+        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertVideo]
+                                                        animated:YES completion:nil];
+    } else if ([actionType isEqualToString:ECSRequestChatAction]) {
+        [self presentViewControllerInNavigationControllerModally:[self startSelectExpertChat]
+                                                        animated:YES completion:nil];
+    } else {
+        ECSActionType *action = [ECSActionType new];
+        action.type = actionType;
+        
+        if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+            action.type = ECSActionTypeCallbackString;
+        }
+        action.actionId = @"";
+        
+        UIViewController *expertController = [self viewControllerForActionType:action];
+        
+        [self presentViewControllerInNavigationControllerModally:expertController
+                                                        animated:YES completion:nil];
+    }
+}
+
+#pragma mark - Initialize ViewControllers
+
+- (UIViewController*)startSelectExpertChat
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertChat;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Chat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertVideo
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertVideo;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"VideoChat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertAndChannel
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertAndChannel;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Select an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
+{
+    ECSRootViewController *vc = [ECSRootViewController ecs_viewControllerForActionType:actionType];
+    vc.workFlow = self.workFlow;
+    return vc;
 }
 
 #pragma mark - Minimize Restore

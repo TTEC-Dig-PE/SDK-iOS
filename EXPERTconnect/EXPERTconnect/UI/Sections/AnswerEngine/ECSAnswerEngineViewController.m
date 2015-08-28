@@ -76,6 +76,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (assign, nonatomic) CGRect keyboardFrame;
 
 @property (assign, nonatomic) BOOL didAskInitialQuestion;
+
+@property (assign, nonatomic) NSInteger invalidResponseCount;
+
 @end
 
 @implementation ECSAnswerEngineViewController
@@ -94,6 +97,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     self.answerEngineResponseIndex = -1;
     
     self.questionCount = 0;
+    self.invalidResponseCount = 0;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -284,6 +288,8 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
             [alert show];
             [self.searchTextField becomeFirstResponder];
+            self.invalidResponseCount++;
+            [self.workFlow invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         }
         else
         {

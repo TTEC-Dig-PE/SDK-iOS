@@ -822,8 +822,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 -(void)handleAdHocSelectExpert
 {
     NSLog(@"Rendering an ad-hoc Answer Engine History Page");
-    
-    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpert];
+    //TODO: Spandana
+    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpertChat];
     [self.navigationController pushViewController:selectExpertController animated:YES];
 }
 

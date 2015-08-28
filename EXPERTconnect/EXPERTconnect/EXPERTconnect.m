@@ -20,6 +20,12 @@
 #import "UIViewController+ECSNibLoading.h"
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
+#import "ECSWorkflowNavigation.h"
+
+@interface EXPERTconnect ()
+@property (nonatomic, strong) ECSWorkflow *workflow;
+@end
+
 static EXPERTconnect* _sharedInstance;
 
 @implementation EXPERTconnect
@@ -144,7 +150,7 @@ static EXPERTconnect* _sharedInstance;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:NO];
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -158,9 +164,9 @@ static EXPERTconnect* _sharedInstance;
 - (UIViewController*)startSurvey:(NSString*)formName
 {
     ECSFormActionType *formAction = [ECSFormActionType new];
-    
     formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
-    
+    formAction.navigationContext = @"personas";
+
     UIViewController *formController = [self viewControllerForActionType:formAction];
     
     return formController;
@@ -240,11 +246,36 @@ static EXPERTconnect* _sharedInstance;
     return chistController;
 }
 
-- (UIViewController*)startSelectExpert
+- (UIViewController*)startSelectExpertChat
 {
     ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpert;
+    expertAction.type = ECSActionTypeSelectExpertChat;
     expertAction.actionId = @"";
+    expertAction.displayName = @"Chat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertVideo
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertVideo;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"VideoChat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertAndChannel
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertAndChannel;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Select an Expert";
     
     UIViewController *expertController = [self viewControllerForActionType:expertAction];
     
@@ -296,14 +327,36 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)startWorkflowOnViewController:(UIViewController *)vc {
-    UIViewController *landingController = [self landingViewController];
+-(void)startWorkflowWithAction:(NSString *)actionType
+                     delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+              viewController:(UIViewController *)viewController {
+    
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:@"Telecommunications"];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:@"Mutual Fund Satisfaction"];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
 
-    self.navigationManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:vc];
-    [self.navigationManager presentViewControllerInNavigationControllerModally:landingController
-                                                                      animated:YES
-                                                                    completion:nil];
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+
+    initialViewController.workFlow = self.workflow;
+    [navManager setWorkFlow:self.workflow];
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+
 }
 
 @end
-
