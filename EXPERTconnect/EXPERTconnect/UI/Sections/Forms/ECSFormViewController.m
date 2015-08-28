@@ -327,7 +327,6 @@
     formAction.intent = userIntent;
     
     __weak typeof(self) weakSelf = self;
-    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [urlSession submitForm:[formAction.form formResponseValue]
                     intent:userIntent
@@ -337,10 +336,12 @@
                     if (!error)
                     {
                         formAction.form.submitted = YES;
-                        if (response.action) {
-                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
-                        } else {
+                        //TODO : Navigation is being handled by the Host App, don't need this.
+//                        if (response.action) {
+//                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
+//                        } else {
                             ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+                            submitController.workFlow = self.workFlow;
                             submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
                             submitController.descriptionLabel.text = formAction.form.submitCompleteText;
                             
@@ -348,7 +349,7 @@
                             {
                                 [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
                             }
-                        }
+//                        }
                     }
                     else
                     {
