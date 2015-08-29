@@ -15,6 +15,11 @@
 @protocol ECSWorkflowNavigationDelegate <NSObject>
 
 - (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
+
+- (void)disconnectedFromVoiceCallBack;
+- (void)disconnectedFromChat;
+- (void)disconnectedFromVideoChat;
+
 - (void)endWorkFlow;
 
 @end

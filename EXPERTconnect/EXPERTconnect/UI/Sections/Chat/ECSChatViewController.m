@@ -398,17 +398,17 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                               actionId:self.actionType.actionId
                                             completion:^(NSArray* result, NSError *error) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    if (error ||
-                                                        (result.count == 0) ||
-                                                        !([result.firstObject isKindOfClass:[ECSFormActionType class]]))
-                                                    {
-                                                        [weakSelf showNoSurveyDisconnectMessage];
-                                                    }
-                                                    else
-                                                    {
+                                                    
+                                                    //TODO: Need to we need some data from results, Navigations should be taken care by host app in Demo 2.0
+//                                                    if (error || (result.count == 0)) //|| !([result.firstObject isKindOfClass:[ECSFormActionType class]])
+//                                                    {
+//                                                        [weakSelf showNoSurveyDisconnectMessage];
+//                                                    }
+//                                                    else
+//                                                    {
                                                         weakSelf.postChatActions = result;
                                                         [weakSelf showSurveyDisconnectMessage];
-                                                    }
+                                                   // }
                                                 });
                                             }];
 }
@@ -445,6 +445,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)showSurvey
 {
+    
+    [self.workflowDelegate disconnectedFromChat];
+    return;
+    
     if (self.postChatActions &&
         (self.postChatActions.count > 0) &&
         ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))

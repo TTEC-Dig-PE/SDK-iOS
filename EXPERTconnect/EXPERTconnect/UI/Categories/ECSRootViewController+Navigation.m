@@ -135,6 +135,8 @@
 - (void)ecs_navigateToViewControllerForActionType:(ECSActionType*)actionType
 {
     ECSRootViewController *controller = [ECSRootViewController ecs_viewControllerForActionType:actionType];
+    controller.workflowDelegate = self.workflowDelegate;
+    
     if (controller)
     {
         if ([self.actionType isKindOfClass:[ECSNavigationActionType class]])

@@ -83,15 +83,28 @@
     return ECSActionTypeSelectExpertAndChannel;
 }
 
+- (void)endWorkFlow {
+    [self end];
+}
+
+- (void)disconnectedFromVoiceCallBack {
+    
+}
+- (void)disconnectedFromChat {
+    [self presentViewControllerForActionType:ECSActionTypeFormString];
+}
+
+- (void)disconnectedFromVideoChat {
+    
+}
+
+#pragma mark - Helper methods
+
 - (void)presentViewControllerForActionType:(NSString *)actionType {
     ECSRootViewController *viewController = [[ECSMappingReference new] viewControllerForAction:actionType];
     viewController.workflowDelegate = self;
     [self.navigationManager presentViewControllerInNavigationControllerModally:viewController
                                                                       animated:YES completion:nil];
-}
-
-- (void)endWorkFlow {
-    [self end];
 }
 
 @end
