@@ -403,6 +403,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSMutableDictionary *formWithIntentAndNavContext = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
     
+    // kwashington: Moving away from Navigation and navigationContext, so check for null
+    //
+    if(intent == nil || navigationContext == nil) {
+        return [self submitForm:form completion:completion];
+    }
+    
     [formWithIntentAndNavContext setObject:@"intent" forKey:intent];
     [formWithIntentAndNavContext setObject:@"navigationContext" forKey:navigationContext];
 
