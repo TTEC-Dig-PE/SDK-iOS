@@ -332,6 +332,8 @@ static EXPERTconnect* _sharedInstance;
               delgate:(id <ECSWorkflowDelegate>)workflowDelegate
        viewController:(UIViewController *)viewController {
     
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
     ECSActionType *action = [ECSActionType new];
     action.type = actionType;
     action.actionId = @"";
@@ -339,10 +341,10 @@ static EXPERTconnect* _sharedInstance;
     ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
     
     if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:@"Telecommunications"];
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:@"Mutual Fund Satisfaction"];
+        initialViewController = (ECSRootViewController *)[self startSurvey:ecsConfiguration.defaultSurveyFormName];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];

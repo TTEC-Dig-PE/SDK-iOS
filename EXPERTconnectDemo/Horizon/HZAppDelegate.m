@@ -96,6 +96,8 @@
     configuration.clientSecret = @"secret123";
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = @"Horizon Customer Care";
+    configuration.defaultAnswerEngineContext = @"Telecommunications";
+    configuration.defaultSurveyFormName = @"Mutual Fund Satisfaction";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] setDelegate:self];

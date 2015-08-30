@@ -71,6 +71,7 @@
 
 - (ECSRootViewController *)viewControllerForAction:(NSString *)actionType {
     ECSRootViewController *actionViewController = nil;
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     
     if ([actionType isEqualToString:ECSActionTypeProfile]) {
         return [self startUserProfile];
@@ -99,11 +100,11 @@
     }
     else if ([actionType isKindOfClass:[ECSAnswerEngineActionType class]])
     {
-        return [self startAnswerEngine:@"Telecommunications"];
+        return [self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
         
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        return [self startSurvey:@"Mutual Fund Satisfaction"];
+        return [self startSurvey:ecsConfiguration.defaultSurveyFormName];
     }
     else {
         return [self viewControllerForActionType:nil];
@@ -156,7 +157,8 @@
 {
     ECSFormActionType *formAction = [ECSFormActionType new];
     formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
-    formAction.navigationContext = @"personas";
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    formAction.navigationContext = [ecsConfiguration defaultNavigationContext];
     
     ECSRootViewController *formController = [self viewControllerForActionType:formAction];
     
