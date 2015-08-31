@@ -136,6 +136,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     _showingMoxtra = FALSE;
     
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    [cafeXController setDefaultParent:self];
+    
     self.navigationItem.title = self.actionType.displayName;
     self.agentInteractionCount = 0;
     

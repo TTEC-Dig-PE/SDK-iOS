@@ -12,11 +12,13 @@
 
 #import "ECSSelectExpertTableViewCell.h"
 
+#import "ECSCafeXController.h"
 #import "ECSRootViewController+Navigation.h"
 #import "ECSTheme.h"
 #import "ECSInjector.h"
 #import "ECSDynamicLabel.h"
 #import "ECSCircleImageView.h"
+#import "ECSVideoChatActionType.h"
 #import "ECSChatActionType.h"
 #import "ECSCafeXVideoViewController.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -115,23 +117,52 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     actionType.actionId = self.actionType.actionId;
     actionType.agentId = expert[@"agentId"];
     actionType.agentSkill = expert[@"agentSkill"];
-    
-    /**
-     DEBUG CODE: BEGINS
-     **/
+     
+     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
+     
     NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
     if (agent.length > 0) {
         NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
         actionType.agentSkill =  skill;
         actionType.agentId = agent;
     }
-    /**
-     DEBUG CODE: ENDS
-     **/
     
-//    [EXPERTconnect shared]//
-  //  [self handleAction:actionType];
+    [self handleAction:actionType];
     
+     
+    /*
+     
+     // Use this code instead of the above block to force a video chat.
+     // Change the line cafexmode = to try the other modes.
+    
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    NSDictionary *expert = self.experts[indexPath.row];
+    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
+    actionType.cafextarget = [cafeXController cafeXUsername];
+    
+    // DEBUG CODE: This only occurs if there's an "override" agent set in the 
+    // Debug menu. Safe to leave.
+     
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+     
+    [self handleAction:actionType];
+
+    // END NATHAN CHANGES */
 }
 
 - (BOOL)handleAction:(ECSActionType *)actionType

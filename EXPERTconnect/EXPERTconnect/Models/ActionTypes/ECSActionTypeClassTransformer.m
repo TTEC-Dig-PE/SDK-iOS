@@ -11,6 +11,7 @@
 #import "ECSAnswerEngineActionType.h"
 #import "ECSCallbackActionType.h"
 #import "ECSChatActionType.h"
+#import "ECSVideoChatActionType.h"
 #import "ECSFormActionType.h"
 #import "ECSMessageActionType.h"
 #import "ECSNavigationActionType.h"
@@ -49,6 +50,10 @@
     else if ([type isEqualToString:ECSActionTypeChatString])
     {
         return [ECSChatActionType class];
+    }
+    else if ([type isEqualToString:ECSActionTypeVideoChatString])
+    {
+        return [ECSVideoChatActionType class];
     }
     else if ([type isEqualToString:ECSActionTypeCallbackString])
     {
