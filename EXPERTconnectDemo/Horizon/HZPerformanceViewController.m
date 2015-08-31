@@ -12,11 +12,11 @@
 
 #import <MMDrawerController/UIViewController+MMDrawerController.h>
 
-NSString *const HZNewCustomer = @"New Customer";
-NSString *const HZExistingCustomer = @"Existing Customer";
+NSString *const HZNewCustomer = @"new";
+NSString *const HZExistingCustomer = @"existing";
 
-NSString *const HZCustomerConcierge = @"Concierge";
-NSString *const HZCustomerStansdard = @"Standard";
+NSString *const HZCustomerConcierge = @"concierge";
+NSString *const HZCustomerStandard = @"standard";
 
 @interface HZPerformanceViewController () <ECSWorkflowDelegate>
 
@@ -40,9 +40,9 @@ NSString *const HZCustomerStansdard = @"Standard";
     }
 }
 
-- (NSString *)getActionType {
-    NSString *customerStatus = HZNewCustomer;
-    NSString *customerType = HZCustomerConcierge;
+- (NSString *)getActionType{
+    NSString *customerStatus = [EXPERTconnect shared].customerType;
+    NSString *customerType = [EXPERTconnect shared].treatmentType;
     
     if ([customerStatus isEqualToString:HZNewCustomer]) {
         if ([customerType isEqualToString:HZCustomerConcierge]) {
