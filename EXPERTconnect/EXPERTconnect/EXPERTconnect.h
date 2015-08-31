@@ -83,12 +83,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 @property (readonly, nonatomic) BOOL authenticationRequired;
 @property (strong, nonatomic) ECSTheme *theme;
-@property (strong, nonatomic) NSString *userToken;
-@property (strong, nonatomic) NSString *userIntent;
-@property (strong, nonatomic) NSString *userDisplayName;
-@property (strong, nonatomic) NSString *userCallbackNumber;
-@property (strong, nonatomic) NSString *customerType;
-@property (strong, nonatomic) NSString *treatmentType;
+@property (copy, nonatomic) NSString *userToken;
+@property (copy, nonatomic) NSString *userIntent;
+@property (copy, nonatomic) NSString *userDisplayName;
+@property (copy, nonatomic) NSString *userCallbackNumber;
+@property (copy, nonatomic) NSString *customerType;
+@property (copy, nonatomic) NSString *treatmentType;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 
