@@ -185,7 +185,7 @@
             NSDictionary *customData = profile.customData;
             NSString *treatmentType = [customData valueForKey:@"treatment"];
             NSString *customerType = [customData valueForKey:@"customer_type"];
-            [EXPERTconnect shared].userType = customerType;
+            [EXPERTconnect shared].customerType = customerType;
             [EXPERTconnect shared].treatmentType = treatmentType;
             [weakSelf handleSuccessfulLogin];
         }
