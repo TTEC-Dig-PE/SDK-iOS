@@ -24,6 +24,9 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeMessageString;
 // Chat action type that shows a chat view.
 FOUNDATION_EXPORT NSString *const ECSActionTypeChatString;
 
+// Chat action type that shows a video chat view.
+FOUNDATION_EXPORT NSString *const ECSActionTypeVideoChatString;
+
 // Web action type that shows a web view
 FOUNDATION_EXPORT NSString *const ECSActionTypeWebString;
 

@@ -45,4 +45,7 @@
 // Organization
 @property (strong, nonatomic) NSString *organization;
 
+// Call Features
+@property (strong, nonatomic) NSDictionary *features;
+
 @end

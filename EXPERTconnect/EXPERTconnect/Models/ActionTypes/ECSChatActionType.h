@@ -5,7 +5,8 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#import <EXPERTconnect/EXPERTconnect.h>
+// #import <EXPERTconnect/EXPERTconnect.h> // creates a circular reference with subclasses
+#import "ECSActionType.h"
 
 @interface ECSChatActionType : ECSActionType <NSCopying>
 

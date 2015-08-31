@@ -405,6 +405,8 @@
 		D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78BA1B7D2D0B00F307D4 /* ReachabilityManager.m */; };
 		D83F78BE1B7D516100F307D4 /* ECSCafeXMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */; };
 		D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */; };
+		D86BC4C01B8E318C005B9629 /* ECSVideoChatActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = D86BC4BF1B8E318C005B9629 /* ECSVideoChatActionType.m */; };
+		D86BC4C21B8E3199005B9629 /* ECSVideoChatActionType.h in Headers */ = {isa = PBXBuildFile; fileRef = D86BC4C11B8E3199005B9629 /* ECSVideoChatActionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D87F2F021B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */; };
 		D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */; };
 		D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */; };
@@ -839,6 +841,8 @@
 		D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXMessage.m; path = Chat/ECSCafeXMessage.m; sourceTree = "<group>"; };
 		D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXMessage.h; path = Chat/ECSCafeXMessage.h; sourceTree = "<group>"; };
 		D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ThirdParty/ACBClientSDK.framework; sourceTree = "<group>"; };
+		D86BC4BF1B8E318C005B9629 /* ECSVideoChatActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVideoChatActionType.m; path = ActionTypes/ECSVideoChatActionType.m; sourceTree = "<group>"; };
+		D86BC4C11B8E3199005B9629 /* ECSVideoChatActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSVideoChatActionType.h; path = ActionTypes/ECSVideoChatActionType.h; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		D87F2EFD1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertTableViewCell.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		D87F2EFE1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertTableViewCell.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -1195,6 +1199,8 @@
 				03C310471A9B5B56006B3557 /* ECSCallbackActionType.m */,
 				03C310481A9B5B56006B3557 /* ECSChatActionType.h */,
 				03C310491A9B5B56006B3557 /* ECSChatActionType.m */,
+				D86BC4C11B8E3199005B9629 /* ECSVideoChatActionType.h */,
+				D86BC4BF1B8E318C005B9629 /* ECSVideoChatActionType.m */,
 				03C3104A1A9B5B56006B3557 /* ECSFormActionType.h */,
 				03C3104B1A9B5B56006B3557 /* ECSFormActionType.m */,
 				03C3104C1A9B5B56006B3557 /* ECSMessageActionType.h */,
@@ -1788,6 +1794,7 @@
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
 				03BE27521ADC1BD60099F2EB /* ECSChatNetworkActionCell.h in Headers */,
+				D86BC4C21B8E3199005B9629 /* ECSVideoChatActionType.h in Headers */,
 				030AF21A1AF8080A0056BFB0 /* ECSChatHistoryResponse.h in Headers */,
 				03F0BD4B1A7130CA00E90E7F /* UIViewController+ECSNibLoading.h in Headers */,
 				C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */,
@@ -2115,6 +2122,7 @@
 				0342B0221A9B60AE0009959E /* ECSFormItemViewController.m in Sources */,
 				03C310551A9B5B56006B3557 /* ECSActionTypeClassTransformer.m in Sources */,
 				03C310651A9B5B56006B3557 /* ECSSMSActionType.m in Sources */,
+				D86BC4C01B8E318C005B9629 /* ECSVideoChatActionType.m in Sources */,
 				03AF24A61A9B601E00407BE5 /* ECSSearchTextField.m in Sources */,
 				0342AFE21A9B60950009959E /* ECSChatViewController.m in Sources */,
 				03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */,

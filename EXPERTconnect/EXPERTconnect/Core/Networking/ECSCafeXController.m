@@ -36,11 +36,11 @@
 
 /* CafeX Modes:
  
-  - Video auto start [mutually exclusive with voice auto, and voice/video escalation]
-  - Voice auto start [mutually exclusive with video auto, and voice/video escalation]
-  - Video escalation allowed [mutually exclusive with voice and video auto start]
-  - Voice escalation allowed [mutually exclusive with voice and video auto start]
-  - CafeX Co-Browse escalation allowed (existing Co-Browse Button w/software switch)
+  - 'videoauto' Video auto start [mutually exclusive with voice auto, and voice/video escalation]
+  - 'voiceauto' Voice auto start [mutually exclusive with video auto, and voice/video escalation]
+  - 'videocapable' Video escalation allowed [mutually exclusive with voice and video auto start]
+  - 'voicecapable' Voice escalation allowed [mutually exclusive with voice and video auto start]
+  - 'cobrowsecapable' CafeX Co-Browse escalation allowed (existing Co-Browse Button w/software switch)
  */
 
 /* Options to expose (somewhere?)
@@ -60,6 +60,8 @@
 #import "ECSRootViewController.h"
 #import "ECSInjector.h"
 #import "UIViewController+ECSNibLoading.h"
+
+#import <EXPERTconnect/EXPERTconnect.h>
 
 @implementation ECSCafeXController
 
@@ -84,11 +86,15 @@
     return cafeXConnection != nil;
 }
 
+- (NSString *) cafeXUsername {
+    return [[UIDevice currentDevice] identifierForVendor].UUIDString;
+}
+
 - (void) loginToCafeX {
     ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     // TODO: Get App Server host from configuration (need to add to all host apps too)
     
-    username = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    username = [self cafeXUsername];
     server = @"dcapp01.ttechenabled.net"; // TODO: Store somewhere
     port = @"443"; // TODO: Store somewhere
     
@@ -131,23 +137,54 @@
 - (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent {
     [ECSCafeXController requestCameraAccess];
     
+    _savedTarget = target;
+    _savedVidOption = vid;
+    _savedAudOption = aud;
+    
     _cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    
+    _cafeXVideoViewController.delegate = self;
+    
     [parent presentModal:_cafeXVideoViewController withParentNavigationController:parent.navigationController];
     
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
-    phone.previewView = _cafeXVideoViewController.previewVideoView;
-    ACBClientCall* call = [phone createCallToAddress:target audio:aud video:vid delegate:self];
+}
+
+
+- (void)CafeXViewDidAppear {
+    ACBClientPhone* phone = cafeXConnection.phone;
     
-    if (call)
-    {
-        call.videoView = _cafeXVideoViewController.remoteVideoView;
-    }
-    else
-    {
-        [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"A call must be created with media." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    phone.previewView = _cafeXVideoViewController.previewVideoView;
+    
+    if (_savedCall == nil) {
+        // need to dial it:
+        _savedCall = [phone createCallToAddress:_savedTarget audio:_savedAudOption video:_savedVidOption delegate:self];
+        
+        _savedCall.videoView = _cafeXVideoViewController.remoteVideoView;
+        
+        
+        if (_savedCall)
+        {
+            _savedCall.delegate = self;
+        }
+        else
+        {
+            [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"A call must be created with media." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    } else {
+        // need to answer it:
+        _savedCall.videoView = _cafeXVideoViewController.remoteVideoView;
+        [_savedCall answerWithAudio:YES video:YES];
     }
 }
+
+- (void)CafeXViewDidUnload {
+    if (_savedCall != nil) {
+        [_savedCall end];
+    }
+}
+
 
 - (void) endCafeXSession {
     NSLog(@"CafeX Starting logout - Server %@ Configuration %@", server, configuration);
@@ -166,6 +203,10 @@
                                       }];
 }
 
+- (void)setDefaultParent:(ECSRootViewController *)parent {
+    _defaultParent = parent;
+}
+
 + (void) requestCameraAccess {
     [ACBClientPhone requestMicrophoneAndCameraPermission:TRUE video:TRUE];
 }
@@ -179,6 +220,8 @@
 - (void) ucDidStartSession:(ACBUC *)uc
 {
     NSLog(@"CafeX DidStartSession (Success)");
+    
+    cafeXConnection.phone.delegate = self;
     
     if (self.postLoginTask) {
         self.postLoginTask();
@@ -223,7 +266,28 @@
 - (void) phone:(ACBClientPhone*)phone didReceiveCall:(ACBClientCall*)call
 {
     // TODO: Pop up a answer/reject dialog?
-    [call answerWithAudio:YES video:YES];
+    [ECSCafeXController requestCameraAccess];
+    
+    NSLog(@"CafeX Incoming Call! Auto-Answering...");
+    
+    _savedCall = call;
+    
+    _cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    
+    _cafeXVideoViewController.delegate = self;
+    
+    [_defaultParent presentModal:_cafeXVideoViewController withParentNavigationController:_defaultParent.navigationController];
+    
+    phone.delegate = self;
+    
+    if (call)
+    {
+        call.delegate = self;
+    }
+    else
+    {
+        NSLog(@"Call is null on didReceiveCall!");
+    }
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message
@@ -233,6 +297,52 @@
     [[[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Unable to initiate call: You have not given permission to access the camera or microphone." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     
     // TODO: Kill session?
+}
+
+- (void) call:(ACBClientCall*)call didReceiveCallFailureWithError:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:error.description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+- (void) call:(ACBClientCall *)call didReceiveDialFailureWithError:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"The call could not be connected." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+- (void) call:(ACBClientCall*)call didChangeStatus:(ACBClientCallStatus)status
+{
+    switch (status)
+    {
+        case ACBClientCallStatusRinging:
+            NSLog(@"CALL IS STATUS: RINGING");
+            break;
+        case ACBClientCallStatusAlerting:
+            NSLog(@"CALL IS STATUS: ALERTING");
+            break;
+        case ACBClientCallStatusMediaPending:
+            NSLog(@"CALL IS STATUS: MEDIA PENDING");
+            break;
+        case ACBClientCallStatusInCall:
+            NSLog(@"CALL IS STATUS: IN-CALL");
+            break;
+        case ACBClientCallStatusEnded:
+            NSLog(@"CALL IS STATUS: ENDED");
+            break;
+        case ACBClientCallStatusSetup:
+            NSLog(@"CALL IS STATUS: IN-SETUP");
+            break;
+        case ACBClientCallStatusBusy:
+            NSLog(@"CALL IS STATUS: BUSY");
+            break;
+        case ACBClientCallStatusError:
+            NSLog(@"CALL IS STATUS: ERROR");
+            break;
+        case ACBClientCallStatusNotFound:
+            NSLog(@"CALL IS STATUS: NOT FOUND");
+            break;
+        case ACBClientCallStatusTimedOut:
+            NSLog(@"CALL IS STATUS: TIMED OUT");
+            break;
+    }
 }
 
 #pragma mark - Reachability

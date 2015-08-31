@@ -17,6 +17,7 @@ NSString *const ECSActionTypeAnswerEngineString = @"answerengine";
 NSString *const ECSActionTypeMessageString = @"message";
 NSString *const ECSActionTypeCallbackString = @"voice";
 NSString *const ECSActionTypeChatString = @"chat";
+NSString *const ECSActionTypeVideoChatString = @"videochat";
 NSString *const ECSActionTypeSMSString = @"sms";
 NSString *const ECSActionTypeWebString = @"web";
 NSString *const ECSActionTypeFormString = @"form";
