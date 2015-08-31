@@ -112,13 +112,13 @@
                                                   animated:(BOOL)shouldAnimate
                                                 completion:(completionBlock)completion {
     
-    if (self.navigationController) {
-        [self.navigationController pushViewController:viewController animated:YES];
-    } else {
+//    if (self.navigationController) {
+//        [self.navigationController pushViewController:viewController animated:YES];
+//    } else {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewControllerModally:navController animated:YES completion:completion];
         self.navigationController = navController;
-    }
+//    }
     
 }
 

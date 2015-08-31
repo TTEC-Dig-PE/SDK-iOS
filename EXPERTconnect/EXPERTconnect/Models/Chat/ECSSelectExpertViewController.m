@@ -200,7 +200,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (void)callBackPressed {
-      UIViewController *voiceCallbackvc =  [[EXPERTconnect shared] startVoiceCallback:@"shammiskill" withDisplayName:@"Chatting with test"];
+      ECSRootViewController *voiceCallbackvc =  (ECSRootViewController *)[[EXPERTconnect shared] startVoiceCallback:@"communications" withDisplayName:@"Chatting with test"];
+        voiceCallbackvc.workflowDelegate = self.workflowDelegate;
       [self.navigationController pushViewController:voiceCallbackvc animated:YES];
 }
 

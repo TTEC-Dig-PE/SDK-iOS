@@ -106,6 +106,10 @@
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         return [self startSurvey:ecsConfiguration.defaultSurveyFormName];
     }
+    else if ([actionType isEqualToString:ECSActionTypeCallbackString]) {
+        return [self startVoiceCallback:ecsConfiguration.defaultCallBack
+                        withDisplayName:@"Voice callback with agent"];
+    }
     else {
         return [self viewControllerForActionType:nil];
     }
@@ -131,6 +135,7 @@
     cbAction.actionId = @"";
     cbAction.agentSkill = callSkill;
     cbAction.displayName = displayName;
+    cbAction.type = ECSActionTypeCallbackString;
     
     ECSRootViewController *cbController = [self viewControllerForActionType:cbAction];
     

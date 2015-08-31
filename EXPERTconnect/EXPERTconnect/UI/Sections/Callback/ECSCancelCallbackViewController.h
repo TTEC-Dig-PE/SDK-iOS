@@ -7,7 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ECSCancelCallbackViewController : UIViewController
+#import "ECSRootViewController.h"
+
+@interface ECSCancelCallbackViewController : ECSRootViewController
 
 @property (assign, nonatomic) BOOL displaySMSOption;
 @property (strong, nonatomic) NSNumber *waitTime;

@@ -13,7 +13,10 @@
 #import <MMDrawerController/UIViewController+MMDrawerController.h>
 
 NSString *const HZNewCustomer = @"New Customer";
+NSString *const HZExistingCustomer = @"Existing Customer";
+
 NSString *const HZCustomerConcierge = @"Concierge";
+NSString *const HZCustomerStansdard = @"Standard";
 
 @interface HZPerformanceViewController () <ECSWorkflowDelegate>
 
@@ -62,8 +65,8 @@ NSString *const HZCustomerConcierge = @"Concierge";
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
                                 requestParams:(NSDictionary *)params {
-    //{@"ActionType":<Some ActionType>}
-    NSString *customerStatus = HZNewCustomer;
+    // return {@"ActionType":<Some ActionType>}
+    NSString *customerStatus = HZExistingCustomer;
     NSString *customerType = HZCustomerConcierge;
     if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
         
@@ -71,8 +74,17 @@ NSString *const HZCustomerConcierge = @"Concierge";
             if ([customerType isEqualToString:HZCustomerConcierge]) {
                 if ([params valueForKey:@"InvalidResponseCount"]) {
                     NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
-                    if (count.intValue ==  1) {
+                    if (count.intValue ==  3) {
                         return @{@"ActionType":ECSRequestChatAction};
+                    }
+                }
+            } 
+        } else if ([customerStatus isEqualToString:HZExistingCustomer]) {
+            if ([customerType isEqualToString:HZCustomerConcierge]) {
+                if ([params valueForKey:@"QuestionsAsked"]) {
+                    NSNumber *count = [params valueForKey:@"QuestionsAsked"];
+                    if (count.intValue ==  1) {
+                        return @{@"ActionType":ECSRequestCallbackAction};
                     }
                 }
             }
