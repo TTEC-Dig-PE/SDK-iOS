@@ -16,7 +16,7 @@ NSString *const HZNewCustomer = @"new";
 NSString *const HZExistingCustomer = @"existing";
 
 NSString *const HZCustomerConcierge = @"concierge";
-NSString *const HZCustomerStansdard = @"sstandard";
+NSString *const HZCustomerStandard = @"standard";
 
 @interface HZPerformanceViewController () <ECSWorkflowDelegate>
 
@@ -41,7 +41,7 @@ NSString *const HZCustomerStansdard = @"sstandard";
 }
 
 - (NSString *)getActionType{
-    NSString *customerStatus = [EXPERTconnect shared].userType;
+    NSString *customerStatus = [EXPERTconnect shared].customerType;
     NSString *customerType = [EXPERTconnect shared].treatmentType;
     
     if ([customerStatus isEqualToString:HZNewCustomer]) {

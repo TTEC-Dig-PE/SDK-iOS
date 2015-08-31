@@ -176,11 +176,18 @@
             [weakSelf handleFailedLogin];
         }
         else {
-            NSString *mobileNumber = profile.mobilePhone;
-            NSString *firstName = profile.firstName;
-            NSString *lastName = profile.lastName;
+            if (profile.mobilePhone != nil) {
+                [EXPERTconnect shared].userCallbackNumber = profile.mobilePhone;
+            }
+            NSString *firstName = @"";
+            NSString *lastName = @"";
+            if (profile.firstName != nil) {
+                firstName = profile.firstName;
+            }
+            if (profile.lastName != nil) {
+                lastName = profile.lastName;
+            }
             NSString *fullName = [firstName stringByAppendingString:lastName];
-            [EXPERTconnect shared].userCallbackNumber = mobileNumber;
             [EXPERTconnect shared].userDisplayName = fullName;
             NSDictionary *customData = profile.customData;
             NSString *treatmentType = [customData valueForKey:@"treatment"];
