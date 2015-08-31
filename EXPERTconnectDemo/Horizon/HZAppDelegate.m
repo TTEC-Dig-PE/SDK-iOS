@@ -88,7 +88,7 @@
 
     // ECS configuration
     ECSConfiguration *configuration = [ECSConfiguration new];
-    configuration.appName = @"EXPERTconnect Demo";
+    configuration.appName = @"Horizon";
     configuration.appVersion = @"1.0";
     configuration.appId = @"M2M00001";
     configuration.host = [self EXPERTConnectSDKhostURLFromSettings];
@@ -105,9 +105,6 @@
     [[EXPERTconnect shared] setDelegate:self];
     [self setUpEXPERTConnectSDKThemeFromSettings];
 
-    // Reset current user
-    [[EXPERTconnect shared] setUserToken:nil];
-    
     // Reset current user
     [[EXPERTconnect shared] setUserToken:nil];
     
