@@ -86,6 +86,8 @@
     }
     
     self.waitTimeLabel.attributedText = attrWaitTimeString;
+    
+    [self displayVoiceCallBackEndAlert];
 }
 
 - (void)appBecameActive:(id)sender
@@ -129,6 +131,21 @@
     {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
+}
+
+- (void)displayVoiceCallBackEndAlert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
+                                                                                    message:@"Please answer a few questions so we can serve you better!"
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+        [self.workflowDelegate voiceCallBackEnded];
+    }];
+    
+   
+    [alertController addAction:alertActionStop];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

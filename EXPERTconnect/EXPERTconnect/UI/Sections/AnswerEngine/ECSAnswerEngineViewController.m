@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (assign, nonatomic) BOOL didAskInitialQuestion;
 
 @property (assign, nonatomic) NSInteger invalidResponseCount;
+@property (assign, nonatomic) NSInteger validQuestionsCount;
 
 @end
 
@@ -325,6 +326,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
     
     self.questionCount = self.questionCount + 1;
+    [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
 }
 
 - (void)displayAnswerEngineAnswerAtIndex:(NSInteger)index
