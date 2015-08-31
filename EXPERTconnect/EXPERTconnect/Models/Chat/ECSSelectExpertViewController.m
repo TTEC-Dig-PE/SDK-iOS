@@ -115,14 +115,6 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     actionType.agentId = expert[@"agentId"];
     actionType.agentSkill = expert[@"agentSkill"];
      
-     NSDictionary *expert = self.experts[indexPath.row];
-     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
-     actionType.actionId = self.actionType.actionId;
-     actionType.agentId = expert[@"agentId"];
-     actionType.agentSkill = expert[@"agentSkill"];
-     actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
-     actionType.cafextarget = [cafeXController cafeXUsername];
-     
      //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
      
     NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
@@ -168,7 +160,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 
     
-     END NATHAN CHANGES */
+    // END NATHAN CHANGES */
 }
 
 - (BOOL)handleAction:(ECSActionType *)actionType
