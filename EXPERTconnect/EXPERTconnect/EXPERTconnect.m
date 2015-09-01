@@ -35,7 +35,6 @@ static EXPERTconnect* _sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedInstance = [EXPERTconnect new];
-        _sharedInstance.lastSurveyScore = @"low";
     });
     
     return _sharedInstance;
