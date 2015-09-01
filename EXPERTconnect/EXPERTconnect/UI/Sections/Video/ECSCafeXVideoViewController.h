@@ -10,6 +10,7 @@
 #define EXPERTconnect_ECSCafeXVideoViewController_h
 
 #import <UIKit/UIKit.h>
+#import "ECSRootViewController.h"
 #import <ACBClientSDK/ACBUC.h>
 
 @protocol CafeXVideoViewDelegate <NSObject>
@@ -19,7 +20,7 @@
 
 @end
 
-@interface ECSCafeXVideoViewController : UIViewController
+@interface ECSCafeXVideoViewController : ECSRootViewController
 
 @property (weak, nonatomic) IBOutlet UIView *previewVideoView;
 @property (weak, nonatomic) IBOutlet UIView *remoteVideoView;

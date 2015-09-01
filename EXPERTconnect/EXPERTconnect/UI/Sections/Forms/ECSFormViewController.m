@@ -323,6 +323,15 @@
     
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
     
+    NSArray *configuration = [formAction.form.formData valueForKey:@"configuration"];
+    NSNumber *maxValue = [[configuration objectAtIndex:0] valueForKey:@"maxValue"];
+    NSNumber *value = [NSNumber numberWithFloat:[self.formItemVC.formItem.formValue floatValue]];
+
+    //TODO : move this inside the session block
+    if([value intValue] > ([maxValue intValue]/2)) {
+        [[EXPERTconnect shared] setLastSurveyScore:@"high"];
+    }
+
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
     formAction.intent = userIntent;
     
@@ -340,6 +349,8 @@
 //                        if (response.action) {
 //                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
 //                        } else {
+                        
+                        
                             ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
                             submitController.workflowDelegate = self.workflowDelegate;
                             submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
