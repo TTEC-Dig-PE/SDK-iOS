@@ -231,13 +231,13 @@
 
 - (void)displayAlertForActionType:(NSString *)actionType completion:(void (^)(BOOL selected))completion {
     NSString *alertTitle = @"Video Chat";
-    NSString *alertMsg = @"Please try a video chat With an Agent";
+    NSString *alertMsg = @"Please try a video chat with an Agent";
     if ([actionType isEqualToString:ECSRequestChatAction]) {
-        alertTitle = @"Chat With Agent";
-        alertMsg = @"Please try a chat with agent";
+        alertTitle = @"Chat with an Agent";
+        alertMsg = @"Please try a chat with an Agent";
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         alertTitle = @"Voice Callback";
-        alertMsg = @"Please try talking with an agent";
+        alertMsg = @"Please try talking to an Agent";
     }
     
     UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
