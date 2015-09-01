@@ -19,7 +19,11 @@ NSString *const HZCustomerConcierge = @"concierge";
 NSString *const HZCustomerStandard = @"standard";
 
 @interface HZPerformanceViewController () <ECSWorkflowDelegate>
-
+{
+    NSString *customerType;
+    NSString *customerTreatmentType;
+    NSString *lastSurveyScore;
+}
 @end
 
 @implementation HZPerformanceViewController
@@ -33,24 +37,30 @@ NSString *const HZCustomerStandard = @"standard";
 }
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
-    
-    NSString *actionType = [self getActionType];
-    if (actionType) {
-        [self startWorkflowWithAction:actionType];
-    }
-}
 
-- (NSString *)getActionType{
-    NSString *customerStatus = [EXPERTconnect shared].customerType;
-    NSString *customerType = [EXPERTconnect shared].treatmentType;
+    customerTreatmentType = [EXPERTconnect shared].treatmentType;
+    customerType = [EXPERTconnect shared].customerType;
+    lastSurveyScore = [EXPERTconnect shared].lastSurveyScore;
     
-    if ([customerStatus isEqualToString:HZNewCustomer]) {
-        if ([customerType isEqualToString:HZCustomerConcierge]) {
-            return ECSActionTypeAnswerEngineString;
+    //Ray
+//    customerTreatmentType = @"standard";
+//    customerType = @"existing";
+
+     //Gwen
+//     customerTreatmentType = @"concierge";
+//     customerType = @"new";
+
+    if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
+        if([lastSurveyScore isEqualToString:@"low"]) {
+            [self startWorkflowWithAction:ECSActionTypeSelectExpertVideo];
+        }
+        else {
+            [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
         }
     }
-    
-    return nil;
+    else {
+        [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
+    }
 }
 
 -(void)startWorkflowWithAction:(NSString *)actionType {
@@ -65,31 +75,47 @@ NSString *const HZCustomerStandard = @"standard";
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
                                 requestParams:(NSDictionary *)params {
-    // return {@"ActionType":<Some ActionType>}
-    NSString *customerStatus = HZExistingCustomer;
-    NSString *customerType = HZCustomerConcierge;
-    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+
+    if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
         
-        if ([customerStatus isEqualToString:HZNewCustomer]) {
-            if ([customerType isEqualToString:HZCustomerConcierge]) {
-                if ([params valueForKey:@"InvalidResponseCount"]) {
-                    NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
+        if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+            if ([params valueForKey:@"InvalidResponseCount"]) {
+                NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
+                if (count.intValue ==  1) {
+                        return @{@"ActionType":ECSRequestVideoAction};
+                }
+            }
+        }
+        else if([workflowName isEqualToString:ECSActionTypeSelectExpertVideo]) {
+                return @{@"ActionType":ECSActionTypeFormString};
+        }
+    }
+    else {
+        if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+            NSNumber *count;
+             if ([params valueForKey:@"InvalidResponseCount"]) {
+             count = [params valueForKey:@"InvalidResponseCount"];
+     
+                if(![lastSurveyScore isEqualToString:@"low"]) {
                     if (count.intValue ==  3) {
                         return @{@"ActionType":ECSRequestChatAction};
                     }
                 }
-            } 
-        } else if ([customerStatus isEqualToString:HZExistingCustomer]) {
-            if ([customerType isEqualToString:HZCustomerConcierge]) {
-                if ([params valueForKey:@"QuestionsAsked"]) {
-                    NSNumber *count = [params valueForKey:@"QuestionsAsked"];
+                else {
                     if (count.intValue ==  1) {
                         return @{@"ActionType":ECSRequestCallbackAction};
                     }
                 }
             }
         }
+        else if([workflowName isEqualToString:ECSActionTypeChatString]) {
+            return @{@"ActionType":ECSActionTypeFormString};
+        }
+        else if ([workflowName isEqualToString:ECSActionTypeCallbackString]) {
+            return @{@"ActionType":ECSActionTypeFormString};
+        }
     }
+    
     return nil;
 }
 @end
