@@ -47,8 +47,8 @@ NSString *const HZCustomerStandard = @"standard";
 //    customerType = @"existing";
 
      //Gwen
-     customerTreatmentType = @"concierge";
-     customerType = @"new";
+//     customerTreatmentType = @"concierge";
+//     customerType = @"new";
 
     if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
         if([lastSurveyScore isEqualToString:@"low"]) {
