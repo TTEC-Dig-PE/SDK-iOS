@@ -327,6 +327,7 @@
     NSNumber *maxValue = [[configuration objectAtIndex:0] valueForKey:@"maxValue"];
     NSNumber *value = [NSNumber numberWithFloat:[self.formItemVC.formItem.formValue floatValue]];
 
+    //TODO : move this inside the session block
     if([value intValue] > ([maxValue intValue]/2)) {
         [[EXPERTconnect shared] setLastSurveyScore:@"high"];
     }

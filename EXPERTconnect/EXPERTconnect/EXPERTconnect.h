@@ -90,7 +90,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *userCallbackNumber;
 @property (copy, nonatomic) NSString *customerType;
 @property (copy, nonatomic) NSString *treatmentType;
-@property (strong, nonatomic) NSString *lastSurveyScore;
+@property (copy, nonatomic) NSString *lastSurveyScore;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 
