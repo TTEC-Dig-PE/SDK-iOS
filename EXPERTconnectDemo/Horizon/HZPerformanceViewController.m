@@ -43,12 +43,12 @@ NSString *const HZCustomerStandard = @"standard";
     lastSurveyScore = [EXPERTconnect shared].lastSurveyScore;
     
     //Ray
-    customerTreatmentType = @"standard";
-    customerType = @"existing";
+//    customerTreatmentType = @"standard";
+//    customerType = @"existing";
 
      //Gwen
-//     customerTreatmentType = @"concierge";
-//     customerType = @"new";
+     customerTreatmentType = @"concierge";
+     customerType = @"new";
 
     if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
         if([lastSurveyScore isEqualToString:@"low"]) {

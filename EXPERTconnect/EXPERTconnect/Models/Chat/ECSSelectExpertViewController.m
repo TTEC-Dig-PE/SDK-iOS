@@ -221,12 +221,14 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (void)videoPressed {
-    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];\
+    cafeXVideoViewController.workflowDelegate = self.workflowDelegate;
     [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
 }
 
 - (void)voiceChatPressed {
     ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
+    cafeXVideoViewController.workflowDelegate = self.workflowDelegate;
     [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
 }
 

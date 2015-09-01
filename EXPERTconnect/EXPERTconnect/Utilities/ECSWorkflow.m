@@ -122,7 +122,7 @@
 }
 
 - (void)disconnectedFromVideoChat {
-    
+    [self presentViewControllerForActionType:ECSActionTypeFormString];
 }
 
 #pragma mark - Helper methods

@@ -327,6 +327,10 @@
     NSNumber *maxValue = [[configuration objectAtIndex:0] valueForKey:@"maxValue"];
     NSNumber *value = [NSNumber numberWithFloat:[self.formItemVC.formItem.formValue floatValue]];
 
+    if([value intValue] > ([maxValue intValue]/2)) {
+        [[EXPERTconnect shared] setLastSurveyScore:@"high"];
+    }
+
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
     formAction.intent = userIntent;
     
@@ -345,9 +349,6 @@
 //                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
 //                        } else {
                         
-                            if([value intValue] > ([maxValue intValue]/2)) {
-                                [[EXPERTconnect shared] setLastSurveyScore:@"high"];
-                            }
                         
                             ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
                             submitController.workflowDelegate = self.workflowDelegate;
