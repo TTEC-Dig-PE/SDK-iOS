@@ -110,6 +110,10 @@
         return [self startVoiceCallback:ecsConfiguration.defaultCallBack
                         withDisplayName:@"Voice callback with agent"];
     }
+    else if ([actionType isEqualToString:ECSActionTypeChatString]) {
+        return [self startChat:ecsConfiguration.defaultCallBack
+               withDisplayName:@"Chat"];
+    }
     else {
         return [self viewControllerForActionType:nil];
     }

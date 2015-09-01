@@ -342,7 +342,7 @@
 #pragma mark - Modal VC Parameters
 
 - (CGSize)modalSize {
-    return CGSizeMake(500, 500);
+    return CGSizeMake(550, 650);
 }
 
 - (UIColor *)modalBorderColor {

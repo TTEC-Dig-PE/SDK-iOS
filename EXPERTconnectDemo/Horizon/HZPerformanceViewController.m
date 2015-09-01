@@ -89,8 +89,8 @@ NSString *const HZCustomerStandard = @"standard";
     NSString *customerType = [EXPERTconnect shared].treatmentType;
     if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
         
-        if ([customerStatus isEqualToString:HZNewCustomer]) {
-            if ([customerType isEqualToString:HZCustomerConcierge]) {
+        if ([customerStatus isEqualToString:HZExistingCustomer]) {
+            if ([customerType isEqualToString:HZCustomerStandard]) {
                 if ([params valueForKey:@"InvalidResponseCount"]) {
                     NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
                     if (count.intValue ==  3) {
