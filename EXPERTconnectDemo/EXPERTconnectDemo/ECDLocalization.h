@@ -28,6 +28,7 @@ static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWas
 static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
+static NSString* const ECDLocalizedStartVideoChatHeader = @"ECDLocalizedStartVideoChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
 static NSString* const ECDLocalizedStartFormsHeader = @"ECDLocalizedStartFormsHeader";
 static NSString* const ECDLocalizedStartUserProfileHeader = @"ECDLocalizedStartUserProfileHeader";
@@ -44,6 +45,7 @@ static NSString* const ECDLocalizedStartSubmitFormHeader = @"ECDLocalizedStartSu
 
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
+static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedStartFormsLabel = @"ECDLocalizedStartFormsLabel";
 static NSString* const ECDLocalizedStartUserProfileLabel = @"ECDLocalizedStartUserProfileLabel";

@@ -109,6 +109,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     NSDictionary *expert = self.experts[indexPath.row];
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
@@ -127,7 +128,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
     
      
-    /*
+    */
      
      // Use this code instead of the above block to force a video chat.
      // Change the line cafexmode = to try the other modes.

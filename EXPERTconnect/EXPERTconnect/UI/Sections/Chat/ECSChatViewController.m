@@ -780,12 +780,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
-                                                              /* TODO: Kick off internal VoiceIT auth check */
-                                                              
-                                                              /* When response comes back from VoiceIT, send:
+                                                              /* Kick off internal VoiceIT auth check */
+                                                              [[EXPERTconnect shared] voiceAuthRequested:^(NSString *response) {
                                                                   // Alert Agent to the response:
                                                                   [self sendVoiceAuthConfirmation:response];
-                                                               */
+                                                              }];
                                                           }]];
         [self presentViewController:alertController animated:YES completion:nil];
         

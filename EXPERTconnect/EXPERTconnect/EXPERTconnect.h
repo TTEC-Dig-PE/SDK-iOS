@@ -196,6 +196,27 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startSelectExpert;
 
 /**
+ Convenience (wrapper) method for accessing VoiceIt
+ 
+ @param authCallback a void/String block that handles the callback for a voiceit auth response
+
+ */
+- (void)voiceAuthRequested:(void (^)(NSString *))authCallback;
+
+/**
+ Convenience (wrapper) method for accessing VoiceIt to record a new voice print.
+ 
+ */
+- (void)recordNewEnrollment;
+
+/**
+ Convenience (wrapper) method for accessing VoiceIt to clear existing recordings.
+ 
+ */
+- (void)clearEnrollments;
+
+
+/**
  Login support
  
  @param username the Name of the user attempting to login
