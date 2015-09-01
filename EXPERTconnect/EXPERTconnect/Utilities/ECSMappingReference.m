@@ -108,7 +108,7 @@
     }
     else if ([actionType isEqualToString:ECSActionTypeCallbackString]) {
         return [self startVoiceCallback:ecsConfiguration.defaultCallBack
-                        withDisplayName:@"Voice callback with agent"];
+                        withDisplayName:@"Voice callback with Agent"];
     }
     else if ([actionType isEqualToString:ECSActionTypeChatString]) {
         return [self startChat:ecsConfiguration.defaultCallBack
@@ -150,7 +150,7 @@
 {
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
-    answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
+    answerEngineAction.defaultQuestion = @"How do I get wireless internet?";  // just an example, does nothing
     answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
@@ -260,7 +260,7 @@
     ECSActionType *expertAction = [ECSActionType new];
     expertAction.type = ECSActionTypeSelectExpertChat;
     expertAction.actionId = @"";
-    expertAction.displayName = @"Chat With an Expert";
+    expertAction.displayName = @"Chat with an Expert";
     
     ECSRootViewController *expertController = [self viewControllerForActionType:expertAction];
     
@@ -271,7 +271,7 @@
     ECSActionType *expertAction = [ECSActionType new];
     expertAction.type = ECSActionTypeSelectExpertVideo;
     expertAction.actionId = @"";
-    expertAction.displayName = @"VideoChat With an Expert";
+    expertAction.displayName = @"Video chat with an Expert";
     
     ECSRootViewController *expertController = [self viewControllerForActionType:expertAction];
     
@@ -282,7 +282,7 @@
     ECSActionType *expertAction = [ECSActionType new];
     expertAction.type = ECSActionTypeSelectExpertVoiceCallback;
     expertAction.actionId = @"";
-    expertAction.displayName = @"Voice Callback With an Expert";
+    expertAction.displayName = @"Voice callback with an Expert";
     
     ECSRootViewController *expertController = [self viewControllerForActionType:expertAction];
     

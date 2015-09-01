@@ -112,24 +112,24 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *expert = self.experts[indexPath.row];
-    ECSChatActionType *actionType = [ECSChatActionType new];
-    actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
-     
-     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
-     
-    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
-    if (agent.length > 0) {
-        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
-        actionType.agentSkill =  skill;
-        actionType.agentId = agent;
-    }
+//    NSDictionary *expert = self.experts[indexPath.row];
+//    ECSChatActionType *actionType = [ECSChatActionType new];
+//    actionType.actionId = self.actionType.actionId;
+//    actionType.agentId = expert[@"agentId"];
+//    actionType.agentSkill = expert[@"agentSkill"];
+//     
+//     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
+//     
+//    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+//    if (agent.length > 0) {
+//        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+//        actionType.agentSkill =  skill;
+//        actionType.agentId = agent;
+//    }
+//    
+//    [self handleAction:actionType];
+//    
     
-    [self handleAction:actionType];
-    
-     
     /*
      
      // Use this code instead of the above block to force a video chat.

@@ -330,6 +330,8 @@
     //TODO : move this inside the session block
     if([value intValue] > ([maxValue intValue]/2)) {
         [[EXPERTconnect shared] setLastSurveyScore:@"high"];
+    } else {
+        [[EXPERTconnect shared] setLastSurveyScore:@"low"];
     }
 
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
