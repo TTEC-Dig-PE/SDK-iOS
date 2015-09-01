@@ -76,6 +76,10 @@
         
         self.navigationItem.leftBarButtonItem = closeButton;
     }
+    
+    self.navigationController.navigationBar.translucent = NO;
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -116,7 +116,6 @@
 //        [self.navigationController pushViewController:viewController animated:YES];
 //    } else {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        navController.navigationBar.translucent = NO;
         [self presentViewControllerModally:navController animated:YES completion:completion];
         self.navigationController = navController;
 //    }
