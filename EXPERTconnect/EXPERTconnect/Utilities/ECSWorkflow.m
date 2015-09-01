@@ -56,7 +56,7 @@
     if (actions) {
         NSString *actionType = [actions valueForKey:@"ActionType"];
         if ([actionType isEqualToString:ECSRequestVideoAction] ||
-            [actionType isEqualToString:ECSRequestChatAction]) {
+            [actionType isEqualToString:ECSRequestChatAction] || [actionType isEqualToString:ECSRequestCallbackAction]) {
             __weak __typeof(self)weakSelf = self;
             [self.navigationManager displayAlertForActionType:actionType completion:^(BOOL selected) {
                 __strong __typeof(weakSelf)strongSelf = weakSelf;
