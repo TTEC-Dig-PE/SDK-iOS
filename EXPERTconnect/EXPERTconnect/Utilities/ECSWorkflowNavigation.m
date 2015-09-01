@@ -116,6 +116,7 @@
 //        [self.navigationController pushViewController:viewController animated:YES];
 //    } else {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        navController.navigationBar.translucent = NO;
         [self presentViewControllerModally:navController animated:YES completion:completion];
         self.navigationController = navController;
 //    }
@@ -342,7 +343,7 @@
 #pragma mark - Modal VC Parameters
 
 - (CGSize)modalSize {
-    return CGSizeMake(500, 500);
+    return CGSizeMake(550, 650);
 }
 
 - (UIColor *)modalBorderColor {

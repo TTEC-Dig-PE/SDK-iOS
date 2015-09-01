@@ -98,7 +98,7 @@
     if ([actionType isEqualToString:ECSRequestVideoAction]) {
         return ECSActionTypeSelectExpertVideo;
     } else if ([actionType isEqualToString:ECSRequestChatAction]) {
-        return ECSActionTypeSelectExpertChat;
+        return ECSActionTypeChatString;
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         return ECSActionTypeCallbackString;
     }

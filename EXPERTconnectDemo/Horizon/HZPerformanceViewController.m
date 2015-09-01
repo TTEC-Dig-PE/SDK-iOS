@@ -67,11 +67,11 @@ NSString *const HZCustomerStandard = @"standard";
                                 requestParams:(NSDictionary *)params {
     // return {@"ActionType":<Some ActionType>}
     NSString *customerStatus = HZExistingCustomer;
-    NSString *customerType = HZCustomerConcierge;
+    NSString *customerType = HZCustomerStandard;
     if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
         
-        if ([customerStatus isEqualToString:HZNewCustomer]) {
-            if ([customerType isEqualToString:HZCustomerConcierge]) {
+        if ([customerStatus isEqualToString:HZExistingCustomer]) {
+            if ([customerType isEqualToString:HZCustomerStandard]) {
                 if ([params valueForKey:@"InvalidResponseCount"]) {
                     NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
                     if (count.intValue ==  3) {
