@@ -142,14 +142,17 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     self.navigationItem.title = self.actionType.displayName;
     self.agentInteractionCount = 0;
     
-    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-    UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(backButtonPressed:)];
-    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-    self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
+    if ([[self.navigationController viewControllers] count] > 1) {
+        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
+        ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+        self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
+    }
+   
     
     self.showFullScreenReachabilityMessage = NO;
     _agentTypingIndex = -1;

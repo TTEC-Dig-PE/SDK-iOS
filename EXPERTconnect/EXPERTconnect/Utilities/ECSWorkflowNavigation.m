@@ -182,7 +182,7 @@
     [UIView
      animateWithDuration: shouldAnimate ? [self modalAnimationDuration] : 0.0f
      animations:^{
-         newView.transform = CGAffineTransformMakeTranslation(0, 0);
+         newView.transform = CGAffineTransformMakeTranslation(0, 20);
          [self.dimmingOverlay setAlpha:dimmingAlpha];
      }
      completion:^(BOOL finished) {
