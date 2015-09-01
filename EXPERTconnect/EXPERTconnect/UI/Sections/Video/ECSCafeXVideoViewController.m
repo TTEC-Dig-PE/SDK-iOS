@@ -12,4 +12,36 @@
 
 @implementation ECSCafeXVideoViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self displayVoiceCallBackEndAlert];
+    [self.delegate CafeXViewDidAppear];
+}
+
+- (void)displayVoiceCallBackEndAlert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Video Chat Completed"
+                                                                             message:@"Please answer a few questions so we can serve you better!"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+        [self.workflowDelegate disconnectedFromVideoChat];
+    }];
+    
+    [alertController addAction:alertActionStop];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+    
+    [self.delegate CafeXViewDidUnload];
+}
+
 @end

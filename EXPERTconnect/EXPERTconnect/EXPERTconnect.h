@@ -16,6 +16,7 @@
 #import <EXPERTconnect/ECSAnswerEngineTopQuestionsResponse.h>
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
+#import <EXPERTconnect/ECSVideoChatActionType.h>
 #import <EXPERTconnect/ECSFormActionType.h>
 #import <EXPERTconnect/ECSForm.h>
 #import <EXPERTconnect/ECSFormItem.h>
@@ -89,6 +90,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *userCallbackNumber;
 @property (copy, nonatomic) NSString *customerType;
 @property (copy, nonatomic) NSString *treatmentType;
+@property (copy, nonatomic) NSString *lastSurveyScore;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 
@@ -108,6 +110,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
+ Returns a view controller for an EXPERTconnect Chat session, with CafeX Video parameters.
+ 
+ @param chatSkill the Agent Chat Skill for the Chat
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Chat
+ */
+- (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Voice Callback session.

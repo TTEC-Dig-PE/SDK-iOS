@@ -35,6 +35,7 @@ static EXPERTconnect* _sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedInstance = [EXPERTconnect new];
+        _sharedInstance.lastSurveyScore = @"low";
     });
     
     return _sharedInstance;
@@ -50,6 +51,13 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:[ECSImageCache new] forClass:[ECSImageCache class]];
     [[ECSInjector defaultInjector] setObject:[ECSTheme new] forClass:[ECSTheme class]];
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
+
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
 
     _userCallbackNumber = nil;
 }
@@ -127,6 +135,27 @@ static EXPERTconnect* _sharedInstance;
     chatAction.actionId = @"";
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
+    
+    UIViewController *chatController = [self viewControllerForActionType:chatAction];
+    
+    return chatController;
+}
+
+- (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+{
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = chatSkill;
+    chatAction.displayName = displayName;
+    chatAction.cafexmode = @"videoauto";
+    chatAction.cafextarget = [cafeXController cafeXUsername];
     
     UIViewController *chatController = [self viewControllerForActionType:chatAction];
     

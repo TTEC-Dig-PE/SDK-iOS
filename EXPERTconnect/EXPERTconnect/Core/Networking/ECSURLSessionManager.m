@@ -15,6 +15,7 @@
 #import "ECSAnswerEngineResponse.h"
 #import "ECSAnswerEngineTopQuestionsResponse.h"
 #import "ECSAnswerEngineRateResponse.h"
+#import "ECSCafeXController.h"
 #import "ECSCallbackSetupResponse.h"
 #import "ECSChannelConfiguration.h"
 #import "ECSChannelCreateResponse.h"
@@ -94,6 +95,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)dealloc
 {
     [self stopReachability];
+    
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    if ([cafeXController hasCafeXSession]) {
+        [cafeXController endCafeXSession];
+    }
     
     [self.session invalidateAndCancel];
 }
