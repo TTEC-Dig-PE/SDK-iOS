@@ -40,6 +40,25 @@ NSString *const HZCustomerStandard = @"standard";
     }
 }
 
+- (NSString *)getSkillTypeForMap{
+    NSString *customerStatus = [EXPERTconnect shared].customerType;
+    NSString *customerType = [EXPERTconnect shared].treatmentType;
+    
+    if ([customerStatus isEqualToString:HZNewCustomer]) {
+        if ([customerType isEqualToString:HZCustomerConcierge]) {
+            return @"Calls for frank_horizon";
+        }
+    }
+    
+    if ([customerStatus isEqualToString:HZExistingCustomer]) {
+        if ([customerType isEqualToString:HZCustomerStandard]) {
+            return @"communications";
+        }
+    }
+    
+    return nil;
+}
+
 - (NSString *)getActionType{
     NSString *customerStatus = [EXPERTconnect shared].customerType;
     NSString *customerType = [EXPERTconnect shared].treatmentType;
@@ -66,8 +85,8 @@ NSString *const HZCustomerStandard = @"standard";
                                requestCommand:(NSString *)command
                                 requestParams:(NSDictionary *)params {
     // return {@"ActionType":<Some ActionType>}
-    NSString *customerStatus = HZExistingCustomer;
-    NSString *customerType = HZCustomerConcierge;
+    NSString *customerStatus = [EXPERTconnect shared].customerType;
+    NSString *customerType = [EXPERTconnect shared].treatmentType;
     if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
         
         if ([customerStatus isEqualToString:HZNewCustomer]) {
