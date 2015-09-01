@@ -241,5 +241,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
               delgate:(id <ECSWorkflowDelegate>)workflowDelegate
        viewController:(UIViewController *)viewController;
 
+/**
+ *  Starts Chat workflow with a workflowName(workflowID), skill name, a delegate, and a viewController to present it on
+ */
+- (void)startChatWorkflow:(NSString *)workFlowName
+                withSkill:(NSString *)skillName
+                  delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+           viewController:(UIViewController *)viewController;
+
 @end
 

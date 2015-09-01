@@ -373,6 +373,8 @@ static EXPERTconnect* _sharedInstance;
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         initialViewController = (ECSRootViewController *)[self startSurvey:ecsConfiguration.defaultSurveyFormName];
+    } else if ([actionType isEqualToString:ECSActionTypeChatString]) {
+        initialViewController = (ECSRootViewController *)[self startChat:@"Calls for frank_horizon" withDisplayName:@"Chat"];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
@@ -388,5 +390,26 @@ static EXPERTconnect* _sharedInstance;
                                                         completion:nil];
 
 }
+
+- (void)startChatWorkflow:(NSString *)workFlowName
+               withSkill:(NSString *)skillName
+              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+       viewController:(UIViewController *)viewController {
+
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName withDisplayName:@"Chat"];
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workFlowName
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+}
+
 
 @end
