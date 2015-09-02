@@ -145,7 +145,10 @@
     
     _cafeXVideoViewController.delegate = self;
     
-    [parent presentModal:_cafeXVideoViewController withParentNavigationController:parent.navigationController];
+    _defaultParent = parent;
+    
+    _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
+    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
@@ -185,6 +188,25 @@
     }
 }
 
+- (void)CafeXViewDidMuteAudio:(BOOL)muted {
+    [_savedCall enableLocalAudio:!muted];
+}
+- (void)CafeXViewDidHideVideo:(BOOL)hidden {
+    [_savedCall enableLocalVideo:!hidden];
+}
+- (void)CafexViewDidEndVideo {
+    if (_savedCall != nil) {
+        [_savedCall end];
+        _savedCall = nil;
+    }
+    
+    if (_defaultParent != nil) {
+        [_defaultParent dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+- (void)CafeXViewDidMinimize {
+    /* no-op */
+}
 
 - (void) endCafeXSession {
     NSLog(@"CafeX Starting logout - Server %@ Configuration %@", server, configuration);
@@ -276,7 +298,8 @@
     
     _cafeXVideoViewController.delegate = self;
     
-    [_defaultParent presentModal:_cafeXVideoViewController withParentNavigationController:_defaultParent.navigationController];
+    _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
+    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     phone.delegate = self;
     

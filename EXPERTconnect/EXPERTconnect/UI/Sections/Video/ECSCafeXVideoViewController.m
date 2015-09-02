@@ -30,20 +30,6 @@
     [self.delegate CafeXViewDidAppear];
 }
 
-- (void)displayVoiceCallBackEndAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Session ended"
-                                                                             message:@"Please answer a few questions so we can serve you better!"
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [alertController dismissViewControllerAnimated:YES completion:nil];
-        [self.workflowDelegate disconnectedFromVideoChat];
-    }];
-    
-    [alertController addAction:alertActionStop];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -57,19 +43,26 @@
     if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
         [self.workflowDelegate minimizeButtonTapped:sender];
     }
+    
+    [self.delegate CafeXViewDidMinimize];
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
     [self.videoButton setSelected:([self.videoButton isSelected] == NO)];
+    
+    [self.delegate CafeXViewDidHideVideo:![self.videoButton isSelected]];
 }
 
 - (IBAction)audioButtonPressed:(id)sender {
     [self.audioButton setSelected:([self.audioButton isSelected] == NO)];
+    
+    [self.delegate CafeXViewDidMuteAudio:![self.audioButton isSelected]];
 }
 
 - (IBAction)endVideoChatButtonPressed:(id)sender {
-    //TODO: Need to handle this Video Call end notification as well
-    [self displayVoiceCallBackEndAlert];
+    // No need to display an alert here, since the Chat is still going on, even if Video ends.
+    
+    [self.delegate CafexViewDidEndVideo];
 }
 
 @end
