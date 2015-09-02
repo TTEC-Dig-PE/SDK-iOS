@@ -431,6 +431,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                             completion:^(NSArray* result, NSError *error) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     
+                                                    ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
+                                                    if (actionType.shouldTakeSurvey) {
+                                                        weakSelf.postChatActions = result;
+                                                        [weakSelf showSurveyDisconnectMessage];
+                                                    } else {
+                                                        [weakSelf showNoSurveyDisconnectMessage];
+                                                    }
                                                     //TODO: Need to we need some data from results, Navigations should be taken care by host app in Demo 2.0
 //                                                    if (error || (result.count == 0)) //|| !([result.firstObject isKindOfClass:[ECSFormActionType class]])
 //                                                    {
@@ -438,8 +445,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 //                                                    }
 //                                                    else
 //                                                    {
-                                                        weakSelf.postChatActions = result;
-                                                        [weakSelf showSurveyDisconnectMessage];
+//                                                        weakSelf.postChatActions = result;
+//                                                        [weakSelf showSurveyDisconnectMessage];
                                                    // }
                                                 });
                                             }];
