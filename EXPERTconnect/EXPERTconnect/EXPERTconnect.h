@@ -106,11 +106,10 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @param chatSkill the Agent Chat Skill for the Chat
  @param displayName for the View Controller
- 
+ @param shouldTakeSurvey, determains
  @return the view controller for the Chat
  */
-- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
-
+- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
 /**
  Returns a view controller for an EXPERTconnect Chat session, with CafeX Video parameters.
  
@@ -247,6 +246,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void)startChatWorkflow:(NSString *)workFlowName
                 withSkill:(NSString *)skillName
+               withSurvey:(BOOL)shouldTakeSurvey
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 

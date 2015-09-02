@@ -734,7 +734,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat"];
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:YES];
     [self.navigationController pushViewController:chatController animated:YES];
 }
 

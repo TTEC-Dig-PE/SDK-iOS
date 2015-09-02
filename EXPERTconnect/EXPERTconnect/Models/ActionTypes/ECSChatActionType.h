@@ -16,4 +16,7 @@
 // Agent Skill for chat
 @property (strong, nonatomic) NSString *agentSkill;
 
+// Agent Survey after chat
+@property (assign, nonatomic) BOOL shouldTakeSurvey;
+
 @end

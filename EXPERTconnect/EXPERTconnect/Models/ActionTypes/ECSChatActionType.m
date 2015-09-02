@@ -16,6 +16,7 @@
     if (self)
     {
         self.type = ECSActionTypeChatString;
+        _shouldTakeSurvey = YES;
     }
     
     return self;
@@ -27,7 +28,7 @@
     
     actionType.agentId = [self.agentId copyWithZone:zone];
     actionType.agentSkill = [self.agentSkill copyWithZone:zone];
-
+    
     return actionType;
 }
 

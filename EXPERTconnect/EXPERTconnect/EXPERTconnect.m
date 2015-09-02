@@ -128,12 +128,13 @@ static EXPERTconnect* _sharedInstance;
     return [NSBundle ecs_bundleVersion];
 }
 
-- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey
 {
     ECSChatActionType *chatAction = [ECSChatActionType new];
     chatAction.actionId = @"";
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
+    chatAction.shouldTakeSurvey = shouldTakeSurvey;
     
     UIViewController *chatController = [self viewControllerForActionType:chatAction];
     
@@ -373,8 +374,6 @@ static EXPERTconnect* _sharedInstance;
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         initialViewController = (ECSRootViewController *)[self startSurvey:ecsConfiguration.defaultSurveyFormName];
-    } else if ([actionType isEqualToString:ECSActionTypeChatString]) {
-        initialViewController = (ECSRootViewController *)[self startChat:@"Calls for frank_horizon" withDisplayName:@"Chat"];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
@@ -393,10 +392,11 @@ static EXPERTconnect* _sharedInstance;
 
 - (void)startChatWorkflow:(NSString *)workFlowName
                withSkill:(NSString *)skillName
+               withSurvey:(BOOL)shouldTakeSurvey
               delgate:(id <ECSWorkflowDelegate>)workflowDelegate
        viewController:(UIViewController *)viewController {
 
-    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName withDisplayName:@"Chat"];
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName withDisplayName:@"Chat" withSurvey:YES];
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
     
