@@ -396,7 +396,9 @@ static EXPERTconnect* _sharedInstance;
               delgate:(id <ECSWorkflowDelegate>)workflowDelegate
        viewController:(UIViewController *)viewController {
 
-    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName withDisplayName:@"Chat" withSurvey:YES];
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName
+                                                                            withDisplayName:@"Chat"
+                                                                                 withSurvey:shouldTakeSurvey];
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
     
