@@ -273,7 +273,8 @@
     UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIImage *targetImage = [UIImage imageNamed:@"avatar"];
+    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+    UIImage *targetImage = [[imageCache imageForPath:@"ecs_ic_chat_textback"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     // make minimize button
     self.minimizedButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -281,6 +282,9 @@
     self.minimizedButton.layer.borderColor = [[self modalBorderColor] CGColor];
     self.minimizedButton.layer.cornerRadius = [self modalBorderRadius];
     self.minimizedButton.clipsToBounds = YES;
+    [self.minimizedButton setBackgroundImage:screenshot
+                                    forState:UIControlStateNormal];
+    
     [self.minimizedButton addTarget:self
                              action:@selector(maxmimizeButtonTapped:)
                    forControlEvents:UIControlEventTouchUpInside];
@@ -295,18 +299,18 @@
      animateWithDuration: [self modalAnimationDuration]
      animations:^{
          [self.dimmingOverlay setAlpha:0.0];
-         self.minimizedButton.frame = CGRectMake(0, 0, targetImage.size.width, targetImage.size.width);
+         self.minimizedButton.frame = CGRectMake(0, 0, targetImage.size.width, targetImage.size.height);
          self.minimizedButton.center = [self minimizePosition];
      }
      completion:^(BOOL finished) {
          if (completion) completion();
      }];
     
-    // animate image transition
-    //self.minimizedButton.screenshotImage = screenshot;
-    //self.minimizedButton.minimizedImage = targetImage;
-    //[self.minimizedButton transitionToScreenshotWithDuration:0.0];
-    //[self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
+     //animate image transition
+//    self.minimizedButton.screenshotImage = screenshot;
+//    self.minimizedButton.minimizedImage = targetImage;
+//    [self.minimizedButton transitionToScreenshotWithDuration:0.0];
+//    [self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
 }
 
 - (void)restoreAllViewControllersWithCompletion:(completionBlock)completion {
@@ -336,7 +340,7 @@
 }
 
 - (CGPoint)minimizePosition {
-    return CGPointMake(72, 144);
+    return CGPointMake([[UIScreen mainScreen] bounds].size.width - 20, 144);
 }
 
 #pragma mark - Modal VC Parameters

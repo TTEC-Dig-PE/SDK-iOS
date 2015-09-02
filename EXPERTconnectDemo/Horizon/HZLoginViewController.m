@@ -127,8 +127,8 @@
     __weak typeof(self) weakSelf = self;
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [[EXPERTconnect shared] setUserToken:email];
-    
-    [weakSelf.loadingIndicator startAnimating];
+    [EXPERTconnect shared].lastSurveyScore = @"high";
+    [self.loadingIndicator startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 //
 //    [sessionManager

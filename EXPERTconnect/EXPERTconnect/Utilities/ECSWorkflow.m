@@ -125,6 +125,10 @@
     [self presentViewControllerForActionType:ECSActionTypeFormString];
 }
 
+- (void)minimizeButtonTapped:(id)sender {
+    [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
 #pragma mark - Helper methods
 
 - (void)presentViewControllerForActionType:(NSString *)actionType {

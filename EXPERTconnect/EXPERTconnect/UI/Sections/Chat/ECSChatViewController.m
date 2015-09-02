@@ -139,19 +139,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     [cafeXController setDefaultParent:self];
     
-    self.navigationItem.title = self.actionType.displayName;
     self.agentInteractionCount = 0;
     
-    if ([[self.navigationController viewControllers] count] > 1) {
-        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:self
-                                                                                action:@selector(backButtonPressed:)];
-        ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-        self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
-    }
+    [self configureNavigationBar];
    
     
     self.showFullScreenReachabilityMessage = NO;
@@ -170,7 +160,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                              selector:@selector(networkConnectionChanged:)
                                                  name:ECSReachabilityChangedNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:) name:@"NotificationScreenShareEnded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:)
+                                                 name:@"NotificationScreenShareEnded"
+                                               object:nil];
     
 #ifdef DEBUG
 //    ECSChatTextMessage *textMessage = [ECSChatTextMessage new];
@@ -194,20 +186,46 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 #endif
     
+    [self registerTableViewCells];
+    [self addChatToolbarView];
+    [self addChatWaitView];
+
+}
+
+- (void)configureNavigationBar {
+    self.navigationItem.title = self.actionType.displayName;
+    if ([[self.navigationController viewControllers] count] > 1) {
+        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
+        ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+        self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
+    }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(minimizeButtonPressed:)];
+}
+
+- (void)registerTableViewCells {
     [self.tableView registerClass:[ECSChatMessageTableViewCell class] forCellReuseIdentifier:MessageCellID];
     [self.tableView registerClass:[ECSHtmlMessageTableViewCell class] forCellReuseIdentifier:HtmlMessageCellID];
     [self.tableView registerClass:[ECSChatImageTableViewCell class]
-         forCellReuseIdentifier:ImageCellID];
+           forCellReuseIdentifier:ImageCellID];
     [self.tableView registerClass:[ECSChatTypingTableViewCell class] forCellReuseIdentifier:MessageTypingCellID];
     [self.tableView registerClass:[ECSChatActionTableViewCell class] forCellReuseIdentifier:ActionCellID];
     [self.tableView registerNib:[ECSChatTextTableViewCell ecs_nib]
-           forCellReuseIdentifier:TextCellID];
+         forCellReuseIdentifier:TextCellID];
     [self.tableView registerNib:[ECSChatNetworkActionCell ecs_nib] forCellReuseIdentifier:ChatNetworkCellID];
     [self.tableView registerClass:[ECSInlineFormTableViewCell class] forCellReuseIdentifier:InlineFormCellID];
-    
-    if (!self.historyJourney)
-        
-    {
+}
+
+- (void)addChatToolbarView {
+    if (!self.historyJourney) {
         self.chatToolbar = [ECSChatToolbarController ecs_loadFromNib];
         self.chatToolbar.delegate = self;
         [self addChildViewController:self.chatToolbar];
@@ -225,7 +243,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [self.chatToolbarContainer addConstraints:constraints];
         [self.chatToolbarContainer addConstraints:verticalConstraints];
     }
-    
+}
+
+- (void)addChatWaitView {
     self.waitView = [ECSChatWaitView ecs_loadInstanceFromNib];
     self.waitView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.waitView];
@@ -234,7 +254,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                                       metrics:nil
                                                                         views:@{@"view": self.waitView}]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.waitView
-                                                         attribute:NSLayoutAttributeTop
+                                                          attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.topLayoutGuide
                                                           attribute:NSLayoutAttributeBottom
@@ -247,7 +267,6 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f
                                                            constant:0.0f]];
-
 }
 
 - (void)dealloc
@@ -354,6 +373,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 }
 
 #pragma mark - UINavigationBarDelegate
+
 - (void)backButtonPressed:(id)sender
 {
     if (self.chatClient.channelState == ECSChannelStateConnected)
@@ -364,6 +384,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         [self.chatClient disconnect];
         [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)minimizeButtonPressed:(id)sender {
+    if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
+        [self.workflowDelegate minimizeButtonTapped:sender];
     }
 }
 

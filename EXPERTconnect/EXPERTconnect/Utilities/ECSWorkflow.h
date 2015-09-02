@@ -24,6 +24,8 @@
 - (void)voiceCallBackEnded;
 - (void)endWorkFlow;
 
+- (void)minimizeButtonTapped:(id)sender;
+
 @end
 
 @protocol ECSWorkflowDelegate <NSObject>
