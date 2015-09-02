@@ -288,7 +288,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
             [alert show];
-            [self.searchTextField becomeFirstResponder];
+            //[self.searchTextField becomeFirstResponder];
             self.invalidResponseCount++;
             [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         }

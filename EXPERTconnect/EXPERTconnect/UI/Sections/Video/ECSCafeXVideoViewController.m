@@ -10,25 +10,28 @@
 
 #import "ECSCafeXVideoViewController.h"
 
+@interface ECSCafeXVideoViewController()
+
+@property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
+@property (weak, nonatomic) IBOutlet UIButton *endVideoChatButton;
+@property (weak, nonatomic) IBOutlet UIButton *audioButton;
+@property (weak, nonatomic) IBOutlet UIButton *videoButton;
+
+@end
+
 @implementation ECSCafeXVideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureNavigationBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    //TODO: Need to display this alert, on Video Call end notification
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self displayVoiceCallBackEndAlert];
-    });
     [self.delegate CafeXViewDidAppear];
 }
 
 - (void)displayVoiceCallBackEndAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Video Chat Completed"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Session ended"
                                                                              message:@"Please answer a few questions so we can serve you better!"
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
@@ -48,17 +51,25 @@
     [self.delegate CafeXViewDidUnload];
 }
 
-- (void)configureNavigationBar {    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(minimizeButtonPressed:)];
-}
+#pragma mark - Action Methods
 
-- (void)minimizeButtonPressed:(id)sender {
+- (IBAction)minimizeButtonPressed:(id)sender {
     if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
         [self.workflowDelegate minimizeButtonTapped:sender];
     }
+}
+
+- (IBAction)videoButtonPressed:(id)sender {
+    [self.videoButton setSelected:([self.videoButton isSelected] == NO)];
+}
+
+- (IBAction)audioButtonPressed:(id)sender {
+    [self.audioButton setSelected:([self.audioButton isSelected] == NO)];
+}
+
+- (IBAction)endVideoChatButtonPressed:(id)sender {
+    //TODO: Need to handle this Video Call end notification as well
+    [self displayVoiceCallBackEndAlert];
 }
 
 @end

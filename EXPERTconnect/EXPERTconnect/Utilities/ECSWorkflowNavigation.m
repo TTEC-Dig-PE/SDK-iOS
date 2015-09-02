@@ -274,7 +274,7 @@
     UIGraphicsEndImageContext();
     
     ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-    UIImage *targetImage = [[imageCache imageForPath:@"ecs_ic_chat_textback"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *targetImage = [[imageCache imageForPath:@"icn_vidchat_end"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     // make minimize button
     self.minimizedButton = [UIButton buttonWithType:UIButtonTypeCustom];

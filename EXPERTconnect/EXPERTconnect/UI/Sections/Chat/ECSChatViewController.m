@@ -477,7 +477,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)showSurvey
 {
-    
+    [self.chatToolbar resignFirstResponder];
     [self.workflowDelegate disconnectedFromChat];
     return;
     
