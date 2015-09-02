@@ -425,6 +425,8 @@
 		D87F2F911B697FB700B7B9D5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F901B697FB700B7B9D5 /* GLKit.framework */; };
 		D87F2F931B697FBD00B7B9D5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */; };
 		D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F941B697FC800B7B9D5 /* libc++.dylib */; };
+		D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F7481B95032A00B75692 /* ECSVoiceItManager.m */; };
+		D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */; };
 		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
@@ -861,6 +863,10 @@
 		D87F2F901B697FB700B7B9D5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D87F2F941B697FC800B7B9D5 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		D890F7471B95031100B75692 /* ECSVoiceItManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItManager.h; path = Core/Networking/ECSVoiceItManager.h; sourceTree = "<group>"; };
+		D890F7481B95032A00B75692 /* ECSVoiceItManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItManager.m; path = Core/Networking/ECSVoiceItManager.m; sourceTree = "<group>"; };
+		D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItNetHelper.h; path = Core/Networking/ECSVoiceItNetHelper.h; sourceTree = "<group>"; };
+		D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItNetHelper.m; path = Core/Networking/ECSVoiceItNetHelper.m; sourceTree = "<group>"; };
 		D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatCoBrowseMessage.h; path = Chat/ECSChatCoBrowseMessage.h; sourceTree = "<group>"; };
 		D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatCoBrowseMessage.m; path = Chat/ECSChatCoBrowseMessage.m; sourceTree = "<group>"; };
 		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
@@ -1182,6 +1188,10 @@
 				03639B741AA4E3EA00B617F6 /* ECSStompChatClient.m */,
 				D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */,
 				D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */,
+				D890F7471B95031100B75692 /* ECSVoiceItManager.h */,
+				D890F7481B95032A00B75692 /* ECSVoiceItManager.m */,
+				D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */,
+				D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -2125,6 +2135,7 @@
 				D86BC4C01B8E318C005B9629 /* ECSVideoChatActionType.m in Sources */,
 				03AF24A61A9B601E00407BE5 /* ECSSearchTextField.m in Sources */,
 				0342AFE21A9B60950009959E /* ECSChatViewController.m in Sources */,
+				D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */,
 				03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */,
 				0342B0471A9B60C10009959E /* ECSFeaturedTableViewCell.m in Sources */,
 				0342AFD61A9B60950009959E /* ECSWebTableViewCell.m in Sources */,
@@ -2156,6 +2167,7 @@
 				D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */,
 				03B47F8E1A85BD6600B2686F /* ECSPresurveyFormItem.m in Sources */,
 				0342AFD91A9B60950009959E /* ECSChatImageTableViewCell.m in Sources */,
+				D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */,
 				039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */,
 				0342AFDC1A9B60950009959E /* ECSChatCellBackground.m in Sources */,
 				03C3105B1A9B5B56006B3557 /* ECSCallbackActionType.m in Sources */,

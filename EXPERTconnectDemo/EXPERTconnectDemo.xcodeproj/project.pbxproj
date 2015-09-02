@@ -122,6 +122,7 @@
 		D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
 		D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
 		D88696611B556CD000C8F955 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
+		D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */; };
 		D8CEBE131B546DC20053E9A0 /* HZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */; };
 		D8CEBE141B546DC20053E9A0 /* HZDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */; };
 		D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF61B546DC20053E9A0 /* HZDrawerViewController.xib */; };
@@ -377,6 +378,8 @@
 		D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
 		D87F2F081B66CC0900B7B9D5 /* MoxtraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoxtraController.h; sourceTree = "<group>"; };
 		D87F2F091B66CC0900B7B9D5 /* MoxtraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoxtraController.m; sourceTree = "<group>"; };
+		D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocVideoChatPicker.m; sourceTree = "<group>"; };
+		D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDAdHocVideoChatPicker.h; sourceTree = "<group>"; };
 		D8CEBDF21B546DC20053E9A0 /* HZAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZAppDelegate.h; sourceTree = "<group>"; };
 		D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZAppDelegate.m; sourceTree = "<group>"; };
 		D8CEBDF41B546DC20053E9A0 /* HZDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZDrawerViewController.h; sourceTree = "<group>"; };
@@ -647,6 +650,8 @@
 				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
 				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
 				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
+				D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */,
+				D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */,
 				46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */,
 				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
 				46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */,
@@ -1221,6 +1226,7 @@
 				D87F2F581B68309100B7B9D5 /* MoxtraController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
+				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				D8CEBE171B546DC20053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
