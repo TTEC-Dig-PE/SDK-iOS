@@ -201,8 +201,6 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                                                  style:UIBarButtonItemStylePlain
                                                                                 target:self
                                                                                 action:@selector(backButtonPressed:)];
-        ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-        self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
     }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
@@ -382,6 +380,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     else
     {
+        [self.workflowDelegate endVideoChat];
         [self.chatClient disconnect];
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -430,7 +429,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                               actionId:self.actionType.actionId
                                             completion:^(NSArray* result, NSError *error) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
+                                                    [self.workflowDelegate endVideoChat];
                                                     ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
                                                     if (actionType.shouldTakeSurvey) {
                                                         weakSelf.postChatActions = result;
@@ -561,6 +560,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
+                                                          [self.workflowDelegate endVideoChat];
                                                           [self.chatClient disconnect];
                                                           [self showSurvey];
                                                       }]];

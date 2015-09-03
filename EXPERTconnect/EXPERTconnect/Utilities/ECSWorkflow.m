@@ -17,6 +17,8 @@
 @property (nonatomic, weak) id <ECSWorkflowDelegate> workflowDelegate;
 @property (nonatomic, copy) NSString *workflowName;
 
+@property (nonatomic, strong) ECSWorkflowNavigation *videoNavigationManager;
+
 @end
 
 @implementation ECSWorkflow
@@ -41,6 +43,7 @@
 }
 
 - (void)end {
+    [self endVideoChat];
     [self.navigationManager dismissAllViewControllersAnimated:YES completion:nil];
 }
 
@@ -127,6 +130,28 @@
 
 - (void)minimizeButtonTapped:(id)sender {
     [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
+- (void)minimizeVideoButtonTapped:(id)sender {
+    [self.videoNavigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
+- (void)endVideoChat {
+    if (self.videoNavigationManager) {
+        [self.videoNavigationManager restoreAllViewControllersWithAnimation:NO withCompletion:^{
+            [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:nil];
+            self.videoNavigationManager = nil;
+        }];
+    }
+}
+
+
+- (void)presentVideoChatViewController:(ECSRootViewController *)viewController {
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:[self.navigationManager hostViewController]];
+    self.videoNavigationManager = navManager;
+    [navManager presentViewControllerInNavigationControllerModally:viewController
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 #pragma mark - Helper methods

@@ -71,6 +71,8 @@
 		46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
 		46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
+		8112F9D41B9811EC004D99ED /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
+		8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
@@ -1102,6 +1104,7 @@
 				D8CEBED51B55690C0053E9A0 /* HZRootViewController.xib in Resources */,
 				D8CEBED61B55690C0053E9A0 /* RobotoCondensed-Regular.ttf in Resources */,
 				D8CEBED71B55690C0053E9A0 /* HZExpertConnectSDKTheme.css in Resources */,
+				8112F9D41B9811EC004D99ED /* ECDAdHocViewController.xib in Resources */,
 				D8D3AA701B66A25D00DA1762 /* MoxtraSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1278,6 +1281,7 @@
 				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
 				D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */,
 				D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */,
+				8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */,
 				D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */,
 				46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */,
 				D8CEBEA71B55690C0053E9A0 /* HZLoginViewController.m in Sources */,
