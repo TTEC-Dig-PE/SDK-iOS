@@ -23,7 +23,7 @@
 
 - (void)voiceCallBackEnded;
 
-- (void)formSubmittedWithValue:(NSString *)formValue;
+- (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue;
 
 - (void)endWorkFlow;
 
