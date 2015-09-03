@@ -21,6 +21,7 @@ NSString *const ECSActionTypeVideoChatString = @"videochat";
 NSString *const ECSActionTypeSMSString = @"sms";
 NSString *const ECSActionTypeWebString = @"web";
 NSString *const ECSActionTypeFormString = @"form";
+NSString *const ECSActionTypeFormSubmitted = @"submittedForm";
 NSString *const ECSActionTypeAnswerHistory = @"answerhistory";
 NSString *const ECSActionTypeChatHistory = @"chathistory";
 NSString *const ECSActionTypeProfile = @"profile";

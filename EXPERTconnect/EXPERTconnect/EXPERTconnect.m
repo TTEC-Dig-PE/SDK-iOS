@@ -418,7 +418,7 @@ static EXPERTconnect* _sharedInstance;
         initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:ecsConfiguration.defaultSurveyFormName];
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
