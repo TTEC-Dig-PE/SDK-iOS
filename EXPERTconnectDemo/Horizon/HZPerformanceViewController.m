@@ -83,6 +83,7 @@ NSString *const HZCustomerStandard = @"standard";
 
 -(void)startWorkflowWithAction:(NSString *)actionType {
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
+    [EXPERTconnect shared].surveyFormName = @"RateHorizonComm";
     [[EXPERTconnect shared] startWorkflow:@"Gwen Flow"
                                withAction:actionType
                                   delgate:self

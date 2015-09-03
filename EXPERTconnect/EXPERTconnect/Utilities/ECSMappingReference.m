@@ -104,7 +104,7 @@
         
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        return [self startSurvey:ecsConfiguration.defaultSurveyFormName];
+        return [self startSurvey:[EXPERTconnect shared].surveyFormName];
     }
     else if ([actionType isEqualToString:ECSActionTypeCallbackString]) {
         return [self startVoiceCallback:ecsConfiguration.defaultCallBack
