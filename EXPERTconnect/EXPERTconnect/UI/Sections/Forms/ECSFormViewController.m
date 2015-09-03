@@ -366,7 +366,7 @@
 //                            }
 ////                        }
                         
-                        [self.workflowDelegate formSubmittedWithValue:lastSurveyScore];
+                        [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
                     }
                     else
                     {
