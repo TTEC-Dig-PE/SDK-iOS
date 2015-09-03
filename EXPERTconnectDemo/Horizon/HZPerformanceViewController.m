@@ -133,6 +133,17 @@ NSString *const HZCustomerStandard = @"standard";
             return @{@"ActionType":ECSActionTypeFormString};
         }
     }
+    if ([workflowName isEqualToString:ECSActionTypeFormString]) {
+            if ([params valueForKey:@"formValue"]) {
+                NSString *formValue = [params valueForKey:@"formValue"];
+                if ([formValue isEqualToString:@"low"]) {
+                    return @{@"ActionType":ECSActionTypeSelectExpertChat};
+                }else {
+                    return @{@"ActionType":ECSActionTypeFormSubmitted};
+                }
+            }
+    }
+    
     
     return nil;
 }

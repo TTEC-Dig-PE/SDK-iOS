@@ -23,12 +23,14 @@
 #import "ECSWebActionType.h"
 #import "ECSWebViewController.h"
 #import "ECSFormActionType.h"
+#import "ECSFormSubmittedActionType.h"
 #import "ECSFormViewController.h"
 #import "ECSProfileViewController.h"
 #import "ECSSMSActionType.h"
 #import "ECSMessageViewController.h"
 #import "ECSSelectExpertViewController.h"
 #import "UIViewController+ECSNibLoading.h"
+#import "ECSFormSubmittedViewController.h"
 
 @implementation ECSRootViewController (Navigation)
 
@@ -80,6 +82,13 @@
     else if ([actionType isKindOfClass:[ECSFormActionType class]])
     {
         ECSFormViewController* viewController = [ECSFormViewController ecs_loadFromNib];
+        viewController.actionType = [actionType copy];
+        
+        actionViewController = viewController;
+    }
+    else if ([actionType isKindOfClass:[ECSFormSubmittedActionType class]])
+    {
+        ECSFormSubmittedViewController *viewController = [ECSFormSubmittedViewController ecs_loadFromNib];
         viewController.actionType = [actionType copy];
         
         actionViewController = viewController;

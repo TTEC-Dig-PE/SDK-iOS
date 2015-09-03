@@ -22,6 +22,9 @@
 - (void)disconnectedFromVideoChat;
 
 - (void)voiceCallBackEnded;
+
+- (void)formSubmittedWithValue:(NSString *)formValue;
+
 - (void)endWorkFlow;
 
 - (void)minimizeButtonTapped:(id)sender;

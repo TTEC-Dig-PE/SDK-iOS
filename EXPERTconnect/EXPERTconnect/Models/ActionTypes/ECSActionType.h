@@ -33,6 +33,9 @@ FOUNDATION_EXPORT NSString *const ECSActionTypeWebString;
 // Form action type that shows a form
 FOUNDATION_EXPORT NSString *const ECSActionTypeFormString;
 
+// Form action type that shows that a form is submitted
+FOUNDATION_EXPORT NSString *const ECSActionTypeFormSubmitted;
+
 // Action type for voice callback
 FOUNDATION_EXPORT NSString *const ECSActionTypeCallbackString;
 

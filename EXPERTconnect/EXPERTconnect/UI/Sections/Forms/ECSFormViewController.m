@@ -328,11 +328,13 @@
     NSNumber *value = [NSNumber numberWithFloat:[self.formItemVC.formItem.formValue floatValue]];
 
     //TODO : move this inside the session block
+    NSString *lastSurveyScore;
     if([value intValue] > ([maxValue intValue]/2)) {
-        [[EXPERTconnect shared] setLastSurveyScore:@"high"];
+        lastSurveyScore = @"high";
     } else {
-        [[EXPERTconnect shared] setLastSurveyScore:@"low"];
+        lastSurveyScore = @"low";
     }
+    [[EXPERTconnect shared] setLastSurveyScore:lastSurveyScore];
 
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
     formAction.intent = userIntent;
@@ -352,17 +354,19 @@
 //                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
 //                        } else {
                         
+//            
+//                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+//                            submitController.workflowDelegate = self.workflowDelegate;
+//                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
+//                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
+//                            
+//                            if (weakSelf.navigationController)
+//                            {
+//                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
+//                            }
+////                        }
                         
-                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-                            submitController.workflowDelegate = self.workflowDelegate;
-                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
-                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
-                            
-                            if (weakSelf.navigationController)
-                            {
-                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
-                            }
-//                        }
+                        [self.workflowDelegate formSubmittedWithValue:lastSurveyScore];
                     }
                     else
                     {

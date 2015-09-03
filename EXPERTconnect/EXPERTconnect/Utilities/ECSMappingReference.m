@@ -62,6 +62,7 @@
 #import "ECSCallbackActionType.h"
 #import "ECSChatActionType.h"
 #import "ECSFormActionType.h"
+#import "ECSFormSubmittedActionType.h"
 #import "ECSMessageActionType.h"
 #import "ECSNavigationActionType.h"
 #import "ECSSMSActionType.h"
@@ -105,6 +106,9 @@
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         return [self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    else if ([actionType isEqualToString:ECSActionTypeFormSubmitted]) {
+        return [self showFormSubmitted];
     }
     else if ([actionType isEqualToString:ECSActionTypeCallbackString]) {
         return [self startVoiceCallback:ecsConfiguration.defaultCallBack
@@ -172,6 +176,12 @@
     ECSRootViewController *formController = [self viewControllerForActionType:formAction];
     
     return formController;
+}
+
+- (ECSRootViewController *)showFormSubmitted
+{
+    ECSRootViewController *formSubmittedController = [self viewControllerForActionType:[ECSFormSubmittedActionType new]];
+    return formSubmittedController;
 }
 
 - (ECSRootViewController *)startUserProfile

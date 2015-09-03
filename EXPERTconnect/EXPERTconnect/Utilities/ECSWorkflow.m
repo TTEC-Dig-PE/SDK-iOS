@@ -129,6 +129,23 @@
     [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
 }
 
+- (void)formSubmittedWithValue:(NSString *)formValue {
+    NSDictionary *actions = nil;
+    if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
+        actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
+                                                      requestCommand:nil
+                                                       requestParams:[NSDictionary dictionaryWithObject:formValue forKey:@"formValue"]];
+        if (actions) {
+            NSString *actionType = [actions valueForKey:@"ActionType"];
+            if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
+                [self presentViewControllerForActionType:ECSActionTypeSelectExpertChat];
+            } else if ([actionType isEqualToString:ECSActionTypeFormSubmitted]) {
+                [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
+            }
+        }
+    }
+}
+
 #pragma mark - Helper methods
 
 - (void)presentViewControllerForActionType:(NSString *)actionType {
