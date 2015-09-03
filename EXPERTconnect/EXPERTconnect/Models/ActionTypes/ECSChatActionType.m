@@ -28,6 +28,7 @@
     
     actionType.agentId = [self.agentId copyWithZone:zone];
     actionType.agentSkill = [self.agentSkill copyWithZone:zone];
+    actionType.shouldTakeSurvey = self.shouldTakeSurvey;
     
     return actionType;
 }
