@@ -43,9 +43,6 @@
 @property (strong, nonatomic) NSString *defaultAnswerEngineContext;
 
 // The default form name for survey.
-@property (strong, nonatomic) NSString *defaultSurveyFormName;
-
-// The default form name for survey.
 @property (strong, nonatomic) NSString *defaultCallBack;
 
 @end
