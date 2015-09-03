@@ -139,9 +139,11 @@
             NSString *actionType = [actions valueForKey:@"ActionType"];
             if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
                 [self presentViewControllerForActionType:ECSActionTypeSelectExpertChat];
-            } else if ([actionType isEqualToString:ECSActionTypeFormSubmitted]) {
+            } else {
                 [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
             }
+        } else {
+            [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
         }
     }
 }
