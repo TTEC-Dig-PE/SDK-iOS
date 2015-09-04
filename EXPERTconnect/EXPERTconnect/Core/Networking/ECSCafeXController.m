@@ -200,9 +200,9 @@
         _savedCall = nil;
     }
     
-    if (_defaultParent != nil) {
-        [_defaultParent dismissViewControllerAnimated:YES completion:nil];
-    }
+//    if (_defaultParent != nil) {
+//        [_defaultParent dismissViewControllerAnimated:YES completion:nil];
+//    }
 }
 - (void)CafeXViewDidMinimize {
     /* no-op */
@@ -299,7 +299,8 @@
     _cafeXVideoViewController.delegate = self;
     
     _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
-    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+    
+    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     phone.delegate = self;
     
@@ -311,6 +312,7 @@
     {
         NSLog(@"Call is null on didReceiveCall!");
     }
+    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message

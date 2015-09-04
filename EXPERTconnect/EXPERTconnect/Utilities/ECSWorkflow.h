@@ -11,6 +11,7 @@
 #import "ECSRootViewController.h"
 
 @class ECSWorkflow;
+@class ECSRootViewController;
 
 @protocol ECSWorkflowNavigationDelegate <NSObject>
 
@@ -22,9 +23,16 @@
 - (void)disconnectedFromVideoChat;
 
 - (void)voiceCallBackEnded;
+
+- (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue;
+
 - (void)endWorkFlow;
 
 - (void)minimizeButtonTapped:(id)sender;
+
+- (void)presentVideoChatViewController:(ECSRootViewController *)viewController;
+- (void)minimizeVideoButtonTapped:(id)sender;
+- (void)endVideoChat;
 
 @end
 

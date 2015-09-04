@@ -344,6 +344,8 @@
 		03F417921AAE0EA100248BF0 /* ECSChatLocationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F4178F1AAE0EA100248BF0 /* ECSChatLocationViewController.h */; };
 		03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F417901AAE0EA100248BF0 /* ECSChatLocationViewController.m */; };
 		03F417941AAE0EA100248BF0 /* ECSChatLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03F417911AAE0EA100248BF0 /* ECSChatLocationViewController.xib */; };
+		123E26AE1B987455003DCCAD /* ECSFormSubmittedActionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 123E26AC1B987455003DCCAD /* ECSFormSubmittedActionType.h */; };
+		123E26AF1B987455003DCCAD /* ECSFormSubmittedActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 123E26AD1B987455003DCCAD /* ECSFormSubmittedActionType.m */; };
 		2252C6A51A7BE9E200B99912 /* ECSForm.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6931A7BE9E100B99912 /* ECSForm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6A61A7BE9E200B99912 /* ECSForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6941A7BE9E100B99912 /* ECSForm.m */; };
 		2252C6A71A7BE9E200B99912 /* ECSFormItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6951A7BE9E100B99912 /* ECSFormItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -771,6 +773,8 @@
 		03F417901AAE0EA100248BF0 /* ECSChatLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatLocationViewController.m; path = EXPERTconnect/UI/Sections/Chat/ECSChatLocationViewController.m; sourceTree = SOURCE_ROOT; };
 		03F417911AAE0EA100248BF0 /* ECSChatLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSChatLocationViewController.xib; path = EXPERTconnect/UI/Sections/Chat/ECSChatLocationViewController.xib; sourceTree = SOURCE_ROOT; };
 		08C95D76530417F48A1621E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		123E26AC1B987455003DCCAD /* ECSFormSubmittedActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormSubmittedActionType.h; sourceTree = "<group>"; };
+		123E26AD1B987455003DCCAD /* ECSFormSubmittedActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormSubmittedActionType.m; sourceTree = "<group>"; };
 		2252C6931A7BE9E100B99912 /* ECSForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSForm.h; sourceTree = "<group>"; };
 		2252C6941A7BE9E100B99912 /* ECSForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSForm.m; sourceTree = "<group>"; };
 		2252C6951A7BE9E100B99912 /* ECSFormItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormItem.h; sourceTree = "<group>"; };
@@ -1221,6 +1225,8 @@
 				03C310511A9B5B56006B3557 /* ECSSMSActionType.m */,
 				03C310521A9B5B56006B3557 /* ECSWebActionType.h */,
 				03C310531A9B5B56006B3557 /* ECSWebActionType.m */,
+				123E26AC1B987455003DCCAD /* ECSFormSubmittedActionType.h */,
+				123E26AD1B987455003DCCAD /* ECSFormSubmittedActionType.m */,
 			);
 			name = ActionTypes;
 			sourceTree = "<group>";
@@ -1765,6 +1771,7 @@
 				0342B0701A9B60EF0009959E /* ECSMessageViewController.h in Headers */,
 				D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */,
 				0342B0281A9B60AE0009959E /* ECSTextFormItemViewController.h in Headers */,
+				123E26AE1B987455003DCCAD /* ECSFormSubmittedActionType.h in Headers */,
 				03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */,
 				039E13101A8BBACC00AD4927 /* ECSKeychainSupport.h in Headers */,
 				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
@@ -2139,6 +2146,7 @@
 				03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */,
 				0342B0471A9B60C10009959E /* ECSFeaturedTableViewCell.m in Sources */,
 				0342AFD61A9B60950009959E /* ECSWebTableViewCell.m in Sources */,
+				123E26AF1B987455003DCCAD /* ECSFormSubmittedActionType.m in Sources */,
 				0390623B1AC5C73000E006BE /* ECSChatTextMessage.m in Sources */,
 				033ACB321A602C9C0024F48F /* ECSNavigationContext.m in Sources */,
 				030F779E1A752E2F006BD8B1 /* NSBundle+ECSBundle.m in Sources */,

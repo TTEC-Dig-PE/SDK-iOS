@@ -83,6 +83,7 @@ NSString *const HZCustomerStandard = @"standard";
 
 -(void)startWorkflowWithAction:(NSString *)actionType {
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
+    [EXPERTconnect shared].surveyFormName = @"RateHorizonComm";
     [[EXPERTconnect shared] startWorkflow:@"Gwen Flow"
                                withAction:actionType
                                   delgate:self
@@ -130,6 +131,21 @@ NSString *const HZCustomerStandard = @"standard";
         }
         else if ([workflowName isEqualToString:ECSActionTypeCallbackString]) {
             return @{@"ActionType":ECSActionTypeFormString};
+        }
+    }
+    if ([workflowName isEqualToString:ECSActionTypeFormString]) {
+        if ([params valueForKey:@"formName"]) {
+            NSString *formName = [params valueForKey:@"formName"];
+            if ([formName isEqualToString:@"RateHorizonComm"]) {
+                if ([params valueForKey:@"formValue"]) {
+                    NSString *formValue = [params valueForKey:@"formValue"];
+                    if ([formValue isEqualToString:@"low"] ) {
+                        return @{@"ActionType":ECSActionTypeSelectExpertChat};
+                    }else {
+                        return @{@"ActionType":ECSActionTypeFormSubmitted};
+                    }
+                }
+            }
         }
     }
     

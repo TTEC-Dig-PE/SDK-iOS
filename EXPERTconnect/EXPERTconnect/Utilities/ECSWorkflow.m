@@ -17,6 +17,8 @@
 @property (nonatomic, weak) id <ECSWorkflowDelegate> workflowDelegate;
 @property (nonatomic, copy) NSString *workflowName;
 
+@property (nonatomic, strong) ECSWorkflowNavigation *videoNavigationManager;
+
 @end
 
 @implementation ECSWorkflow
@@ -41,6 +43,7 @@
 }
 
 - (void)end {
+    [self endVideoChat];
     [self.navigationManager dismissAllViewControllersAnimated:YES completion:nil];
 }
 
@@ -127,6 +130,48 @@
 
 - (void)minimizeButtonTapped:(id)sender {
     [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
+- (void)minimizeVideoButtonTapped:(id)sender {
+    [self.videoNavigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
+- (void)endVideoChat {
+    if (self.videoNavigationManager) {
+        [self.videoNavigationManager restoreAllViewControllersWithAnimation:NO withCompletion:^{
+            [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:nil];
+            self.videoNavigationManager = nil;
+        }];
+    }
+}
+
+
+- (void)presentVideoChatViewController:(ECSRootViewController *)viewController {
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:[self.navigationManager hostViewController]];
+    self.videoNavigationManager = navManager;
+    [navManager presentViewControllerInNavigationControllerModally:viewController
+                                                          animated:YES
+                                                        completion:nil];
+}
+
+- (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue {
+    NSDictionary *actions = nil;
+    if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
+        actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
+                                                      requestCommand:nil
+                                                       requestParams:@{@"formName":formName,
+                                                                       @"formValue":formValue}];
+        if (actions) {
+            NSString *actionType = [actions valueForKey:@"ActionType"];
+            if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
+                [self presentViewControllerForActionType:ECSActionTypeSelectExpertChat];
+            } else {
+                [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
+            }
+        } else {
+            [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
+        }
+    }
 }
 
 #pragma mark - Helper methods
