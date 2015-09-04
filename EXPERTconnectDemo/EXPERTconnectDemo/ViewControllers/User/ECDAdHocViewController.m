@@ -797,7 +797,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
-
 -(void)handleAdHocStartVideoChat
 {
     NSLog(@"Starting an ad-hoc Video Chat Session");

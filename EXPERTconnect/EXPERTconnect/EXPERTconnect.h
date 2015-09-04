@@ -110,6 +110,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
+
 /**
  Returns a view controller for an EXPERTconnect Chat session, with CafeX Video parameters.
  
@@ -119,6 +120,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
+ Returns a view controller for an EXPERTconnect Chat session, with CafeX Voice parameters.
+ 
+ @param chatSkill the Agent Chat Skill for the Chat
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Chat
+ */
+- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Voice Callback session.

@@ -173,6 +173,27 @@ static EXPERTconnect* _sharedInstance;
     return chatController;
 }
 
+- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+{
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = chatSkill;
+    chatAction.displayName = displayName;
+    chatAction.cafexmode = @"voiceauto";
+    chatAction.cafextarget = [cafeXController cafeXUsername];
+    
+    UIViewController *chatController = [self viewControllerForActionType:chatAction];
+    
+    return chatController;
+}
+
 - (UIViewController*)startVoiceCallback:(NSString*)callSkill withDisplayName:(NSString*)displayName
 {
     ECSCallbackActionType *cbAction = [ECSCallbackActionType new];
