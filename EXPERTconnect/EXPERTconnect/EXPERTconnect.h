@@ -70,13 +70,8 @@ FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 #pragma mark -
-//Delegate for the Host App to handle Moxtra events. This is TEMPORARY until Moxtra releases an embeddable framework.
+//Delegate for the Host App to handle events.
 @protocol ExpertConnectDelegate <NSObject>
-/**
- * Called when Expert requests a Moxtra meeting
- */
-- (void)meetRequested:(void(^)(NSString *meetID))meetStartedCallback;
-- (void)meetNeedstoEnd;
 
 @end
 

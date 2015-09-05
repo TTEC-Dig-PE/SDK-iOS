@@ -154,6 +154,15 @@
     phone.delegate = self;
 }
 
+- (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
+    NSDictionary *config = @{
+                             @"videoMode": @"none",
+                             @"acceptSelfSignedCerts": @YES,
+                             @"correlationId": target
+                             };
+    [AssistSDK startSupport: @"humanify.cloud1.cafex.com" supportParameters:config]; // TODO: Store host somewhere...
+}
+
 
 - (void)CafeXViewDidAppear {
     ACBClientPhone* phone = cafeXConnection.phone;
@@ -206,6 +215,10 @@
 }
 - (void)CafeXViewDidMinimize {
     /* no-op */
+}
+
+- (void) endCoBrowse {
+    [AssistSDK endSupport];
 }
 
 - (void) endCafeXSession {

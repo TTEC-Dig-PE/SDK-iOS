@@ -10,6 +10,7 @@
 #define EXPERTconnect_ECSCafeXController_h
 
 #import <ACBClientSDK/ACBUC.h>
+#import <AssistSDK.h>
 #import "ReachabilityManager.h"
 #import "ECSCafeXVideoViewController.h"
 #import "ECSRootViewController.h"
@@ -39,6 +40,8 @@
 - (void)setupCafeXSessionWithTask:(void (^)(void))task;
 - (void)endCafeXSession;
 - (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent;
+- (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent;
+- (void)endCoBrowse;
 
 + (void)requestCameraAccess;
 
