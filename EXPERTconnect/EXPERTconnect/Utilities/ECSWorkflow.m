@@ -59,7 +59,9 @@
     if (actions) {
         NSString *actionType = [actions valueForKey:@"ActionType"];
         if ([actionType isEqualToString:ECSRequestVideoAction] ||
-            [actionType isEqualToString:ECSRequestChatAction] || [actionType isEqualToString:ECSRequestCallbackAction]) {
+            [actionType isEqualToString:ECSRequestChatAction] ||
+            [actionType isEqualToString:ECSRequestVoiceChatAction] ||
+            [actionType isEqualToString:ECSRequestCallbackAction]) {
             __weak __typeof(self)weakSelf = self;
             [self.navigationManager displayAlertForActionType:actionType completion:^(BOOL selected) {
                 __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -104,6 +106,8 @@
         return ECSActionTypeChatString;
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         return ECSActionTypeCallbackString;
+    } else if ([actionType isEqualToString:ECSRequestVoiceChatAction]) {
+        return ECSActionTypeSelectExpertVoiceChat;
     }
     
     return ECSActionTypeSelectExpertAndChannel;

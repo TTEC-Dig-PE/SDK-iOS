@@ -237,6 +237,9 @@
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         alertTitle = @"Voice Callback";
         alertMsg = @"Please try talking to an Agent";
+    } else if ([actionType isEqualToString:ECSRequestVoiceChatAction]) {
+        alertTitle = @"Voice Chat";
+        alertMsg = @"Please try a voice chat with an Agent";
     }
     
     UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
