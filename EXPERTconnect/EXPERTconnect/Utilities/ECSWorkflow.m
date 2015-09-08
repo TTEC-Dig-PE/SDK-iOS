@@ -129,6 +129,10 @@
     [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
 }
 
+- (void)receivedUnrecognizedAction:(NSString *)action {
+    [self.workflowDelegate unrecognizedAction:action];
+}
+
 - (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue {
     NSDictionary *actions = nil;
     if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {

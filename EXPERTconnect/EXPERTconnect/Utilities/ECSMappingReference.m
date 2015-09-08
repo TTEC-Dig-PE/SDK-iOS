@@ -119,6 +119,7 @@
                withDisplayName:@"Chat"];
     }
     else {
+        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType];
         return [self viewControllerForActionType:nil];
     }
     
