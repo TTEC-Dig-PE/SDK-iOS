@@ -99,7 +99,7 @@ NSString *const HZCustomerStandard = @"standard";
         if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
             if ([params valueForKey:@"InvalidResponseCount"]) {
                 NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
-                if (count.intValue ==  1) {
+                if (count.intValue >  0) {
                         return @{@"ActionType":ECSRequestVideoAction};
                 }
             }
@@ -115,12 +115,12 @@ NSString *const HZCustomerStandard = @"standard";
              count = [params valueForKey:@"InvalidResponseCount"];
      
                 if(![lastSurveyScore isEqualToString:@"low"]) {
-                    if (count.intValue ==  3) {
+                    if (count.intValue > 0) {
                         return @{@"ActionType":ECSRequestChatAction};
                     }
                 }
                 else {
-                    if (count.intValue ==  1) {
+                    if (count.intValue >  0) {
                         return @{@"ActionType":ECSRequestVoiceChatAction};
                     }
                 }

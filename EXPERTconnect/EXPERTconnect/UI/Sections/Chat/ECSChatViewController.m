@@ -587,7 +587,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 // NK 6/17
@@ -1757,8 +1757,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     insets.bottom = bottomOffset;
     
-    self.tableView.contentInset = insets;
-    self.tableView.scrollIndicatorInsets = insets;
+//    self.tableView.contentInset = insets;
+//    self.tableView.scrollIndicatorInsets = insets;
     
     self.chatToolbarBottomConstraint.constant = bottomOffset;
 }
