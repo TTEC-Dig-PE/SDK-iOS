@@ -120,6 +120,7 @@
     }
     else
     {
+        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType.type];
         actionViewController = [ECSRootViewController createPlaceholderViewController];
     }
     
