@@ -27,7 +27,6 @@
 - (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue;
 
 - (void)endWorkFlow;
-
 - (void)minimizeButtonTapped:(id)sender;
 
 - (void)presentVideoChatViewController:(ECSRootViewController *)viewController;
@@ -38,6 +37,8 @@
 
 @protocol ECSWorkflowDelegate <NSObject>
 
+- (void)unrecognizedAction:(NSString *)action;
+
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
                                 requestParams:(NSDictionary *)params;
@@ -47,12 +48,11 @@
 @interface ECSWorkflow : NSObject <ECSWorkflowNavigationDelegate>
 
 @property (nonatomic, copy, readonly) NSString *workflowName;
-
 - (instancetype)initWithWorkflowName:(NSString *)workflowName
                     workflowDelegate:(id <ECSWorkflowDelegate>)workflowDelegate
                    navigationManager:(ECSWorkflowNavigation *)navigationManager;
 
 - (void)start;
 - (void)end;
-
+- (void)receivedUnrecognizedAction:(NSString *)action;
 @end

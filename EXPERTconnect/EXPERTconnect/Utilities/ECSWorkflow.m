@@ -136,6 +136,10 @@
     [self.navigationManager minmizeAllViewControllersWithCompletion:nil];
 }
 
+- (void)receivedUnrecognizedAction:(NSString *)action {
+    [self.workflowDelegate unrecognizedAction:action];
+}
+
 - (void)minimizeVideoButtonTapped:(id)sender {
     [self.videoNavigationManager minmizeAllViewControllersWithCompletion:nil];
 }
@@ -148,7 +152,6 @@
         }];
     }
 }
-
 
 - (void)presentVideoChatViewController:(ECSRootViewController *)viewController {
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:[self.navigationManager hostViewController]];

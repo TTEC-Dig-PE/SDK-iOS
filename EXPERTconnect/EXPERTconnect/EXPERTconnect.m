@@ -403,6 +403,10 @@ static EXPERTconnect* _sharedInstance;
     }];
 }
 
+-(void)recievedUnrecognizedAction:(NSString *)action {
+    [self.workflow receivedUnrecognizedAction:action];
+}
+
 - (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
 {
     return [ECSRootViewController ecs_viewControllerForActionType:actionType];

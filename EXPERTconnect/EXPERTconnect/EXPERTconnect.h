@@ -278,5 +278,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
+/**
+ *
+ */
+-(void)recievedUnrecognizedAction:(NSString *)action;
 @end
 

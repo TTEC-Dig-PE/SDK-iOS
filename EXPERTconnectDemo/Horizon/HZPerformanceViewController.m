@@ -90,6 +90,9 @@ NSString *const HZCustomerStandard = @"standard";
                            viewController:self];
 }
 
+-(void)unrecognizedAction:(NSString *)action {
+    
+}
 
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
