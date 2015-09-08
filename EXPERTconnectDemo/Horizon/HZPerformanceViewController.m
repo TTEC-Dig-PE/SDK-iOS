@@ -73,7 +73,7 @@ NSString *const HZCustomerStandard = @"standard";
             [self startWorkflowWithAction:ECSActionTypeSelectExpertVideo];
         }
         else {
-            [self startWorkflowWithAction:ECSActionTypeSelectExpertVoiceChat];
+            [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
         }
     }
     else {
