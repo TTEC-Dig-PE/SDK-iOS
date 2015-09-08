@@ -25,99 +25,95 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJ5-pd-93c" userLabel="Remote Video">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwQ-vF-NMn" userLabel="Preview Video">
-                                    <rect key="frame" x="430" y="20" width="150" height="150"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="150" id="2xS-Ts-xxd"/>
-                                        <constraint firstAttribute="width" constant="150" id="6ft-Lt-WAZ"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8H-7f-3pb">
-                                    <rect key="frame" x="0.0" y="530" width="600" height="70"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7l-S0-481">
-                                            <rect key="frame" x="275" y="10" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="MRM-jE-pvw"/>
-                                                <constraint firstAttribute="width" constant="50" id="rDC-47-sc3"/>
-                                            </constraints>
-                                            <state key="normal" image="icn_vidchat_end"/>
-                                            <connections>
-                                                <action selector="endVideoChatButtonPressed:" destination="-1" eventType="touchUpInside" id="sgm-Zo-IhL"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-ag-Rgb">
-                                            <rect key="frame" x="20" y="10" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="Clc-LO-gcb"/>
-                                                <constraint firstAttribute="height" constant="50" id="llK-fW-dZh"/>
-                                            </constraints>
-                                            <state key="normal" image="icn_vidchat_on"/>
-                                            <state key="selected" image="icn_vidchat_off"/>
-                                            <state key="highlighted" image="icn_vidchat_off"/>
-                                            <connections>
-                                                <action selector="videoButtonPressed:" destination="-1" eventType="touchUpInside" id="0tQ-pW-ac9"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9K-3f-LRp">
-                                            <rect key="frame" x="90" y="10" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="bgK-9B-uAP"/>
-                                                <constraint firstAttribute="height" constant="50" id="vQI-t4-2Bw"/>
-                                            </constraints>
-                                            <state key="normal" image="icn_vidchat_sound_on"/>
-                                            <state key="selected" image="icn_vidchat_sound_off"/>
-                                            <state key="highlighted" image="icn_vidchat_sound_off"/>
-                                            <connections>
-                                                <action selector="audioButtonPressed:" destination="-1" eventType="touchUpInside" id="9ot-Ks-gr7"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APS-RT-lPP">
-                                            <rect key="frame" x="530" y="10" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="GIa-up-68v"/>
-                                                <constraint firstAttribute="height" constant="50" id="f2R-pK-hUY"/>
-                                            </constraints>
-                                            <state key="normal" image="icn_vidchat_minimize"/>
-                                            <connections>
-                                                <action selector="minimizeButtonPressed:" destination="-1" eventType="touchUpInside" id="WVU-ZA-ToD"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="YEU-ag-Rgb" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="3VJ-fb-uxo"/>
-                                        <constraint firstAttribute="centerX" secondItem="V7l-S0-481" secondAttribute="centerX" id="9f7-RU-wv4"/>
-                                        <constraint firstItem="d9K-3f-LRp" firstAttribute="leading" secondItem="YEU-ag-Rgb" secondAttribute="trailing" constant="20" id="BGQ-J8-HeT"/>
-                                        <constraint firstAttribute="centerY" secondItem="V7l-S0-481" secondAttribute="centerY" id="HB8-uP-0ym"/>
-                                        <constraint firstAttribute="trailing" secondItem="APS-RT-lPP" secondAttribute="trailing" constant="20" id="IIs-Jc-HRS"/>
-                                        <constraint firstItem="APS-RT-lPP" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="JEX-FQ-IcP"/>
-                                        <constraint firstAttribute="height" constant="70" id="JF1-l7-iFm"/>
-                                        <constraint firstItem="YEU-ag-Rgb" firstAttribute="leading" secondItem="n8H-7f-3pb" secondAttribute="leading" constant="20" id="aKw-VY-lGo"/>
-                                        <constraint firstAttribute="bottom" secondItem="APS-RT-lPP" secondAttribute="bottom" constant="10" id="cUE-u5-zYu"/>
-                                        <constraint firstAttribute="bottom" secondItem="d9K-3f-LRp" secondAttribute="bottom" constant="10" id="fJ1-lT-XIA"/>
-                                        <constraint firstItem="d9K-3f-LRp" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="nal-Fu-RdY"/>
-                                        <constraint firstAttribute="bottom" secondItem="YEU-ag-Rgb" secondAttribute="bottom" constant="10" id="npp-Oa-S9g"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8H-7f-3pb">
+                            <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7l-S0-481">
+                                    <rect key="frame" x="275" y="10" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="MRM-jE-pvw"/>
+                                        <constraint firstAttribute="width" constant="50" id="rDC-47-sc3"/>
+                                    </constraints>
+                                    <state key="normal" image="icn_vidchat_end"/>
+                                    <connections>
+                                        <action selector="endVideoChatButtonPressed:" destination="-1" eventType="touchUpInside" id="sgm-Zo-IhL"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-ag-Rgb">
+                                    <rect key="frame" x="20" y="10" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="Clc-LO-gcb"/>
+                                        <constraint firstAttribute="height" constant="50" id="llK-fW-dZh"/>
+                                    </constraints>
+                                    <state key="normal" image="icn_vidchat_on"/>
+                                    <state key="selected" image="icn_vidchat_off"/>
+                                    <state key="highlighted" image="icn_vidchat_off"/>
+                                    <connections>
+                                        <action selector="videoButtonPressed:" destination="-1" eventType="touchUpInside" id="0tQ-pW-ac9"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9K-3f-LRp">
+                                    <rect key="frame" x="90" y="10" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="bgK-9B-uAP"/>
+                                        <constraint firstAttribute="height" constant="50" id="vQI-t4-2Bw"/>
+                                    </constraints>
+                                    <state key="normal" image="icn_vidchat_sound_on"/>
+                                    <state key="selected" image="icn_vidchat_sound_off"/>
+                                    <state key="highlighted" image="icn_vidchat_sound_off"/>
+                                    <connections>
+                                        <action selector="audioButtonPressed:" destination="-1" eventType="touchUpInside" id="9ot-Ks-gr7"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APS-RT-lPP">
+                                    <rect key="frame" x="530" y="10" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="GIa-up-68v"/>
+                                        <constraint firstAttribute="height" constant="50" id="f2R-pK-hUY"/>
+                                    </constraints>
+                                    <state key="normal" image="icn_vidchat_minimize"/>
+                                    <connections>
+                                        <action selector="minimizeButtonPressed:" destination="-1" eventType="touchUpInside" id="WVU-ZA-ToD"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="n8H-7f-3pb" secondAttribute="trailing" id="2VO-6w-fUV"/>
-                                <constraint firstAttribute="bottom" secondItem="n8H-7f-3pb" secondAttribute="bottom" id="Xfv-xb-D0I"/>
-                                <constraint firstAttribute="trailing" secondItem="hwQ-vF-NMn" secondAttribute="trailing" constant="20" id="Xh6-xA-ysO"/>
-                                <constraint firstItem="hwQ-vF-NMn" firstAttribute="top" secondItem="VJ5-pd-93c" secondAttribute="top" constant="20" id="dkJ-Io-V5h"/>
-                                <constraint firstItem="n8H-7f-3pb" firstAttribute="leading" secondItem="VJ5-pd-93c" secondAttribute="leading" id="xaF-br-ppQ"/>
+                                <constraint firstItem="YEU-ag-Rgb" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="3VJ-fb-uxo"/>
+                                <constraint firstAttribute="centerX" secondItem="V7l-S0-481" secondAttribute="centerX" id="9f7-RU-wv4"/>
+                                <constraint firstItem="d9K-3f-LRp" firstAttribute="leading" secondItem="YEU-ag-Rgb" secondAttribute="trailing" constant="20" id="BGQ-J8-HeT"/>
+                                <constraint firstAttribute="centerY" secondItem="V7l-S0-481" secondAttribute="centerY" id="HB8-uP-0ym"/>
+                                <constraint firstAttribute="trailing" secondItem="APS-RT-lPP" secondAttribute="trailing" constant="20" id="IIs-Jc-HRS"/>
+                                <constraint firstItem="APS-RT-lPP" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="JEX-FQ-IcP"/>
+                                <constraint firstAttribute="height" constant="70" id="JF1-l7-iFm"/>
+                                <constraint firstItem="YEU-ag-Rgb" firstAttribute="leading" secondItem="n8H-7f-3pb" secondAttribute="leading" constant="20" id="aKw-VY-lGo"/>
+                                <constraint firstAttribute="bottom" secondItem="APS-RT-lPP" secondAttribute="bottom" constant="10" id="cUE-u5-zYu"/>
+                                <constraint firstAttribute="bottom" secondItem="d9K-3f-LRp" secondAttribute="bottom" constant="10" id="fJ1-lT-XIA"/>
+                                <constraint firstItem="d9K-3f-LRp" firstAttribute="top" secondItem="n8H-7f-3pb" secondAttribute="top" constant="10" id="nal-Fu-RdY"/>
+                                <constraint firstAttribute="bottom" secondItem="YEU-ag-Rgb" secondAttribute="bottom" constant="10" id="npp-Oa-S9g"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwQ-vF-NMn" userLabel="Preview Video">
+                            <rect key="frame" x="430" y="20" width="150" height="150"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="2xS-Ts-xxd"/>
+                                <constraint firstAttribute="width" constant="150" id="6ft-Lt-WAZ"/>
                             </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="n8H-7f-3pb" secondAttribute="trailing" id="3Pi-lx-im4"/>
                         <constraint firstItem="VJ5-pd-93c" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" id="4eq-T1-bWn"/>
+                        <constraint firstAttribute="trailing" secondItem="hwQ-vF-NMn" secondAttribute="trailing" constant="20" id="ClU-oH-GSz"/>
                         <constraint firstAttribute="trailing" secondItem="VJ5-pd-93c" secondAttribute="trailing" id="FSh-tB-Dla"/>
                         <constraint firstAttribute="bottom" secondItem="VJ5-pd-93c" secondAttribute="bottom" id="YbG-us-aIr"/>
+                        <constraint firstAttribute="bottom" secondItem="n8H-7f-3pb" secondAttribute="bottom" id="but-XR-Hk0"/>
+                        <constraint firstItem="n8H-7f-3pb" firstAttribute="leading" secondItem="ego-20-3zE" secondAttribute="leading" id="d7L-pd-Zcs"/>
+                        <constraint firstItem="hwQ-vF-NMn" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" constant="20" id="qrk-Ed-fkK"/>
                         <constraint firstItem="VJ5-pd-93c" firstAttribute="leading" secondItem="ego-20-3zE" secondAttribute="leading" id="wSQ-Fz-8JT"/>
                     </constraints>
                 </view>

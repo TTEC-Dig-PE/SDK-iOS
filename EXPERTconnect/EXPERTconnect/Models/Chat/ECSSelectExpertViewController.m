@@ -112,57 +112,22 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSDictionary *expert = self.experts[indexPath.row];
-//    ECSChatActionType *actionType = [ECSChatActionType new];
-//    actionType.actionId = self.actionType.actionId;
-//    actionType.agentId = expert[@"agentId"];
-//    actionType.agentSkill = expert[@"agentSkill"];
-//     
-//     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
-//     
-//    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
-//    if (agent.length > 0) {
-//        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
-//        actionType.agentSkill =  skill;
-//        actionType.agentId = agent;
-//    }
-//    
-//    [self handleAction:actionType];
-//    
-    
-    /*
-     
-     // Use this code instead of the above block to force a video chat.
-     // Change the line cafexmode = to try the other modes.
-    
-    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-    
-    // Do a login if there's no session:
-    if (![cafeXController hasCafeXSession]) {
-        [cafeXController setupCafeXSession];
-    }
-    
     NSDictionary *expert = self.experts[indexPath.row];
-    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
     actionType.agentId = expert[@"agentId"];
     actionType.agentSkill = expert[@"agentSkill"];
-    actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
-    actionType.cafextarget = [cafeXController cafeXUsername];
     
-    // DEBUG CODE: This only occurs if there's an "override" agent set in the 
-    // Debug menu. Safe to leave.
-     
+     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
+    
     NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
     if (agent.length > 0) {
         NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
         actionType.agentSkill =  skill;
         actionType.agentId = agent;
     }
-     
+    
     [self handleAction:actionType];
-
-    // END NATHAN CHANGES */
 }
 
 - (BOOL)handleAction:(ECSActionType *)actionType
@@ -221,15 +186,61 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (void)videoPressed {
-    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
-    cafeXVideoViewController.workflowDelegate = self.workflowDelegate;
-    [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
+    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
+    actionType.cafextarget = [cafeXController cafeXUsername];
+    
+    // DEBUG CODE: This only occurs if there's an "override" agent set in the
+    // Debug menu. Safe to leave.
+    
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    
+    [self handleAction:actionType];
 }
 
 - (void)voiceChatPressed {
-    ECSCafeXVideoViewController *cafeXVideoViewController = [ECSCafeXVideoViewController ecs_loadFromNib];
-    cafeXVideoViewController.workflowDelegate = self.workflowDelegate;
-    [self.navigationController pushViewController:cafeXVideoViewController animated:YES];
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
+    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.cafexmode = @"voiceauto"; // @"voicecapable,videocapable,cobrowsecapable";
+    actionType.cafextarget = [cafeXController cafeXUsername];
+    
+    // DEBUG CODE: This only occurs if there's an "override" agent set in the
+    // Debug menu. Safe to leave.
+    
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    
+    [self handleAction:actionType];
 }
 
 - (void)callBackPressed {

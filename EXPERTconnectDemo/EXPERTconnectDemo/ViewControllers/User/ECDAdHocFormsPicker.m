@@ -19,15 +19,17 @@ static NSString *const lastFormSelected = @"lastFormSelected";
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
 
     [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error) {
-        for(NSString *formName in formNames)  {
-            [formsArray addObject:formName];
+        if (error == nil) {
+            for(NSString *formName in formNames)  {
+                [formsArray addObject:formName];
+            }
+            
+            int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
+            
+            [super setup:formsArray withSelection:rowToSelect];
+            
+            [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
         }
-        
-        int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
-        
-        [super setup:formsArray withSelection:rowToSelect];
-        
-        [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
     }];
 }
 

@@ -10,6 +10,8 @@
 
 #import "ECSCafeXVideoViewController.h"
 
+#import "ECSVideoChatActionType.h"
+
 @interface ECSCafeXVideoViewController()
 
 @property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
@@ -25,23 +27,16 @@
     [super viewDidLoad];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.delegate CafeXViewDidAppear];
-}
 
-- (void)displayVoiceCallBackEndAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Session ended"
-                                                                             message:@"Please answer a few questions so we can serve you better!"
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [alertController dismissViewControllerAnimated:YES completion:nil];
-        [self.workflowDelegate disconnectedFromVideoChat];
-    }];
-    
-    [alertController addAction:alertActionStop];
-    [self presentViewController:alertController animated:YES completion:nil];
+    ECSVideoChatActionType *action = (ECSVideoChatActionType *)self.actionType;
+    if([action.cafexmode isEqualToString:@"voiceauto"]) {
+        [self.videoButton setSelected:YES];
+        [self.videoButton setEnabled:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,21 +50,29 @@
 
 - (IBAction)minimizeButtonPressed:(id)sender {
     if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
-        [self.workflowDelegate minimizeButtonTapped:sender];
+        [self.workflowDelegate minimizeVideoButtonTapped:sender];
     }
+    
+    [self.delegate CafeXViewDidMinimize];
 }
 
 - (IBAction)videoButtonPressed:(id)sender {
     [self.videoButton setSelected:([self.videoButton isSelected] == NO)];
+    
+    [self.delegate CafeXViewDidHideVideo:[self.videoButton isSelected]];
 }
 
 - (IBAction)audioButtonPressed:(id)sender {
     [self.audioButton setSelected:([self.audioButton isSelected] == NO)];
+    
+    [self.delegate CafeXViewDidMuteAudio:[self.audioButton isSelected]];
 }
 
 - (IBAction)endVideoChatButtonPressed:(id)sender {
-    //TODO: Need to handle this Video Call end notification as well
-    [self displayVoiceCallBackEndAlert];
+    // No need to display an alert here, since the Chat is still going on, even if Video ends.
+    
+    [self.delegate CafexViewDidEndVideo];
+    [self.workflowDelegate endVideoChat];
 }
 
 @end

@@ -38,16 +38,16 @@ NSString *const HZCustomerStandard = @"standard";
 
 - (NSString *)getSkillTypeForMap{
     NSString *customerStatus = [EXPERTconnect shared].customerType;
-    NSString *customerType = [EXPERTconnect shared].treatmentType;
+  //  NSString *customerType = [EXPERTconnect shared].treatmentType;
     
     if ([customerStatus isEqualToString:HZNewCustomer]) {
-        if ([customerType isEqualToString:HZCustomerConcierge]) {
+        if ([[EXPERTconnect shared].treatmentType isEqualToString:HZCustomerConcierge]) {
             return @"Calls for frank_horizon";
         }
     }
     
     if ([customerStatus isEqualToString:HZExistingCustomer]) {
-        if ([customerType isEqualToString:HZCustomerStandard]) {
+        if ([[EXPERTconnect shared].treatmentType isEqualToString:HZCustomerStandard]) {
             return @"communications";
         }
     }
@@ -124,7 +124,7 @@ NSString *const HZCustomerStandard = @"standard";
                 }
                 else {
                     if (count.intValue ==  1) {
-                        return @{@"ActionType":ECSRequestCallbackAction};
+                        return @{@"ActionType":ECSRequestVoiceChatAction};
                     }
                 }
             }

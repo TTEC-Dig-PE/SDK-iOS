@@ -25,7 +25,6 @@
 
 @interface ECSWorkflowNavigation ()
 
-@property (nonatomic, weak) UIViewController *hostViewController;
 @property (nonatomic, strong) ECSViewControllerStack *modalStack;
 
 @property (nonatomic, strong) UINavigationController *navigationController;
@@ -238,6 +237,9 @@
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         alertTitle = @"Voice Callback";
         alertMsg = @"Please try talking to an Agent";
+    } else if ([actionType isEqualToString:ECSRequestVoiceChatAction]) {
+        alertTitle = @"Voice Chat";
+        alertMsg = @"Please try a voice chat with an Agent";
     }
     
     UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
@@ -313,30 +315,38 @@
 //    [self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
 }
 
-- (void)restoreAllViewControllersWithCompletion:(completionBlock)completion {
+- (void)restoreAllViewControllersWithAnimation:(BOOL)animate withCompletion:(completionBlock)completion {
     
-    // animate out
-    CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
-    CGSize modalSize = [self modalSize];
-    
-    [UIView
-     animateWithDuration: [self modalAnimationDuration]
-     animations:^{
-         [self.dimmingOverlay setAlpha:dimmingAlpha];
-         self.minimizedButton.frame = CGRectMake(0, 0, modalSize.width, modalSize.height);
-         self.minimizedButton.center = self.containerView.center;
-     }
-     completion:^(BOOL finished) {
-         [self.containerView setAlpha:1.0];
-         [self.minimizedButton removeFromSuperview];
-         self.minimizedButton = nil;
-         
-         if (completion) completion();
-     }];
+    if (animate) {
+        // animate out
+        CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
+        CGSize modalSize = [self modalSize];
+        
+        [UIView
+         animateWithDuration: [self modalAnimationDuration]
+         animations:^{
+             [self.dimmingOverlay setAlpha:dimmingAlpha];
+             self.minimizedButton.frame = CGRectMake(0, 0, modalSize.width, modalSize.height);
+             self.minimizedButton.center = self.containerView.center;
+         }
+         completion:^(BOOL finished) {
+             [self.containerView setAlpha:1.0];
+             [self.minimizedButton removeFromSuperview];
+             self.minimizedButton = nil;
+             
+             if (completion) completion();
+         }];
+    } else {
+        [self.minimizedButton removeFromSuperview];
+        self.minimizedButton = nil;
+        
+        if (completion) completion();
+    }
+  
 }
 
 - (void)maxmimizeButtonTapped:(id)sender {
-    [self restoreAllViewControllersWithCompletion:nil];
+    [self restoreAllViewControllersWithAnimation:YES withCompletion:nil];
 }
 
 - (CGPoint)minimizePosition {

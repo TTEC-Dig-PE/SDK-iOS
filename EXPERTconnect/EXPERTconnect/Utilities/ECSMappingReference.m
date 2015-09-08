@@ -89,6 +89,9 @@
     else if([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
         return [self startSelectExpertVideo];
     }
+    else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceChat]) {
+        return [self startSelectExpertVoiceChat];
+    }
     else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]) {
         return [self startSelectExpertVoiceCallBack];
     }
@@ -282,6 +285,17 @@
     expertAction.type = ECSActionTypeSelectExpertVideo;
     expertAction.actionId = @"";
     expertAction.displayName = @"Video chat with an Expert";
+    
+    ECSRootViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (ECSRootViewController *)startSelectExpertVoiceChat {
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertVoiceChat;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Voice chat with an Expert";
     
     ECSRootViewController *expertController = [self viewControllerForActionType:expertAction];
     

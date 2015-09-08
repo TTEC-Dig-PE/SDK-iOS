@@ -17,6 +17,8 @@
 @property (nonatomic, weak) id <ECSWorkflowDelegate> workflowDelegate;
 @property (nonatomic, copy) NSString *workflowName;
 
+@property (nonatomic, strong) ECSWorkflowNavigation *videoNavigationManager;
+
 @end
 
 @implementation ECSWorkflow
@@ -41,6 +43,7 @@
 }
 
 - (void)end {
+    [self endVideoChat];
     [self.navigationManager dismissAllViewControllersAnimated:YES completion:nil];
 }
 
@@ -56,7 +59,9 @@
     if (actions) {
         NSString *actionType = [actions valueForKey:@"ActionType"];
         if ([actionType isEqualToString:ECSRequestVideoAction] ||
-            [actionType isEqualToString:ECSRequestChatAction] || [actionType isEqualToString:ECSRequestCallbackAction]) {
+            [actionType isEqualToString:ECSRequestChatAction] ||
+            [actionType isEqualToString:ECSRequestVoiceChatAction] ||
+            [actionType isEqualToString:ECSRequestCallbackAction]) {
             __weak __typeof(self)weakSelf = self;
             [self.navigationManager displayAlertForActionType:actionType completion:^(BOOL selected) {
                 __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -101,6 +106,8 @@
         return ECSActionTypeChatString;
     } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
         return ECSActionTypeCallbackString;
+    } else if ([actionType isEqualToString:ECSRequestVoiceChatAction]) {
+        return ECSActionTypeSelectExpertVoiceChat;
     }
     
     return ECSActionTypeSelectExpertAndChannel;
@@ -131,6 +138,27 @@
 
 - (void)receivedUnrecognizedAction:(NSString *)action {
     [self.workflowDelegate unrecognizedAction:action];
+}
+
+- (void)minimizeVideoButtonTapped:(id)sender {
+    [self.videoNavigationManager minmizeAllViewControllersWithCompletion:nil];
+}
+
+- (void)endVideoChat {
+    if (self.videoNavigationManager) {
+        [self.videoNavigationManager restoreAllViewControllersWithAnimation:NO withCompletion:^{
+            [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:nil];
+            self.videoNavigationManager = nil;
+        }];
+    }
+}
+
+- (void)presentVideoChatViewController:(ECSRootViewController *)viewController {
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:[self.navigationManager hostViewController]];
+    self.videoNavigationManager = navManager;
+    [navManager presentViewControllerInNavigationControllerModally:viewController
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 - (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue {

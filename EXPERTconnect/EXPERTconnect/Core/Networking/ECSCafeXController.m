@@ -145,10 +145,22 @@
     
     _cafeXVideoViewController.delegate = self;
     
-    [parent presentModal:_cafeXVideoViewController withParentNavigationController:parent.navigationController];
+    _defaultParent = parent;
+    
+    _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
+    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
+}
+
+- (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
+    NSDictionary *config = @{
+                             @"videoMode": @"none",
+                             @"acceptSelfSignedCerts": @YES,
+                             @"correlationId": target
+                             };
+    [AssistSDK startSupport: @"humanify.cloud1.cafex.com" supportParameters:config]; // TODO: Store host somewhere...
 }
 
 
@@ -185,6 +197,29 @@
     }
 }
 
+- (void)CafeXViewDidMuteAudio:(BOOL)muted {
+    [_savedCall enableLocalAudio:!muted];
+}
+- (void)CafeXViewDidHideVideo:(BOOL)hidden {
+    [_savedCall enableLocalVideo:!hidden];
+}
+- (void)CafexViewDidEndVideo {
+    if (_savedCall != nil) {
+        [_savedCall end];
+        _savedCall = nil;
+    }
+    
+//    if (_defaultParent != nil) {
+//        [_defaultParent dismissViewControllerAnimated:YES completion:nil];
+//    }
+}
+- (void)CafeXViewDidMinimize {
+    /* no-op */
+}
+
+- (void) endCoBrowse {
+    [AssistSDK endSupport];
+}
 
 - (void) endCafeXSession {
     NSLog(@"CafeX Starting logout - Server %@ Configuration %@", server, configuration);
@@ -276,7 +311,9 @@
     
     _cafeXVideoViewController.delegate = self;
     
-    [_defaultParent presentModal:_cafeXVideoViewController withParentNavigationController:_defaultParent.navigationController];
+    _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
+    
+    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     phone.delegate = self;
     
@@ -288,6 +325,7 @@
     {
         NSLog(@"Call is null on didReceiveCall!");
     }
+    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message

@@ -17,6 +17,10 @@
 
 - (void)CafeXViewDidAppear;
 - (void)CafeXViewDidUnload;
+- (void)CafeXViewDidMuteAudio:(BOOL)muted;
+- (void)CafeXViewDidHideVideo:(BOOL)hidden;
+- (void)CafexViewDidEndVideo;
+- (void)CafeXViewDidMinimize;
 
 @end
 
