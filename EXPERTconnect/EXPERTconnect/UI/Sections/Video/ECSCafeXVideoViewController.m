@@ -10,6 +10,8 @@
 
 #import "ECSCafeXVideoViewController.h"
 
+#import "ECSVideoChatActionType.h"
+
 @interface ECSCafeXVideoViewController()
 
 @property (weak, nonatomic) IBOutlet UIButton *minimizeButton;
@@ -28,6 +30,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.delegate CafeXViewDidAppear];
+
+    
+    ECSVideoChatActionType *action = (ECSVideoChatActionType *)self.actionType;
+    if([action.cafexmode isEqualToString:@"voiceauto"]) {
+        [self.videoButton setSelected:YES];
+        [self.videoButton setEnabled:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
