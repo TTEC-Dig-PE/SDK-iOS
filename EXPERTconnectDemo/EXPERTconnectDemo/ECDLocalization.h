@@ -23,6 +23,7 @@ static NSString* const ECDLocalizedLoginButton = @"ECDLocalizedLoginButton";
 static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton";
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
+static NSString* const ECDLocalizedVoiceItHeader = @"ECDLocalizedVoiceItHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
 static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";

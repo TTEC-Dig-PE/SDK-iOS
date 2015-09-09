@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionVersion,
     SettingsSectionEnvironment,
     SettingsSectionRunMode,
+    SettingsSectionVoiceIt,
     SettingsSectionCount
 };
 
@@ -44,6 +45,15 @@ typedef NS_ENUM(NSInteger, EnvironmentSectionRows)
     EnvironmentSectionRowLicenses,
     EnvironmentSectionRowCount
 };
+
+typedef NS_ENUM(NSInteger, VoiceItSectionRows)
+{
+    VoiceItSectionRowRecord,
+    VoiceItSectionRowReset,
+    VoiceItSectionRowAuthenticate,
+    VoiceItSectionRowCount
+};
+
 
 typedef NS_ENUM(NSInteger, RunModeSectionRows)
 {
@@ -88,7 +98,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     
     self.tableView.sectionHeaderHeight = 42.0f;
     self.tableView.sectionFooterHeight = 0.0f;
-    
+
     self.pushNotificationSwitch = [UISwitch new];
     self.pushNotificationSwitch.on = [[UAPush shared] userPushNotificationsEnabled];
     [self.pushNotificationSwitch addTarget:self
@@ -165,6 +175,11 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionRunMode:
             rowCount = RunModeSectionRowCount;
             break;
+            
+        case SettingsSectionVoiceIt:
+            rowCount = VoiceItSectionRowCount;
+            break;
+            
         default:
             break;
     }
@@ -236,6 +251,29 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
             }
             break;
             
+            
+        case SettingsSectionVoiceIt:
+            switch (indexPath.row) {
+                case VoiceItSectionRowAuthenticate:
+                    cell.textLabel.text = @"Authenticate with VoiceIt";
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    break;
+                    
+                case VoiceItSectionRowRecord:
+                    cell.textLabel.text = @"Record Voice Print";
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    break;
+                    
+                case VoiceItSectionRowReset:
+                    cell.textLabel.text = @"Clear All Voice Prints";
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -248,6 +286,12 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     {
         ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:license animated:YES];
+    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowAuthenticate) {
+        [self voiceItAuthenticate:nil];
+    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowRecord) {
+        [self voiceItRecord:nil];
+    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowReset) {
+        [self voiceItReset:nil];
     }
 }
 
@@ -288,6 +332,14 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         }
             break;
             
+        case SettingsSectionVoiceIt:
+        {
+            NSString *versionString = ECDLocalizedString(ECDLocalizedVoiceItHeader, @"Version");
+            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+            title = versionString;
+        }
+            break;
+            
         default:
             break;
     }
@@ -320,6 +372,26 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
                                                           [[EXPERTconnect shared] setUserToken:nil];
                                                       }]];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)voiceItAuthenticate:(id)sender
+{
+    [[EXPERTconnect shared] voiceAuthRequested:^(NSString *response) {
+        // Alert Agent to the response:
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
+        [alert show];
+    }];
+
+}
+
+- (void)voiceItRecord:(id)sender
+{
+    [[EXPERTconnect shared] recordNewEnrollment];
+}
+
+- (void)voiceItReset:(id)sender
+{
+    [[EXPERTconnect shared] clearEnrollments];
 }
 
 - (void)pushNotificationSwitchChanged:(id)sender

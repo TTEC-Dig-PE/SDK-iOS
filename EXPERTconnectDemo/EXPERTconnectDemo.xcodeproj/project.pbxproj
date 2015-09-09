@@ -454,6 +454,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87F2F711B6835A400B7B9D5 /* MediaPlayer.framework in Frameworks */,
 				D81614EC1B7916D7005BD20E /* libxml2.dylib in Frameworks */,
 				D87F2F6B1B6835A400B7B9D5 /* CoreText.framework in Frameworks */,
 				D87F2F671B6835A400B7B9D5 /* CoreImage.framework in Frameworks */,
@@ -481,7 +482,6 @@
 				D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */,
 				D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */,
 				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
-				D87F2F711B6835A400B7B9D5 /* MediaPlayer.framework in Frameworks */,
 				D87F2F721B6835A400B7B9D5 /* MessageUI.framework in Frameworks */,
 				D87F2F731B6835A400B7B9D5 /* MobileCoreServices.framework in Frameworks */,
 				D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */,

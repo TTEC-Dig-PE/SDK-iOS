@@ -42,6 +42,9 @@
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "(ES) Select Environment";
 
+/* VoiceIt Header */
+"ECDLocalizedVoiceItHeader" = "(ES) VoiceIt Utilities";
+
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "(ES) Select Runtime Application";
 

@@ -434,6 +434,8 @@
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
 		D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */; };
 		D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; };
+		D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */; };
+		D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -877,6 +879,8 @@
 		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
 		D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatVoiceAuthenticationMessage.m; path = Chat/ECSChatVoiceAuthenticationMessage.m; sourceTree = "<group>"; };
 		D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAssistSDK.a; path = ThirdParty/libAssistSDK.a; sourceTree = "<group>"; };
+		D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beforeenrollment.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1145,6 +1149,8 @@
 		03978EE51A602AEF007793D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */,
+				D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */,
 				03978EE61A602AEF007793D6 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1933,6 +1939,7 @@
 				035C4C0C1A9B7E900016BCE8 /* ECSFormSubmittedViewController.xib in Resources */,
 				0342B04E1A9B60C10009959E /* ECSSectionHeader.xib in Resources */,
 				0342B0751A9B60EF0009959E /* ECSPhotoViewController.xib in Resources */,
+				D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */,
 				0342AFBC1A9B60840009959E /* ECSCallbackViewController.xib in Resources */,
 				0342AFB31A9B60700009959E /* ECSAnswerViewController.xib in Resources */,
 				0342B01F1A9B60AE0009959E /* ECSTextFormItemViewController.xib in Resources */,
@@ -1946,6 +1953,7 @@
 				0342AFA41A9B60700009959E /* ECSPullDownView.xib in Resources */,
 				D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */,
 				03101F2A1AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.xib in Resources */,
+				D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */,
 				0342B0261A9B60AE0009959E /* ECSSliderFormItemViewController.xib in Resources */,
 				0342B0181A9B60AE0009959E /* ECSRatingFormItemViewController.xib in Resources */,
 				0342B0101A9B60AE0009959E /* ECSRadioTableViewCell.xib in Resources */,
