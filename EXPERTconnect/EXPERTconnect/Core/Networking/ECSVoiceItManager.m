@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ECSVoiceItNetHelper.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "NSBundle+ECSBundle.h"
 
 @interface ECSVoiceItManager ()
 
@@ -41,10 +42,9 @@
     
     username = user;
     
-    NSString * resPath = [[NSBundle mainBundle] resourcePath];
-    NSString * beepFilePath = [resPath stringByAppendingString:@"/beep.wav"];
-    NSString * beforeEnrollFilePath = [resPath stringByAppendingString:@"/beforeenrollment.wav"];
-    
+    NSString *beepFilePath = [[NSBundle ecs_bundle] pathForResource:@"beep" ofType:@"wav"];
+    NSString *beforeEnrollFilePath = [[NSBundle ecs_bundle] pathForResource:@"beforeenrollment" ofType:@"wav"];
+
     beepFile = [NSURL fileURLWithPath:beepFilePath];
     beforeEnrollFile = [NSURL fileURLWithPath:beforeEnrollFilePath];
     
@@ -266,9 +266,9 @@
 - (void)startRecordAndShowAlert:(NSTimer *) timer {
     UIAlertView * alertView = nil;
     if ([[timer userInfo] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'I love to sing songs in the shower'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     } else {
-        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'I love to sing songs in the shower'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

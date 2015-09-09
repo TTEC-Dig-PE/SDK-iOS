@@ -54,6 +54,9 @@ NSString *const HZCustomerStandard = @"standard";
     
     return nil;
 }
+- (IBAction)recordVoiceAuth:(id)sender {
+    [[EXPERTconnect shared]recordNewEnrollment];
+}
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
     customerTreatmentType = [EXPERTconnect shared].treatmentType;
