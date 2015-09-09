@@ -266,9 +266,9 @@
 - (void)startRecordAndShowAlert:(NSTimer *) timer {
     UIAlertView * alertView = nil;
     if ([[timer userInfo] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'I love to sing songs in the shower'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     } else {
-        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'I love to sing songs in the shower'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

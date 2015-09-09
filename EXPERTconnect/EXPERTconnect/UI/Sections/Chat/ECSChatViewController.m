@@ -202,11 +202,6 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                                                 target:self
                                                                                 action:@selector(backButtonPressed:)];
     }
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(minimizeButtonPressed:)];
 }
 
 - (void)registerTableViewCells {
@@ -270,6 +265,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)dealloc
 {
     self.tableView.delegate = nil;
+    self.workflowDelegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -983,6 +979,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         } completion:^(BOOL finished) {
             [self.waitView removeFromSuperview];
             self.waitView = nil;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(minimizeButtonPressed:)];
         }];
     }
 
