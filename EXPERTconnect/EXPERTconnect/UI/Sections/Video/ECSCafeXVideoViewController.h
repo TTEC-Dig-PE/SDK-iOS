@@ -30,6 +30,10 @@
 @property (weak, nonatomic) IBOutlet UIView *remoteVideoView;
 @property (weak, nonatomic) id<CafeXVideoViewDelegate> delegate;
 
+- (void) configWithVideo:(BOOL)showVideo andAudio:(BOOL)showAudio;
+- (void) hideVideoPanels:(BOOL)hidden;
+- (void) didHideRemoteVideo:(BOOL)hidden;
+
 @end
 
 #endif

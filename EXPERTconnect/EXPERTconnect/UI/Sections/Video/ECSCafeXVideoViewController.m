@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *endVideoChatButton;
 @property (weak, nonatomic) IBOutlet UIButton *audioButton;
 @property (weak, nonatomic) IBOutlet UIButton *videoButton;
+@property (weak, nonatomic) IBOutlet UIImageView *smallSilhouette;
+@property (weak, nonatomic) IBOutlet UIImageView *largeSilhouette;
 
 @end
 
@@ -27,15 +29,30 @@
     [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.delegate CafeXViewDidAppear];
 
+    [self.largeSilhouette setHidden:YES];
+    [self.smallSilhouette setHidden:YES];
     
     ECSVideoChatActionType *action = (ECSVideoChatActionType *)self.actionType;
     if([action.cafexmode isEqualToString:@"voiceauto"]) {
         [self.videoButton setSelected:YES];
-        [self.videoButton setEnabled:NO];
+        [self.videoButton setHidden:YES];
+        
+        [self.largeSilhouette setHidden:NO];
+        [self.smallSilhouette setHidden:NO];
+    }
+}
+
+- (void) configWithVideo:(BOOL)showVideo andAudio:(BOOL)showAudio {
+    if (!showVideo) { // audio call
+        [self.videoButton setSelected:YES];
+        [self.videoButton setHidden:YES];
+        
+        [self.largeSilhouette setHidden:NO];
+        [self.smallSilhouette setHidden:NO];
     }
 }
 
@@ -44,6 +61,17 @@
     // Dispose of any resources that can be recreated.
     
     [self.delegate CafeXViewDidUnload];
+}
+
+- (void) hideVideoPanels:(BOOL)hidden {
+    [self.smallSilhouette setHidden:!hidden]; // video is hidden, so SHOW the silhouette to cover it.
+}
+- (void) didHideRemoteVideo:(BOOL)hidden; {
+    [self.largeSilhouette setHidden:!hidden]; // video is hidden, so SHOW the silhouette to cover it.
+    
+    if (!hidden && [self.videoButton isHidden]) { // agent-initiated escalate to video
+        [self.videoButton setHidden:NO];
+    }
 }
 
 #pragma mark - Action Methods
@@ -59,13 +87,13 @@
 - (IBAction)videoButtonPressed:(id)sender {
     [self.videoButton setSelected:([self.videoButton isSelected] == NO)];
     
-    [self.delegate CafeXViewDidHideVideo:[self.videoButton isSelected]];
+    [self.delegate CafeXViewDidHideVideo:[self.videoButton isSelected]];  // Selected means Off. Why? Dunno.
 }
 
 - (IBAction)audioButtonPressed:(id)sender {
     [self.audioButton setSelected:([self.audioButton isSelected] == NO)];
     
-    [self.delegate CafeXViewDidMuteAudio:[self.audioButton isSelected]];
+    [self.delegate CafeXViewDidMuteAudio:[self.audioButton isSelected]];  // Selected means Off. Why? Dunno.
 }
 
 - (IBAction)endVideoChatButtonPressed:(id)sender {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -8,9 +8,11 @@
             <connections>
                 <outlet property="audioButton" destination="d9K-3f-LRp" id="B6M-fC-U2b"/>
                 <outlet property="endVideoChatButton" destination="V7l-S0-481" id="A3h-fH-Znl"/>
+                <outlet property="largeSilhouette" destination="Ndw-c1-JZi" id="XXq-7O-vAM"/>
                 <outlet property="minimizeButton" destination="APS-RT-lPP" id="mzh-WQ-Dsc"/>
                 <outlet property="previewVideoView" destination="hwQ-vF-NMn" id="jbi-TU-jsS"/>
                 <outlet property="remoteVideoView" destination="VJ5-pd-93c" id="EFO-nv-joe"/>
+                <outlet property="smallSilhouette" destination="fOE-Pu-V54" id="Blu-TS-6O9"/>
                 <outlet property="videoButton" destination="YEU-ag-Rgb" id="iSP-n7-IVW"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bet-TQ-yL3"/>
             </connections>
@@ -103,16 +105,32 @@
                                 <constraint firstAttribute="width" constant="150" id="6ft-Lt-WAZ"/>
                             </constraints>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silhouette" translatesAutoresizingMaskIntoConstraints="NO" id="Ndw-c1-JZi" userLabel="silhouette-large">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silhouette" translatesAutoresizingMaskIntoConstraints="NO" id="fOE-Pu-V54" userLabel="silhouette-small">
+                            <rect key="frame" x="430" y="20" width="150" height="150"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="3gs-iW-Z9q"/>
+                                <constraint firstAttribute="height" constant="150" id="Msa-9H-s9U"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="n8H-7f-3pb" secondAttribute="trailing" id="3Pi-lx-im4"/>
                         <constraint firstItem="VJ5-pd-93c" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" id="4eq-T1-bWn"/>
+                        <constraint firstAttribute="trailing" secondItem="fOE-Pu-V54" secondAttribute="trailing" constant="20" id="7VI-hu-pu0"/>
+                        <constraint firstItem="Ndw-c1-JZi" firstAttribute="leading" secondItem="ego-20-3zE" secondAttribute="leading" id="Ajf-Vf-PHB"/>
                         <constraint firstAttribute="trailing" secondItem="hwQ-vF-NMn" secondAttribute="trailing" constant="20" id="ClU-oH-GSz"/>
                         <constraint firstAttribute="trailing" secondItem="VJ5-pd-93c" secondAttribute="trailing" id="FSh-tB-Dla"/>
+                        <constraint firstItem="fOE-Pu-V54" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" constant="20" id="Kcz-13-l0q"/>
                         <constraint firstAttribute="bottom" secondItem="VJ5-pd-93c" secondAttribute="bottom" id="YbG-us-aIr"/>
                         <constraint firstAttribute="bottom" secondItem="n8H-7f-3pb" secondAttribute="bottom" id="but-XR-Hk0"/>
                         <constraint firstItem="n8H-7f-3pb" firstAttribute="leading" secondItem="ego-20-3zE" secondAttribute="leading" id="d7L-pd-Zcs"/>
+                        <constraint firstAttribute="trailing" secondItem="Ndw-c1-JZi" secondAttribute="trailing" id="mF7-qu-hIp"/>
+                        <constraint firstItem="Ndw-c1-JZi" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" id="oAA-Fz-ABz"/>
+                        <constraint firstAttribute="bottom" secondItem="Ndw-c1-JZi" secondAttribute="bottom" id="p4S-ec-aZb"/>
                         <constraint firstItem="hwQ-vF-NMn" firstAttribute="top" secondItem="ego-20-3zE" secondAttribute="top" constant="20" id="qrk-Ed-fkK"/>
                         <constraint firstItem="VJ5-pd-93c" firstAttribute="leading" secondItem="ego-20-3zE" secondAttribute="leading" id="wSQ-Fz-8JT"/>
                     </constraints>
@@ -134,5 +152,6 @@
         <image name="icn_vidchat_on" width="40" height="40"/>
         <image name="icn_vidchat_sound_off" width="40" height="40"/>
         <image name="icn_vidchat_sound_on" width="40" height="40"/>
+        <image name="silhouette" width="400" height="518"/>
     </resources>
 </document>

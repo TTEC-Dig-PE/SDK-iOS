@@ -202,6 +202,8 @@
 }
 - (void)CafeXViewDidHideVideo:(BOOL)hidden {
     [_savedCall enableLocalVideo:!hidden];
+    
+    [_cafeXVideoViewController hideVideoPanels:hidden];
 }
 - (void)CafexViewDidEndVideo {
     if (_savedCall != nil) {
@@ -313,6 +315,8 @@
     
     _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
     
+    [_cafeXVideoViewController configWithVideo:[call hasRemoteVideo] andAudio:YES];
+    
     //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     phone.delegate = self;
@@ -381,6 +385,10 @@
             NSLog(@"CALL IS STATUS: TIMED OUT");
             break;
     }
+}
+
+- (void)callDidReceiveMediaChangeRequest:(ACBClientCall *)call {
+    [_cafeXVideoViewController didHideRemoteVideo: ![call hasRemoteVideo]];
 }
 
 #pragma mark - Reachability
