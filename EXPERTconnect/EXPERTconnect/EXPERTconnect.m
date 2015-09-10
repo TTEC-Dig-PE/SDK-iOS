@@ -343,13 +343,13 @@ static EXPERTconnect* _sharedInstance;
     return expertController;
 }
 
-- (void)voiceAuthRequested:(void (^)(NSString *))authCallback {
+- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
     // VoiceIT SDK. Call callback with response.
     ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
     if ([voiceItManager isInitialized]) {
         [voiceItManager authenticateAction:authCallback];
     } else {
-        [voiceItManager configure:[self userToken]];
+        [voiceItManager configure:username];
         [voiceItManager authenticateAction:authCallback];
     }
 }

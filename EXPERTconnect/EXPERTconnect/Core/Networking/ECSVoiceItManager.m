@@ -379,6 +379,12 @@
         }
         
         if (!isEnrollment) {
+            /* Special case: If this is an auth attempt that failed, we don't want to keep the username around. */
+            if (![message containsString:@"successful"]) {
+                username = nil;
+                initialized = FALSE;
+            }
+            
             __authCallback(message);
         } else {
             if (([message isEqualToString:@"Success"] && self.countOfEnrollment > 2) ||
