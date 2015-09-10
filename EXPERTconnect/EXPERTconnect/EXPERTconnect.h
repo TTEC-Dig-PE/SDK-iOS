@@ -213,7 +213,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @param authCallback a void/String block that handles the callback for a voiceit auth response
 
  */
-- (void)voiceAuthRequested:(void (^)(NSString *))authCallback;
+- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback;
 
 /**
  Convenience (wrapper) method for accessing VoiceIt to record a new voice print.

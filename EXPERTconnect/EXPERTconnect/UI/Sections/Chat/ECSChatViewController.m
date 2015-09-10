@@ -826,7 +826,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
                                                               /* Kick off internal VoiceIT auth check */
-                                                              [[EXPERTconnect shared] voiceAuthRequested:^(NSString *response) {
+                                                              [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userToken] callback:^(NSString *response) {
                                                                   // Alert Agent to the response:
                                                                   [self sendVoiceAuthConfirmation:response];
                                                               }];
