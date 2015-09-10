@@ -106,7 +106,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [featuredCell.region setText:expert[@"region"]];
     [featuredCell.expertiese setText:expert[@"expertise"]];
     [featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
-    [featuredCell configureCellForActionType:self.actionType.type];
+    [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
+    
     return featuredCell;
 }
 
@@ -161,8 +162,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 #pragma mark - ECSSelectExpertTableViewCellDelegate Methods
 
-- (void)chatPressed {
-    NSDictionary *expert = self.experts[0];
+- (void)didSelectChatButton:(id)sender forExpert:(NSDictionary *)expert {
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
     actionType.agentId = expert[@"agentId"];
@@ -185,7 +185,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)videoPressed {
+- (void)didSelectVideoChatButton:(id)sender forExpert:(NSDictionary *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -193,7 +193,6 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         [cafeXController setupCafeXSession];
     }
     
-    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
     actionType.agentId = expert[@"agentId"];
@@ -214,7 +213,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)voiceChatPressed {
+- (void)didSelectVoiceChatButton:(id)sender forExpert:(NSDictionary *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -222,7 +221,6 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         [cafeXController setupCafeXSession];
     }
     
-    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
     actionType.agentId = expert[@"agentId"];
@@ -243,7 +241,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)callBackPressed {
+- (void)didSelectCallBackButton:(id)sender forExpert:(NSDictionary *)expert {
       ECSRootViewController *voiceCallbackvc =  (ECSRootViewController *)[[EXPERTconnect shared] startVoiceCallback:@"communications" withDisplayName:@"Callback"];
         voiceCallbackvc.workflowDelegate = self.workflowDelegate;
       [self.navigationController pushViewController:voiceCallbackvc animated:YES];

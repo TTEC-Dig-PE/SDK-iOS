@@ -13,10 +13,10 @@
 
 @protocol ECSSelectExpertTableViewCellDelegate <NSObject>
 
-- (void)chatPressed;
-- (void)callBackPressed;
-- (void)videoPressed;
-- (void)voiceChatPressed;
+- (void)didSelectCallBackButton:(id)sender forExpert:(NSDictionary *)expert;
+- (void)didSelectChatButton:(id)sender forExpert:(NSDictionary *)expert;
+- (void)didSelectVideoChatButton:(id)sender forExpert:(NSDictionary *)expert;
+- (void)didSelectVoiceChatButton:(id)sender forExpert:(NSDictionary *)expert;
 
 @end
 
@@ -30,6 +30,6 @@
 
 @property (nonatomic, weak) id <ECSSelectExpertTableViewCellDelegate> selectExpertCellDelegate;
 
-- (void)configureCellForActionType:(NSString *)actionType;
+- (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert;
 
 @end
