@@ -17,6 +17,7 @@ static NSString *const lastAnswerEngineContextSelected = @"lastAnswerEngineConte
 -(void)setup {
     NSMutableArray *answerEngineContextsArray = [NSMutableArray new];
     
+    [answerEngineContextsArray addObject:@"Telecommunications"];
     [answerEngineContextsArray addObject:@"SDK Demo Technical Support"];
     [answerEngineContextsArray addObject:@"SDK Demo Account Support"];
     [answerEngineContextsArray addObject:@"SDK Demo Technical Support FR"];

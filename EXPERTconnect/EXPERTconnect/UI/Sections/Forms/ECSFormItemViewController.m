@@ -13,6 +13,7 @@
 
 #import "ECSRadioFormItemViewController.h"
 #import "ECSRatingFormItemViewController.h"
+#import "ECSAxRatingFormItemViewController.h"
 #import "ECSTextFormItemViewController.h"
 #import "ECSCheckboxFormItemViewController.h"
 #import "ECSSliderFormItemViewController.h"
@@ -57,6 +58,7 @@
     else if([type isEqualToString:ECSFormTypeRating])
     {
         vc = [ECSRatingFormItemViewController ecs_loadFromNib];
+        // vc = [ECSAxRatingFormItemViewController ecs_loadFromNib];
     }
     else if([type isEqualToString:ECSFormTypeText] || [type isEqualToString:@"date"])
     {
@@ -69,7 +71,26 @@
     }
     else if([type isEqualToString:ECSFormTypeSlider])
     {
-        vc = [ECSSliderFormItemViewController ecs_loadFromNib];
+        // [US4545:TA10863] - Modify SDK to have two levels of UI Controls, Type and Treatment (Slider, Rating)
+        //
+        NSString *treatment = formItem.treatment;
+        
+        if([treatment isEqualToString:ECSFormTypeSliderTreatmentRating])
+        {
+            vc = [ECSAxRatingFormItemViewController ecs_loadFromNib];
+        }
+        // else if([treatment isEqualToString:ECSFormTypeSliderTreatmentThumbs])
+        // {
+        //     vc = [ECSThumbsRatingFormItemViewController ecs_loadFromNib];
+        // }
+        // else if([treatment isEqualToString:ECSFormTypeSliderTreatmentFaces])
+        // {
+        //     vc = [ECSFacesRatingFormItemViewController ecs_loadFromNib];
+        // }
+        else
+        {
+            vc = [ECSSliderFormItemViewController ecs_loadFromNib];
+        }
     }
     else if([type isEqualToString:ECSFormTypeTextArea])
     {
