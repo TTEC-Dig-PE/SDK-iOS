@@ -38,21 +38,24 @@ NSString *const HZCustomerStandard = @"standard";
 
 - (NSString *)getSkillTypeForMap{
     NSString *customerStatus = [EXPERTconnect shared].customerType;
-    NSString *customerType = [EXPERTconnect shared].treatmentType;
+  //  NSString *customerType = [EXPERTconnect shared].treatmentType;
     
     if ([customerStatus isEqualToString:HZNewCustomer]) {
-        if ([customerType isEqualToString:HZCustomerConcierge]) {
+        if ([[EXPERTconnect shared].treatmentType isEqualToString:HZCustomerConcierge]) {
             return @"Calls for frank_horizon";
         }
     }
     
     if ([customerStatus isEqualToString:HZExistingCustomer]) {
-        if ([customerType isEqualToString:HZCustomerStandard]) {
+        if ([[EXPERTconnect shared].treatmentType isEqualToString:HZCustomerStandard]) {
             return @"communications";
         }
     }
     
     return nil;
+}
+- (IBAction)recordVoiceAuth:(id)sender {
+    [[EXPERTconnect shared]recordNewEnrollment];
 }
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
@@ -90,6 +93,9 @@ NSString *const HZCustomerStandard = @"standard";
                            viewController:self];
 }
 
+-(void)unrecognizedAction:(NSString *)action {
+    
+}
 
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
                                requestCommand:(NSString *)command
@@ -99,7 +105,7 @@ NSString *const HZCustomerStandard = @"standard";
         if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
             if ([params valueForKey:@"InvalidResponseCount"]) {
                 NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
-                if (count.intValue ==  1) {
+                if (count.intValue >  0) {
                         return @{@"ActionType":ECSRequestVideoAction};
                 }
             }
@@ -115,13 +121,13 @@ NSString *const HZCustomerStandard = @"standard";
              count = [params valueForKey:@"InvalidResponseCount"];
      
                 if(![lastSurveyScore isEqualToString:@"low"]) {
-                    if (count.intValue ==  3) {
+                    if (count.intValue > 0) {
                         return @{@"ActionType":ECSRequestChatAction};
                     }
                 }
                 else {
-                    if (count.intValue ==  1) {
-                        return @{@"ActionType":ECSRequestCallbackAction};
+                    if (count.intValue >  0) {
+                        return @{@"ActionType":ECSRequestVoiceChatAction};
                     }
                 }
             }

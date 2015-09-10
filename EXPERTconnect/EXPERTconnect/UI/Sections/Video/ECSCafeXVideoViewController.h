@@ -17,6 +17,10 @@
 
 - (void)CafeXViewDidAppear;
 - (void)CafeXViewDidUnload;
+- (void)CafeXViewDidMuteAudio:(BOOL)muted;
+- (void)CafeXViewDidHideVideo:(BOOL)hidden;
+- (void)CafexViewDidEndVideo;
+- (void)CafeXViewDidMinimize;
 
 @end
 
@@ -25,6 +29,10 @@
 @property (weak, nonatomic) IBOutlet UIView *previewVideoView;
 @property (weak, nonatomic) IBOutlet UIView *remoteVideoView;
 @property (weak, nonatomic) id<CafeXVideoViewDelegate> delegate;
+
+- (void) configWithVideo:(BOOL)showVideo andAudio:(BOOL)showAudio;
+- (void) hideVideoPanels:(BOOL)hidden;
+- (void) didHideRemoteVideo:(BOOL)hidden;
 
 @end
 

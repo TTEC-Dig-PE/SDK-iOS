@@ -70,13 +70,8 @@ FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 #pragma mark -
-//Delegate for the Host App to handle Moxtra events. This is TEMPORARY until Moxtra releases an embeddable framework.
+//Delegate for the Host App to handle events.
 @protocol ExpertConnectDelegate <NSObject>
-/**
- * Called when Expert requests a Moxtra meeting
- */
-- (void)meetRequested:(void(^)(NSString *meetID))meetStartedCallback;
-- (void)meetNeedstoEnd;
 
 @end
 
@@ -111,6 +106,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
+
 /**
  Returns a view controller for an EXPERTconnect Chat session, with CafeX Video parameters.
  
@@ -120,6 +116,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+
+/**
+ Returns a view controller for an EXPERTconnect Chat session, with CafeX Voice parameters.
+ 
+ @param chatSkill the Agent Chat Skill for the Chat
+ @param displayName for the View Controller
+ 
+ @return the view controller for the Chat
+ */
+- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Voice Callback session.
@@ -202,6 +208,28 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (UIViewController*)startSelectExpertAndChannel;
 
 /**
+ Convenience (wrapper) method for accessing VoiceIt
+ 
+ @param username the Username to attempt to authenticate against.
+ @param authCallback a void/String block that handles the callback for a voiceit auth response
+
+ */
+- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback;
+
+/**
+ Convenience (wrapper) method for accessing VoiceIt to record a new voice print.
+ 
+ */
+- (void)recordNewEnrollment;
+
+/**
+ Convenience (wrapper) method for accessing VoiceIt to clear existing recordings.
+ 
+ */
+- (void)clearEnrollments;
+
+
+/**
  Login support
  
  @param username the Name of the user attempting to login
@@ -251,5 +279,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
+/**
+ *
+ */
+-(void)recievedUnrecognizedAction:(NSString *)action;
 @end
 

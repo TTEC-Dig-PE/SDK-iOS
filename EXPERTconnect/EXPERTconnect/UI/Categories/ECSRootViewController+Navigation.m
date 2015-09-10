@@ -51,7 +51,9 @@
     {
         actionViewController = [ECSChatLogsViewController ecs_loadFromNib];
     }
-    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpertChat] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVideo] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback] || [actionType.type isEqualToString:ECSActionTypeSelectExpertAndChannel] )
+    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpertChat] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVideo] ||
+             [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback] ||
+             [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceChat] ||[actionType.type isEqualToString:ECSActionTypeSelectExpertAndChannel] )
     {
         actionViewController = [ECSSelectExpertViewController ecs_loadFromNib];
         actionViewController.actionType = actionType;
@@ -120,6 +122,7 @@
     }
     else
     {
+        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType.type];
         actionViewController = [ECSRootViewController createPlaceholderViewController];
     }
     

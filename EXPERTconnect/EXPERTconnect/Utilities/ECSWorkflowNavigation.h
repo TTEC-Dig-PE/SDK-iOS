@@ -14,6 +14,8 @@ typedef void(^completionBlock)(void);
 
 @interface ECSWorkflowNavigation : NSObject
 
+@property (nonatomic, weak) UIViewController *hostViewController;
+
 - (instancetype)initWithHostViewController:(UIViewController *)hostViewController;
 
 - (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
@@ -31,7 +33,7 @@ typedef void(^completionBlock)(void);
                                completion:(completionBlock)completion;
 
 - (void)minmizeAllViewControllersWithCompletion:(completionBlock)completion;
-- (void)restoreAllViewControllersWithCompletion:(completionBlock)completion;
+- (void)restoreAllViewControllersWithAnimation:(BOOL)animate withCompletion:(completionBlock)completion;
 
 - (void)displayAlertForActionType:(NSString *)actionType completion:(void (^)(BOOL selected))completion;
 

@@ -34,6 +34,7 @@ NSString *const ECSActionTypeSelectExpertAndChannel = @"selectExpertAndChannel";
 NSString *const ECSRequestVideoAction = @"RequestVideoAction";
 NSString *const ECSRequestChatAction = @"RequestChatAction";
 NSString *const ECSRequestCallbackAction = @"RequestCallbackAction";
+NSString *const ECSRequestVoiceChatAction = @"RequestVocieChatAction";
 
 
 @implementation ECSActionType

@@ -27,6 +27,9 @@
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
 
+/* Start Video Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatLabel" = "Start Video Chat";
+
 /* Start Answer Engine Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAnswerEngineLabel" = "Answer Engine";
 
@@ -70,6 +73,9 @@
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
+
+/* Start Video Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatHeader" = "Start AdHoc Video Chat";
 
 /* Start Answer Engine Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAnswerEngineHeader" = "Start AdHoc Answer Engine Session";
@@ -136,6 +142,9 @@
 
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "Select Environment";
+
+/* VoiceIt Header */
+"ECDLocalizedVoiceItHeader" = "VoiceIt Utilities";
 
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "Select Runtime Application";

@@ -105,10 +105,6 @@
 
     // Reset current user
     [[EXPERTconnect shared] setUserToken:nil];
-    
-    // Moxtra
-    // NK 6/17
-    _moxtraController = [[MoxtraController alloc] init];
 }
 
 - (void)logout:(NSNotification*)notification {
@@ -160,44 +156,6 @@
 }
 
 #pragma mark - ExpertConnectSDK delegate methods
-
-// Implementation of ExpertConnectDelegate
-- (void)meetRequested:(void(^)(NSString *meetID))meetStartedCallback {
-    
-    // Initialize Moxtra and send a tt:command back with the MeetID:
-    [[self moxtraController] loadContent:^{
-        NSLog(@"Setup user account successfully");
-        
-        [[self moxtraController] startMeet:^(NSString *meetID) {
-            NSLog(@"Start meet successfully with MeetID [%@]", meetID);
-            
-            meetStartedCallback(meetID);
-        } failure: ^(NSError *error) {
-            NSLog(@"Start meet failed, %@", [NSString stringWithFormat:@"error code [%d] description: [%@] info [%@]", [error code], [error localizedDescription], [[error userInfo] description]]);
-            
-            meetStartedCallback(nil);
-        }];
-    } failure: ^(NSError *error) {
-        NSLog(@"Setup user account failed, %@", [NSString stringWithFormat:@"error code [%d] description: [%@] info [%@]", [error code], [error localizedDescription], [[error userInfo] description]]);
-        
-        if ([error code] == 104) {
-            // User already logged in. Continue.
-            [[self moxtraController] startMeet:^(NSString *meetID) {
-                NSLog(@"Start meet successfully with MeetID [%@]", meetID);
-                
-                meetStartedCallback(meetID);
-            } failure: ^(NSError *error) {
-                NSLog(@"Start meet failed, %@", [NSString stringWithFormat:@"error code [%d] description: [%@] info [%@]", [error code], [error localizedDescription], [[error userInfo] description]]);
-                
-                meetStartedCallback(nil);
-            }];
-        }
-    }];
-}
-
-- (void)meetNeedstoEnd {
-    [_moxtraController endMeet];
-}
 
 - (void)expertConnectCloseButtonTapped:(EXPERTconnect *)connect {
     [self dismissChatWindow];
