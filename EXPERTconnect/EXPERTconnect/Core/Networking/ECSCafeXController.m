@@ -148,10 +148,12 @@
     _defaultParent = parent;
     
     _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
-    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+   // [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
+    
+    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
@@ -368,6 +370,10 @@
             break;
         case ACBClientCallStatusEnded:
             NSLog(@"CALL IS STATUS: ENDED");
+            if (_defaultParent) {
+                [_defaultParent.workflowDelegate endVideoChat];
+            }
+            
             break;
         case ACBClientCallStatusSetup:
             NSLog(@"CALL IS STATUS: IN-SETUP");
