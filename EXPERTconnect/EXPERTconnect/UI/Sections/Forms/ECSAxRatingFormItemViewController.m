@@ -57,10 +57,15 @@
     [self.rateResponseStars setMarkFont:[UIFont systemFontOfSize:84.0f]];
     [self.rateResponseStars addTarget:self action:@selector(ratingChanged:) forControlEvents:UIControlEventValueChanged];
     
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
-    CGRect frame = [self.rateResponseStars frame];
-    frame.origin.x = (width - frame.size.width) / 2;
+    CGRect frame =  self.view.bounds;
     [self.rateResponseStars setFrame:frame];
+    
+//MARK : Had to comment the code because of a conflict with AXRatingView and KWash's implementation of the AXRatingView; AXRatingView's star drawing does not scale very effectively, and causes a whole load of issues in this context. Recommend moving away from it, or using a native rating solution. As of now, the Ratings view has proper constraints, and will do for Demo 2.0
+    
+    
+//    CGFloat width = [self.view bounds].size.width;
+//    frame.origin.x = (width - frame.size.width) / 2;
+
 }
 
 - (IBAction)ratingChanged:(id)sender {

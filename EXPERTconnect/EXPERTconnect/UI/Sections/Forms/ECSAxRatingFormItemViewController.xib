@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A278b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -20,53 +19,48 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvj-Wj-4qR" customClass="ECSDynamicLabel">
-                    <rect key="frame" x="32" y="172" width="42" height="21"/>
+                    <rect key="frame" x="15" y="173" width="570" height="20"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qs8-qU-5po" customClass="ECSFormQuestionView">
-                    <rect key="frame" x="22" y="8" width="570" height="55"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbb-TY-rkB" customClass="ECSRatingView">
-                    <rect key="frame" x="91" y="83" width="420" height="68"/>
+                    <rect key="frame" x="15" y="8" width="570" height="55"/>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="gbb-TY-rkB" secondAttribute="height" multiplier="27:4" id="5rg-PZ-h38"/>
-                        <constraint firstAttribute="width" constant="420" id="ObV-Xd-v5g"/>
-                        <constraint firstAttribute="height" constant="70" id="qzh-TG-mOr"/>
+                        <constraint firstAttribute="height" constant="55" id="ySj-jA-Nw9"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbb-TY-rkB" customClass="ECSRatingView">
+                    <rect key="frame" x="60" y="83" width="480" height="69"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="68" id="yij-oC-Ji0"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="5rg-PZ-h38"/>
-                            <exclude reference="qzh-TG-mOr"/>
+                            <exclude reference="yij-oC-Ji0"/>
                         </mask>
                     </variation>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Qs8-qU-5po" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="4Ef-w6-v9x"/>
-                <constraint firstItem="fvj-Wj-4qR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="6Sq-2r-NkP"/>
-                <constraint firstItem="gbb-TY-rkB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="1" id="IZJ-mP-bNa"/>
-                <constraint firstItem="gbb-TY-rkB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="83" id="Kfs-rL-KWC"/>
-                <constraint firstAttribute="bottom" secondItem="gbb-TY-rkB" secondAttribute="bottom" constant="449" id="QSR-ui-Jv7"/>
-                <constraint firstItem="fvj-Wj-4qR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="172" id="QVJ-Zd-HvI"/>
-                <constraint firstItem="Qs8-qU-5po" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="R2x-48-fMP"/>
-                <constraint firstItem="gbb-TY-rkB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aDS-VT-mNq"/>
-                <constraint firstItem="Qs8-qU-5po" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22" id="lQv-a9-3mT"/>
-                <constraint firstAttribute="bottom" secondItem="gbb-TY-rkB" secondAttribute="bottom" constant="452" id="n6c-Xg-5bY"/>
-                <constraint firstItem="gbb-TY-rkB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="63" id="ojt-nd-J1D"/>
-                <constraint firstItem="gbb-TY-rkB" firstAttribute="top" secondItem="Qs8-qU-5po" secondAttribute="bottom" constant="20" id="xEf-Dp-YyF"/>
+                <constraint firstItem="fvj-Wj-4qR" firstAttribute="top" secondItem="gbb-TY-rkB" secondAttribute="bottom" constant="21" id="0SB-hs-kZX"/>
+                <constraint firstAttribute="bottom" secondItem="fvj-Wj-4qR" secondAttribute="bottom" priority="250" constant="407" id="LIE-JG-8Gn"/>
+                <constraint firstItem="Qs8-qU-5po" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="7" id="ReC-wv-3d4"/>
+                <constraint firstItem="gbb-TY-rkB" firstAttribute="top" secondItem="Qs8-qU-5po" secondAttribute="bottom" constant="20" id="TeM-zn-hbB"/>
+                <constraint firstItem="Qs8-qU-5po" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="WB4-h9-Z3S"/>
+                <constraint firstAttribute="trailingMargin" secondItem="Qs8-qU-5po" secondAttribute="trailing" constant="7" id="hRX-UB-1mg"/>
+                <constraint firstItem="gbb-TY-rkB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="j9F-p3-8HL"/>
+                <constraint firstItem="fvj-Wj-4qR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="orX-8U-Yjp"/>
+                <constraint firstAttribute="trailing" secondItem="gbb-TY-rkB" secondAttribute="trailing" constant="60" id="s8b-bP-zZw"/>
+                <constraint firstAttribute="trailing" secondItem="fvj-Wj-4qR" secondAttribute="trailing" constant="15" id="zRB-5z-wzS"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="aDS-VT-mNq"/>
-                    <exclude reference="n6c-Xg-5bY"/>
-                    <exclude reference="ojt-nd-J1D"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>
