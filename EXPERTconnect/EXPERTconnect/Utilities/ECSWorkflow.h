@@ -7,7 +7,52 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ECSWorkflowNavigation.h"
+#import "ECSRootViewController.h"
 
-@interface ECSWorkflow : NSObject
+@class ECSWorkflow;
+@class ECSRootViewController;
 
+@protocol ECSWorkflowNavigationDelegate <NSObject>
+
+- (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
+- (void)requestedValidQuestionsOnAnswerEngineCount:(NSInteger)count;
+
+- (void)disconnectedFromVoiceCallBack;
+- (void)disconnectedFromChat;
+- (void)disconnectedFromVideoChat;
+
+- (void)voiceCallBackEnded;
+
+- (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue;
+
+- (void)endWorkFlow;
+- (void)minimizeButtonTapped:(id)sender;
+
+- (void)presentVideoChatViewController:(ECSRootViewController *)viewController;
+- (void)minimizeVideoButtonTapped:(id)sender;
+- (void)endVideoChat;
+
+@end
+
+@protocol ECSWorkflowDelegate <NSObject>
+
+- (void)unrecognizedAction:(NSString *)action;
+
+- (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
+                               requestCommand:(NSString *)command
+                                requestParams:(NSDictionary *)params;
+
+@end
+
+@interface ECSWorkflow : NSObject <ECSWorkflowNavigationDelegate>
+
+@property (nonatomic, copy, readonly) NSString *workflowName;
+- (instancetype)initWithWorkflowName:(NSString *)workflowName
+                    workflowDelegate:(id <ECSWorkflowDelegate>)workflowDelegate
+                   navigationManager:(ECSWorkflowNavigation *)navigationManager;
+
+- (void)start;
+- (void)end;
+- (void)receivedUnrecognizedAction:(NSString *)action;
 @end

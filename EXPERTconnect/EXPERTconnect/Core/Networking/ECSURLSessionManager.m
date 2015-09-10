@@ -15,6 +15,7 @@
 #import "ECSAnswerEngineResponse.h"
 #import "ECSAnswerEngineTopQuestionsResponse.h"
 #import "ECSAnswerEngineRateResponse.h"
+#import "ECSCafeXController.h"
 #import "ECSCallbackSetupResponse.h"
 #import "ECSChannelConfiguration.h"
 #import "ECSChannelCreateResponse.h"
@@ -94,6 +95,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)dealloc
 {
     [self stopReachability];
+    
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    if ([cafeXController hasCafeXSession]) {
+        [cafeXController endCafeXSession];
+    }
     
     [self.session invalidateAndCancel];
 }
@@ -402,12 +408,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                       withCompletion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
     NSMutableDictionary *formWithIntentAndNavContext = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
-    
-    // kwashington: Moving away from Navigation and navigationContext, so check for null
-    //
-    if(intent == nil || navigationContext == nil) {
-        return [self submitForm:form completion:completion];
-    }
     
     [formWithIntentAndNavContext setObject:@"intent" forKey:intent];
     [formWithIntentAndNavContext setObject:@"navigationContext" forKey:navigationContext];

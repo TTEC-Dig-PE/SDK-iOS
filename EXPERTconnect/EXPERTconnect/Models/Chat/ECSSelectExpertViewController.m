@@ -12,16 +12,20 @@
 
 #import "ECSSelectExpertTableViewCell.h"
 
+#import "ECSCafeXController.h"
 #import "ECSRootViewController+Navigation.h"
 #import "ECSTheme.h"
 #import "ECSInjector.h"
 #import "ECSDynamicLabel.h"
 #import "ECSCircleImageView.h"
+#import "ECSVideoChatActionType.h"
 #import "ECSChatActionType.h"
+#import "ECSCafeXVideoViewController.h"
+#import "UIViewController+ECSNibLoading.h"
 
 static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
-@interface ECSSelectExpertViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ECSSelectExpertViewController () <UITableViewDataSource, UITableViewDelegate, ECSSelectExpertTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -96,12 +100,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 {
     NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
     ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
+    [featuredCell setSelectExpertCellDelegate:self];
     [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
     [featuredCell.name setText:expert[@"fullName"]];
     [featuredCell.region setText:expert[@"region"]];
     [featuredCell.expertiese setText:expert[@"expertise"]];
     [featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
-    
+    [featuredCell configureCellForActionType:self.actionType.type];
     return featuredCell;
 }
 
@@ -113,18 +118,14 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     actionType.agentId = expert[@"agentId"];
     actionType.agentSkill = expert[@"agentSkill"];
     
-    /**
-     DEBUG CODE: BEGINS
-     **/
+     //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
+    
     NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
     if (agent.length > 0) {
         NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
         actionType.agentSkill =  skill;
         actionType.agentId = agent;
     }
-    /**
-     DEBUG CODE: ENDS
-     **/
     
     [self handleAction:actionType];
 }
@@ -156,6 +157,96 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     }*/
 
     return height;
+}
+
+#pragma mark - ECSSelectExpertTableViewCellDelegate Methods
+
+- (void)chatPressed {
+    NSDictionary *expert = self.experts[0];
+    ECSChatActionType *actionType = [ECSChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    
+    /**
+     DEBUG CODE: BEGINS
+     **/
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    /**
+     DEBUG CODE: ENDS
+     **/
+    
+    //    [EXPERTconnect shared]//
+    [self handleAction:actionType];
+}
+
+- (void)videoPressed {
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
+    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
+    actionType.cafextarget = [cafeXController cafeXUsername];
+    
+    // DEBUG CODE: This only occurs if there's an "override" agent set in the
+    // Debug menu. Safe to leave.
+    
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    
+    [self handleAction:actionType];
+}
+
+- (void)voiceChatPressed {
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    NSDictionary *expert = self.experts[0]; // indexPath.row];   // 0 is wrong - we need to know which row was pressed here... TODO
+    ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
+    actionType.actionId = self.actionType.actionId;
+    actionType.agentId = expert[@"agentId"];
+    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.cafexmode = @"voiceauto"; // @"voicecapable,videocapable,cobrowsecapable";
+    actionType.cafextarget = [cafeXController cafeXUsername];
+    
+    // DEBUG CODE: This only occurs if there's an "override" agent set in the
+    // Debug menu. Safe to leave.
+    
+    NSString *agent = [[NSUserDefaults standardUserDefaults] stringForKey:@"agent_key"];
+    if (agent.length > 0) {
+        NSString *skill = [NSString stringWithFormat:@"Calls for %@", agent];
+        actionType.agentSkill =  skill;
+        actionType.agentId = agent;
+    }
+    
+    [self handleAction:actionType];
+}
+
+- (void)callBackPressed {
+      ECSRootViewController *voiceCallbackvc =  (ECSRootViewController *)[[EXPERTconnect shared] startVoiceCallback:@"communications" withDisplayName:@"Callback"];
+        voiceCallbackvc.workflowDelegate = self.workflowDelegate;
+      [self.navigationController pushViewController:voiceCallbackvc animated:YES];
 }
 
 @end

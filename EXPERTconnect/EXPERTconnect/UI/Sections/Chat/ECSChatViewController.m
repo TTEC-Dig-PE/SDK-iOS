@@ -136,17 +136,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     _showingMoxtra = FALSE;
     
-    self.navigationItem.title = self.actionType.displayName;
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    [cafeXController setDefaultParent:self];
+    
     self.agentInteractionCount = 0;
     
-    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-    UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(backButtonPressed:)];
-    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-    self.navigationItem.leftBarButtonItem.tintColor = theme.buttonTextColor;
+    [self configureNavigationBar];
+   
     
     self.showFullScreenReachabilityMessage = NO;
     _agentTypingIndex = -1;
@@ -164,7 +160,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                              selector:@selector(networkConnectionChanged:)
                                                  name:ECSReachabilityChangedNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:) name:@"NotificationScreenShareEnded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:)
+                                                 name:@"NotificationScreenShareEnded"
+                                               object:nil];
     
 #ifdef DEBUG
 //    ECSChatTextMessage *textMessage = [ECSChatTextMessage new];
@@ -188,20 +186,39 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 #endif
     
+    [self registerTableViewCells];
+    [self addChatToolbarView];
+    [self addChatWaitView];
+
+}
+
+- (void)configureNavigationBar {
+    self.navigationItem.title = self.actionType.displayName;
+    if ([[self.navigationController viewControllers] count] > 1) {
+        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
+    }
+}
+
+- (void)registerTableViewCells {
     [self.tableView registerClass:[ECSChatMessageTableViewCell class] forCellReuseIdentifier:MessageCellID];
     [self.tableView registerClass:[ECSHtmlMessageTableViewCell class] forCellReuseIdentifier:HtmlMessageCellID];
     [self.tableView registerClass:[ECSChatImageTableViewCell class]
-         forCellReuseIdentifier:ImageCellID];
+           forCellReuseIdentifier:ImageCellID];
     [self.tableView registerClass:[ECSChatTypingTableViewCell class] forCellReuseIdentifier:MessageTypingCellID];
     [self.tableView registerClass:[ECSChatActionTableViewCell class] forCellReuseIdentifier:ActionCellID];
     [self.tableView registerNib:[ECSChatTextTableViewCell ecs_nib]
-           forCellReuseIdentifier:TextCellID];
+         forCellReuseIdentifier:TextCellID];
     [self.tableView registerNib:[ECSChatNetworkActionCell ecs_nib] forCellReuseIdentifier:ChatNetworkCellID];
     [self.tableView registerClass:[ECSInlineFormTableViewCell class] forCellReuseIdentifier:InlineFormCellID];
-    
-    if (!self.historyJourney)
-        
-    {
+}
+
+- (void)addChatToolbarView {
+    if (!self.historyJourney) {
         self.chatToolbar = [ECSChatToolbarController ecs_loadFromNib];
         self.chatToolbar.delegate = self;
         [self addChildViewController:self.chatToolbar];
@@ -219,7 +236,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [self.chatToolbarContainer addConstraints:constraints];
         [self.chatToolbarContainer addConstraints:verticalConstraints];
     }
-    
+}
+
+- (void)addChatWaitView {
     self.waitView = [ECSChatWaitView ecs_loadInstanceFromNib];
     self.waitView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.waitView];
@@ -228,7 +247,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                                       metrics:nil
                                                                         views:@{@"view": self.waitView}]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.waitView
-                                                         attribute:NSLayoutAttributeTop
+                                                          attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.topLayoutGuide
                                                           attribute:NSLayoutAttributeBottom
@@ -241,12 +260,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f
                                                            constant:0.0f]];
-
 }
 
 - (void)dealloc
 {
     self.tableView.delegate = nil;
+    self.workflowDelegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -348,6 +367,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 }
 
 #pragma mark - UINavigationBarDelegate
+
 - (void)backButtonPressed:(id)sender
 {
     if (self.chatClient.channelState == ECSChannelStateConnected)
@@ -356,8 +376,15 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     else
     {
+        [self.workflowDelegate endVideoChat];
         [self.chatClient disconnect];
         [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)minimizeButtonPressed:(id)sender {
+    if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
+        [self.workflowDelegate minimizeButtonTapped:sender];
     }
 }
 
@@ -398,17 +425,24 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                               actionId:self.actionType.actionId
                                             completion:^(NSArray* result, NSError *error) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    if (error ||
-                                                        (result.count == 0) ||
-                                                        !([result.firstObject isKindOfClass:[ECSFormActionType class]]))
-                                                    {
-                                                        [weakSelf showNoSurveyDisconnectMessage];
-                                                    }
-                                                    else
-                                                    {
+                                                    [self.workflowDelegate endVideoChat];
+                                                    ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
+                                                    if (actionType.shouldTakeSurvey) {
                                                         weakSelf.postChatActions = result;
                                                         [weakSelf showSurveyDisconnectMessage];
+                                                    } else {
+                                                        [weakSelf showNoSurveyDisconnectMessage];
                                                     }
+                                                    //TODO: Need to we need some data from results, Navigations should be taken care by host app in Demo 2.0
+//                                                    if (error || (result.count == 0)) //|| !([result.firstObject isKindOfClass:[ECSFormActionType class]])
+//                                                    {
+//                                                        [weakSelf showNoSurveyDisconnectMessage];
+//                                                    }
+//                                                    else
+//                                                    {
+//                                                        weakSelf.postChatActions = result;
+//                                                        [weakSelf showSurveyDisconnectMessage];
+                                                   // }
                                                 });
                                             }];
 }
@@ -445,6 +479,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)showSurvey
 {
+    [self.chatToolbar resignFirstResponder];
+    [self.workflowDelegate disconnectedFromChat];
+    return;
+    
     if (self.postChatActions &&
         (self.postChatActions.count > 0) &&
         ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
@@ -518,6 +556,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
+                                                          [self.workflowDelegate endVideoChat];
                                                           [self.chatClient disconnect];
                                                           [self showSurvey];
                                                       }]];
@@ -544,7 +583,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 // NK 6/17
@@ -659,6 +698,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message
 {
+    /* Deprecated. Moxtra SDK has been removed. Should use CafeX instead.
     if ([message isKindOfClass:[ECSChatCoBrowseMessage class]])
     {
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
@@ -709,6 +749,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         
         return; // no UI
     }
+     */
     
     if ([message isKindOfClass:[ECSCafeXMessage class]])
     {
@@ -723,40 +764,47 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             channelName = @"a Voice Call"; // TODO: Translate
         } else if ([channelType isEqualToString:@"video_escalate"]) {
             channelName = @"a Video Call"; // TODO: Translate
+        } else if ([channelType isEqualToString:@"cobrowse_start"]) {
+            channelName = @"that you share your screen."; // TODO: Translate
         } else {
             NSLog(@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
             return; // no UI
         }
         NSString *targetID = ((ECSCafeXMessage*)message).parameter2;
-        // Confirm with User:
-        NSString *alertTitle = @"Accept Call?"; // TODO: Translate
-        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName]; // TODO: Translate
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                                 message:alertMessage
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              // TODO: Dial agent using parameter2 (target)
-                                                              ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-                                                              
-                                                              // Do a login if there's no session:
-                                                              if (![cafeXController hasCafeXSession]) {
-                                                                  [cafeXController setupCafeXSessionWithTask:^{
+        // Confirm with User only if video or voice:
+        if ([channelType isEqualToString:@"cobrowse_start"]) {
+            // CafeX will prompt user.
+            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+            [cafeXController startCoBrowse:targetID usingParentViewController:self];
+        } else {
+            NSString *alertTitle = @"Accept Call?"; // TODO: Translate
+            NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName]; // TODO: Translate
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                     message:alertMessage
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction *action) {
+                                                                  ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+                                                                  
+                                                                  // Do a login if there's no session:
+                                                                  if (![cafeXController hasCafeXSession]) {
+                                                                      [cafeXController setupCafeXSessionWithTask:^{
+                                                                          [cafeXController dial:targetID withVideo:[channelType isEqualToString:@"video_escalate"] andAudio:YES usingParentViewController:self];
+                                                                      }];
+                                                                  } else {
                                                                       [cafeXController dial:targetID withVideo:[channelType isEqualToString:@"video_escalate"] andAudio:YES usingParentViewController:self];
-                                                                  }];
-                                                              } else {
-                                                                  [cafeXController dial:targetID withVideo:[channelType isEqualToString:@"video_escalate"] andAudio:YES usingParentViewController:self];
-                                                              }
-                                                          }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction *action) {
-                                                              // No
-                                                              NSLog(@"User rejected %@ request.", channelType);
-                                                              [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
-                                                          }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+                                                                  }
+                                                              }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction *action) {
+                                                                  // No
+                                                                  NSLog(@"User rejected %@ request.", channelType);
+                                                                  [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
+                                                              }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
         
         return; // no UI
     }
@@ -777,12 +825,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
-                                                              /* TODO: Kick off internal VoiceIT auth check */
-                                                              
-                                                              /* When response comes back from VoiceIT, send:
+                                                              /* Kick off internal VoiceIT auth check */
+                                                              [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userToken] callback:^(NSString *response) {
                                                                   // Alert Agent to the response:
                                                                   [self sendVoiceAuthConfirmation:response];
-                                                               */
+                                                              }];
                                                           }]];
         [self presentViewController:alertController animated:YES completion:nil];
         
@@ -932,6 +979,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         } completion:^(BOOL finished) {
             [self.waitView removeFromSuperview];
             self.waitView = nil;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:self
+                                                                                     action:@selector(minimizeButtonPressed:)];
         }];
     }
 
@@ -941,7 +992,14 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     ECSLogVerbose(@"Chat client was disconnected.");
     
-    [[EXPERTconnect shared].externalDelegate meetNeedstoEnd];
+    //[[EXPERTconnect shared].externalDelegate meetNeedstoEnd];
+    
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if ([cafeXController hasCafeXSession]) {
+        [cafeXController endCoBrowse];
+    }
     
     [self handleDisconnectPostSurveyCall];
     self.chatToolbar.sendEnabled = NO;
@@ -1699,8 +1757,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     insets.bottom = bottomOffset;
     
-    self.tableView.contentInset = insets;
-    self.tableView.scrollIndicatorInsets = insets;
+//    self.tableView.contentInset = insets;
+//    self.tableView.scrollIndicatorInsets = insets;
     
     self.chatToolbarBottomConstraint.constant = bottomOffset;
 }

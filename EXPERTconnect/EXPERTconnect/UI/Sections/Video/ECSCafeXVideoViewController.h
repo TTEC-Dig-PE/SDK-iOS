@@ -10,11 +10,29 @@
 #define EXPERTconnect_ECSCafeXVideoViewController_h
 
 #import <UIKit/UIKit.h>
+#import "ECSRootViewController.h"
+#import <ACBClientSDK/ACBUC.h>
 
-@interface ECSCafeXVideoViewController : UIViewController
+@protocol CafeXVideoViewDelegate <NSObject>
+
+- (void)CafeXViewDidAppear;
+- (void)CafeXViewDidUnload;
+- (void)CafeXViewDidMuteAudio:(BOOL)muted;
+- (void)CafeXViewDidHideVideo:(BOOL)hidden;
+- (void)CafexViewDidEndVideo;
+- (void)CafeXViewDidMinimize;
+
+@end
+
+@interface ECSCafeXVideoViewController : ECSRootViewController
 
 @property (weak, nonatomic) IBOutlet UIView *previewVideoView;
 @property (weak, nonatomic) IBOutlet UIView *remoteVideoView;
+@property (weak, nonatomic) id<CafeXVideoViewDelegate> delegate;
+
+- (void) configWithVideo:(BOOL)showVideo andAudio:(BOOL)showAudio;
+- (void) hideVideoPanels:(BOOL)hidden;
+- (void) didHideRemoteVideo:(BOOL)hidden;
 
 @end
 

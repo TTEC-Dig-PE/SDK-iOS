@@ -265,6 +265,7 @@
     {
         
         ECSCancelCallbackViewController *cancelCallback = [ECSCancelCallbackViewController ecs_loadFromNib];
+        cancelCallback.workflowDelegate = self.workflowDelegate;
         
         cancelCallback.closeChannelURL = ((ECSConversationCreateResponse*)response).closeLink;
 

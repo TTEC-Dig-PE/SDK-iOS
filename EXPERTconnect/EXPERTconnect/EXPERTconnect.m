@@ -8,6 +8,7 @@
 #import "EXPERTconnect.h"
 
 #import "ECSCafeXController.h"
+#import "ECSVoiceItManager.h"
 
 #import "ECSURLSessionManager.h"
 #import "ECSImageCache.h"
@@ -19,6 +20,12 @@
 #import "NSBundle+ECSBundle.h"
 #import "UIViewController+ECSNibLoading.h"
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
+
+#import "ECSWorkflowNavigation.h"
+
+@interface EXPERTconnect ()
+@property (nonatomic, strong) ECSWorkflow *workflow;
+@end
 
 static EXPERTconnect* _sharedInstance;
 
@@ -44,6 +51,14 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:[ECSImageCache new] forClass:[ECSImageCache class]];
     [[ECSInjector defaultInjector] setObject:[ECSTheme new] forClass:[ECSTheme class]];
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
+    [[ECSInjector defaultInjector] setObject:[ECSVoiceItManager new] forClass:[ECSVoiceItManager class]];
+
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
 
     _userCallbackNumber = nil;
 }
@@ -115,12 +130,64 @@ static EXPERTconnect* _sharedInstance;
     return [NSBundle ecs_bundleVersion];
 }
 
-- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey
 {
-    ECSChatActionType *chatAction = [ECSChatActionType new];
+    // Nathan Keeney 9/1/2015 changed to ALLOW CafeX escalation (no change to vanilla chats):
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
     chatAction.actionId = @"";
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
+    chatAction.shouldTakeSurvey = shouldTakeSurvey;
+    
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    chatAction.cafexmode = @"videocapable,voicecapable,cobrowsecapable";
+    chatAction.cafextarget = [cafeXController cafeXUsername];
+    
+    UIViewController *chatController = [self viewControllerForActionType:chatAction];
+    
+    return chatController;
+}
+
+- (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+{
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = chatSkill;
+    chatAction.displayName = displayName;
+    chatAction.cafexmode = @"videoauto";
+    chatAction.cafextarget = [cafeXController cafeXUsername];
+    
+    UIViewController *chatController = [self viewControllerForActionType:chatAction];
+    
+    return chatController;
+}
+
+- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
+{
+    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+    
+    // Do a login if there's no session:
+    if (![cafeXController hasCafeXSession]) {
+        [cafeXController setupCafeXSession];
+    }
+    
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = chatSkill;
+    chatAction.displayName = displayName;
+    chatAction.cafexmode = @"voiceauto";
+    chatAction.cafextarget = [cafeXController cafeXUsername];
     
     UIViewController *chatController = [self viewControllerForActionType:chatAction];
     
@@ -144,7 +211,7 @@ static EXPERTconnect* _sharedInstance;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:NO];
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -158,9 +225,9 @@ static EXPERTconnect* _sharedInstance;
 - (UIViewController*)startSurvey:(NSString*)formName
 {
     ECSFormActionType *formAction = [ECSFormActionType new];
-    
     formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
-    
+    formAction.navigationContext = @"personas";
+
     UIViewController *formController = [self viewControllerForActionType:formAction];
     
     return formController;
@@ -240,16 +307,75 @@ static EXPERTconnect* _sharedInstance;
     return chistController;
 }
 
-- (UIViewController*)startSelectExpert
+- (UIViewController*)startSelectExpertChat
 {
     ECSActionType *expertAction = [ECSActionType new];
-    expertAction.type = ECSActionTypeSelectExpert;
+    expertAction.type = ECSActionTypeSelectExpertChat;
     expertAction.actionId = @"";
+    expertAction.displayName = @"Chat With an Expert";
     
     UIViewController *expertController = [self viewControllerForActionType:expertAction];
     
     return expertController;
 }
+
+- (UIViewController*)startSelectExpertVideo
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertVideo;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"VideoChat With an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (UIViewController*)startSelectExpertAndChannel
+{
+    ECSActionType *expertAction = [ECSActionType new];
+    expertAction.type = ECSActionTypeSelectExpertAndChannel;
+    expertAction.actionId = @"";
+    expertAction.displayName = @"Select an Expert";
+    
+    UIViewController *expertController = [self viewControllerForActionType:expertAction];
+    
+    return expertController;
+}
+
+- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
+    // VoiceIT SDK. Call callback with response.
+    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+    if ([voiceItManager isInitialized]) {
+        [voiceItManager authenticateAction:authCallback];
+    } else {
+        [voiceItManager configure:username];
+        [voiceItManager authenticateAction:authCallback];
+    }
+}
+
+- (void)recordNewEnrollment {
+    // VoiceIT SDK. Call callback with response.
+    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+    if ([voiceItManager isInitialized]) {
+        [voiceItManager recordNewEnrollment];
+    } else {
+        [voiceItManager configure:[self userToken]];
+        [voiceItManager recordNewEnrollment];
+    }
+}
+
+- (void)clearEnrollments {
+    // VoiceIT SDK. Call callback with response.
+    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+    if ([voiceItManager isInitialized]) {
+        [voiceItManager clearEnrollments];
+    } else {
+        [voiceItManager configure:[self userToken]];
+        [voiceItManager clearEnrollments];
+    }
+}
+
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
@@ -277,6 +403,10 @@ static EXPERTconnect* _sharedInstance;
     }];
 }
 
+-(void)recievedUnrecognizedAction:(NSString *)action {
+    [self.workflow receivedUnrecognizedAction:action];
+}
+
 - (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
 {
     return [ECSRootViewController ecs_viewControllerForActionType:actionType];
@@ -296,14 +426,62 @@ static EXPERTconnect* _sharedInstance;
     return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
--(void)startWorkflowOnViewController:(UIViewController *)vc {
-    UIViewController *landingController = [self landingViewController];
+- (void)startWorkflow:(NSString *)workFlowName
+           withAction:(NSString *)actionType
+              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+       viewController:(UIViewController *)viewController {
+    
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
 
-    self.navigationManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:vc];
-    [self.navigationManager presentViewControllerInNavigationControllerModally:landingController
-                                                                      animated:YES
-                                                                    completion:nil];
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+
+    initialViewController.workflowDelegate = self.workflow;
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+
 }
 
-@end
+- (void)startChatWorkflow:(NSString *)workFlowName
+               withSkill:(NSString *)skillName
+               withSurvey:(BOOL)shouldTakeSurvey
+              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+       viewController:(UIViewController *)viewController {
 
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName
+                                                                            withDisplayName:@"Chat"
+                                                                                 withSurvey:shouldTakeSurvey];
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workFlowName
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+}
+
+
+@end

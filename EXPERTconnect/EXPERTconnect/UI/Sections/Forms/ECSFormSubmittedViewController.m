@@ -40,10 +40,14 @@
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
-    if (self.navigationController)
-    {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    
+    /*  if (self.navigationController)
+     {
+     [self dismissViewControllerAnimated:YES completion:nil];
+     }
+     */
+    
+    [self.workflowDelegate endWorkFlow];
 }
 
 @end

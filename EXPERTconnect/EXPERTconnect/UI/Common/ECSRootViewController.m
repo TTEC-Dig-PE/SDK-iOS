@@ -65,6 +65,21 @@
     
     [self.view addConstraints:horizontalContstraints];
     [self.view addConstraints:verticalConstraints];
+    
+    //TODO: Need to move this code to custom navigation Controller if required.
+    
+    if ([self.navigationController.viewControllers count] < 2 && self.navigationItem.leftBarButtonItem == nil) {
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(closeButtonTapped:)];
+        
+        self.navigationItem.leftBarButtonItem = closeButton;
+    }
+    
+    self.navigationController.navigationBar.translucent = NO;
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -241,7 +256,8 @@ withParentNavigationController:(UINavigationController*)navigationController
 
 - (void)closeButtonTapped:(id)sender
 {
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.workflowDelegate endWorkFlow];
+    //[self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

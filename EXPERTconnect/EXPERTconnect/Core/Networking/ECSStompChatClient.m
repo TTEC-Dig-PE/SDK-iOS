@@ -8,6 +8,7 @@
 #import "ECSStompChatClient.h"
 
 #import "ECSChatActionType.h"
+#import "ECSVideoChatActionType.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
@@ -47,7 +48,7 @@ static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";
 static NSString * const kECSChatAddChannelMessage = @"AddChannelCommand";
 static NSString * const kECSChatAssociateInfoMessage = @"AssociateInfoCommand";
 static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
-static NSString * const kECSCafeXMessage = @"CafeXMessage";
+static NSString * const kECSCafeXMessage = @"CafeXCommand";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
@@ -138,9 +139,14 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     {
         configuration.to = chatAction.agentSkill;
     }
-//#ifdef DEBUG
-//    configuration.to = @"Calls for erik_mktwebextc";
-//#endif
+
+    // check for video action type
+    if ([chatAction isKindOfClass:[ECSVideoChatActionType class]]) {
+        ECSVideoChatActionType *videoChatAction = (ECSVideoChatActionType *)chatAction;
+        
+        configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
+    }
+    
     configuration.from = userManager.userToken;
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";

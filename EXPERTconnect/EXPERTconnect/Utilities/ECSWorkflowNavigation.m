@@ -8,11 +8,26 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSViewControllerStack.h"
+#import "ECSWorkflow.h"
+
+#import "ECSCafeXController.h"
+
+#import "ECSURLSessionManager.h"
+#import "ECSImageCache.h"
+#import "ECSInjector.h"
+#import "ECSTheme.h"
+#import "ECSUserManager.h"
+#import "ECSLocalization.h"
+
+#import "NSBundle+ECSBundle.h"
+#import "UIViewController+ECSNibLoading.h"
+#import "ECSAnswerEngineViewController.h"
 
 @interface ECSWorkflowNavigation ()
 
-@property (nonatomic, weak) UIViewController *hostViewController;
 @property (nonatomic, strong) ECSViewControllerStack *modalStack;
+
+@property (nonatomic, strong) UINavigationController *navigationController;
 
 @property (nonatomic, strong) UIView *dimmingOverlay;
 @property (nonatomic, strong) UIView *containerView;
@@ -95,8 +110,15 @@
 - (void)presentViewControllerInNavigationControllerModally:(UIViewController *)viewController
                                                   animated:(BOOL)shouldAnimate
                                                 completion:(completionBlock)completion {
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewControllerModally:navController animated:YES completion:completion];
+    
+//    if (self.navigationController) {
+//        [self.navigationController pushViewController:viewController animated:YES];
+//    } else {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewControllerModally:navController animated:YES completion:completion];
+        self.navigationController = navController;
+//    }
+    
 }
 
 - (void)presentViewControllerModally:(UIViewController *)viewController
@@ -159,7 +181,7 @@
     [UIView
      animateWithDuration: shouldAnimate ? [self modalAnimationDuration] : 0.0f
      animations:^{
-         newView.transform = CGAffineTransformMakeTranslation(0, 0);
+         newView.transform = CGAffineTransformMakeTranslation(0, 20);
          [self.dimmingOverlay setAlpha:dimmingAlpha];
      }
      completion:^(BOOL finished) {
@@ -206,6 +228,42 @@
     };
 }
 
+- (void)displayAlertForActionType:(NSString *)actionType completion:(void (^)(BOOL selected))completion {
+    NSString *alertTitle = @"Video Chat";
+    NSString *alertMsg = @"We are just not having any luck finding you an answer, let's change the conversation and get you help now. Please try a video chat with an Agent";
+    if ([actionType isEqualToString:ECSRequestChatAction]) {
+        alertTitle = @"Chat with an Agent";
+        alertMsg = @"We are just not having any luck finding you an answer, let's change the conversation and get you help now. Please try a chat with an Agent";
+    } else if ([actionType isEqualToString:ECSRequestCallbackAction]) {
+        alertTitle = @"Voice Callback";
+        alertMsg = @"We are just not having any luck finding you an answer, let's change the conversation and get you help now. Please try talking to an Agent";
+    } else if ([actionType isEqualToString:ECSRequestVoiceChatAction]) {
+        alertTitle = @"Voice Chat";
+        alertMsg = @"We are just not having any luck finding you an answer, let's change the conversation and get you help now. Please try a voice chat with an Agent";
+    }
+    
+    UIAlertController *workflowNameController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMsg preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [workflowNameController dismissViewControllerAnimated:YES completion:^{
+            if (completion) {
+                completion(NO);
+            }
+        }];
+        
+    }];
+    
+    UIAlertAction *alertActionContinue = [UIAlertAction actionWithTitle:alertTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if (completion) {
+            completion(YES);
+        }
+    }];
+    
+    [workflowNameController addAction:alertActionStop];
+    [workflowNameController addAction:alertActionContinue];
+    [[self.modalStack topViewController] presentViewController:workflowNameController animated:YES completion:nil];
+}
+
 #pragma mark - Minimize Restore
 
 - (void)minmizeAllViewControllersWithCompletion:(completionBlock)completion {
@@ -217,7 +275,8 @@
     UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIImage *targetImage = [UIImage imageNamed:@"avatar"];
+    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+    UIImage *targetImage = [[imageCache imageForPath:@"icn_vidchat_end"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     // make minimize button
     self.minimizedButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -225,6 +284,9 @@
     self.minimizedButton.layer.borderColor = [[self modalBorderColor] CGColor];
     self.minimizedButton.layer.cornerRadius = [self modalBorderRadius];
     self.minimizedButton.clipsToBounds = YES;
+    [self.minimizedButton setBackgroundImage:screenshot
+                                    forState:UIControlStateNormal];
+    
     [self.minimizedButton addTarget:self
                              action:@selector(maxmimizeButtonTapped:)
                    forControlEvents:UIControlEventTouchUpInside];
@@ -239,54 +301,62 @@
      animateWithDuration: [self modalAnimationDuration]
      animations:^{
          [self.dimmingOverlay setAlpha:0.0];
-         self.minimizedButton.frame = CGRectMake(0, 0, targetImage.size.width, targetImage.size.width);
+         self.minimizedButton.frame = CGRectMake(0, 0, targetImage.size.width, targetImage.size.height);
          self.minimizedButton.center = [self minimizePosition];
      }
      completion:^(BOOL finished) {
          if (completion) completion();
      }];
     
-    // animate image transition
-    //self.minimizedButton.screenshotImage = screenshot;
-    //self.minimizedButton.minimizedImage = targetImage;
-    //[self.minimizedButton transitionToScreenshotWithDuration:0.0];
-    //[self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
+     //animate image transition
+//    self.minimizedButton.screenshotImage = screenshot;
+//    self.minimizedButton.minimizedImage = targetImage;
+//    [self.minimizedButton transitionToScreenshotWithDuration:0.0];
+//    [self.minimizedButton transitionToMinimizedImageWithDuration:[self modalAnimationDuration]];
 }
 
-- (void)restoreAllViewControllersWithCompletion:(completionBlock)completion {
+- (void)restoreAllViewControllersWithAnimation:(BOOL)animate withCompletion:(completionBlock)completion {
     
-    // animate out
-    CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
-    CGSize modalSize = [self modalSize];
-    
-    [UIView
-     animateWithDuration: [self modalAnimationDuration]
-     animations:^{
-         [self.dimmingOverlay setAlpha:dimmingAlpha];
-         self.minimizedButton.frame = CGRectMake(0, 0, modalSize.width, modalSize.height);
-         self.minimizedButton.center = self.containerView.center;
-     }
-     completion:^(BOOL finished) {
-         [self.containerView setAlpha:1.0];
-         [self.minimizedButton removeFromSuperview];
-         self.minimizedButton = nil;
-         
-         if (completion) completion();
-     }];
+    if (animate) {
+        // animate out
+        CGFloat dimmingAlpha = [self.modalStack viewControllerCount] * [self modalOverlayDimmingFactor];
+        CGSize modalSize = [self modalSize];
+        
+        [UIView
+         animateWithDuration: [self modalAnimationDuration]
+         animations:^{
+             [self.dimmingOverlay setAlpha:dimmingAlpha];
+             self.minimizedButton.frame = CGRectMake(0, 0, modalSize.width, modalSize.height);
+             self.minimizedButton.center = self.containerView.center;
+         }
+         completion:^(BOOL finished) {
+             [self.containerView setAlpha:1.0];
+             [self.minimizedButton removeFromSuperview];
+             self.minimizedButton = nil;
+             
+             if (completion) completion();
+         }];
+    } else {
+        [self.minimizedButton removeFromSuperview];
+        self.minimizedButton = nil;
+        
+        if (completion) completion();
+    }
+  
 }
 
 - (void)maxmimizeButtonTapped:(id)sender {
-    [self restoreAllViewControllersWithCompletion:nil];
+    [self restoreAllViewControllersWithAnimation:YES withCompletion:nil];
 }
 
 - (CGPoint)minimizePosition {
-    return CGPointMake(72, 144);
+    return CGPointMake([[UIScreen mainScreen] bounds].size.width - 20, 144);
 }
 
 #pragma mark - Modal VC Parameters
 
 - (CGSize)modalSize {
-    return CGSizeMake(500, 500);
+    return CGSizeMake(550, 650);
 }
 
 - (UIColor *)modalBorderColor {

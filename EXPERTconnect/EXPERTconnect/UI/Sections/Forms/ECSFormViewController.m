@@ -323,11 +323,23 @@
     
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
     
+    NSArray *configuration = [formAction.form.formData valueForKey:@"configuration"];
+    NSNumber *maxValue = [[configuration objectAtIndex:0] valueForKey:@"maxValue"];
+    NSNumber *value = [NSNumber numberWithFloat:[self.formItemVC.formItem.formValue floatValue]];
+
+    //TODO : move this inside the session block
+    NSString *lastSurveyScore;
+    if([value intValue] > ([maxValue intValue]/2)) {
+        lastSurveyScore = @"high";
+    } else {
+        lastSurveyScore = @"low";
+    }
+    [[EXPERTconnect shared] setLastSurveyScore:lastSurveyScore];
+
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
     formAction.intent = userIntent;
     
     __weak typeof(self) weakSelf = self;
-    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [urlSession submitForm:[formAction.form formResponseValue]
                     intent:userIntent
@@ -337,18 +349,24 @@
                     if (!error)
                     {
                         formAction.form.submitted = YES;
-                        if (response.action) {
-                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
-                        } else {
-                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
-                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
-                            
-                            if (weakSelf.navigationController)
-                            {
-                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
-                            }
-                        }
+                        //TODO : Navigation is being handled by the Host App, don't need this.
+//                        if (response.action) {
+//                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
+//                        } else {
+                        
+//            
+//                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+//                            submitController.workflowDelegate = self.workflowDelegate;
+//                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
+//                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
+//                            
+//                            if (weakSelf.navigationController)
+//                            {
+//                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
+//                            }
+////                        }
+                        
+                        [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
                     }
                     else
                     {

@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 
-#import "MoxtraController.h"
-
 #import "HZMainScreenViewController.h"
 #import "HZPerformanceViewController.h"
 #import "HZResearchViewController.h"
@@ -19,8 +17,6 @@
 @interface HZAppDelegate : UIResponder <UIApplicationDelegate, ExpertConnectDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) MoxtraController *moxtraController;
 
 @property (nonatomic, strong, readonly) HZMainScreenViewController *mainViewController;
 @property (nonatomic, strong, readonly) HZPerformanceViewController *performanceViewController;

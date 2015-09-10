@@ -10,11 +10,12 @@
 #define EXPERTconnect_ECSCafeXController_h
 
 #import <ACBClientSDK/ACBUC.h>
+#import <AssistSDK.h>
 #import "ReachabilityManager.h"
 #import "ECSCafeXVideoViewController.h"
 #import "ECSRootViewController.h"
 
-@interface ECSCafeXController : NSObject <ACBUCDelegate, ACBClientCallDelegate, ACBClientPhoneDelegate, ReachabilityManagerListener> {
+@interface ECSCafeXController : NSObject <ACBUCDelegate, ACBClientCallDelegate, ACBClientPhoneDelegate, ReachabilityManagerListener, CafeXVideoViewDelegate> {
     
     ACBUC *cafeXConnection;
     NSString *username;
@@ -26,12 +27,21 @@
 @property (retain) ReachabilityManager *reachabilityManager;
 @property (strong, nonatomic) ECSCafeXVideoViewController *cafeXVideoViewController;
 @property (copy) void (^postLoginTask)(void);
+@property (strong, nonatomic) ECSRootViewController *defaultParent;
+@property (weak, nonatomic) ACBClientCall *savedCall;
+@property (strong, nonatomic) NSString *savedTarget;
+@property (nonatomic, assign) BOOL savedVidOption;
+@property (nonatomic, assign) BOOL savedAudOption;
 
+- (void)setDefaultParent:(ECSRootViewController *)parent;
 - (BOOL)hasCafeXSession;
+- (NSString *) cafeXUsername;
 - (void)setupCafeXSession;
 - (void)setupCafeXSessionWithTask:(void (^)(void))task;
 - (void)endCafeXSession;
 - (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent;
+- (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent;
+- (void)endCoBrowse;
 
 + (void)requestCameraAccess;
 

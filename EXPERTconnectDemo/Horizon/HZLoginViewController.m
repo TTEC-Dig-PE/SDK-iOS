@@ -127,47 +127,77 @@
     __weak typeof(self) weakSelf = self;
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [[EXPERTconnect shared] setUserToken:email];
-    
-    [weakSelf.loadingIndicator startAnimating];
+    [EXPERTconnect shared].lastSurveyScore = @"high";
+    [self.loadingIndicator startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//
+//    [sessionManager
+//     getFormByName:@"userprofile"
+//     withCompletion:^(ECSForm *form, NSError *error) {
+//         
+//         [weakSelf.loadingIndicator stopAnimating];
+//         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//         
+//         NSString *mobile = nil;
+//         NSString *phone = nil;
+//         if (form && form.formData) {
+//             for (ECSFormItem *item in form.formData) {
+//                 if ([item.metadata isEqualToString:@"profile.fullname"]) {
+//                     [EXPERTconnect shared].userDisplayName = item.formValue;
+//                     continue;
+//                 }
+//                 if ([item.metadata isEqualToString:@"profile.phone"]) {
+//                     phone = item.formValue;
+//                     continue;
+//                 }
+//                 if ([item.metadata isEqualToString:@"profile.mobile"]) {
+//                     mobile = item.formValue;
+//                     continue;
+//                 }
+//             }
+//             
+//             if (mobile != nil) {
+//                 [EXPERTconnect shared].userCallbackNumber = mobile;
+//             } else if (phone != nil) {
+//                 [EXPERTconnect shared].userCallbackNumber = phone;
+//             }
+//             
+//             [weakSelf handleSuccessfulLogin];
+//         }
+//         else {
+//             [weakSelf handleFailedLogin];
+//         }
+//     }];
+
+    [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)   {
+        [weakSelf.loadingIndicator stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        if (error != nil) {
+            [weakSelf handleFailedLogin];
+        }
+        else {
+            if (profile.mobilePhone != nil) {
+                [EXPERTconnect shared].userCallbackNumber = profile.mobilePhone;
+            }
+            NSString *firstName = @"";
+            NSString *lastName = @"";
+            if (profile.firstName != nil) {
+                firstName = profile.firstName;
+            }
+            if (profile.lastName != nil) {
+                lastName = profile.lastName;
+            }
+            NSString *fullName = [firstName stringByAppendingString:lastName];
+            [EXPERTconnect shared].userDisplayName = fullName;
+            NSDictionary *customData = profile.customData;
+            NSString *treatmentType = [customData valueForKey:@"treatment"];
+            NSString *customerType = [customData valueForKey:@"customer_type"];
+            [EXPERTconnect shared].customerType = customerType;
+            [EXPERTconnect shared].treatmentType = treatmentType;
+            [weakSelf handleSuccessfulLogin];
+        }
+    }];
     
-    [sessionManager
-     getFormByName:@"userprofile"
-     withCompletion:^(ECSForm *form, NSError *error) {
-         
-         [weakSelf.loadingIndicator stopAnimating];
-         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-         
-         NSString *mobile = nil;
-         NSString *phone = nil;
-         if (form && form.formData) {
-             for (ECSFormItem *item in form.formData) {
-                 if ([item.metadata isEqualToString:@"profile.fullname"]) {
-                     [EXPERTconnect shared].userDisplayName = item.formValue;
-                     continue;
-                 }
-                 if ([item.metadata isEqualToString:@"profile.phone"]) {
-                     phone = item.formValue;
-                     continue;
-                 }
-                 if ([item.metadata isEqualToString:@"profile.mobile"]) {
-                     mobile = item.formValue;
-                     continue;
-                 }
-             }
-             
-             if (mobile != nil) {
-                 [EXPERTconnect shared].userCallbackNumber = mobile;
-             } else if (phone != nil) {
-                 [EXPERTconnect shared].userCallbackNumber = phone;
-             }
-             
-             [weakSelf handleSuccessfulLogin];
-         }
-         else {
-             [weakSelf handleFailedLogin];
-         }
-     }];
 }
 
 - (void)handleSuccessfulLogin {

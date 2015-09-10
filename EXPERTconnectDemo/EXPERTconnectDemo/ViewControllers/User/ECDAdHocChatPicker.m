@@ -30,6 +30,7 @@ static NSString *const lastSkillSelected = @"lastSkillSelected";
     [chatSkillsArray addObject:@"Calls for ken_horizon"];
     [chatSkillsArray addObject:@"Calls for nathan_horizon"];
     [chatSkillsArray addObject:@"Calls for samantha_horizon"];
+    [chatSkillsArray addObject:@"Calls for chris_horizon"];
     
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
     

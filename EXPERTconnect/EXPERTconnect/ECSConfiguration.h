@@ -37,4 +37,12 @@
 // The default display name for the navigation context.
 @property (strong, nonatomic) NSString *defaultNavigationDisplayName;
 
+
+
+// Default answer engine context for the Answer Engine.
+@property (strong, nonatomic) NSString *defaultAnswerEngineContext;
+
+// The default form name for survey.
+@property (strong, nonatomic) NSString *defaultCallBack;
+
 @end

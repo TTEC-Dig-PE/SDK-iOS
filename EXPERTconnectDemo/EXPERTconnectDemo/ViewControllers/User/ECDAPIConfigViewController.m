@@ -105,10 +105,11 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     [self.selectAnswerEngineContextPicker setup];
 
     self.sliderValueField.text = @"5";
-    
     self.rateResponseStars.value = 2.5;
     [self.rateResponseStars setStepInterval:0.5];
-    [self.rateResponseStars setMarkFont:[UIFont systemFontOfSize:44.0f]];
+    
+    // [self.rateResponseStars sizeToFit];
+    
     [self.rateResponseStars addTarget:self action:@selector(ratingChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.tableView.delegate = self;

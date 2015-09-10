@@ -23,12 +23,14 @@
 #import "ECSWebActionType.h"
 #import "ECSWebViewController.h"
 #import "ECSFormActionType.h"
+#import "ECSFormSubmittedActionType.h"
 #import "ECSFormViewController.h"
 #import "ECSProfileViewController.h"
 #import "ECSSMSActionType.h"
 #import "ECSMessageViewController.h"
 #import "ECSSelectExpertViewController.h"
 #import "UIViewController+ECSNibLoading.h"
+#import "ECSFormSubmittedViewController.h"
 
 @implementation ECSRootViewController (Navigation)
 
@@ -49,7 +51,9 @@
     {
         actionViewController = [ECSChatLogsViewController ecs_loadFromNib];
     }
-    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpert])
+    else if ([actionType.type isEqualToString:ECSActionTypeSelectExpertChat] || [actionType.type isEqualToString:ECSActionTypeSelectExpertVideo] ||
+             [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceCallback] ||
+             [actionType.type isEqualToString:ECSActionTypeSelectExpertVoiceChat] ||[actionType.type isEqualToString:ECSActionTypeSelectExpertAndChannel] )
     {
         actionViewController = [ECSSelectExpertViewController ecs_loadFromNib];
         actionViewController.actionType = actionType;
@@ -84,6 +88,13 @@
         
         actionViewController = viewController;
     }
+    else if ([actionType isKindOfClass:[ECSFormSubmittedActionType class]])
+    {
+        ECSFormSubmittedViewController *viewController = [ECSFormSubmittedViewController ecs_loadFromNib];
+        viewController.actionType = [actionType copy];
+        
+        actionViewController = viewController;
+    }
     else if ([actionType isKindOfClass:[ECSChatActionType class]])
     {
         ECSChatViewController* viewController = [ECSChatViewController ecs_loadFromNib];
@@ -111,6 +122,7 @@
     }
     else
     {
+        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType.type];
         actionViewController = [ECSRootViewController createPlaceholderViewController];
     }
     
@@ -135,6 +147,8 @@
 - (void)ecs_navigateToViewControllerForActionType:(ECSActionType*)actionType
 {
     ECSRootViewController *controller = [ECSRootViewController ecs_viewControllerForActionType:actionType];
+    controller.workflowDelegate = self.workflowDelegate;
+    
     if (controller)
     {
         if ([self.actionType isKindOfClass:[ECSNavigationActionType class]])

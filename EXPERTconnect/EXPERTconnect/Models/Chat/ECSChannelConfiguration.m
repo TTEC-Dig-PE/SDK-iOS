@@ -22,6 +22,7 @@
              @"sourceAddress": @"sourceAddress",
              @"location": @"location",
              @"deviceId": @"deviceId",
+             @"features": @"features",
              };
 }
 
