@@ -16,6 +16,9 @@
 // The host your EXPERTconnect SDK connects to.
 @property (strong, nonatomic) NSString *host;
 
+// The host your EXPERTconnect SDK connects to.
+@property (strong, nonatomic) NSString *cafeXHost;
+
 // The name of your application
 @property (strong, nonatomic) NSString *appName;
 

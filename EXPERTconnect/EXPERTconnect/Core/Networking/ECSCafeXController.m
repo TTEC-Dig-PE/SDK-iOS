@@ -95,10 +95,12 @@
     // TODO: Get App Server host from configuration (need to add to all host apps too)
     
     username = [self cafeXUsername];
-    server = @"dcapp01.ttechenabled.net"; // TODO: Store somewhere
-    port = @"443"; // TODO: Store somewhere
+    //server = @"dcapp01.ttechenabled.net";
+    //port = @"443"; // TODO: Store somewhere
+    // NSString *URL    = [NSString stringWithFormat:@"https://%@:%@/cafexproxy/cafexproxy/getsession?u=%@", server, port, username];
     
-    NSString *URL    = [NSString stringWithFormat:@"https://%@:%@/cafexproxy/cafexproxy/getsession?u=%@", server, port, username];
+    server = ecsConfiguration.cafeXHost;
+    NSString *URL    = [NSString stringWithFormat:@"https://%@/cafexproxy/cafexproxy/getsession?u=%@", server, username];
 
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [sessionManager externalRequestWithMethod:@"GET"
