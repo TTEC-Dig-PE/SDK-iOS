@@ -154,8 +154,8 @@
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
     
-    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
-    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
@@ -344,8 +344,8 @@
     
     NSLog(@"CafeX Displaying View Controller...");
     
-    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
-    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message
