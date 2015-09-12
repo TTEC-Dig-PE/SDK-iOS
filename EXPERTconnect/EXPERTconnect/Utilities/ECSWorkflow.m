@@ -147,18 +147,20 @@
 - (void)endVideoChat {
     if (self.videoNavigationManager) {
         [self.videoNavigationManager restoreAllViewControllersWithAnimation:NO withCompletion:^{
-            [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:nil];
-            self.videoNavigationManager = nil;
+            [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:^{
+                 self.videoNavigationManager = nil;
+            }];
         }];
     }
 }
 
 - (void)presentVideoChatViewController:(ECSRootViewController *)viewController {
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:[self.navigationManager hostViewController]];
-    self.videoNavigationManager = navManager;
     [navManager presentViewControllerInNavigationControllerModally:viewController
                                                           animated:YES
-                                                        completion:nil];
+                                                        completion:^{
+                                                            self.videoNavigationManager = navManager;
+                                                        }];
 }
 
 - (void)form:(NSString *)formName submittedWithValue:(NSString *)formValue {

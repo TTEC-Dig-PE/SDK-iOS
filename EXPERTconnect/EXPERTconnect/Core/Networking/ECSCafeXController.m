@@ -338,18 +338,19 @@
 {
     // TODO: Translate
     NSLog(@"CafeX Error: No permission to access camera or microphone! %@", message);
-    [[[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Unable to initiate call: You have not given permission to access the camera or microphone." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    
+    [self displayErrorAlertWithTitle:@"ERROR"
+                         withMessage:@"Unable to initiate call: You have not given permission to access the camera or microphone."];
     // TODO: Kill session?
 }
 
-- (void) call:(ACBClientCall*)call didReceiveCallFailureWithError:(NSError *)error
-{
-    [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:error.description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+- (void) call:(ACBClientCall*)call didReceiveCallFailureWithError:(NSError *)error {
+    [self displayErrorAlertWithTitle:@"ERROR (for call)"
+                         withMessage:error.description];
+
 }
-- (void) call:(ACBClientCall *)call didReceiveDialFailureWithError:(NSError *)error
-{
-    [[[UIAlertView alloc] initWithTitle:@"ERROR (for call)" message:@"The call could not be connected." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+- (void) call:(ACBClientCall *)call didReceiveDialFailureWithError:(NSError *)error {
+    [self displayErrorAlertWithTitle:@"ERROR (for call)"
+                         withMessage:@"The call could not be connected."];
 }
 
 - (void) call:(ACBClientCall*)call didChangeStatus:(ACBClientCallStatus)status
@@ -415,7 +416,27 @@
     }
 }
 
+- (void)displayErrorAlertWithTitle:(NSString *)title withMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        if (_defaultParent) {
+            [_defaultParent.workflowDelegate endVideoChat];
+        }
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    
+    [alertController addAction:alertActionStop];
+    if (_defaultParent) {
+        [_defaultParent presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 #pragma mark - ReachabilityManagerListener
+
 - (void) reachabilityDetermined:(BOOL)reachability
 {
     NSLog(@"Network reachability changed to:%@ - here the application has the chance to inform the user that connectivitiy is lost", reachability ? @"YES" : @"NO");
