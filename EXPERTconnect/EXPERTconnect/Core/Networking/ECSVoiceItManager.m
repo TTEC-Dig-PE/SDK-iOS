@@ -41,6 +41,11 @@
     _countOfEnrollment = 1;
     
     username = user;
+    if (user) {
+        username = user;
+    } else {
+        username = @"guest@email.com";
+    }
     
     NSString *beepFilePath = [[NSBundle ecs_bundle] pathForResource:@"beep" ofType:@"wav"];
     NSString *beforeEnrollFilePath = [[NSBundle ecs_bundle] pathForResource:@"beforeenrollment" ofType:@"wav"];
