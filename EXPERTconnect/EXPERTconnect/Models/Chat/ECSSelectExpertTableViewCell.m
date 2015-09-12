@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoButtonCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatButtonCenterY;
 
+@property (nonatomic, strong) NSDictionary *expert;
 @end
 
 @implementation ECSSelectExpertTableViewCell
@@ -75,7 +76,8 @@
     [self.callBackButton.layer setCornerRadius:3.0];
 }
 
-- (void)configureCellForActionType:(NSString *)actionType {
+- (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert {
+    self.expert = expert;
     if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
         [self displayOnlyChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
@@ -138,19 +140,31 @@
 #pragma mark - Action Methods
 
 - (IBAction)chatPressed:(id)sender {
-    [self.selectExpertCellDelegate chatPressed];
+    if (self.expert) {
+        [self.selectExpertCellDelegate didSelectChatButton:sender
+                                                 forExpert:self.expert];
+    }
 }
 
 - (IBAction)callBackPressed:(id)sender {
-    [self.selectExpertCellDelegate callBackPressed];
+    if (self.expert) {
+        [self.selectExpertCellDelegate didSelectCallBackButton:sender
+                                                     forExpert:self.expert];
+    }
 }
 
 - (IBAction)voiceChatPressed:(id)sender {
-    [self.selectExpertCellDelegate voiceChatPressed];
+    if (self.expert) {
+        [self.selectExpertCellDelegate didSelectVoiceChatButton:sender
+                                                      forExpert:self.expert];
+    }
 }
 
 - (IBAction)videoPressed:(id)sender {
-    [self.selectExpertCellDelegate videoPressed];
+    if (self.expert) {
+        [self.selectExpertCellDelegate didSelectVideoChatButton:sender
+                                                      forExpert:self.expert];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
