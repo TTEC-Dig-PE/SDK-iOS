@@ -198,6 +198,7 @@
         double delayInSeconds = 2.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            NSLog(@"CafeX ANSWERING after 2 second delay.");
             [_savedCall answerWithAudio:YES video:YES];
         });
         
@@ -344,7 +345,15 @@
     
     NSLog(@"CafeX Displaying View Controller...");
     
-    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"CafeX SHOWING UI after 2 second delay.");
+        [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    });
+    
+    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
     //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
