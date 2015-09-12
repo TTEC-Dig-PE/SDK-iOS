@@ -150,12 +150,12 @@
     _defaultParent = parent;
     
     _cafeXVideoViewController.workflowDelegate = _defaultParent.workflowDelegate;
-   // [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
     
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
     
-    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
@@ -169,11 +169,13 @@
 
 
 - (void)CafeXViewDidAppear {
+    NSLog(@"CafeX Displayed View Controller (DidAppear)");
     ACBClientPhone* phone = cafeXConnection.phone;
     
     phone.previewView = _cafeXVideoViewController.previewVideoView;
     
     if (_savedCall == nil) {
+        NSLog(@"CafeX Dialing remote party... %@", _savedTarget);
         // need to dial it:
         _savedCall = [phone createCallToAddress:_savedTarget audio:_savedAudOption video:_savedVidOption delegate:self];
         
@@ -190,8 +192,16 @@
         }
     } else {
         // need to answer it:
+        NSLog(@"CafeX ANSWERING Incoming Call... %@", _savedCall);
         _savedCall.videoView = _cafeXVideoViewController.remoteVideoView;
-        [_savedCall answerWithAudio:YES video:YES];
+        
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [_savedCall answerWithAudio:YES video:YES];
+        });
+        
+        //[_savedCall answerWithAudio:YES video:YES];
     }
 }
 
@@ -321,8 +331,6 @@
     
     [_cafeXVideoViewController configWithVideo:[call hasRemoteVideo] andAudio:YES];
     
-    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
-    
     phone.delegate = self;
     
     if (call)
@@ -333,7 +341,11 @@
     {
         NSLog(@"Call is null on didReceiveCall!");
     }
-    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    
+    NSLog(@"CafeX Displaying View Controller...");
+    
+    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message
