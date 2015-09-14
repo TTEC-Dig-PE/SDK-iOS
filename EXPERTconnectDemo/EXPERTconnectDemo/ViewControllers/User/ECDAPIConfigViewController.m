@@ -14,7 +14,7 @@
 #import <EXPERTconnect/ECSUserProfile.h>
 #import <EXPERTconnect/ECSRatingView.h>         // kdw: Causes Warning: "Missing submodule EXPERTconnect.ECSRatingView"
 
-static NSString * const kReadConfigUrlPath = @"/appconfig/v1/read_rconfig?name={name}";
+static NSString * const kReadConfigUrlPath = @"/appconfig/v1/read_rconfig?like={name}";
 static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 
 @interface ECDAPIConfigViewController ()
