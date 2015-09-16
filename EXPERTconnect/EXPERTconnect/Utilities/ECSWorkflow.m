@@ -172,11 +172,7 @@
                                                                        @"formValue":formValue}];
         if (actions) {
             NSString *actionType = [actions valueForKey:@"ActionType"];
-            if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
-                [self presentViewControllerForActionType:ECSActionTypeSelectExpertChat];
-            } else {
-                [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
-            }
+            [self presentViewControllerForActionType:actionType];
         } else {
             [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
         }
