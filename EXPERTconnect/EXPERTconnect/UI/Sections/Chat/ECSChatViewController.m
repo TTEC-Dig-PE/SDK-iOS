@@ -481,21 +481,22 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     [self.chatToolbar resignFirstResponder];
     [self.workflowDelegate disconnectedFromChat];
-    return;
     
-    if (self.postChatActions &&
-        (self.postChatActions.count > 0) &&
-        ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
-    {
-        ECSFormActionType *formAction = self.postChatActions.firstObject;
-        UIViewController *surveyFormController = [ECSRootViewController ecs_viewControllerForActionType:formAction];
-        
-        [self presentModal:surveyFormController withParentNavigationController:self.navigationController fromViewController:self.navigationController];
-        _showingPostChatSurvey = YES;
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
+    if(!self.workflowDelegate)   {
+        if (self.postChatActions &&
+            (self.postChatActions.count > 0) &&
+            ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
+        {
+            ECSFormActionType *formAction = self.postChatActions.firstObject;
+            UIViewController *surveyFormController = [ECSRootViewController ecs_viewControllerForActionType:formAction];
+            
+            [self presentModal:surveyFormController withParentNavigationController:self.navigationController fromViewController:self.navigationController];
+            _showingPostChatSurvey = YES;
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
