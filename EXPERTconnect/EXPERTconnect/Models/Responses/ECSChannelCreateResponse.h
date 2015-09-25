@@ -46,6 +46,9 @@
 // Link used to subscribe to and post messages
 @property (strong, nonatomic) NSString *messagesLink;
 
+// Link used to subscribe to and post messages
+@property (strong, nonatomic) NSString *stompMessagesLink;
+
 // Self reference
 @property (strong, nonatomic) NSString *selfLink;
 

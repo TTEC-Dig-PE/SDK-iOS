@@ -265,7 +265,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 - (void)subscribeToDestination:(NSString *)destination withSubscriptionID:(NSString *)subscriptionId
 {
-    NSString *fullDestination = [NSString stringWithFormat:@"/topic/conversations/%@", destination];
+    NSString *fullDestination = [NSString stringWithFormat:@"/topic/conversations.%@", destination];
     
     [self.stompClient subscribeToDestination:fullDestination
                           withSubscriptionID:subscriptionId

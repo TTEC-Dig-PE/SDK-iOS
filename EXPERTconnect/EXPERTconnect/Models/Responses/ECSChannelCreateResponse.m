@@ -27,6 +27,61 @@
              };
 }
 
+// rharvey (via email): Long term it might make sense to add new _links for things like STOMP.  I think
+//                      that is too much of a change right now.  The SDK must already be truncating the
+//                      http://<host>/conversationengine/v1 part of the _link.  I would say just do a
+//                      '/' to '.' string replacement.
+//
+- (NSString *)messagesLink {
+    
+    // Transform: http://api.humanify.com:8080/conversationengine/v1/channels/chan_5cc5b963-d3c6-4dd8-99b6-54305f3194e5_mktwebextc/messages
+    //        To: http://api.humanify.com:8080/conversationengine/v1.channels.chan_5cc5b963-d3c6-4dd8-99b6-54305f3194e5_mktwebextc.messages
+    //
+    if(!_stompMessagesLink)  {
+
+        
+/*
+
+        // This solution did not work. It did not account for the "." after the v1
+        //
+        NSURL *messagesUrl = [NSURL URLWithString:_messagesLink];
+        NSURL *notificationURLWithChannel = [[NSURL URLWithString:_messagesLink] URLByDeletingLastPathComponent];
+        NSURL *baseUrl = [notificationURLWithChannel URLByDeletingLastPathComponent];
+        
+        NSString *channel = [notificationURLWithChannel lastPathComponent];
+        NSString *stompTopic = [@"." stringByAppendingString:[[channel stringByAppendingString:@"."] stringByAppendingString:[messagesUrl lastPathComponent]]];
+        
+        NSString *baseString = [baseUrl absoluteString];
+        
+        NSRange lastSlash = [baseString rangeOfString:@"/" options:NSBackwardsSearch];
+        NSLog(@"Last Slash: %lu, Base String: %lu", (unsigned long)lastSlash.location, baseString.length);
+        
+        if(lastSlash.location == baseString.length - 1) {
+            baseString = [baseString stringByReplacingCharactersInRange:lastSlash withString:@""];
+        }
+        
+        _stompMessagesLink = [baseString stringByAppendingString:stompTopic];
+*/
+
+        // Replace the trailing 3 slashes "/" with periods "."
+        //
+        //
+        NSRange lastSlash = [_messagesLink rangeOfString:@"/" options:NSBackwardsSearch];
+        
+        _stompMessagesLink = [_messagesLink stringByReplacingCharactersInRange:lastSlash withString: @"."];
+        
+        lastSlash = [_stompMessagesLink rangeOfString:@"/" options:NSBackwardsSearch];
+        
+        _stompMessagesLink = [_stompMessagesLink stringByReplacingCharactersInRange:lastSlash withString: @"."];
+        
+        lastSlash = [_stompMessagesLink rangeOfString:@"/" options:NSBackwardsSearch];
+        
+        _stompMessagesLink = [_stompMessagesLink stringByReplacingCharactersInRange:lastSlash withString: @"."];
+    }
+
+    return _stompMessagesLink;
+}
+
 - (NSString *)description
 {
     NSMutableString *string = [[NSMutableString alloc] initWithString:[super description]];
