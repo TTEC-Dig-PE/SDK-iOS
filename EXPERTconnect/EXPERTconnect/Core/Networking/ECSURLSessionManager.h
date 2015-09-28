@@ -79,7 +79,17 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                        completion:(void (^)(NSString *authToken, NSError *error))completion;
 
 /**
- Returns the navigation context with the specified name.  The corresponding data task is returned to 
+ Returns the Decision response JSON for the provided Decision request JSON
+ 
+ @param decisionJson JSON as an NSDictionary
+ 
+ @return the data task corresponding to this API call.
+ */
+- (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
+                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+
+/**
+ Returns the navigation context with the specified name.  The corresponding data task is returned to
  allow for canceling of the operation.
  
  @param name the name of the navigation content to retrieve
