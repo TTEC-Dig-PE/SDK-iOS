@@ -368,7 +368,11 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 {
     if (self.isReconnecting)
     {
-        [self unsubscribeWithSubscriptionID:@"ios-1"];
+        // kwashington 09/25/2015 - With the new MQ Server in place, this unsubscribe was unsubscribing on
+        //                          the new Stomp connection, which is an Error, which caused the subsequent
+        //                          Subscribe to fail (as best we can tell anyway).
+        //
+        // [self unsubscribeWithSubscriptionID:@"ios-1"];
     }
 
     [self subscribeToDestination:self.currentConversation.conversationID
