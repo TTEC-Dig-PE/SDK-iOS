@@ -6,6 +6,7 @@
 //
 
 #import "ECDLicenseViewController.h"
+#import "ECDSampleDatePicker.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -13,6 +14,8 @@
 @interface ECDLicenseViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIView *datePickerView;
+@property (strong, nonatomic) ECDSampleDatePicker *selectedSampleDatePicker;
 
 @end
 
@@ -31,10 +34,13 @@
     
     NSString *licensePath = [[NSBundle mainBundle] pathForResource:@"ECDLicenses" ofType:@"txt"];
     NSString *license = [NSString stringWithContentsOfFile:licensePath
-                                                 encoding:NSUTF8StringEncoding
-                                                    error:nil];
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:nil];
     self.textView.text = license;
     
+    self.selectedSampleDatePicker = [ECDSampleDatePicker new];
+    [self.selectedSampleDatePicker setup];
+    [self.datePickerView addSubview:self.selectedSampleDatePicker];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -44,13 +50,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
