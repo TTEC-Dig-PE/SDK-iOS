@@ -36,9 +36,9 @@ static NSString *const serverUrlKey = @"serverURL";
     [self.serverUrlsArray addObject:@"http://api.humanify.com:8080"];
     [self.serverUrlsArray addObject:@"http://api.dce1.humanify.com:8080"];
     [self.serverUrlsArray addObject:@"http://demo.humanify.com"];
-    [self.serverUrlsArray addObject:@"http://api.dce1.humanify.com:8080"];
-    [self.serverUrlsArray addObject:@"http://api.dce1.humanify.com:8080"];
-    [self.serverUrlsArray addObject:@"http://api.dce1.humanify.com:8080"];
+    [self.serverUrlsArray addObject:@"http://api.dce2.humanify.com:8080"];
+    [self.serverUrlsArray addObject:@"http://api.dce3.humanify.com:8080"];
+    [self.serverUrlsArray addObject:@"http://api.prod.humanify.com:8080"];
 
     
     NSString *currentUrl = [[NSUserDefaults standardUserDefaults] objectForKey:serverUrlKey];
