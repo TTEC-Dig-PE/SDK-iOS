@@ -4,7 +4,7 @@
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-
+#import "AppDelegate.h"
 #import "ECDMainMenuViewController.h"
 
 #import "ECDMainMenuTableViewCell.h"
@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
     ECDMainMenuRowHumanify,
     ECDMainMenuRowBeacons,
     ECDMainMenuRowProfile,
+    ECDMainMenuRowBugReport,
     ECDMainMenuRowSettings
 };
 
@@ -175,6 +176,13 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         {
             actionViewController = [[ECDSettingsViewController alloc] initWithNibName:nil bundle:nil];
         }
+        else
+            if ([item.type isEqualToString:@"bugreport"])
+            {
+                actionViewController = nil;
+                AppDelegate* app = [UIApplication sharedApplication].delegate;
+                [app reportBug];
+            }
         else
         if ([item.type isEqualToString:@"adhoc"])
         {

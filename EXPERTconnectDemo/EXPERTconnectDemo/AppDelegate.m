@@ -29,6 +29,13 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // Log NSLog to a file, so we can do bug reports, but only for release builds ("in the field").
+#ifdef DEBUG
+    // No-op: Allow NSLog to go to XCode console.
+#else
+    ECDBugReportEmailer.setUpLogging();
+#endif
+    
     // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
     // or set runtime properties here.
     UAConfig *config = [UAConfig defaultConfig];
@@ -157,8 +164,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     }
 }
 
+- (void)reportBug {
+    if (_bugReportEmailer == nil) {
+        _bugReportEmailer = [[ECDBugReportEmailer alloc] init];
+    }
+    [_bugReportEmailer reportBug];
+}
+
 - (void)logout:(NSNotification*)notification
-{
+{    
     ECDSplashViewController *splashController = [[ECDSplashViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = splashController;
     [self.window makeKeyAndVisible];

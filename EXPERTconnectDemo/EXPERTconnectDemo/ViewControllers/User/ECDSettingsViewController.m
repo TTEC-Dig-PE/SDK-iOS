@@ -14,6 +14,7 @@
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
+#import "ECDBugReportEmailer.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -369,7 +370,8 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, nil)
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
-                                                          [[EXPERTconnect shared] setUserToken:nil];
+                                                          [ECDBugReportEmailer resetLogging];
+                                                          [[EXPERTconnect shared] logout];
                                                       }]];
     [self presentViewController:alertController animated:YES completion:nil];
 }

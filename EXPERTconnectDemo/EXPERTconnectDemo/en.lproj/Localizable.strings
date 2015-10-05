@@ -137,7 +137,10 @@
 /* Localized displayName for Settings in MainMenuConfig.json */
 "ECDLocalizedSettingsLabel" = "Settings";
 
-/* Localized displayName for Settings in MainMenuConfig.json */
+/* Localized displayName for Bug Report in MainMenuConfig.json */
+"ECDLocalizedBugReportLabel" = "Report Bug";
+
+/* Localized displayName for Ad Hoc in MainMenuConfig.json */
 "ECDLocalizedAdHocLabel" = "Ad Hoc";
 
 /* Runtime Environment Header */

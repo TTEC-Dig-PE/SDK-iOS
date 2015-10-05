@@ -237,6 +237,8 @@
 		D8D3AAB21B66A36F00DA1762 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA951B66A36F00DA1762 /* StoreKit.framework */; };
 		D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
 		D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
+		D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */; };
+		D8EF94081BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -446,6 +448,8 @@
 		D8D3AA951B66A36F00DA1762 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D8D3AA971B66A36F00DA1762 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D8EF94051BC32DC70068CAA0 /* ECDBugReportEmailer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDBugReportEmailer.h; sourceTree = "<group>"; };
+		D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDBugReportEmailer.m; sourceTree = "<group>"; };
 		E51DEB25660943D05680D79A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -809,6 +813,8 @@
 			children = (
 				4695C37B1B5D802F00C95878 /* ECDLocalization.m */,
 				4695C37E1B5D805200C95878 /* ECDLocalization.h */,
+				D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */,
+				D8EF94051BC32DC70068CAA0 /* ECDBugReportEmailer.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1195,6 +1201,7 @@
 				D8CEBE181B546DC20053E9A0 /* HZLoginViewController.m in Sources */,
 				D8CEBE221B546DC20053E9A0 /* HZRootViewController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
+				D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
@@ -1246,6 +1253,7 @@
 				46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
 				D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */,
+				D8EF94081BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
 				D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */,
 				8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */,
 				D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */,
