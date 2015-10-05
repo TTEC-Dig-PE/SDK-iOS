@@ -12,6 +12,6 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 
 
-@interface ECDAdHocFormsController : ECSRootViewController <ECSBinaryRatingDelegate, ECSCachingImageDelegate>
+@interface ECDAdHocFormsController : ECSRootViewController <ECSBinaryRatingDelegate, ECSCachingImageDelegate, ECSWorkflowDelegate>
 
 @end

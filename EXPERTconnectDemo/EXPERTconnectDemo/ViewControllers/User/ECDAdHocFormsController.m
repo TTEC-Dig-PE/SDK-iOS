@@ -168,6 +168,7 @@
 
 - (IBAction)cameraButtonTapped:(id)sender {
     // [self exampleMakeDecision];
+    // [self exampleWorkflow];
     
     UIImagePickerController *imagePicker = [UIImagePickerController new];
     imagePicker.delegate = self;
@@ -177,6 +178,22 @@
     [self presentViewController:imagePicker
                        animated:YES
                      completion:nil];
+}
+
+
+- (void) exampleWorkflow {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[EXPERTconnect shared] startWorkflow:@"expert" withAction:ECSActionTypeAnswerEngineString delgate: self viewController: self];
+    });
+}
+
+// workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
+//
+- (NSObject *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
+    
+    NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
+    
+    return nil;
 }
 
 - (void) exampleMakeDecision {

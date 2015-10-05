@@ -26,11 +26,20 @@ static NSString *const serverUrlKey = @"serverURL";
     
     [environmentsArray addObject:@"IllegalDev"];
     [environmentsArray addObject:@"IntDev"];
+    [environmentsArray addObject:@"DceDev"];
     [environmentsArray addObject:@"Demo"];
+    [environmentsArray addObject:@"Test"];
+    [environmentsArray addObject:@"SQA"];
+    [environmentsArray addObject:@"Prod"];
     
     [self.serverUrlsArray addObject:@"http://uldcd-cldap02.ttechenabled.net:8080"];
     [self.serverUrlsArray addObject:@"http://api.humanify.com:8080"];
+    [self.serverUrlsArray addObject:@"http://api.dce1.humanify.com"];
     [self.serverUrlsArray addObject:@"http://demo.humanify.com"];
+    [self.serverUrlsArray addObject:@"http://api.dce2.humanify.com"];
+    [self.serverUrlsArray addObject:@"http://api.dce3.humanify.com"];
+    [self.serverUrlsArray addObject:@"http://api.prod.humanify.com"];
+
     
     NSString *currentUrl = [[NSUserDefaults standardUserDefaults] objectForKey:serverUrlKey];
     
