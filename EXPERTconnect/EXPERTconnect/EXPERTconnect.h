@@ -228,6 +228,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void)clearEnrollments;
 
+/**
+ Logout support. Does not change UI - just removes user token and unauthenticates user.
+ 
+ */
+- (void) logout;
 
 /**
  Login support
