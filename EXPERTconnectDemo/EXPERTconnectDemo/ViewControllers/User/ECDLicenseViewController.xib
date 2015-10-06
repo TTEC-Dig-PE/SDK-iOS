@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDLicenseViewController">
             <connections>
-                <outlet property="datePickerView" destination="GWU-fD-Zck" id="Woy-Iz-tmG"/>
                 <outlet property="textView" destination="hJC-FV-Lqv" id="G2t-pl-RiT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,30 +16,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJC-FV-Lqv">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWU-fD-Zck">
-                    <rect key="frame" x="0.0" y="400" width="600" height="200"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="200" id="E5d-DU-Wlh"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="hJC-FV-Lqv" secondAttribute="trailing" id="7iy-Ko-TMj"/>
-                <constraint firstAttribute="bottom" secondItem="GWU-fD-Zck" secondAttribute="bottom" id="93B-pW-Xkg"/>
                 <constraint firstItem="hJC-FV-Lqv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BmA-Wb-Tba"/>
-                <constraint firstItem="GWU-fD-Zck" firstAttribute="top" secondItem="hJC-FV-Lqv" secondAttribute="bottom" id="OSH-R8-2IY"/>
-                <constraint firstItem="GWU-fD-Zck" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TH0-kn-6BZ"/>
                 <constraint firstAttribute="bottom" secondItem="hJC-FV-Lqv" secondAttribute="bottom" id="Tvk-yn-hLL"/>
                 <constraint firstItem="hJC-FV-Lqv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="auv-3S-jKP"/>
-                <constraint firstAttribute="trailing" secondItem="GWU-fD-Zck" secondAttribute="trailing" id="mUV-jo-d2s"/>
+                <constraint firstAttribute="bottom" secondItem="hJC-FV-Lqv" secondAttribute="bottom" id="o1V-dY-cfc"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">

@@ -6,7 +6,6 @@
 //
 
 #import "ECDLicenseViewController.h"
-#import "ECDSampleDatePicker.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -14,8 +13,6 @@
 @interface ECDLicenseViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UIView *datePickerView;
-@property (strong, nonatomic) ECDSampleDatePicker *selectedSampleDatePicker;
 
 @end
 
@@ -38,9 +35,6 @@
                                                      error:nil];
     self.textView.text = license;
     
-    self.selectedSampleDatePicker = [ECDSampleDatePicker new];
-    [self.selectedSampleDatePicker setup];
-    [self.datePickerView addSubview:self.selectedSampleDatePicker];
     // Do any additional setup after loading the view from its nib.
 }
 

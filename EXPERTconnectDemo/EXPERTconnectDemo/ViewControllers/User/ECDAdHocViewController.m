@@ -18,12 +18,13 @@
 #import "ECDAdHocChatPicker.h"
 #import "ECDAdHocVoiceCallbackPicker.h"
 #import "ECDAdHocAnswerEngineContextPicker.h"
-#import "ECDAdHocVideoChatPicker.h"
 #import "ECDAdHocFormsPicker.h"
 #import "ECDAdHocWebPagePicker.h"
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
+#import "ECDSampleDatePicker.h"
+#import "ECDCalendarViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -32,7 +33,6 @@
 // =======================
 //
 // Start an AdHoc Chat
-// Start an AdHoc Video Chat (CafeX)
 // Start an AdHoc Answer Engine Session
 // Start an AdHoc Survey (Form) by Name
 // Start an AdHoc User Profile Form
@@ -85,10 +85,10 @@
 // Start any High-level SDK Services with Host App ViewController or at least Host App controlled Navigation
 // AdHoc startup Async Stomp Channel, Register for Notifications
 //
+
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
     SettingsSectionAdHocChat,
-    SettingsSectionAdHocVideoChat,
     SettingsSectionAdHocAnswerEngine,
     SettingsSectionAdHocForms,
     SettingsSectionAdHocUserProfile,
@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocAPIConfig,
     SettingsSectionAdHocSubmitForm,
     SettingsSectionFifteen,
+    SettingsSectionSixteen,
     SettingsSectionCount
 };
 
@@ -116,12 +117,6 @@ typedef NS_ENUM(NSInteger, AnswerEngineSectionRows)
 {
     AdHocAnswerEngineRowStart,
     AdHocAnswerEngineSectionRowCount
-};
-
-typedef NS_ENUM(NSInteger, VideoChatSectionRows)
-{
-    AdHocVideoChatRowStart,
-    AdHocVideoChatSectionRowCount
 };
 
 typedef NS_ENUM(NSInteger, FormsSectionRows)
@@ -202,13 +197,18 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     SettingsSectionFifteenRowCount
 };
 
+typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
+{
+    SettingsSectionSixteenRowStart,
+    SettingsSectionSixteenRowCount
+};
+
 @interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectAdHocChatPicker;
 @property (strong, nonatomic) ECDAdHocVoiceCallbackPicker *selectAdHocVoiceCallbackPicker;
 @property (strong, nonatomic) ECDAdHocAnswerEngineContextPicker *selectAdHocAnswerEngineContextPicker;
-@property (strong, nonatomic) ECDAdHocVideoChatPicker *selectAdHocVideoChatPicker;
 @property (strong, nonatomic) ECDAdHocFormsPicker *selectAdHocFormsPicker;
 @property (strong, nonatomic) ECDAdHocWebPagePicker *selectAdHocWebPagePicker;
 @end
@@ -229,17 +229,15 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     self.tableView.sectionHeaderHeight = 42.0f;
     self.tableView.sectionFooterHeight = 0.0f;
-
+    
     self.selectAdHocChatPicker = [ECDAdHocChatPicker new];
     self.selectAdHocAnswerEngineContextPicker = [ECDAdHocAnswerEngineContextPicker new];
-    self.selectAdHocVideoChatPicker = [ECDAdHocVideoChatPicker new];
     self.selectAdHocFormsPicker = [ECDAdHocFormsPicker new];
     self.selectAdHocVoiceCallbackPicker = [ECDAdHocVoiceCallbackPicker new];
     self.selectAdHocWebPagePicker = [ECDAdHocWebPagePicker new];
     
     [self.selectAdHocChatPicker setup];
     [self.selectAdHocAnswerEngineContextPicker setup];
-    [self.selectAdHocVideoChatPicker setup];
     [self.selectAdHocFormsPicker setup];
     [self.selectAdHocVoiceCallbackPicker setup];
     [self.selectAdHocWebPagePicker setup];
@@ -265,10 +263,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             
         case SettingsSectionAdHocAnswerEngine:
             rowCount = AdHocAnswerEngineSectionRowCount;
-            break;
-            
-        case SettingsSectionAdHocVideoChat:
-            rowCount = AdHocVideoChatSectionRowCount;
             break;
             
         case SettingsSectionAdHocForms:
@@ -322,6 +316,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         case SettingsSectionFifteen:
             rowCount = SettingsSectionFifteenRowCount;
             break;
+            
+        case SettingsSectionSixteen:
+            rowCount = SettingsSectionSixteenRowCount;
+            break;
+            
         default:
             break;
     }
@@ -357,18 +356,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
                 case AdHocAnswerEngineRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAnswerEngineLabel, @"AdHoc Answer Engine");
                     cell.accessoryView = self.selectAdHocAnswerEngineContextPicker;
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
-            
-        case SettingsSectionAdHocVideoChat:
-            switch (indexPath.row) {
-                case AdHocVideoChatRowStart:
-                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVideoChatLabel, @"AdHoc Video Chat");
-                    cell.accessoryView = self.selectAdHocVideoChatPicker;
                     break;
                     
                 default:
@@ -543,6 +530,18 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             }
             break;
             
+        case SettingsSectionSixteen:
+            switch (indexPath.row) {
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Sixteen", @"Section Sixteen");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -559,11 +558,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     if (indexPath.section == SettingsSectionAdHocAnswerEngine && indexPath.row == AdHocAnswerEngineRowStart)
     {
         [self handleAdHocStartAnswerEngine];
-    }
-    
-    if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
-    {
-        [self handleAdHocStartVideoChat];
     }
     
     if (indexPath.section == SettingsSectionAdHocForms && indexPath.row == AdHocFormsSectionRowStart)
@@ -630,6 +624,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     {
         [self handleAdHocShowLicense];
     }
+    
+    if (indexPath.section == SettingsSectionSixteen && indexPath.row == SettingsSectionSixteenRowStart)
+    {
+        [self handleAdHocShowCalendar];
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -653,12 +653,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         }
             break;
             
-        case SettingsSectionAdHocVideoChat:
-        {
-            title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
-        }
-            break;
-            
         case SettingsSectionAdHocForms:
         {
             title = ECDLocalizedString(ECDLocalizedStartFormsHeader, @"AdHoc Forms Interview");
@@ -670,7 +664,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
             title = ECDLocalizedString(ECDLocalizedStartUserProfileHeader, @"AdHoc Edit User Profile");
         }
             break;
-    
+            
             
         case SettingsSectionAdHocVoiceCallback:
         {
@@ -748,6 +742,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
         }
             break;
             
+        case SettingsSectionSixteen:
+        {
+            title = ECDLocalizedString(@"Localized Section Sixteen Header", @"Sixteen Header");
+        }
+            break;
+            
         default:
             break;
     }
@@ -773,7 +773,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:YES];
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat"];
     [self.navigationController pushViewController:chatController animated:YES];
 }
 
@@ -797,15 +797,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
--(void)handleAdHocStartVideoChat
-{
-    NSLog(@"Starting an ad-hoc Video Chat Session");
-    
-    NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
-    
-    UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
-    [self.navigationController pushViewController:chatController animated:YES];
-}
 
 -(void)handleAdHocRenderForm
 {
@@ -870,8 +861,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
 -(void)handleAdHocSelectExpert
 {
     NSLog(@"Rendering an ad-hoc Answer Engine History Page");
-    //TODO: Spandana
-    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpertChat];
+    
+    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpert];
     [self.navigationController pushViewController:selectExpertController animated:YES];
 }
 
@@ -899,13 +890,20 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     [self.navigationController pushViewController:formsController animated:YES];
 }
 
-
 -(void)handleAdHocShowLicense
 {
     NSLog(@"Showing the ad-hoc License");
     
     ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:license animated:YES];
+}
+
+-(void)handleAdHocShowCalendar
+{
+    NSLog(@"Showing the ad-hoc Calendar");
+    
+    ECDCalendarViewController *calendar = [[ECDCalendarViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:calendar animated:YES];
 }
 
 @end
