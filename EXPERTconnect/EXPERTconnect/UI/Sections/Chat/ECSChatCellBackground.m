@@ -91,7 +91,7 @@
     else
     {
         self.messageBoxHorizontalAlignConstraint = [NSLayoutConstraint constraintWithItem:self.messageContainerView
-                                                                                attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.avatarImageView attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:15.0f];
+                                                                                attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.avatarImageView attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:15.0f];
         [self addConstraint:self.messageBoxHorizontalAlignConstraint];
     }
     
