@@ -22,9 +22,11 @@
 #import "ECSUserManager.h"
 #import "ECSTheme.h"
 #import "ECSURLSessionManager.h"
+#import "ECSStompClient.h"
 
 #import "UIViewController+ECSNibLoading.h"
 
+//TODO : Use Stomp Callback delegate
 @interface ECSCallbackViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -122,7 +124,9 @@
             }
         }
         
-        self.callbackTextField.text = [self formatPhoneString:phone];
+//        self.callbackTextField.text = [self formatPhoneString:phone];
+        
+        self.callbackTextField.text = [self formatPhoneString:@"8455545639"];
         self.callbackTextField.placeholder = [self formatPhoneString:phone];
     }
 }
@@ -144,6 +148,17 @@
     
     __weak typeof(self) weakSelf = self;
     
+    [sessionManager startConversationForAction:self.actionType
+                               andAlwaysCreate:YES
+                                withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
+                                    [weakSelf setupChannelOfType:@"Callback"
+                                                withConversation:conversation
+                                                      completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
+                                                          [weakSelf handleCallbackRepsonse:setupResponse withError:error];
+                                                      }];
+                                }];
+
+    /*
     if ([self.actionType isKindOfClass:[ECSCallbackActionType class]])
     {
         [sessionManager startConversationForAction:self.actionType
@@ -169,6 +184,7 @@
                                      }];
 
       }
+     */
 }
 
 - (void)setupChannelOfType:(NSString*)channelType
@@ -186,6 +202,7 @@
     
     ECSCallbackActionType *callbackAction = (ECSCallbackActionType*)self.actionType;
     
+    /*
     if ([callbackAction.agentId isKindOfClass:[NSString class]] && callbackAction.agentId.length > 0)
     {
         configuration.to = callbackAction.agentId;
@@ -194,9 +211,14 @@
     {
         configuration.to = callbackAction.agentSkill;
     }
+    */
+    
 //#ifdef DEBUG
 //    configuration.to = @"Calls for erik_mktwebextc";
 //#endif
+    
+    //MARK : Debug code
+    configuration.to = @"Calls for chris_horizon";
     
     configuration.from = userManager.userToken;
     configuration.subject = @"help";

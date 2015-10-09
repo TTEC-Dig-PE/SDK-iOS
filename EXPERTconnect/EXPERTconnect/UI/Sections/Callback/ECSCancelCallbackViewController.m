@@ -87,7 +87,7 @@
     
     self.waitTimeLabel.attributedText = attrWaitTimeString;
     
-    [self displayVoiceCallBackEndAlert];
+//    [self displayVoiceCallBackEndAlert];
 }
 
 - (void)appBecameActive:(id)sender
