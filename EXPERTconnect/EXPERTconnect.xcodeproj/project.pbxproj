@@ -403,7 +403,7 @@
 		C1E0E6251BC409230089C7E6 /* ECSCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E60F1BC409230089C7E6 /* ECSCalendarView.m */; };
 		C1E0E6261BC409230089C7E6 /* ECSDimmingView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6101BC409230089C7E6 /* ECSDimmingView.h */; };
 		C1E0E6271BC409230089C7E6 /* ECSDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6111BC409230089C7E6 /* ECSDimmingView.m */; };
-		C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6121BC409230089C7E6 /* ECSPeriod.h */; };
+		C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6121BC409230089C7E6 /* ECSPeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1E0E6291BC409230089C7E6 /* ECSPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6131BC409230089C7E6 /* ECSPeriod.m */; };
 		C1E0E62A1BC409230089C7E6 /* ECSSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6141BC409230089C7E6 /* ECSSelectionView.h */; };
 		C1E0E62B1BC409230089C7E6 /* ECSSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6151BC409230089C7E6 /* ECSSelectionView.m */; };
@@ -1865,6 +1865,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */,
 				C1E99D221BC7CBE7000EC129 /* ECSColorPickerMacros.h in Headers */,
 				C1E99D251BC7CBE7000EC129 /* ECSColorPickerViewController.h in Headers */,
 				C1E99D411BC7CC4B000EC129 /* ECSRichTextEditor.h in Headers */,
@@ -1924,7 +1925,6 @@
 				C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */,
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
-				C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
