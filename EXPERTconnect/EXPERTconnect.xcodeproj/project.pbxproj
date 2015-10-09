@@ -439,6 +439,7 @@
 		D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; };
 		D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */; };
 		D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */; };
+		D8EF940B1BC700EA0068CAA0 /* ECSStompCallbackClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -887,6 +888,8 @@
 		D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAssistSDK.a; path = ThirdParty/libAssistSDK.a; sourceTree = "<group>"; };
 		D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beforeenrollment.wav; sourceTree = "<group>"; };
+		D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSStompCallbackClient.h; path = Core/Networking/ECSStompCallbackClient.h; sourceTree = "<group>"; };
+		D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStompCallbackClient.m; path = Core/Networking/ECSStompCallbackClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1205,6 +1208,8 @@
 				0380DEC71AA10126003D9248 /* ECSStompClient.m */,
 				03639B731AA4E3EA00B617F6 /* ECSStompChatClient.h */,
 				03639B741AA4E3EA00B617F6 /* ECSStompChatClient.m */,
+				D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */,
+				D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */,
 				D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */,
 				D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */,
 				D890F7471B95031100B75692 /* ECSVoiceItManager.h */,
@@ -2242,6 +2247,7 @@
 				91E63BF21B834EA30019F9EF /* ECSMappingReference.m in Sources */,
 				4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */,
 				031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */,
+				D8EF940B1BC700EA0068CAA0 /* ECSStompCallbackClient.m in Sources */,
 				462C19251B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m in Sources */,
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,

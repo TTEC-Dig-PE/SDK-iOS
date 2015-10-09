@@ -12,22 +12,28 @@
 @implementation ECDBugReportEmailer
 
 - (void)reportBug {
-    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:@"ECD/SDK Bug Report"];
-    // Set up recipients
-    NSArray *toRecipients = [NSArray arrayWithObject:@"nathan.keeney@humanify.com"];
-    [mailComposer setToRecipients:toRecipients];
-    // Attach the Log..
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"humanify-ecd-console.log"];
-    NSData *myData = [NSData dataWithContentsOfFile:logPath];
-    [mailComposer addAttachmentData:myData mimeType:@"Text/XML" fileName:@"humanify-ecd-console.log"];
-    // Fill out the email body text
-    NSString *emailBody = [NSString stringWithFormat:@"Please describe what you were doing prior to the issue, and what exactly occurred that prompted this report:\n\n\n\nSession Details:"]; // TODO: Add session information
-    [mailComposer setMessageBody:emailBody isHTML:NO];
-    [[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
+        mailComposer.mailComposeDelegate = self;
+        [mailComposer setSubject:@"ECD/SDK Bug Report"];
+        // Set up recipients
+        NSArray *toRecipients = [NSArray arrayWithObject:@"nathan.keeney@humanify.com"];
+        [mailComposer setToRecipients:toRecipients];
+        // Attach the Log..
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"humanify-ecd-console.log"];
+        NSData *myData = [NSData dataWithContentsOfFile:logPath];
+        [mailComposer addAttachmentData:myData mimeType:@"Text/XML" fileName:@"humanify-ecd-console.log"];
+        // Fill out the email body text
+        NSString *emailBody = [NSString stringWithFormat:@"Please describe what you were doing prior to the issue, and what exactly occurred that prompted this report:\n\n\n\nSession Details:"]; // TODO: Add session information
+        [mailComposer setMessageBody:emailBody isHTML:NO];
+        [[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You must first set up Mail on your device in order to send a Bug Report." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 + (void)setUpLogging {

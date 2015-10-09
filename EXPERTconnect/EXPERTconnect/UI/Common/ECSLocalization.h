@@ -107,6 +107,9 @@ static NSString *const ECSLocalizeRequestSMSText= @"ECSLocalizeRequestSMSText";
 static NSString *const ECSLocalizeRequestSMSDisclaimerText = @"ECSLocalizeRequestSMSDisclaimerText";
 
 // Call Cancel View
+static NSString *const ECSLocalizeCallInProgressTitle = @"ECSLocalizeCallInProgressTitle";
+static NSString *const ECSLocalizeCallInProgressDescription = @"ECSLocalizeCallInProgressDescription";
+static NSString *const ECSLocalizeCallEndButton = @"ECSLocalizeCallEndButton";
 static NSString *const ECSLocalizeCallCancelTitle = @"ECSLocalizeCallCancelTitle";
 static NSString *const ECSLocalizeCallCancelDescription = @"ECSLocalizeCallCancelDescription";
 static NSString *const ECSLocalizeCallCancelButton = @"ECSLocalizeCallCancelButton";

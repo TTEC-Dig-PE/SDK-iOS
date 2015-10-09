@@ -36,6 +36,9 @@
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *disclaimerLabel;
 @property (weak, nonatomic) IBOutlet UITextField *callbackTextField;
 @property (strong, nonatomic) NSString *currentConversationId;
+@property (strong, nonatomic) ECSCancelCallbackViewController *cancelCallback;
+@property (strong, nonatomic) ECSStompChatClient *chatClient;
+@property (strong, nonatomic) ECSStompCallbackClient *callbackClient;
 
 @property (strong, nonatomic) NSString *phoneNumberString;
 
@@ -96,6 +99,10 @@
                                                                      constant:0.0f];
     
     [self.view addConstraints:@[leftContent, rightContent]];
+}
+
+- (void)setChatClient:(ECSStompChatClient *)client {
+    _chatClient = client;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -181,6 +188,15 @@
         return;
     }
     
+    // We need a STOMP client set up to get notifications:
+    if (!self.chatClient)
+    {
+        self.callbackClient = [ECSStompCallbackClient new];
+        self.callbackClient.delegate = self;
+        self.callbackClient.currentConversation = conversation;
+        [self.callbackClient setupChatClientWithActionType:self.actionType];
+    }
+    
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChannelConfiguration *configuration = [ECSChannelConfiguration new];
     
@@ -234,6 +250,12 @@
 
 - (void)handleCallbackRepsonse:(ECSChannelCreateResponse*)response withError:(NSError*)error
 {
+    if (_callbackClient != nil) {
+        _callbackClient.currentChannelId = [response.channelId copy];
+        _callbackClient.channel = response;
+        [_callbackClient setMessagingChannelConfiguration:response];
+    }
+    
     if (self.skipConfirmationView)
     {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -263,20 +285,84 @@
     }
     else
     {
+        if (_cancelCallback != nil) {
+            _cancelCallback = nil; // release
+        }
+        _cancelCallback = [ECSCancelCallbackViewController ecs_loadFromNib];
+        _cancelCallback.workflowDelegate = self.workflowDelegate;
         
-        ECSCancelCallbackViewController *cancelCallback = [ECSCancelCallbackViewController ecs_loadFromNib];
-        cancelCallback.workflowDelegate = self.workflowDelegate;
-        
-        cancelCallback.closeChannelURL = ((ECSConversationCreateResponse*)response).closeLink;
+        _cancelCallback.closeChannelURL = ((ECSConversationCreateResponse*)response).closeLink;
 
-        cancelCallback.phoneNumber = self.callbackTextField.text;
-        cancelCallback.displaySMSOption = self.displaySMSOption;
-        cancelCallback.waitTime = response.estimatedWait;
-        cancelCallback.actionId = self.actionType.actionId;
-        [self.navigationController pushViewController:cancelCallback animated:YES];
+        _cancelCallback.phoneNumber = self.callbackTextField.text;
+        _cancelCallback.displaySMSOption = self.displaySMSOption;
+        _cancelCallback.waitTime = response.estimatedWait;
+        _cancelCallback.actionId = self.actionType.actionId;
+        [self.navigationController pushViewController:_cancelCallback animated:YES];
 
     }
 }
+
+#pragma mark - StompCallbackClient
+- (void)chatClientDidConnect:(ECSStompCallbackClient *)stompClient
+{
+    /* no op */
+}
+
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
+{
+    /* no op */
+}
+
+- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
+{
+    NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
+    
+    BOOL validError = (![error.userInfo[NSLocalizedDescriptionKey] isEqual:[NSNull null]] &&
+                       error.userInfo[NSLocalizedDescriptionKey]);
+    
+    if (error && validError)
+    {
+        errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
+                                                                             message:errorMessage
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    __weak typeof(self) weakSelf = self;
+    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          if (weakSelf.isBeingPresented)
+                                                          {
+                                                              [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                                                          }
+                                                          else if (weakSelf.navigationController.viewControllers.count > 1)
+                                                          {
+                                                              [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                          }
+                                                      }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)voiceCallbackDidAnswer:(ECSStompCallbackClient *)stompClient
+{
+    [_cancelCallback displayInProgressCallBack];
+}
+
+- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient
+{
+    if (_callbackClient != nil) {
+        [_callbackClient disconnect];
+    }
+    NSLog(@"Chat client was disconnected.");
+    [_cancelCallback displayVoiceCallBackEndAlert];
+}
+
+- (void)chatClient:(ECSStompCallbackClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message
+{
+    /* no op */
+}
+
 
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField

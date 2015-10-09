@@ -86,8 +86,6 @@
     }
     
     self.waitTimeLabel.attributedText = attrWaitTimeString;
-    
-    [self displayVoiceCallBackEndAlert];
 }
 
 - (void)appBecameActive:(id)sender
@@ -133,13 +131,23 @@
     }
 }
 
+- (void)displayInProgressCallBack {
+    self.navigationItem.title = ECSLocalizedString(ECSLocalizeCallNavigationTitle, @"Phone Call");
+    self.titleLabel.text = ECSLocalizedString(ECSLocalizeCallInProgressTitle, @"Call in Progress.");
+    self.descriptionLabel.text = ECSLocalizedString(ECSLocalizeCallInProgressDescription, @"When finished, please hang up or use the End button below.");
+    [self.cancelCallRequestButton setTitle:ECSLocalizedString(ECSLocalizeCallEndButton, @"End Call")
+                                  forState:UIControlStateNormal];
+    [self.cancelCallRequestButton sizeToFit];
+}
+
 - (void)displayVoiceCallBackEndAlert {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
-                                                                                    message:@"Please answer a few questions so we can serve you better!"
+                                                                                    message:@"Thank you for contacting us!"
                                                                              preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [alertController dismissViewControllerAnimated:YES completion:nil];
+        [[self navigationController] popViewControllerAnimated:YES];
         [self.workflowDelegate voiceCallBackEnded];
     }];
     

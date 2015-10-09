@@ -1795,6 +1795,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
+    [_callbackViewController setChatClient:_chatClient];
 
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;

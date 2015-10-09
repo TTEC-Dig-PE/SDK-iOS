@@ -17,4 +17,8 @@
 @property (strong, nonatomic) NSString *callID;
 @property (strong, nonatomic) NSString *closeChannelURL;
 @property (strong, nonatomic) NSString *actionId;
+
+- (void)displayInProgressCallBack;
+- (void)displayVoiceCallBackEndAlert;
+
 @end
