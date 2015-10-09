@@ -33,7 +33,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 #ifdef DEBUG
     // No-op: Allow NSLog to go to XCode console.
 #else
-    ECDBugReportEmailer.setUpLogging();
+    [ECDBugReportEmailer setUpLogging];
 #endif
     
     // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com

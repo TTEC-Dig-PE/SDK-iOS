@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ECDBugReportEmailer.h";
+#import "ECDBugReportEmailer.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
