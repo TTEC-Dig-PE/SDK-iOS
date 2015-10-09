@@ -32,6 +32,8 @@ static NSString *const dateFormat = @"dd-MM-yyyy";
     
     BOOL isPopover = YES;
     
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         self.calendarControl = [[ECSCalendarController alloc] initWithThemeName:@"CalendarConfigiPad"];

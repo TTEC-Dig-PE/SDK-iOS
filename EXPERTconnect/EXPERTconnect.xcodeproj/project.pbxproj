@@ -413,6 +413,35 @@
 		C1E0E62F1BC409230089C7E6 /* ECSThemeShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6191BC409230089C7E6 /* ECSThemeShadow.m */; };
 		C1E0E6301BC409230089C7E6 /* NSDate+Helpers.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E61A1BC409230089C7E6 /* NSDate+Helpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1E0E6311BC409230089C7E6 /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E61B1BC409230089C7E6 /* NSDate+Helpers.m */; };
+		C1E99D0A1BC7CA46000EC129 /* ECSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */; };
+		C1E99D0B1BC7CA46000EC129 /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = C1E99D091BC7CA46000EC129 /* editor.html */; };
+		C1E99D1C1BC7CBE7000EC129 /* ECSBrightnessCursor.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D0F1BC7CBE7000EC129 /* ECSBrightnessCursor.h */; };
+		C1E99D1D1BC7CBE7000EC129 /* ECSBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D101BC7CBE7000EC129 /* ECSBrightnessCursor.m */; };
+		C1E99D1E1BC7CBE7000EC129 /* ECSCgUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D111BC7CBE7000EC129 /* ECSCgUtil.h */; };
+		C1E99D1F1BC7CBE7000EC129 /* ECSCgUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D121BC7CBE7000EC129 /* ECSCgUtil.m */; };
+		C1E99D201BC7CBE7000EC129 /* ECSColorCursor.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D131BC7CBE7000EC129 /* ECSColorCursor.h */; };
+		C1E99D211BC7CBE7000EC129 /* ECSColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D141BC7CBE7000EC129 /* ECSColorCursor.m */; };
+		C1E99D221BC7CBE7000EC129 /* ECSColorPickerMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D151BC7CBE7000EC129 /* ECSColorPickerMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D161BC7CBE7000EC129 /* ECSColorPickerView.h */; };
+		C1E99D241BC7CBE7000EC129 /* ECSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D171BC7CBE7000EC129 /* ECSColorPickerView.m */; };
+		C1E99D251BC7CBE7000EC129 /* ECSColorPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D181BC7CBE7000EC129 /* ECSColorPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1E99D261BC7CBE7000EC129 /* ECSColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D191BC7CBE7000EC129 /* ECSColorPickerViewController.m */; };
+		C1E99D271BC7CBE7000EC129 /* ECSColorUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D1A1BC7CBE7000EC129 /* ECSColorUtil.h */; };
+		C1E99D281BC7CBE7000EC129 /* ECSColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D1B1BC7CBE7000EC129 /* ECSColorUtil.m */; };
+		C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D291BC7CC19000EC129 /* ECSLayoutManager.h */; };
+		C1E99D321BC7CC19000EC129 /* ECSLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D2A1BC7CC19000EC129 /* ECSLayoutManager.m */; };
+		C1E99D331BC7CC19000EC129 /* ECSTextStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D2B1BC7CC19000EC129 /* ECSTextStorage.h */; };
+		C1E99D341BC7CC19000EC129 /* ECSTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D2C1BC7CC19000EC129 /* ECSTextStorage.m */; };
+		C1E99D351BC7CC19000EC129 /* ECSTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D2D1BC7CC19000EC129 /* ECSTextView.h */; };
+		C1E99D361BC7CC19000EC129 /* ECSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D2E1BC7CC19000EC129 /* ECSTextView.m */; };
+		C1E99D371BC7CC19000EC129 /* ECSToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D2F1BC7CC19000EC129 /* ECSToken.h */; };
+		C1E99D381BC7CC19000EC129 /* ECSToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D301BC7CC19000EC129 /* ECSToken.m */; };
+		C1E99D3F1BC7CC4B000EC129 /* ECSBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D391BC7CC4B000EC129 /* ECSBarButtonItem.h */; };
+		C1E99D401BC7CC4B000EC129 /* ECSBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3A1BC7CC4B000EC129 /* ECSBarButtonItem.m */; };
+		C1E99D411BC7CC4B000EC129 /* ECSRichTextEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D3B1BC7CC4B000EC129 /* ECSRichTextEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1E99D421BC7CC4B000EC129 /* ECSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */; };
+		C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */; };
+		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -877,6 +906,35 @@
 		C1E0E6191BC409230089C7E6 /* ECSThemeShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSThemeShadow.m; sourceTree = "<group>"; };
 		C1E0E61A1BC409230089C7E6 /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		C1E0E61B1BC409230089C7E6 /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ECSRichTextEditor.js; sourceTree = "<group>"; };
+		C1E99D091BC7CA46000EC129 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
+		C1E99D0F1BC7CBE7000EC129 /* ECSBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBrightnessCursor.h; sourceTree = "<group>"; };
+		C1E99D101BC7CBE7000EC129 /* ECSBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBrightnessCursor.m; sourceTree = "<group>"; };
+		C1E99D111BC7CBE7000EC129 /* ECSCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSCgUtil.h; sourceTree = "<group>"; };
+		C1E99D121BC7CBE7000EC129 /* ECSCgUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSCgUtil.m; sourceTree = "<group>"; };
+		C1E99D131BC7CBE7000EC129 /* ECSColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSColorCursor.h; sourceTree = "<group>"; };
+		C1E99D141BC7CBE7000EC129 /* ECSColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSColorCursor.m; sourceTree = "<group>"; };
+		C1E99D151BC7CBE7000EC129 /* ECSColorPickerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSColorPickerMacros.h; sourceTree = "<group>"; };
+		C1E99D161BC7CBE7000EC129 /* ECSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSColorPickerView.h; sourceTree = "<group>"; };
+		C1E99D171BC7CBE7000EC129 /* ECSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSColorPickerView.m; sourceTree = "<group>"; };
+		C1E99D181BC7CBE7000EC129 /* ECSColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSColorPickerViewController.h; sourceTree = "<group>"; };
+		C1E99D191BC7CBE7000EC129 /* ECSColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSColorPickerViewController.m; sourceTree = "<group>"; };
+		C1E99D1A1BC7CBE7000EC129 /* ECSColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSColorUtil.h; sourceTree = "<group>"; };
+		C1E99D1B1BC7CBE7000EC129 /* ECSColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSColorUtil.m; sourceTree = "<group>"; };
+		C1E99D291BC7CC19000EC129 /* ECSLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSLayoutManager.h; sourceTree = "<group>"; };
+		C1E99D2A1BC7CC19000EC129 /* ECSLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSLayoutManager.m; sourceTree = "<group>"; };
+		C1E99D2B1BC7CC19000EC129 /* ECSTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSTextStorage.h; sourceTree = "<group>"; };
+		C1E99D2C1BC7CC19000EC129 /* ECSTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSTextStorage.m; sourceTree = "<group>"; };
+		C1E99D2D1BC7CC19000EC129 /* ECSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSTextView.h; sourceTree = "<group>"; };
+		C1E99D2E1BC7CC19000EC129 /* ECSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSTextView.m; sourceTree = "<group>"; };
+		C1E99D2F1BC7CC19000EC129 /* ECSToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSToken.h; sourceTree = "<group>"; };
+		C1E99D301BC7CC19000EC129 /* ECSToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSToken.m; sourceTree = "<group>"; };
+		C1E99D391BC7CC4B000EC129 /* ECSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBarButtonItem.h; sourceTree = "<group>"; };
+		C1E99D3A1BC7CC4B000EC129 /* ECSBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBarButtonItem.m; sourceTree = "<group>"; };
+		C1E99D3B1BC7CC4B000EC129 /* ECSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSRichTextEditor.h; sourceTree = "<group>"; };
+		C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSRichTextEditor.m; sourceTree = "<group>"; };
+		C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorTextView.h; sourceTree = "<group>"; };
+		C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorTextView.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1056,6 +1114,7 @@
 		033ACB211A602C9C0024F48F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C1E99D0C1BC7CB5F000EC129 /* WYSIWYG Editor */,
 				C1E0E6051BC408910089C7E6 /* CalendarView */,
 				03F1895C1A641D67003C6E14 /* Cells */,
 				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
@@ -1163,6 +1222,8 @@
 				030F77991A752D7C006BD8B1 /* global_style.css */,
 				03A7D28C1AB9A7EF000A21AE /* global_style_test.html */,
 				03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */,
+				C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */,
+				C1E99D091BC7CA46000EC129 /* editor.html */,
 				03F0BD381A70383B00E90E7F /* Localizable.strings */,
 				03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */,
 				03978EE41A602AEF007793D6 /* EXPERTconnect */,
@@ -1737,6 +1798,56 @@
 			name = CalendarView;
 			sourceTree = "<group>";
 		};
+		C1E99D0C1BC7CB5F000EC129 /* WYSIWYG Editor */ = {
+			isa = PBXGroup;
+			children = (
+				C1E99D0D1BC7CB85000EC129 /* ECSColorPicker */,
+				C1E99D0E1BC7CBA3000EC129 /* ECSTextView */,
+				C1E99D391BC7CC4B000EC129 /* ECSBarButtonItem.h */,
+				C1E99D3A1BC7CC4B000EC129 /* ECSBarButtonItem.m */,
+				C1E99D3B1BC7CC4B000EC129 /* ECSRichTextEditor.h */,
+				C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */,
+				C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */,
+				C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */,
+			);
+			name = "WYSIWYG Editor";
+			sourceTree = "<group>";
+		};
+		C1E99D0D1BC7CB85000EC129 /* ECSColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				C1E99D0F1BC7CBE7000EC129 /* ECSBrightnessCursor.h */,
+				C1E99D101BC7CBE7000EC129 /* ECSBrightnessCursor.m */,
+				C1E99D111BC7CBE7000EC129 /* ECSCgUtil.h */,
+				C1E99D121BC7CBE7000EC129 /* ECSCgUtil.m */,
+				C1E99D131BC7CBE7000EC129 /* ECSColorCursor.h */,
+				C1E99D141BC7CBE7000EC129 /* ECSColorCursor.m */,
+				C1E99D151BC7CBE7000EC129 /* ECSColorPickerMacros.h */,
+				C1E99D161BC7CBE7000EC129 /* ECSColorPickerView.h */,
+				C1E99D171BC7CBE7000EC129 /* ECSColorPickerView.m */,
+				C1E99D181BC7CBE7000EC129 /* ECSColorPickerViewController.h */,
+				C1E99D191BC7CBE7000EC129 /* ECSColorPickerViewController.m */,
+				C1E99D1A1BC7CBE7000EC129 /* ECSColorUtil.h */,
+				C1E99D1B1BC7CBE7000EC129 /* ECSColorUtil.m */,
+			);
+			name = ECSColorPicker;
+			sourceTree = "<group>";
+		};
+		C1E99D0E1BC7CBA3000EC129 /* ECSTextView */ = {
+			isa = PBXGroup;
+			children = (
+				C1E99D291BC7CC19000EC129 /* ECSLayoutManager.h */,
+				C1E99D2A1BC7CC19000EC129 /* ECSLayoutManager.m */,
+				C1E99D2B1BC7CC19000EC129 /* ECSTextStorage.h */,
+				C1E99D2C1BC7CC19000EC129 /* ECSTextStorage.m */,
+				C1E99D2D1BC7CC19000EC129 /* ECSTextView.h */,
+				C1E99D2E1BC7CC19000EC129 /* ECSTextView.m */,
+				C1E99D2F1BC7CC19000EC129 /* ECSToken.h */,
+				C1E99D301BC7CC19000EC129 /* ECSToken.m */,
+			);
+			name = ECSTextView;
+			sourceTree = "<group>";
+		};
 		D83F78A71B7BE25000F307D4 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -1754,6 +1865,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1E99D221BC7CBE7000EC129 /* ECSColorPickerMacros.h in Headers */,
+				C1E99D251BC7CBE7000EC129 /* ECSColorPickerViewController.h in Headers */,
+				C1E99D411BC7CC4B000EC129 /* ECSRichTextEditor.h in Headers */,
 				C1E0E6301BC409230089C7E6 /* NSDate+Helpers.h in Headers */,
 				C1E0E61C1BC409230089C7E6 /* ECSCalendar.h in Headers */,
 				C1E0E6241BC409230089C7E6 /* ECSCalendarView.h in Headers */,
@@ -1778,6 +1892,7 @@
 				03A7D2931ABB513A000A21AE /* ECSChatTypingTableViewCell.h in Headers */,
 				03C310581A9B5B56006B3557 /* ECSAnswerEngineActionType.h in Headers */,
 				03C310641A9B5B56006B3557 /* ECSSMSActionType.h in Headers */,
+				C1E99D1E1BC7CBE7000EC129 /* ECSCgUtil.h in Headers */,
 				03C3105C1A9B5B56006B3557 /* ECSChatActionType.h in Headers */,
 				03C3105E1A9B5B56006B3557 /* ECSFormActionType.h in Headers */,
 				0380DEAE1A9F6513003D9248 /* ECSWebSocket.h in Headers */,
@@ -1804,11 +1919,14 @@
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
 				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
+				C1E99D271BC7CBE7000EC129 /* ECSColorUtil.h in Headers */,
 				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
+				C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */,
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
 				C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
+				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
 				035C4C0A1A9B7E900016BCE8 /* ECSFormSubmittedViewController.h in Headers */,
 				039062461AC9C6A800E006BE /* ECSChatWaitView.h in Headers */,
@@ -1816,6 +1934,8 @@
 				039E13251A8E2F9F00AD4927 /* ECSChatMessage.h in Headers */,
 				C1E0E62A1BC409230089C7E6 /* ECSSelectionView.h in Headers */,
 				03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */,
+				C1E99D371BC7CC19000EC129 /* ECSToken.h in Headers */,
+				C1E99D351BC7CC19000EC129 /* ECSTextView.h in Headers */,
 				C1E0E6261BC409230089C7E6 /* ECSDimmingView.h in Headers */,
 				03AF24A71A9B601E00407BE5 /* ECSLoadingView.h in Headers */,
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
@@ -1867,6 +1987,7 @@
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
+				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
 				46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */,
 				031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */,
@@ -1877,17 +1998,20 @@
 				123E26AE1B987455003DCCAD /* ECSFormSubmittedActionType.h in Headers */,
 				03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */,
 				039E13101A8BBACC00AD4927 /* ECSKeychainSupport.h in Headers */,
+				C1E99D1C1BC7CBE7000EC129 /* ECSBrightnessCursor.h in Headers */,
 				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
 				2252C6A71A7BE9E200B99912 /* ECSFormItem.h in Headers */,
 				039E13531A9517F100AD4927 /* ECSQuickRatingForm.h in Headers */,
 				039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */,
 				03C3103E1A9B5B46006B3557 /* ECSFormSubmitResponse.h in Headers */,
+				C1E99D201BC7CBE7000EC129 /* ECSColorCursor.h in Headers */,
 				03ED2DAF1AC0A27500565F00 /* ECSChatMessageTableViewCell.h in Headers */,
 				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
 				0342AFD81A9B60950009959E /* ECSChatImageTableViewCell.h in Headers */,
 				03B3FA1E1A670C6E00D872B1 /* ECSResponseSerializer.h in Headers */,
 				0342B0241A9B60AE0009959E /* ECSRadioFormItemViewController.h in Headers */,
 				033ACB691A6053260024F48F /* ECSRootViewController+Navigation.h in Headers */,
+				C1E99D331BC7CC19000EC129 /* ECSTextStorage.h in Headers */,
 				0342B0291A9B60AE0009959E /* ECSRatingFormItemViewController.h in Headers */,
 				03B3FA2B1A670CDB00D872B1 /* ECSJSONRequestSerializer.h in Headers */,
 				91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */,
@@ -1928,6 +2052,7 @@
 				0342AFD51A9B60950009959E /* ECSWebTableViewCell.h in Headers */,
 				03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */,
 				0342B02A1A9B60AE0009959E /* ECSSliderFormItemViewController.h in Headers */,
+				C1E99D3F1BC7CC4B000EC129 /* ECSBarButtonItem.h in Headers */,
 				466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */,
 				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
 				03BD9E261AF29819003D808C /* ECSInlineFormTableViewCell.h in Headers */,
@@ -2040,6 +2165,7 @@
 				D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */,
 				0342AFBC1A9B60840009959E /* ECSCallbackViewController.xib in Resources */,
 				0342AFB31A9B60700009959E /* ECSAnswerViewController.xib in Resources */,
+				C1E99D0A1BC7CA46000EC129 /* ECSRichTextEditor.js in Resources */,
 				0342B01F1A9B60AE0009959E /* ECSTextFormItemViewController.xib in Resources */,
 				0342AFA71A9B60700009959E /* ECSPullUpView.xib in Resources */,
 				0342AFBF1A9B60840009959E /* ECSCancelCallbackViewController.xib in Resources */,
@@ -2049,6 +2175,7 @@
 				039062491AC9C6BA00E006BE /* ECSChatWaitView.xib in Resources */,
 				03BD9E2D1AF2A1F2003D808C /* ECSInlineFormViewController.xib in Resources */,
 				0342AFA41A9B60700009959E /* ECSPullDownView.xib in Resources */,
+				C1E99D0B1BC7CA46000EC129 /* editor.html in Resources */,
 				D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */,
 				03101F2A1AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.xib in Resources */,
 				D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */,
@@ -2196,16 +2323,20 @@
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
 				03BE8F241AE037EB00BEC8B5 /* ECSChatMediaMessage.m in Sources */,
+				C1E99D341BC7CC19000EC129 /* ECSTextStorage.m in Sources */,
 				C1E0E6291BC409230089C7E6 /* ECSPeriod.m in Sources */,
 				0342B01E1A9B60AE0009959E /* ECSTextFormItemViewController.m in Sources */,
 				0342B00A1A9B60AE0009959E /* ECSFormQuestionView.m in Sources */,
 				0342B0191A9B60AE0009959E /* ECSCheckboxFormItemViewController.m in Sources */,
 				03AF24A81A9B601E00407BE5 /* ECSLoadingView.m in Sources */,
 				030AF2131AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m in Sources */,
+				C1E99D241BC7CBE7000EC129 /* ECSColorPickerView.m in Sources */,
 				0342B07D1A9B61280009959E /* ECSRootViewController.m in Sources */,
+				C1E99D1F1BC7CBE7000EC129 /* ECSCgUtil.m in Sources */,
 				D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */,
 				039E13261A8E2F9F00AD4927 /* ECSChatMessage.m in Sources */,
 				038781CB1AEA93C4008786A8 /* UIImage+ECSBundle.m in Sources */,
+				C1E99D361BC7CC19000EC129 /* ECSTextView.m in Sources */,
 				03A7D2991ABC67C0000A21AE /* ECSFormTextField.m in Sources */,
 				03BE27531ADC1BD60099F2EB /* ECSChatNetworkActionCell.m in Sources */,
 				91E63BF81B834EA30019F9EF /* ECSWorkflowNavigation.m in Sources */,
@@ -2219,6 +2350,7 @@
 				03ED2DB01AC0A27500565F00 /* ECSChatMessageTableViewCell.m in Sources */,
 				0342B01C1A9B60AE0009959E /* ECSTextAreaFormItemViewController.m in Sources */,
 				0342B0741A9B60EF0009959E /* ECSPhotoViewController.m in Sources */,
+				C1E99D261BC7CBE7000EC129 /* ECSColorPickerViewController.m in Sources */,
 				0342AFAF1A9B60700009959E /* ECSAnswerEngineViewController.m in Sources */,
 				0342B06B1A9B60EF0009959E /* ECSWebViewController.m in Sources */,
 				030AF2601AF954190056BFB0 /* ECSHistoryListItem.m in Sources */,
@@ -2228,8 +2360,10 @@
 				2252C6A61A7BE9E200B99912 /* ECSForm.m in Sources */,
 				0342AFDF1A9B60950009959E /* ECSChatToolbarController.m in Sources */,
 				C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */,
+				C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */,
 				2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */,
 				0380DEC91AA10126003D9248 /* ECSStompClient.m in Sources */,
+				C1E99D421BC7CC4B000EC129 /* ECSRichTextEditor.m in Sources */,
 				03C310271A9B59C0006B3557 /* ECSURLSessionManager.m in Sources */,
 				0342AFB21A9B60700009959E /* ECSAnswerViewController.m in Sources */,
 				2252C6AE1A7BE9E200B99912 /* ECSFormItemRadio.m in Sources */,
@@ -2238,6 +2372,7 @@
 				039062471AC9C6A800E006BE /* ECSChatWaitView.m in Sources */,
 				03F1896C1A644532003C6E14 /* ECSInjector.m in Sources */,
 				033ACB6A1A6053260024F48F /* ECSRootViewController+Navigation.m in Sources */,
+				C1E99D211BC7CBE7000EC129 /* ECSColorCursor.m in Sources */,
 				D83F78BE1B7D516100F307D4 /* ECSCafeXMessage.m in Sources */,
 				03C310571A9B5B56006B3557 /* ECSActionType.m in Sources */,
 				0342B00C1A9B60AE0009959E /* ECSCheckboxTableViewCell.m in Sources */,
@@ -2254,6 +2389,7 @@
 				03C310551A9B5B56006B3557 /* ECSActionTypeClassTransformer.m in Sources */,
 				03C310651A9B5B56006B3557 /* ECSSMSActionType.m in Sources */,
 				D86BC4C01B8E318C005B9629 /* ECSVideoChatActionType.m in Sources */,
+				C1E99D1D1BC7CBE7000EC129 /* ECSBrightnessCursor.m in Sources */,
 				03AF24A61A9B601E00407BE5 /* ECSSearchTextField.m in Sources */,
 				0342AFE21A9B60950009959E /* ECSChatViewController.m in Sources */,
 				D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */,
@@ -2292,6 +2428,7 @@
 				D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */,
 				03B47F8E1A85BD6600B2686F /* ECSPresurveyFormItem.m in Sources */,
 				0342AFD91A9B60950009959E /* ECSChatImageTableViewCell.m in Sources */,
+				C1E99D381BC7CC19000EC129 /* ECSToken.m in Sources */,
 				D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */,
 				039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */,
 				0342AFDC1A9B60950009959E /* ECSChatCellBackground.m in Sources */,
@@ -2316,6 +2453,7 @@
 				0342B00F1A9B60AE0009959E /* ECSRadioTableViewCell.m in Sources */,
 				C1E0E62D1BC409230089C7E6 /* ECSThemeEngine.m in Sources */,
 				03AF24B01A9B601E00407BE5 /* ECSCachingImageView.m in Sources */,
+				C1E99D281BC7CBE7000EC129 /* ECSColorUtil.m in Sources */,
 				03AF24B41A9B601E00407BE5 /* ECSDynamicLabel.m in Sources */,
 				03B3FA241A670CA000D872B1 /* ECSJSONResponseSerializer.m in Sources */,
 				033ACB341A602C9C0024F48F /* ECSNavigationSection.m in Sources */,
@@ -2330,7 +2468,9 @@
 				03B3FA281A670CBC00D872B1 /* ECSRequestSerializer.m in Sources */,
 				C1E0E62F1BC409230089C7E6 /* ECSThemeShadow.m in Sources */,
 				0380DEC11AA0E276003D9248 /* ECSConversationCreateResponse.m in Sources */,
+				C1E99D321BC7CC19000EC129 /* ECSLayoutManager.m in Sources */,
 				0342B01B1A9B60AE0009959E /* ECSRadioFormItemViewController.m in Sources */,
+				C1E99D401BC7CC4B000EC129 /* ECSBarButtonItem.m in Sources */,
 				031B27471ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m in Sources */,
 				0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */,
 				039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */,

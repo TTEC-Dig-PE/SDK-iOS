@@ -78,6 +78,7 @@
 		C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */; };
 		C1E0E6391BC40A7A0089C7E6 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */; };
 		C1E0E63A1BC40A7A0089C7E6 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */; };
+		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
@@ -374,6 +375,8 @@
 		C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCalendarViewController.xib; sourceTree = "<group>"; };
 		C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPad.plist; sourceTree = "<group>"; };
 		C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
+		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
+		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D81612F41B6AB620005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
@@ -665,6 +668,8 @@
 				C1E0E6321BC409ED0089C7E6 /* ECDCalendarViewController.h */,
 				C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */,
 				C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */,
+				C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */,
+				C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1217,6 +1222,7 @@
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
+				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
 				D8CEBE171B546DC20053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,

@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOz-ub-g0P">
-                    <rect key="frame" x="120" y="50" width="80" height="21"/>
+                    <rect key="frame" x="120" y="10" width="80" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="0bA-9g-L7L"/>
                         <constraint firstAttribute="width" constant="80" id="Ops-Em-SCM"/>
@@ -52,7 +52,7 @@
                 <constraint firstAttribute="trailing" secondItem="riI-mG-u8J" secondAttribute="trailing" id="DC6-7E-T5N"/>
                 <constraint firstAttribute="centerX" secondItem="nOz-ub-g0P" secondAttribute="centerX" id="UXB-D6-VPk"/>
                 <constraint firstItem="riI-mG-u8J" firstAttribute="leading" secondItem="27i-XR-9ff" secondAttribute="leading" id="axk-89-t1G"/>
-                <constraint firstItem="nOz-ub-g0P" firstAttribute="top" secondItem="27i-XR-9ff" secondAttribute="top" constant="50" id="fBc-B1-EM5"/>
+                <constraint firstItem="nOz-ub-g0P" firstAttribute="top" secondItem="27i-XR-9ff" secondAttribute="top" constant="10" id="fBc-B1-EM5"/>
                 <constraint firstAttribute="bottom" secondItem="riI-mG-u8J" secondAttribute="bottom" constant="100" id="xoo-mw-hW6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

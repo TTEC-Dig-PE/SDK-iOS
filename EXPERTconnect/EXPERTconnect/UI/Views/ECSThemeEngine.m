@@ -332,7 +332,7 @@ static ECSThemeEngine* sharedInstance;
             sz = [string sizeWithAttributes:@{NSFontAttributeName:usedFont}];
         } else {
             
-            sz = [string sizeWithFont:usedFont];
+            sz = [string sizeWithAttributes:@{NSFontAttributeName:usedFont}];
         }
     }
     

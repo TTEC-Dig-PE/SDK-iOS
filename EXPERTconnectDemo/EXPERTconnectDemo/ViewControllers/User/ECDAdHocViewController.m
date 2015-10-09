@@ -23,8 +23,8 @@
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
-#import "ECDSampleDatePicker.h"
 #import "ECDCalendarViewController.h"
+#import "ECDTextEditorViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -104,6 +104,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocSubmitForm,
     SettingsSectionFifteen,
     SettingsSectionSixteen,
+    SettingsSectionSeventeen,
     SettingsSectionCount
 };
 
@@ -201,6 +202,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
 {
     SettingsSectionSixteenRowStart,
     SettingsSectionSixteenRowCount
+};
+
+typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
+{
+    SettingsSectionSeventeenRowStart,
+    SettingsSectionSeventeenRowCount
 };
 
 @interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -319,6 +326,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
             
         case SettingsSectionSixteen:
             rowCount = SettingsSectionSixteenRowCount;
+            break;
+            
+        case SettingsSectionSeventeen:
+            rowCount = SettingsSectionSeventeenRowCount;
             break;
             
         default:
@@ -542,6 +553,18 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
             }
             break;
             
+        case SettingsSectionSeventeen:
+            switch (indexPath.row) {
+                case AdHocUserProfileSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Seventeen", @"Section Seventeen");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -629,7 +652,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
     {
         [self handleAdHocShowCalendar];
     }
-    
+    if (indexPath.section == SettingsSectionSeventeen && indexPath.row == SettingsSectionSeventeenRowStart)
+    {
+        [self handleAdHocShowTextEditor];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -748,6 +774,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
         }
             break;
             
+        case SettingsSectionSeventeen:
+        {
+            title = ECDLocalizedString(@"Localized Section Seventeen Header", @"Seventeen Header");
+        }
+            break;
+            
         default:
             break;
     }
@@ -773,8 +805,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat"];
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:YES];
     [self.navigationController pushViewController:chatController animated:YES];
+
 }
 
 -(void)handleAdHocVoiceCallback
@@ -862,7 +895,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
 {
     NSLog(@"Rendering an ad-hoc Answer Engine History Page");
     
-    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpert];
+    UIViewController *selectExpertController = [[EXPERTconnect shared] startSelectExpertChat];
     [self.navigationController pushViewController:selectExpertController animated:YES];
 }
 
@@ -904,6 +937,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
     
     ECDCalendarViewController *calendar = [[ECDCalendarViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:calendar animated:YES];
+}
+
+-(void)handleAdHocShowTextEditor
+{
+    NSLog(@"Showing the ad-hoc TextEditor");
+    
+    ECDTextEditorViewController *textEditor = [[ECDTextEditorViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:textEditor animated:YES];
 }
 
 @end

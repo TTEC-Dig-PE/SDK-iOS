@@ -42,6 +42,7 @@
 #import <EXPERTconnect/ECSBinaryRating.h>
 #import <EXPERTconnect/ECSBinaryImageView.h>
 #import <EXPERTconnect/ECSCalendar.h>
+#import <EXPERTconnect/ECSRichTextEditor.h>
 
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 
