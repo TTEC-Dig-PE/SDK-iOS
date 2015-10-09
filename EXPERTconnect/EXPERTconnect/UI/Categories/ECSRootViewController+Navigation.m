@@ -114,7 +114,7 @@
         }
         actionViewController = viewController;
     }
-    else if ([ECSMessageActionType class])
+    else if ([actionType isKindOfClass:[ECSMessageActionType class]])
     {
         ECSMessageViewController *viewController = [ECSMessageViewController ecs_loadFromNib];
         viewController.actionType = [actionType copy];
@@ -122,8 +122,17 @@
     }
     else
     {
-        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType.type];
-        actionViewController = [ECSRootViewController createPlaceholderViewController];
+//        [[EXPERTconnect shared] recievedUnrecognizedAction:actionType.type];
+//        actionViewController = [ECSRootViewController createPlaceholderViewController];
+        
+        ECSCallbackViewController *viewController = [ECSCallbackViewController ecs_loadFromNib];
+        viewController.actionType = [actionType copy];
+        
+        if ([actionType isKindOfClass:[ECSSMSActionType class]])
+        {
+            viewController.displaySMSOption = YES;
+        }
+        actionViewController = viewController;
     }
     
     return actionViewController;

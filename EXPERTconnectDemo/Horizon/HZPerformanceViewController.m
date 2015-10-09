@@ -55,7 +55,9 @@ NSString *const HZCustomerStandard = @"standard";
     return nil;
 }
 - (IBAction)recordVoiceAuth:(id)sender {
-    [[EXPERTconnect shared]recordNewEnrollment];
+//    [[EXPERTconnect shared]recordNewEnrollment];
+    
+    [self startWorkflowWithAction:ECSActionTypeCallbackString];
 }
 
 - (IBAction)giveFeedbackButtonTapped:(id)sender {
@@ -71,17 +73,19 @@ NSString *const HZCustomerStandard = @"standard";
 //     customerTreatmentType = @"concierge";
 //     customerType = @"new";
 
-    if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
-        if([lastSurveyScore isEqualToString:@"low"]) {
-            [self startWorkflowWithAction:ECSActionTypeSelectExpertVideo];
-        }
-        else {
-            [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
-        }
-    }
-    else {
-        [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
-    }
+//    if ([customerType isEqualToString:HZNewCustomer] && [customerTreatmentType isEqualToString:HZCustomerConcierge]) {
+//        if([lastSurveyScore isEqualToString:@"low"]) {
+//            [self startWorkflowWithAction:ECSActionTypeSelectExpertVideo];
+//        }
+//        else {
+//            [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
+//        }
+//    }
+//    else {
+//        [self startWorkflowWithAction:ECSActionTypeAnswerEngineString];
+//    }
+    
+    [self startWorkflowWithAction:ECSActionTypeSelectExpertChat];
 }
 
 -(void)startWorkflowWithAction:(NSString *)actionType {
@@ -94,7 +98,7 @@ NSString *const HZCustomerStandard = @"standard";
 }
 
 -(void)unrecognizedAction:(NSString *)action {
-    
+
 }
 
 - (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
