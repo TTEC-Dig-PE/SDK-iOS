@@ -102,8 +102,8 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionAdHocExtendedUserProfile,
     SettingsSectionAdHocAPIConfig,
     SettingsSectionAdHocSubmitForm,
-    SettingsSectionFifteen,
-    SettingsSectionSixteen,
+    SettingsSectionAdHocDatePicker,
+    SettingsSectionAdHocWYSIWYGEditor,
     SettingsSectionSeventeen,
     SettingsSectionCount
 };
@@ -192,16 +192,16 @@ typedef NS_ENUM(NSInteger, AdHocSubmitFormRows)
     AdHocSubmitFormRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
+typedef NS_ENUM(NSInteger, AdHocDatePickerRows)
 {
-    SettingsSectionFifteenRowStart,
-    SettingsSectionFifteenRowCount
+    AdHocDatePickerRowStart,
+    AdHocDatePickerRowCount
 };
 
-typedef NS_ENUM(NSInteger, SettingsSectionRowSixteenRows)
+typedef NS_ENUM(NSInteger, AdHocWYSIWYGEditorRows)
 {
-    SettingsSectionSixteenRowStart,
-    SettingsSectionSixteenRowCount
+    AdHocWYSIWYGEditorRowStart,
+    AdHocWYSIWYGEditorRowCount
 };
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
@@ -320,12 +320,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             rowCount = AdHocSubmitFormRowCount;
             break;
             
-        case SettingsSectionFifteen:
-            rowCount = SettingsSectionFifteenRowCount;
+        case SettingsSectionAdHocDatePicker:
+            rowCount = AdHocDatePickerRowCount;
             break;
             
-        case SettingsSectionSixteen:
-            rowCount = SettingsSectionSixteenRowCount;
+        case SettingsSectionAdHocWYSIWYGEditor:
+            rowCount = AdHocWYSIWYGEditorRowCount;
             break;
             
         case SettingsSectionSeventeen:
@@ -529,10 +529,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             break;
             
             
-        case SettingsSectionFifteen:
+        case SettingsSectionAdHocDatePicker:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
-                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Fifteen", @"Section Fifteen");
+                case AdHocDatePickerRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartDatePickerLabel, @"AdHoc Date Picker");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -541,10 +541,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             }
             break;
             
-        case SettingsSectionSixteen:
+        case SettingsSectionAdHocWYSIWYGEditor:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
-                    cell.textLabel.text = ECDLocalizedString(@"Localized Section Sixteen", @"Section Sixteen");
+                case AdHocWYSIWYGEditorRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorLabel, @"AdHoc WYSIWYG Editor");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -643,18 +643,19 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
         [self handleAdHocSubmitForm];
     }
     
-    if (indexPath.section == SettingsSectionFifteen && indexPath.row == SettingsSectionFifteenRowStart)
-    {
-        [self handleAdHocShowLicense];
-    }
-    
-    if (indexPath.section == SettingsSectionSixteen && indexPath.row == SettingsSectionSixteenRowStart)
+    if (indexPath.section == SettingsSectionAdHocDatePicker && indexPath.row == AdHocDatePickerRowStart)
     {
         [self handleAdHocShowCalendar];
     }
-    if (indexPath.section == SettingsSectionSeventeen && indexPath.row == SettingsSectionSeventeenRowStart)
+    
+    if (indexPath.section == SettingsSectionAdHocWYSIWYGEditor && indexPath.row == AdHocWYSIWYGEditorRowStart)
     {
         [self handleAdHocShowTextEditor];
+    }
+    
+    if (indexPath.section == SettingsSectionSeventeen && indexPath.row == SettingsSectionSeventeenRowStart)
+    {
+        [self handleAdHocShowLicense];
     }
 }
 
@@ -762,15 +763,15 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             break;
             
             
-        case SettingsSectionFifteen:
+        case SettingsSectionAdHocDatePicker:
         {
-            title = ECDLocalizedString(@"Localized Section Fifteen Header", @"Fifteen Header");
+            title = ECDLocalizedString(ECDLocalizedStartDatePickerHeader, @"Ad Hoc Date Picker");
         }
             break;
             
-        case SettingsSectionSixteen:
+        case SettingsSectionAdHocWYSIWYGEditor:
         {
-            title = ECDLocalizedString(@"Localized Section Sixteen Header", @"Sixteen Header");
+            title = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorHeader, @"Ad Hoc WYSIWYG Editor");
         }
             break;
             
@@ -923,14 +924,6 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     [self.navigationController pushViewController:formsController animated:YES];
 }
 
--(void)handleAdHocShowLicense
-{
-    NSLog(@"Showing the ad-hoc License");
-    
-    ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:license animated:YES];
-}
-
 -(void)handleAdHocShowCalendar
 {
     NSLog(@"Showing the ad-hoc Calendar");
@@ -945,6 +938,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     ECDTextEditorViewController *textEditor = [[ECDTextEditorViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:textEditor animated:YES];
+}
+
+-(void)handleAdHocShowLicense
+{
+    NSLog(@"Showing the ad-hoc License");
+    
+    ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:license animated:YES];
 }
 
 @end

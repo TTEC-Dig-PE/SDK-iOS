@@ -19,7 +19,7 @@
 
 @implementation ECDCalendarViewController
 
-static NSString *const dateFormat = @"dd-MM-yyyy";
+static NSString *const dateFormat = @"MM-dd-yyyy";
 
 @synthesize calendarControl;
 @synthesize calendarFromLabel;

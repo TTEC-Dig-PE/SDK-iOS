@@ -69,6 +69,12 @@
 /* Start Submit Form for AdHoc SDK Usage Page   */
 "ECDLocalizedStartSubmitFormLabel" = "Submit AdHoc Form";
 
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerLabel" = "AdHoc Date Picker";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorLabel" = "AdHoc WYSIWYG Editor";
+
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
@@ -115,6 +121,12 @@
 
 /* Start Submit Form for AdHoc SDK Usage Page   */
 "ECDLocalizedStartSubmitFormHeader" = "AdHoc Submit Form";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerHeader" = "AdHoc Date Picker";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorHeader" = "AdHoc WYSIWYG Editor";
 
 /* End AdHoc Section */
 
