@@ -137,7 +137,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.answerEngineResponseTextView.text = [self.topQuestions objectAtIndex:indexPath.row];
-    NSLog(@"Row Selected: %d", indexPath.row);
+    NSLog(@"Row Selected: %ld", (long)indexPath.row);
 }
 
 - (void)submitButtonTapped:(UIButton*)button

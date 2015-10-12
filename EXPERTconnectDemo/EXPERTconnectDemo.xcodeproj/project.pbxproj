@@ -961,6 +961,7 @@
 					};
 					03978F1F1A602B2D007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 4F2XQ7R275;
 						TestTargetID = 03978F061A602B2D007793D6;
 					};
 					D8CEBE991B55690C0053E9A0 = {
@@ -1467,6 +1468,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1478,6 +1481,7 @@
 				INFOPLIST_FILE = EXPERTconnectDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EXPERTconnectDemo.app/EXPERTconnectDemo";
 			};
 			name = Debug;
@@ -1486,6 +1490,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1493,6 +1499,7 @@
 				INFOPLIST_FILE = EXPERTconnectDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EXPERTconnectDemo.app/EXPERTconnectDemo";
 			};
 			name = Release;

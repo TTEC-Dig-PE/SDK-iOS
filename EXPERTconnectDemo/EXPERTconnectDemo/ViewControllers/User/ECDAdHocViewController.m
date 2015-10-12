@@ -773,7 +773,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowFifteenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:YES];
+    // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
     [self.navigationController pushViewController:chatController animated:YES];
 }
 

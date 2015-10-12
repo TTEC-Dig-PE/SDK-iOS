@@ -862,7 +862,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
     
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         

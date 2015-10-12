@@ -985,10 +985,14 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         } completion:^(BOOL finished) {
             [self.waitView removeFromSuperview];
             self.waitView = nil;
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+            
+            // mas - 11-oct-15 - only show "minimize" if we are in a workflow. 
+            if(self.workflowDelegate) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(minimizeButtonPressed:)];
+            }
         }];
     }
 

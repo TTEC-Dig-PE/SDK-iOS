@@ -102,7 +102,7 @@ static NSString *const ECSQuestionCellId = @"ECSQuestionCellId";
      one nav item exists, then don't display the navigation UI and instead launch
      the Action. */
     if (self.navigationContext.sections.count == 1) {
-        int actionCount = 0;
+        NSUInteger actionCount = 0;
         ECSNavigationSection *navSection = self.navigationContext.sections[0];
         ECSActionType *actiontype = nil;
         switch (navSection.sectionType) {
