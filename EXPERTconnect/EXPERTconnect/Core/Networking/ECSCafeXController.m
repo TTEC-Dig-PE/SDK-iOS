@@ -99,6 +99,12 @@
     //port = @"443"; // TODO: Store somewhere
     // NSString *URL    = [NSString stringWithFormat:@"https://%@:%@/cafexproxy/cafexproxy/getsession?u=%@", server, port, username];
     
+    // mas - 13-oct-2015 - Connection will not work without a populated cafeXHost
+    if (!ecsConfiguration.cafeXHost) {
+        NSLog(@"CafeX - Login error: cafeXHost is empty.");
+        return;
+    }
+    
     server = ecsConfiguration.cafeXHost;
     NSString *URL    = [NSString stringWithFormat:@"https://%@/cafexproxy/cafexproxy/getsession?u=%@", server, username];
 

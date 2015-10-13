@@ -751,10 +751,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         {
             if ([result isKindOfClass:[NSDictionary class]])
             {
-                id resultObject = [ECSJSONSerializer objectFromJSONDictionary:result
-                                                                    withClass:aClass];
+                // mas - 13-oct-2015 - Check for conforming object beforehand. If not,
+                // allow it to be passed back as a regular NSDictionary object. 
+                if ([aClass conformsToProtocol:@protocol(ECSJSONClassTransformer)] ||
+                    [aClass conformsToProtocol:@protocol(ECSJSONSerializing)]) {
+                    id resultObject = [ECSJSONSerializer objectFromJSONDictionary:result
+                                                                        withClass:aClass];
+                    
+                    completion(resultObject, nil);
+                }
+                else {
+                    // Simple JSON NSDictionary
+                    //
+                    id resultObject = result;
+                    completion(resultObject, nil);
+                }
                 
-                completion(resultObject, nil);
             }
             else if ([result isKindOfClass:[NSArray class]])
             {
