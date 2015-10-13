@@ -109,11 +109,14 @@ static EXPERTconnect* _sharedInstance;
 - (void)logout {
     // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     // Log config for debugging:
     NSLog(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
-    [self setUserToken:nil];
+    // mas - 12-oct-15 - Call the lower level unauthenticate which destroys the keychain token as well.
+    //[self setUserToken:nil];
+    [userManager unauthenticateUser];
 }
 
 - (void)setUserToken:(NSString *)userToken

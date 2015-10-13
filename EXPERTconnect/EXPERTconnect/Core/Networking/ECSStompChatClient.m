@@ -152,7 +152,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
-    configuration.from = userManager.userToken;
+    // mas - 13-oct-2015 - use deviceID if userToken is unavailable ("not registered" or anonymous)
+    configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
+    //configuration.from = userManager.userToken;
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";
     configuration.mediaType = @"Chat";

@@ -11,7 +11,7 @@
 
 
 static int const startExpertDemo = 0;
-static int const startHorizonDemo = 1;
+//static int const startHorizonDemo = 1;  // unused variable
 
 static NSString *const applicationRunMode = @"applicationRunMode";
 

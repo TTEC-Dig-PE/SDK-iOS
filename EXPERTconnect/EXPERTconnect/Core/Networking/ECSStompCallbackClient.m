@@ -93,7 +93,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 - (void)setupChatClientWithActionType:(ECSActionType*)actionType
 {
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     self.actionType = actionType;
     
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
