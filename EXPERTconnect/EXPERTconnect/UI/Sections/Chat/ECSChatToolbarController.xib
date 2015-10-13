@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSChatToolbarController">
@@ -11,6 +12,7 @@
                 <outlet property="cancelSendTrailing" destination="cB1-gQ-g7T" id="JXs-2i-5CI"/>
                 <outlet property="cancelSuperViewTrailing" destination="5Qd-mK-OIp" id="Vco-H0-GLP"/>
                 <outlet property="containerView" destination="Mm1-57-AsZ" id="4Ef-cv-96o"/>
+                <outlet property="containerViewHeightConstraint" destination="ATu-Or-P1r" id="5lY-Mb-zR3"/>
                 <outlet property="locationButton" destination="219-bf-50d" id="UBX-Vc-5cp"/>
                 <outlet property="photoButton" destination="Ahr-dw-Btz" id="ShL-Vi-9EG"/>
                 <outlet property="sendButton" destination="DXK-AP-otR" id="vh8-h2-XJq"/>
@@ -41,7 +43,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
                             </textView>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="vuU-Lm-Ajf">
+                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="vuU-Lm-Ajf" userLabel="chatToolbarView">
                                 <rect key="frame" x="-5" y="30" width="610" height="39"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahr-dw-Btz" userLabel="Photo Button">
@@ -83,7 +85,8 @@
                                             <action selector="locationButtonTapped:" destination="-1" eventType="touchUpInside" id="2Jf-5F-ARQ"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-VT-syM">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-VT-syM">
+                                        <rect key="frame" x="0.0" y="39" width="610" height="0.0"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="U94-7u-GpN"/>
@@ -144,13 +147,15 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-57-AsZ" userLabel="Container View">
+                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-57-AsZ" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="69" width="600" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" placeholder="YES" id="ATu-Or-P1r"/>
+                                    <constraint firstAttribute="height" id="ATu-Or-P1r"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="8Cm-uF-PrO" secondAttribute="trailing" constant="15" id="1ii-kA-aWn"/>
                             <constraint firstItem="Mm1-57-AsZ" firstAttribute="leading" secondItem="Unh-KR-6Bc" secondAttribute="leading" id="56C-bu-0kM"/>

@@ -154,8 +154,15 @@
     ACBClientPhone* phone = cafeXConnection.phone;
     phone.delegate = self;
     
-    [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
-    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+    if (_defaultParent != nil && _defaultParent.workflowDelegate != nil) {
+        [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+    } else if (_defaultParent != nil && _defaultParent.workflowDelegate == nil) {
+        // Ad-Hoc or something. Put a warning and continue.
+        NSLog(@"WARNING: CafeX Controller showing ViewController without Workflow Delegate present!! Continuing, but this should be fixed.");
+        [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+    } else {
+        NSLog(@"ERROR: CafeX Controller doesn't have a parent viewcontroller! Aborting.");
+    }
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
@@ -350,11 +357,17 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         NSLog(@"CafeX SHOWING UI after 2 second delay.");
-        [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+        
+        if (_defaultParent != nil && _defaultParent.workflowDelegate != nil) {
+            [_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
+        } else if (_defaultParent != nil && _defaultParent.workflowDelegate == nil) {
+            // Ad-Hoc or something. Put a warning and continue.
+            NSLog(@"WARNING: CafeX Controller showing ViewController without Workflow Delegate present!! Continuing, but this should be fixed.");
+            [_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
+        } else {
+            NSLog(@"ERROR: CafeX Controller doesn't have a parent viewcontroller! Aborting.");
+        }
     });
-    
-    //[_defaultParent.workflowDelegate presentVideoChatViewController:_cafeXVideoViewController];
-    //[_defaultParent.navigationController pushViewController:_cafeXVideoViewController animated:YES];
 }
 
 - (void) call:(ACBClientCall *)call didReceiveCallRecordingPermissionFailure:(NSString *)message

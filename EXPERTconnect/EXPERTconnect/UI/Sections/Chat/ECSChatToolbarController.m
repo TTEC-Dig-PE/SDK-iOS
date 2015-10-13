@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelSuperViewTrailing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelSendTrailing;
@@ -231,6 +232,8 @@
         
         if (self.containerView.frame.size.height == 0)
         {
+            // mas - 11-oct-2015 - The height of the container must be manually adjusted
+            self.containerViewHeightConstraint.constant = controller.view.frame.size.height; 
             [self.view setNeedsLayout];
             [UIView animateWithDuration:0.3f
                              animations:^{
@@ -259,7 +262,6 @@
     [self.containerView addConstraints:horizontalLayout];
     [self.containerView addConstraints:verticalLayout];
     
-   
 
 }
 
@@ -273,6 +275,12 @@
     }
     
     self.currentChildViewController = nil;
+    
+    // mas - 11-oct-2015 - This shrinks the container back to "hidden". Without this, it would
+    // occupy the entire view including overwritting the chat area.
+    self.containerViewHeightConstraint.constant = 0;
+    [self.view setNeedsLayout];
+
 }
 
 - (void)updateToolbarStateForSelectedButton:(UIButton*)selectedButton

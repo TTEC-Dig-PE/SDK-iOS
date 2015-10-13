@@ -202,6 +202,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+
+- (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
+                                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+{
+    return [self POST:@"decision/v1/makeDecision"
+          parameters:decisionJson
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
+}
+
 - (NSURLSessionDataTask *)getNavigationContextWithName:(NSString*)name
                           completion:(void (^)(ECSNavigationContext *context, NSError *error))completion;
 {
@@ -851,7 +862,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
     
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         

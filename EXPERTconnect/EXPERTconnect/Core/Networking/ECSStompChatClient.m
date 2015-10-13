@@ -98,8 +98,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
-    
-    self.currentNetworkTask = [urlSession startConversationForAction:actionType
+    if ([self.actionType isKindOfClass:[ECSChatActionType class]]) {
+        self.currentNetworkTask = [urlSession startConversationForAction:actionType
                                                      andAlwaysCreate:YES
                                                       withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
                                                           
@@ -121,6 +121,11 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
                                                           weakSelf.currentConversation = conversation;
                                                           [weakSelf connectToHost:urlSession.hostName];
                                                       }];
+    } else {
+        // Setup without a Conversation
+        NSLog(@"Setting up StompChatClient with non-chat Action Type");
+        [self connectToHost:urlSession.hostName];
+    }
 }
 
 - (void)setupChatChannel

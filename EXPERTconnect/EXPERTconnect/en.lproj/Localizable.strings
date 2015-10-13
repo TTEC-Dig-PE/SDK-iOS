@@ -236,6 +236,15 @@
 /* We'll Call You. */
 "ECSLocalizeCallCancelTitle" = "We'll Call You.";
 
+/* Call in Progress. */
+"ECSLocalizeCallInProgressTitle" = "Call in Progress.";
+
+/* When finished, please hang up or use the End button below. */
+"ECSLocalizeCallInProgressDescription" = "When finished, please hang up or use the End button below.";
+
+/* End Call */
+"ECSLocalizeCallEndButton" = "End Call";
+
 /* Call Cancel Description */
 "ECSLocalizeCallCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated call from us at %@";
 

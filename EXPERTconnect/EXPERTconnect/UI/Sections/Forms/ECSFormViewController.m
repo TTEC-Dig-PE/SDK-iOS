@@ -350,23 +350,29 @@
                     {
                         formAction.form.submitted = YES;
                         //TODO : Navigation is being handled by the Host App, don't need this.
-//                        if (response.action) {
-//                            [weakSelf ecs_navigateToViewControllerForActionType:response.action];
-//                        } else {
                         
-//            
-//                            ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-//                            submitController.workflowDelegate = self.workflowDelegate;
-//                            submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
-//                            submitController.descriptionLabel.text = formAction.form.submitCompleteText;
-//                            
-//                            if (weakSelf.navigationController)
-//                            {
-//                                [weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
-//                            }
-////                        }
-                        
-                        [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
+                        // mas - 11-oct-2015 - Do old method if workflowDelegate is nil.
+                        if (!weakSelf.workflowDelegate) {
+                            if (response.action) {
+                                [weakSelf ecs_navigateToViewControllerForActionType:response.action];
+                            } else {
+                            
+                
+                                ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+                                submitController.workflowDelegate = self.workflowDelegate;
+                                submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
+                                submitController.descriptionLabel.text = formAction.form.submitCompleteText;
+                                
+                                if (weakSelf.navigationController)
+                                {
+                                    //[weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
+                                    //[weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                                    [weakSelf.navigationController pushViewController:submitController animated:YES];
+                                }
+                            }
+                        } else {
+                            [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
+                        }
                     }
                     else
                     {

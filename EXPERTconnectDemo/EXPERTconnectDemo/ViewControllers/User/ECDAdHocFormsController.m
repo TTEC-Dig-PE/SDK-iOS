@@ -167,6 +167,9 @@
 }
 
 - (IBAction)cameraButtonTapped:(id)sender {
+    // [self exampleMakeDecision];
+    // [self exampleWorkflow];
+    
     UIImagePickerController *imagePicker = [UIImagePickerController new];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -177,6 +180,94 @@
                      completion:nil];
 }
 
+
+- (void) exampleWorkflow {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[EXPERTconnect shared] startWorkflow:@"expert" withAction:ECSActionTypeAnswerEngineString delgate: self viewController: self];
+    });
+}
+
+// workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
+//
+- (NSObject *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
+    
+    NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
+    
+    return nil;
+}
+
+- (void) exampleMakeDecision {
+    NSMutableArray *interests = [[NSMutableArray alloc] initWithObjects:@"running", @"skiing", @"hiking", nil];
+    
+    NSMutableDictionary *affinity = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                     @"9", @"sat_score",
+                                     @"chris_horizon", @"expertId",
+                                     @"financial advisor", @"skill",
+                                     nil];
+    
+    NSMutableDictionary *interaction = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        @"2", @"nps_score",
+                                        @"mutual funds", @"intent",
+                                        nil];
+    
+    NSMutableDictionary *customData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"4", @"nps",
+                                       @"60", @"klout",
+                                       @"250000", @"clv",
+                                       interests, @"interests",
+                                       @"midatlantic", @"region",
+                                       affinity, @"affinity",
+                                       interaction, @"interaction",
+                                       nil];
+    
+    NSMutableDictionary *consumerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         @"null", @"userID",
+                                         @"gwen@email.com", @"username",
+                                         @"Gwen", @"firstName",
+                                         @"", @"lastName",
+                                         @"null", @"address",
+                                         @"Denver", @"city",
+                                         @"Colorado", @"state",
+                                         @"80238", @"postalCode",
+                                         @"United States", @"country",
+                                         @"(312) 555-1155", @"homePhone",
+                                         @"(312) 555-3944", @"mobilePhone",
+                                         customData, @"customData",
+                                         @"null", @"alternativeEmail",
+                                         nil];
+    
+    NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               consumerData, @"consumer",
+                                               @"horizon", @"ceTenant",
+                                               @"determineTreatment", @"eventId",
+                                               nil];
+    
+    NSError *error;
+    NSData *decisionData = [NSJSONSerialization dataWithJSONObject:decisionDictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+    NSString* decisionJson = [[NSString alloc] initWithData:decisionData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"Decision Request Json: %@", decisionJson);
+    
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+
+    [sessionManager makeDecision:decisionDictionary completion:^(NSDictionary *decisionResponse, NSError *error) {
+        
+        if( error )  {
+            NSLog(@"Error: %@", error.description);
+        } else  {
+            NSData *responseData = [NSJSONSerialization dataWithJSONObject:decisionDictionary
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:&error];
+            
+            NSString* responseJson = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"Decision Response Json: %@", responseJson);
+        }
+    }];
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {

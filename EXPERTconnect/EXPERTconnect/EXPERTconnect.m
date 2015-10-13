@@ -44,6 +44,10 @@ static EXPERTconnect* _sharedInstance;
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration
 {
     NSAssert(configuration.host, @"You must specify the host when initializing the EXPERTconnect SDK.");
+    
+    // Log config for debugging:
+    NSLog(@"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
     ECSURLSessionManager* sessionManager = [[ECSURLSessionManager alloc] initWithHost:configuration.host];
     [[ECSInjector defaultInjector] setObject:configuration forClass:[ECSConfiguration class]];
     [[ECSInjector defaultInjector] setObject:sessionManager
@@ -100,6 +104,16 @@ static EXPERTconnect* _sharedInstance;
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     return userManager.userToken;
+}
+
+- (void)logout {
+    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    // Log config for debugging:
+    NSLog(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
+    [self setUserToken:nil];
 }
 
 - (void)setUserToken:(NSString *)userToken

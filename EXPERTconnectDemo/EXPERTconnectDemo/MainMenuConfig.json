@@ -38,6 +38,13 @@
                     "icon": "ecs_ic_nav_settings"
                 },
                 {
+                      "displayName": "ECDLocalizedBugReportLabel",
+                      "enabled": true,
+                      "configuration": {},
+                      "type": "bugreport",
+                      "icon": "ecs_ic_nav_settings"
+                },
+                {
                     "displayName": "ECDLocalizedAdHocLabel",
                     "enabled": true,
                     "configuration": {},

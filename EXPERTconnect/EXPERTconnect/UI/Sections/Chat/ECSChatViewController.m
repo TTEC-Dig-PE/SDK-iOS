@@ -767,6 +767,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             channelName = @"a Video Call"; // TODO: Translate
         } else if ([channelType isEqualToString:@"cobrowse_start"]) {
             channelName = @"that you share your screen."; // TODO: Translate
+        } else if ([channelType isEqualToString:@"cobrowse_stop"]) {
+            /* no op */
         } else {
             NSLog(@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
             return; // no UI
@@ -777,6 +779,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             // CafeX will prompt user.
             ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
             [cafeXController startCoBrowse:targetID usingParentViewController:self];
+        } else if ([channelType isEqualToString:@"cobrowse_stop"]) {
+            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+            [cafeXController endCoBrowse];
         } else {
             NSString *alertTitle = @"Accept Call?"; // TODO: Translate
             NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName]; // TODO: Translate
@@ -980,10 +985,14 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         } completion:^(BOOL finished) {
             [self.waitView removeFromSuperview];
             self.waitView = nil;
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+            
+            // mas - 11-oct-15 - only show "minimize" if we are in a workflow. 
+            if(self.workflowDelegate) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(minimizeButtonPressed:)];
+            }
         }];
     }
 
@@ -1790,6 +1799,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
+    [_callbackViewController setChatClient:_chatClient];
 
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
