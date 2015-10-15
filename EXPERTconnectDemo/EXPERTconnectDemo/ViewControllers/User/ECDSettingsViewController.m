@@ -251,7 +251,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionEnvironment:
             switch (indexPath.row) {
                 case LicenseSectionRowLicenses:
-                    cell.textLabel.text = @"Dev";
+                    cell.textLabel.text = @"Environment:";
                     cell.accessoryView = self.selectEnvironmentPicker;
 
                     break;
@@ -264,7 +264,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionOrganization:
             switch (indexPath.row) {
                 case OrganizationSectionRowLicenses:
-                    cell.textLabel.text = @"test";
+                    cell.textLabel.text = @"Organization:";
                     cell.accessoryView = self.selectOrganizationPicker; 
                     break;
             }
@@ -274,7 +274,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionRunMode:
             switch (indexPath.row) {
                 case LicenseSectionRowLicenses:
-                    cell.textLabel.text = @"Expert Demo";
+                    cell.textLabel.text = @"Runtime App:";
                     cell.accessoryView = self.selectRunModePicker;
                     break;
                     
