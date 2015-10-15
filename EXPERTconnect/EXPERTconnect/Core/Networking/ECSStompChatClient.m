@@ -202,12 +202,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     }
 }
 
+
 - (void)connectToHost:(NSString *)host
 {
     self.stompClient = [ECSStompClient new];
     self.stompClient.delegate = self;
     
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     NSString *hostName = [[NSURL URLWithString:host] host];
+    NSString *bearerToken = sessionManager.authToken;
     NSNumber *port = [[NSURL URLWithString:host] port];
     
     if (port)
@@ -215,7 +219,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         hostName = [NSString stringWithFormat:@"%@:%@", hostName, port];
     }
     
-    NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async", hostName];
+    // NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async", hostName];
+    NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async?access_token=%@", hostName, bearerToken];
     
     [self.stompClient connectToHost:stompHostName];
 }
