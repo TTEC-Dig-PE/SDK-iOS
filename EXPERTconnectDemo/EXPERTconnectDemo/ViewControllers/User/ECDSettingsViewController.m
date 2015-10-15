@@ -13,6 +13,7 @@
 #import "ECDUserDefaultKeys.h"
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
+#import "ECDOrganizationPicker.h"
 #import "ECDLocalization.h"
 #import "ECDBugReportEmailer.h"
 
@@ -24,6 +25,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionPushNotifications,
     SettingsSectionVersion,
     SettingsSectionEnvironment,
+    SettingsSectionOrganization,
     SettingsSectionRunMode,
     SettingsSectionVoiceIt,
     SettingsSectionCount
@@ -45,6 +47,12 @@ typedef NS_ENUM(NSInteger, EnvironmentSectionRows)
 {
     EnvironmentSectionRowLicenses,
     EnvironmentSectionRowCount
+};
+
+typedef NS_ENUM(NSInteger, OrganizationSectionRows)
+{
+    OrganizationSectionRowLicenses,
+    OrganizationSectionRowCount
 };
 
 typedef NS_ENUM(NSInteger, VoiceItSectionRows)
@@ -69,6 +77,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
 @property (strong, nonatomic) UISwitch *pushNotificationSwitch;
 @property (strong, nonatomic) ECDEnvironmentPicker *selectEnvironmentPicker;
 @property (strong, nonatomic) ECDRunModePicker *selectRunModePicker;
+@property (strong, nonatomic) ECDOrganizationPicker *selectOrganizationPicker;
 @property (weak, nonatomic) IBOutlet UIView *bottomContainer;
 
 
@@ -112,6 +121,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     
     self.selectEnvironmentPicker = [ECDEnvironmentPicker new];
     self.selectRunModePicker = [ECDRunModePicker new];
+    self.selectOrganizationPicker = [ECDOrganizationPicker new];
     
     // [self.environmentsArray addObject:@"IntDev"];
     // [self.environmentsArray addObject:@"Demo"];
@@ -124,7 +134,15 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     // [self.selectEnvironmentPicker setFrame: CGRectMake(10.0f, 50.0f, 100.0f, 200.0f)];
     [self.selectEnvironmentPicker setup];
     [self.selectRunModePicker setup];
+    [self.selectOrganizationPicker setup];
     // [self.selectEnvironmentPicker setFrame: CGRectMake(0.0f, 0.0f, 100.0f, 200.0f)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(environmentPickerChanged:) name:@"EnvironmentPickerChanged" object:nil];
+}
+
+- (void)environmentPickerChanged:(NSNotification *)notification {
+    [self.selectOrganizationPicker setup];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,6 +189,10 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
             
         case SettingsSectionEnvironment:
             rowCount = EnvironmentSectionRowCount;
+            break;
+            
+        case SettingsSectionOrganization:
+            rowCount = OrganizationSectionRowCount;
             break;
             
         case SettingsSectionRunMode:
@@ -235,6 +257,15 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
                     break;
                     
                 default:
+                    break;
+            }
+            break;
+            
+        case SettingsSectionOrganization:
+            switch (indexPath.row) {
+                case OrganizationSectionRowLicenses:
+                    cell.textLabel.text = @"test";
+                    cell.accessoryView = self.selectOrganizationPicker; 
                     break;
             }
             break;
@@ -320,6 +351,14 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionEnvironment:
         {
             NSString *versionString = ECDLocalizedString(ECDLocalizedEnvironmentsHeader, @"Version");
+            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+            title = versionString;
+        }
+            break;
+            
+        case SettingsSectionOrganization:
+        {
+            NSString *versionString = ECDLocalizedString(ECDLocalizedOrganizationHeader, @"Version");
             versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
             title = versionString;
         }

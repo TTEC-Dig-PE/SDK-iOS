@@ -13,24 +13,26 @@
 @interface ECDEnvironmentPicker ()
 
 @property (nonatomic, retain) NSMutableArray *serverUrlsArray;
+@property (nonatomic, retain) NSMutableArray *environmentsArray;
 
 @end
 
 @implementation ECDEnvironmentPicker
 
 static NSString *const serverUrlKey = @"serverURL";
+static NSString *const environmentNameKey = @"environmentName";
 
 -(void)setup {
-    NSMutableArray *environmentsArray = [NSMutableArray new];
+    self.environmentsArray = [NSMutableArray new];
     self.serverUrlsArray = [NSMutableArray new];
     
-    [environmentsArray addObject:@"IllegalDev"];
-    [environmentsArray addObject:@"IntDev"];
-    [environmentsArray addObject:@"DceDev"];
-    [environmentsArray addObject:@"Demo"];
-    [environmentsArray addObject:@"Test"];
-    [environmentsArray addObject:@"SQA"];
-    [environmentsArray addObject:@"Prod"];
+    [self.environmentsArray addObject:@"IllegalDev"];
+    [self.environmentsArray addObject:@"IntDev"];
+    [self.environmentsArray addObject:@"DceDev"];
+    [self.environmentsArray addObject:@"Demo"];
+    [self.environmentsArray addObject:@"Test"];
+    [self.environmentsArray addObject:@"SQA"];
+    [self.environmentsArray addObject:@"Prod"];
     
     [self.serverUrlsArray addObject:@"http://uldcd-cldap02.ttechenabled.net:8080"];
     [self.serverUrlsArray addObject:@"http://api.humanify.com:8080"];
@@ -56,7 +58,11 @@ static NSString *const serverUrlKey = @"serverURL";
         }
     }
     
-    [super setup:environmentsArray withSelection:rowToSelect];
+    // Because this is new, let's populate it on load. 
+    [[NSUserDefaults standardUserDefaults] setObject:[self.environmentsArray objectAtIndex:rowToSelect]
+                                              forKey:environmentNameKey];
+    
+    [super setup:self.environmentsArray withSelection:rowToSelect];
 }
 
 
@@ -65,6 +71,12 @@ static NSString *const serverUrlKey = @"serverURL";
 
     NSString *url = [self.serverUrlsArray objectAtIndex: row];
     [[NSUserDefaults standardUserDefaults] setObject:url forKey:serverUrlKey];
+    
+    NSString *env = [self.environmentsArray objectAtIndex:row];
+    [[NSUserDefaults standardUserDefaults] setObject:env forKey:environmentNameKey];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
+
 }
 
 @end

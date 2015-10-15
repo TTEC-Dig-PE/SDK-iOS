@@ -83,6 +83,22 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:theme forClass:[ECSTheme class]];
 }
 
+-(NSString *)clientID
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    return configuration.clientID;
+}
+
+-(void)setClientID:(NSString *)theClientID
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    configuration.clientID = theClientID;
+    
+    // Reset the auth token. This should make us fetch a new one.
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    sessionManager.authToken = nil;
+}
+
 - (void)setUserIntent:(NSString *)intent
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];

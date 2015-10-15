@@ -79,6 +79,7 @@
 		C1E0E6391BC40A7A0089C7E6 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */; };
 		C1E0E63A1BC40A7A0089C7E6 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
+		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; settings = {ASSET_TAGS = (); }; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
@@ -379,6 +380,8 @@
 		C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
+		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D81612F41B6AB620005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
@@ -646,6 +649,8 @@
 				46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */,
 				46BA32F91B60559000E5C270 /* ECDRunModePicker.h */,
 				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
+				C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */,
+				C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */,
 				46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */,
 				46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */,
 				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
@@ -841,7 +846,6 @@
 		D8CEBDF11B546DC20053E9A0 /* Horizon */ = {
 			isa = PBXGroup;
 			children = (
-				C4EB9A001BCD5F2200C6F279 /* Horizon-Info.plist */,
 				D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */,
 				D8CEBDF21B546DC20053E9A0 /* HZAppDelegate.h */,
 				D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */,
@@ -1095,7 +1099,6 @@
 				D8CEBECD1B55690C0053E9A0 /* RobotoCondensed-Italic.ttf in Resources */,
 				D8CEBECE1B55690C0053E9A0 /* ECDLicenseViewController.xib in Resources */,
 				D8CEBECF1B55690C0053E9A0 /* LICENSE.txt in Resources */,
-				C4EB9A011BCD5F2200C6F279 /* Horizon-Info.plist in Resources */,
 				D8CEBED01B55690C0053E9A0 /* ECDLoginViewController.xib in Resources */,
 				D8CEBED11B55690C0053E9A0 /* ECDMainMenuTableViewCell.xib in Resources */,
 				D8CEBED21B55690C0053E9A0 /* ECDSettingsViewController.xib in Resources */,
@@ -1241,6 +1244,7 @@
 				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,
 				D8CEBE1A1B546DC20053E9A0 /* HZMainScreenViewController.m in Sources */,
 				46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */,
+				C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */,
 				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
 				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,

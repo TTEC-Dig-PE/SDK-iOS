@@ -99,6 +99,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration;
 
+-(void)setClientID:(NSString *)theClientID;
+
 
 /**
  Returns a view controller for an EXPERTconnect Chat session.

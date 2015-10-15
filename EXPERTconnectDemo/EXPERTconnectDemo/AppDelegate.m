@@ -83,7 +83,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
     configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
-    configuration.clientID = @"mktwebextc";
+    
+    NSString *currentEnv = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentName"];
+    NSString *currentOrganization = nil;
+    if (currentEnv) {
+        currentOrganization = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_%@", currentEnv, @"organization"]];
+    }
+    
+    configuration.clientID = ( currentOrganization ? currentOrganization : @"mktwebextc" );
+    
     configuration.clientSecret = @"secret123";
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");

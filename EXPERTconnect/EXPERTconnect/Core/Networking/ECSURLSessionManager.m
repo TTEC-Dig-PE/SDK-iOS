@@ -1052,7 +1052,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401))
+        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) && !result[@"message"])
         {
             [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
             retryingWithAuthorization = YES;

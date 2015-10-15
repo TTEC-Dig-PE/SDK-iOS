@@ -158,6 +158,9 @@
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "Select Environment";
 
+/* Organization Header */
+"ECDLocalizedOrganizationHeader" = "Select Organization";
+
 /* VoiceIt Header */
 "ECDLocalizedVoiceItHeader" = "VoiceIt Utilities";
 
