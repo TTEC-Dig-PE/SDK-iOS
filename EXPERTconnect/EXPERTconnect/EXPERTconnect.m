@@ -83,6 +83,21 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:theme forClass:[ECSTheme class]];
 }
 
+-(NSString *)host
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    return configuration.host;
+}
+-(void)setHost:(NSString *)theHost
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    configuration.host = theHost;
+    
+    // Set the host in the session manager.
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    [sessionManager setHostName:theHost];
+}
+
 -(NSString *)clientID
 {
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];

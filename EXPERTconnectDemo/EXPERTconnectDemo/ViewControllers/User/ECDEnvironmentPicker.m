@@ -64,6 +64,9 @@ static NSString *const environmentNameKey = @"environmentName";
     [[NSUserDefaults standardUserDefaults] setObject:env forKey:environmentNameKey];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
+    
+    // This will set host and reconfigure the session.
+    [[EXPERTconnect shared] setHost:url];
 
 }
 

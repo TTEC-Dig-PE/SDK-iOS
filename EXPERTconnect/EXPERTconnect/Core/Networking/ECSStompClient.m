@@ -275,6 +275,11 @@ static NSString * const kStompError = @"ERROR";
 
 - (void)processMessageFrame:(ECSStompFrame*)frame
 {
+    if (!frame.headers) {
+        NSLog(@"ERROR: Missing frame headers! Frame=%@", frame);
+        return;
+    }
+    
     NSString *subscription = frame.headers[@"subscription"];
     if (subscription)
     {
