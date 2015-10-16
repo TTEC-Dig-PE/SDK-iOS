@@ -5,19 +5,30 @@
 //  Created by Nathan Keeney on 8/12/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-
-#ifndef EXPERTconnect_ECSCafeXController_h
-#define EXPERTconnect_ECSCafeXController_h
-
+#ifndef __LP64__
 #import <ACBClientSDK/ACBUC.h>
 #import <AssistSDK.h>
+#endif
+
 #import "ReachabilityManager.h"
 #import "ECSCafeXVideoViewController.h"
 #import "ECSRootViewController.h"
 
-@interface ECSCafeXController : NSObject <ACBUCDelegate, ACBClientCallDelegate, ACBClientPhoneDelegate, ReachabilityManagerListener, CafeXVideoViewDelegate> {
+// *********************************************
+// TODO: Pull out all #ifdef __LP64__ references after CafeX supports 64bit simulators!!
+// mas - 15-oct-2015
+// *********************************************
+
+#ifdef __LP64__
+@interface ECSCafeXController : NSObject <ReachabilityManagerListener, CafeXVideoViewDelegate> {
     
+    id cafeXConnection;
+#else
+@interface ECSCafeXController : NSObject <ACBUCDelegate, ACBClientCallDelegate, ACBClientPhoneDelegate, ReachabilityManagerListener, CafeXVideoViewDelegate> {
+
     ACBUC *cafeXConnection;
+#endif
+    
     NSString *username;
     NSString *configuration; // Session ID
     NSString *server; // TODO: Store somewhere
@@ -28,7 +39,11 @@
 @property (strong, nonatomic) ECSCafeXVideoViewController *cafeXVideoViewController;
 @property (copy) void (^postLoginTask)(void);
 @property (strong, nonatomic) ECSRootViewController *defaultParent;
+    
+#ifndef __LP64__
 @property (weak, nonatomic) ACBClientCall *savedCall;
+#endif 
+    
 @property (strong, nonatomic) NSString *savedTarget;
 @property (nonatomic, assign) BOOL savedVidOption;
 @property (nonatomic, assign) BOOL savedAudOption;
@@ -46,5 +61,3 @@
 + (void)requestCameraAccess;
 
 @end
-
-#endif

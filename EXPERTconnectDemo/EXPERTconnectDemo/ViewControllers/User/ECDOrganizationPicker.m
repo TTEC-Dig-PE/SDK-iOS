@@ -36,6 +36,9 @@ static NSString *const organizationKey = @"organization";
     
     // Attempt to load the selected organization for the selected environment
     NSString *currentOrganization = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_%@", self.currentEnvironment, organizationKey]];
+    if (!currentOrganization) {
+        currentOrganization = [self.organizationArray objectAtIndex:0];
+    }
     
     // Select the current organization in the flipper control.
     int currentRow = 0;

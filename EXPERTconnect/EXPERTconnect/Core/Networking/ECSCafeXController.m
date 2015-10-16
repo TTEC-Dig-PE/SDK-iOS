@@ -66,20 +66,28 @@
 @implementation ECSCafeXController
 
 - (void) setupCafeXSession {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     if (cafeXConnection == nil) {
         [self loginToCafeX];
     } else {
         [cafeXConnection startSession];
     }
+#endif
 }
 
 - (void) setupCafeXSessionWithTask:(void (^)(void))task {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     self.postLoginTask = task;
     if (cafeXConnection == nil) {
         [self loginToCafeX];
     } else {
         [cafeXConnection startSession];
     }
+#endif
 }
 
 - (BOOL) hasCafeXSession {
@@ -91,6 +99,9 @@
 }
 
 - (void) loginToCafeX {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     // TODO: Get App Server host from configuration (need to add to all host apps too)
     
@@ -140,9 +151,13 @@
                                       failure:^(id result, NSURLResponse *response, NSError *error) {
                                           NSLog(@"CafeX Error calling getSession: %@", error);
                                       }];
+#endif
 }
 
 - (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     [ECSCafeXController requestCameraAccess];
     
     _savedTarget = target;
@@ -169,19 +184,27 @@
     } else {
         NSLog(@"ERROR: CafeX Controller doesn't have a parent viewcontroller! Aborting.");
     }
+#endif
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     NSDictionary *config = @{
                              @"videoMode": @"none",
                              @"acceptSelfSignedCerts": @YES,
                              @"correlationId": target
                              };
     [AssistSDK startSupport: @"humanify.cloud1.cafex.com" supportParameters:config]; // TODO: Store host somewhere...
+#endif
 }
 
 
 - (void)CafeXViewDidAppear {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     NSLog(@"CafeX Displayed View Controller (DidAppear)");
     ACBClientPhone* phone = cafeXConnection.phone;
     
@@ -217,23 +240,39 @@
         
         //[_savedCall answerWithAudio:YES video:YES];
     }
+#endif
 }
 
 - (void)CafeXViewDidUnload {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     if (_savedCall != nil) {
         [_savedCall end];
     }
+#endif
 }
 
 - (void)CafeXViewDidMuteAudio:(BOOL)muted {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     [_savedCall enableLocalAudio:!muted];
+#endif
 }
 - (void)CafeXViewDidHideVideo:(BOOL)hidden {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     [_savedCall enableLocalVideo:!hidden];
     
     [_cafeXVideoViewController hideVideoPanels:hidden];
+#endif
 }
 - (void)CafexViewDidEndVideo {
+#ifdef __LP64__
+    NSLog(@"CafeX does not support x86_64 archictecture. Feature disabled.");
+#else
     if (_savedCall != nil) {
         [_savedCall end];
         _savedCall = nil;
@@ -242,13 +281,16 @@
 //    if (_defaultParent != nil) {
 //        [_defaultParent dismissViewControllerAnimated:YES completion:nil];
 //    }
+#endif
 }
 - (void)CafeXViewDidMinimize {
     /* no-op */
 }
 
 - (void) endCoBrowse {
+#ifndef __LP64__
     [AssistSDK endSupport];
+#endif
 }
 
 - (void) endCafeXSession {
@@ -273,12 +315,14 @@
 }
 
 + (void) requestCameraAccess {
+#ifndef __LP64__
     [ACBClientPhone requestMicrophoneAndCameraPermission:TRUE video:TRUE];
+#endif
 }
 
 #pragma mark - ACBUCDelegate
 
-
+#ifndef __LP64__
 /**
  * A notification to indicate that the session has been initialised successfully.
  */
@@ -326,7 +370,11 @@
     [self endCafeXSession];
 }
 
+#endif
+
 # pragma mark - ACBClientCallDelegate
+
+#ifndef __LP64__
 
 - (void) phone:(ACBClientPhone*)phone didReceiveCall:(ACBClientCall*)call
 {
@@ -439,6 +487,8 @@
 - (void)callDidReceiveMediaChangeRequest:(ACBClientCall *)call {
     [_cafeXVideoViewController didHideRemoteVideo: ![call hasRemoteVideo]];
 }
+
+#endif
 
 #pragma mark - Reachability
 - (void)registerForReachabilityCallback

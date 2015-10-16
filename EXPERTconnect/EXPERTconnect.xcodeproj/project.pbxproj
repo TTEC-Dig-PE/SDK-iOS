@@ -453,7 +453,7 @@
 		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
 		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
-		D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
+		D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */; };
 		D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */; };
 		D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */; };
@@ -487,7 +487,7 @@
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
 		D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */; };
-		D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; };
+		D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */; };
 		D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */; };
 		D8EF940B1BC700EA0068CAA0 /* ECSStompCallbackClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */; };
