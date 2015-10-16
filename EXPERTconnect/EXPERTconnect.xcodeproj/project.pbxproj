@@ -2705,7 +2705,7 @@
 					suppress,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "83f914b0-f54a-4e15-9306-5bfb015af4ca";
+				PROVISIONING_PROFILE = "4e78f4cc-b76a-4898-851c-5fcae96d939e";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "arm64 armv7s";
