@@ -49,6 +49,9 @@ static NSString *const organizationKey = @"organization";
         }
     }
     
+    // This will set clientID and blow away authToken so that we will reauthenticate with the new clientId.
+    [[EXPERTconnect shared] setClientID:currentOrganization];
+    
     [super setup:self.organizationArray withSelection:rowToSelect];
 }
 
