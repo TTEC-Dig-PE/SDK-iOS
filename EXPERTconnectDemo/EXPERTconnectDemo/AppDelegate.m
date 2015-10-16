@@ -116,6 +116,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         [[EXPERTconnect shared] setUserToken:nil];
     }
     
+    // Get env/clientid config from hosted site.
+    [self fetchEnvironmentJSON];
     
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
         
@@ -226,6 +228,42 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             }
         }
     }
+}
+
+// mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.
+- (void) fetchEnvironmentJSON {
+    
+    NSURL *url = [[NSURL alloc] initWithString:@"https://dce1.humanify.com/humanify_sdk_orgs.json"];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+    {
+        // The server request has completed. Parse file and store it in user defaults.
+        if (!error) {
+            
+            NSError *serializeError;
+            NSMutableDictionary *orgDictionary = [NSJSONSerialization
+                                               JSONObjectWithData:data
+                                               options:NSJSONReadingMutableContainers
+                                               error:&serializeError];
+            
+            //NSLog(@"Env/Org Json: %@", orgDictionary);
+            
+            if ([orgDictionary objectForKey:@"environment_config"]) {
+                
+                NSDictionary *envConfig = [orgDictionary objectForKey:@"environment_config"];
+                [[NSUserDefaults standardUserDefaults] setObject:envConfig forKey:@"environmentConfig"];
+                
+                //NSLog(@"Saving environment config from JSON successful.");
+            }
+            
+        } else {
+            NSLog(@"Error fetching env/org JSON file. Error=%@", error);
+        }
+    }];
+    
+    
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  EnvironmentSelector.h
+//  ECDOrganizationPicker.h
 //  EXPERTconnectDemo
 //
-//  Created by Ken Washington on 7/22/15.
+//  Created by Mike Schmoyer on 10/16/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
