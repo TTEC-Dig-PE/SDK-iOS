@@ -5,7 +5,7 @@
 //  Created by Nathan Keeney on 8/12/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-#ifndef __LP64__
+#if !(TARGET_IPHONE_SIMULATOR)
 #import <ACBClientSDK/ACBUC.h>
 #import <AssistSDK.h>
 #endif
@@ -15,11 +15,11 @@
 #import "ECSRootViewController.h"
 
 // *********************************************
-// TODO: Pull out all #ifdef __LP64__ references after CafeX supports 64bit simulators!!
+// TODO: Pull out all #if TARGET_IPHONE_SIMULATOR references after CafeX supports 64bit simulators!!
 // mas - 15-oct-2015
 // *********************************************
 
-#ifdef __LP64__
+#if TARGET_IPHONE_SIMULATOR
 @interface ECSCafeXController : NSObject <ReachabilityManagerListener, CafeXVideoViewDelegate> {
     
     id cafeXConnection;
@@ -40,7 +40,7 @@
 @property (copy) void (^postLoginTask)(void);
 @property (strong, nonatomic) ECSRootViewController *defaultParent;
     
-#ifndef __LP64__
+#if !(TARGET_IPHONE_SIMULATOR)
 @property (weak, nonatomic) ACBClientCall *savedCall;
 #endif 
     

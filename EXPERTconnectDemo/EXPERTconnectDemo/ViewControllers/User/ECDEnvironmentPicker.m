@@ -66,6 +66,7 @@ static NSString *const environmentNameKey = @"environmentName";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
     
     // This will set host and reconfigure the session.
+    NSAssert(url.length>0, @"Environment Picker - Chosen serverURL must exist.");
     [[EXPERTconnect shared] setHost:url];
 
 }

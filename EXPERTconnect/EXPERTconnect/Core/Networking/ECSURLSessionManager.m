@@ -1009,8 +1009,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                             failure:(ECSSessionManagerFailure)failure
 {
     __weak typeof(self) weakSelf = self;
-    ECSLogVerbose(@"Authenticating with server");
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    ECSLogVerbose(@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
     return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
         if (!error && authToken)
         {
@@ -1061,7 +1061,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 200) &&
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
-            ECSLogVerbose(@"API Error %@", error);
+            
+            if (result[@"error"]) {
+                ECSLogVerbose(@"API Result Error: %@", result[@"error"]);
+            }
+            if (result[@"message"]) {
+                ECSLogVerbose(@"API Result Message: %@", result[@"message"]);
+            }
+            if (error) {
+                ECSLogVerbose(@"API Error: %@", error);
+            }
+            
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
             if ([result isKindOfClass:[NSDictionary class]])
