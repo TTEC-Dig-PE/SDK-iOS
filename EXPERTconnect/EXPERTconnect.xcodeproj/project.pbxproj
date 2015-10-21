@@ -382,6 +382,8 @@
 		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
 		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */; settings = {ASSET_TAGS = (); }; };
+		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; settings = {ASSET_TAGS = (); }; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
 		916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */; };
 		916F6ADC1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */; };
@@ -875,6 +877,10 @@
 		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
 		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
 		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
+		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsDevice.h; sourceTree = "<group>"; };
+		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsDevice.m; sourceTree = "<group>"; };
+		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
+		5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsAction.m; sourceTree = "<group>"; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAxRatingFormItemViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.h; sourceTree = SOURCE_ROOT; };
 		916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAxRatingFormItemViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1066,6 +1072,7 @@
 		033ACB101A602C9C0024F48F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5DB55F431BCEB3A500CB8EA8 /* Breadcrumbs */,
 				4679BD931B7A491E002E2D9E /* Registration */,
 				03C310291A9B59E3006B3557 /* ActionTypes */,
 				03C3102B1A9B5A86006B3557 /* Chat */,
@@ -1759,6 +1766,17 @@
 			name = Registration;
 			sourceTree = "<group>";
 		};
+		5DB55F431BCEB3A500CB8EA8 /* Breadcrumbs */ = {
+			isa = PBXGroup;
+			children = (
+				5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */,
+				5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */,
+				5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */,
+				5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */,
+			);
+			name = Breadcrumbs;
+			sourceTree = "<group>";
+		};
 		91E63BFC1B834EAE0019F9EF /* Workflow */ = {
 			isa = PBXGroup;
 			children = (
@@ -2324,6 +2342,7 @@
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
 				464DE2B71B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
+				5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */,
 				466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
@@ -2491,6 +2510,7 @@
 				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
+				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */,
 				0342AFAC1A9B60700009959E /* ECSAnswerRatingView.m in Sources */,
 				03C310591A9B5B56006B3557 /* ECSAnswerEngineActionType.m in Sources */,
 				03101F2F1AAF356900D7562B /* ECSChatLogsViewController.m in Sources */,

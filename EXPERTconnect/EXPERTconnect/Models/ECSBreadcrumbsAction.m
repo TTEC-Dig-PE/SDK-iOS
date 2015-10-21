@@ -39,7 +39,7 @@ static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
 }
 
 
-- (id)initWithDic : (NSDictionary *)dic {
+- (id) initWithDic : (NSDictionary *)dic {
     
     if (self = [super init]) {
         

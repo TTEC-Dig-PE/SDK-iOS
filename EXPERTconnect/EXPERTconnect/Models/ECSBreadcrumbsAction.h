@@ -38,7 +38,7 @@
 - (void)setActionType: (NSString *)actionType;
 - (NSString *)getActionType;
 
-- (void)setActionDescription: (NSString *)actionDescription;
+- (void) setActionDescription: (NSString *)actionDescription;
 - (NSString *)getActionDescription;
 
 - (void)setActionSource: (NSString *)actionSource;

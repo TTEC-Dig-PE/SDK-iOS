@@ -546,7 +546,7 @@ static EXPERTconnect* _sharedInstance;
           actionDestination: (NSString *)actionDestination   {
     
     
-    NSLog(@"breadcrumbsAction:: calling with actionType: %@", actionType);
+    NSLog(@"breadcrumbsAction:: calling with actionType : %@", actionType);
     
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
