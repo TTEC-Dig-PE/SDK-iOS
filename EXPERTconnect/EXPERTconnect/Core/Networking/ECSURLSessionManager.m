@@ -1092,13 +1092,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 200) &&
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
-            
-            if (result && result[@"error"]) {
-                ECSLogVerbose(@"API Result Error: %@", result[@"error"]);
-            }
-            if (result && result[@"message"]) {
-                ECSLogVerbose(@"API Result Message: %@", result[@"message"]);
-            }
             if (error) {
                 ECSLogVerbose(@"API Error: %@", error);
             }
