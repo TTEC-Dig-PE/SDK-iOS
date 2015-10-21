@@ -321,4 +321,12 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                          parameters:(id)parameters
                                             success:(void(^)(NSURLResponse *response, NSString *data))success
                                             failure:(void(^)(NSURLResponse *response, NSError *error))failure;
+
+
+- (NSString *) getJourneyID ;
+- (NSString *) getConversationID ;
+
+- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+
 @end

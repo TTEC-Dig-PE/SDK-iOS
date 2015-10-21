@@ -293,5 +293,15 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  *
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
+
+
+
+- (void) breadcrumbsAction:
+                            (NSString *)actionType
+         actionDescription: (NSString *)actionDescription
+              actionSource: (NSString *)actionSource
+         actionDestination: (NSString *)actionDestination;
+
+
 @end
 

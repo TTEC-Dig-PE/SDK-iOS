@@ -22,6 +22,8 @@
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
 #import "ECSWorkflowNavigation.h"
+#import "ECSBreadcrumbsAction.h"
+
 
 @interface EXPERTconnect ()
 @property (nonatomic, strong) ECSWorkflow *workflow;
@@ -530,6 +532,71 @@ static EXPERTconnect* _sharedInstance;
                                                           animated:YES
                                                         completion:nil];
 }
+
+
+
+
+
+
+
+- (void) breadcrumbsAction:
+          (NSString *)actionType
+          actionDescription: (NSString *)actionDescription
+               actionSource: (NSString *)actionSource
+          actionDestination: (NSString *)actionDestination   {
+    
+    
+    NSLog(@"breadcrumbsAction:: calling with actionType: %@", actionType);
+    
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
+    
+    [journeyAction setTenantId:@"-1"];
+    [journeyAction setJourneyId:[sessionManager getJourneyID]];
+    [journeyAction setSessionId:[sessionManager getConversationID]];
+    [journeyAction setActionType:actionType];
+    [journeyAction setActionDescription:actionDescription];
+    [journeyAction setActionSource:actionSource];
+    [journeyAction setActionDestination:actionDestination];
+    
+    NSMutableDictionary *properties = [journeyAction getProperties];
+    
+    
+    [sessionManager breadcrumbsAction:properties completion:^(NSDictionary *decisionResponse, NSError *error) {
+        
+        if( error )  {
+            NSLog(@"breadcrumbsAction:: Error: %@", error.description);
+        } else  {
+            
+     
+            
+            ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
+            
+            
+            NSLog(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
+            
+            
+            /*
+            NSData *responseData = [NSJSONSerialization dataWithJSONObject:decisionResponse
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:&error];
+            
+            NSString* responseJson = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"Decision Response Json: %@", responseJson);
+             */
+        }
+    }];
+
+    
+    
+}
+
+
+
 
 
 @end

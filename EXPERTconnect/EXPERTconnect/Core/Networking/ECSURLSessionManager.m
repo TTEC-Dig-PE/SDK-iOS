@@ -222,6 +222,23 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         parameters = @{@"name": name};
     }
+    
+    
+    if (self.conversation && self.conversation.journeyID.length > 0) {
+        // Added to track breadcrumb of every navigation in the system
+        NSString *actionType = @"Navigation";
+        NSString *actionDescription = @"API Called everytime user navigates in ExpertConnect Demo";
+        NSString *actionSource = @"Navigation";
+        NSString *actionDestination = name;
+    
+        [[EXPERTconnect shared] breadcrumbsAction:actionType
+                            actionDescription:actionDescription
+                            actionSource:actionSource
+                            actionDestination:actionDestination];
+    }
+    
+    
+    
     return [self GET:@"appconfig/v1/navigation"
           parameters:parameters
              success:[self successWithExpectedType:[ECSNavigationContext class] completion:completion]
@@ -1240,5 +1257,77 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                                             error:error];
     return request;
 }
+
+- (NSString *) getJourneyID {
+    
+    if (self.conversation && self.conversation.journeyID.length > 0)
+        return self.conversation.journeyID;
+    return @"-1";
+}
+
+- (NSString *) getConversationID {
+    
+    if (self.conversation && self.conversation.conversationID.length > 0)
+        return self.conversation.conversationID;
+    return @"-1";
+    
+}
+
+
+- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+{
+    /*
+     //NSString *journeyData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];;
+     
+     NSString *fullURL =  [NSString stringWithFormat:@"%@%@%@%@%@%@", BASE_URL, @"journeys/",self.journeyId,@"/devices/",self.sessionId,@"/actions"];
+     
+     NSURL *url = [NSURL URLWithString:fullURL];
+     
+     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+     [request setHTTPMethod:@"POST"];
+     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+     [request setValue:BASIC_AUTHORIZATION forHTTPHeaderField:@"Authorization"];
+     [request setHTTPBody:jsonData];
+     
+     
+     
+     [NSURLConnection sendAsynchronousRequest:request
+     queue:[NSOperationQueue mainQueue]
+     completionHandler:^(NSURLResponse *response,
+     NSData *data, NSError *connectionError)
+     {
+     if (data.length > 0 && connectionError == nil)
+     {
+     NSDictionary *jsonRes = [NSJSONSerialization JSONObjectWithData:data
+     options:0
+     error:NULL];
+     
+     HBRJourneyAction *journeyActionRes = [[HBRJourneyAction alloc] initWithDic:jsonRes];
+     
+     
+     NSLog(@"Value of actionId is: %@", [journeyActionRes getId]);
+     
+     }
+     else {
+     
+     NSLog(@"Error = %@", error);
+     
+     }
+     }];
+     */
+
+    
+    
+    
+    
+    return [self POST:@"breadcrumbs/v1/actions"
+           parameters:actionJson
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+    
+}
+
+
 
 @end
