@@ -24,7 +24,7 @@
 #import <EXPERTconnect/ECSMessageActionType.h>
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
-
+#import <EXPERTconnect/ECSStartJourneyResponse.h>
 #import <EXPERTconnect/ECSJSONSerializer.h>
 #import <EXPERTconnect/ECSNavigationActionType.h>
 #import <EXPERTconnect/ECSNavigationContext.h>
@@ -92,15 +92,22 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *surveyFormName;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
+@property (copy, nonatomic) NSString *journeyID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
 + (instancetype)shared;
 
+/**
+ Initializes the Humanify SDK components with the given configuration. Refer to Humanify documentation
+ to read what the ECSConfiguration object should be populated with.
+ */
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration;
 
--(void)setClientID:(NSString *)theClientID;
--(void)setHost:(NSString *)theHost;
+/**
+ Initializes video components (video chat and co-browse capability). Video module addon required.
+ */
+- (void)initializeVideoComponents;
 
 /**
  Returns a view controller for an EXPERTconnect Chat session.
@@ -290,8 +297,25 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
            viewController:(UIViewController *)viewController;
 
 /**
+ Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
+ been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 
+ */
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
+
+/**
  *
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
+
+/**
+ Used to set the clientID at runtime. For integrators, there is no reason to call this function.
+ */
+-(void)setClientID:(NSString *)theClientID;
+
+/**
+ Used to set the remote host at runtime. For integrators, there is no reason to call this function.
+ */
+-(void)setHost:(NSString *)theHost;
+
 @end
 

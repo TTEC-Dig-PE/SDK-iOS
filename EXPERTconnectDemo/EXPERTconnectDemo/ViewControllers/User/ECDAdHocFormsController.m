@@ -309,4 +309,9 @@
                                           otherButtonTitles:nil];
     [alert show];
 }
+
+-(void)unrecognizedAction:(NSString *)action {
+    NSLog(@"Unrecognized action in Ad-Hoc Forms Controller: %@", action.description); 
+}
+
 @end

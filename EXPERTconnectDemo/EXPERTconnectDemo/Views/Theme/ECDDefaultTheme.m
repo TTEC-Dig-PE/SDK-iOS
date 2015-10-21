@@ -57,4 +57,9 @@
     return self;
 }
 
++ (UIColor *)primaryColor
+{
+    return self.primaryColor;
+}
+
 @end

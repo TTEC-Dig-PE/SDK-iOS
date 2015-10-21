@@ -89,8 +89,8 @@
             }
         }
 
-        int tempStart = MAX(MIN(_startIndex, _endIndex), 0);
-        int tempEnd = MAX(_startIndex, _endIndex);
+        int tempStart = (int)MAX(MIN(_startIndex, _endIndex), 0);
+        int tempEnd = (int)MAX(_startIndex, _endIndex);
         
         int rowStart = tempStart / 7;
         int rowEnd = tempEnd / 7;

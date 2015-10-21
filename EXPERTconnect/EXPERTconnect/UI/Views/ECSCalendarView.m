@@ -190,11 +190,11 @@
                                          inContext:context];
     }
     
-    int month = currentMonth;
-    int year = currentYear;
+    int month = (int)currentMonth;
+    int year = (int)currentYear;
 
     
-	NSString *monthTitle = [NSString stringWithFormat:@"%@ %d", [monthTitles objectAtIndex:(month - 1)], year];
+	NSString *monthTitle = [NSString stringWithFormat:@"%@ %lu", [monthTitles objectAtIndex:(month - 1)], (unsigned long)year];
     //// Month Header Drawing
     //[monthTitle sizeWithFont:monthFont]
     
@@ -381,7 +381,7 @@
     NSInteger index = [self indexForDate:_period.startDate];
     NSInteger length = [_period lengthInDays];
     
-    int numDaysInMonth      = [_currentDate numberOfDaysInMonth];
+    int numDaysInMonth      = (int)[_currentDate numberOfDaysInMonth];
     NSDate *monthStartDate  = [_currentDate monthStartDate];
     NSInteger monthStartDay = [monthStartDate weekday];
     monthStartDay           = (monthStartDay + (self.mondayFirstDayOfWeek?5:6)) % 7;
@@ -476,7 +476,7 @@
     CGFloat yInCalendar = point.y - (kPMThemeHeaderHeight + ((kPMThemeDayTitlesInHeader)?0:vDiff));
     NSInteger row = yInCalendar / vDiff;
     
-    int numDaysInMonth      = [_currentDate numberOfDaysInMonth];
+    int numDaysInMonth      = (int)[_currentDate numberOfDaysInMonth];
     NSDate *monthStartDate  = [_currentDate monthStartDate];
     NSInteger monthStartDay = [monthStartDate weekday];
     monthStartDay           = (monthStartDay + (self.mondayFirstDayOfWeek?5:6)) % 7;
@@ -797,17 +797,17 @@
     // digits drawing
 	NSDate *dateOnFirst = [_currentDate monthStartDate];
 	int weekdayOfFirst = ([dateOnFirst weekday] + (_mondayFirstDayOfWeek?5:6)) % 7 + 1;
-	int numDaysInMonth = [dateOnFirst numberOfDaysInMonth];
+	int numDaysInMonth = (int)[dateOnFirst numberOfDaysInMonth];
     NSDate *monthStartDate = [_currentDate monthStartDate];
-    int todayIndex = [[[NSDate date] dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
+    int todayIndex = (int)[[[NSDate date] dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
 
     //Find number of days in previous month
     NSDate *prevDateOnFirst = [[_currentDate dateByAddingMonths:-1] monthStartDate];
-    int numDaysInPrevMonth = [prevDateOnFirst numberOfDaysInMonth];
+    int numDaysInPrevMonth = (int)[prevDateOnFirst numberOfDaysInMonth];
     NSDate *firstDateInCal = [monthStartDate dateByAddingDays:(-weekdayOfFirst + 1)];
     
-    int selectionStartIndex = [[self.selectedPeriod normalizedPeriod].startDate daysSinceDate:firstDateInCal];
-    int selectionEndIndex = [[self.selectedPeriod normalizedPeriod].endDate daysSinceDate:firstDateInCal];
+    int selectionStartIndex = (int)[[self.selectedPeriod normalizedPeriod].startDate daysSinceDate:firstDateInCal];
+    int selectionEndIndex = (int)[[self.selectedPeriod normalizedPeriod].endDate daysSinceDate:firstDateInCal];
     NSDictionary *todayBGDict = [[ECSThemeEngine sharedInstance] themeDictForType:PMThemeCalendarDigitsTodayElementType
                                                                          subtype:PMThemeBackgroundSubtype];
     NSDictionary *todaySelectedBGDict = [[ECSThemeEngine sharedInstance] themeDictForType:PMThemeCalendarDigitsTodaySelectedElementType
@@ -855,8 +855,8 @@
         }
     }
 
-    int startIndex = [[self.calendarView.allowedPeriod.startDate dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
-    int endIndex   = [[self.calendarView.allowedPeriod.endDate dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
+    long startIndex = [[self.calendarView.allowedPeriod.startDate dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
+    long endIndex   = [[self.calendarView.allowedPeriod.endDate dateWithoutTime] daysSinceDate:monthStartDate] + weekdayOfFirst - 1;
     
     BOOL isStartSameAsCurrentMonth = [self.calendarView.allowedPeriod.startDate isCurrentMonth:_currentDate];
     BOOL isEndSameAsCurrentMonth   = [self.calendarView.allowedPeriod.endDate isCurrentMonth:_currentDate];

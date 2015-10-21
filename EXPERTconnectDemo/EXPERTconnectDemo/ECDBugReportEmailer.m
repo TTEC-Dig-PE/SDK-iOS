@@ -29,7 +29,8 @@
         // Fill out the email body text
         NSString *emailBody = [NSString stringWithFormat:@"Please describe what you were doing prior to the issue, and what exactly occurred that prompted this report:\n\n\n\nSession Details:"]; // TODO: Add session information
         [mailComposer setMessageBody:emailBody isHTML:NO];
-        [[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
+        //[[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
+        [[ECDBugReportEmailer topMostController] presentViewController:mailComposer animated:YES completion:nil];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You must first set up Mail on your device in order to send a Bug Report." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];

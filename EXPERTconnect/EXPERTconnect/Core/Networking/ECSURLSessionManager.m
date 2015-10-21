@@ -23,6 +23,7 @@
 #import "ECSChatHistoryResponse.h"
 #import "ECSConfiguration.h"
 #import "ECSConversationCreateResponse.h"
+#import "ECSStartJourneyResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
 #import "ECSSelectExpertsResponse.h"
@@ -616,6 +617,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               } failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
+{
+    //ECSKeychainSupport *support = [ECSKeychainSupport new];
+    NSDictionary *parameters = @{};
+    
+    return [self POST:@"conversationengine/v1/journeys"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
 #pragma mark - Media Upload
 - (NSURLSessionUploadTask*)uploadFileData:(NSData*)data
                                withName:(NSString*)name
@@ -1052,8 +1064,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) && !result[@"message"])
+        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
+            ECSLogVerbose(@"Authentication error. Attempting to generate new key..."); 
             [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
             retryingWithAuthorization = YES;
         }
@@ -1062,10 +1075,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
             
-            if (result[@"error"]) {
+            if (result && result[@"error"]) {
                 ECSLogVerbose(@"API Result Error: %@", result[@"error"]);
             }
-            if (result[@"message"]) {
+            if (result && result[@"message"]) {
                 ECSLogVerbose(@"API Result Message: %@", result[@"message"]);
             }
             if (error) {
@@ -1210,14 +1223,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         [mutableRequest setValue:self.conversation.conversationID forHTTPHeaderField:@"x-ia-conversation-id"];
     }
     
-    if (self.conversation && self.conversation.journeyID.length > 0)
+    // mas - 20-oct-2015 - First, try to grab journeyID from the global area. If not found, we may have one in the
+    // conversation, use that instead.
+    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    {
+        [mutableRequest setValue:[EXPERTconnect shared].journeyID forHTTPHeaderField:@"x-ia-journey-id"];
+    }
+    else if (self.conversation && self.conversation.journeyID.length > 0)
     {
         [mutableRequest setValue:self.conversation.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
 
-    
-    
-    
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     
