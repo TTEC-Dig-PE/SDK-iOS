@@ -223,7 +223,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         parameters = @{@"name": name};
     }
     
-    
+    /*
     if (self.conversation && self.conversation.journeyID.length > 0) {
         // Added to track breadcrumb of every navigation in the system
         NSString *actionType = @"Navigation";
@@ -236,6 +236,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                             actionSource:actionSource
                             actionDestination:actionDestination];
     }
+     */
     
     
     
