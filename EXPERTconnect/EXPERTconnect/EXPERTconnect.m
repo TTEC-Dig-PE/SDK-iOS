@@ -59,14 +59,19 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
     [[ECSInjector defaultInjector] setObject:[ECSVoiceItManager new] forClass:[ECSVoiceItManager class]];
 
+    //[self initializeVideoComponents];
+
+    _userCallbackNumber = nil;
+}
+
+- (void)initializeVideoComponents
+{
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
     if (![cafeXController hasCafeXSession]) {
         [cafeXController setupCafeXSession];
     }
-
-    _userCallbackNumber = nil;
 }
 
 - (BOOL)authenticationRequired
@@ -531,6 +536,32 @@ static EXPERTconnect* _sharedInstance;
     [navManager presentViewControllerInNavigationControllerModally:initialViewController
                                                           animated:YES
                                                         completion:nil];
+}
+
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
+{
+    //[self setUserToken:username];
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error) {
+        if (response && !error)
+        {
+            // Set the global journeyID
+            self.journeyID = response.journeyID;
+            
+            if( completion ) {
+                completion(response.journeyID, error);
+            }
+            
+        }
+        else
+        {
+            if(completion) {
+                completion(nil, error);
+            }
+        }
+    }];
 }
 
 

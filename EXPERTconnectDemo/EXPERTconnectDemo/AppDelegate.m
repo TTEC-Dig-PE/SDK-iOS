@@ -83,20 +83,13 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
     configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
-    
-    NSString *currentEnv = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentName"];
-    NSString *currentOrganization = nil;
-    if (currentEnv) {
-        currentOrganization = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_%@", currentEnv, @"organization"]];
-    }
-    
-    configuration.clientID = ( currentOrganization ? currentOrganization : @"mktwebextc" );
-    
+    configuration.clientID = [self getClientFromSettings];
     configuration.clientSecret = @"secret123";
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     [self setThemeFromSettings];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -201,6 +194,21 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     return url;
 }
 
+// Attempt to grab organization (clientid) from user defaults. Defaults otherwise.
+- (NSString *)getClientFromSettings
+{
+    NSString *currentOrganization = nil;
+    NSString *currentEnv = [[NSUserDefaults standardUserDefaults]
+                            objectForKey:@"environmentName"];
+    
+    if (currentEnv) {
+        currentOrganization = [[NSUserDefaults standardUserDefaults]
+                               objectForKey:[NSString stringWithFormat:@"%@_%@", currentEnv, @"organization"]];
+    }
+    
+    return ( currentOrganization ? currentOrganization : @"mktwebextc" );
+}
+
 - (void)setThemeFromSettings
 {
     NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
@@ -262,8 +270,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             NSLog(@"Error fetching env/org JSON file. Error=%@", error);
         }
     }];
-    
-    
 }
 
 @end

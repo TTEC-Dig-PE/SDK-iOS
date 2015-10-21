@@ -77,7 +77,7 @@
     
     uint8_t digest[CC_SHA256_DIGEST_LENGTH];
     
-    CC_SHA256(data.bytes, data.length, digest);
+    CC_SHA256(data.bytes, (unsigned int)data.length, digest);
     
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
     
@@ -164,7 +164,7 @@
     if (result !=nil) {
         NSArray *resArray = [result objectForKey:@"Result"];
         NSLog(@"Returned enrollments: %@", result);
-        return [resArray count];
+        return (int)[resArray count];
     } else {
         message = @"Internet Connection Needed or Failed!";
     }
@@ -242,7 +242,10 @@
     
     OSStatus result;
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    
+    //result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    AVAudioSession *audioSession;
+    result = [audioSession overrideOutputAudioPort:audioRouteOverride error:&playerError];
     
     [player play];
 }
@@ -263,7 +266,9 @@
     
     OSStatus result;
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    //result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    AVAudioSession *audioSession;
+    result = [audioSession overrideOutputAudioPort:audioRouteOverride error:&playerError];
     
     [player play];
 }
@@ -323,7 +328,9 @@
     
     OSStatus result;
     UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
-    result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    //result = AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute, sizeof (audioRouteOverride), &audioRouteOverride);
+    AVAudioSession *audioSession;
+    result = [audioSession overrideOutputAudioPort:audioRouteOverride error:&playerError];
     
     [player play];
 }

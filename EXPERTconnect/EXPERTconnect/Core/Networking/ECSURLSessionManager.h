@@ -15,6 +15,7 @@
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
+@class ECSStartJourneyResponse;
 @class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
@@ -272,6 +273,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           navigationContext:(NSString*)navigationContext
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
+
+// Start a new journey
+- (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
 
 #pragma mark - Media upload
 /**
