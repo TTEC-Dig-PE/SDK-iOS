@@ -1277,8 +1277,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSString *) getJourneyID {
     
-    if (self.conversation && self.conversation.journeyID.length > 0)
+    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    {
+        return [EXPERTconnect shared].journeyID;
+    }
+    else if (self.conversation && self.conversation.journeyID.length > 0)
+    {
         return self.conversation.journeyID;
+    }
     return @"-1";
 }
 

@@ -307,7 +307,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
 
+-(void)setClientID:(NSString *)theClientID;
 
+-(void)setHost:(NSString *)theHost;
 
 - (void) breadcrumbsAction:
                             (NSString *)actionType
