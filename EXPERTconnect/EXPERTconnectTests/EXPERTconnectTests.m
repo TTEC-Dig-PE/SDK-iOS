@@ -38,7 +38,7 @@
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
-
+    
 }
 
 - (void)tearDown {
@@ -49,13 +49,17 @@
 /**
  Test: startJourney()
  
- Step1: Start a new journey. Verify it is created and contains the start and end strings. 
- Step2: Start a second journey. Verify it is also created and different than the first. 
+ Step1: Start 1st journey. Verify journey creation.
+ Step2: Start a 2nd journey. Verify journey overwrites older journey.
+ Step3: Start a chat. Verify chat uses startJourney() value.
+ Step4: Start a 2nd chat. Verify numerous operations still use same journeyID.
+ Step5: Start a 3rd journey. Setup to verify overwrite with chat.
+ Step6: Start a 3rd chat. Verify new chat uses a new journey when one is created.
  
  */
 - (void)testStartJourney {
     // Test startJourney returning a journeyID.
-
+    
     XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
     
     // Start the first journey
@@ -80,39 +84,74 @@
             ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
             [session setupConversationWithLocation:@"home"
                                         completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
-            {
-                NSLog(@"Chat started with journey: %@.", createResponse.journeyID);
-                
-                // The journey returned should be the same journey we sent to the server.
-                XCTAssertEqualObjects(journeyID2, createResponse.journeyID, @"setupConversation did not return same journeyID it sent.");
-                
-                [expectation fulfill];
-            }];
+             {
+                 NSLog(@"Chat 1 started with journey 2: %@.", createResponse.journeyID);
+                 
+                 // The journey returned should be the same journey we sent to the server.
+                 XCTAssertEqualObjects(journeyID2, createResponse.journeyID, @"setupConversation did not return same journeyID it sent.");
+                 
+                 // Attempt to start a second chat still using the second journeyID.
+                 ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+                 [session setupConversationWithLocation:@"home"
+                                             completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
+                  {
+                      NSLog(@"Chat 2 started with journey 2: %@.", createResponse.journeyID);
+                      
+                      // The journey returned should be the same journey we sent to the server.
+                      XCTAssertEqualObjects(journeyID2, createResponse.journeyID, @"setupConversation did not return same journeyID it sent.");
+                      
+                      // Start a third journey
+                      [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID3, NSError *err3) {
+                          NSLog(@"Test journeyID 3 is %@", journeyID3);
+                          XCTAssert(journeyID3.length > 0, @"JourneyID string length was 0.");
+                          XCTAssert([journeyID3 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
+                          XCTAssert([journeyID3 containsString:@"journey"], @"JourneyID did not contain the word journey");
+                          XCTAssertFalse([journeyID3 isEqualToString:journeyID2]);
+                          
+                          XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
+                          
+                          // Attempt to start a third chat using the THIRD journeyID.
+                          ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+                          [session setupConversationWithLocation:@"home"
+                                                      completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
+                           {
+                               NSLog(@"Chat 3 started with journey 3: %@.", createResponse.journeyID);
+                               
+                               // The journey returned should be the same journey we sent to the server.
+                               XCTAssertEqualObjects(journeyID3, createResponse.journeyID, @"setupConversation did not return same journeyID it sent.");
+                               
+                               [expectation fulfill];
+                               
+                           }];
+                          
+                      }];
+                  }];
+             }];
             
             
         }];
     }];
     
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
         if (error) {
-            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+            XCTFail(@"Timeout error (30 seconds). Error=%@", error);
         }
     }];
 }
 
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
 - (void)testBreadcrumbAction {
-
+    
     XCTestExpectation *expectation = [self expectationWithDescription:@"breadcrumb"];
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         
-        // Should use the journeyID gathered above. 
+        // Should use the journeyID gathered above.
         [[EXPERTconnect shared] breadcrumbsAction:@"unitTestBreadcrumbAction"
                                 actionDescription:@"A developer is unit testing breadcrumbs"
                                      actionSource:@"Xcode"
                                 actionDestination:@"Humanify"];
         
-
+        
         [expectation fulfill];
     }];
     
@@ -121,7 +160,7 @@
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
-
+    
 }
 
 - (void)testExampleServerFetch {
@@ -142,10 +181,10 @@
 }
 
 /*- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}*/
+ // This is an example of a performance test case.
+ [self measureBlock:^{
+ // Put the code you want to measure the time of here.
+ }];
+ }*/
 
 @end

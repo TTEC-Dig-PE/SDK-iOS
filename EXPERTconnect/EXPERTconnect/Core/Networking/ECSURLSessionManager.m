@@ -548,10 +548,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSAssert(location, @"Location must be specified");
 
     ECSKeychainSupport *support = [ECSKeychainSupport new];
-    NSDictionary *parameters = @{
-                                 @"location": location,
-                                 @"deviceId": [support deviceId]
-                                 };
+    
+    NSDictionary *parameters;
+    if([EXPERTconnect shared].journeyID)
+    {
+        // Send the journeyID if startJourney() has been called.
+        parameters = @{
+                     @"location": location,
+                     @"deviceId": [support deviceId],
+                     @"journeyId": [EXPERTconnect shared].journeyID
+                     };
+    } else {
+        parameters = @{
+                     @"location": location,
+                     @"deviceId": [support deviceId]
+                     };
+    }
     
     return [self POST:@"conversationengine/v1/conversations"
            parameters:parameters

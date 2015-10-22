@@ -45,6 +45,9 @@
 #import <EXPERTconnect/ECSRichTextEditor.h>
 
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
+#import <EXPERTconnect/UIView+ECSNibLoading.h>
+#import <EXPERTconnect/ECSViewControllerStack.h>
+#import <EXPERTconnect/ECSAnswerRatingView.h>
 
 #import <EXPERTconnect/ECSButton.h>
 #import <EXPERTconnect/ECSDynamicLabel.h>
@@ -317,6 +320,15 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
               actionSource: (NSString *)actionSource
          actionDestination: (NSString *)actionDestination;
 
+/**
+ Set the debug level.
+ 0 - None
+ 1 - Error
+ 2 - Warning
+ 3 - Debug
+ 4 - Verbose
+ */
+- (void)setDebugLevel:(int)logLevel;
 
 @end
 

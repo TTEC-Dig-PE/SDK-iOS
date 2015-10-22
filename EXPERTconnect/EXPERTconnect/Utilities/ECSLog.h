@@ -28,6 +28,11 @@ extern ECSLogLevel ECSCurrentLogLevel;
 void ECSLog(ECSLogLevel logLevel, NSString *format, ...);
 
 /**
+ Sets the current debug level. 
+ */
+void ECSLogSetLogLevel(ECSLogLevel logLevel);
+
+/**
  Logs if log level is set to Error or higher
  */
 #define ECSLogError(format, ...) ECSLog(ECSLogLevelError, format, ##__VA_ARGS__)

@@ -5,9 +5,9 @@
 //  Created by Nathan Keeney on 8/12/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
 #import <ACBClientSDK/ACBUC.h>
-#import <AssistSDK.h>
+//#import <AssistSDK.h>
 #endif
 
 #import "ReachabilityManager.h"
@@ -19,7 +19,7 @@
 // mas - 15-oct-2015
 // *********************************************
 
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
 @interface ECSCafeXController : NSObject <ReachabilityManagerListener, CafeXVideoViewDelegate> {
     
     id cafeXConnection;
@@ -40,7 +40,7 @@
 @property (copy) void (^postLoginTask)(void);
 @property (strong, nonatomic) ECSRootViewController *defaultParent;
     
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
 @property (weak, nonatomic) ACBClientCall *savedCall;
 #endif 
     

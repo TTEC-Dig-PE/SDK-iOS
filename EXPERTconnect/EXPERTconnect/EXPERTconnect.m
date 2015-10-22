@@ -23,7 +23,7 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSBreadcrumbsAction.h"
-
+#import "ECSLog.h"
 
 @interface EXPERTconnect ()
 @property (nonatomic, strong) ECSWorkflow *workflow;
@@ -150,7 +150,7 @@ static EXPERTconnect* _sharedInstance;
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     // Log config for debugging:
-    NSLog(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
     // mas - 12-oct-15 - Call the lower level unauthenticate which destroys the keychain token as well.
     //[self setUserToken:nil];
@@ -564,21 +564,13 @@ static EXPERTconnect* _sharedInstance;
     }];
 }
 
-
-
-
-
-
-
 - (void) breadcrumbsAction:
           (NSString *)actionType
           actionDescription: (NSString *)actionDescription
                actionSource: (NSString *)actionSource
           actionDestination: (NSString *)actionDestination   {
     
-    
-    NSLog(@"breadcrumbsAction:: calling with actionType : %@", actionType);
-    
+    ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
@@ -599,15 +591,14 @@ static EXPERTconnect* _sharedInstance;
     [sessionManager breadcrumbsAction:properties completion:^(NSDictionary *decisionResponse, NSError *error) {
         
         if( error )  {
-            NSLog(@"breadcrumbsAction:: Error: %@", error.description);
+            ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
         } else  {
             
      
             
             ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
             
-            
-            NSLog(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
+            ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
             
             
             /*
@@ -621,13 +612,20 @@ static EXPERTconnect* _sharedInstance;
              */
         }
     }];
-
-    
-    
 }
 
 
-
-
+/**
+ Set the debug level. 
+     0 - None
+     1 - Error
+     2 - Warning
+     3 - Debug
+     4 - Verbose
+ */
+- (void)setDebugLevel:(int)logLevel {
+    NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
+    ECSLogSetLogLevel(logLevel);
+}
 
 @end
