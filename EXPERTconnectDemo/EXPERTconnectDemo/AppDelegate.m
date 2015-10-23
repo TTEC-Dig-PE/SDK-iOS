@@ -90,6 +90,16 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+    
+    // Start a new journey, then send an "app launch" breadcrumb. 
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
+        if(!err) {
+            [[EXPERTconnect shared] breadcrumbsAction:@"appLaunch"
+                                    actionDescription:[NSString stringWithFormat:@"Launched with client=%@, host=%@", configuration.clientID, configuration.host]
+                                         actionSource:@"ECDemo"
+                                    actionDestination:@"Humanify"];
+        }
+    }]; // Start a new journey.
     [self setThemeFromSettings];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
