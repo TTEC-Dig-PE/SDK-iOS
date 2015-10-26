@@ -79,7 +79,9 @@
 		C1E0E6391BC40A7A0089C7E6 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */; };
 		C1E0E63A1BC40A7A0089C7E6 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
-		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; settings = {ASSET_TAGS = (); }; };
+		C1EB0FDA1BD660C0000ADF94 /* ECDWorkflowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EB0FD81BD660C0000ADF94 /* ECDWorkflowsViewController.m */; };
+		C1EB0FDB1BD660C0000ADF94 /* ECDWorkflowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1EB0FD91BD660C0000ADF94 /* ECDWorkflowsViewController.xib */; };
+		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
@@ -380,6 +382,9 @@
 		C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C1EB0FD71BD660C0000ADF94 /* ECDWorkflowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowsViewController.h; sourceTree = "<group>"; };
+		C1EB0FD81BD660C0000ADF94 /* ECDWorkflowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowsViewController.m; sourceTree = "<group>"; };
+		C1EB0FD91BD660C0000ADF94 /* ECDWorkflowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowsViewController.xib; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -656,6 +661,9 @@
 				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
 				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
 				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
+				C1EB0FD71BD660C0000ADF94 /* ECDWorkflowsViewController.h */,
+				C1EB0FD81BD660C0000ADF94 /* ECDWorkflowsViewController.m */,
+				C1EB0FD91BD660C0000ADF94 /* ECDWorkflowsViewController.xib */,
 				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
 				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
 				D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */,
@@ -1038,6 +1046,7 @@
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */,
 				46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */,
+				C1EB0FDB1BD660C0000ADF94 /* ECDWorkflowsViewController.xib in Resources */,
 				D8CEBE261B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
 				D8CEBE1F1B546DC20053E9A0 /* HZResearchViewController.xib in Resources */,
@@ -1249,6 +1258,7 @@
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
 				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
+				C1EB0FDA1BD660C0000ADF94 /* ECDWorkflowsViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
 				4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */,
 			);

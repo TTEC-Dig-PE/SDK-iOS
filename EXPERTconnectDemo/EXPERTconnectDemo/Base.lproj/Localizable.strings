@@ -154,6 +154,9 @@
 /* Localized displayName for Ad Hoc in MainMenuConfig.json */
 "ECDLocalizedAdHocLabel" = "Ad Hoc";
 
+/* Localized displayName for Workflows in MainMenuConfig.json */
+"ECDLocalizedWorkflowsLabel" = "Workflow";
+
 /* Runtime Environment Header */
 "ECDLocalizedEnvironmentsHeader" = "Select Environment";
 
