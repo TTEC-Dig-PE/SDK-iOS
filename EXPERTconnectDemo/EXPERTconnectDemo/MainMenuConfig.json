@@ -55,7 +55,7 @@
                     "displayName": "ECDLocalizedWorkflowsLabel",
                     "enabled": true,
                     "configuration": {},
-                    "type": "workflows",
+                    "type": "workflow",
                     "icon": "ecs_ic_nav_adhoc"
                 },
             ]
