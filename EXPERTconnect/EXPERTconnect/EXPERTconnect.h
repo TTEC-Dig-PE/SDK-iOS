@@ -322,8 +322,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
          actionDestination: (NSString *)actionDestination;
 
 - (void) breadcrumbsSession:
-(NSString *)actionType
-                   deviceId: (NSString *)deviceId
+                             (NSString *)deviceId
                 phonenumber: (NSString *)phonenumber
                   osVersion: (NSString *)osVersion
                   ipAddress: (NSString *)ipAddress

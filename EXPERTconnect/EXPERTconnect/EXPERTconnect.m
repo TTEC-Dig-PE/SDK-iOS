@@ -618,8 +618,7 @@ static EXPERTconnect* _sharedInstance;
 
 
 - (void) breadcrumbsSession:
-(NSString *)actionType
-                   deviceId: (NSString *)deviceId
+                             (NSString *)deviceId
                 phonenumber: (NSString *)phonenumber
                   osVersion: (NSString *)osVersion
                   ipAddress: (NSString *)ipAddress
