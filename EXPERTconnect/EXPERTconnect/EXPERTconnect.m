@@ -624,7 +624,7 @@ static EXPERTconnect* _sharedInstance;
                   osVersion: (NSString *)osVersion
                   ipAddress: (NSString *)ipAddress
                   geoLocation: (NSString *)geoLocation
-                  ipAddress: (NSString *)resolution{
+                  resolution: (NSString *)resolution{
     
     ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
     

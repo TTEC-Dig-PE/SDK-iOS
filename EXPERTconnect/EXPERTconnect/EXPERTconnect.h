@@ -328,7 +328,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   osVersion: (NSString *)osVersion
                   ipAddress: (NSString *)ipAddress
                 geoLocation: (NSString *)geoLocation
-                  ipAddress: (NSString *)resolution;
+                  resolution: (NSString *)resolution;
 
 /**
  Set the debug level.
