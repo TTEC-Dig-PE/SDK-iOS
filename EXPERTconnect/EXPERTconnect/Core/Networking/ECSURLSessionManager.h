@@ -333,4 +333,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 
+- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+
 @end

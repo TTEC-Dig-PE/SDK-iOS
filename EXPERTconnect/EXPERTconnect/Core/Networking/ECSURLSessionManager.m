@@ -1357,5 +1357,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
+- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+{
+    
+    
+    
+    
+    
+    return [self POST:@"breadcrumb/v1/sessions"
+           parameters:actionJson
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+    
+}
+
+
+
 
 @end
