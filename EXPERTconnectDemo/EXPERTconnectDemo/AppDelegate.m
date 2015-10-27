@@ -94,6 +94,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Start a new journey, then send an "app launch" breadcrumb. 
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         if(!err) {
+            
+            [[EXPERTconnect shared] breadcrumbsSession:@"deviceId"
+                                    phonenumber:@"phonenumbr"
+                                         osVersion:@"iOSversion"
+                                    ipAddress:@"10.0.0.1"
+                                           geoLocation:@"geoLocation"
+                                            resolution:@"resolution"];
+
+            
             [[EXPERTconnect shared] breadcrumbsAction:@"appLaunch"
                                     actionDescription:[NSString stringWithFormat:@"Launched with client=%@, host=%@", configuration.clientID, configuration.host]
                                          actionSource:@"ECDemo"
