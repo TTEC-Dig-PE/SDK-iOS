@@ -845,6 +845,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
+    [[EXPERTconnect shared] breadcrumbsAction:@"startChat"
+                            actionDescription:[NSString stringWithFormat:@"Chat with skill=%@", chatSkill]
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
+    
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
     UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
     [self.navigationController pushViewController:chatController animated:YES];
@@ -857,7 +862,14 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
     
-    UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill withDisplayName:@"Voice Callback"];
+    [[EXPERTconnect shared] breadcrumbsAction:@"startVoiceCallback"
+                            actionDescription:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
+    
+    UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
+                                                                  withDisplayName:@"Voice Callback"];
+    
     [self.navigationController pushViewController:chatController animated:YES];
 }
 
@@ -866,6 +878,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     NSLog(@"Starting an ad-hoc Answer Engine Session");
     
     NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
+    
+    [[EXPERTconnect shared] breadcrumbsAction:@"startAnswerEngine"
+                            actionDescription:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
     
     UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
     [self.navigationController pushViewController:answerEngineController animated:YES];
@@ -876,6 +893,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     NSLog(@"Starting an ad-hoc Video Chat Session");
 
     NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
+    
+    [[EXPERTconnect shared] breadcrumbsAction:@"startVideoChat"
+                            actionDescription:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
 
     UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
     [self.navigationController pushViewController:chatController animated:YES];
@@ -887,6 +909,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *formName = [self.selectAdHocFormsPicker currentSelection];
     
+    [[EXPERTconnect shared] breadcrumbsAction:@"startSurvey"
+                            actionDescription:[NSString stringWithFormat:@"Survey with name=%@", formName]
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
+    
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
     [self.navigationController pushViewController:formsController animated:YES];
 }
@@ -894,6 +921,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 -(void)handleAdHocEditUserProfile
 {
     NSLog(@"Rendering an ad-hoc User Profile Form");
+    
+    [[EXPERTconnect shared] breadcrumbsAction:@"startUserProfile"
+                            actionDescription:@"Editing user profile"
+                                 actionSource:@"ECDemo"
+                            actionDestination:@"Humanify"];
     
     UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];
     [self.navigationController pushViewController:profileController animated:YES];

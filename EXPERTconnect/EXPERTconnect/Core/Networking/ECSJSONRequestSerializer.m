@@ -44,6 +44,7 @@
                 CFStringRef charSet = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
                 NSString *contentType = [NSString stringWithFormat:@"application/json; charset=%@", charSet];
                 [mutableRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
+                //[mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                 [mutableRequest setValue:@"*/*" forHTTPHeaderField:@"Accept"];
                 [mutableRequest setHTTPBody:data];
             }

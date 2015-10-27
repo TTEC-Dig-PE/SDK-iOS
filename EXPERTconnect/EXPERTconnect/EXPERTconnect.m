@@ -22,6 +22,8 @@
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
 #import "ECSWorkflowNavigation.h"
+#import "ECSBreadcrumbsAction.h"
+#import "ECSLog.h"
 
 @interface EXPERTconnect ()
 @property (nonatomic, strong) ECSWorkflow *workflow;
@@ -57,14 +59,19 @@ static EXPERTconnect* _sharedInstance;
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
     [[ECSInjector defaultInjector] setObject:[ECSVoiceItManager new] forClass:[ECSVoiceItManager class]];
 
+    //[self initializeVideoComponents];
+
+    _userCallbackNumber = nil;
+}
+
+- (void)initializeVideoComponents
+{
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
     if (![cafeXController hasCafeXSession]) {
         [cafeXController setupCafeXSession];
     }
-
-    _userCallbackNumber = nil;
 }
 
 - (BOOL)authenticationRequired
@@ -143,7 +150,7 @@ static EXPERTconnect* _sharedInstance;
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     // Log config for debugging:
-    NSLog(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
     // mas - 12-oct-15 - Call the lower level unauthenticate which destroys the keychain token as well.
     //[self setUserToken:nil];
@@ -531,5 +538,94 @@ static EXPERTconnect* _sharedInstance;
                                                         completion:nil];
 }
 
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
+{
+    //[self setUserToken:username];
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error) {
+        if (response && !error)
+        {
+            // Set the global journeyID
+            self.journeyID = response.journeyID;
+            
+            if( completion ) {
+                completion(response.journeyID, error);
+            }
+            
+        }
+        else
+        {
+            if(completion) {
+                completion(nil, error);
+            }
+        }
+    }];
+}
+
+- (void) breadcrumbsAction:
+          (NSString *)actionType
+          actionDescription: (NSString *)actionDescription
+               actionSource: (NSString *)actionSource
+          actionDestination: (NSString *)actionDestination   {
+    
+    ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
+    
+    [journeyAction setTenantId:@"-1"];
+    [journeyAction setJourneyId:[sessionManager getJourneyID]];
+    [journeyAction setSessionId:[sessionManager getConversationID]];
+    [journeyAction setActionType:actionType];
+    [journeyAction setActionDescription:actionDescription];
+    [journeyAction setActionSource:actionSource];
+    [journeyAction setActionDestination:actionDestination];
+    
+    NSMutableDictionary *properties = [journeyAction getProperties];
+    
+    
+    [sessionManager breadcrumbsAction:properties completion:^(NSDictionary *decisionResponse, NSError *error) {
+        
+        if( error )  {
+            ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
+        } else  {
+            
+     
+            
+            ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
+            
+            ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
+            
+            
+            /*
+            NSData *responseData = [NSJSONSerialization dataWithJSONObject:decisionResponse
+                                                                   options:NSJSONWritingPrettyPrinted
+                                                                     error:&error];
+            
+            NSString* responseJson = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"Decision Response Json: %@", responseJson);
+             */
+        }
+    }];
+}
+
+
+/**
+ Set the debug level. 
+     0 - None
+     1 - Error
+     2 - Warning
+     3 - Debug
+     4 - Verbose
+ */
+- (void)setDebugLevel:(int)logLevel {
+    NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
+    ECSLogSetLogLevel(logLevel);
+}
 
 @end

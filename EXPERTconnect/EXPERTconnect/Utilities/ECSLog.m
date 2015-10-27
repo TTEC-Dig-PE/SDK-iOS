@@ -21,6 +21,10 @@ ECSLogLevel currentLogLevel()
     return logLevel;
 }
 
+void ECSLogSetLogLevel(ECSLogLevel logLevel) {
+    ECSCurrentLogLevel = logLevel;
+}
+
 void ECSLog(ECSLogLevel logLevel, NSString *format, ...)
 {
     if (currentLogLevel() >= logLevel)

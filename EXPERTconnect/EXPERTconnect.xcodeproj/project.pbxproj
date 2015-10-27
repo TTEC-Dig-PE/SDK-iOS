@@ -382,6 +382,8 @@
 		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
 		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */; settings = {ASSET_TAGS = (); }; };
+		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; settings = {ASSET_TAGS = (); }; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
 		916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */; };
 		916F6ADC1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */; };
@@ -442,6 +444,8 @@
 		C1E99D421BC7CC4B000EC129 /* ECSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */; };
 		C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */; };
 		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
+		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; settings = {ASSET_TAGS = (); }; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -453,7 +457,6 @@
 		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
 		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
-		D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */; };
 		D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */; };
 		D83F78AC1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78AB1B7BE2FF00F307D4 /* ECSCafeXVideoViewController.m */; };
@@ -487,7 +490,6 @@
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
 		D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */; };
-		D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */; };
 		D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */; };
 		D8EF940B1BC700EA0068CAA0 /* ECSStompCallbackClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */; };
@@ -875,6 +877,10 @@
 		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
 		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
 		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
+		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsDevice.h; sourceTree = "<group>"; };
+		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsDevice.m; sourceTree = "<group>"; };
+		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
+		5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsAction.m; sourceTree = "<group>"; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAxRatingFormItemViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.h; sourceTree = SOURCE_ROOT; };
 		916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAxRatingFormItemViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.m; sourceTree = SOURCE_ROOT; };
@@ -936,6 +942,8 @@
 		C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSRichTextEditor.m; sourceTree = "<group>"; };
 		C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorTextView.h; sourceTree = "<group>"; };
 		C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorTextView.m; sourceTree = "<group>"; };
+		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
+		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -945,7 +953,6 @@
 		D81613011B6BC42D005BD20E /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		D81613031B6BC43C005BD20E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D81613051B6BC44D005BD20E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		D81614EF1B791883005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = "../../fusion_client_ios_sdk-2.1.30/Frameworks/ACBClientSDK.framework"; sourceTree = "<group>"; };
 		D81614F11B791971005BD20E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D81614F21B791971005BD20E /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		D81614F51B7919A7005BD20E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -999,8 +1006,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E1BB9E1B9A20DA00BE2A15 /* libAssistSDK.a in Frameworks */,
-				D83F78A01B7A898A00F307D4 /* ACBClientSDK.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
@@ -1066,6 +1071,7 @@
 		033ACB101A602C9C0024F48F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5DB55F431BCEB3A500CB8EA8 /* Breadcrumbs */,
 				4679BD931B7A491E002E2D9E /* Registration */,
 				03C310291A9B59E3006B3557 /* ActionTypes */,
 				03C3102B1A9B5A86006B3557 /* Chat */,
@@ -1374,6 +1380,8 @@
 				03C310371A9B5B46006B3557 /* ECSFormSubmitResponse.m */,
 				0380DEBE1AA0E276003D9248 /* ECSConversationCreateResponse.h */,
 				0380DEBF1AA0E276003D9248 /* ECSConversationCreateResponse.m */,
+				C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */,
+				C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */,
 				038E43F71AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h */,
 				038E43F81AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m */,
 				038E43FB1AA50C7F00FF1D48 /* ECSChannelConfiguration.h */,
@@ -1565,16 +1573,16 @@
 				D81614F51B7919A7005BD20E /* VideoToolbox.framework */,
 				D81614F11B791971005BD20E /* MediaPlayer.framework */,
 				D81614F21B791971005BD20E /* MediaToolbox.framework */,
-				D81614EF1B791883005BD20E /* ACBClientSDK.framework */,
 				D81613051B6BC44D005BD20E /* CoreAudio.framework */,
 				D81613031B6BC43C005BD20E /* SystemConfiguration.framework */,
-				D81613011B6BC42D005BD20E /* libstdc++.6.dylib */,
 				D81612FF1B6BC420005BD20E /* ImageIO.framework */,
 				D81612FB1B6BC412005BD20E /* CoreImage.framework */,
 				D81612FC1B6BC412005BD20E /* CoreText.framework */,
+				D81613011B6BC42D005BD20E /* libstdc++.6.dylib */,
 				D81612F91B6BC3F7005BD20E /* libxml2.dylib */,
 				D87F2F941B697FC800B7B9D5 /* libc++.dylib */,
 				D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */,
+				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
 				D87F2F901B697FB700B7B9D5 /* GLKit.framework */,
 				D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */,
 				D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */,
@@ -1587,7 +1595,6 @@
 				D87F2F861B697FA500B7B9D5 /* UIKit.framework */,
 				03CDD3FE1AB0BBE600E0C328 /* MapKit.framework */,
 				0380DEB41A9F6595003D9248 /* CFNetwork.framework */,
-				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
 				035C4C131A9CB9440016BCE8 /* MobileCoreServices.framework */,
 				0380DEB61A9F659E003D9248 /* Security.framework */,
 				275899F9AE2B3E67C2AF6AFE /* libPods.a */,
@@ -1757,6 +1764,17 @@
 				462C19221B7B88BB00E230B7 /* ECSCustomDataClassTransformer.h */,
 			);
 			name = Registration;
+			sourceTree = "<group>";
+		};
+		5DB55F431BCEB3A500CB8EA8 /* Breadcrumbs */ = {
+			isa = PBXGroup;
+			children = (
+				5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */,
+				5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */,
+				5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */,
+				5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */,
+			);
+			name = Breadcrumbs;
 			sourceTree = "<group>";
 		};
 		91E63BFC1B834EAE0019F9EF /* Workflow */ = {
@@ -1931,6 +1949,7 @@
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
+				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
 				035C4C0A1A9B7E900016BCE8 /* ECSFormSubmittedViewController.h in Headers */,
@@ -2115,11 +2134,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECS;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978EE11A602AEF007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 4F2XQ7R275;
 					};
 					03978EEC1A602AEF007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -2256,7 +2276,7 @@
 		};
 		C6492F381B7C775B00CC977E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -2324,6 +2344,7 @@
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
 				464DE2B71B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
+				5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */,
 				466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
@@ -2430,6 +2451,7 @@
 				03F1896E1A644B9E003C6E14 /* EXPERTconnect.m in Sources */,
 				038E43FA1AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m in Sources */,
 				039E13541A9517F100AD4927 /* ECSQuickRatingForm.m in Sources */,
+				C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */,
 				D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */,
 				03B47F8E1A85BD6600B2686F /* ECSPresurveyFormItem.m in Sources */,
 				0342AFD91A9B60950009959E /* ECSChatImageTableViewCell.m in Sources */,
@@ -2491,6 +2513,7 @@
 				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
+				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */,
 				0342AFAC1A9B60700009959E /* ECSAnswerRatingView.m in Sources */,
 				03C310591A9B5B56006B3557 /* ECSAnswerEngineActionType.m in Sources */,
 				03101F2F1AAF356900D7562B /* ECSChatLogsViewController.m in Sources */,
@@ -2551,6 +2574,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2620,6 +2644,7 @@
 			baseConfigurationReference = 688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2633,6 +2658,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
+					"$(PROJECT_DIR)/ThirdParty",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"INCLUDE_CAFEX=0",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2650,11 +2680,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
 					"-read_only_relocs",
 					suppress,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -2668,6 +2698,7 @@
 			baseConfigurationReference = 08C95D76530417F48A1621E3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2682,6 +2713,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
+					"$(PROJECT_DIR)/ThirdParty",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"INCLUDE_CAFEX=0",
+					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2696,14 +2732,14 @@
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
 					"-read_only_relocs",
 					suppress,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4e78f4cc-b76a-4898-851c-5fcae96d939e";
 				SDKROOT = iphoneos;
@@ -2715,6 +2751,7 @@
 		03978EFC1A602AEF007793D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -2726,13 +2763,16 @@
 				);
 				INFOPLIST_FILE = EXPERTconnectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
 		03978EFD1A602AEF007793D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -2740,7 +2780,10 @@
 				);
 				INFOPLIST_FILE = EXPERTconnectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};
@@ -2748,13 +2791,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
 		C6492F361B7C775200CC977E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};

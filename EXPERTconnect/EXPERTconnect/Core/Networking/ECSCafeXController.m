@@ -66,8 +66,8 @@
 @implementation ECSCafeXController
 
 - (void) setupCafeXSession {
-#if TARGET_IPHONE_SIMULATOR
-    NSLog(@"setupCafeXSession - CafeX does not support x86_64 archictecture. Feature disabled.");
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
+    //NSLog(@"setupCafeXSession - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     if (cafeXConnection == nil) {
         [self loginToCafeX];
@@ -78,8 +78,8 @@
 }
 
 - (void) setupCafeXSessionWithTask:(void (^)(void))task {
-#if TARGET_IPHONE_SIMULATOR
-    NSLog(@"setupCafeXSessionWithTask - CafeX does not support x86_64 archictecture. Feature disabled.");
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
+    //NSLog(@"setupCafeXSessionWithTask - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     self.postLoginTask = task;
     if (cafeXConnection == nil) {
@@ -99,8 +99,8 @@
 }
 
 - (void) loginToCafeX {
-#if TARGET_IPHONE_SIMULATOR
-    NSLog(@"loginToCafeX - CafeX does not support x86_64 archictecture. Feature disabled.");
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
+    //NSLog(@"loginToCafeX - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     // TODO: Get App Server host from configuration (need to add to all host apps too)
@@ -155,7 +155,7 @@
 }
 
 - (void)dial:(NSString *)target withVideo:(BOOL)vid andAudio:(BOOL)aud usingParentViewController:(ECSRootViewController *)parent {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"dial - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     [ECSCafeXController requestCameraAccess];
@@ -188,7 +188,7 @@
 }
 
 - (void)startCoBrowse:(NSString *)target usingParentViewController:(ECSRootViewController *)parent {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"startCoBrowse - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     NSDictionary *config = @{
@@ -202,7 +202,7 @@
 
 
 - (void)CafeXViewDidAppear {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"CafeXViewDidAppear - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     NSLog(@"CafeX Displayed View Controller (DidAppear)");
@@ -244,7 +244,7 @@
 }
 
 - (void)CafeXViewDidUnload {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"CafeXViewDidUnload - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     if (_savedCall != nil) {
@@ -254,14 +254,14 @@
 }
 
 - (void)CafeXViewDidMuteAudio:(BOOL)muted {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"CafeXViewDidMuteAudio - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     [_savedCall enableLocalAudio:!muted];
 #endif
 }
 - (void)CafeXViewDidHideVideo:(BOOL)hidden {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"CafeXViewDidHideVideo - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     [_savedCall enableLocalVideo:!hidden];
@@ -270,7 +270,7 @@
 #endif
 }
 - (void)CafexViewDidEndVideo {
-#if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"CafexViewDidEndVideo - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
     if (_savedCall != nil) {
@@ -288,7 +288,7 @@
 }
 
 - (void) endCoBrowse {
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
     [AssistSDK endSupport];
 #endif
 }
@@ -315,14 +315,14 @@
 }
 
 + (void) requestCameraAccess {
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
     [ACBClientPhone requestMicrophoneAndCameraPermission:TRUE video:TRUE];
 #endif
 }
 
 #pragma mark - ACBUCDelegate
 
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
 /**
  * A notification to indicate that the session has been initialised successfully.
  */
@@ -374,7 +374,7 @@
 
 # pragma mark - ACBClientCallDelegate
 
-#if !(TARGET_IPHONE_SIMULATOR)
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
 
 - (void) phone:(ACBClientPhone*)phone didReceiveCall:(ACBClientCall*)call
 {
@@ -532,7 +532,9 @@
 - (void) reachabilityDetermined:(BOOL)reachability
 {
     NSLog(@"Network reachability changed to:%@ - here the application has the chance to inform the user that connectivitiy is lost", reachability ? @"YES" : @"NO");
+#if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
     [cafeXConnection setNetworkReachable:reachability];
+#endif
 }
 
 @end

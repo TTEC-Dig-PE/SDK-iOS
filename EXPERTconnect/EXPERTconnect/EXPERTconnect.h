@@ -24,7 +24,7 @@
 #import <EXPERTconnect/ECSMessageActionType.h>
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
-
+#import <EXPERTconnect/ECSStartJourneyResponse.h>
 #import <EXPERTconnect/ECSJSONSerializer.h>
 #import <EXPERTconnect/ECSNavigationActionType.h>
 #import <EXPERTconnect/ECSNavigationContext.h>
@@ -45,6 +45,9 @@
 #import <EXPERTconnect/ECSRichTextEditor.h>
 
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
+#import <EXPERTconnect/UIView+ECSNibLoading.h>
+#import <EXPERTconnect/ECSViewControllerStack.h>
+#import <EXPERTconnect/ECSAnswerRatingView.h>
 
 #import <EXPERTconnect/ECSButton.h>
 #import <EXPERTconnect/ECSDynamicLabel.h>
@@ -92,15 +95,22 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *surveyFormName;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
+@property (copy, nonatomic) NSString *journeyID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
 + (instancetype)shared;
 
+/**
+ Initializes the Humanify SDK components with the given configuration. Refer to Humanify documentation
+ to read what the ECSConfiguration object should be populated with.
+ */
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration;
 
--(void)setClientID:(NSString *)theClientID;
--(void)setHost:(NSString *)theHost;
+/**
+ Initializes video components (video chat and co-browse capability). Video module addon required.
+ */
+- (void)initializeVideoComponents;
 
 /**
  Returns a view controller for an EXPERTconnect Chat session.
@@ -290,8 +300,35 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
            viewController:(UIViewController *)viewController;
 
 /**
+ Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
+ been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 
+ */
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
+
+/**
  *
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
+
+-(void)setClientID:(NSString *)theClientID;
+
+-(void)setHost:(NSString *)theHost;
+
+- (void) breadcrumbsAction:
+                            (NSString *)actionType
+         actionDescription: (NSString *)actionDescription
+              actionSource: (NSString *)actionSource
+         actionDestination: (NSString *)actionDestination;
+
+/**
+ Set the debug level.
+ 0 - None
+ 1 - Error
+ 2 - Warning
+ 3 - Debug
+ 4 - Verbose
+ */
+- (void)setDebugLevel:(int)logLevel;
+
 @end
 

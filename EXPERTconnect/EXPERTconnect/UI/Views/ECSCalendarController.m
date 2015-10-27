@@ -494,7 +494,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     CGSize arrowSize = kPMThemeArrowSize;
     CGSize outerPadding = kPMThemeOuterPadding;
     
-	int numDaysInMonth      = [currentDate numberOfDaysInMonth];
+	int numDaysInMonth      = (int)[currentDate numberOfDaysInMonth];
     NSInteger monthStartDay = [[currentDate monthStartDate] weekday];
     numDaysInMonth         += (monthStartDay + (self.digitsView.mondayFirstDayOfWeek?5:6)) % 7;
     CGFloat height          = _initialFrame.size.height - outerPadding.height * 2 - arrowSize.height;

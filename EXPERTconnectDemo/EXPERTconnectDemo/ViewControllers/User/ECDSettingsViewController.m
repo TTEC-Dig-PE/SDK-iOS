@@ -138,6 +138,9 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     // [self.selectEnvironmentPicker setFrame: CGRectMake(0.0f, 0.0f, 100.0f, 200.0f)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(environmentPickerChanged:) name:@"EnvironmentPickerChanged" object:nil];
+    
+    // mas - Testing startJourney
+    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
 }
 
 - (void)environmentPickerChanged:(NSNotification *)notification {

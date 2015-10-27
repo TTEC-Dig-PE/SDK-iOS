@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#ifndef EXPERTconnect_ECSCafeXVideoViewController_h
-#define EXPERTconnect_ECSCafeXVideoViewController_h
-
 #import <UIKit/UIKit.h>
 #import "ECSRootViewController.h"
+#if !(TARGET_IPHONE_SIMULATOR)
 #import <ACBClientSDK/ACBUC.h>
+#endif
 
 @protocol CafeXVideoViewDelegate <NSObject>
 
@@ -35,5 +34,3 @@
 - (void) didHideRemoteVideo:(BOOL)hidden;
 
 @end
-
-#endif

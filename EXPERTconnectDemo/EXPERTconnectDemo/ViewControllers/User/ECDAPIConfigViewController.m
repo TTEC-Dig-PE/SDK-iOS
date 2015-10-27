@@ -185,7 +185,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
         
         [weakSelf.tableView reloadData];
         
-        NSLog(@"Received %d Top Questions", [response count]);
+        NSLog(@"Received %lu Top Questions", (unsigned long)[response count]);
     }];
 }
 

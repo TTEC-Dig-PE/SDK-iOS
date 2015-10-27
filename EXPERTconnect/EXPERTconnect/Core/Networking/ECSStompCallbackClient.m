@@ -164,13 +164,18 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     if (configuration.messagesLink)
     {
+        /* Nathan Keeney 10/20/2015 - With a recent change to the URL format of STOMP links,
+         "URLByDeletingLastPathComponent" is no longer the correct way to modify a link.
+         
+         Instead, URLByDeletingPathExtension will remove everything after the last dot.
+         */
         self.sendMessageDestination = [[NSURL URLWithString:configuration.messagesLink] path];
-        NSURL *notificationURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingLastPathComponent];
-        notificationURL = [notificationURL URLByAppendingPathComponent:@"notifications"];
+        NSURL *notificationURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingPathExtension];
+        notificationURL = [notificationURL URLByAppendingPathExtension:@"notifications"];
         self.sendNotificationDestination = [notificationURL path];
         
-        NSURL *cobrowseURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingLastPathComponent];
-        cobrowseURL = [cobrowseURL URLByAppendingPathComponent:@"cobrowse"];
+        NSURL *cobrowseURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingPathExtension];
+        cobrowseURL = [cobrowseURL URLByAppendingPathExtension:@"cobrowse"];
         self.sendCoBrowseDestination = [cobrowseURL path];
     }
 }

@@ -15,6 +15,7 @@
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
+@class ECSStartJourneyResponse;
 @class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
@@ -273,6 +274,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
 
+// Start a new journey
+- (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
+
 #pragma mark - Media upload
 /**
  Uploads the specified data block as a file using a multipart/form upload.
@@ -321,4 +325,12 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                          parameters:(id)parameters
                                             success:(void(^)(NSURLResponse *response, NSString *data))success
                                             failure:(void(^)(NSURLResponse *response, NSError *error))failure;
+
+
+- (NSString *) getJourneyID ;
+- (NSString *) getConversationID ;
+
+- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+
 @end

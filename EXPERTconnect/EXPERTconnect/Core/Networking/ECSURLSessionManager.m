@@ -23,6 +23,7 @@
 #import "ECSChatHistoryResponse.h"
 #import "ECSConfiguration.h"
 #import "ECSConversationCreateResponse.h"
+#import "ECSStartJourneyResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
 #import "ECSSelectExpertsResponse.h"
@@ -222,6 +223,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         parameters = @{@"name": name};
     }
+    
+    /*
+    if (self.conversation && self.conversation.journeyID.length > 0) {
+        // Added to track breadcrumb of every navigation in the system
+        NSString *actionType = @"Navigation";
+        NSString *actionDescription = @"API Called everytime user navigates in ExpertConnect Demo";
+        NSString *actionSource = @"Navigation";
+        NSString *actionDestination = name;
+    
+        [[EXPERTconnect shared] breadcrumbsAction:actionType
+                            actionDescription:actionDescription
+                            actionSource:actionSource
+                            actionDestination:actionDestination];
+    }
+     */
+    
+    
+    
     return [self GET:@"appconfig/v1/navigation"
           parameters:parameters
              success:[self successWithExpectedType:[ECSNavigationContext class] completion:completion]
@@ -529,10 +548,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSAssert(location, @"Location must be specified");
 
     ECSKeychainSupport *support = [ECSKeychainSupport new];
-    NSDictionary *parameters = @{
-                                 @"location": location,
-                                 @"deviceId": [support deviceId]
-                                 };
+    
+    NSDictionary *parameters;
+    if([EXPERTconnect shared].journeyID)
+    {
+        // Send the journeyID if startJourney() has been called.
+        parameters = @{
+                     @"location": location,
+                     @"deviceId": [support deviceId],
+                     @"journeyId": [EXPERTconnect shared].journeyID
+                     };
+    } else {
+        parameters = @{
+                     @"location": location,
+                     @"deviceId": [support deviceId]
+                     };
+    }
     
     return [self POST:@"conversationengine/v1/conversations"
            parameters:parameters
@@ -614,6 +645,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                       completion(nil, [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:nil]);
                   }
               } failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
+{
+    //ECSKeychainSupport *support = [ECSKeychainSupport new];
+    NSDictionary *parameters = @{};
+    
+    return [self POST:@"conversationengine/v1/journeys"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
 }
 
 #pragma mark - Media Upload
@@ -1052,8 +1094,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) && !result[@"message"])
+        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
+            ECSLogVerbose(@"Authentication error. Attempting to generate new key..."); 
             [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
             retryingWithAuthorization = YES;
         }
@@ -1061,13 +1104,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 200) &&
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
-            
-            if (result[@"error"]) {
-                ECSLogVerbose(@"API Result Error: %@", result[@"error"]);
-            }
-            if (result[@"message"]) {
-                ECSLogVerbose(@"API Result Message: %@", result[@"message"]);
-            }
             if (error) {
                 ECSLogVerbose(@"API Error: %@", error);
             }
@@ -1210,14 +1246,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         [mutableRequest setValue:self.conversation.conversationID forHTTPHeaderField:@"x-ia-conversation-id"];
     }
     
-    if (self.conversation && self.conversation.journeyID.length > 0)
+    // mas - 20-oct-2015 - First, try to grab journeyID from the global area. If not found, we may have one in the
+    // conversation, use that instead.
+    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    {
+        [mutableRequest setValue:[EXPERTconnect shared].journeyID forHTTPHeaderField:@"x-ia-journey-id"];
+    }
+    else if (self.conversation && self.conversation.journeyID.length > 0)
     {
         [mutableRequest setValue:self.conversation.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
 
-    
-    
-    
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     
@@ -1240,5 +1279,83 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                                             error:error];
     return request;
 }
+
+- (NSString *) getJourneyID {
+    
+    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    {
+        return [EXPERTconnect shared].journeyID;
+    }
+    else if (self.conversation && self.conversation.journeyID.length > 0)
+    {
+        return self.conversation.journeyID;
+    }
+    return @"-1";
+}
+
+- (NSString *) getConversationID {
+    
+    if (self.conversation && self.conversation.conversationID.length > 0)
+        return self.conversation.conversationID;
+    return @"-1";
+    
+}
+
+
+- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+{
+    /*
+     //NSString *journeyData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];;
+     
+     NSString *fullURL =  [NSString stringWithFormat:@"%@%@%@%@%@%@", BASE_URL, @"journeys/",self.journeyId,@"/devices/",self.sessionId,@"/actions"];
+     
+     NSURL *url = [NSURL URLWithString:fullURL];
+     
+     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+     [request setHTTPMethod:@"POST"];
+     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+     [request setValue:BASIC_AUTHORIZATION forHTTPHeaderField:@"Authorization"];
+     [request setHTTPBody:jsonData];
+     
+     
+     
+     [NSURLConnection sendAsynchronousRequest:request
+     queue:[NSOperationQueue mainQueue]
+     completionHandler:^(NSURLResponse *response,
+     NSData *data, NSError *connectionError)
+     {
+     if (data.length > 0 && connectionError == nil)
+     {
+     NSDictionary *jsonRes = [NSJSONSerialization JSONObjectWithData:data
+     options:0
+     error:NULL];
+     
+     HBRJourneyAction *journeyActionRes = [[HBRJourneyAction alloc] initWithDic:jsonRes];
+     
+     
+     NSLog(@"Value of actionId is: %@", [journeyActionRes getId]);
+     
+     }
+     else {
+     
+     NSLog(@"Error = %@", error);
+     
+     }
+     }];
+     */
+
+    
+    
+    
+    
+    return [self POST:@"breadcrumb/v1/actions"
+           parameters:actionJson
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+    
+}
+
+
 
 @end
