@@ -662,7 +662,7 @@ static EXPERTconnect* _sharedInstance;
             ECSLogVerbose(@"breadcrumbsSession:: Value of sessionID is: %@", [journeySessionRes getSessionId]);
             
             // Set the global sessionId
-            self.journeyID = [journeySessionRes getSessionId];
+            self.sessionID = [journeySessionRes getSessionId];
 
         }
     }];
