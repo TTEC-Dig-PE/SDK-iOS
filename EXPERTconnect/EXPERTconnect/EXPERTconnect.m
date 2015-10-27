@@ -23,6 +23,7 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSBreadcrumbsAction.h"
+#import "ECSBreadcrumbsSession.h"
 #import "ECSLog.h"
 
 @interface EXPERTconnect ()
@@ -577,9 +578,9 @@ static EXPERTconnect* _sharedInstance;
     
     ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
     
-    [journeyAction setTenantId:@"-1"];
-    [journeyAction setJourneyId:[sessionManager getJourneyID]];
-    [journeyAction setSessionId:[sessionManager getConversationID]];
+    [journeyAction setTenantId:[self clientID]];
+    [journeyAction setJourneyId:[self journeyID]];
+    [journeyAction setSessionId:[self sessionID]];
     [journeyAction setActionType:actionType];
     [journeyAction setActionDescription:actionDescription];
     [journeyAction setActionSource:actionSource];
@@ -615,8 +616,63 @@ static EXPERTconnect* _sharedInstance;
 }
 
 
+
+- (void) breadcrumbsSession:
+(NSString *)actionType
+                   deviceId: (NSString *)deviceId
+                phonenumber: (NSString *)phonenumber
+                  osVersion: (NSString *)osVersion
+                  ipAddress: (NSString *)ipAddress
+                  geoLocation: (NSString *)geoLocation
+                  ipAddress: (NSString *)resolution{
+    
+    ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
+    
+    [journeySession setTenantId:[self clientID]];
+    [journeySession setJourneyId:[self journeyID]];
+
+    [journeySession setPlatform:@"iOS"];
+    [journeySession setDeviceId:deviceId];
+    [journeySession setPhonenumber:phonenumber];
+    [journeySession setOSVersion:osVersion];
+    [journeySession setIPAddress:ipAddress];
+    [journeySession setGEOLocation:geoLocation];
+    [journeySession setBrowserType:@"NA"];
+    [journeySession setBrowserVersion:@"NA"];
+    [journeySession setResolution:resolution];
+
+    
+    NSMutableDictionary *properties = [journeySession getProperties];
+    
+    
+    [sessionManager breadcrumbsSession:properties completion:^(NSDictionary *decisionResponse, NSError *error) {
+        
+        if( error )  {
+            ECSLogError(@"breadcrumbsSession:: Error: %@", error.description);
+        } else  {
+            
+            
+            
+            ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc] initWithDic:decisionResponse];
+            
+            ECSLogVerbose(@"breadcrumbsSession:: Value of sessionID is: %@", [journeySessionRes getSessionId]);
+            
+            // Set the global sessionId
+            self.journeyID = [journeySessionRes getSessionId];
+
+        }
+    }];
+}
+
+
+
 /**
- Set the debug level. 
+ Set the debug level.
      0 - None
      1 - Error
      2 - Warning

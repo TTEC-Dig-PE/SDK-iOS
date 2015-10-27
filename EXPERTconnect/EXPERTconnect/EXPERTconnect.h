@@ -96,6 +96,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
+@property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
@@ -319,6 +320,15 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
          actionDescription: (NSString *)actionDescription
               actionSource: (NSString *)actionSource
          actionDestination: (NSString *)actionDestination;
+
+- (void) breadcrumbsSession:
+(NSString *)actionType
+                   deviceId: (NSString *)deviceId
+                phonenumber: (NSString *)phonenumber
+                  osVersion: (NSString *)osVersion
+                  ipAddress: (NSString *)ipAddress
+                geoLocation: (NSString *)geoLocation
+                  ipAddress: (NSString *)resolution;
 
 /**
  Set the debug level.
