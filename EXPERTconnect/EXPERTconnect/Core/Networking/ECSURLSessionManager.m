@@ -1349,7 +1349,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     
     
-    return [self POST:@"breadcrumb/v1/actions"
+    return [self POST:@"breadcrumbs/v1/actions"
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -1365,7 +1365,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     
     
-    return [self POST:@"breadcrumb/v1/sessions"
+    return [self POST:@"breadcrumbs/v1/sessions"
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];

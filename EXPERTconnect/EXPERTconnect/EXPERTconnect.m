@@ -573,6 +573,14 @@ static EXPERTconnect* _sharedInstance;
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
     
+    if([self clientID] == Nil || [self journeyID] == Nil  || [self sessionID] == nil ) {
+        
+        ECSLogVerbose(@"breadcrumbsAction:: Ignore Action, Journey not initialized correctly : %@", actionType);
+        return;
+    }
+    
+    
+    
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     

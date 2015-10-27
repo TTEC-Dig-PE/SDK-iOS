@@ -2139,7 +2139,7 @@
 				TargetAttributes = {
 					03978EE11A602AEF007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4F2XQ7R275;
+						DevelopmentTeam = 4V5QD2DM2A;
 					};
 					03978EEC1A602AEF007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -2648,6 +2648,7 @@
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2701,8 +2702,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2741,7 +2742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4e78f4cc-b76a-4898-851c-5fcae96d939e";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "arm64 armv7s";
