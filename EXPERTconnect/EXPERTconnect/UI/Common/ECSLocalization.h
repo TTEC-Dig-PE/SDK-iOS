@@ -126,10 +126,12 @@ static NSString *const ECSLocalizeMinute = @"ECSLocalizeMinute";
 
 // Settings View
 static NSString *const ECSLocalizedPushNotificationsHeader = @"ECSLocalizedPushNotificationsHeader";
+static NSString *const ECSLocalizedStartJourneyHeader = @"ECSLocalizedStartJourneyHeader"; 
 static NSString *const ECSLocalizedBeaconsHeader = @"ECSLocalizedBeaconsHeader";
 static NSString *const ECSLocalizedVersionHeader = @"ECSLocalizedVersionHeader";
 
 static NSString *const ECSLocalizedReceiveNotificationsRow = @"ECSLocalizedReceiveNotificationsRow";
+static NSString *const ECSLocalizedStartJourneyRow = @"ECSLocalizedStartJourneyRow";
 static NSString *const ECSLocalizedEnableBeaconsRow = @"ECSLocalizedEnableBeaconsRow";
 static NSString *const ECSLocalizedLicensesRow = @"ECSLocalizedLicensesRow";
 

@@ -426,7 +426,6 @@
 		D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
 		D8CEBE5E1B546EC10053E9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8CEBE5F1B546EC10053E9A0 /* HorizonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HorizonTests.m; sourceTree = "<group>"; };
-		D8CEBE671B546FAF0053E9A0 /* EXPERTconnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = EXPERTconnect.framework; path = "/Users/nathan/Library/Developer/Xcode/DerivedData/EXPERTconnect-bhfghrnpecbcbrgthnjxmccwhpbh/Build/Products/Debug-iphoneos/EXPERTconnect.framework"; sourceTree = "<absolute>"; };
 		D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		D8CEBE971B5567C90053E9A0 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "/Users/nathan/Desktop/Workspaces/SDK-iOS/Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<absolute>"; };
 		D8CEBEE01B55690C0053E9A0 /* Horizon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Horizon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -745,7 +744,6 @@
 		03978EFE1A602B2D007793D6 = {
 			isa = PBXGroup;
 			children = (
-				D8CEBE671B546FAF0053E9A0 /* EXPERTconnect.framework */,
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
 				C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */,

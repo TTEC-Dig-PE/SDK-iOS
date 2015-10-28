@@ -23,6 +23,7 @@
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
     SettingsSectionPushNotifications,
+    SettingsSectionsStartJourney,
     SettingsSectionVersion,
     SettingsSectionEnvironment,
     SettingsSectionOrganization,
@@ -35,6 +36,12 @@ typedef NS_ENUM(NSInteger, PushSectionRows)
 {
     PushSectionRowRecieve,
     PushSectionRowCount
+};
+
+typedef NS_ENUM(NSInteger, JourneySectionRows)
+{
+    JourneyRowRecieve,
+    JourneyRowCount
 };
 
 typedef NS_ENUM(NSInteger, LicenseSectionRows)
@@ -139,8 +146,6 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(environmentPickerChanged:) name:@"EnvironmentPickerChanged" object:nil];
     
-    // mas - Testing startJourney
-    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
 }
 
 - (void)environmentPickerChanged:(NSNotification *)notification {
@@ -184,6 +189,10 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     switch (section) {
         case SettingsSectionPushNotifications:
             rowCount = PushSectionRowCount;
+            break;
+            
+        case SettingsSectionsStartJourney:
+            rowCount = JourneyRowCount;
             break;
             
         case SettingsSectionVersion:
@@ -233,6 +242,19 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
                     self.pushNotificationSwitch.tintColor = theme.primaryColor;
                     self.pushNotificationSwitch.onTintColor = theme.primaryColor;
                     break;
+                default:
+                    break;
+            }
+            break;
+            
+        case SettingsSectionsStartJourney:
+            switch (indexPath.row) {
+                case JourneyRowRecieve:
+                    // User wants to start a journey.
+                    cell.textLabel.text = ECSLocalizedString(ECSLocalizedStartJourneyRow, @"Start New Journey");
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    break;
+                    
                 default:
                     break;
             }
@@ -327,6 +349,16 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         [self voiceItRecord:nil];
     } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowReset) {
         [self voiceItReset:nil];
+    } else if (indexPath.section == SettingsSectionsStartJourney && indexPath.row == JourneyRowRecieve) {
+        // Start a new journey.
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:[NSString stringWithFormat:@"Journey started with ID=%@", journeyID]
+                                                           delegate:nil
+                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }];
     }
 }
 
@@ -341,6 +373,10 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
     switch (section) {
         case SettingsSectionPushNotifications:
             title = ECSLocalizedString(ECSLocalizedPushNotificationsHeader, @"Push Notifications");
+            break;
+            
+        case SettingsSectionsStartJourney:
+            title = ECSLocalizedString(ECSLocalizedStartJourneyHeader, @"Start new journey");
             break;
             
         case SettingsSectionVersion:

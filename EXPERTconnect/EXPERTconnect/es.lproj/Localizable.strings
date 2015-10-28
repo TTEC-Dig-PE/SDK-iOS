@@ -113,6 +113,9 @@
 /* Notificaciones Push */
 "ECSLocalizedPushNotificationsHeader" = "Notificaciones Push";
 
+/* Start new journey */
+"ECSLocalizedStartJourneyHeader" = "Start new journey";
+
 /* IBeacons */
 "ECSLocalizedBeaconsHeader" = "iBeacons";
 
@@ -121,6 +124,9 @@
 
 /* Recibir Notificaciones */
 "ECSLocalizedReceiveNotificationsRow" = "Recibir Notificaciones";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyRow" = "Start New Journey";
 
 /* Habilitar ibeacon Función */
 "ECSLocalizedEnableBeaconsRow" = "Habilitar ibeacon Feature";
