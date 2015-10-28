@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     AnswerAnimatePositionFromBottom
 };
 
-@interface ECSAnswerEngineViewController () <ECSTopQuestionsViewControllerDelegate, ECSAnswerViewControllerDelegate, UITextFieldDelegate>
+@interface ECSAnswerEngineViewController () <ECSTopQuestionsViewControllerDelegate, ECSAnswerViewControllerDelegate, UITextFieldDelegate,ECSWorkflowDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIToolbar *searchToolbar;
@@ -290,6 +290,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [alert show];
             //[self.searchTextField becomeFirstResponder];
             self.invalidResponseCount++;
+            [self startWorkFlow];
             [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         }
         else
@@ -328,7 +329,13 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     self.questionCount = self.questionCount + 1;
     [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
 }
-
+-(void)startWorkFlow
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [[EXPERTconnect shared] startChatWorkflow:@"expert" withSkill:@"CE_Mobile_Chat" withSurvey:YES delgate:self viewController:self];
+    });
+}
 - (void)displayAnswerEngineAnswerAtIndex:(NSInteger)index
                      withAnimationPosition:(AnswerAnimatePosition)animatePosition
 {
@@ -840,5 +847,25 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         }
     }
 }
+
+// workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
+//
+- (NSDictionary *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
+    
+    NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
+    
+    return nil;
+}
+
+-(void)unrecognizedAction:(NSString *)action {
+    NSLog(@"Unrecognized action in Ad-Hoc Forms Controller: %@", action.description);
+}
+
+//- (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
+//                               requestCommand:(NSString *)command
+//                                requestParams:(NSDictionary *)params
+//{
+//    
+//}
 
 @end
