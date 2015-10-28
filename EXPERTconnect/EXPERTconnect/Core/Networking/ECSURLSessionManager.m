@@ -1305,49 +1305,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
                             completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
-    /*
-     //NSString *journeyData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];;
-     
-     NSString *fullURL =  [NSString stringWithFormat:@"%@%@%@%@%@%@", BASE_URL, @"journeys/",self.journeyId,@"/devices/",self.sessionId,@"/actions"];
-     
-     NSURL *url = [NSURL URLWithString:fullURL];
-     
-     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-     [request setHTTPMethod:@"POST"];
-     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-     [request setValue:BASIC_AUTHORIZATION forHTTPHeaderField:@"Authorization"];
-     [request setHTTPBody:jsonData];
-     
-     
-     
-     [NSURLConnection sendAsynchronousRequest:request
-     queue:[NSOperationQueue mainQueue]
-     completionHandler:^(NSURLResponse *response,
-     NSData *data, NSError *connectionError)
-     {
-     if (data.length > 0 && connectionError == nil)
-     {
-     NSDictionary *jsonRes = [NSJSONSerialization JSONObjectWithData:data
-     options:0
-     error:NULL];
-     
-     HBRJourneyAction *journeyActionRes = [[HBRJourneyAction alloc] initWithDic:jsonRes];
-     
-     
-     NSLog(@"Value of actionId is: %@", [journeyActionRes getId]);
-     
-     }
-     else {
-     
-     NSLog(@"Error = %@", error);
-     
-     }
-     }];
-     */
-
-    
-    
-    
     
     return [self POST:@"breadcrumb/v1/actions"
            parameters:actionJson
