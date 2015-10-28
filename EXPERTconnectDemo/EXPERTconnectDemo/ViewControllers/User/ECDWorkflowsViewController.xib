@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDWorkflowsViewController">
             <connections>
+                <outlet property="tableView" destination="xTM-Iv-07L" id="edJ-z1-DB0"/>
                 <outlet property="view" destination="py5-X2-bvd" id="WZx-jz-hBQ"/>
             </connections>
         </placeholder>
@@ -17,6 +18,10 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="xTM-Iv-07L">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="kzR-gY-fyo"/>
+                        <outlet property="delegate" destination="-1" id="QkM-qI-N10"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

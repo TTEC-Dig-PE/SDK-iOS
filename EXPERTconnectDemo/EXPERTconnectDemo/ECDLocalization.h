@@ -47,6 +47,8 @@ static NSString* const ECDLocalizedStartSubmitFormHeader = @"ECDLocalizedStartSu
 static NSString* const ECDLocalizedStartDatePickerHeader = @"ECDLocalizedStartDatePickerHeader";
 static NSString* const ECDLocalizedStartWYSIWYGEditorHeader = @"ECDLocalizedStartWYSIWYGEditorHeader";
 
+static NSString* const ECDLocalizedStartEscalateToChatHeader = @"ECDLocalizedStartEscalateToChatHeader";
+
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
@@ -64,6 +66,8 @@ static NSString* const ECDLocalizedStartAPIConfigLabel = @"ECDLocalizedStartAPIC
 static NSString* const ECDLocalizedStartSubmitFormLabel = @"ECDLocalizedStartSubmitFormLabel";
 static NSString* const ECDLocalizedStartDatePickerLabel = @"ECDLocalizedStartDatePickerLabel";
 static NSString* const ECDLocalizedStartWYSIWYGEditorLabel = @"ECDLocalizedStartWYSIWYGEditorLabel";
+
+static NSString* const ECDLocalizedStartWorkflowEscalateToChatLabel = @"ECDLocalizedStartWorkflowEscalateToChatLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

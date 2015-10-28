@@ -130,6 +130,17 @@
 
 /* End AdHoc Section */
 
+/* Workflow Section */
+/* Start Escalate To Chat Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowEscalateToChatLabel" = "Start Escalate To Chat";
+
+/* ----------------------------------------------------- */
+
+/* Start Escalate To Chat Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartEscalateToChatHeader" = "Start Workflow Escalate To Chat";
+
+/* End AdHoc Section */
+
 
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Skip Registration";
