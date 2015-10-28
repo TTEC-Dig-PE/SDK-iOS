@@ -633,6 +633,12 @@ static EXPERTconnect* _sharedInstance;
                   geoLocation: (NSString *)geoLocation
                   resolution: (NSString *)resolution{
     
+    if([self clientID] == Nil || [self journeyID] == Nil ) {
+        
+        ECSLogVerbose(@"breadcrumbsSession:: Ignore , Journey not initialized correctly ");
+        return;
+    }
+    
     ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
