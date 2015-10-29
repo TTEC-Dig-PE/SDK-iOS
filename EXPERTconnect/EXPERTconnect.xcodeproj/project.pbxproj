@@ -1226,8 +1226,7 @@
 		03978ED81A602AEF007793D6 = {
 			isa = PBXGroup;
 			children = (
-				03CDD3FD1AB0825300E0C328 /* Frameworks */,
-				0380DEA81A9F6474003D9248 /* ThirdParty */,
+				03978EE41A602AEF007793D6 /* EXPERTconnect */,
 				030F77991A752D7C006BD8B1 /* global_style.css */,
 				03A7D28C1AB9A7EF000A21AE /* global_style_test.html */,
 				03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */,
@@ -1235,8 +1234,9 @@
 				C1E99D091BC7CA46000EC129 /* editor.html */,
 				03F0BD381A70383B00E90E7F /* Localizable.strings */,
 				03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */,
-				03978EE41A602AEF007793D6 /* EXPERTconnect */,
 				03978EF11A602AEF007793D6 /* EXPERTconnectTests */,
+				03CDD3FD1AB0825300E0C328 /* Frameworks */,
+				0380DEA81A9F6474003D9248 /* ThirdParty */,
 				03978EE31A602AEF007793D6 /* Products */,
 				0185BAA63E7B3C0B4A0DD180 /* Pods */,
 			);

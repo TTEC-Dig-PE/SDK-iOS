@@ -154,6 +154,20 @@ static EXPERTconnect* _sharedInstance;
     {
         [userManager unauthenticateUser];
     }
+    else
+    {
+        // Send a profile with just username.
+        ECSUserProfile * profile = [ECSUserProfile new];
+        profile.username = userManager.userToken;
+        [self setUserProfile:profile withCompletion:nil];
+    }
+}
+
+// Send user profile to server.
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    [sessionManager submitUserProfile:userProfile withCompletion:completion];
 }
 
 - (void)logout {

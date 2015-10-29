@@ -11,8 +11,6 @@
 		0301CC001B0634C50068A0E1 /* ECDLicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0301CBFE1B0634C50068A0E1 /* ECDLicenseViewController.m */; };
 		0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0301CBFF1B0634C50068A0E1 /* ECDLicenseViewController.xib */; };
 		0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0301CC021B063C880068A0E1 /* ECDLicenses.txt */; };
-		03243FD71A655C0A00A4CE6D /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */; };
-		03243FD91A655C1400A4CE6D /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03243FDB1A656FB300A4CE6D /* ECDNavigationController.m */; };
 		033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A39871AD579FC006B34B2 /* ECDLoginViewController.m */; };
 		033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033A39881AD579FC006B34B2 /* ECDLoginViewController.xib */; };
@@ -79,6 +77,8 @@
 		C1E0E6391BC40A7A0089C7E6 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */; };
 		C1E0E63A1BC40A7A0089C7E6 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
+		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
+		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; settings = {ASSET_TAGS = (); }; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
@@ -265,7 +265,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				038C9D901AC34033006B04CD /* AirshipKit.framework in Embed Frameworks */,
-				03243FD91A655C1400A4CE6D /* EXPERTconnect.framework in Embed Frameworks */,
+				C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,7 +290,7 @@
 		0301CBFE1B0634C50068A0E1 /* ECDLicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDLicenseViewController.m; sourceTree = "<group>"; };
 		0301CBFF1B0634C50068A0E1 /* ECDLicenseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDLicenseViewController.xib; sourceTree = "<group>"; };
 		0301CC021B063C880068A0E1 /* ECDLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ECDLicenses.txt; sourceTree = "<group>"; };
-		03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
+		03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../../artifacts/EXPERTconnect.framework; sourceTree = SOURCE_ROOT; };
 		03243FDA1A656FB300A4CE6D /* ECDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDNavigationController.h; sourceTree = "<group>"; };
 		03243FDB1A656FB300A4CE6D /* ECDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDNavigationController.m; sourceTree = "<group>"; };
 		033A39861AD579FC006B34B2 /* ECDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDLoginViewController.h; sourceTree = "<group>"; };
@@ -380,6 +380,7 @@
 		C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -483,6 +484,7 @@
 				D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */,
 				D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */,
 				D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */,
+				C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */,
 				D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */,
 				D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */,
 				D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */,
@@ -510,7 +512,6 @@
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
 				D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */,
-				03243FD71A655C0A00A4CE6D /* EXPERTconnect.framework in Frameworks */,
 				3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */,
 				038C9D8F1AC34003006B04CD /* AirshipKit.framework in Frameworks */,
 			);
@@ -744,6 +745,7 @@
 		03978EFE1A602B2D007793D6 = {
 			isa = PBXGroup;
 			children = (
+				C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */,
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
 				C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */,

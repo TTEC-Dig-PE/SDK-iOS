@@ -306,6 +306,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
 
+// Send user profile to server.
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion;
+
 /**
  *
  */
