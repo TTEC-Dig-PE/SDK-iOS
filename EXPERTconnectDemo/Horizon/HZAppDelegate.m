@@ -104,7 +104,7 @@
     [self setUpEXPERTConnectSDKThemeFromSettings];
 
     // Reset current user
-    [[EXPERTconnect shared] setUserToken:nil];
+    [[EXPERTconnect shared] setUserName:nil];
 }
 
 - (void)logout:(NSNotification*)notification {

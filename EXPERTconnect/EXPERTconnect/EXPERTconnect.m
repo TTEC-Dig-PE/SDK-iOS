@@ -139,34 +139,32 @@ static EXPERTconnect* _sharedInstance;
     return [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
 }
 
-- (NSString *)userToken
+- (NSString *)userName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     return userManager.userToken;
 }
 
-- (void)logout {
-    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    
-    // Log config for debugging:
-    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
-    
-    // mas - 12-oct-15 - Call the lower level unauthenticate which destroys the keychain token as well.
-    //[self setUserToken:nil];
-    [userManager unauthenticateUser];
-}
-
-- (void)setUserToken:(NSString *)userToken
+- (void)setUserName:(NSString *)userName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    userManager.userToken = userToken;
+    userManager.userToken = userName;
     
-    if (!userToken || (userToken.length == 0))
+    if (!userName || (userName.length == 0))
     {
         [userManager unauthenticateUser];
     }
+}
+
+- (void)logout {
+    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    
+    // Log config for debugging:
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
+    [self setUserName:nil];
 }
 
 - (NSString *)userDisplayName
@@ -416,7 +414,7 @@ static EXPERTconnect* _sharedInstance;
     if ([voiceItManager isInitialized]) {
         [voiceItManager recordNewEnrollment];
     } else {
-        [voiceItManager configure:[self userToken]];
+        [voiceItManager configure:[self userName]];
         [voiceItManager recordNewEnrollment];
     }
 }
@@ -427,7 +425,7 @@ static EXPERTconnect* _sharedInstance;
     if ([voiceItManager isInitialized]) {
         [voiceItManager clearEnrollments];
     } else {
-        [voiceItManager configure:[self userToken]];
+        [voiceItManager configure:[self userName]];
         [voiceItManager clearEnrollments];
     }
 }
@@ -435,7 +433,7 @@ static EXPERTconnect* _sharedInstance;
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
-    [self setUserToken:username];
+    [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error) {
@@ -541,7 +539,6 @@ static EXPERTconnect* _sharedInstance;
 
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
-    //[self setUserToken:username];
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     

@@ -39,7 +39,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Logout"
                                                         style:UIAlertActionStyleDestructive
                                                       handler:^(UIAlertAction *action) {
-                                                          [[EXPERTconnect shared] setUserToken:nil];
+                                                          [[EXPERTconnect shared] setUserName:nil];
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:nil];

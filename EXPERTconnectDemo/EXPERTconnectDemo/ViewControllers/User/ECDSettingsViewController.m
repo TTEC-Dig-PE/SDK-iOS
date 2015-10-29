@@ -456,7 +456,7 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
 
 - (void)voiceItAuthenticate:(id)sender
 {
-    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userToken] callback:^(NSString *response) {
+    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userName] callback:^(NSString *response) {
         // Alert Agent to the response:
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
         [alert show];

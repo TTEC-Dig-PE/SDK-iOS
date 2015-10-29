@@ -125,7 +125,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
                                                   forKey:ECDFirstRunComplete];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [[EXPERTconnect shared] setUserToken:nil];
+        [[EXPERTconnect shared] setUserName:nil];
     }
     
     // Get env/clientid config from hosted site.
