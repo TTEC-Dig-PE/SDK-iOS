@@ -132,7 +132,7 @@
 {
     ECSChatActionType *chatAction = [ECSChatActionType new];
     chatAction.actionId = @"";
-    chatAction.agentSkill = chatSkill;
+    chatAction.agentSkill = @"CE_Mobile_Chat";
     chatAction.displayName = displayName;
     
     ECSRootViewController *chatController = [self viewControllerForActionType:chatAction];
@@ -144,7 +144,7 @@
 {
     ECSCallbackActionType *cbAction = [ECSCallbackActionType new];
     cbAction.actionId = @"";
-    cbAction.agentSkill = callSkill;
+    cbAction.agentSkill = @"CE_Mobile_Chat";
     cbAction.displayName = displayName;
     cbAction.type = ECSActionTypeCallbackString;
     

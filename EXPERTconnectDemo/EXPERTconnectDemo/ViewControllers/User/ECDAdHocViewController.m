@@ -884,7 +884,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
                                  actionSource:@"ECDemo"
                             actionDestination:@"Humanify"];
     
-    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
+    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@""];
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 

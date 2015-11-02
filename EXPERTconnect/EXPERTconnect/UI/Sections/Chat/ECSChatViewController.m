@@ -474,6 +474,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)closeButtonTapped:(id)sender
 {
     [super closeButtonTapped:sender];
+    [self.workflowDelegate endVideoChat];
+    [self.chatClient disconnect];
     [self.navigationController popViewControllerAnimated:NO];
 }
 

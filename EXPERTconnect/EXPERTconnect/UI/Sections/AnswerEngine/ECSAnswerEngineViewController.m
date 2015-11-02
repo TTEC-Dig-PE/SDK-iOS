@@ -29,6 +29,7 @@
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
 #import "NSBundle+ECSBundle.h"
+#import "ECSViewControllerStack.h"
 
 static NSString *const ECSListCellId = @"ECSListCellId";
 static NSString *const ECSWebCellId = @"ECSWebCellId";
@@ -80,13 +81,14 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (assign, nonatomic) NSInteger invalidResponseCount;
 @property (assign, nonatomic) NSInteger validQuestionsCount;
 
+@property (nonatomic, strong) ECSWorkflow *workflow;
+
 @end
 
 @implementation ECSAnswerEngineViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = self.actionType.displayName;
     
     self.didAskInitialQuestion = NO;
@@ -107,9 +109,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                                                              metrics:nil
                                                                                views:@{@"guide": self.topLayoutGuide,
                                                                                        @"toolbar": self.searchToolbar}];
-
+    
     [self.view addConstraints:topToolbarConstraints];
-   
+    
     if (self.historyResponse)
     {
         [self configureForAnswerHistory];
@@ -142,7 +144,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     response.answerId = self.historyResponse.answerId;
     response.answer = self.historyResponse.response;
     response.requestRating = @NO;
-
+    
     ECSAnswerViewController *viewController = [self displayAnswerEngineAnswer:response
                                                         withAnimationPosition:AnswerAnimatePositionNone];
     viewController.showPullToNext = NO;
@@ -190,7 +192,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [self.topQuestions didMoveToParentViewController:self];
         }
     }
-
+    
 }
 
 - (void)viewDidLayoutSubviews
@@ -231,9 +233,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         if (self.navigationController)
         {
             self.faqBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeShortFAQKey, @"FAQ")
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(toggleFAQPopover:)];
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(toggleFAQPopover:)];
             NSMutableArray *rightBarItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
             [rightBarItems addObject:self.faqBarButtonItem];
             self.navigationItem.rightBarButtonItems = rightBarItems;
@@ -253,45 +255,63 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     [sessionManager startConversationForAction:self.answerEngineAction
                                andAlwaysCreate:NO
-                                 withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                     if (!error)
-                                     {
-                                         weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:weakSelf.searchTextField.text
-                                                                                                   inContext:weakSelf.answerEngineAction.answerEngineContext
-                                                                                             parentNavigator:weakSelf.parentNavigationContext
-                                                                                                    actionId:weakSelf.answerEngineAction.actionId
-                                                                                               questionCount:weakSelf.questionCount
-                                                                                                  customData:nil
-                                                                                                  completion:^(ECSAnswerEngineResponse *response, NSError *error) {
-                                                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                          [weakSelf handleAPIResponse:response forQuestion:question withError:error];
-                                                                                                          
-                                                                                                      });
-                                                                                                      
-                                                                                                  }];
-                                     }
-                                     else
-                                     {
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
-                                         });
-                                     }
-        }];
+                                withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
+                                    if (!error)
+                                    {
+                                        weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:weakSelf.searchTextField.text
+                                                                                                  inContext:weakSelf.answerEngineAction.answerEngineContext
+                                                                                            parentNavigator:weakSelf.parentNavigationContext
+                                                                                                   actionId:weakSelf.answerEngineAction.actionId
+                                                                                              questionCount:weakSelf.questionCount
+                                                                                                 customData:nil
+                                                                                                 completion:^(ECSAnswerEngineResponse *response, NSError *error) {
+                                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                         [weakSelf handleAPIResponse:response forQuestion:question withError:error];
+                                                                                                         
+                                                                                                     });
+                                                                                                     
+                                                                                                 }];
+                                    }
+                                    else
+                                    {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
+                                        });
+                                    }
+                                }];
 }
 
 - (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
 {
     [self setLoadingIndicatorVisible:NO];
+    
+    if([self.actionType.displayName isEqualToString:@"Answer Engine Worklflow"])
+    {
+        ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:self];
+        self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:ECSActionTypeAnswerEngineString
+                                                 workflowDelegate:self
+                                                navigationManager:navManager];
+        self.workflowDelegate = self.workflow;
+        
+        NSLog(@"%@",self.workflowDelegate);
+    }
+    
     if (!error && [response isKindOfClass:[ECSAnswerEngineResponse class]])
     {
         if (response.answerId.integerValue == -1 && response.answer.length > 0)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
-            [alert show];
+            if(![self.actionType.displayName isEqualToString:@"Answer Engine Worklflow"])
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
+                [alert show];
+            }
             //[self.searchTextField becomeFirstResponder];
             self.invalidResponseCount++;
-            [self startWorkFlow];
-            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+            if(self.workflowDelegate)
+            {
+                [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            }
         }
         else
         {
@@ -303,12 +323,12 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             if (!self.answerViewController)
             {
                 [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                                     withAnimationPosition:AnswerAnimatePositionNone];
+                                 withAnimationPosition:AnswerAnimatePositionNone];
             }
             else
             {
                 [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                                     withAnimationPosition:AnswerAnimatePositionFromBottom];
+                                 withAnimationPosition:AnswerAnimatePositionFromBottom];
             }
         }
     }
@@ -327,17 +347,14 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
     
     self.questionCount = self.questionCount + 1;
-    [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
+    if(self.workflowDelegate)
+    {
+        [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
+    }
 }
--(void)startWorkFlow
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [[EXPERTconnect shared] startChatWorkflow:@"expert" withSkill:@"CE_Mobile_Chat" withSurvey:YES delgate:self viewController:self];
-    });
-}
+
 - (void)displayAnswerEngineAnswerAtIndex:(NSInteger)index
-                     withAnimationPosition:(AnswerAnimatePosition)animatePosition
+                   withAnimationPosition:(AnswerAnimatePosition)animatePosition
 {
     ECSAnswerViewController *answerViewController = [self displayAnswerEngineAnswer:self.answerEngineResponses[index]
                                                               withAnimationPosition:animatePosition];
@@ -403,7 +420,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         default:
             break;
     }
-
+    
     
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:answerViewController.view
                                                            attribute:NSLayoutAttributeTop
@@ -438,7 +455,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     answerViewController.tableView.contentOffset = CGPointMake(0, -answerInsets.top);
     
     answerViewController.answer = response;
-
+    
     answerViewController.delegate = self;
     [answerViewController didMoveToParentViewController:self];
     [answerViewController.view layoutIfNeeded];
@@ -470,11 +487,11 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                              
                              top.constant = 0.0f;
                              [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            self.answerViewController = answerViewController;
-            self.topAnswerViewControllerConstraint = top;
-            [self buildEscalationItems];
-        }];
+                         } completion:^(BOOL finished) {
+                             self.answerViewController = answerViewController;
+                             self.topAnswerViewControllerConstraint = top;
+                             [self buildEscalationItems];
+                         }];
     }
     else
     {
@@ -493,7 +510,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     {
         self.answerEngineResponseIndex = self.answerEngineResponseIndex - 1;
         [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                  withAnimationPosition:AnswerAnimatePositionFromTop];
+                         withAnimationPosition:AnswerAnimatePositionFromTop];
         return YES;
     }
     return NO;
@@ -584,7 +601,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         UIActivityViewController *activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:@[answer]
                                           applicationActivities:nil];
-
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             activityViewController.popoverPresentationController.barButtonItem = self.shareButton;
@@ -639,7 +656,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     [self.view addConstraints:@[width, height, self.topQuestionsTopConstraint, left]];
     [self.view layoutIfNeeded];
-
+    
     self.topQuestions.view.alpha = 1.0f;
     [UIView animateWithDuration:0.3f animations:^{
         [self.faqBarButtonItem setTitle:ECSLocalizedString(ECSLocalizeShortHideFAQKey, @"Hide FAQ")];
@@ -649,7 +666,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     } completion:^(BOOL finished) {
         [self.topQuestions didMoveToParentViewController:self];
     }];
-
+    
 }
 
 - (void)hideFAQPopoverAnimated:(BOOL)animated
@@ -684,7 +701,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-
+    
     
 }
 
@@ -757,7 +774,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                    action:@selector(escalationTapped:)
          forControlEvents:UIControlEventTouchUpInside];
         
-
+        
         
         [self.escalationContainerView addSubview:button];
         
@@ -809,7 +826,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                                                      multiplier:1.0f
                                                                        constant:-15.0f];
             [self.escalationContainerView addConstraint:bottom];
-
+            
         }
         
         previousView = button;
@@ -848,24 +865,33 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
 }
 
+
 // workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
 //
 - (NSDictionary *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
     
     NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
-    
+    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+        if ([params valueForKey:@"InvalidResponseCount"]) {
+            NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
+            if (count.intValue >  0) {
+                return @{@"ActionType":ECSRequestChatAction};
+            }
+        }
+    }
+    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+        if ([params valueForKey:@"QuestionsAsked"]) {
+            NSNumber *count = [params valueForKey:@"QuestionsAsked"];
+            if (count.intValue >  0) {
+                return @{@"ActionType":ECSRequestCallbackAction};
+            }
+        }
+    }
     return nil;
 }
 
 -(void)unrecognizedAction:(NSString *)action {
     NSLog(@"Unrecognized action in Ad-Hoc Forms Controller: %@", action.description);
 }
-
-//- (NSDictionary *)workflowResponseForWorkflow:(NSString *)workflowName
-//                               requestCommand:(NSString *)command
-//                                requestParams:(NSDictionary *)params
-//{
-//    
-//}
 
 @end

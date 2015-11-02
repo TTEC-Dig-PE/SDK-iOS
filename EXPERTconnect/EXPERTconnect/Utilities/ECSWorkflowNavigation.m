@@ -261,7 +261,7 @@
     
     [workflowNameController addAction:alertActionStop];
     [workflowNameController addAction:alertActionContinue];
-    [[self.modalStack topViewController] presentViewController:workflowNameController animated:YES completion:nil];
+    [self.hostViewController presentViewController:workflowNameController animated:YES completion:nil];
 }
 
 #pragma mark - Minimize Restore

@@ -160,7 +160,7 @@ typedef NS_ENUM(NSInteger, AdHocEscalateToChatSectionRows)
                                  actionSource:@"ECDemo"
                             actionDestination:@"Humanify"];
     
-    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
+    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@"Answer Engine Worklflow"];
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
