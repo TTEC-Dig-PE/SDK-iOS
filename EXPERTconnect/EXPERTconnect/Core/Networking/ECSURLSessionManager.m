@@ -165,8 +165,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                         andSecret:(NSString*)clientSecret
                                        completion:(void (^)(NSString *authToken, NSError *error))completion;
 {
-    NSAssert(clientID.length > 0, @"Client ID must be provided");
-    NSAssert(clientSecret.length > 0, @"Client secret must be provided");
+    //NSAssert(clientID.length > 0, @"Client ID must be provided");
+    //NSAssert(clientSecret.length > 0, @"Client secret must be provided");
+    if (clientID.length == 0 || clientSecret.length == 0) {
+        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
+                                                  code:-2000
+                                              userInfo:nil];
+        completion(nil, err);
+    }
     
     NSURL *url = [self URLByAppendingPathComponent:@"authserver/oauth/token"];
     NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
@@ -1217,7 +1223,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     if (self.authToken.length > 0)
     {
-        NSString *authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
+        NSString *authValue = self.authToken;
+        if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
+        {
+            authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
+        }
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     }
     

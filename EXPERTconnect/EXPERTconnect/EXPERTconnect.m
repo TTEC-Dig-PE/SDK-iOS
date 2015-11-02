@@ -170,6 +170,13 @@ static EXPERTconnect* _sharedInstance;
     [sessionManager submitUserProfile:userProfile withCompletion:completion];
 }
 
+// Directly set the authToken
+- (void)setUserIdentityToken:(NSString *)token
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    sessionManager.authToken = token;
+}
+
 - (void)logout {
     // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];

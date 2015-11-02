@@ -310,6 +310,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion;
 
 /**
+ Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers
+ outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+ */
+- (void)setUserIdentityToken:(NSString *)token;
+
+/**
  *
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
