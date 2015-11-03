@@ -77,9 +77,9 @@
 		C1E0E6391BC40A7A0089C7E6 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6371BC40A7A0089C7E6 /* CalendarConfigiPad.plist */; };
 		C1E0E63A1BC40A7A0089C7E6 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
-		C1EB0FDA1BD660C0000ADF94 /* ECDWorkflowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EB0FD81BD660C0000ADF94 /* ECDWorkflowsViewController.m */; };
-		C1EB0FDB1BD660C0000ADF94 /* ECDWorkflowsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1EB0FD91BD660C0000ADF94 /* ECDWorkflowsViewController.xib */; };
-		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
+		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
+		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; settings = {ASSET_TAGS = (); }; };
 		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
 		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
@@ -380,9 +380,7 @@
 		C1E0E6381BC40A7A0089C7E6 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
-		C1EB0FD71BD660C0000ADF94 /* ECDWorkflowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowsViewController.h; sourceTree = "<group>"; };
-		C1EB0FD81BD660C0000ADF94 /* ECDWorkflowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowsViewController.m; sourceTree = "<group>"; };
-		C1EB0FD91BD660C0000ADF94 /* ECDWorkflowsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowsViewController.xib; sourceTree = "<group>"; };
+		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
