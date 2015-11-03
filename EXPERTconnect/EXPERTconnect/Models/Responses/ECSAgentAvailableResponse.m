@@ -1,5 +1,5 @@
 //
-//  ECSStartJourneyResponse.m
+//  ECSAgentAvailableResponse.m
 //  EXPERTconnect
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
@@ -23,11 +23,11 @@
  }
  */
 
-#import "ECSStartJourneyResponse.h"
+#import "ECSAgentAvailableResponse.h"
 
 #import "ECSConversationLink.h"
 
-@implementation ECSStartJourneyResponse
+@implementation ECSAgentAvailableResponse
 
 - (NSDictionary *)ECSJSONMapping
 {

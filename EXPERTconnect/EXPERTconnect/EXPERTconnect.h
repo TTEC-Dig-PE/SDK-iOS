@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <CoreLocation/CoreLocation.h>
 
 // Model Imports
 #import <EXPERTconnect/ECSJSONObject.h>
@@ -300,6 +300,16 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
+/*
+// Check availability on a singlar skill
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSString *vals, NSError *error))completion;
+
+// Check availability on multiple skills
+- (void) agentAvailabilityWithSkillArray:(NSArray *)skills
+                              completion:(void (^)(NSString *vals, NSError *error))completion;
+*/
+
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
  been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 
@@ -324,19 +334,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 -(void)setHost:(NSString *)theHost;
 
-- (void) breadcrumbsAction:
-                            (NSString *)actionType
-         actionDescription: (NSString *)actionDescription
-              actionSource: (NSString *)actionSource
-         actionDestination: (NSString *)actionDestination;
+- (void) breadcrumbWithAction: (NSString *)actionType
+                  description: (NSString *)actionDescription
+                       source: (NSString *)actionSource
+                  destination: (NSString *)actionDestination
+                  geolocation: (CLLocation *)geolocation;
 
-- (void) breadcrumbsSession:
-                             (NSString *)deviceId
-                phonenumber: (NSString *)phonenumber
-                  osVersion: (NSString *)osVersion
-                  ipAddress: (NSString *)ipAddress
-                geoLocation: (NSString *)geoLocation
-                  resolution: (NSString *)resolution;
+- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion;
 
 /**
  Set the debug level.

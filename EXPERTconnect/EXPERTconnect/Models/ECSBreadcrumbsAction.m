@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "ECSBreadcrumbsAction.h"
 
 static NSString* PROPERTY_ID             = @"id";
@@ -19,13 +20,19 @@ static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
 static NSString* PROPERTY_ACTIONDEST     = @"actionDestination";
 static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
 
+static NSString* PROPERTY_LATITUDE          = @"latitude";
+static NSString* PROPERTY_LONGITUDE         = @"longitude";
+static NSString* PROPERTY_HORIZ_ACCURACY    = @"horizontalAccuracy";
+static NSString* PROPERTY_VERT_ACCURACY     = @"verticalAccuracy";
+static NSString* PROPERTY_SPEED             = @"speed";
+static NSString* PROPERTY_COURSE            = @"course";
+static NSString* PROPERTY_TIMESTAMP         = @"timestamp";
+static NSString* PROPERTY_FLOOR             = @"floor";
+static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 @implementation ECSBreadcrumbsAction
 
 @synthesize properties;
-
-
-
 
 - (id)init {
     
@@ -165,13 +172,32 @@ static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
     return self.properties[PROPERTY_CREATIONTIME];
 }
 
-
-
-
-
-
-
-
+- (void)setGeoLocation: (CLLocation *)geolocation {
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
+                        forKey:PROPERTY_LATITUDE];
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
+                        forKey:PROPERTY_LONGITUDE];
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
+                        forKey:PROPERTY_HORIZ_ACCURACY];
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
+                        forKey:PROPERTY_VERT_ACCURACY];
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
+                        forKey:PROPERTY_SPEED];
+    
+    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
+                        forKey:PROPERTY_COURSE];
+    
+    [self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
+    
+    [self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
+    
+    [self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
+}
 
 @end
 

@@ -119,8 +119,9 @@ static NSString * const kStompError = @"ERROR";
     NSDictionary *headers = @{
                               @"id": subscriptionID,
                               @"destination": destination,
-                              @"ack": @"client"  //  ,
-                              // @"heart-beat": @"0,5000"
+                              @"ack": @"client",
+                              @"persistent": @"true"
+                              // @"heart-beat": @"5000,5000"
                               };
     
     self.subscribers[subscriptionID] = subscriber;

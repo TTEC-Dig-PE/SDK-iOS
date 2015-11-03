@@ -50,6 +50,8 @@
 - (void)setCreationTime: (NSString *)creationTime;
 - (NSString *)getCreationTime;
 
+- (void)setGeoLocation: (CLLocation *)geolocation;
+
 @end
 
 

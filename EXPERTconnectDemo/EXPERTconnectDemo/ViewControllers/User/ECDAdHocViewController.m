@@ -839,16 +839,22 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     }
 }
 
+-(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
+    [[EXPERTconnect shared] breadcrumbWithAction:action
+                                     description:desc
+                                          source:@"ECDemo"
+                                     destination:@"Humanify"
+                                     geolocation:nil];
+}
+
 -(void)handleAdHocStartChat
 {
     NSLog(@"Starting an ad-hoc Chat Session");
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startChat"
-                            actionDescription:[NSString stringWithFormat:@"Chat with skill=%@", chatSkill]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startChat"
+              description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
     UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
@@ -862,10 +868,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startVoiceCallback"
-                            actionDescription:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startVoiceCallback"
+              description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
     
     UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
                                                                   withDisplayName:@"Voice Callback"];
@@ -879,10 +883,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startAnswerEngine"
-                            actionDescription:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startAnswerEngine"
+              description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
     
     UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
     [self.navigationController pushViewController:answerEngineController animated:YES];
@@ -894,10 +896,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 
     NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startVideoChat"
-                            actionDescription:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startVideoChat"
+              description:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]];
 
     UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
     [self.navigationController pushViewController:chatController animated:YES];
@@ -909,10 +909,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *formName = [self.selectAdHocFormsPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startSurvey"
-                            actionDescription:[NSString stringWithFormat:@"Survey with name=%@", formName]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startSurvey"
+              description:[NSString stringWithFormat:@"Survey with name=%@", formName]];
     
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
     [self.navigationController pushViewController:formsController animated:YES];
@@ -922,10 +920,8 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 {
     NSLog(@"Rendering an ad-hoc User Profile Form");
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startUserProfile"
-                            actionDescription:@"Editing user profile"
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startUserProfile"
+              description:@"Editing user profile"];
     
     UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];
     [self.navigationController pushViewController:profileController animated:YES];

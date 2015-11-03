@@ -382,8 +382,8 @@
 		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
 		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; settings = {ASSET_TAGS = (); }; };
-		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; settings = {ASSET_TAGS = (); }; };
+		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; };
+		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
 		916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */; };
 		916F6ADC1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */; };
@@ -444,8 +444,12 @@
 		C1E99D421BC7CC4B000EC129 /* ECSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */; };
 		C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */; };
 		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
+		C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */; };
+		C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */; };
+		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; };
+		C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; settings = {ASSET_TAGS = (); }; };
+		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -942,6 +946,8 @@
 		C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSRichTextEditor.m; sourceTree = "<group>"; };
 		C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorTextView.h; sourceTree = "<group>"; };
 		C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorTextView.m; sourceTree = "<group>"; };
+		C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAgentAvailableResponse.h; path = Responses/ECSAgentAvailableResponse.h; sourceTree = "<group>"; };
+		C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAgentAvailableResponse.m; path = Responses/ECSAgentAvailableResponse.m; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
@@ -1366,6 +1372,8 @@
 		03C3102A1A9B5A31006B3557 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */,
+				C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */,
 				4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */,
 				4665F6FC1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m */,
 				03C310301A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h */,
@@ -1948,6 +1956,8 @@
 				C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */,
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
+				C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */,
+				C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
 				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
@@ -2077,6 +2087,7 @@
 				03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */,
 				0342B02A1A9B60AE0009959E /* ECSSliderFormItemViewController.h in Headers */,
 				C1E99D3F1BC7CC4B000EC129 /* ECSBarButtonItem.h in Headers */,
+				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */,
 				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
 				03BD9E261AF29819003D808C /* ECSInlineFormTableViewCell.h in Headers */,
@@ -2446,6 +2457,7 @@
 				D87F2F031B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.m in Sources */,
 				030AF2581AF91FAF0056BFB0 /* ECSChatNotificationMessage.m in Sources */,
 				916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */,
+				C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */,
 				2252C6A81A7BE9E200B99912 /* ECSFormItem.m in Sources */,
 				03C310631A9B5B56006B3557 /* ECSNavigationActionType.m in Sources */,
 				03F1896E1A644B9E003C6E14 /* EXPERTconnect.m in Sources */,

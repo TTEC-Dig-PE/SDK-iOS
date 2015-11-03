@@ -101,18 +101,17 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         if(!err) {
             
-            [[EXPERTconnect shared] breadcrumbsSession:@"deviceId"
-                                    phonenumber:@"phonenumbr"
-                                         osVersion:@"iOSversion"
-                                    ipAddress:@"10.0.0.1"
-                                           geoLocation:@"geoLocation"
-                                            resolution:@"resolution"];
-
+            // Start a new breadcrumb session.
+            //[[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:nil];
             
-            [[EXPERTconnect shared] breadcrumbsAction:@"appLaunch"
-                                    actionDescription:[NSString stringWithFormat:@"Launched with client=%@, host=%@", configuration.clientID, configuration.host]
-                                         actionSource:@"ECDemo"
-                                    actionDestination:@"Humanify"];
+            // Send an "app launch" breadcrumb.
+            NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@", configuration.clientID, configuration.host];
+            
+            [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
+                                             description:desc
+                                                  source:@"ECDemo"
+                                             destination:@"na"
+                                             geolocation:nil];
         }
     }]; // Start a new journey.
     [self setThemeFromSettings];

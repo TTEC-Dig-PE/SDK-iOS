@@ -1,5 +1,5 @@
 //
-//  ECSStartJourneyResponse.h
+//  ECSAgentAvailableResponse.h
 //  EXPERTconnect
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
@@ -14,7 +14,7 @@
 /**
  Response returnec when a journey is created.
  */
-@interface ECSStartJourneyResponse : ECSJSONObject <ECSJSONSerializing>
+@interface ECSAgentAvailableResponse : ECSJSONObject <ECSJSONSerializing>
 
 // The last date the journey was modified.
 @property (strong, nonatomic) NSString *lastModifiedDate;

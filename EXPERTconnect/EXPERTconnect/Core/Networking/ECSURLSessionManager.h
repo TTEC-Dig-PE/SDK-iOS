@@ -15,6 +15,7 @@
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
+@class ECSAgentAvailableResponse;
 @class ECSStartJourneyResponse;
 @class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
@@ -273,6 +274,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           navigationContext:(NSString*)navigationContext
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
+
+// Check agent availability
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
 
 // Start a new journey
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;

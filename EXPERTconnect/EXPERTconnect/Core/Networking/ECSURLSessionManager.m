@@ -24,6 +24,7 @@
 #import "ECSConfiguration.h"
 #import "ECSConversationCreateResponse.h"
 #import "ECSStartJourneyResponse.h"
+#import "ECSAgentAvailableResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
 #import "ECSSelectExpertsResponse.h"
@@ -651,6 +652,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                       completion(nil, [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:nil]);
                   }
               } failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"Name": @"Skills",
+                                  @"Value": [skills componentsJoinedByString:@","] };
+    
+    return [self POST:@"agentavailability/v1/available"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
 }
 
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion

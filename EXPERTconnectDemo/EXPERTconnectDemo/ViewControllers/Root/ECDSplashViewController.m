@@ -63,17 +63,19 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)loginTapped:(id)sender
 {
-    [[EXPERTconnect shared] breadcrumbsAction:@"loginTapped"
-                            actionDescription:@"User pushed login button"
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [[EXPERTconnect shared] breadcrumbWithAction:@"loginTapped"
+                                     description:@"User pushed login button"
+                                          source:@"ECDemo"
+                                     destination:@"Humanify"
+                                     geolocation:nil];
     
     [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo) {
         
-        [[EXPERTconnect shared] breadcrumbsAction:@"loginCompleted"
-                                actionDescription:[NSString stringWithFormat:@"Did login succeed?%d", (userInfo?1:0)]
-                                     actionSource:@"ECDemo"
-                                actionDestination:@"Humanify"];
+        [[EXPERTconnect shared] breadcrumbWithAction:@"loginCompleted"
+                                         description:[NSString stringWithFormat:@"Did login succeed?%d", (userInfo?1:0)]
+                                              source:@"ECDemo"
+                                         destination:@"Humanify"
+                                         geolocation:nil];
         
         if(userInfo)
         {
@@ -88,17 +90,19 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)registerTapped:(id)sender
 {
-    [[EXPERTconnect shared] breadcrumbsAction:@"registerTapped"
-                            actionDescription:@"User pushed register button"
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [[EXPERTconnect shared] breadcrumbWithAction:@"registerTapped"
+                                     description:@"User pushed register button"
+                                          source:@"ECDemo"
+                                     destination:@"Humanify"
+                                     geolocation:nil];
     
     [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo) {
         
-        [[EXPERTconnect shared] breadcrumbsAction:@"registerCompleted"
-                                actionDescription:[NSString stringWithFormat:@"Did register succeed?%d", (userInfo?1:0)]
-                                     actionSource:@"ECDemo"
-                                actionDestination:@"Humanify"];
+        [[EXPERTconnect shared] breadcrumbWithAction:@"registerCompleted"
+                                         description:[NSString stringWithFormat:@"Did register succeed?%d", (userInfo?1:0)]
+                                              source:@"ECDemo"
+                                         destination:@"Humanify"
+                                         geolocation:nil];
         
         if(userInfo)
         {
