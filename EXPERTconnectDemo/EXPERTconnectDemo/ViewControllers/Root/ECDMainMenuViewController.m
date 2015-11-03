@@ -12,7 +12,7 @@
 #import "ECDZoomViewController.h"
 #import "ECDSettingsViewController.h"
 #import "ECDAdHocViewController.h"
-#import "ECDWorkflowsViewController.h"
+#import "ECDWorkflowViewController.h"
 #import "ECDLocalization.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         
         else if ([item.type isEqualToString:@"workflow"])
         {
-            actionViewController = [[ECDWorkflowsViewController alloc] initWithNibName:nil bundle:nil];
+            actionViewController = [[ECDWorkflowViewController alloc] initWithNibName:nil bundle:nil];
         }
         else
         {

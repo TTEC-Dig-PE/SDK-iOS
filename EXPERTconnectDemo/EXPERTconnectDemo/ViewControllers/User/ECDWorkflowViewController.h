@@ -1,15 +1,15 @@
 //
-//  ECDWorkflowsViewController.h
+//  ECDWorkflowViewController.h
 //  EXPERTconnectDemo
 //
-//  Created by AgilizTech Mac on 20/10/15.
+//  Created by AgilizTech Mac on 03/11/15.
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#import "ECDWorkflowsViewController.h"
+#import <UIKit/UIKit.h>
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 
-@interface ECDWorkflowsViewController : ECSRootViewController
+@interface ECDWorkflowViewController : ECSRootViewController
 
 @end
