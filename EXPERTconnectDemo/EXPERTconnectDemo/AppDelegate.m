@@ -79,6 +79,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appVersion = @"1.0";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
+    //configuration.host          = @"http://api.ce03.humanify.com";
+    
     configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
     
     // Old authentication method.
@@ -89,6 +91,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Note: To use new method, grab token from debug and put here. Then, comment out clientID and secret.
     // How to get token: put debug marker on "authToken" and po it from command line.
     //[[EXPERTconnect shared] setUserIdentityToken:@"760a0282-ac35-462e-89e8-28644c6b22c9"];
+    //[[EXPERTconnect shared] setUserIdentityToken:@"65c6af55-db6c-4fd2-a1dd-d2ffd01f6fe9"];
     
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
@@ -98,7 +101,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
     // Start a new journey, then send an "app launch" breadcrumb. 
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *err) {
         if(!err) {
             
             // Start a new breadcrumb session.

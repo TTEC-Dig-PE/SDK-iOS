@@ -619,46 +619,25 @@ static EXPERTconnect* _sharedInstance;
                        source: (NSString *)actionSource
                   destination: (NSString *)actionDestination
                   geolocation: (CLLocation *)geolocation {
-    
-    if( [self clientID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. ClientID not initialized correctly");
-        return;
-    }
-    
-    bool retryingToGetJourney;
-    
-    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0)) {
-        ECSLogVerbose(@"breadcrumbsAction: No journeyID. Fetching journeyID then retrying...");
-        retryingToGetJourney = YES;
-        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
-            ECSLogVerbose(@"breadcrumbsAction: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            [self breadcrumbWithAction:actionType
-                           description:actionDescription
-                                source:actionSource
-                           destination:actionDestination
-                           geolocation:geolocation];
-        }];
-        ECSLogVerbose(@"breadcrumbsAction: bailing because we are going to wait for a journeyID...");
-        return;
-    }
-    
-    if( [self journeyID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. JourneyID not initialized correctly");
-        return;
-    }
+
     
     bool retryingToGetSession;
+    
     if(!retryingToGetSession && (![self sessionID] || self.sessionID.length == 0)) {
+        retryingToGetSession = YES;
         ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error) {
             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
-            [self breadcrumbWithAction:actionType
-                           description:actionDescription
-                                source:actionSource
-                           destination:actionDestination
-                           geolocation:geolocation];
+            
+            if (!error) {
+                [self breadcrumbWithAction:actionType
+                               description:actionDescription
+                                    source:actionSource
+                               destination:actionDestination
+                               geolocation:geolocation];
+            }
+            return;
+            
         }];
         ECSLogVerbose(@"breadcrumbsAction: bailing because we are going to wait for a sessionID...");
         return;
@@ -675,7 +654,7 @@ static EXPERTconnect* _sharedInstance;
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
     
-    [journeyAction setTenantId:[self clientID]];
+    //[journeyAction setTenantId:[self clientID]];
     [journeyAction setJourneyId:[self journeyID]];
     [journeyAction setSessionId:[self sessionID]];
     [journeyAction setActionType:actionType];
@@ -720,20 +699,36 @@ static EXPERTconnect* _sharedInstance;
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion {
     
-    if([self clientID] == Nil || [self journeyID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsSession:: Ignore , Journey not initialized correctly ");
+    bool retryingToGetJourney;
+    
+    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0)) {
+        ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching journeyID then retrying...");
+        retryingToGetJourney = YES;
+        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
+            ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
+            if(!error) {
+                [self breadcrumbNewSessionWithCompletion:completion];
+            }
+            return;
+        }];
+        ECSLogVerbose(@"breadcrumbNewSession: bailing because we are going to wait for a journeyID...");
         return;
     }
     
-    ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
+    if( [self journeyID] == Nil ) {
+        
+        ECSLogVerbose(@"breadcrumbNewSession:: Ignoring. JourneyID not initialized correctly");
+        return;
+    }
+    
+    ECSLogVerbose(@"breadcrumbNewSession:: calling with journeyId : %@", [self journeyID]);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
-    [journeySession setTenantId:[self clientID]];
+    //[journeySession setTenantId:[self clientID]];
     [journeySession setJourneyId:[self journeyID]];
     [journeySession setDeviceId:userManager.deviceID];
     

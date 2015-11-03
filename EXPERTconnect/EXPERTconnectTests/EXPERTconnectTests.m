@@ -146,10 +146,11 @@
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         
         // Should use the journeyID gathered above.
-        [[EXPERTconnect shared] breadcrumbsAction:@"unitTestBreadcrumbAction"
-                                actionDescription:@"A developer is unit testing breadcrumbs"
-                                     actionSource:@"Xcode"
-                                actionDestination:@"Humanify"];
+        [[EXPERTconnect shared] breadcrumbWithAction:@"unit test"
+                                         description:@"EXPERTCONNECT unit test"
+                                              source:@"ExpertConnect"
+                                         destination:@"na"
+                                         geolocation:nil];
         
         
         [expectation fulfill];
