@@ -245,6 +245,11 @@ static NSString * const kStompError = @"ERROR";
 - (void)webSocket:(ECSWebSocket *)webSocket didFailWithError:(NSError *)error
 {
     ECSLogError(@"Chat connection failed with error %@", error);
+    
+    if (error.code == 57) { // "Socket is not connected."
+        ECSLogError(@"Attempting to reconnect STOMP connection...");
+        [self reconnect];
+    }
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceiveMessage:(id)message

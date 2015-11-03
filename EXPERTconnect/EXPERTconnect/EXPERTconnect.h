@@ -85,7 +85,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 @property (readonly, nonatomic) BOOL authenticationRequired;
 @property (strong, nonatomic) ECSTheme *theme;
-@property (copy, nonatomic) NSString *userToken;
+@property (copy, nonatomic) NSString *userName;
 @property (copy, nonatomic) NSString *userIntent;
 @property (copy, nonatomic) NSString *userDisplayName;
 @property (copy, nonatomic) NSString *userCallbackNumber;
@@ -96,6 +96,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
+@property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 
@@ -305,6 +306,15 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
 
+// Send user profile to server.
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion;
+
+/**
+ Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers
+ outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+ */
+- (void)setUserIdentityToken:(NSString *)token;
+
 /**
  *
  */
@@ -319,6 +329,14 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
          actionDescription: (NSString *)actionDescription
               actionSource: (NSString *)actionSource
          actionDestination: (NSString *)actionDestination;
+
+- (void) breadcrumbsSession:
+                             (NSString *)deviceId
+                phonenumber: (NSString *)phonenumber
+                  osVersion: (NSString *)osVersion
+                  ipAddress: (NSString *)ipAddress
+                geoLocation: (NSString *)geoLocation
+                  resolution: (NSString *)resolution;
 
 /**
  Set the debug level.

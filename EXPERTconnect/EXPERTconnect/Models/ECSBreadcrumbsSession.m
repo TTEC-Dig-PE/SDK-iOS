@@ -8,7 +8,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ECSBreadcrumbsDevice.h"
+#import "ECSBreadcrumbsSession.h"
 
 
 static NSString* PROPERTY_TENANTID       = @"tenantId";
@@ -25,7 +25,7 @@ static NSString* PROPERTY_BROWSERTYPE    = @"browserType";
 static NSString* PROPERTY_BROWSERVERSION = @"browserVersion";
 static NSString* PROPERTY_RESOLUTION     = @"resolution";
 
-@implementation ECSBreadcrumbsDevice
+@implementation ECSBreadcrumbsSession
 
 @synthesize properties;
 

@@ -165,8 +165,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                         andSecret:(NSString*)clientSecret
                                        completion:(void (^)(NSString *authToken, NSError *error))completion;
 {
-    NSAssert(clientID.length > 0, @"Client ID must be provided");
-    NSAssert(clientSecret.length > 0, @"Client secret must be provided");
+    //NSAssert(clientID.length > 0, @"Client ID must be provided");
+    //NSAssert(clientSecret.length > 0, @"Client secret must be provided");
+    if (clientID.length == 0 || clientSecret.length == 0) {
+        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
+                                                  code:-2000
+                                              userInfo:nil];
+        completion(nil, err);
+    }
     
     NSURL *url = [self URLByAppendingPathComponent:@"authserver/oauth/token"];
     NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
@@ -1217,7 +1223,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     if (self.authToken.length > 0)
     {
-        NSString *authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
+        NSString *authValue = self.authToken;
+        if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
+        {
+            authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
+        }
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     }
     
@@ -1305,49 +1315,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
                             completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
-    /*
-     //NSString *journeyData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];;
-     
-     NSString *fullURL =  [NSString stringWithFormat:@"%@%@%@%@%@%@", BASE_URL, @"journeys/",self.journeyId,@"/devices/",self.sessionId,@"/actions"];
-     
-     NSURL *url = [NSURL URLWithString:fullURL];
-     
-     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-     [request setHTTPMethod:@"POST"];
-     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-     [request setValue:BASIC_AUTHORIZATION forHTTPHeaderField:@"Authorization"];
-     [request setHTTPBody:jsonData];
-     
-     
-     
-     [NSURLConnection sendAsynchronousRequest:request
-     queue:[NSOperationQueue mainQueue]
-     completionHandler:^(NSURLResponse *response,
-     NSData *data, NSError *connectionError)
-     {
-     if (data.length > 0 && connectionError == nil)
-     {
-     NSDictionary *jsonRes = [NSJSONSerialization JSONObjectWithData:data
-     options:0
-     error:NULL];
-     
-     HBRJourneyAction *journeyActionRes = [[HBRJourneyAction alloc] initWithDic:jsonRes];
-     
-     
-     NSLog(@"Value of actionId is: %@", [journeyActionRes getId]);
-     
-     }
-     else {
-     
-     NSLog(@"Error = %@", error);
-     
-     }
-     }];
-     */
-
-    
-    
-    
     
     return [self POST:@"breadcrumb/v1/actions"
            parameters:actionJson
@@ -1355,6 +1322,23 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
     
 }
+
+
+- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+{
+    
+    
+    
+    
+    
+    return [self POST:@"breadcrumb/v1/sessions"
+           parameters:actionJson
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+    
+}
+
 
 
 

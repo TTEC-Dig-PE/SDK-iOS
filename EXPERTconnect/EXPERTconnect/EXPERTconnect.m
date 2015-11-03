@@ -23,6 +23,7 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSBreadcrumbsAction.h"
+#import "ECSBreadcrumbsSession.h"
 #import "ECSLog.h"
 
 @interface EXPERTconnect ()
@@ -138,34 +139,53 @@ static EXPERTconnect* _sharedInstance;
     return [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
 }
 
-- (NSString *)userToken
+- (NSString *)userName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     return userManager.userToken;
 }
 
-- (void)logout {
-    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    
-    // Log config for debugging:
-    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userToken], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
-    
-    // mas - 12-oct-15 - Call the lower level unauthenticate which destroys the keychain token as well.
-    //[self setUserToken:nil];
-    [userManager unauthenticateUser];
-}
-
-- (void)setUserToken:(NSString *)userToken
+- (void)setUserName:(NSString *)userName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    userManager.userToken = userToken;
+    userManager.userToken = userName;
     
-    if (!userToken || (userToken.length == 0))
+    if (!userName || (userName.length == 0))
     {
         [userManager unauthenticateUser];
     }
+    else
+    {
+        // Send a profile with just username.
+        ECSUserProfile * profile = [ECSUserProfile new];
+        profile.username = userManager.userToken;
+        [self setUserProfile:profile withCompletion:nil];
+    }
+}
+
+// Send user profile to server.
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    [sessionManager submitUserProfile:userProfile withCompletion:completion];
+}
+
+// Directly set the authToken
+- (void)setUserIdentityToken:(NSString *)token
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    sessionManager.authToken = token;
+}
+
+- (void)logout {
+    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    
+    // Log config for debugging:
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
+    [self setUserName:nil];
 }
 
 - (NSString *)userDisplayName
@@ -416,7 +436,7 @@ static EXPERTconnect* _sharedInstance;
     if ([voiceItManager isInitialized]) {
         [voiceItManager recordNewEnrollment];
     } else {
-        [voiceItManager configure:[self userToken]];
+        [voiceItManager configure:[self userName]];
         [voiceItManager recordNewEnrollment];
     }
 }
@@ -427,7 +447,7 @@ static EXPERTconnect* _sharedInstance;
     if ([voiceItManager isInitialized]) {
         [voiceItManager clearEnrollments];
     } else {
-        [voiceItManager configure:[self userToken]];
+        [voiceItManager configure:[self userName]];
         [voiceItManager clearEnrollments];
     }
 }
@@ -435,7 +455,7 @@ static EXPERTconnect* _sharedInstance;
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
-    [self setUserToken:username];
+    [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error) {
@@ -542,7 +562,6 @@ static EXPERTconnect* _sharedInstance;
 
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
-    //[self setUserToken:username];
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
@@ -572,16 +591,25 @@ static EXPERTconnect* _sharedInstance;
                actionSource: (NSString *)actionSource
           actionDestination: (NSString *)actionDestination   {
     
+    if([self clientID] == Nil || [self journeyID] == Nil  || [self sessionID] == nil ) {
+        
+        ECSLogVerbose(@"breadcrumbsAction:: Ignore Action, Journey not initialized correctly : %@", actionType);
+        return;
+    }
+    
+    
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
+
+    
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     
     ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
     
-    [journeyAction setTenantId:@"-1"];
-    [journeyAction setJourneyId:[sessionManager getJourneyID]];
-    [journeyAction setSessionId:[sessionManager getConversationID]];
+    [journeyAction setTenantId:[self clientID]];
+    [journeyAction setJourneyId:[self journeyID]];
+    [journeyAction setSessionId:[self sessionID]];
     [journeyAction setActionType:actionType];
     [journeyAction setActionDescription:actionDescription];
     [journeyAction setActionSource:actionSource];
@@ -617,8 +645,68 @@ static EXPERTconnect* _sharedInstance;
 }
 
 
+
+- (void) breadcrumbsSession:
+                             (NSString *)deviceId
+                phonenumber: (NSString *)phonenumber
+                  osVersion: (NSString *)osVersion
+                  ipAddress: (NSString *)ipAddress
+                  geoLocation: (NSString *)geoLocation
+                  resolution: (NSString *)resolution{
+    
+    if([self clientID] == Nil || [self journeyID] == Nil ) {
+        
+        ECSLogVerbose(@"breadcrumbsSession:: Ignore , Journey not initialized correctly ");
+        return;
+    }
+    
+    ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
+    
+    [journeySession setTenantId:[self clientID]];
+    [journeySession setJourneyId:[self journeyID]];
+
+    [journeySession setPlatform:@"iOS"];
+    [journeySession setDeviceId:deviceId];
+    [journeySession setPhonenumber:phonenumber];
+    [journeySession setOSVersion:osVersion];
+    [journeySession setIPAddress:ipAddress];
+    [journeySession setGEOLocation:geoLocation];
+    [journeySession setBrowserType:@"NA"];
+    [journeySession setBrowserVersion:@"NA"];
+    [journeySession setResolution:resolution];
+
+    
+    NSMutableDictionary *properties = [journeySession getProperties];
+    
+    
+    [sessionManager breadcrumbsSession:properties completion:^(NSDictionary *decisionResponse, NSError *error) {
+        
+        if( error )  {
+            ECSLogError(@"breadcrumbsSession:: Error: %@", error.description);
+        } else  {
+            
+            
+            
+            ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc] initWithDic:decisionResponse];
+            
+            ECSLogVerbose(@"breadcrumbsSession:: Value of sessionID is: %@", [journeySessionRes getSessionId]);
+            
+            // Set the global sessionId
+            self.sessionID = [journeySessionRes getSessionId];
+
+        }
+    }];
+}
+
+
+
 /**
- Set the debug level. 
+ Set the debug level.
      0 - None
      1 - Error
      2 - Warning

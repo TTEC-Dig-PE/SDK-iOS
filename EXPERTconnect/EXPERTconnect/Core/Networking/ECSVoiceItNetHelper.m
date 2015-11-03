@@ -148,7 +148,10 @@
     }
     
     if (data !=nil && responseStatusCode == 200) {
-        result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        // mas - 29-oct-2015 - Commented line throws warning (putting string into dictionary).
+        // This is untested as this function is not called anywhere in our source.
+        result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        //result = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
     }
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;

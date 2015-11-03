@@ -73,9 +73,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [self.window setTintColor:[UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1]];
     
     // Initialize the SDK
-    //static NSString *const ExpertConnectBaseURL = @"https://monkeypod.io:443/mpapi/TELETECH/ExpertConnect/";
-    
-//    static NSString *const ExpertConnectBaseURL = @"http://uldcd-cldap02.ttechenabled.net:8080";
     ECSConfiguration *configuration = [ECSConfiguration new];
     
     configuration.appName = @"EXPERTconnect Demo";
@@ -83,17 +80,35 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
     configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
+    
+    // Old authentication method.
     configuration.clientID = [self getClientFromSettings];
     configuration.clientSecret = @"secret123";
+    
+    // New authentication method.
+    // Note: To use new method, grab token from debug and put here. Then, comment out clientID and secret.
+    // How to get token: put debug marker on "authToken" and po it from command line.
+    //[[EXPERTconnect shared] setUserIdentityToken:@"760a0282-ac35-462e-89e8-28644c6b22c9"];
+    
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
     // Start a new journey, then send an "app launch" breadcrumb. 
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         if(!err) {
+            
+            [[EXPERTconnect shared] breadcrumbsSession:@"deviceId"
+                                    phonenumber:@"phonenumbr"
+                                         osVersion:@"iOSversion"
+                                    ipAddress:@"10.0.0.1"
+                                           geoLocation:@"geoLocation"
+                                            resolution:@"resolution"];
+
+            
             [[EXPERTconnect shared] breadcrumbsAction:@"appLaunch"
                                     actionDescription:[NSString stringWithFormat:@"Launched with client=%@, host=%@", configuration.clientID, configuration.host]
                                          actionSource:@"ECDemo"
@@ -116,7 +131,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
                                                   forKey:ECDFirstRunComplete];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [[EXPERTconnect shared] setUserToken:nil];
+        [[EXPERTconnect shared] setUserName:nil];
     }
     
     // Get env/clientid config from hosted site.

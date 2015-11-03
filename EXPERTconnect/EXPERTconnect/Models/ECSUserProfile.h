@@ -15,7 +15,7 @@
 
 @interface ECSUserProfile : ECSJSONObject <ECSJSONSerializing>
 
-@property (strong, nonatomic) NSString *userID;
+//@property (strong, nonatomic) NSString *userID;
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;

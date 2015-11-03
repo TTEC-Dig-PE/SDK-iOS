@@ -251,12 +251,12 @@
             {
                 if (userToken)
                 {
-                    [EXPERTconnect shared].userToken = userToken;
+                    [EXPERTconnect shared].userName = userToken;
 
                 }
                 else
                 {
-                    [EXPERTconnect shared].userToken = response.identityToken;
+                    [EXPERTconnect shared].userName = response.identityToken;
                 }
                 
                 [weakSelf.delegate registerViewController:weakSelf didCompleteWithUser:response.identityToken];

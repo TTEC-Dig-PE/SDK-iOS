@@ -6,12 +6,12 @@
 //  Copyright © 2015 Humanify, Inc. All rights reserved.
 //
 
-#ifndef ECSBreadcrumbsDevice_h
-#define ECSBreadcrumbsDevice_h
+#ifndef ECSBreadcrumbsSession_h
+#define ECSBreadcrumbsSession_h
 
 
 
-@interface ECSBreadcrumbsDevice: NSObject
+@interface ECSBreadcrumbsSession: NSObject
 
 @property (nonatomic) NSMutableDictionary *properties;
 
@@ -64,4 +64,4 @@
 
 
 
-#endif /* ECSBreadcrumbsDevice_h */
+#endif /* ECSBreadcrumbsSession_h */

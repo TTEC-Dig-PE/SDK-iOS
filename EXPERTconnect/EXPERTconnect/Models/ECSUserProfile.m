@@ -14,7 +14,6 @@
 - (NSDictionary*)ECSJSONMapping
 {
     return @{
-             @"userID": @"userID",
              @"username": @"username",
              @"firstName": @"firstName",
              @"lastName": @"lastName",

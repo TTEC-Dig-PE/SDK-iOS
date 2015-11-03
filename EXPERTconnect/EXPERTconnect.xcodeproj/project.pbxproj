@@ -382,7 +382,7 @@
 		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
 		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */; settings = {ASSET_TAGS = (); }; };
+		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; settings = {ASSET_TAGS = (); }; };
 		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; settings = {ASSET_TAGS = (); }; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
 		916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */; };
@@ -877,8 +877,8 @@
 		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
 		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
 		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
-		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsDevice.h; sourceTree = "<group>"; };
-		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsDevice.m; sourceTree = "<group>"; };
+		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsSession.h; sourceTree = "<group>"; };
+		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsSession.m; sourceTree = "<group>"; };
 		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
 		5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsAction.m; sourceTree = "<group>"; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1226,8 +1226,7 @@
 		03978ED81A602AEF007793D6 = {
 			isa = PBXGroup;
 			children = (
-				03CDD3FD1AB0825300E0C328 /* Frameworks */,
-				0380DEA81A9F6474003D9248 /* ThirdParty */,
+				03978EE41A602AEF007793D6 /* EXPERTconnect */,
 				030F77991A752D7C006BD8B1 /* global_style.css */,
 				03A7D28C1AB9A7EF000A21AE /* global_style_test.html */,
 				03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */,
@@ -1235,8 +1234,9 @@
 				C1E99D091BC7CA46000EC129 /* editor.html */,
 				03F0BD381A70383B00E90E7F /* Localizable.strings */,
 				03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */,
-				03978EE41A602AEF007793D6 /* EXPERTconnect */,
 				03978EF11A602AEF007793D6 /* EXPERTconnectTests */,
+				03CDD3FD1AB0825300E0C328 /* Frameworks */,
+				0380DEA81A9F6474003D9248 /* ThirdParty */,
 				03978EE31A602AEF007793D6 /* Products */,
 				0185BAA63E7B3C0B4A0DD180 /* Pods */,
 			);
@@ -1769,8 +1769,8 @@
 		5DB55F431BCEB3A500CB8EA8 /* Breadcrumbs */ = {
 			isa = PBXGroup;
 			children = (
-				5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsDevice.h */,
-				5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m */,
+				5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */,
+				5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */,
 				5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */,
 				5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */,
 			);
@@ -2513,7 +2513,7 @@
 				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
-				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsDevice.m in Sources */,
+				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */,
 				0342AFAC1A9B60700009959E /* ECSAnswerRatingView.m in Sources */,
 				03C310591A9B5B56006B3557 /* ECSAnswerEngineActionType.m in Sources */,
 				03101F2F1AAF356900D7562B /* ECSChatLogsViewController.m in Sources */,
@@ -2648,6 +2648,7 @@
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2701,8 +2702,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2741,7 +2742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4e78f4cc-b76a-4898-851c-5fcae96d939e";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALID_ARCHS = "arm64 armv7s";
