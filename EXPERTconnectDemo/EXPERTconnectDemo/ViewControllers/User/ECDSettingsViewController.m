@@ -382,8 +382,14 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionVersion:
         {
             NSString *versionString = ECSLocalizedString(ECSLocalizedVersionHeader, @"Version");
-            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
-            title = versionString;
+            NSString *demoAppVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+            
+            versionString = [NSString stringWithFormat:versionString, demoAppVersion];
+            
+            title = [NSString stringWithFormat:@"%@ (Framework %@, build %@)",
+                     versionString,
+                     [[EXPERTconnect shared] EXPERTconnectVersion],
+                     [[EXPERTconnect shared] EXPERTconnectBuildVersion]];
         }
             break;
             

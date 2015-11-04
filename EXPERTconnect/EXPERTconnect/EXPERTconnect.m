@@ -205,6 +205,11 @@ static EXPERTconnect* _sharedInstance;
     return [NSBundle ecs_bundleVersion];
 }
 
+- (NSString*)EXPERTconnectBuildVersion
+{
+    return [NSBundle ecs_buildVersion];
+}
+
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey
 {
     // Nathan Keeney 9/1/2015 changed to ALLOW CafeX escalation (no change to vanilla chats):

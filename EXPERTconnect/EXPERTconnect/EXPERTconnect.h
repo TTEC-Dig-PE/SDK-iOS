@@ -99,6 +99,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
+@property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;
 
 + (instancetype)shared;
 

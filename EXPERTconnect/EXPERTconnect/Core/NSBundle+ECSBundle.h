@@ -23,4 +23,11 @@
  */
 + (NSString*)ecs_bundleVersion;
 
+/**
+ Retrieves the current build version of the SDK bundle.
+ 
+ @return the bundle build version.
+ */
++ (NSString*)ecs_buildVersion;
+
 @end

@@ -268,6 +268,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.
 - (void) fetchEnvironmentJSON {
     
+    //NSURL *url = [[NSURL alloc] initWithString:@"https://tce1.humanify.com/humanify_sdk_orgs.json"];
     NSURL *url = [[NSURL alloc] initWithString:@"https://dce1.humanify.com/humanify_sdk_orgs.json"];
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
