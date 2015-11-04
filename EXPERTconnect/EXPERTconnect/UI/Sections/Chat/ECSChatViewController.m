@@ -475,13 +475,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     [super closeButtonTapped:sender];
     
+    [self.navigationController popViewControllerAnimated:NO];
+    
     if (self.chatClient.channelState != ECSChannelStateDisconnected) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
                                                             object:self
-                                                            userInfo:@{@"reason":ECSChatEndedByUser}];
+                                                          userInfo:@{@"reason":ECSChatEndedByUser}];
     }
-    
-    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)showSurvey
@@ -502,13 +502,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         }
         else
         {
+            [self.navigationController popViewControllerAnimated:YES];
+            
             if (self.chatClient.channelState != ECSChannelStateDisconnected) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
                                                                     object:self
                                                                   userInfo:@{@"reason":ECSChatEndedByUser}];
             }
-            
-            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
@@ -961,13 +961,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                           }
                                                           else if (weakSelf.navigationController.viewControllers.count > 1)
                                                           {
+                                                              [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                              
                                                               // Post chat ended notification
                                                               [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
                                                                                                                   object:self
                                                                                                                 userInfo:@{@"reason":@"error",
                                                                                                                             @"error":errorMessage}];
-                                                              
-                                                              [weakSelf.navigationController popViewControllerAnimated:YES];
                                                           }
                                                       }]];
     [self presentViewController:alertController animated:YES completion:nil];
