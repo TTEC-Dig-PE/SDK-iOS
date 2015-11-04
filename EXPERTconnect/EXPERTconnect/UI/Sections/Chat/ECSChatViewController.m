@@ -474,6 +474,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)closeButtonTapped:(id)sender
 {
     [super closeButtonTapped:sender];
+    
+    if (self.chatClient.channelState != ECSChannelStateDisconnected) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                            object:self
+                                                            userInfo:@{@"reason":ECSChatEndedByUser}];
+    }
+    
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -495,6 +502,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         }
         else
         {
+            if (self.chatClient.channelState != ECSChannelStateDisconnected) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                                    object:self
+                                                                  userInfo:@{@"reason":ECSChatEndedByUser}];
+            }
+            
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
@@ -948,6 +961,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                           }
                                                           else if (weakSelf.navigationController.viewControllers.count > 1)
                                                           {
+                                                              // Post chat ended notification
+                                                              [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                                                                                  object:self
+                                                                                                                userInfo:@{@"reason":@"error",
+                                                                                                                            @"error":errorMessage}];
+                                                              
                                                               [weakSelf.navigationController popViewControllerAnimated:YES];
                                                           }
                                                       }]];
@@ -1010,6 +1029,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     if ([cafeXController hasCafeXSession]) {
         [cafeXController endCoBrowse];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                        object:self
+                                                      userInfo:@{@"reason":ECSChatDisconnected}];
     
     [self handleDisconnectPostSurveyCall];
     self.chatToolbar.sendEnabled = NO;

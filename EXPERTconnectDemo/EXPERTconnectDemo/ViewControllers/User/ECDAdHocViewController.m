@@ -260,11 +260,26 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     [self.selectAdHocFormsPicker setup];
     [self.selectAdHocVoiceCallbackPicker setup];
     [self.selectAdHocWebPagePicker setup];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatEnded:)
+                                                 name:ECSChatEndedNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)chatEnded:(NSNotification *)notification {
+    
+    if ([notification.userInfo objectForKey:@"reason"]) {
+        NSLog(@"Chat ended. Reason: %@", [notification.userInfo objectForKey:@"reason"]);
+    }
+
+    // If uncommented, this will hide chat when agent ends it.
+    //[self.navigationController popToViewController:self animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

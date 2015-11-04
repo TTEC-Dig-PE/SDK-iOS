@@ -1070,6 +1070,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     __weak typeof(self) weakSelf = self;
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    if (configuration.clientID.length == 0) {
+        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
+                                                  code:-2000
+                                              userInfo:nil];
+        ECSLogError(@"Error: %@", err);
+        return nil;
+    }
+    
     ECSLogVerbose(@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
     return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
         if (!error && authToken)

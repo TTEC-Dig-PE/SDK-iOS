@@ -584,7 +584,7 @@ static EXPERTconnect* _sharedInstance;
     [sessionManager agentAvailabilityWithSkills:skills
                                      completion:^(ECSAgentAvailableResponse *response, NSError *error)
     {
-        // TODO: parse object and return in user-friendly array.
+        // parse object and return in user-friendly array.
         if (error) {
             completion(nil, error);
         } else {
@@ -634,7 +634,7 @@ static EXPERTconnect* _sharedInstance;
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error) {
             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
             
-            if (!error) {
+            if ( !error && sessionID && sessionID.length > 0 ) {
                 [self breadcrumbWithAction:actionType
                                description:actionDescription
                                     source:actionSource
@@ -711,7 +711,7 @@ static EXPERTconnect* _sharedInstance;
         retryingToGetJourney = YES;
         [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
             ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            if(!error) {
+            if(!error && journeyID && journeyID.length > 0) {
                 [self breadcrumbNewSessionWithCompletion:completion];
             }
             return;
