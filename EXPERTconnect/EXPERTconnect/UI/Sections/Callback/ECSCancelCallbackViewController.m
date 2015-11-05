@@ -91,7 +91,7 @@
 
 - (void)appBecameActive:(id)sender
 {
-     [self dismissviewAndNotify];
+    [self dismissviewAndNotify:YES];
 }
 
 - (IBAction)cancelCallbackTapped:(id)sender
@@ -111,7 +111,7 @@
     }
     else
     {
-        [self dismissviewAndNotify];
+        [self dismissviewAndNotify:NO];
     }
 }
 
@@ -128,16 +128,18 @@
     }
     else
     {
-        [self dismissviewAndNotify];
+        [self dismissviewAndNotify:NO];
     }
 }
 
 // Hide the view and send a notification that callback is complete.
-- (void)dismissviewAndNotify {
+- (void)dismissviewAndNotify:(BOOL)shouldNotify {
     [self.navigationController popToRootViewControllerAnimated:YES];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ECSCallbackEndedNotification
-                                                        object:self];
+    if(shouldNotify) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSCallbackEndedNotification
+                                                            object:self];
+    }
 }
 
 - (void)displayInProgressCallBack {
@@ -156,7 +158,7 @@
     
     UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [alertController dismissViewControllerAnimated:YES completion:nil];
-        [[self navigationController] popViewControllerAnimated:YES];
+        [self dismissviewAndNotify:YES];
         [self.workflowDelegate voiceCallBackEnded];
     }];
     
