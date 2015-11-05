@@ -13,6 +13,7 @@
 #import "ECSLocalization.h"
 #import "ECSTheme.h"
 #import "ECSURLSessionManager.h"
+#import "ECSNotifications.h"
 
 @interface ECSCancelCallbackViewController ()
 
@@ -90,7 +91,7 @@
 
 - (void)appBecameActive:(id)sender
 {
-     [self.navigationController popToRootViewControllerAnimated:YES];
+     [self dismissviewAndNotify];
 }
 
 - (IBAction)cancelCallbackTapped:(id)sender
@@ -110,7 +111,7 @@
     }
     else
     {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self dismissviewAndNotify];
     }
 }
 
@@ -127,8 +128,16 @@
     }
     else
     {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self dismissviewAndNotify];
     }
+}
+
+// Hide the view and send a notification that callback is complete.
+- (void)dismissviewAndNotify {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSCallbackEndedNotification
+                                                        object:self];
 }
 
 - (void)displayInProgressCallBack {

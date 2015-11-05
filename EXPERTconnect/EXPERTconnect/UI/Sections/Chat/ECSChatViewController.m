@@ -479,8 +479,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     if (self.chatClient.channelState != ECSChannelStateDisconnected) {
         [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                            object:self
-                                                          userInfo:@{@"reason":ECSChatEndedByUser}];
+                                                            object:self];
     }
 }
 
@@ -506,8 +505,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             
             if (self.chatClient.channelState != ECSChannelStateDisconnected) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                                    object:self
-                                                                  userInfo:@{@"reason":ECSChatEndedByUser}];
+                                                                    object:self];
             }
         }
     }
@@ -1031,8 +1029,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                        object:self
-                                                      userInfo:@{@"reason":ECSChatDisconnected}];
+                                                        object:self];
     
     [self handleDisconnectPostSurveyCall];
     self.chatToolbar.sendEnabled = NO;

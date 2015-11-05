@@ -265,6 +265,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
                                              selector:@selector(chatEnded:)
                                                  name:ECSChatEndedNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatEnded:)
+                                                 name:ECSCallbackEndedNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -273,13 +278,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 }
 
 - (void)chatEnded:(NSNotification *)notification {
-    
-    if ([notification.userInfo objectForKey:@"reason"]) {
-        NSLog(@"Chat ended. Reason: %@", [notification.userInfo objectForKey:@"reason"]);
-    }
 
     // If uncommented, this will hide chat when agent ends it.
     //[self.navigationController popToViewController:self animated:YES];
+    NSLog(@"Chat or callback ended!");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
