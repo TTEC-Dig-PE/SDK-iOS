@@ -91,7 +91,7 @@
 
 - (void)appBecameActive:(id)sender
 {
-    [self dismissviewAndNotify:YES];
+    [self dismissviewAndNotify:NO];
 }
 
 - (IBAction)cancelCallbackTapped:(id)sender
@@ -134,6 +134,8 @@
 
 // Hide the view and send a notification that callback is complete.
 - (void)dismissviewAndNotify:(BOOL)shouldNotify {
+    
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     if(shouldNotify) {

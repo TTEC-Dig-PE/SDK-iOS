@@ -14,8 +14,10 @@
 
 static NSString *const lastSkillSelected = @"lastSkillSelected";
 
+NSMutableArray *chatSkillsArray;
+
 -(void)setup {
-    NSMutableArray *chatSkillsArray = [NSMutableArray new];
+    chatSkillsArray = [NSMutableArray new];
     
     [chatSkillsArray addObject:@"CE_Mobile_Chat"];
     [chatSkillsArray addObject:@"Finance"];
@@ -33,14 +35,34 @@ static NSString *const lastSkillSelected = @"lastSkillSelected";
     [chatSkillsArray addObject:@"Calls for chris_horizon"];
     
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
-    
+
     [super setup:chatSkillsArray withSelection:rowToSelect];
     [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+    
+    [self performSelector:@selector(getAgentsForLastSelected) withObject:nil afterDelay:0.5]; 
+}
+
+-(void)getAgentsForLastSelected {
+    int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
+    [self getAgentsAvailableForSkill:rowToSelect];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     [super pickerView:pickerView didSelectRow:row inComponent:component];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(int)row] forKey:lastSkillSelected];
+    
+    [self getAgentsAvailableForSkill:(int)row];
+}
+
+-(void)getAgentsAvailableForSkill:(int)index {
+    [[EXPERTconnect shared] agentAvailabilityWithSkill:[chatSkillsArray objectAtIndex:index]
+                                            completion:^(NSDictionary *data, NSError *error)
+     {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
+                                                             object:nil
+                                                           userInfo:data];
+         
+     }];
 }
 
 @end

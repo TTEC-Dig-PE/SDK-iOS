@@ -230,6 +230,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 @property (strong, nonatomic) ECDAdHocWebPagePicker *selectAdHocWebPagePicker;
 @end
 
+int agentsLoggedOn;
+bool agentAvailable;
+
 @implementation ECDAdHocViewController
 
 - (void)viewDidLoad {
@@ -270,11 +273,27 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
                                              selector:@selector(chatEnded:)
                                                  name:ECSCallbackEndedNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatInfoUpdated:)
+                                                 name:@"ChatSkillAgentInfoUpdated"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark Notification Functions
+
+- (void)chatInfoUpdated:(NSNotification *)notification {
+    NSDictionary *chatSkillStatus = notification.userInfo;
+    if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
+        agentsLoggedOn = (int)[chatSkillStatus objectForKey:@"agentsLoggedOn"];
+        agentAvailable = (bool)[chatSkillStatus objectForKey:@"open"];
+    }
+    [self.tableView reloadData]; 
 }
 
 - (void)chatEnded:(NSNotification *)notification {
@@ -388,6 +407,12 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             switch (indexPath.row) {
                 case AdHocChatSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"AdHoc Chat");
+                    if (agentsLoggedOn) {
+                        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d Agents. %@)",
+                                               cell.textLabel.text,
+                                               agentsLoggedOn,
+                                               (agentAvailable ? @"Open" : @"Closed")];
+                    }
                     cell.accessoryView = self.selectAdHocChatPicker;
                     break;
                 default:

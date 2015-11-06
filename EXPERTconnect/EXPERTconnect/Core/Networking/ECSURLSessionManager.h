@@ -27,7 +27,8 @@
 @class ECSNavigationContext;
 @class ECSForm;
 @class ECSUserProfile;
-
+@class ECSSkillStatus;
+@class ECSAgentAvailableResponse;
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -316,6 +317,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion;
 
 #pragma mark - Utilities
+
+- (id)getClassOfType:(Class)aClass withJSON:(id)result;
 
 - (NSURLSessionDataTask *)externalRequestWithMethod:(NSString *)method
                                                path:(NSString *)path

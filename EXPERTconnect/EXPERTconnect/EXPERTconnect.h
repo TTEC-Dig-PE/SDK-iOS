@@ -25,6 +25,7 @@
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
 #import <EXPERTconnect/ECSStartJourneyResponse.h>
+#import <EXPERTconnect/ECSAgentAvailableResponse.h>
 #import <EXPERTconnect/ECSJSONSerializer.h>
 #import <EXPERTconnect/ECSNavigationActionType.h>
 #import <EXPERTconnect/ECSNavigationContext.h>
@@ -63,7 +64,6 @@
 
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
-
 
 #import <EXPERTconnect/ECSWorkflow.h>
 #import <EXPERTconnect/ECSWorkflowNavigation.h>
@@ -293,6 +293,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
        viewController:(UIViewController *)viewController;
 
 /**
+    Starts a workflow but instead of displaying a view controller modally, this will pass it back to display
+    in whichever mode the integrator would like.
+ */
+- (UIViewController *)workflowViewWithAction:(NSString *)actionType
+                                    delegate:(id <ECSWorkflowDelegate>)workflowDelegate;
+
+/**
  *  Starts Chat workflow with a workflowName(workflowID), skill name, a delegate, and a viewController to present it on
  */
 - (void)startChatWorkflow:(NSString *)workFlowName
@@ -301,15 +308,10 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
-/*
+
 // Check availability on a singlar skill
 - (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSString *vals, NSError *error))completion;
-
-// Check availability on multiple skills
-- (void) agentAvailabilityWithSkillArray:(NSArray *)skills
-                              completion:(void (^)(NSString *vals, NSError *error))completion;
-*/
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion;
 
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had

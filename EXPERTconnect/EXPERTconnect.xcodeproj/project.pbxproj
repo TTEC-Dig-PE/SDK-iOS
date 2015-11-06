@@ -446,7 +446,7 @@
 		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
 		C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */; };
 		C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */; };
-		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; };
+		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
@@ -1948,6 +1948,7 @@
 				039E13131A8BF39300AD4927 /* ECSNotifications.h in Headers */,
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
 				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
+				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
 				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
@@ -2087,7 +2088,6 @@
 				03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */,
 				0342B02A1A9B60AE0009959E /* ECSSliderFormItemViewController.h in Headers */,
 				C1E99D3F1BC7CC4B000EC129 /* ECSBarButtonItem.h in Headers */,
-				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */,
 				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
 				03BD9E261AF29819003D808C /* ECSInlineFormTableViewCell.h in Headers */,

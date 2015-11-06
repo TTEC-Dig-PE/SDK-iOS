@@ -563,36 +563,57 @@ static EXPERTconnect* _sharedInstance;
                                                         completion:nil];
 }
 
-
-/*
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSString *vals, NSError *error))completion {
+// This version does not present a view controller.
+- (UIViewController *)workflowViewWithAction:(NSString *)actionType
+                                    delegate:(id <ECSWorkflowDelegate>)workflowDelegate {
     
-    NSMutableArray *skills;
-    [skills addObject:skill];
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     
-    [self agentAvailabilityWithSkillArray:skills completion:completion];
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] init];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    return initialViewController;
 }
 
-// Check availability on multiple skills
-- (void) agentAvailabilityWithSkillArray:(NSArray *)skills
-                              completion:(void (^)(NSString *vals, NSError *error))completion {
+
+// Check availability on a singlar skill
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion {
+    
+    NSArray *skills = [NSArray arrayWithObjects:skill,@"Finance",nil];
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager agentAvailabilityWithSkills:skills
                                      completion:^(ECSAgentAvailableResponse *response, NSError *error)
-    {
-        // parse object and return in user-friendly array.
-        if (error) {
-            completion(nil, error);
-        } else {
-            completion(@"return data", nil);
-        }
-    }];
+     {
+         // parse object and return in user-friendly array.
+         
+         if (error) {
+             completion(nil, error);
+         } else {
+             completion(response.skills[0], nil);
+         }
+     }];
 }
-*/
 
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {

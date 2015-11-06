@@ -1,35 +1,19 @@
 //
-//  ECSAgentAvailableResponse.m
+//  ECSSkillStatus.m
 //  EXPERTconnect
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-/*
- skills =         (
- {
- "_links" =                 {
- self =                     {
- href = "http://api.humanify.com:8080/conversationengine/v1/skills/CE_Mobile_Chat";
- };
- };
- agentsLoggedOn = 2;
- open = 1;
- skillName = "CE_Mobile_Chat";
- }
- );
- };
- */
+#import "ECSSkillStatus.h"
 
-#import "ECSAgentAvailableResponse.h"
-
-#import "ECSConversationLink.h"
-
-@implementation ECSAgentAvailableResponse
+@implementation ECSSkillStatus
 
 - (NSDictionary *)ECSJSONMapping
 {
-    return @{@"_embedded.skills": @"skills",
+    return @{@"agentsLoggedOn": @"agentsLoggedOn",
+             @"open": @"open",
+             @"skillName": @"skillName",
              @"_links.self.href": @"selfLink"
              };
 }

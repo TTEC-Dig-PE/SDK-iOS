@@ -282,6 +282,48 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 - (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
 {
     [self setLoadingIndicatorVisible:NO];
+    if ([response isKindOfClass:[ECSAnswerEngineResponse class]])
+    {
+        if (error) {
+            // Error processing request. 
+            NSLog(@"Answer Engine Error - %@", error);
+            self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
+            self.invalidResponseCount++;
+            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+        } else if (response.answerId.integerValue == -1 && response.answer.length > 0) {
+            // We did not find an answer.
+            self.invalidResponseCount++;
+            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+        } else {
+            // We found a good answer.
+            self.htmlString = response.answer;
+        }
+        
+        response.question = question;
+        [self.answerEngineResponses addObject:response];
+        self.escalationOptions = response.actions;
+        self.answerEngineResponseIndex = self.answerEngineResponses.count - 1;
+        if (!self.answerViewController)
+        {
+            [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
+                             withAnimationPosition:AnswerAnimatePositionNone];
+        }
+        else
+        {
+            [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
+                             withAnimationPosition:AnswerAnimatePositionFromBottom];
+        }
+    }
+    
+    self.questionCount = self.questionCount + 1;
+    [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
+}
+
+/*- (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
+{
+    [self setLoadingIndicatorVisible:NO];
     if (!error && [response isKindOfClass:[ECSAnswerEngineResponse class]])
     {
         if (response.answerId.integerValue == -1 && response.answer.length > 0)
@@ -327,7 +369,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     self.questionCount = self.questionCount + 1;
     [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
-}
+}*/
 
 - (void)displayAnswerEngineAnswerAtIndex:(NSInteger)index
                      withAnimationPosition:(AnswerAnimatePosition)animatePosition

@@ -654,12 +654,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               } failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
+                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
     
-    NSDictionary *parameters = @{ @"Name": @"Skills",
-                                  @"Value": [skills componentsJoinedByString:@","] };
+    NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
-    return [self POST:@"agentavailability/v1/available"
+    return [self GET:@"/conversationengine/v1/skills"
            parameters:parameters
               success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -802,6 +802,16 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 #pragma mark - Common Helpers
+- (id)getClassOfType:(Class)aClass withJSON:(id)result {
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        if ([aClass conformsToProtocol:@protocol(ECSJSONClassTransformer)] ||
+            [aClass conformsToProtocol:@protocol(ECSJSONSerializing)]) {
+            return [ECSJSONSerializer objectFromJSONDictionary:result withClass:aClass];
+        }
+    }
+    return nil;
+}
+
 - (void (^)(id result, NSURLResponse *response))successWithExpectedType:(Class)aClass
                                                              completion:(void (^)(id resultObject, NSError *error))completion
 {
