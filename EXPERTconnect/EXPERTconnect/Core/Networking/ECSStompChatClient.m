@@ -209,6 +209,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     self.stompClient.delegate = self;
     
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    [self.stompClient setAuthToken:sessionManager.authToken]; 
     
     NSString *hostName = [[NSURL URLWithString:host] host];
     NSString *bearerToken = sessionManager.authToken;

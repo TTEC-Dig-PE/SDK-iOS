@@ -88,6 +88,8 @@
  */
 - (void)reconnect;
 
+- (void)setAuthToken:(NSString *)token;
+
 /**
  Subscribe for asynchronous messages on the specified destination with the given subscriber ID.
  
