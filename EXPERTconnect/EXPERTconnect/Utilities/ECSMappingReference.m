@@ -172,7 +172,7 @@
 - (ECSRootViewController *)startSurvey:(NSString*)formName
 {
     ECSFormActionType *formAction = [ECSFormActionType new];
-    formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
+    formAction.actionId = @"agentperformance";  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
     ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     formAction.navigationContext = [ecsConfiguration defaultNavigationContext];
     

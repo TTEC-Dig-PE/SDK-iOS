@@ -61,6 +61,7 @@
 
 - (void)addContainerView {
     self.containerView = [UIView new];
+    self.containerView.tag = 1;
     [self.hostViewController.view addSubview:self.containerView];
     [self addContainerViewConstraints];
 }
@@ -115,6 +116,7 @@
 //        [self.navigationController pushViewController:viewController animated:YES];
 //    } else {
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navController.navigationBar.barTintColor = [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];;
         [self presentViewControllerModally:navController animated:YES completion:completion];
         self.navigationController = navController;
 //    }

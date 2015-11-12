@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ECDWorkflowViewController.h"
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 

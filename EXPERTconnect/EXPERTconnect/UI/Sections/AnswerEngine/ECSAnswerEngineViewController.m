@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     AnswerAnimatePositionFromBottom
 };
 
-@interface ECSAnswerEngineViewController () <ECSTopQuestionsViewControllerDelegate, ECSAnswerViewControllerDelegate, UITextFieldDelegate,ECSWorkflowDelegate>
+@interface ECSAnswerEngineViewController () <ECSTopQuestionsViewControllerDelegate, ECSAnswerViewControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIToolbar *searchToolbar;
@@ -81,8 +81,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (assign, nonatomic) NSInteger invalidResponseCount;
 @property (assign, nonatomic) NSInteger validQuestionsCount;
 
-@property (nonatomic, strong) ECSWorkflow *workflow;
-
 @end
 
 @implementation ECSAnswerEngineViewController
@@ -120,7 +118,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     {
         [self configureForAnswerEngineAction];
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -284,17 +281,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 - (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
 {
     [self setLoadingIndicatorVisible:NO];
-    
-    if([self.actionType.displayName isEqualToString:@"Answer Engine Worklflow"])
-    {
-        ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:self];
-        self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:ECSActionTypeAnswerEngineString
-                                                 workflowDelegate:self
-                                                navigationManager:navManager];
-        self.workflowDelegate = self.workflow;
-        
-        NSLog(@"%@",self.workflowDelegate);
-    }
     
     if (!error && [response isKindOfClass:[ECSAnswerEngineResponse class]])
     {
@@ -863,35 +849,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             break;
         }
     }
-}
-
-
-// workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
-//
-- (NSDictionary *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
-    
-    NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
-    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
-        if ([params valueForKey:@"InvalidResponseCount"]) {
-            NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
-            if (count.intValue >  0) {
-                return @{@"ActionType":ECSRequestChatAction};
-            }
-        }
-    }
-    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
-        if ([params valueForKey:@"QuestionsAsked"]) {
-            NSNumber *count = [params valueForKey:@"QuestionsAsked"];
-            if (count.intValue >  0) {
-                return @{@"ActionType":ECSRequestCallbackAction};
-            }
-        }
-    }
-    return nil;
-}
-
--(void)unrecognizedAction:(NSString *)action {
-    NSLog(@"Unrecognized action in Ad-Hoc Forms Controller: %@", action.description);
 }
 
 @end

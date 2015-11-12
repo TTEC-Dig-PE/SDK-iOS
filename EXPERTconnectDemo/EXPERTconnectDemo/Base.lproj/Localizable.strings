@@ -130,6 +130,29 @@
 
 /* End AdHoc Section */
 
+/* Workflow Section */
+/* Start Escalate To Chat Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowEscalateToChatLabel" = "Start Escalate To Chat";
+
+/* Start Chat With Post Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPostSurveyLabel" = "Start Chat With Post Survey";
+
+/* Start Chat With Pre Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPreSurveyLabel" = "Start Chat With Pre Survey";
+
+/* ----------------------------------------------------- */
+
+/* Start Escalate To Chat Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartEscalateToChatHeader" = "Start Workflow Escalate To Chat";
+
+/* Start Chat With Post Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPostSurveyHeader" = "Start Workflow Chat With Post Survey";
+
+/* Start Chat With Pre Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPreSurveyHeader" = "Start Workflow Chat With Pre Survey";
+
+/* End Workflow Section */
+
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Skip Registration";
 
