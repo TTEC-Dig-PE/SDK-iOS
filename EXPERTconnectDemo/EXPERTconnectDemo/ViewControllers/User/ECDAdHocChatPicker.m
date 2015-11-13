@@ -37,7 +37,9 @@ NSMutableArray *chatSkillsArray;
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
 
     [super setup:chatSkillsArray withSelection:rowToSelect];
-    [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+    
+    double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
+    [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
     
     [self performSelector:@selector(getAgentsForLastSelected) withObject:nil afterDelay:0.5]; 
 }

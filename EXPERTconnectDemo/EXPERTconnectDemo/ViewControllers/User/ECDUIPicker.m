@@ -19,7 +19,9 @@
     
     [self setDataSource: self];
     [self setDelegate: self];
-    [self setFrame: CGRectMake(0.0f, 0.0f, 180.0f, 180.0f)];
+    
+    double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 220.0f : 180.0f);
+    [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
 }
 
 -(void)setup:(NSMutableArray *)data withSelection:(int)rowToSelect {

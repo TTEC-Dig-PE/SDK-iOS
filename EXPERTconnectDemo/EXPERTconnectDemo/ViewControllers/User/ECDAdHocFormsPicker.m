@@ -28,7 +28,10 @@ static NSString *const lastFormSelected = @"lastFormSelected";
             
             [super setup:formsArray withSelection:rowToSelect];
             
-            [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+            
+            double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
+            NSLog(@"Trait=%ld", UIScreen.mainScreen.traitCollection.horizontalSizeClass);
+            [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
         }
     }];
 }

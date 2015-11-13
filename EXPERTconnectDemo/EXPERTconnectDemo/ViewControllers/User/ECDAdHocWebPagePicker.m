@@ -26,7 +26,8 @@ static NSString *const lastWebPageSelected = @"lastWebPageSelected";
     int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastWebPageSelected] intValue];
     
     [super setup:webPagesArray withSelection:rowToSelect];
-    [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+    double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
+    [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

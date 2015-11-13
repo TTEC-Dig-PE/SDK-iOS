@@ -100,6 +100,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.breadcrumbCacheCount = 3; // Wait for 3 breadcrumbs before sending.
     configuration.breadcrumbCacheTime = 25; // Wait 25 seconds before sending breadcrumbs.
     
+    // Fetch the authToken from our webApp. 
+    [self fetchAuthTokenWithHost:configuration.host
+                        userName:@"mike@humanify.com"
+                      completion:^(NSString *authToken)
+    {
+        NSLog(@"AuthToken = %@", authToken);
+        [[EXPERTconnect shared] setUserIdentityToken:authToken]; 
+    }];
+    
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
@@ -302,6 +311,23 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             NSLog(@"Error fetching env/org JSON file. Error=%@", error);
         }
     }];
+}
+
+- (void) fetchAuthTokenWithHost:(NSString *)host
+                       userName:(NSString *)userName
+                     completion:(void(^)(NSString *authToken))completion
+{
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/identityDelegate/v1/tokens?username=%@", host, userName]];
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if(!error)
+         {
+             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             completion(returnToken);
+         }
+     }];
 }
 
 @end
