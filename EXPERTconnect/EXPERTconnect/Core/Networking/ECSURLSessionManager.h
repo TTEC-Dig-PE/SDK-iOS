@@ -337,10 +337,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
 
-- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 
-- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsSession:(id)actionJson
                                   completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 
 @end

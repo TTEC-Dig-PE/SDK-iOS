@@ -97,6 +97,9 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
     
+    configuration.breadcrumbCacheCount = 3; // Wait for 3 breadcrumbs before sending.
+    configuration.breadcrumbCacheTime = 25; // Wait 25 seconds before sending breadcrumbs.
+    
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.

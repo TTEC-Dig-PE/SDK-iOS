@@ -32,7 +32,8 @@
 
 static EXPERTconnect* _sharedInstance;
 
-NSMutableDictionary *storedBreadcrumbs;
+NSMutableArray *storedBreadcrumbs;
+NSTimer *breadcrumbTimer;
 
 @implementation EXPERTconnect
 
@@ -648,18 +649,21 @@ NSMutableDictionary *storedBreadcrumbs;
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
                   destination: (NSString *)actionDestination
-                  geolocation: (CLLocation *)geolocation {
-
+                  geolocation: (CLLocation *)geolocation
+{
     
+    // This block will create a breadcrumb session if one is not already created.
     bool retryingToGetSession;
-    
-    if(!retryingToGetSession && (![self sessionID] || self.sessionID.length == 0)) {
+    if(!retryingToGetSession && (![self sessionID] || self.sessionID.length == 0))
+    {
         retryingToGetSession = YES;
         ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
-        [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error) {
+        [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
+        {
             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
             
-            if ( !error && sessionID && sessionID.length > 0 ) {
+            if ( !error && sessionID && sessionID.length > 0 )
+            {
                 [self breadcrumbWithAction:actionType
                                description:actionDescription
                                     source:actionSource
@@ -673,8 +677,8 @@ NSMutableDictionary *storedBreadcrumbs;
         return;
     }
     
-    if( [self sessionID] == Nil ) {
-        
+    if( [self sessionID] == Nil )
+    {
         ECSLogVerbose(@"breadcrumbsAction:: Ignoring. SessionID not initialized correctly");
         return;
     }
@@ -695,31 +699,73 @@ NSMutableDictionary *storedBreadcrumbs;
         // TODO: add geolocation and send it to server.
     }
     
+    if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];
+    [storedBreadcrumbs addObject:[breadcrumb getProperties]];
+    
+    ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
+    ECSLogVerbose(@"breadcrumbWithAction::Cache time=%d, count=%d.", config.breadcrumbCacheTime, breadcrumbCacheCount);
+    
+    if (storedBreadcrumbs.count >= breadcrumbCacheCount )
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb will be dispatched for sending.");
+        [self breadcrumbDispatch]; // Dispatch all breadcrumbs
+    }
+    else if(storedBreadcrumbs.count > 0 && !breadcrumbTimer && config.breadcrumbCacheTime > 0 )
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent. Starting timer to send.");
+        // Start a timer that fires after X time to send off the breadcrumbs.
+        
+        //NSDate *fireTime = [NSDate dateWithTimeIntervalSinceNow:config.breadcrumbCacheTime];
+        breadcrumbTimer = [NSTimer scheduledTimerWithTimeInterval:config.breadcrumbCacheTime
+                                                           target:self
+                                                         selector:@selector(breadcrumbDispatch)
+                                                         userInfo:nil
+                                                          repeats:NO];
+    }
+    else
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent.");
+    }
+    NSLog(@"Breakpoint"); 
+}
+
+- (void) breadcrumbDispatch
+{
+    [breadcrumbTimer invalidate];
+    breadcrumbTimer = nil;
+    
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    [sessionManager breadcrumbsAction:[breadcrumb getProperties]
+    
+    [sessionManager breadcrumbsAction:storedBreadcrumbs
                            completion:^(NSDictionary *decisionResponse, NSError *error) {
                                
-       if( error ) {
+       if( error )
+       {
            ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
-           //completion(nil, error);
-           
-       } else {
-           ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
-           ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
+       }
+       else
+       {
+           ECSLogVerbose(@"breadcrumbsAction:Completion::%d breadcrumb(s) sent successfully.", storedBreadcrumbs.count);
+           storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
        }
    }];
 }
 
-- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion {
+- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
+{
     
     bool retryingToGetJourney;
     
-    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0)) {
+    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0))
+    {
         ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching journeyID then retrying...");
         retryingToGetJourney = YES;
-        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
+        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
+        {
             ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            if(!error && journeyID && journeyID.length > 0) {
+            if(!error && journeyID && journeyID.length > 0)
+            {
                 [self breadcrumbNewSessionWithCompletion:completion];
             }
             return;
@@ -728,8 +774,8 @@ NSMutableDictionary *storedBreadcrumbs;
         return;
     }
     
-    if( [self journeyID] == Nil ) {
-        
+    if( [self journeyID] == Nil )
+    {
         ECSLogVerbose(@"breadcrumbNewSession:: Ignoring. JourneyID not initialized correctly");
         return;
     }

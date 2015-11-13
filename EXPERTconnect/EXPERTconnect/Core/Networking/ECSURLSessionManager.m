@@ -1342,18 +1342,18 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
-- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
     
-    return [self POST:@"breadcrumb/v1/actions"
+    return [self POST:@"breadcrumb/v1/actions/bulk"
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
     
 }
 
-- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsSession:(id)actionJson
                                   completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
     return [self POST:@"breadcrumb/v1/sessions"
@@ -1361,8 +1361,5 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }
-
-
-
 
 @end
