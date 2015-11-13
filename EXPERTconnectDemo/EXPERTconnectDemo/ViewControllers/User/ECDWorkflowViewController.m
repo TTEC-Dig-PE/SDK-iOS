@@ -197,13 +197,13 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
             
         case SettingsSectionWorkflowChatWithPostSurvey:
         {
-            title = ECDLocalizedString(ECDLocalizedStartChatWithPostSurveyHeader, @"AdHoc Answer Engine Session");
+            title = ECDLocalizedString(ECDLocalizedStartChatWithPostSurveyHeader, @"Workflow Post Chat Survey");
         }
             break;
             
         case SettingsSectionWorkflowChatWithPreSurvey:
         {
-            title = ECDLocalizedString(ECDLocalizedStartChatWithPreSurveyHeader, @"AdHoc Video Chat");
+            title = ECDLocalizedString(ECDLocalizedStartChatWithPreSurveyHeader, @"Workflow Pre Chat Survey");
         }
             break;
             
@@ -226,16 +226,22 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     }
 }
 
+-(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
+    [[EXPERTconnect shared] breadcrumbWithAction:action
+                                     description:desc
+                                          source:@"ECDemo"
+                                     destination:@"Humanify"
+                                     geolocation:nil];
+}
+
 -(void)handleEscalateToChat
 {
     NSLog(@"Starting an Workflow EscalateToChat");
     
     NSString *aeContext = [self.selectWorkflowAnswerEngineContextPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startAnswerEngine"
-                            actionDescription:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startAnswerEngine"
+              description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
     
     ECSRootViewController *answerEngineController = (ECSRootViewController *)[[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@"Answer Engine Worklflow"];
     
@@ -262,10 +268,8 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     
     NSString *chatSkill = [self.selectWorkflowPostSurveyChatPicker currentSelection];
     
-    [[EXPERTconnect shared] breadcrumbsAction:@"startChat"
-                            actionDescription:[NSString stringWithFormat:@"Chat with skill=%@", chatSkill]
-                                 actionSource:@"ECDemo"
-                            actionDestination:@"Humanify"];
+    [self localBreadCrumb:@"startChat"
+              description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
     ECSRootViewController *chatController = (ECSRootViewController *)[[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat Workflow" withSurvey:NO];
     
@@ -341,11 +345,8 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     {
         NSString *chatSkill = [self.selectWorkflowPreSurveyChatPicker currentSelection];
         
-        [[EXPERTconnect shared] breadcrumbsAction:@"startChat"
-                                actionDescription:[NSString stringWithFormat:@"Chat with skill=%@", chatSkill]
-                                     actionSource:@"ECDemo"
-                                actionDestination:@"Humanify"];
-        
+        [self localBreadCrumb:@"startChat"
+                  description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
         UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
         
         [self.navigationController pushViewController:chatController animated:YES];

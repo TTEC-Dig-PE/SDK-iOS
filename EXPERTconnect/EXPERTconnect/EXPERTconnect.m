@@ -578,7 +578,7 @@ static EXPERTconnect* _sharedInstance;
     ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
     
     if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];

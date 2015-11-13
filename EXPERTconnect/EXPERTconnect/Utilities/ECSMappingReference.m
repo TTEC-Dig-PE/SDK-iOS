@@ -134,6 +134,7 @@
     chatAction.actionId = @"";
     chatAction.agentSkill = @"CE_Mobile_Chat";
     chatAction.displayName = displayName;
+    chatAction.shouldTakeSurvey = NO;
     
     ECSRootViewController *chatController = [self viewControllerForActionType:chatAction];
     
