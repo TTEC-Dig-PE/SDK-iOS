@@ -81,7 +81,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.host = [self hostURLFromSettings];
     //configuration.host          = @"http://api.ce03.humanify.com";
     
-    configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
+    configuration.cafeXHost = @"dce1.humanify.com"; // Demo not working yet: @"donkey.humanify.com";
+    configuration.cafeXAssistHost = @"https://cafex.dts.humanify.com:443";
     
     // Old authentication method.
     configuration.clientID = [self getClientFromSettings];

@@ -9,7 +9,7 @@
 #ifndef ECSBreadcrumbsAction_h
 #define ECSBreadcrumbsAction_h
 
-
+#import <CoreLocation/CoreLocation.h>
 
 
 @interface ECSBreadcrumbsAction: NSObject

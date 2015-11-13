@@ -32,6 +32,8 @@
 
 static EXPERTconnect* _sharedInstance;
 
+NSMutableDictionary *storedBreadcrumbs;
+
 @implementation EXPERTconnect
 
 + (instancetype)shared
@@ -679,50 +681,33 @@ static EXPERTconnect* _sharedInstance;
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
 
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
+    ECSBreadcrumbsAction *breadcrumb = [[ECSBreadcrumbsAction alloc] init];
     
-    //[journeyAction setTenantId:[self clientID]];
-    [journeyAction setJourneyId:[self journeyID]];
-    [journeyAction setSessionId:[self sessionID]];
-    [journeyAction setActionType:actionType];
-    [journeyAction setActionDescription:actionDescription];
-    [journeyAction setActionSource:actionSource];
-    [journeyAction setActionDestination:actionDestination];
+    if([self clientID])[breadcrumb setTenantId:[self clientID]];
+    [breadcrumb setJourneyId:[self journeyID]];
+    [breadcrumb setSessionId:[self sessionID]];
+    [breadcrumb setActionType:actionType];
+    [breadcrumb setActionDescription:actionDescription];
+    [breadcrumb setActionSource:actionSource];
+    [breadcrumb setActionDestination:actionDestination];
     
     if (geolocation) {
         // TODO: add geolocation and send it to server.
     }
     
-    NSMutableDictionary *properties = [journeyAction getProperties];
-    
-    
-    [sessionManager breadcrumbsAction:properties
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    [sessionManager breadcrumbsAction:[breadcrumb getProperties]
                            completion:^(NSDictionary *decisionResponse, NSError *error) {
-        
-        if( error ) {
-            
-            ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
-            //completion(nil, error);
-            
-        } else {
-            
-            ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
-            
-            ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
-            
-            //completion([journeyActionRes getId], nil);
-            /*
-            NSData *responseData = [NSJSONSerialization dataWithJSONObject:decisionResponse
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:&error];
-            
-            NSString* responseJson = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-            
-            NSLog(@"Decision Response Json: %@", responseJson);
-             */
-        }
-    }];
+                               
+       if( error ) {
+           ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
+           //completion(nil, error);
+           
+       } else {
+           ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
+           ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
+       }
+   }];
 }
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion {

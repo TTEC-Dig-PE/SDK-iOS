@@ -49,22 +49,44 @@ static NSString *configFileName = @"UserProfile";
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];    
     [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)   {
         
-        NSError *jsonError = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:profile.customData options:NSJSONWritingPrettyPrinted error:&jsonError];
-        
-        weakSelf.firstNameField.text = profile.firstName;
-        weakSelf.lastNameField.text = profile.lastName;
-        weakSelf.emailAddressField.text = profile.username;
-        weakSelf.cityField.text = profile.city;
-        weakSelf.stateField.text = profile.state;
-        weakSelf.zipCodeField.text = profile.postalCode;
-        weakSelf.countryField.text = profile.country;
-        weakSelf.homePhoneField.text = profile.homePhone;
-        weakSelf.mobilePhoneField.text = profile.mobilePhone;
-        weakSelf.alternateEmailField.text = profile.alternativeEmail;
-        weakSelf.extendedAttibutesView.text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        if (error) {
+            // If we get an error, display it and pop back home.
+            UIAlertController *alert =
+                [UIAlertController alertControllerWithTitle:@"Error"
+                                                    message:[error.userInfo objectForKey:@"NSLocalizedDescription"]
+                                             preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *ok =
+                [UIAlertAction actionWithTitle:@"OK"
+                                         style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction * action)
+                                 {
+                                     [alert dismissViewControllerAnimated:YES completion:nil];
+                                     [self.navigationController popViewControllerAnimated:YES];
+                                 }];
+            
+            [alert addAction:ok];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            NSError *jsonError = nil;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:profile.customData options:NSJSONWritingPrettyPrinted error:&jsonError];
+            
+            weakSelf.firstNameField.text = profile.firstName;
+            weakSelf.lastNameField.text = profile.lastName;
+            weakSelf.emailAddressField.text = profile.username;
+            weakSelf.cityField.text = profile.city;
+            weakSelf.stateField.text = profile.state;
+            weakSelf.zipCodeField.text = profile.postalCode;
+            weakSelf.countryField.text = profile.country;
+            weakSelf.homePhoneField.text = profile.homePhone;
+            weakSelf.mobilePhoneField.text = profile.mobilePhone;
+            weakSelf.alternateEmailField.text = profile.alternativeEmail;
+            weakSelf.extendedAttibutesView.text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
-        [weakSelf setLoadingIndicatorVisible:NO];
+            [weakSelf setLoadingIndicatorVisible:NO];
+        }
     }];
 }
 

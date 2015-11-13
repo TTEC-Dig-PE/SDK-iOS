@@ -7,7 +7,7 @@
 //
 #if !(TARGET_IPHONE_SIMULATOR) && INCLUDE_CAFEX
 #import <ACBClientSDK/ACBUC.h>
-//#import <AssistSDK.h>
+#import <AssistSDK.h>
 #endif
 
 #import "ReachabilityManager.h"
