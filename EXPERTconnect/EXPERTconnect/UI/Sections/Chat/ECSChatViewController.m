@@ -1845,8 +1845,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     callbackAction.actionId = @""; // NK 6/24 - This seemed to be missing, and was throwing an exception later when nil
     
     _callbackViewController.actionType = callbackAction;
-    _callbackViewController.skipConfirmationView = YES;
-    
+    //_callbackViewController.skipConfirmationView = YES;
+
     if (![message.mediaType isEqualToString:@"voice"])
     {
         _callbackViewController.displaySMSOption = YES;
