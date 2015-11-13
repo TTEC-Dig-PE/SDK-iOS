@@ -17,7 +17,9 @@
 
 - (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count;
 - (void)requestedValidQuestionsOnAnswerEngineCount:(NSInteger)count;
-
+- (void)chatEndedWithTotalInteractionCount:(NSInteger)total
+                         agentInteractions:(NSInteger)agentcount
+                          userInteractions:(NSInteger)userCount;
 - (void)disconnectedFromVoiceCallBack;
 - (void)disconnectedFromChat;
 - (void)disconnectedFromVideoChat;

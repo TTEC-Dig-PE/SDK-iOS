@@ -52,9 +52,9 @@
 - (void)invalidResponseOnAnswerEngineWithCount:(NSInteger)count {
     NSDictionary *actions = nil;
     if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
-       actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
-                                                     requestCommand:nil
-                                                      requestParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:count] forKey:@"InvalidResponseCount"]];
+        actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
+                                                      requestCommand:nil
+                                                       requestParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:count] forKey:@"InvalidResponseCount"]];
     }
     if (actions) {
         NSString *actionType = [actions valueForKey:@"ActionType"];
@@ -96,6 +96,22 @@
         } else {
             [self presentViewControllerForActionType:actionType];
         }
+    }
+}
+
+- (void)chatEndedWithTotalInteractionCount:(NSInteger)total
+                         agentInteractions:(NSInteger)agentcount
+                          userInteractions:(NSInteger)userCount
+{
+    NSDictionary *actions = nil;
+    if ([self.workflowDelegate respondsToSelector:@selector(workflowResponseForWorkflow:requestCommand:requestParams:)]) {
+        actions = [self.workflowDelegate workflowResponseForWorkflow:self.workflowName
+                                                      requestCommand:nil
+                                                       requestParams:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:agentcount] forKey:@"PostChatSurvey"]];
+    }
+    if (actions) {
+        NSString *actionType = [actions valueForKey:@"ActionType"];
+        [self presentViewControllerForActionType:actionType];
     }
 }
 
@@ -148,7 +164,7 @@
     if (self.videoNavigationManager) {
         [self.videoNavigationManager restoreAllViewControllersWithAnimation:NO withCompletion:^{
             [self.videoNavigationManager dismissAllViewControllersAnimated:YES completion:^{
-                 self.videoNavigationManager = nil;
+                self.videoNavigationManager = nil;
             }];
         }];
     }
@@ -172,8 +188,17 @@
                                                                        @"formValue":formValue}];
         if (actions) {
             NSString *actionType = [actions valueForKey:@"ActionType"];
-            [self presentViewControllerForActionType:actionType];
-        } else {
+            if([actionType isEqualToString:ECSRequestChatAction])
+            {
+                [self.navigationManager dismissViewControllerModallyAnimated:YES completion:nil];
+                [self.workflowDelegate unrecognizedAction:actionType];
+            }
+            else
+            {
+                [self presentViewControllerForActionType:actionType];
+            }
+        }
+        else {
             [self presentViewControllerForActionType:ECSActionTypeFormSubmitted];
         }
     }

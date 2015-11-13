@@ -286,7 +286,7 @@ static EXPERTconnect* _sharedInstance;
     return cbController;
 }
 
-- (UIViewController*)startAnswerEngine:(NSString*)aeContext
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext withDisplayName:(NSString*)displayName
 {
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
@@ -295,6 +295,7 @@ static EXPERTconnect* _sharedInstance;
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
+    answerEngineAction.displayName = displayName;
     
     UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
     ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
@@ -516,11 +517,12 @@ static EXPERTconnect* _sharedInstance;
     ECSActionType *action = [ECSActionType new];
     action.type = actionType;
     action.actionId = @"";
+    action.displayName = @"";
     
     ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
     
     if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];

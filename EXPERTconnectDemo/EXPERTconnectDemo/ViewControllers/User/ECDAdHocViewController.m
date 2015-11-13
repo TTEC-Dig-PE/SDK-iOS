@@ -928,7 +928,7 @@ bool agentAvailable;
     [self localBreadCrumb:@"startAnswerEngine"
               description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
     
-    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
+    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@""];
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 

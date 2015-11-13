@@ -161,7 +161,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @return the view controller for the Answer Engine Session
  */
-- (UIViewController*)startAnswerEngine:(NSString*)aeContext;
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Survey

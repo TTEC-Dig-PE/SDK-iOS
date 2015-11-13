@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDAdHocViewController">
             <connections>
-                <outlet property="tableView" destination="0XD-Gg-WXN" id="AAg-Kq-tU6"/>
+                <outlet property="tableView" destination="0XD-Gg-WXN" id="oab-ho-bbj"/>
                 <outlet property="view" destination="iN0-l3-epB" id="ZBj-vK-UrL"/>
             </connections>
         </placeholder>
