@@ -50,6 +50,7 @@ static NSString* const ECDLocalizedStartWYSIWYGEditorHeader = @"ECDLocalizedStar
 static NSString* const ECDLocalizedStartEscalateToChatHeader = @"ECDLocalizedStartEscalateToChatHeader";
 static NSString* const ECDLocalizedStartChatWithPostSurveyHeader = @"ECDLocalizedStartChatWithPostSurveyHeader";
 static NSString* const ECDLocalizedStartChatWithPreSurveyHeader = @"ECDLocalizedStartChatWithPreSurveyHeader";
+static NSString* const ECDLocalizedStartSurveyLeadsToBranchHeader = @"ECDLocalizedStartSurveyLeadsToBranchHeader";
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
@@ -72,6 +73,7 @@ static NSString* const ECDLocalizedStartWYSIWYGEditorLabel = @"ECDLocalizedStart
 static NSString* const ECDLocalizedStartWorkflowEscalateToChatLabel = @"ECDLocalizedStartWorkflowEscalateToChatLabel";
 static NSString* const ECDLocalizedStartWorkflowChatWithPostSurveyLabel = @"ECDLocalizedStartWorkflowChatWithPostSurveyLabel";
 static NSString* const ECDLocalizedStartWorkflowChatWithPreSurveyLabel = @"ECDLocalizedStartWorkflowChatWithPreSurveyLabel";
+static NSString* const ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel = @"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

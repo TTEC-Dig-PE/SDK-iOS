@@ -140,6 +140,9 @@
 /* Start Chat With Pre Survey Label for Workflow SDK Usage Page   */
 "ECDLocalizedStartWorkflowChatWithPreSurveyLabel" = "Start Chat With Pre Survey";
 
+/* Start Survey Leads To Branch Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel" = "Start Survey Leads To Branch";
+
 /* ----------------------------------------------------- */
 
 /* Start Escalate To Chat Header for Workflow SDK Usage Page   */
@@ -150,6 +153,9 @@
 
 /* Start Chat With Pre Survey Header for Workflow SDK Usage Page   */
 "ECDLocalizedStartChatWithPreSurveyHeader" = "Start Workflow Chat With Pre Survey";
+
+/* Start Survey Leads To Branch Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartSurveyLeadsToBranchHeader" = "Start Workflow Survey Leads To Branch";
 
 /* End Workflow Section */
 
