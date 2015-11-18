@@ -69,29 +69,32 @@
     NSMutableAttributedString *attrWaitTimeString = nil;
     
     NSInteger waitTimeMinutes = self.waitTime.integerValue / 60;
-    if (waitTimeMinutes >= 1)
-    {
-        NSString *waitTimeString = ECSLocalizedString(ECSLocalizeCallbackWaitTime, @"Callback wait time");
+    waitTimeMinutes += 13; // TODO: TESTING ONLY!
+    NSString *waitTimeString = ECSLocalizedString(ECSLocalizeGenericWaitTime, nil); // Default value.
     
-        NSString *localizedMinutes = (waitTimeMinutes >= 2) ? ECSLocalizedString(ECSLocalizeMinutes, nil) :
-                                            ECSLocalizedString(ECSLocalizeMinute, nil);
-        attrWaitTimeString = [[NSMutableAttributedString alloc] initWithString:waitTimeString attributes:@{NSFontAttributeName: theme.bodyFont}];
-        NSAttributedString *timeAttributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld %@", (long)waitTimeMinutes, localizedMinutes] attributes:@{NSFontAttributeName: theme.boldBodyFont}];
+    if (waitTimeMinutes > 0)
+    {
+        if (waitTimeMinutes <= 1)
+        {
+            waitTimeString = ECSLocalizedString(ECSLocalizeWaitTimeShort, @"Wait time");
+        }
+        else if (waitTimeMinutes > 1 && waitTimeMinutes < 5)
+        {
+            waitTimeString = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitTimeMinutes];
+        }
+        else if (waitTimeMinutes >= 5)
+        {
+            waitTimeString = ECSLocalizedString(ECSLocalizeWaitTimeLong, @"Wait time");
+        }
+    }
 
-        [attrWaitTimeString appendAttributedString:timeAttributedString];
-    }
-    else
-    {
-        NSString *waitTimeString = ECSLocalizedString(ECSLocalizeGenericWaitTime, nil);
-        attrWaitTimeString = [[NSMutableAttributedString alloc] initWithString:waitTimeString attributes:@{NSFontAttributeName: theme.bodyFont}];
-    }
-    
+    attrWaitTimeString = [[NSMutableAttributedString alloc] initWithString:waitTimeString attributes:@{NSFontAttributeName: theme.bodyFont}];
     self.waitTimeLabel.attributedText = attrWaitTimeString;
 }
 
 - (void)appBecameActive:(id)sender
 {
-    [self dismissviewAndNotify:NO];
+    [self dismissviewAndNotify:YES reason:@"CallCompleted"];
 }
 
 - (IBAction)cancelCallbackTapped:(id)sender
@@ -111,7 +114,7 @@
     }
     else
     {
-        [self dismissviewAndNotify:NO];
+        [self dismissviewAndNotify:YES reason:@"UserCancelled"];
     }
 }
 
@@ -128,19 +131,21 @@
     }
     else
     {
-        [self dismissviewAndNotify:NO];
+        [self dismissviewAndNotify:YES reason:@"UserCancelled"];
     }
 }
 
 // Hide the view and send a notification that callback is complete.
-- (void)dismissviewAndNotify:(BOOL)shouldNotify {
+- (void)dismissviewAndNotify:(BOOL)shouldNotify reason:(NSString *)reasonString {
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     if(shouldNotify) {
+        NSDictionary *userInfoDic = @{@"reason":reasonString};
         [[NSNotificationCenter defaultCenter] postNotificationName:ECSCallbackEndedNotification
-                                                            object:self];
+                                                            object:self
+                                                          userInfo:userInfoDic];
     }
 }
 
@@ -154,7 +159,9 @@
 }
 
 - (void)displayVoiceCallBackEndAlert {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
+    // MAS - 18-NOV-15: Removed this because it is too generic. Added this same alert back into the demo app.
+    
+    /*UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
                                                                                     message:@"Thank you for contacting us!"
                                                                              preferredStyle:UIAlertControllerStyleAlert];
     
@@ -166,7 +173,10 @@
     
    
     [alertController addAction:alertActionStop];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertController animated:YES completion:nil];*/
+    
+    // Instead, just indicate we are finished.
+    [self.workflowDelegate voiceCallBackEnded];
 }
 
 @end

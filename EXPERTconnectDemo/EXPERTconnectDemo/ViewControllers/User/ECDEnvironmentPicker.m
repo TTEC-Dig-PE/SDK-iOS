@@ -34,13 +34,13 @@ static NSString *const environmentNameKey = @"environmentName";
     NSString *currentUrl = [[NSUserDefaults standardUserDefaults] objectForKey:serverUrlKey];
     
     // Select the "current" Environment
-    // 
     int currentRow = 0;
     int rowToSelect = 0;
     if(currentUrl != nil)  {
         for(NSString* url in self.serverUrlsArray) {
             if([url isEqualToString:currentUrl])  {
                 rowToSelect = currentRow;
+                break;
             }
             currentRow++;
         }

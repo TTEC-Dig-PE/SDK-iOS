@@ -47,6 +47,7 @@ static NSString *const organizationKey = @"organization";
         for(NSString* org in self.organizationArray) {
             if([org isEqualToString:currentOrganization])  {
                 rowToSelect = currentRow;
+                break;
             }
             currentRow++;
         }

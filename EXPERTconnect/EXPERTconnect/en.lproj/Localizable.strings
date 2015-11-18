@@ -147,7 +147,9 @@
 "ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
 
 /* Wait time message */
-"ECSLocalizeWaitTime" = "You'll be connected to an agent in approximately %1d minutes.";
+"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute.";
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
+"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";

@@ -12,11 +12,11 @@
 
 @implementation ECDAdHocVideoChatPicker
 
-static NSString *const lastSkillSelectedKey = @"lastVoiceSkillSelected";
+static NSString *const lastVoiceSelectedKey = @"lastVoiceSkillSelected";
 
 NSMutableArray *chatSkillsArray;
 NSString *currentEnvironment;
-NSInteger currentChatSkillIndex;
+NSString *currentChatSkill;
 int selectedRow;
 
 -(void)setup {
@@ -31,15 +31,22 @@ int selectedRow;
     }
     
     // Attempt to load the selected organization for the selected environment
-    currentChatSkillIndex = [[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
+    currentChatSkill = [[NSUserDefaults standardUserDefaults]
+                        stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastVoiceSelectedKey]];
     
-    if (!currentChatSkillIndex || currentChatSkillIndex > chatSkillsArray.count) {
-        currentChatSkillIndex = 0;
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:currentChatSkillIndex]
-                                                  forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
+    int currentRow = 0;
+    int rowToSelect = 0;
+    if(currentChatSkill != nil)  {
+        for(NSString* skill in chatSkillsArray) {
+            if([skill isEqualToString:currentChatSkill])  {
+                rowToSelect = currentRow;
+                break;
+            }
+            currentRow++;
+        }
     }
     
-    [super setup:chatSkillsArray withSelection:(int)currentChatSkillIndex];
+    [super setup:chatSkillsArray withSelection:rowToSelect];
     
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
@@ -48,8 +55,8 @@ int selectedRow;
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     [super pickerView:pickerView didSelectRow:row inComponent:component];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(int)row]
-                                              forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
+    [[NSUserDefaults standardUserDefaults] setObject:[chatSkillsArray objectAtIndex:row]
+                                              forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastVoiceSelectedKey]];
     
 }
 

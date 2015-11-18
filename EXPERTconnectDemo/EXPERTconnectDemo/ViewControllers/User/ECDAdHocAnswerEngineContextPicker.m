@@ -16,7 +16,7 @@ static NSString *const lastAnswerEngineContextSelected = @"lastAnswerEngineConte
 
 NSMutableArray *contextsArray;
 NSString *currentEnvironment;
-NSInteger currentContextIndex;
+NSString *currentContext;
 
 -(void)setup {
     
@@ -29,12 +29,24 @@ NSInteger currentContextIndex;
         [self addContextsHardcoded];
     }
     
-    if (!currentContextIndex || currentContextIndex > contextsArray.count) {
-        currentContextIndex = 0;
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:currentContextIndex]
-                                                  forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastAnswerEngineContextSelected]];
+    // Attempt to load the selected context for the selected environment
+    currentContext = [[NSUserDefaults standardUserDefaults]
+                      stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastAnswerEngineContextSelected]];
+    
+    // Select the current context in the flipper control.
+    int currentRow = 0;
+    int rowToSelect = 0;
+    if(currentContext != nil)  {
+        for(NSString* context in contextsArray) {
+            if([context isEqualToString:currentContext])  {
+                rowToSelect = currentRow;
+                break;
+            }
+            currentRow++;
+        }
     }
-    [super setup:contextsArray withSelection:(int)currentContextIndex];
+    
+    [super setup:contextsArray withSelection:rowToSelect];
     
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 220.0f : 440.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];

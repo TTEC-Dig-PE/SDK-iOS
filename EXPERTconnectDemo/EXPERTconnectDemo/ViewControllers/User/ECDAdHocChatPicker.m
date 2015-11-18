@@ -12,11 +12,11 @@
 
 @implementation ECDAdHocChatPicker
 
-static NSString *const lastSkillSelectedKey = @"lastSkillSelected";
+static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 NSMutableArray *chatSkillsArray;
 NSString *currentEnvironment;
-NSInteger currentChatSkillIndex;
+NSString *currentChatSkill;
 int selectedRow;
 
 -(void)setup {
@@ -30,27 +30,24 @@ int selectedRow;
         [self addChatSkillsHardcoded];
     }
     
-    // Attempt to load the selected organization for the selected environment
-    currentChatSkillIndex = [[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
+    // Attempt to load the selected skill for the selected environment
+    currentChatSkill = [[NSUserDefaults standardUserDefaults]
+                        stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
     
-    if (!currentChatSkillIndex || currentChatSkillIndex > chatSkillsArray.count) {
-        currentChatSkillIndex = 0;
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:currentChatSkillIndex]
-                                                  forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
-    }
-    
-    // Select the current organization in the flipper control.
-    /*int currentRow = 0;
-    int selectedRow = 0;
+    // Select the current skill in the flipper control.
+    int currentRow = 0;
+    int rowToSelect = 0;
     if(currentChatSkill != nil)  {
-        for(NSString* org in chatSkillsArray) {
-            if([org isEqualToString:currentChatSkill])  {
-                selectedRow = currentRow;
+        for(NSString* skill in chatSkillsArray) {
+            if([skill isEqualToString:currentChatSkill])  {
+                rowToSelect = currentRow;
+                break;
             }
             currentRow++;
         }
-    }*/
-    [super setup:chatSkillsArray withSelection:(int)currentChatSkillIndex];
+    }
+    
+    [super setup:chatSkillsArray withSelection:rowToSelect];
     
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
@@ -66,8 +63,8 @@ int selectedRow;
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     [super pickerView:pickerView didSelectRow:row inComponent:component];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(int)row]
-                                              forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastSkillSelectedKey]];
+    [[NSUserDefaults standardUserDefaults] setObject:[chatSkillsArray objectAtIndex:row]
+                                              forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
     
     [self getAgentsAvailableForSkill:(int)row];
 }
