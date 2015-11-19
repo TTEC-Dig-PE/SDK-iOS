@@ -988,10 +988,19 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
 {
+    //waitTime = 180; // TESTING ONLY. (in seconds)
     waitTime = waitTime / 60.0f; // Convert seconds to minutes
-    if (waitTime > 1)
+    if (waitTime <= 1)
+    {
+        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeShort, @"Wait time");
+    }
+    else if (waitTime > 1 && waitTime < 5)
     {
         self.waitView.subtitleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitTime];
+    }
+    else if (waitTime >= 5)
+    {
+        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeLong, @"Wait time");
     }
 }
 

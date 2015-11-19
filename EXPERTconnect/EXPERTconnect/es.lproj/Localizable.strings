@@ -147,7 +147,9 @@
 "ECSLocalizeGenericWaitTime" = "Usted va a estar conectado a un agente en breve.";
 
 /* Mensaje de tiempo de espera */
-"ECSLocalizeWaitTime" = "Usted va a estar conectado a un agente en unos minutos 1d%.";
+"ECSLocalizeWaitTimeShort" = "Usted será conectado con un agente en menos de 1 minuto.";
+"ECSLocalizeWaitTime" = "Su tiempo de espera es de %1d aproximadamente minuto.";
+"ECSLocalizeWaitTimeLong" = "Se espera que su tiempo de espera sea superior a 5 minutos.";
 
 /* Desconectado temporalmente */
 "ECSLocalizeChatReachabilityErrorKey" = "desconectado temporalmente";

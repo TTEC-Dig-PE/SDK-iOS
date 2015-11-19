@@ -270,7 +270,7 @@ bool agentAvailable;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(chatEnded:)
+                                             selector:@selector(callbackEnded:)
                                                  name:ECSCallbackEndedNotification
                                                object:nil];
     
@@ -296,11 +296,37 @@ bool agentAvailable;
     [self.tableView reloadData]; 
 }
 
+- (void)callbackEnded:(NSNotification *)notification {
+
+    if (![notification.userInfo[@"reason"] isEqualToString:@"UserCancelled"]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
+                                                                                 message:@"Thank you for contacting us!"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok"
+                                                                  style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action)
+                                          {
+                                              [alertController dismissViewControllerAnimated:YES completion:nil];
+                                              //[self dismissviewAndNotify:YES];
+                                              //[self.workflowDelegate voiceCallBackEnded];
+                                          }];
+        
+        
+        [alertController addAction:alertActionStop];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"Callback ended. Reason? %@", notification.userInfo[@"reason"]);
+    }
+    
+}
+
 - (void)chatEnded:(NSNotification *)notification {
 
     // If uncommented, this will hide chat when agent ends it.
     //[self.navigationController popToViewController:self animated:YES];
-    NSLog(@"Chat or callback ended!");
+    NSLog(@"Chat ended!");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
