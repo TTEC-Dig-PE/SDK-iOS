@@ -61,6 +61,9 @@ typedef NS_ENUM(NSInteger, WorkflowSurveyLeadsToBranchSectionRows)
 
 @implementation ECDWorkflowViewController
 
+NSString *currentEnvironment;
+static NSString *const lastChatSkillKey = @"lastSkillSelected";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -400,7 +403,8 @@ typedef NS_ENUM(NSInteger, WorkflowSurveyLeadsToBranchSectionRows)
     NSLog(@"Unrecognized action in workflow Forms Controller: %@", action.description);
     if([action isEqualToString:ECSRequestChatAction])
     {
-        NSString *chatSkill = @"CE_Mobile_Chat";
+        NSString *chatSkill = [[NSUserDefaults standardUserDefaults]
+                               stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
         
         [self localBreadCrumb:@"startChat"
                   description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
