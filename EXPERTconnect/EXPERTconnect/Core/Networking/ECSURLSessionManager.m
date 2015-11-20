@@ -518,6 +518,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 if (createResponse.conversationID && createResponse.conversationID.length > 0)
                 {
                     weakSelf.conversation = createResponse;
+                    ECSLogVerbose(@"New conversation started with ID=%@", createResponse.conversationID);
                 }
                 
                 if (completion)
