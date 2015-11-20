@@ -654,6 +654,19 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               } failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/messages", channelString]
+          parameters:parameters
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
                                           completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
     

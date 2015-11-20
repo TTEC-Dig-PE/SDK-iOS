@@ -276,6 +276,11 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
 
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion;
+
 // Check agent availability
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
 

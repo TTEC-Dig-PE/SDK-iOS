@@ -605,7 +605,19 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    [self.chatClient sendChatMessage:message];
+    
+    //[self.chatClient sendChatMessage:message];
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [urlSession sendChatMessage:message.body
+                           from:message.from
+                        channel:message.channelId
+                     completion:^(NSString *response, NSError *error)
+     {
+         if(error) {
+             NSLog(@"Error sending chat message: %@", error);
+         }
+     }];
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -625,7 +637,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    [self.chatClient sendChatMessage:message];
+    //[self.chatClient sendChatMessage:message];
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [urlSession sendChatMessage:message.body
+                           from:message.from
+                        channel:message.channelId
+                     completion:^(NSString *response, NSError *error)
+     {
+         if(error) {
+             NSLog(@"Error sending chat message: %@", error);
+         }
+     }];
     
     /* NK 6/29/2015 I've decided to not show the Consumer when he/she sends a System message. These are intended for
      the Expert to view, only. Also, this doesn't work well and would need to be refactored. */
