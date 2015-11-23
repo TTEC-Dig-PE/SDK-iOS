@@ -633,7 +633,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     message.body = text;
     [self.messages addObject:message];
     
-    [self sendChatState:@"paused"];
+   // [self sendChatState:@"paused"];
     
     //[self.chatClient sendChatMessage:message];
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
