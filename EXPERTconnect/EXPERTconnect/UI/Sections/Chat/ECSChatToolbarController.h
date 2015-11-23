@@ -10,6 +10,7 @@
 @protocol ECSChatToolbarDelegate <NSObject>
 
 - (void)sendText:(NSString*)text;
+- (void)sendChatState:(NSString *)chatState;
 - (void)sendMedia:(NSDictionary*)mediaInfo;
 
 @end
