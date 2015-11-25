@@ -788,7 +788,7 @@ NSTimer *breadcrumbTimer;
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
-    //[journeySession setTenantId:[self clientID]];
+    if( [self clientID]) [journeySession setTenantId:[self clientID]];
     [journeySession setJourneyId:[self journeyID]];
     [journeySession setDeviceId:userManager.deviceID];
     
