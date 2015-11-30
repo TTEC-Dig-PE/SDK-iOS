@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionWorkflowEscalateToChat,
     SettingsSectionWorkflowChatWithPostSurvey,
     SettingsSectionWorkflowChatWithPreSurvey,
+    SettingsSectionWorkflowSurveyLeadsToBranch,
     SettingsSectionCount
 };
 
@@ -41,6 +42,13 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     WorkflowChatWithPreSurveySectionRowCount
 };
 
+typedef NS_ENUM(NSInteger, WorkflowSurveyLeadsToBranchSectionRows)
+{
+    WorkflowSurveyLeadsToBranchSectionRowStart,
+    WorkflowSurveyLeadsToBranchSectionRowCount
+};
+
+
 @interface ECDWorkflowViewController ()<UITableViewDataSource,UITableViewDelegate,ECSWorkflowDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -52,6 +60,9 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
 @end
 
 @implementation ECDWorkflowViewController
+
+NSString *currentEnvironment;
+static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -104,6 +115,11 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
         case SettingsSectionWorkflowChatWithPreSurvey:
             rowCount = WorkflowChatWithPreSurveySectionRowCount;
             break;
+            
+        case SettingsSectionWorkflowSurveyLeadsToBranch:
+            rowCount = WorkflowSurveyLeadsToBranchSectionRowCount;
+            break;
+
         default:
             break;
     }
@@ -156,6 +172,18 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
             }
             break;
             
+        case SettingsSectionWorkflowSurveyLeadsToBranch:
+            switch (indexPath.row) {
+                case WorkflowSurveyLeadsToBranchSectionRowStart:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel, @"Workflow Chat With Pre Survey");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -177,6 +205,10 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     if (indexPath.section == SettingsSectionWorkflowChatWithPreSurvey && indexPath.row == WorkflowChatWithPreSurveySectionRowStart)
     {
         [self startChatWithPreSurvey];
+    }
+    if (indexPath.section == SettingsSectionWorkflowSurveyLeadsToBranch && indexPath.row == WorkflowSurveyLeadsToBranchSectionRowStart)
+    {
+        [self startSurveyLeadsToBranch];
     }
 }
 
@@ -204,6 +236,12 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
         case SettingsSectionWorkflowChatWithPreSurvey:
         {
             title = ECDLocalizedString(ECDLocalizedStartChatWithPreSurveyHeader, @"Workflow Pre Chat Survey");
+        }
+            break;
+            
+        case SettingsSectionWorkflowSurveyLeadsToBranch:
+        {
+            title = ECDLocalizedString(ECDLocalizedStartSurveyLeadsToBranchHeader, @"Workflow Pre Chat Survey");
         }
             break;
             
@@ -296,11 +334,35 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     });
 }
 
+-(void)startSurveyLeadsToBranch
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[EXPERTconnect shared] setSurveyFormName:@"simple form"];
+        [[EXPERTconnect shared] startWorkflow:ECSActionTypeFormString withAction:ECSActionTypeFormString delgate:self viewController:self];
+    });
+}
+
 // workflowName: String!, requestCommand command: String!, requestParams params: [NSObject : AnyObject]
 //
 - (NSDictionary *) workflowResponseForWorkflow:(NSString *)workflowName requestCommand:(NSString *)command requestParams:(NSDictionary *)params {
     
     NSLog(@"Delegate notified for workflowName: %@, command: %@", workflowName, command);
+    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+        if ([params valueForKey:@"InvalidResponseCount"]) {
+            NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
+            if (count.intValue >  0) {
+                return @{@"ActionType":ECSRequestChatAction};
+            }
+        }
+    }
+    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
+        if ([params valueForKey:@"QuestionsAsked"]) {
+            NSNumber *count = [params valueForKey:@"QuestionsAsked"];
+            if (count.intValue >  0) {
+                return @{@"ActionType":ECSRequestCallbackAction};
+            }
+        }
+    }
     if ([workflowName isEqualToString:ECSActionTypeChatString]) {
         if ([params valueForKey:@"PostChatSurvey"]) {
             NSNumber *count = [params valueForKey:@"PostChatSurvey"];
@@ -320,19 +382,17 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
             }
         }
     }
-    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
-        if ([params valueForKey:@"InvalidResponseCount"]) {
-            NSNumber *count = [params valueForKey:@"InvalidResponseCount"];
-            if (count.intValue >  0) {
-                return @{@"ActionType":ECSRequestChatAction};
-            }
-        }
-    }
-    if ([workflowName isEqualToString:ECSActionTypeAnswerEngineString]) {
-        if ([params valueForKey:@"QuestionsAsked"]) {
-            NSNumber *count = [params valueForKey:@"QuestionsAsked"];
-            if (count.intValue >  0) {
-                return @{@"ActionType":ECSRequestCallbackAction};
+    if ([workflowName isEqualToString:ECSActionTypeFormString]) {
+        NSString *formName = [params valueForKey:@"formName"];
+        if ([formName isEqualToString:@"simple form"]) {
+            if ([params valueForKey:@"formValue"]) {
+                NSString *formValue = [params valueForKey:@"formValue"];
+                if ([formValue isEqualToString:@"low"] ) {
+                    return @{@"ActionType":ECSRequestChatAction};
+                }
+                else{
+                    return @{@"ActionType":ECSRequestAnswerEngineAction};
+                }
             }
         }
     }
@@ -343,13 +403,23 @@ typedef NS_ENUM(NSInteger, WorkflowChatWithPreSurveySectionRows)
     NSLog(@"Unrecognized action in workflow Forms Controller: %@", action.description);
     if([action isEqualToString:ECSRequestChatAction])
     {
-        NSString *chatSkill = [self.selectWorkflowPreSurveyChatPicker currentSelection];
+        NSString *chatSkill = [[NSUserDefaults standardUserDefaults]
+                               stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
         
         [self localBreadCrumb:@"startChat"
                   description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
         UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
         
         [self.navigationController pushViewController:chatController animated:YES];
+    }
+    else if ([action isEqualToString:ECSRequestAnswerEngineAction])
+    {
+        NSString *aeContext = @"SDK Demo Technical Support";
+        
+        [self localBreadCrumb:@"startAnswerEngine"
+                  description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
+        UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@""];
+        [self.navigationController pushViewController:answerEngineController animated:YES];
     }
 }
 

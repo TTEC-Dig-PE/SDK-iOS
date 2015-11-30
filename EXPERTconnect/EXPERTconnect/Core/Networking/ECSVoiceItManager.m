@@ -366,7 +366,7 @@
         [paramDic setObject:@"566446" forKey:@"VsitDeveloperId"];
         if (!isEnrollment) {
             [paramDic setObject:[NSString stringWithFormat:@"%d",(int)0.0] forKey:@"VsitAccuracy"];
-            [paramDic setObject:[NSString stringWithFormat:@"%d",(int)85.0] forKey:@"VsitConfidence"];
+            [paramDic setObject:[NSString stringWithFormat:@"%d",(int)87.0] forKey:@"VsitConfidence"];
             [paramDic setObject:[NSString stringWithFormat:@"%d",(int)5] forKey:@"VsitAccuracyPasses"];
             [paramDic setObject:[NSString stringWithFormat:@"%d",(int)2] forKey:@"VsitAccuracyPassIncrement"];
             resultDic = [netHelper postWavRequestAndResponseDic:@"authentications" headerParams:paramDic wavData:[[NSData alloc] initWithContentsOfURL:recordedFile]];

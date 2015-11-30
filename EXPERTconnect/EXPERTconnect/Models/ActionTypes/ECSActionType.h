@@ -70,6 +70,7 @@ FOUNDATION_EXPORT NSString *const ECSRequestVideoAction;
 FOUNDATION_EXPORT NSString *const ECSRequestChatAction;
 FOUNDATION_EXPORT NSString *const ECSRequestCallbackAction;
 FOUNDATION_EXPORT NSString *const ECSRequestVoiceChatAction;
+FOUNDATION_EXPORT NSString *const ECSRequestAnswerEngineAction;
 
 /**
  ECSActionType is the base type for defining available actions to the user.  This object type is 

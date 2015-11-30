@@ -16,6 +16,7 @@
 #import "ECSLocalization.h"
 #import "ECSMediaInfoHelpers.h"
 #import "ECSTheme.h"
+#import "ECSURLSessionManager.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -158,6 +159,14 @@
     }
 }
 
+- (void)sendChatState:(NSString *)chatState
+{
+    if (self.delegate)
+    {
+        [self.delegate sendChatState:chatState];
+    }
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
@@ -194,6 +203,7 @@
     
     self.textViewHeightConstraint.constant = size.height;
     
+    [self sendChatState:(textView.text.length > 0 || !textView.text ? @"composing" : @"paused")];
     self.sendButton.enabled = (textView.text.length > 0);
 }
 

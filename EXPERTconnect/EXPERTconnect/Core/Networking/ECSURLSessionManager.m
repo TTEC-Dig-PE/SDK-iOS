@@ -518,6 +518,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 if (createResponse.conversationID && createResponse.conversationID.length > 0)
                 {
                     weakSelf.conversation = createResponse;
+                    ECSLogVerbose(@"New conversation started with ID=%@", createResponse.conversationID);
                 }
                 
                 if (completion)
@@ -652,6 +653,32 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                       completion(nil, [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:nil]);
                   }
               } failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/messages", channelString]
+          parameters:parameters
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
+                              duration:(int)theDuration
+                               channel:(NSString *)theChannel
+                            completion:(void(^)(NSString *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"state": theChatState, @"duration": [NSString stringWithFormat:@"%d", theDuration] };
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/chatState", theChannel]
+           parameters:parameters
+              success:[self successWithExpectedType:[NSString class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
 }
 
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills

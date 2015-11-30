@@ -188,7 +188,8 @@
                                                                        @"formValue":formValue}];
         if (actions) {
             NSString *actionType = [actions valueForKey:@"ActionType"];
-            if([actionType isEqualToString:ECSRequestChatAction])
+            if([actionType isEqualToString:ECSRequestChatAction]|
+               [actionType isEqualToString:ECSRequestAnswerEngineAction])
             {
                 [self.navigationManager dismissViewControllerModallyAnimated:YES completion:nil];
                 [self.workflowDelegate unrecognizedAction:actionType];

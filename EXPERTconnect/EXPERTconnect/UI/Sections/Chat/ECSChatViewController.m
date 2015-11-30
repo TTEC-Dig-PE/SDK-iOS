@@ -96,6 +96,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     BOOL _userDragging;
     NSInteger _agentTypingIndex;
+    BOOL _userTyping;
     BOOL _networkDisconnected;
     BOOL _showingPostChatSurvey;
 }
@@ -594,6 +595,32 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 }
 
 #pragma mark - Chat Toolbar callbacks
+- (void)sendChatState:(NSString *)chatState
+{
+    NSString *sendState = nil;
+    if (!_userTyping && [chatState isEqualToString:@"composing"]) {
+        _userTyping = YES;
+        sendState = chatState;
+    } else if (_userTyping && [chatState isEqualToString:@"paused"]) {
+        _userTyping = NO;
+        sendState = chatState;
+    }
+    
+    if(sendState) {
+        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+        [urlSession sendChatState:chatState
+                         duration:10000
+                          channel:self.chatClient.currentChannelId
+                       completion:^(NSString *response, NSError *error)
+         {
+             
+             if(error) {
+                 NSLog(@"Sending chat state error: %@", error);
+             }
+         }];
+    }
+}
+
 - (void)sendText:(NSString *)text
 {
     ECSChatTextMessage *message = [ECSChatTextMessage new];
@@ -605,7 +632,21 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    [self.chatClient sendChatMessage:message];
+    
+   // [self sendChatState:@"paused"];
+    
+    //[self.chatClient sendChatMessage:message];
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [urlSession sendChatMessage:message.body
+                           from:message.from
+                        channel:message.channelId
+                     completion:^(NSString *response, NSError *error)
+     {
+         if(error) {
+             NSLog(@"Error sending chat message: %@", error);
+         }
+     }];
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -625,7 +666,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    [self.chatClient sendChatMessage:message];
+    //[self.chatClient sendChatMessage:message];
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [urlSession sendChatMessage:message.body
+                           from:message.from
+                        channel:message.channelId
+                     completion:^(NSString *response, NSError *error)
+     {
+         if(error) {
+             NSLog(@"Error sending chat message: %@", error);
+         }
+     }];
     
     /* NK 6/29/2015 I've decided to not show the Consumer when he/she sends a System message. These are intended for
      the Expert to view, only. Also, this doesn't work well and would need to be refactored. */

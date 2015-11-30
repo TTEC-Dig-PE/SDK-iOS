@@ -221,6 +221,7 @@ NSTimer *breadcrumbTimer;
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
+    chatAction.journeybegin = [NSNumber numberWithInt:1];
     
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     // Do a login if there's no session:

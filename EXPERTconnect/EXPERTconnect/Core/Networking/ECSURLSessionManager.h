@@ -276,11 +276,33 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
 
+
+// Send a chat message from the client
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion;
+
+
+// Send a chat state update from the client.
+- (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
+                              duration:(int)theDuration
+                               channel:(NSString *)theChannel
+                            completion:(void(^)(NSString *response, NSError *error))completion;
+
+
+#pragma mark Agent Availability
+
 // Check agent availability
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
+                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+
+
+#pragma mark Journey Management
 
 // Start a new journey
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
+
 
 #pragma mark - Media upload
 /**
