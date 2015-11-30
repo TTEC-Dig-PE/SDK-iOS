@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarWidthConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *messageWidthConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userWidthConstraint;
+
 @property (strong, nonatomic) NSLayoutConstraint *messageBoxHorizontalAlignConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorContstraint;
 
@@ -58,27 +61,43 @@
     
     self.responseContainerView.backgroundColor = theme.userChatBackground;
     
+    self.messageContainerView.layer.cornerRadius = theme.chatBubbleCornerRadius;
+    
     [self configureConstraints];
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar
 {
     _showAvatar = showAvatar;
+    
+    [self.avatarImageView setAlpha:0.0f];
+    [self.userImageView setAlpha:0.0f];
+    
     if (_showAvatar)
     {
-        [self.avatarImageView setAlpha:1.0f];
-    }
-    else
-    {
-        [self.avatarImageView setAlpha:0.0f];
+        if(!self.isUserMessage)[self.avatarImageView setAlpha:1.0f];
+        if(self.isUserMessage)[self.userImageView setAlpha:1.0f];
     }
     
     [self configureConstraints];
 }
 
+- (void)setAvatarImage:(NSString *)theAvatar
+{
+    if (self.isUserMessage)
+    {
+        [self.userImageView setImageWithPath:theAvatar];
+    }
+    else
+    {
+        [self.avatarImageView setImageWithPath:theAvatar];
+    }
+}
+
 - (void)configureConstraints
 {
     self.avatarWidthConstraint.constant = (!self.isUserMessage && self.showAvatar) ? 40.0f : 0.0f;
+    self.userWidthConstraint.constant = (self.isUserMessage && self.showAvatar) ? 40.0f : 0.0f;
     
     [self removeConstraint:self.messageBoxHorizontalAlignConstraint];
     

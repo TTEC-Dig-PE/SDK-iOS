@@ -1435,7 +1435,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     if (messageCell.background.showAvatar)
     {
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
-        [messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
+        //[messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
+        [messageCell.background setAvatarImage:participant.avatarURL];
     }
     messageCell.messageLabel.text = chatMessage.body;
 }
@@ -1824,7 +1825,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     BOOL showAvatar = YES;
     
     ECSChatMessage *message = (ECSChatMessage*)self.messages[indexPath.row];
-    showAvatar = message.fromAgent;
+    //showAvatar = message.fromAgent;
     
     if (showAvatar)
     {

@@ -130,7 +130,13 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
                                              geolocation:nil];
         }
     }]; // Start a new journey.
+    
     [self setThemeFromSettings];
+    
+    [EXPERTconnect shared].theme.chatBubbleCornerRadius = 15;
+    [EXPERTconnect shared].theme.chatBubbleHorizMargins = 20;
+    [EXPERTconnect shared].theme.chatBubbleVertMargins = 17;
+    [EXPERTconnect shared].theme.chatFont = [UIFont fontWithName:@"Verdana" size:17];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logout:)

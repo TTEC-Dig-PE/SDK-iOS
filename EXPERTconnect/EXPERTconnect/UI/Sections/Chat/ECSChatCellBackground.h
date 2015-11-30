@@ -12,10 +12,13 @@
 @interface ECSChatCellBackground : UIView
 
 @property (weak, nonatomic) IBOutlet ECSCachingImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet ECSCachingImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UIView *messageContainerView;
 @property (weak, nonatomic) IBOutlet UIView *responseContainerView;
 
 @property (assign, nonatomic) BOOL showAvatar;
 @property (assign, nonatomic, getter=isUserMessage) BOOL userMessage;
+
+- (void)setAvatarImage:(NSString *)theAvatar;
 
 @end

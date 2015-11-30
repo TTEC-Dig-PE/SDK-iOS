@@ -107,14 +107,17 @@
     self.separatorView.backgroundColor = theme.separatorColor;
     self.separatorHeightConstraint.constant = 1.0f / [[UIScreen mainScreen] scale];
     
-    self.sendButton.tintColor = theme.primaryColor;
+    self.sendButton.backgroundColor = theme.primaryColor;
+    self.sendButton.tintColor = theme.primaryTextColor;
     self.sendButton.enabled = NO;
     self.sendButton.titleLabel.font = theme.chatSendButtonFont;
     [self.sendButton setTitle:ECSLocalizedString(ECSLocalizeSend, @"Send") forState:UIControlStateNormal];
     [self.sendButton addTarget:self
                         action:@selector(sendTapped:)
               forControlEvents:UIControlEventTouchUpInside];
-    self.cancelButton.tintColor = theme.primaryColor;
+    
+    self.cancelButton.backgroundColor = theme.primaryColor;
+    self.cancelButton.tintColor = theme.primaryTextColor;
     [self.cancelButton setTitle:ECSLocalizedString(ECSLocalizeCancel, @"Cancel")
                        forState:UIControlStateNormal];
 
@@ -131,8 +134,8 @@
                          self.sendButton.hidden = NO;
                          self.textViewHeightConstraint.constant = 30.0f;
                          self.cancelButton.hidden = YES;
-                         self.cancelSuperViewTrailing.active = NO;
-                         self.cancelSendTrailing.active = YES;
+                         //self.cancelSuperViewTrailing.active = NO;
+                         //self.cancelSendTrailing.active = YES;
                          [self hideContainer];
                          [self.view setNeedsLayout];
 
@@ -306,8 +309,8 @@
     {
         self.sendButton.hidden = YES;
         self.cancelButton.hidden = NO;
-        self.cancelSendTrailing.active = NO;
-        self.cancelSuperViewTrailing.active = YES;
+        //self.cancelSendTrailing.active = NO;
+        //self.cancelSuperViewTrailing.active = YES;
 
     }
 }
