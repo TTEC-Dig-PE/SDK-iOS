@@ -106,31 +106,35 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
                       completion:^(NSString *authToken)
     {
         NSLog(@"AuthToken = %@", authToken);
-        [[EXPERTconnect shared] setUserIdentityToken:authToken]; 
+        [[EXPERTconnect shared] setUserIdentityToken:authToken];
+        
+        // Start a new journey, then send an "app launch" breadcrumb.
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *err) {
+            if(!err) {
+                
+                // Start a new breadcrumb session.
+                //[[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:nil];
+                
+                // Send an "app launch" breadcrumb.
+                NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@", configuration.clientID, configuration.host];
+                
+                [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
+                                                 description:desc
+                                                      source:@"ECDemo"
+                                                 destination:@"na"
+                                                 geolocation:nil];
+            }
+        }]; // Start a new journey.
     }];
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
-    
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    // Start a new journey, then send an "app launch" breadcrumb. 
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *err) {
-        if(!err) {
-            
-            // Start a new breadcrumb session.
-            //[[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:nil];
-            
-            // Send an "app launch" breadcrumb.
-            NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@", configuration.clientID, configuration.host];
-            
-            [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
-                                             description:desc
-                                                  source:@"ECDemo"
-                                             destination:@"na"
-                                             geolocation:nil];
-        }
-    }]; // Start a new journey.
     [self setThemeFromSettings];
+    
+    // Setup the theme to look similar to Ford. 
+    [self setupThemeLikeFord];
+    [[EXPERTconnect shared] setUserAvatar:[UIImage imageNamed:@"default_avatar_medium"]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logout:)
@@ -276,6 +280,29 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             }
         }
     }
+}
+
+- (void)setupThemeLikeFord
+{
+    /* These are test settings for FORD */
+    ECSTheme *myTheme = [EXPERTconnect shared].theme;
+    myTheme.chatBubbleCornerRadius = 8;
+    myTheme.chatBubbleHorizMargins = 12;
+    myTheme.chatBubbleVertMargins = 10;
+    
+    myTheme.primaryBackgroundColor = [UIColor whiteColor];
+    myTheme.secondaryBackgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+    myTheme.disabledButtonColor = [UIColor lightGrayColor];
+    
+    myTheme.userChatTextColor = [UIColor whiteColor];
+    myTheme.agentChatTextColor = [UIColor whiteColor];
+    myTheme.userChatBackground = [UIColor grayColor];
+    myTheme.agentChatBackground =  [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];
+    myTheme.showAvatarImages = YES;
+    
+    myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
+    [EXPERTconnect shared].theme = myTheme;
+    /* End test settings */
 }
 
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.

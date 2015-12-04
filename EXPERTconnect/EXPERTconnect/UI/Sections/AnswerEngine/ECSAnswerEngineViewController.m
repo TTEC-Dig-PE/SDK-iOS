@@ -130,6 +130,23 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         [self askQuestion];
         [self hideFAQPopoverAnimated:NO];
     }
+    if (!self.initialQuery && !self.didAskInitialQuestion)
+    {
+        if (self.answerEngineAction.topQuestions.count == 0)
+        {
+            // Let's get top questions.
+            ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+            
+            [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+                                             forContext:self.answerEngineAction.answerEngineContext
+                                         withCompletion:^(NSArray *context, NSError *error)
+             {
+                 // Got our top questions...
+                 self.answerEngineAction.topQuestions = context;
+                 [self displayTopQuestions];
+             }];
+        }
+    }
 }
 
 - (void)configureForAnswerHistory
@@ -160,6 +177,11 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     self.escalationSeparator.backgroundColor = theme.separatorColor;
     
     
+    [self displayTopQuestions];
+}
+
+- (void) displayTopQuestions
+{
     if (self.answerEngineAction.topQuestions.count > 0)
     {
         self.topQuestions = [ECSTopQuestionsViewController ecs_loadFromNib];
@@ -171,6 +193,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         {
             [self.topQuestions willMoveToParentViewController:self];
             
+            ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
             self.topQuestions.view.backgroundColor = theme.primaryBackgroundColor;
             [self addChildViewController:self.topQuestions];
             [self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -189,7 +212,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [self.topQuestions didMoveToParentViewController:self];
         }
     }
-    
 }
 
 - (void)viewDidLayoutSubviews

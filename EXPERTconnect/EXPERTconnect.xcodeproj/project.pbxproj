@@ -450,6 +450,7 @@
 		C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
+		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -508,6 +509,19 @@
 			remoteInfo = EXPERTconnect;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C466D40B1BFD332F00A8865E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Headers";
+			dstSubfolderSpec = 7;
+			files = (
+				C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatAddChannelMessage.h; path = Chat/ECSChatAddChannelMessage.h; sourceTree = "<group>"; };
@@ -2110,6 +2124,7 @@
 				03F1897F1A64786D003C6E14 /* ShellScript */,
 				EBD262558144996426F33A26 /* Copy Pods Resources */,
 				F02702F3542A7EDF36757A9E /* Upload Bugsnag dSYM */,
+				C466D40B1BFD332F00A8865E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2702,7 +2717,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -2757,7 +2772,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

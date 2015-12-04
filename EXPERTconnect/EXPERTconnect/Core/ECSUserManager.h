@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 /** 
  Manages the current authenticated state of the user in the system.
  */
@@ -22,6 +22,8 @@
 @property (readonly, nonatomic) NSString *deviceID;
 
 @property (strong, nonatomic) NSString *userDisplayName;
+
+@property (strong, nonatomic) UIImage *userAvatar;
 
 // Returns if the user is currently authenticated
 @property (readonly, nonatomic, getter=isUserAuthenticated) BOOL userAuthenticated;

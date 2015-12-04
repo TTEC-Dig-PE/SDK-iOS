@@ -328,6 +328,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void)setUserIdentityToken:(NSString *)token;
 
+- (void)setUserAvatar:(UIImage *)userAvatar;
+
 /**
  *
  */

@@ -4,15 +4,13 @@
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
-
 #import "ECSUserManager.h"
-
 #import "CommonCrypto/CommonDigest.h"
-
 #import "ECSKeychainSupport.h"
 #import "ECSNotifications.h"
 
 static NSString* const ECSUserDisplayNameKey = @"com.humanify.userDisplayName";
+static NSString* const ECSUserAvatarKey = @"com.humanify.userAvatar";
 
 @interface ECSUserManager()
 {
@@ -93,6 +91,19 @@ static NSString* const ECSUserDisplayNameKey = @"com.humanify.userDisplayName";
 - (void)setUserDisplayName:(NSString *)userDisplayName
 {
     [[NSUserDefaults standardUserDefaults] setObject:userDisplayName forKey:ECSUserDisplayNameKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (UIImage *)userAvatar
+{
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:ECSUserAvatarKey]) return nil;
+    
+    NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:ECSUserAvatarKey];
+    return [UIImage imageWithData:imageData];
+}
+- (void)setUserAvatar:(UIImage *)userAvatar
+{
+    [[NSUserDefaults standardUserDefaults] setObject:UIImagePNGRepresentation(userAvatar) forKey:ECSUserAvatarKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
