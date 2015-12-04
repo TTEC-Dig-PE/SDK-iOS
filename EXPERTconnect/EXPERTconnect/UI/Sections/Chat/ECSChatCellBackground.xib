@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="253" placeholderIntrinsicHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="gOs-h1-NQ7" userLabel="ContainerView">
-                    <rect key="frame" x="70" y="5" width="253" height="100"/>
+                    <rect key="frame" x="60" y="5" width="253" height="100"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -25,8 +25,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="253" placeholderIntrinsicHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="qXQ-Qj-YKG" userLabel="ContainerView">
-                    <rect key="frame" x="277" y="110" width="253" height="100"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="253" placeholderIntrinsicHeight="140" translatesAutoresizingMaskIntoConstraints="NO" id="qXQ-Qj-YKG" userLabel="ResponseView">
+                    <rect key="frame" x="337" y="110" width="253" height="100"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -39,29 +39,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="ecs_ic_playbutton" translatesAutoresizingMaskIntoConstraints="NO" id="lB3-DV-ljc" userLabel="tail_agent">
-                    <rect key="frame" x="567" y="168" width="53" height="51"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="53" id="7N4-a1-Sut"/>
-                        <constraint firstAttribute="height" constant="51" id="zGn-Y5-Ugw"/>
-                    </constraints>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ecs_img_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="ytc-kc-Nnd" customClass="ECSCachingImageView">
-                    <rect key="frame" x="545" y="165" width="40" height="40"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="JQc-7y-Xai"/>
-                        <constraint firstAttribute="width" constant="40" id="hcT-Co-48z"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="20"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ecs_img_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="D0Z-Yd-bsh" customClass="ECSCachingImageView">
-                    <rect key="frame" x="15" y="5" width="40" height="40"/>
+                    <rect key="frame" x="10" y="5" width="40" height="40"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="6Pv-xl-JFy"/>
@@ -79,14 +58,11 @@
                 <constraint firstAttribute="bottom" secondItem="qXQ-Qj-YKG" secondAttribute="bottom" id="0H2-zk-20k"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="D0Z-Yd-bsh" secondAttribute="bottom" id="2Ra-wT-F5V"/>
                 <constraint firstItem="gOs-h1-NQ7" firstAttribute="top" secondItem="Tzi-YS-Exz" secondAttribute="top" constant="5" id="2pC-fQ-jng"/>
-                <constraint firstItem="gOs-h1-NQ7" firstAttribute="leading" secondItem="D0Z-Yd-bsh" secondAttribute="trailing" constant="15" placeholder="YES" id="6E6-se-MRb"/>
-                <constraint firstItem="ytc-kc-Nnd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Tzi-YS-Exz" secondAttribute="top" id="AEM-k4-hTV"/>
-                <constraint firstAttribute="trailing" secondItem="ytc-kc-Nnd" secondAttribute="trailing" constant="15" id="FMq-Wx-zyi"/>
-                <constraint firstItem="ytc-kc-Nnd" firstAttribute="leading" secondItem="qXQ-Qj-YKG" secondAttribute="trailing" constant="15" id="OcT-iI-zjn"/>
+                <constraint firstItem="gOs-h1-NQ7" firstAttribute="leading" secondItem="D0Z-Yd-bsh" secondAttribute="trailing" constant="10" placeholder="YES" id="6E6-se-MRb"/>
                 <constraint firstItem="D0Z-Yd-bsh" firstAttribute="top" secondItem="Tzi-YS-Exz" secondAttribute="top" constant="5" id="UCI-fQ-Su6"/>
-                <constraint firstItem="D0Z-Yd-bsh" firstAttribute="leading" secondItem="Tzi-YS-Exz" secondAttribute="leading" constant="15" id="VL9-nj-gqo"/>
+                <constraint firstItem="D0Z-Yd-bsh" firstAttribute="leading" secondItem="Tzi-YS-Exz" secondAttribute="leading" constant="10" placeholder="YES" identifier="avatarEdgeConstraint" id="VL9-nj-gqo"/>
                 <constraint firstItem="qXQ-Qj-YKG" firstAttribute="top" secondItem="gOs-h1-NQ7" secondAttribute="bottom" constant="5" id="acQ-54-2Fc"/>
-                <constraint firstAttribute="bottom" secondItem="ytc-kc-Nnd" secondAttribute="bottom" constant="5" id="cWu-Vu-gZ5"/>
+                <constraint firstAttribute="trailing" secondItem="qXQ-Qj-YKG" secondAttribute="trailing" constant="10" id="fyo-o8-D1g"/>
                 <constraint firstAttribute="trailing" secondItem="qXQ-Qj-YKG" secondAttribute="trailing" constant="15" id="s1K-Zd-cAr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -96,21 +72,17 @@
                 </mask>
             </variation>
             <connections>
-                <outlet property="avatarBottomConstraint" destination="2Ra-wT-F5V" id="YZe-nG-AJS"/>
+                <outlet property="avatarBottomConstraint" destination="2Ra-wT-F5V" id="mpw-Pk-cfC"/>
                 <outlet property="avatarImageView" destination="D0Z-Yd-bsh" id="Ppm-Px-c5j"/>
-                <outlet property="avatarWidthConstraint" destination="6Pv-xl-JFy" id="C4L-DD-nWI"/>
+                <outlet property="avatarWidthConstraint" destination="GSC-6t-xkX" id="2tr-zt-tdh"/>
                 <outlet property="messageContainerView" destination="gOs-h1-NQ7" id="aVg-9j-iSa"/>
                 <outlet property="responseContainerView" destination="qXQ-Qj-YKG" id="8O6-6l-IzC"/>
                 <outlet property="separatorContstraint" destination="acQ-54-2Fc" id="9g0-1W-v2N"/>
-                <outlet property="userBottomConstraint" destination="AEM-k4-hTV" id="rUx-8S-IvO"/>
-                <outlet property="userImageView" destination="ytc-kc-Nnd" id="pHL-Hh-uNo"/>
-                <outlet property="userWidthConstraint" destination="JQc-7y-Xai" id="jgJ-kk-AcF"/>
             </connections>
             <point key="canvasLocation" x="568" y="316"/>
         </view>
     </objects>
     <resources>
-        <image name="ecs_ic_playbutton" width="49" height="57"/>
         <image name="ecs_img_avatar" width="40" height="40"/>
     </resources>
 </document>

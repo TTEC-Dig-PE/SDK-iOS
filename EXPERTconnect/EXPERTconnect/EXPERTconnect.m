@@ -131,6 +131,12 @@ NSTimer *breadcrumbTimer;
     userManager.userIntent = intent;
 }
 
+- (void)setUserAvatar:(UIImage *)userAvatar
+{
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    userManager.userAvatar = userAvatar;
+}
+
 - (NSString *)userIntent
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -188,6 +194,7 @@ NSTimer *breadcrumbTimer;
     // Log config for debugging:
     ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
+    [self setUserAvatar:nil];
     [self setUserName:nil];
 }
 
@@ -748,8 +755,11 @@ NSTimer *breadcrumbTimer;
        else
        {
            ECSLogVerbose(@"breadcrumbsAction:Completion::%d breadcrumb(s) sent successfully.", storedBreadcrumbs.count);
-           storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
+           
        }
+       
+       // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
+       storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
    }];
 }
 

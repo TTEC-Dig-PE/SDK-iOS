@@ -71,7 +71,7 @@
     }
     else
     {
-        self.messageLabel.textColor = theme.primaryTextColor;
+        self.messageLabel.textColor = theme.agentChatTextColor;
     }
 }
 @end

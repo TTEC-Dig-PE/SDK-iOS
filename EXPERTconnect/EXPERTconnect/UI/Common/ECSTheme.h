@@ -69,6 +69,9 @@
 // Agent chat text
 @property (strong, nonatomic) UIColor *agentChatTextColor;
 
+// Show avatar images if set to YES.
+@property (assign, nonatomic) BOOL showAvatarImages;
+
 #pragma mark - Font
 
 // Font for headlines

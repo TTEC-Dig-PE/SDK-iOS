@@ -18,11 +18,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarWidthConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *messageWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarEdgeConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userWidthConstraint;
-
-@property (strong, nonatomic) NSLayoutConstraint *messageBoxHorizontalAlignConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *messageBoxHorizontalAlignConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorContstraint;
 
 @end
@@ -56,7 +54,7 @@
     }
     else
     {
-        self.messageContainerView.backgroundColor = theme.secondaryBackgroundColor;
+        self.messageContainerView.backgroundColor = theme.agentChatBackground;
     }
     
     self.responseContainerView.backgroundColor = theme.userChatBackground;
@@ -70,49 +68,83 @@
 {
     _showAvatar = showAvatar;
     
-    [self.avatarImageView setAlpha:0.0f];
-    [self.userImageView setAlpha:0.0f];
-    
     if (_showAvatar)
     {
-        if(!self.isUserMessage)[self.avatarImageView setAlpha:1.0f];
-        if(self.isUserMessage)[self.userImageView setAlpha:1.0f];
+        [self.avatarImageView setAlpha:1.0f];
+    }
+    else
+    {
+        [self.avatarImageView setAlpha:0.0f];
     }
     
     [self configureConstraints];
 }
 
-- (void)setAvatarImage:(NSString *)theAvatar
+- (void)setAvatarImageFromPath:(NSString *)theAvatar
 {
-    if (self.isUserMessage)
-    {
-        [self.userImageView setImageWithPath:theAvatar];
-    }
-    else
-    {
-        [self.avatarImageView setImageWithPath:theAvatar];
-    }
+    [self.avatarImageView setImageWithPath:theAvatar];
+}
+
+- (void)setAvatarImage:(UIImage *)theAvatar
+{
+    [self.avatarImageView setImage:theAvatar];
 }
 
 - (void)configureConstraints
 {
-    self.avatarWidthConstraint.constant = (!self.isUserMessage && self.showAvatar) ? 40.0f : 0.0f;
-    self.userWidthConstraint.constant = (self.isUserMessage && self.showAvatar) ? 40.0f : 0.0f;
+    double margin = 10.0f;
+    
+    // This would make the chat bubble huge the edge instead of keep the same margins whether
+    // an avatar photo was displayed or not.
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    self.avatarWidthConstraint.constant = (theme.showAvatarImages) ? 40.0f : 0.0f;
     
     [self removeConstraint:self.messageBoxHorizontalAlignConstraint];
+    [self removeConstraint:self.avatarEdgeConstraint];
     
     if (self.isUserMessage)
     {
+        // Remove leading. Add trailing.
+        self.avatarEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.avatarImageView
+                                                                 attribute:NSLayoutAttributeTrailing
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeTrailing
+                                                                multiplier:1.0f
+                                                                  constant:-margin];
+        
         self.messageBoxHorizontalAlignConstraint = [NSLayoutConstraint constraintWithItem:self.messageContainerView
-                                                                                attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:-15.0f];
-        [self addConstraint:self.messageBoxHorizontalAlignConstraint];
+                                                                                attribute:NSLayoutAttributeTrailing
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self.avatarImageView
+                                                                                attribute:NSLayoutAttributeLeading
+                                                                               multiplier:1.0f
+                                                                                 constant:-margin];
+
+        //[self addConstraint:self.messageBoxHorizontalAlignConstraint];
     }
     else
     {
+        self.avatarEdgeConstraint = [NSLayoutConstraint constraintWithItem:self.avatarImageView
+                                                                 attribute:NSLayoutAttributeLeading
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeLeading
+                                                                multiplier:1.0f
+                                                                  constant:margin];
+        
         self.messageBoxHorizontalAlignConstraint = [NSLayoutConstraint constraintWithItem:self.messageContainerView
-                                                                                attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.avatarImageView attribute:NSLayoutAttributeTrailing multiplier:1.0f constant:15.0f];
-        [self addConstraint:self.messageBoxHorizontalAlignConstraint];
+                                                                                attribute:NSLayoutAttributeLeading
+                                                                                relatedBy:NSLayoutRelationEqual
+                                                                                   toItem:self.avatarImageView
+                                                                                attribute:NSLayoutAttributeTrailing
+                                                                               multiplier:1.0f
+                                                                                 constant:margin];
+        
+        
     }
+    [self addConstraint:self.avatarEdgeConstraint];
+    [self addConstraint:self.messageBoxHorizontalAlignConstraint];
     
     [self setNeedsLayout];
 }

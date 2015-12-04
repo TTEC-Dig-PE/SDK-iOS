@@ -53,7 +53,9 @@
 {
     [super viewDidLoad];
     self.sendEnabled = YES;
-    self.inactiveColor = [UIColor colorWithRed:0.73 green:0.73 blue:0.73 alpha:1];
+    
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    self.inactiveColor = theme.disabledButtonColor;
     
     [self setup];
     
@@ -87,6 +89,8 @@
     self.textView.tintColor = theme.primaryColor;
     self.textView.font = theme.chatTextFieldFont;
     self.textView.delegate = self;
+    
+    self.view.backgroundColor = theme.secondaryBackgroundColor; 
     
     ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
     [self.photoButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_photo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]

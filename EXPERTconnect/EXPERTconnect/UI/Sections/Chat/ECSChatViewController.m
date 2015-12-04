@@ -1488,7 +1488,24 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
         //[messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
-        [messageCell.background setAvatarImage:participant.avatarURL];
+        
+        if (!chatMessage.fromAgent)
+        {
+            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+            if(userManager.userAvatar)
+            {
+                [messageCell.background setAvatarImage:userManager.userAvatar];
+            }
+        }
+        else
+        {
+            if (participant.avatarURL)
+            {
+                [messageCell.background setAvatarImageFromPath:participant.avatarURL];
+            }
+            
+        }
+        
     }
     messageCell.messageLabel.text = chatMessage.body;
 }
@@ -1881,10 +1898,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     if (showAvatar)
     {
-        if (indexPath.row > 0)
+        if (indexPath.row > 1 || (indexPath.row > 0 && message.fromAgent))
         {
             ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
-            if (previousMessage.fromAgent)
+            
+            if (previousMessage.fromAgent == message.fromAgent)
             {
                 showAvatar = NO;
             }
