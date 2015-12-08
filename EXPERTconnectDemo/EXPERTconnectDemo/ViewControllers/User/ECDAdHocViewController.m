@@ -931,7 +931,9 @@ int estimatedWait;
               description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
+                                                         withDisplayName:@"Chat"
+                                                              withSurvey:NO];
     [self.navigationController pushViewController:chatController animated:YES];
 
 }

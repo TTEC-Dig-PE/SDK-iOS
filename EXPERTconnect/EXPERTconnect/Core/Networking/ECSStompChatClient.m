@@ -152,9 +152,14 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
+    // mas - 8-dec-2015 - Changed to be "unknown user" as this is displayed in ExD window.
+    configuration.from = ( userManager.userToken ? userManager.userToken : @"Guest" );
+    
     // mas - 13-oct-2015 - use deviceID if userToken is unavailable ("not registered" or anonymous)
-    configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
+    //configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
+    
     //configuration.from = userManager.userToken;
+    
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";
     configuration.mediaType = @"Chat";
