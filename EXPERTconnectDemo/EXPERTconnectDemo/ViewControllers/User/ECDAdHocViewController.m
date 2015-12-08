@@ -232,6 +232,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 
 int agentsLoggedOn;
 bool agentAvailable;
+int estimatedWait;
 
 @implementation ECDAdHocViewController
 
@@ -287,17 +288,19 @@ bool agentAvailable;
 
 #pragma mark Notification Functions
 
-- (void)chatInfoUpdated:(NSNotification *)notification {
+- (void)chatInfoUpdated:(NSNotification *)notification
+{
     NSDictionary *chatSkillStatus = notification.userInfo;
     if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
-        agentsLoggedOn = (int)[chatSkillStatus objectForKey:@"agentsLoggedOn"];
-        agentAvailable = (bool)[chatSkillStatus objectForKey:@"open"];
+        agentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
+        agentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
+        estimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
     }
     [self.tableView reloadData]; 
 }
 
-- (void)callbackEnded:(NSNotification *)notification {
-
+- (void)callbackEnded:(NSNotification *)notification
+{
     if (![notification.userInfo[@"reason"] isEqualToString:@"UserCancelled"]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
                                                                                  message:@"Thank you for contacting us!"
@@ -434,10 +437,8 @@ bool agentAvailable;
                 case AdHocChatSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"AdHoc Chat");
                     if (agentsLoggedOn) {
-                        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%d Agents. %@)",
-                                               cell.textLabel.text,
-                                               agentsLoggedOn,
-                                               (agentAvailable ? @"Open" : @"Closed")];
+                        cell.textLabel.text = [NSString stringWithFormat:@"%@",
+                                               cell.textLabel.text];
                     }
                     cell.accessoryView = self.selectAdHocChatPicker;
                     break;
@@ -772,6 +773,11 @@ bool agentAvailable;
         case SettingsSectionAdHocChat:
         {
             title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
+            if (estimatedWait>-1) {
+                title = [NSString stringWithFormat:@"%@ - ETA: %dmin. Agents on: %d", title, estimatedWait, agentsLoggedOn];
+            } else {
+                title = [NSString stringWithFormat:@"%@ - No agents available!", title];
+            }
         }
             break;
             

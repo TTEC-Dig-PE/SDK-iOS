@@ -31,6 +31,8 @@
 - (void)setJourneyId: (NSString *)journeyId;
 - (NSString *)getJourneyId;
 
+- (void)setUserId: (NSString *)userId;
+- (NSString *)getUserId;
 
 - (void)setSessionId: (NSString *)sessionId;
 - (NSString *)getSessionId;

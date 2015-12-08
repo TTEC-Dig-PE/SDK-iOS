@@ -11,6 +11,7 @@
 #import "ECSBreadcrumbsAction.h"
 
 static NSString* PROPERTY_ID             = @"id";
+static NSString* PROPERTY_USERID         = @"userId";
 static NSString* PROPERTY_TENANTID       = @"tenantId";
 static NSString* PROPERTY_JOURNEYID      = @"journeyId";
 static NSString* PROPERTY_SESSIONID      = @"sessionId";
@@ -101,6 +102,12 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     return self.properties[PROPERTY_JOURNEYID];
 }
 
+- (void)setUserId: (NSString *)userId {
+    [self.properties setObject:userId forKey:PROPERTY_USERID];
+}
+- (NSString *)getUserId {
+    return self.properties[PROPERTY_USERID];
+}
 
 - (void)setSessionId: (NSString *)sessionId {
     

@@ -103,20 +103,22 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Fetch the authToken from our webApp. 
     [self fetchAuthTokenWithHost:configuration.host
                         userName:@"mike@humanify.com"
+                        clientID:configuration.clientID
                       completion:^(NSString *authToken)
     {
-        NSLog(@"AuthToken = %@", authToken);
         [[EXPERTconnect shared] setUserIdentityToken:authToken];
         
         // Start a new journey, then send an "app launch" breadcrumb.
-        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *err) {
-            if(!err) {
-                
-                // Start a new breadcrumb session.
-                //[[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:nil];
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+        {
+            if( !error )
+            {
+                NSLog(@"Starting journey with ID=%@", journeyId);
                 
                 // Send an "app launch" breadcrumb.
-                NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@", configuration.clientID, configuration.host];
+                NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@",
+                                  configuration.clientID,
+                                  configuration.host];
                 
                 [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
                                                  description:desc
@@ -124,7 +126,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
                                                  destination:@"na"
                                                  geolocation:nil];
             }
-        }]; // Start a new journey.
+        }];
     }];
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
@@ -342,9 +344,14 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 - (void) fetchAuthTokenWithHost:(NSString *)host
                        userName:(NSString *)userName
+                       clientID:(NSString *)clientID
                      completion:(void(^)(NSString *authToken))completion
 {
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/identityDelegate/v1/tokens?username=%@", host, userName]];
+    //Currently implemented on: api.dce1.humanify.com (DceDev)
+    NSURL *url = [[NSURL alloc] initWithString:
+                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens?username=%@&client_id=%@",
+                   host, userName, clientID]];
+    
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
@@ -352,6 +359,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          if(!error)
          {
              NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             NSLog(@"Fetched authToken: %@", returnToken);
              completion(returnToken);
          }
      }];

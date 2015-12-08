@@ -692,6 +692,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion {
+    
+    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/skills/%@", skill]
+          parameters:nil
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
 {
     //ECSKeychainSupport *support = [ECSKeychainSupport new];

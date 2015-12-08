@@ -628,6 +628,19 @@ NSTimer *breadcrumbTimer;
      }];
 }
 
+- (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
+    {
+        NSLog(@"Got details for skill: %@", skill);
+        completion( response, error );
+    }];
+}
+
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
     
@@ -698,13 +711,17 @@ NSTimer *breadcrumbTimer;
     if([self clientID])[breadcrumb setTenantId:[self clientID]];
     [breadcrumb setJourneyId:[self journeyID]];
     [breadcrumb setSessionId:[self sessionID]];
+    
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    [breadcrumb setUserId:(userManager.userToken ? userManager.userToken : userManager.deviceID)];
+    
     [breadcrumb setActionType:actionType];
     [breadcrumb setActionDescription:actionDescription];
     [breadcrumb setActionSource:actionSource];
     [breadcrumb setActionDestination:actionDestination];
     
     if (geolocation) {
-        // TODO: add geolocation and send it to server.
+        [breadcrumb setGeoLocation:geolocation];
     }
     
     if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];

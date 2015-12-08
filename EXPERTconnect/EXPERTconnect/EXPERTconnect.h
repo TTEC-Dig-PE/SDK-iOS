@@ -313,6 +313,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (void) agentAvailabilityWithSkill:(NSString *)skill
                          completion:(void(^)(NSDictionary *status, NSError *error))completion;
 
+- (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion;
+
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
  been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 

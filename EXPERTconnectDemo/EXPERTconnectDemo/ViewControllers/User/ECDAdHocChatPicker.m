@@ -70,14 +70,23 @@ int selectedRow;
 }
 
 -(void)getAgentsAvailableForSkill:(int)index {
-    [[EXPERTconnect shared] agentAvailabilityWithSkill:[chatSkillsArray objectAtIndex:index]
+    
+    /*[[EXPERTconnect shared] agentAvailabilityWithSkill:[chatSkillsArray objectAtIndex:index]
                                             completion:^(NSDictionary *data, NSError *error)
      {
          [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
                                                              object:nil
                                                            userInfo:data];
          
-     }];
+     }];*/
+    
+    [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
+                                    completion:^(NSDictionary *data, NSError *error)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
+                                                            object:nil
+                                                          userInfo:data];
+    }];
 }
 
 -(BOOL)addChatSkillsFromServer {

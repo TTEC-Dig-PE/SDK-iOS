@@ -27,8 +27,6 @@
 @class ECSNavigationContext;
 @class ECSForm;
 @class ECSUserProfile;
-@class ECSSkillStatus;
-@class ECSAgentAvailableResponse;
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -297,6 +295,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
                                           completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
 
+
+- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 #pragma mark Journey Management
 
