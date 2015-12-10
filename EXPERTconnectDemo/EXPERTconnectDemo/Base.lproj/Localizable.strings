@@ -197,3 +197,14 @@
 
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "Select Runtime Application";
+
+/* Customize Theme Header */
+"ECDLocalizedCustomizeThemeHeader" = "Theme Customization";
+
+/* ----------------------------------------------------- */
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesHeader" = "Hide/Show Avatar Images";
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";

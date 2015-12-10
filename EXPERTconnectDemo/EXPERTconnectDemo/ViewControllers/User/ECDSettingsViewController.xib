@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDSettingsViewController">
@@ -18,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="p3g-RI-vfM">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="526"/>
                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="74"/>
                     <connections>
@@ -57,9 +58,15 @@
                 <constraint firstAttribute="bottom" secondItem="p3g-RI-vfM" secondAttribute="bottom" id="OYb-Ox-VHD"/>
                 <constraint firstAttribute="trailing" secondItem="ZT8-rz-ZoT" secondAttribute="trailing" id="Q3W-wp-OZZ"/>
                 <constraint firstAttribute="bottom" secondItem="ZT8-rz-ZoT" secondAttribute="bottom" id="aAk-9y-Cdh"/>
+                <constraint firstItem="ZT8-rz-ZoT" firstAttribute="top" secondItem="p3g-RI-vfM" secondAttribute="bottom" id="f0y-c8-T8h"/>
                 <constraint firstItem="p3g-RI-vfM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rQl-uM-viM"/>
                 <constraint firstAttribute="trailing" secondItem="p3g-RI-vfM" secondAttribute="trailing" id="vSu-Ar-TdB"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="OYb-Ox-VHD"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
