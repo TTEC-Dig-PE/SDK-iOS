@@ -197,3 +197,7 @@
 
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "Select Runtime Application";
+
+
+/* Frequently asked Questions header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "Top Questions";

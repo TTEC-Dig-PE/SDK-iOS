@@ -217,15 +217,23 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
+
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    contentInsets.top = CGRectGetMaxY(self.searchToolbar.frame);
+    if (self.answerEngineAction.showSearchBar) {
+        contentInsets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        [self.searchToolbar setAlpha:1.0f];
+        [self.searchTextField setAlpha:1.0f];
+    } else {
+        contentInsets.top = 0;
+        [self.searchToolbar setAlpha:0.0f];
+        [self.searchTextField setAlpha:0.0f];
+    }
     
     if (self.topQuestions)
     {
         if (self.faqIsShowing)
         {
-            contentInsets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+            //contentInsets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
         }
         
         self.topQuestions.faqTableView.contentInset = contentInsets;
@@ -234,10 +242,12 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     if (self.answerViewController)
     {
         UIEdgeInsets insets = self.answerViewController.edgeInsets;
-        insets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        if (self.answerEngineAction.showSearchBar)
+            insets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        else
+            insets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
         self.answerViewController.edgeInsets = insets;
     }
-    
 }
 
 - (void)askQuestion

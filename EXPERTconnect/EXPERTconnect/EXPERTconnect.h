@@ -163,6 +163,10 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (UIViewController*)startAnswerEngine:(NSString*)aeContext withDisplayName:(NSString*)displayName;
 
+- (UIViewController*)startAnswerEngine:(NSString *)aeContext
+                       withDisplayName:(NSString *)displayName
+                         showSearchBar:(BOOL)showSearchBar;
+
 /**
  Returns a view controller for an EXPERTconnect Survey
  
@@ -349,6 +353,10 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   geolocation: (CLLocation *)geolocation;
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion;
+
+// Dispatch to the server any queued up breadcrumbs. These could be     queued if
+// configured to wait a time period or number of breadcrumbs before sending.
+- (void) breadcrumbDispatch;
 
 /**
  Set the debug level.

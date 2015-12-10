@@ -25,7 +25,10 @@ static NSString *const lastFormSelected = @"lastFormSelected";
             }
             
             int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
-            
+            if(rowToSelect > formsArray.count-1)
+            {
+                rowToSelect = (int)formsArray.count-1;
+            }
             [super setup:formsArray withSelection:rowToSelect];
             
             

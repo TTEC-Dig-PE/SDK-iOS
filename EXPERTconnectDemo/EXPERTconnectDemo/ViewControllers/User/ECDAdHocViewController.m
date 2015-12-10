@@ -916,7 +916,7 @@ int estimatedWait;
 -(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
     [[EXPERTconnect shared] breadcrumbWithAction:action
                                      description:desc
-                                          source:@"ECDemo"
+                                          source:@"AdHoc"
                                      destination:@"Humanify"
                                      geolocation:nil];
 }
@@ -927,7 +927,7 @@ int estimatedWait;
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    [self localBreadCrumb:@"startChat"
+    [self localBreadCrumb:@"Chat started"
               description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
@@ -944,7 +944,7 @@ int estimatedWait;
     
     NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
     
-    [self localBreadCrumb:@"startVoiceCallback"
+    [self localBreadCrumb:@"Voice callback started"
               description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
     
     UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
@@ -959,10 +959,13 @@ int estimatedWait;
     
     NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
     
-    [self localBreadCrumb:@"startAnswerEngine"
+    [self localBreadCrumb:@"Answer Engine started"
               description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
     
-    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext withDisplayName:@""];
+    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext
+                                                                         withDisplayName:@""
+                                                                           showSearchBar:NO];
+    
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
@@ -972,7 +975,7 @@ int estimatedWait;
 
     NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
     
-    [self localBreadCrumb:@"startVideoChat"
+    [self localBreadCrumb:@"Video chat started"
               description:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]];
 
     UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
@@ -985,7 +988,7 @@ int estimatedWait;
     
     NSString *formName = [self.selectAdHocFormsPicker currentSelection];
     
-    [self localBreadCrumb:@"startSurvey"
+    [self localBreadCrumb:@"Survey started"
               description:[NSString stringWithFormat:@"Survey with name=%@", formName]];
     
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
@@ -996,7 +999,7 @@ int estimatedWait;
 {
     NSLog(@"Rendering an ad-hoc User Profile Form");
     
-    [self localBreadCrumb:@"startUserProfile"
+    [self localBreadCrumb:@"User profile displayed"
               description:@"Editing user profile"];
     
     UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];

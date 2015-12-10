@@ -63,7 +63,7 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)loginTapped:(id)sender
 {
-    [[EXPERTconnect shared] breadcrumbWithAction:@"loginTapped"
+    [[EXPERTconnect shared] breadcrumbWithAction:@"User login initiated"
                                      description:@"User pushed login button"
                                           source:@"ECDemo"
                                      destination:@"Humanify"
@@ -71,7 +71,7 @@ static char ECSUserActionCompletionBlockKey;
     
     [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo) {
         
-        [[EXPERTconnect shared] breadcrumbWithAction:@"loginCompleted"
+        [[EXPERTconnect shared] breadcrumbWithAction:@"Login successful"
                                          description:[NSString stringWithFormat:@"Did login succeed?%d", (userInfo?1:0)]
                                               source:@"ECDemo"
                                          destination:@"Humanify"
@@ -90,7 +90,7 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)registerTapped:(id)sender
 {
-    [[EXPERTconnect shared] breadcrumbWithAction:@"registerTapped"
+    [[EXPERTconnect shared] breadcrumbWithAction:@"Registration initiated"
                                      description:@"User pushed register button"
                                           source:@"ECDemo"
                                      destination:@"Humanify"
@@ -98,7 +98,7 @@ static char ECSUserActionCompletionBlockKey;
     
     [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo) {
         
-        [[EXPERTconnect shared] breadcrumbWithAction:@"registerCompleted"
+        [[EXPERTconnect shared] breadcrumbWithAction:@"Registration successful"
                                          description:[NSString stringWithFormat:@"Did register succeed?%d", (userInfo?1:0)]
                                               source:@"ECDemo"
                                          destination:@"Humanify"

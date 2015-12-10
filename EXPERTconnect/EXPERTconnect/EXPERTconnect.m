@@ -123,6 +123,7 @@ NSTimer *breadcrumbTimer;
     // Reset the auth token. This should make us fetch a new one.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = nil;
+    [self setSessionID:nil]; // Clear the breadcrumb token.
 }
 
 - (void)setUserIntent:(NSString *)intent
@@ -230,6 +231,8 @@ NSTimer *breadcrumbTimer;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
     chatAction.journeybegin = [NSNumber numberWithInt:1];
     
+    [self breadcrumbDispatch]; 
+    
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     // Do a login if there's no session:
     if (![cafeXController hasCafeXSession]) {
@@ -307,6 +310,27 @@ NSTimer *breadcrumbTimer;
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
     answerEngineAction.displayName = displayName;
+    answerEngineAction.showSearchBar = YES;
+    
+    UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
+    ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
+    
+    return answerEngineController;
+}
+
+- (UIViewController*)startAnswerEngine:(NSString *)aeContext
+                       withDisplayName:(NSString *)displayName
+                         showSearchBar:(BOOL)showSearchBar
+{
+    ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
+    
+    answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    answerEngineAction.actionId = @"";
+    answerEngineAction.answerEngineContext = aeContext;
+    answerEngineAction.navigationContext = @"";
+    answerEngineAction.displayName = displayName;
+    answerEngineAction.showSearchBar = showSearchBar;
     
     UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
     ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
@@ -672,18 +696,18 @@ NSTimer *breadcrumbTimer;
                   destination: (NSString *)actionDestination
                   geolocation: (CLLocation *)geolocation
 {
-    
     // This block will create a breadcrumb session if one is not already created.
-    bool retryingToGetSession;
-    if(!retryingToGetSession && (![self sessionID] || self.sessionID.length == 0))
+    bool retryingToGetSession = NO;
+    if( !retryingToGetSession && [self sessionID] == Nil )
     {
         retryingToGetSession = YES;
         ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
+        
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
             
-            if ( !error && sessionID && sessionID.length > 0 )
+            if ( !error )
             {
                 [self breadcrumbWithAction:actionType
                                description:actionDescription
@@ -700,21 +724,19 @@ NSTimer *breadcrumbTimer;
     
     if( [self sessionID] == Nil )
     {
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. SessionID not initialized correctly");
+        ECSLogVerbose(@"breadcrumbsAction::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
 
     ECSBreadcrumbsAction *breadcrumb = [[ECSBreadcrumbsAction alloc] init];
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     if([self clientID])[breadcrumb setTenantId:[self clientID]];
     [breadcrumb setJourneyId:[self journeyID]];
     [breadcrumb setSessionId:[self sessionID]];
-    
-    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     [breadcrumb setUserId:(userManager.userToken ? userManager.userToken : userManager.deviceID)];
-    
     [breadcrumb setActionType:actionType];
     [breadcrumb setActionDescription:actionDescription];
     [breadcrumb setActionSource:actionSource];
@@ -729,7 +751,7 @@ NSTimer *breadcrumbTimer;
     
     ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
-    ECSLogVerbose(@"breadcrumbWithAction::Cache time=%d, count=%d.", config.breadcrumbCacheTime, breadcrumbCacheCount);
+    ECSLogVerbose(@"breadcrumbWithAction::Cache time=%lu, count=%d.", (unsigned long)config.breadcrumbCacheTime, breadcrumbCacheCount);
     
     if (storedBreadcrumbs.count >= breadcrumbCacheCount )
     {
@@ -752,28 +774,23 @@ NSTimer *breadcrumbTimer;
     {
         ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent.");
     }
-    NSLog(@"Breakpoint"); 
 }
 
 - (void) breadcrumbDispatch
 {
+    if (storedBreadcrumbs.count < 1) return;
     [breadcrumbTimer invalidate];
     breadcrumbTimer = nil;
-    
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager breadcrumbsAction:storedBreadcrumbs
-                           completion:^(NSDictionary *decisionResponse, NSError *error) {
-                               
-       if( error )
-       {
-           ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
-       }
+                           completion:^(NSDictionary *decisionResponse, NSError *error)
+    {
+        
+       if( !error )
+           NSLog(@"bcDispatch::%lu breadcrumb(s) sent.", (unsigned long)storedBreadcrumbs.count);
        else
-       {
-           ECSLogVerbose(@"breadcrumbsAction:Completion::%d breadcrumb(s) sent successfully.", storedBreadcrumbs.count);
-           
-       }
+           ECSLogError(@"bcDispatch::Error: %@", error.description);
        
        // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
        storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
@@ -783,18 +800,23 @@ NSTimer *breadcrumbTimer;
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
 {
     
-    bool retryingToGetJourney;
+    bool retryingToGetJourney = NO;
     
-    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0))
+    if (!retryingToGetJourney && [self journeyID] == Nil)
     {
         ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching journeyID then retrying...");
         retryingToGetJourney = YES;
+        
         [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
         {
             ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            if(!error && journeyID && journeyID.length > 0)
+            if( !error )
             {
                 [self breadcrumbNewSessionWithCompletion:completion];
+            }
+            else
+            {
+                completion(nil, error);
             }
             return;
         }];
@@ -804,7 +826,11 @@ NSTimer *breadcrumbTimer;
     
     if( [self journeyID] == Nil )
     {
-        ECSLogVerbose(@"breadcrumbNewSession:: Ignoring. JourneyID not initialized correctly");
+        NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
+                                             code:1001
+                                         userInfo:nil];
+        completion(nil, error);
+        
         return;
     }
     
@@ -818,30 +844,24 @@ NSTimer *breadcrumbTimer;
     if([self clientID])[journeySession setTenantId:[self clientID]];
     [journeySession setJourneyId:[self journeyID]];
     [journeySession setDeviceId:userManager.deviceID];
-    
     [journeySession setPlatform:@"iOS"];
     [journeySession setOSVersion:[[UIDevice currentDevice] systemVersion]];
-    
     [journeySession setBrowserType:@"NA"];
     [journeySession setBrowserVersion:@"NA"];
-    
-    //[journeySession setPhonenumber:phonenumber];
-    //[journeySession setIPAddress:ipAddress];
-    //[journeySession setGEOLocation:geoLocation];
-    //[journeySession setResolution:resolution];
 
     NSMutableDictionary *properties = [journeySession getProperties];
     
     [sessionManager breadcrumbsSession:properties
-                            completion:^(NSDictionary *decisionResponse, NSError *error) {
+                            completion:^(NSDictionary *decisionResponse, NSError *error)
+    {
         
-        if( error )  {
-            
+        if( error )
+        {
             ECSLogError(@"breadcrumbsSession:: Error: %@", error.description);
             if(completion) completion(nil, error);
-            
-        } else  {
-
+        }
+        else
+        {
             ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc]
                                                         initWithDic:decisionResponse];
             

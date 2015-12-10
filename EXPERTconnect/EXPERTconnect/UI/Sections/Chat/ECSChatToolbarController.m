@@ -69,7 +69,8 @@
     // Ready to be sent
     self.sendEnabled = YES;
     // Send button disabled as the textView is displaying placeholder text at this point
-    self.sendButton.enabled = NO;
+    //self.sendButton.enabled = NO;
+    [self toggleSendButton:NO];
 }
 
 - (void)setSendEnabled:(BOOL)sendEnabled
@@ -80,6 +81,14 @@
     self.photoButton.enabled = sendEnabled;
     self.audioButton.enabled = sendEnabled;
     self.locationButton.enabled = sendEnabled;
+    
+    if (!_sendEnabled) {
+        [self.sendButton setAlpha:0.5f];
+        [self.textView setUserInteractionEnabled:NO];
+    } else {
+        [self.sendButton setAlpha:1.0f];
+        [self.textView setUserInteractionEnabled:YES]; 
+    }
 }
 
 - (void)setup
@@ -114,7 +123,7 @@
     
     self.sendButton.backgroundColor = theme.primaryColor;
     self.sendButton.tintColor = theme.primaryTextColor;
-    self.sendButton.enabled = NO;
+    [self toggleSendButton:NO];
     self.sendButton.titleLabel.font = theme.chatSendButtonFont;
     [self.sendButton setTitle:ECSLocalizedString(ECSLocalizeSend, @"Send") forState:UIControlStateNormal];
     [self.sendButton addTarget:self
@@ -159,7 +168,17 @@
         [self.delegate sendText:self.textView.text];
         self.textView.text = @"";
         [self textViewDidChange:self.textView];
-        self.sendButton.enabled = NO;
+        [self toggleSendButton:NO];
+    }
+}
+
+- (void)toggleSendButton:(BOOL)isEnabled
+{
+    self.sendButton.enabled = isEnabled;
+    if (self.sendButton.enabled) {
+        [self.sendButton setAlpha:1.0f];
+    } else {
+        [self.sendButton setAlpha:0.5f];
     }
 }
 
@@ -208,7 +227,7 @@
     self.textViewHeightConstraint.constant = size.height;
     
     [self sendChatState:(textView.text.length > 0 || !textView.text ? @"composing" : @"paused")];
-    self.sendButton.enabled = (textView.text.length > 0);
+    [self toggleSendButton: (textView.text.length > 0)];
 }
 
 - (void)displayViewController:(UIViewController*)controller

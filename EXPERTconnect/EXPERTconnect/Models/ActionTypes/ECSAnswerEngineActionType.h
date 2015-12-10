@@ -24,4 +24,7 @@
 // Specifies the context of the answer engine
 @property (strong, nonatomic) NSString *answerEngineContext;
 
+// Used to show/hide the search bar
+@property (nonatomic) BOOL showSearchBar;
+
 @end

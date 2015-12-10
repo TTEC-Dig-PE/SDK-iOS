@@ -116,14 +116,11 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
                 NSLog(@"Starting journey with ID=%@", journeyId);
                 
                 // Send an "app launch" breadcrumb.
-                NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@",
-                                  configuration.clientID,
-                                  configuration.host];
                 
-                [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
-                                                 description:desc
+                [[EXPERTconnect shared] breadcrumbWithAction:@"ECDemo Started"
+                                                 description:@""
                                                       source:@"ECDemo"
-                                                 destination:@"na"
+                                                 destination:@"Humanify"
                                                  geolocation:nil];
             }
         }];
