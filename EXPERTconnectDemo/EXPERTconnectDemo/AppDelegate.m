@@ -297,8 +297,16 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     myTheme.agentChatTextColor = [UIColor whiteColor];
     myTheme.userChatBackground = [UIColor grayColor];
     myTheme.agentChatBackground =  [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];
-    myTheme.showAvatarImages = YES;
-    
+	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowAvatarImagesKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showAvatarImages = NO;
+	 }
+	 else{
+		  myTheme.showAvatarImages = YES;
+	 }
+	 
     myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
     [EXPERTconnect shared].theme = myTheme;
     /* End test settings */

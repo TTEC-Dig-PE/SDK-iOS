@@ -72,6 +72,8 @@
 		8112F9D41B9811EC004D99ED /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
 		8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
+		C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */; };
+		C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */; };
 		C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */; };
 		C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */; };
 		C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */; };
@@ -375,6 +377,9 @@
 		72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		72C4C39460082123433B137E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDCustomizeThemeViewController.h; sourceTree = "<group>"; };
+		C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDCustomizeThemeViewController.m; sourceTree = "<group>"; };
+		C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCustomizeThemeViewController.xib; sourceTree = "<group>"; };
 		C1DBB4FA1BE88F8F00A61B61 /* ECDWorkflowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowViewController.h; sourceTree = "<group>"; };
 		C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowViewController.m; sourceTree = "<group>"; };
 		C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowViewController.xib; sourceTree = "<group>"; };
@@ -687,6 +692,9 @@
 				C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */,
 				C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */,
 				C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */,
+				C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */,
+				C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */,
+				C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1036,6 +1044,7 @@
 				D8CEBE251B546DC20053E9A0 /* RobotoCondensed-Bold.ttf in Resources */,
 				D8CEBE281B546DC20053E9A0 /* RobotoCondensed-Light.ttf in Resources */,
 				D8CEBE211B546DC20053E9A0 /* HZRiskViewController.xib in Resources */,
+				C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
 				D8CEBE1D1B546DC20053E9A0 /* HZPerformanceViewController.xib in Resources */,
@@ -1257,6 +1266,7 @@
 				C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */,
 				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
+				C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */,
 				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,

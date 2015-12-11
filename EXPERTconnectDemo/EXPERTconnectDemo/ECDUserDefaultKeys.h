@@ -11,5 +11,6 @@
 #define EXPERTconnectDemo_ECDUserDefaultKeys_h
 
 static NSString* const ECDPushNotificationsEnabledKey = @"ECDPushNotificationsEnabledKey";
+static NSString* const ECDShowAvatarImagesKey = @"ECDShowAvatarImagesKey";
 
 #endif
