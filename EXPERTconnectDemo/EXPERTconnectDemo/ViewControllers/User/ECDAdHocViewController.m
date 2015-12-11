@@ -964,7 +964,7 @@ int estimatedWait;
     
     UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext
                                                                          withDisplayName:@""
-                                                                           showSearchBar:NO];
+                                                                           showSearchBar:YES];
     
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }

@@ -20,6 +20,8 @@
                                            @"to": @"to",
                                            @"state": @"state",
                                            @"version": @"version",
+                                           @"object": @"object",
+                                           @"type": @"type"
                                            }];
     return jsonMapping;
 }
@@ -33,6 +35,8 @@
     message.to = [self.to copyWithZone:zone];
     message.state = [self.state copyWithZone:zone];
     message.version = [self.version copyWithZone:zone];
+    message.object = [self.object copyWithZone:zone];
+    message.type = [self.object copyWithZone:zone];
 
     return message;
 }

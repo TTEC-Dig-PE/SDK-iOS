@@ -976,6 +976,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
 {
+    if(state.object && [state.type isEqualToString:@"artifact"]) {
+        // We have an incoming document from the server.
+        
+        //(NSURLSessionDataTask *)getMediaFileNamesWithCompletion
+    }
+    
     if (state.chatState == ECSChatStateComposing)
     {
         if (_agentTypingIndex == -1)
@@ -1041,16 +1047,17 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
 {
     //waitTime = 180; // TESTING ONLY. (in seconds)
-    waitTime = waitTime / 60.0f; // Convert seconds to minutes
-    if (waitTime <= 1)
+    //waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
+    int waitMinutes = waitTime / 60.0f;
+    if (waitTime <= 60)
     {
         self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeShort, @"Wait time");
     }
-    else if (waitTime > 1 && waitTime < 5)
+    else if (waitTime > 60 && waitTime < 300)
     {
-        self.waitView.subtitleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitTime];
+        self.waitView.subtitleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitMinutes];
     }
-    else if (waitTime >= 5)
+    else if (waitTime >= 300)
     {
         self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeLong, @"Wait time");
     }
