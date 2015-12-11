@@ -199,6 +199,17 @@
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "Select Runtime Application";
 
+/* Customize Theme Header */
+"ECDLocalizedCustomizeThemeHeader" = "Theme Customization";
 
 /* Frequently asked Questions header */
-"ECSLocalizedFrequentlyAskedQuestionsKey" = "Top Questions";
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "Top Questions";/* ----------------------------------------------------- */
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesHeader" = "Hide/Show Avatar Images";
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
+
+
+
