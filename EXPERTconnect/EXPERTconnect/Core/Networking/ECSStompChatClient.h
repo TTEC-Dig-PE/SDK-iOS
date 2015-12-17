@@ -96,6 +96,14 @@
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage*)message;
 
+/**
+ Called when a chat client receives a message from the chat server
+ 
+ @param stompClient the chat client that received notification message
+ @param the notification message received from the server
+ */
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage;
+
 @end
 
 /**

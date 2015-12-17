@@ -1007,6 +1007,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
 }
 
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
+{
+	 [self.messages addObject:notificationMessage];
+	 [self.tableView beginUpdates];
+	 
+	 [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
+	 
+	 [self.tableView endUpdates];
+	 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+}
+
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
     NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
