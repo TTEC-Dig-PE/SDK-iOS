@@ -690,7 +690,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSDictionary *parameters = @{ @"from": fromString,
                                   @"type": typeString,
-                                  @"objectData": objectDataString,
+                                  @"object": objectDataString,
                                   @"channelId": theChannel,
                                   @"conversationId": convoIdString};
     
@@ -702,7 +702,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
      NSDictionary *headers = @{ kECSHeaderBodyType: kECSChatNotificationMessage,
      kECSHeaderBodyVersion: kECSMessageBodyVersion };*/
     
-    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/chatState", theChannel]
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/notifications", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
