@@ -130,22 +130,21 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         [self askQuestion];
         [self hideFAQPopoverAnimated:NO];
     }
-    if (!self.initialQuery && !self.didAskInitialQuestion)
+    if (!self.initialQuery && !self.didAskInitialQuestion &&
+        self.answerEngineAction.topQuestions.count == 0 && self.answerEngineAction.answerEngineContext)
     {
-        if (self.answerEngineAction.topQuestions.count == 0)
-        {
-            // Let's get top questions.
-            ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-            
-            [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
-                                             forContext:self.answerEngineAction.answerEngineContext
-                                         withCompletion:^(NSArray *context, NSError *error)
-             {
-                 // Got our top questions...
-                 self.answerEngineAction.topQuestions = context;
-                 [self displayTopQuestions];
-             }];
-        }
+        // Let's get top questions.
+        ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+        
+        [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+                                         forContext:self.answerEngineAction.answerEngineContext
+                                     withCompletion:^(NSArray *context, NSError *error)
+         {
+             // Got our top questions...
+             self.answerEngineAction.topQuestions = context;
+             [self displayTopQuestions];
+         }];
+        
     }
 }
 
