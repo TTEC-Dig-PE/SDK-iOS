@@ -181,29 +181,39 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 - (void)setGeoLocation: (CLLocation *)geolocation {
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
-                        forKey:PROPERTY_LATITUDE];
+    if (geolocation.coordinate.latitude) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
+                            forKey:PROPERTY_LATITUDE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
-                        forKey:PROPERTY_LONGITUDE];
+    if (geolocation.coordinate.longitude) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
+                            forKey:PROPERTY_LONGITUDE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
-                        forKey:PROPERTY_HORIZ_ACCURACY];
+    if (geolocation.horizontalAccuracy) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
+                            forKey:PROPERTY_HORIZ_ACCURACY];
+    }
+        
+    if (geolocation.verticalAccuracy) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
+                            forKey:PROPERTY_VERT_ACCURACY];
+    }
+        
+    if (geolocation.speed) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
+                            forKey:PROPERTY_SPEED];
+    }
+        
+    if (geolocation.course) {
+        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
+                            forKey:PROPERTY_COURSE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
-                        forKey:PROPERTY_VERT_ACCURACY];
-    
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
-                        forKey:PROPERTY_SPEED];
-    
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
-                        forKey:PROPERTY_COURSE];
-    
-    [self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
-    
-    [self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
-    
-    [self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
+    //[self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
+    //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
+    //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
 }
 
 @end
