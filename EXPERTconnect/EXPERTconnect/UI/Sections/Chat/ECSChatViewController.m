@@ -722,7 +722,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     ECSURLSessionManager *session = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     
     NSString *uploadName = [ECSMediaInfoHelpers uploadNameForMedia:mediaInfo];
     [session uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
@@ -737,13 +737,27 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
          else
          {
              ECSLogVerbose(@"Media uploaded successfully");
-             ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
-             notification.from = self.chatClient.fromUsername;
-             notification.channelId = self.chatClient.currentChannelId;
-             notification.conversationId = self.chatClient.currentConversation.conversationID;
-             notification.type = @"artifact";
-             notification.objectData = uploadName;
-             [weakSelf.chatClient sendNotificationMessage:notification];
+             /*ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
+              notification.from = self.chatClient.fromUsername;
+              notification.channelId = self.chatClient.currentChannelId;
+              notification.conversationId = self.chatClient.currentConversation.conversationID;
+              notification.type = @"artifact";
+              notification.objectData = uploadName;
+              [weakSelf.chatClient sendNotificationMessage:notification];*/
+             
+             ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+             
+             [urlSession sendChatNotificationFrom:self.chatClient.fromUsername
+                                             type:@"artifact"
+                                       objectData:uploadName
+                                   conversationId:self.chatClient.currentConversation.conversationID
+                                          channel:self.chatClient.currentChannelId
+                                       completion:^(NSString *response, NSError *error)
+              {
+                  if(error) {
+                      NSLog(@"Error sending chat notification message: %@", error);
+                  }
+              }];
          }
      }];
 }
@@ -1005,6 +1019,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         }
         _agentTypingIndex = -1;
     }
+}
+
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
+{
+	 [self.messages addObject:notificationMessage];
+	 [self.tableView beginUpdates];
+	 
+	 [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
+	 
+	 [self.tableView endUpdates];
+	 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error

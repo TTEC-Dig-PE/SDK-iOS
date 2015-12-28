@@ -288,6 +288,14 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                channel:(NSString *)theChannel
                             completion:(void(^)(NSString *response, NSError *error))completion;
 
+// Send a chat notification message from the client
+- (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
+                                             type:(NSString *)typeString
+                                       objectData:(NSString *)objectDataString
+                                   conversationId:(NSString *)convoIdString
+                                          channel:(NSString *)theChannel
+                                       completion:(void(^)(NSString *response, NSError *error))completion;
+
 
 #pragma mark Agent Availability
 

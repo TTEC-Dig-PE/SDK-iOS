@@ -681,6 +681,33 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
+                                             type:(NSString *)typeString
+                                       objectData:(NSString *)objectDataString
+                                   conversationId:(NSString *)convoIdString
+                                          channel:(NSString *)theChannel
+                                       completion:(void(^)(NSString *response, NSError *error))completion
+{
+    NSDictionary *parameters = @{ @"from": fromString,
+                                  @"type": typeString,
+                                  @"object": objectDataString,
+                                  @"channelId": theChannel,
+                                  @"conversationId": convoIdString};
+    
+    /*NSString * const kECSHeaderBodyType = @"x-body-type";
+     NSString * const kECSHeaderBodyVersion = @"x-body-version";
+     
+     NSString * const kECSMessageBodyVersion = @"1";
+     NSString * const kECSChatNotificationMessage = @"NotificationMessage";
+     NSDictionary *headers = @{ kECSHeaderBodyType: kECSChatNotificationMessage,
+     kECSHeaderBodyVersion: kECSMessageBodyVersion };*/
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/notifications", theChannel]
+           parameters:parameters
+              success:[self successWithExpectedType:[NSString class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
                                           completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
     
