@@ -45,6 +45,20 @@
 #import <EXPERTconnect/ECSCalendar.h>
 #import <EXPERTconnect/ECSRichTextEditor.h>
 
+// Core Networking
+
+#import <EXPERTconnect/ECSStompChatClient.h>
+#import <EXPERTconnect/ECSChannelStateMessage.h>
+#import <EXPERTconnect/ECSChatMessage.h>
+#import <EXPERTconnect/ECSChatStateMessage.h>
+#import <EXPERTconnect/ECSAddressableChatMessage.h>
+#import <EXPERTconnect/ECSChatVoiceAuthenticationMessage.h>
+#import <EXPERTconnect/ECSChatAddParticipantMessage.h>
+#import <EXPERTconnect/ECSInjector.h>
+#import <EXPERTconnect/ECSChatTextMessage.h>
+#import <EXPERTconnect/ECSConversationCreateResponse.h>
+#import <EXPERTconnect/ECSConversationLink.h>
+
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 #import <EXPERTconnect/UIView+ECSNibLoading.h>
 #import <EXPERTconnect/ECSViewControllerStack.h>

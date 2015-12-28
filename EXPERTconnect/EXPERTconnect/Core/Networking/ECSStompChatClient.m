@@ -134,15 +134,19 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
-    
-    if ((chatAction.agentId && chatAction.agentId.length > 0) &&
-        (chatAction.agentSkill.length <= 0))
-    {
-        configuration.to = chatAction.agentId;
-    }
-    else
-    {
-        configuration.to = chatAction.agentSkill;
+
+    if (chatAction) {
+        if ((chatAction.agentId && chatAction.agentId.length > 0) &&
+            (chatAction.agentSkill.length <= 0))
+        {
+            configuration.to = chatAction.agentId;
+        }
+        else
+        {
+            configuration.to = chatAction.agentSkill;
+        }
+    } else {
+        ECSLogError(@"setupChatChannel: Error converting actionType to chatAction.");
     }
 
     // check for video action type
