@@ -202,9 +202,9 @@
 		038781CA1AEA93C4008786A8 /* UIImage+ECSBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 038781C81AEA93C4008786A8 /* UIImage+ECSBundle.h */; };
 		038781CB1AEA93C4008786A8 /* UIImage+ECSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 038781C91AEA93C4008786A8 /* UIImage+ECSBundle.m */; };
 		03890C0B1AB07EDC00B64A78 /* ECSChatPhotoOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03890C0A1AB07EDC00B64A78 /* ECSChatPhotoOptionsViewController.xib */; };
-		038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43F71AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h */; };
+		038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43F71AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		038E43FA1AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 038E43F81AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m */; };
-		038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43FB1AA50C7F00FF1D48 /* ECSChannelConfiguration.h */; };
+		038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43FB1AA50C7F00FF1D48 /* ECSChannelConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		038E43FE1AA50C7F00FF1D48 /* ECSChannelConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 038E43FC1AA50C7F00FF1D48 /* ECSChannelConfiguration.m */; };
 		039062301AC588E300E006BE /* ECSChatStateMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390622E1AC588E300E006BE /* ECSChatStateMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		039062311AC588E300E006BE /* ECSChatStateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390622F1AC588E300E006BE /* ECSChatStateMessage.m */; };
@@ -450,6 +450,7 @@
 		C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
+		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
@@ -1910,6 +1911,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
+				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
+				C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */,
 				0380DEC41AA0E9E6003D9248 /* ECSConversationLink.h in Headers */,
 				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
 				0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */,
@@ -1971,7 +1975,6 @@
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
 				039E13131A8BF39300AD4927 /* ECSNotifications.h in Headers */,
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
-				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
@@ -1984,6 +1987,7 @@
 				C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */,
 				C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
+				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
@@ -2028,7 +2032,6 @@
 				03F0BD321A70095E00E90E7F /* ECSLocalization.h in Headers */,
 				03C310261A9B59C0006B3557 /* ECSURLSessionManager.h in Headers */,
 				031B2D691AAF443900A00A36 /* ECSHistoryResponse.h in Headers */,
-				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
 				91E63BF51B834EA30019F9EF /* ECSViewControllerStack.h in Headers */,
 				0342AFA51A9B60700009959E /* ECSPullUpView.h in Headers */,
 				037D19191A69707800B27B48 /* ECSJSONClassTransformer.h in Headers */,
@@ -2059,7 +2062,6 @@
 				03C3103E1A9B5B46006B3557 /* ECSFormSubmitResponse.h in Headers */,
 				C1E99D201BC7CBE7000EC129 /* ECSColorCursor.h in Headers */,
 				03ED2DAF1AC0A27500565F00 /* ECSChatMessageTableViewCell.h in Headers */,
-				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
 				0342AFD81A9B60950009959E /* ECSChatImageTableViewCell.h in Headers */,
 				03B3FA1E1A670C6E00D872B1 /* ECSResponseSerializer.h in Headers */,
 				0342B0241A9B60AE0009959E /* ECSRadioFormItemViewController.h in Headers */,

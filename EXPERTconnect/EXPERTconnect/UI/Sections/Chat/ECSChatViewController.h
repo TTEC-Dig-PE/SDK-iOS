@@ -15,4 +15,6 @@
 @property (strong, nonatomic) NSString *historyJourney;
 @property (assign, nonatomic) BOOL showingMoxtra;
 
+- (void)doGracefulEndChat;
+
 @end

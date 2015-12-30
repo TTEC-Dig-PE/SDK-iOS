@@ -48,6 +48,7 @@
 // Core Networking
 
 #import <EXPERTconnect/ECSStompChatClient.h>
+#import <EXPERTconnect/ECSStompCallbackClient.h>
 #import <EXPERTconnect/ECSChannelStateMessage.h>
 #import <EXPERTconnect/ECSChatMessage.h>
 #import <EXPERTconnect/ECSChatStateMessage.h>
@@ -58,6 +59,8 @@
 #import <EXPERTconnect/ECSChatTextMessage.h>
 #import <EXPERTconnect/ECSConversationCreateResponse.h>
 #import <EXPERTconnect/ECSConversationLink.h>
+#import <EXPERTconnect/ECSChannelConfiguration.h>
+#import <EXPERTconnect/ECSChannelCreateResponse.h>
 
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 #import <EXPERTconnect/UIView+ECSNibLoading.h>

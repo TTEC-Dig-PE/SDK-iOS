@@ -161,8 +161,15 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                              selector:@selector(networkConnectionChanged:)
                                                  name:ECSReachabilityChangedNotification
                                                object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:)
                                                  name:@"NotificationScreenShareEnded"
+                                               object:nil];
+    
+    // If host app sends this notification, we will end the chat (no dialog).
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(doGracefulEndChat)
+                                                 name:ECSEndChatNotification
                                                object:nil];
     
 #ifdef DEBUG
@@ -265,6 +272,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)dealloc
 {
+    [self doGracefulEndChat];
     self.tableView.delegate = nil;
     self.workflowDelegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -584,14 +592,18 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
-                                                          [self.workflowDelegate endVideoChat];
-                                                          [self.chatClient disconnect];
-                                                          [self showSurvey];
+                                                          [self doGracefulEndChat];
                                                       }]];
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)doGracefulEndChat {
+    [self.workflowDelegate endVideoChat];
+    [self.chatClient disconnect];
+    [self showSurvey];
 }
 
 #pragma mark - Chat Toolbar callbacks

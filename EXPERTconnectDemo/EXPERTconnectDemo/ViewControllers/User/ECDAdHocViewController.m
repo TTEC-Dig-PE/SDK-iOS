@@ -936,6 +936,13 @@ int estimatedWait;
                                                               withSurvey:NO];
     [self.navigationController pushViewController:chatController animated:YES];
 
+    
+    // Enable this to test the "end chat" notification.
+    //[self performSelector:@selector(endChatAfterTime:) withObject:nil afterDelay:30]; // End chat after 30 seconds for test.
+    
+}
+-(void)endChatAfterTime:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
 }
 
 -(void)handleAdHocVoiceCallback

@@ -13,4 +13,7 @@ static NSString *const ECSUserSessionInvalidNotification    = @"ECSUserSessionIn
 static NSString *const ECSChatEndedNotification             = @"ECSChatEndedNotification";
 static NSString *const ECSCallbackEndedNotification         = @"ECSCallbackEndedNotification";
 
+// Host app can send this notification to simulate pressing an "End Chat" button.
+static NSString *const ECSEndChatNotification               = @"ECSEndChatNotification";
+
 #endif

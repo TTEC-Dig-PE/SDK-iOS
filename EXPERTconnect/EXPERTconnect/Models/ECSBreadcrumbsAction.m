@@ -21,12 +21,14 @@ static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
 static NSString* PROPERTY_ACTIONDEST     = @"actionDestination";
 static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
 
+static NSString* PROPERTY_GEOLOCATION       = @"geolocation";
 static NSString* PROPERTY_LATITUDE          = @"latitude";
 static NSString* PROPERTY_LONGITUDE         = @"longitude";
 static NSString* PROPERTY_HORIZ_ACCURACY    = @"horizontalAccuracy";
 static NSString* PROPERTY_VERT_ACCURACY     = @"verticalAccuracy";
 static NSString* PROPERTY_SPEED             = @"speed";
 static NSString* PROPERTY_COURSE            = @"course";
+static NSString* PROPERTY_ALTITUDE          = @"altitude";
 static NSString* PROPERTY_TIMESTAMP         = @"timestamp";
 static NSString* PROPERTY_FLOOR             = @"floor";
 static NSString* PROPERTY_DESCRIPTION       = @"description";
@@ -181,35 +183,44 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 - (void)setGeoLocation: (CLLocation *)geolocation {
     
+    NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
+    
     if (geolocation.coordinate.latitude) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
-                            forKey:PROPERTY_LATITUDE];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
+                     forKey:PROPERTY_LATITUDE];
     }
     
     if (geolocation.coordinate.longitude) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
-                            forKey:PROPERTY_LONGITUDE];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
+                     forKey:PROPERTY_LONGITUDE];
     }
     
     if (geolocation.horizontalAccuracy) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
-                            forKey:PROPERTY_HORIZ_ACCURACY];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
+                     forKey:PROPERTY_HORIZ_ACCURACY];
     }
         
     if (geolocation.verticalAccuracy) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
-                            forKey:PROPERTY_VERT_ACCURACY];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
+                     forKey:PROPERTY_VERT_ACCURACY];
     }
         
     if (geolocation.speed) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
-                            forKey:PROPERTY_SPEED];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
+                     forKey:PROPERTY_SPEED];
     }
         
     if (geolocation.course) {
-        [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
-                            forKey:PROPERTY_COURSE];
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
+                     forKey:PROPERTY_COURSE];
     }
+    
+    if (geolocation.altitude) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.altitude]
+                     forKey:PROPERTY_ALTITUDE];
+    }
+    
+    [self.properties setObject:geoProps forKey:PROPERTY_GEOLOCATION];
     
     //[self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
     //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];

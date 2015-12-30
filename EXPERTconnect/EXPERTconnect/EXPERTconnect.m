@@ -749,6 +749,8 @@ NSTimer *breadcrumbTimer;
     if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];
     [storedBreadcrumbs addObject:[breadcrumb getProperties]];
     
+    ECSLogVerbose(@"breadcrumb Properties: %@", [breadcrumb getProperties]);
+    
     ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
     ECSLogVerbose(@"breadcrumbWithAction::Cache time=%lu, count=%d.", (unsigned long)config.breadcrumbCacheTime, breadcrumbCacheCount);
