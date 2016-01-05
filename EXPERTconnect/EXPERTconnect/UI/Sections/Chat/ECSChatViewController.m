@@ -1392,7 +1392,22 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     notification.conversationId = self.chatClient.currentConversation.conversationID;
     notification.type = @"interview";
     notification.objectData = nil;
-    [self.chatClient sendNotificationMessage:notification];
+	 
+	 ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+	 
+	 [urlSession sendChatNotificationFrom:self.chatClient.fromUsername
+									 type:@"interview"
+							   objectData:@""
+						   conversationId:self.chatClient.currentConversation.conversationID
+								  channel:self.chatClient.currentChannelId
+							   completion:^(NSString *response, NSError *error)
+	  {
+		   if(error) {
+				NSLog(@"Error sending chat notification message: %@", error);
+		   }
+	  }];
+
+//    [self.chatClient sendNotificationMessage:notification];
 }
 
 - (void)sendCoBrowseMessage:(NSString *)meetID

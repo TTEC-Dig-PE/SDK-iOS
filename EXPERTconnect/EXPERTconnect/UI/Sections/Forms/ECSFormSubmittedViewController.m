@@ -40,17 +40,22 @@
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
-    
-    // mas - 11-oct-2015 - Added condition for workflowDelegate
-    if (self.workflowDelegate) {
-        [self.workflowDelegate endWorkFlow];
-    } else {
-        if (self.navigationController)
-        {
-            //[self dismissViewControllerAnimated:YES completion:nil];
-            [self.navigationController popToRootViewControllerAnimated:YES]; 
-        }
-    }
+	 
+	 // mas - 11-oct-2015 - Added condition for workflowDelegate
+	 if (self.workflowDelegate) {
+		  [self.workflowDelegate endWorkFlow];
+	 } else {
+		  if (self.navigationController)
+		  {
+			   if([self presentingViewController])
+			   {
+					[self dismissViewControllerAnimated:YES completion:nil];
+			   }
+			   else{
+				 [self.navigationController popToRootViewControllerAnimated:YES];
+			   }
+		  }
+	 }
 }
 
 @end
