@@ -379,9 +379,6 @@
 		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
 		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
-		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; };
 		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
@@ -452,6 +449,9 @@
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
 		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
+		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
+		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
+		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -893,9 +893,6 @@
 		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
-		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
-		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
-		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
 		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsSession.h; sourceTree = "<group>"; };
 		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsSession.m; sourceTree = "<group>"; };
 		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
@@ -965,6 +962,9 @@
 		C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAgentAvailableResponse.m; path = Responses/ECSAgentAvailableResponse.m; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
+		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
+		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
+		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1147,11 +1147,6 @@
 				C1E99D0C1BC7CB5F000EC129 /* WYSIWYG Editor */,
 				C1E0E6051BC408910089C7E6 /* CalendarView */,
 				03F1895C1A641D67003C6E14 /* Cells */,
-				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
-				468EBC611B83710F008A0826 /* ECSRatingView.h */,
-				46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */,
-				46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */,
-				46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1726,6 +1721,9 @@
 				0342AFE91A9B60AE0009959E /* ECSRadioTableViewCell.h */,
 				0342AFEA1A9B60AE0009959E /* ECSRadioTableViewCell.m */,
 				0342AFEB1A9B60AE0009959E /* ECSRadioTableViewCell.xib */,
+				C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */,
+				C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */,
+				C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */,
 				0342B0041A9B60AE0009959E /* ECSRatingFormItemViewController.h */,
 				0342B0001A9B60AE0009959E /* ECSRatingFormItemViewController.m */,
 				0342AFF31A9B60AE0009959E /* ECSRatingFormItemViewController.xib */,
@@ -1743,6 +1741,8 @@
 				035C4C091A9B7E900016BCE8 /* ECSFormSubmittedViewController.xib */,
 				03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */,
 				03A7D2971ABC67C0000A21AE /* ECSFormTextField.m */,
+				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
+				468EBC611B83710F008A0826 /* ECSRatingView.h */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -2023,6 +2023,7 @@
 				03BE8F231AE037EB00BEC8B5 /* ECSChatMediaMessage.h in Headers */,
 				0342B0431A9B60C10009959E /* ECSButtonTableViewCell.h in Headers */,
 				03AF24AB1A9B601E00407BE5 /* ECSBorderContainerView.h in Headers */,
+				C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */,
 				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
 				0342AFBA1A9B60840009959E /* ECSCallbackViewController.h in Headers */,
 				0342B04C1A9B60C10009959E /* ECSSectionHeader.h in Headers */,
@@ -2047,7 +2048,6 @@
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
-				46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */,
 				031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */,
 				03AF24A91A9B601E00407BE5 /* ECSPlaceholderTextView.h in Headers */,
 				0342B0701A9B60EF0009959E /* ECSMessageViewController.h in Headers */,
@@ -2087,7 +2087,6 @@
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
 				0342AFA21A9B60700009959E /* ECSPullDownView.h in Headers */,
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
-				46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
@@ -2254,6 +2253,7 @@
 				0342B00D1A9B60AE0009959E /* ECSCheckboxTableViewCell.xib in Resources */,
 				0342B06C1A9B60EF0009959E /* ECSWebViewController.xib in Resources */,
 				0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */,
+				C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */,
 				03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */,
 				D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */,
 				0342B04B1A9B60C10009959E /* ECSListTableViewCell.xib in Resources */,
@@ -2362,6 +2362,7 @@
 				03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */,
 				0342B0711A9B60EF0009959E /* ECSMessageViewController.m in Sources */,
 				462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */,
+				C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */,
 				033ACB3D1A602C9C0024F48F /* ECSUtilities.m in Sources */,
 				03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */,
 				03C310671A9B5B56006B3557 /* ECSWebActionType.m in Sources */,
@@ -2539,7 +2540,6 @@
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,
 				03F0BD091A6D425200E90E7F /* ECSTheme.m in Sources */,
-				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
 				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */,

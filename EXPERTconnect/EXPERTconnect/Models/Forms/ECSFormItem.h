@@ -20,9 +20,9 @@ FOUNDATION_EXPORT NSString *const ECSFormTypeSlider;
 FOUNDATION_EXPORT NSString *const ECSFormTypeRange;
 FOUNDATION_EXPORT NSString *const ECSFormTypeRating;
 
-FOUNDATION_EXPORT NSString *const ECSFormTypeSliderTreatmentRating;
-FOUNDATION_EXPORT NSString *const ECSFormTypeSliderTreatmentThumbs;
-FOUNDATION_EXPORT NSString *const ECSFormTypeSliderTreatmentFaces;
+FOUNDATION_EXPORT NSString *const ECSFormTreatmentRating;
+FOUNDATION_EXPORT NSString *const ECSFormTreatmentThumbs;
+FOUNDATION_EXPORT NSString *const ECSFormTreatmentFaces;
 
 FOUNDATION_EXPORT NSString *const ECSFormTreatmentFullName;
 FOUNDATION_EXPORT NSString *const ECSFormTreatmentEmail;

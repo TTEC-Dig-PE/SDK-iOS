@@ -17,9 +17,9 @@ NSString *const ECSFormTypeSlider = @"slider";
 NSString *const ECSFormTypeRange = @"range";
 NSString *const ECSFormTypeRating = @"rating";
 
-NSString *const ECSFormTypeSliderTreatmentRating = @"rating";  // 5-Stars Rating Treatment
-NSString *const ECSFormTypeSliderTreatmentThumbs = @"thumbs";  // Thumbs Up / Thumbs Down Treatment
-NSString *const ECSFormTypeSliderTreatmentFaces = @"faces";    // Happy Face / Sad Face Treatment
+NSString *const ECSFormTreatmentRating = @"rating";  // 5-Stars Rating Treatment
+NSString *const ECSFormTreatmentThumbs = @"thumbs";  // Thumbs Up / Thumbs Down Treatment
+NSString *const ECSFormTreatmentFaces = @"faces";    // Happy Face / Sad Face Treatment
 
 NSString *const ECSFormTreatmentFullName = @"full name";
 NSString *const ECSFormTreatmentEmail = @"email";
