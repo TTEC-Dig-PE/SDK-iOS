@@ -18,6 +18,7 @@
 #import "ECSCheckboxFormItemViewController.h"
 #import "ECSSliderFormItemViewController.h"
 #import "ECSTextAreaFormItemViewController.h"
+#import "ECSBinaryImageViewController.h"
 
 @interface ECSFormItemViewController ()
 
@@ -49,11 +50,19 @@
 
 + (ECSFormItemViewController*)viewControllerForFormItem:(ECSFormItem*)formItem
 {
-    NSString* type = formItem.type;
+    NSString *type = formItem.type;
+    NSString *treatment = formItem.treatment;
     ECSFormItemViewController* vc;
+    
     if([type isEqualToString:ECSFormTypeRadio])
     {
-        vc = [ECSRadioFormItemViewController ecs_loadFromNib];
+        if ([treatment isEqualToString:ECSFormTreatmentThumbs]) {
+            // Do stuff
+            //vc = [ECSThumbsRatingFormItemViewController ecs_loadFromNib];
+            vc = [ECSBinaryImageViewController ecs_loadFromNib]; 
+        } else {
+            vc = [ECSRadioFormItemViewController ecs_loadFromNib];
+        }
     }
     else if([type isEqualToString:ECSFormTypeRating])
     {
@@ -73,9 +82,9 @@
     {
         // [US4545:TA10863] - Modify SDK to have two levels of UI Controls, Type and Treatment (Slider, Rating)
         //
-        NSString *treatment = formItem.treatment;
+        //NSString *treatment = formItem.treatment;
         
-        if([treatment isEqualToString:ECSFormTypeSliderTreatmentRating])
+        if([treatment isEqualToString:ECSFormTreatmentRating])
         {
             vc = [ECSAxRatingFormItemViewController ecs_loadFromNib];
         }

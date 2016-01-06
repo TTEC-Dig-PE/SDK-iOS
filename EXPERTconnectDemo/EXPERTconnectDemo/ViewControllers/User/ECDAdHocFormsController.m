@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *agentRatingSlider;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UIButton *photoButton;
-@property (weak, nonatomic) IBOutlet ECSBinaryImageView *binaryView;
+//@property (weak, nonatomic) IBOutlet ECSBinaryImageView *binaryView;
 @property (weak, nonatomic) IBOutlet ECSCachingImageView *imageView;
 
 @end
@@ -59,14 +59,14 @@
     
     [self.agentRatingSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-    self.binaryView.delegate = self;
+    /*self.binaryView.delegate = self;
     self.binaryView.fillLeftColor = [UIColor greenColor];
     self.binaryView.fillRightColor = [UIColor redColor];
     self.binaryView.insetLeft = 60;
     self.binaryView.spacingBetweenImages = 30;
-    self.binaryView.currentRating = BinaryRatingPositive;
+    self.binaryView.currentRating = BinaryRatingPositive;*/
     
-    [self.binaryView refresh];
+    //[self.binaryView refresh];
     
     [self.submitButton addTarget:self
                           action:@selector(submitRatingButtonTapped:)
@@ -142,12 +142,12 @@
 
 - (void)sliderValueChanged:(id)sender
 {
-    if( self.agentRatingSlider.value > self.agentRatingSlider.minimumValue &&
+    /*if( self.agentRatingSlider.value > self.agentRatingSlider.minimumValue &&
         self.agentRatingSlider.value < self.agentRatingSlider.maximumValue &&
         self.binaryView.currentRating != BinaryRatingUnknown )  {
         
         self.binaryView.currentRating = BinaryRatingUnknown;
-    }
+    }*/
 }
 
 - (IBAction)imageNameUpdated:(id)sender {
@@ -155,7 +155,7 @@
     [self loadAdHocImage:imageName];
 }
 
-- (void)ratingSelected:(BinaryRating)rating {
+/*- (void)ratingSelected:(BinaryRating)rating {
     if(rating == BinaryRatingNegative) {
         self.agentRatingSlider.value = self.agentRatingSlider.minimumValue;
     } else if (rating == BinaryRatingPositive)  {
@@ -164,7 +164,7 @@
         self.agentRatingSlider.value = (self.agentRatingSlider.maximumValue - self.agentRatingSlider.minimumValue) / 2.0f;;
     }
     // [self showAlert:@"Rating" withMessage:@"Thank you!"];
-}
+}*/
 
 - (IBAction)cameraButtonTapped:(id)sender {
     // [self exampleMakeDecision];
