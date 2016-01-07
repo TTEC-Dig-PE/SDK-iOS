@@ -25,10 +25,16 @@ static NSString *const lastFormSelected = @"lastFormSelected";
             }
             
             int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
-            
+            if(rowToSelect > formsArray.count-1)
+            {
+                rowToSelect = (int)formsArray.count-1;
+            }
             [super setup:formsArray withSelection:rowToSelect];
             
-            [self setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 180.0f)];
+            
+            double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
+            NSLog(@"Trait=%ld", UIScreen.mainScreen.traitCollection.horizontalSizeClass);
+            [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
         }
     }];
 }

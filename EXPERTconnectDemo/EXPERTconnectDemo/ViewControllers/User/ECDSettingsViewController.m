@@ -16,6 +16,7 @@
 #import "ECDOrganizationPicker.h"
 #import "ECDLocalization.h"
 #import "ECDBugReportEmailer.h"
+#import "ECDCustomizeThemeViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionOrganization,
     SettingsSectionRunMode,
     SettingsSectionVoiceIt,
+    SettingsSectionCustomizeTheme,
     SettingsSectionCount
 };
 
@@ -75,6 +77,12 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
 {
     RunModeSectionRowLicenses,
     RunModeSectionRowCount
+};
+
+typedef NS_ENUM(NSInteger, ThemeSectionRows)
+{
+    ThemeSectionRowLicenses,
+    ThemeSectionRowCount
 };
 
 @interface ECDSettingsViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -214,7 +222,11 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionVoiceIt:
             rowCount = VoiceItSectionRowCount;
             break;
-            
+			  
+	    case SettingsSectionCustomizeTheme:
+			  rowCount = ThemeSectionRowCount;
+			  break;
+			  
         default:
             break;
     }
@@ -330,7 +342,18 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
                     break;
             }
             break;
-            
+			  
+		 case SettingsSectionCustomizeTheme:
+			  switch (indexPath.row) {
+				   case ThemeSectionRowLicenses:
+						cell.textLabel.text = @"Customize Theme";
+						break;
+						
+				   default:
+						break;
+			  }
+
+			  
         default:
             break;
     }
@@ -359,7 +382,11 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
                                                   otherButtonTitles:nil];
             [alert show];
         }];
-    }
+    }else if (indexPath.section == SettingsSectionCustomizeTheme && indexPath.row == ThemeSectionRowLicenses)
+	{
+		 ECDCustomizeThemeViewController *customizeThemeViewController = [ECDCustomizeThemeViewController new];
+		 [self.navigationController pushViewController:customizeThemeViewController animated:YES];
+	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -382,8 +409,14 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
         case SettingsSectionVersion:
         {
             NSString *versionString = ECSLocalizedString(ECSLocalizedVersionHeader, @"Version");
-            versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
-            title = versionString;
+            NSString *demoAppVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+            
+            versionString = [NSString stringWithFormat:versionString, demoAppVersion];
+            
+            title = [NSString stringWithFormat:@"%@ (Framework %@, build %@)",
+                     versionString,
+                     [[EXPERTconnect shared] EXPERTconnectVersion],
+                     [[EXPERTconnect shared] EXPERTconnectBuildVersion]];
         }
             break;
             
@@ -418,7 +451,15 @@ typedef NS_ENUM(NSInteger, RunModeSectionRows)
             title = versionString;
         }
             break;
-            
+			  
+		 case SettingsSectionCustomizeTheme:
+		 {
+			  NSString *versionString = ECDLocalizedString(ECDLocalizedCustomizeThemeHeader, @"Version");
+			  versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+			  title = versionString;
+		 }
+			  break;
+			  
         default:
             break;
     }

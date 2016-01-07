@@ -9,7 +9,7 @@
 #ifndef ECSBreadcrumbsAction_h
 #define ECSBreadcrumbsAction_h
 
-
+#import <CoreLocation/CoreLocation.h>
 
 
 @interface ECSBreadcrumbsAction: NSObject
@@ -31,6 +31,8 @@
 - (void)setJourneyId: (NSString *)journeyId;
 - (NSString *)getJourneyId;
 
+- (void)setUserId: (NSString *)userId;
+- (NSString *)getUserId;
 
 - (void)setSessionId: (NSString *)sessionId;
 - (NSString *)getSessionId;

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDWorkflowViewController">
+            <connections>
+                <outlet property="tableView" destination="DtF-B6-Y5W" id="ipY-nu-s7G"/>
+                <outlet property="view" destination="jq0-ka-3fK" id="zss-kW-bql"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="jq0-ka-3fK">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="DtF-B6-Y5W">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="yAe-pr-mbG"/>
+                        <outlet property="delegate" destination="-1" id="A8L-Zp-SlB"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="DtF-B6-Y5W" firstAttribute="leading" secondItem="jq0-ka-3fK" secondAttribute="leading" constant="41" id="7kJ-Tb-TC1"/>
+                <constraint firstAttribute="bottom" secondItem="DtF-B6-Y5W" secondAttribute="bottom" constant="22" id="Kpb-d1-JoL"/>
+                <constraint firstItem="DtF-B6-Y5W" firstAttribute="top" secondItem="jq0-ka-3fK" secondAttribute="top" constant="24" id="sWl-Dn-Xtv"/>
+                <constraint firstAttribute="trailing" secondItem="DtF-B6-Y5W" secondAttribute="trailing" constant="69" id="vgr-dM-et3"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="7kJ-Tb-TC1"/>
+                    <exclude reference="Kpb-d1-JoL"/>
+                    <exclude reference="sWl-Dn-Xtv"/>
+                    <exclude reference="vgr-dM-et3"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular">
+                <mask key="constraints">
+                    <include reference="7kJ-Tb-TC1"/>
+                    <include reference="Kpb-d1-JoL"/>
+                    <include reference="sWl-Dn-Xtv"/>
+                    <include reference="vgr-dM-et3"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-869" y="-1537"/>
+        </view>
+    </objects>
+</document>

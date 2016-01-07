@@ -36,6 +36,7 @@
  
  @param path the path of the image
  */
+
 - (void)setImageWithPath:(NSString*)path;
 
 - (void)setImageWithRequest:(NSURLRequest*)request;

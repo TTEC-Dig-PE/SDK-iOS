@@ -50,6 +50,7 @@
     actionType.topQuestions = [[NSArray alloc] initWithArray:self.topQuestions copyItems:YES];
     actionType.actions = [[NSArray alloc] initWithArray:self.actions copyItems:YES];
     actionType.answerEngineContext = [self.answerEngineContext copyWithZone:zone];
+    actionType.showSearchBar = self.showSearchBar;
     
     return actionType;
 }

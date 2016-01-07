@@ -28,7 +28,7 @@ NSString *const ECSImageDownloadFailedMessageKey = @"ECSImageDownloadFailedMessa
     UIImage *image = nil;
     if (!IsNullOrEmpty(path))
     {
-        if ([path hasPrefix:@"http"])
+        if ([path hasPrefix:@"http"] || [path hasPrefix:@"https"])
         {
             image = [self objectForKey:path];
         }

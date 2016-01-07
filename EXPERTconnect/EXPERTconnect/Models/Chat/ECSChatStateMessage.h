@@ -30,6 +30,8 @@ typedef NS_ENUM(NSUInteger, ECSChatState)
 @property (strong, nonatomic) NSString *to;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSNumber *version;
+@property (strong, nonatomic) NSString *object;
+@property (strong, nonatomic) NSString *type; 
 
 @property (readonly, nonatomic) ECSChatState chatState;
 

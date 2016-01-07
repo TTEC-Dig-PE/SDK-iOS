@@ -132,8 +132,9 @@
 {
     ECSChatActionType *chatAction = [ECSChatActionType new];
     chatAction.actionId = @"";
-    chatAction.agentSkill = chatSkill;
+    chatAction.agentSkill = @"CE_Mobile_Chat";
     chatAction.displayName = displayName;
+    chatAction.shouldTakeSurvey = NO;
     
     ECSRootViewController *chatController = [self viewControllerForActionType:chatAction];
     
@@ -144,7 +145,7 @@
 {
     ECSCallbackActionType *cbAction = [ECSCallbackActionType new];
     cbAction.actionId = @"";
-    cbAction.agentSkill = callSkill;
+    cbAction.agentSkill = @"CE_Mobile_Chat";
     cbAction.displayName = displayName;
     cbAction.type = ECSActionTypeCallbackString;
     
@@ -172,7 +173,7 @@
 - (ECSRootViewController *)startSurvey:(NSString*)formName
 {
     ECSFormActionType *formAction = [ECSFormActionType new];
-    formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
+    formAction.actionId = @"agentperformance";  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
     ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     formAction.navigationContext = [ecsConfiguration defaultNavigationContext];
     

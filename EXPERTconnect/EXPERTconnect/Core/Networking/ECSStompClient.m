@@ -31,6 +31,8 @@ static NSString * const kStompMessage = @"MESSAGE";
 static NSString * const kStompReceipt = @"RECEIPT";
 static NSString * const kStompError = @"ERROR";
 
+NSString *authToken; // Local stored copy of the authToken.
+
 @implementation ECSStompFrame
 
 - (instancetype)init
@@ -68,6 +70,7 @@ static NSString * const kStompError = @"ERROR";
     if (self)
     {
         self.subscribers = [NSMutableDictionary new];
+        authToken = @"";
     }
     
     return self;
@@ -112,17 +115,24 @@ static NSString * const kStompError = @"ERROR";
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
+- (void)setAuthToken:(NSString *)token {
+    authToken = token;
+}
+
 - (void)subscribeToDestination:(NSString*)destination
             withSubscriptionID:(NSString*)subscriptionID
                     subscriber:(__weak id<ECSStompDelegate>)subscriber
 {
-    NSDictionary *headers = @{
-                              @"id": subscriptionID,
-                              @"destination": destination,
-                              @"ack": @"client",
-                              @"persistent": @"true"
-                              // @"heart-beat": @"5000,5000"
-                              };
+    NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
+    headers[@"id"] = subscriptionID;
+    headers[@"destination"] = destination;
+    headers[@"ack"] = @"client";
+    headers[@"persistent"] = @"true";
+    if(authToken)
+    {
+        headers[@"x-humanify-auth"] = authToken;
+    }
+    // headers[@"heart-beat"] = @"5000,5000";
     
     self.subscribers[subscriptionID] = subscriber;
     [self sendCommand:kStompSubscribe withHeaders:headers andBody:nil];
@@ -198,6 +208,10 @@ static NSString * const kStompError = @"ERROR";
     if (contentType)
     {
         headers[@"content-type"] = contentType;
+    }
+    if(authToken)
+    {
+        headers[@"x-humanify-auth"] = authToken;
     }
     
     if (additionalHeaders)

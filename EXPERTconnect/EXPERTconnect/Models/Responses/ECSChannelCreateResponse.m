@@ -24,6 +24,7 @@
              @"_links.close.href": @"closeLink",
              @"_links.messages.href": @"messagesLink",
              @"_links.mself.href": @"selfLink",
+             @"estimatedWait": @"estimatedWait"
              };
 }
 

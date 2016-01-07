@@ -32,6 +32,9 @@
 
 static EXPERTconnect* _sharedInstance;
 
+NSMutableArray *storedBreadcrumbs;
+NSTimer *breadcrumbTimer;
+
 @implementation EXPERTconnect
 
 + (instancetype)shared
@@ -120,12 +123,19 @@ static EXPERTconnect* _sharedInstance;
     // Reset the auth token. This should make us fetch a new one.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = nil;
+    [self setSessionID:nil]; // Clear the breadcrumb token.
 }
 
 - (void)setUserIntent:(NSString *)intent
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     userManager.userIntent = intent;
+}
+
+- (void)setUserAvatar:(UIImage *)userAvatar
+{
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    userManager.userAvatar = userAvatar;
 }
 
 - (NSString *)userIntent
@@ -185,6 +195,7 @@ static EXPERTconnect* _sharedInstance;
     // Log config for debugging:
     ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
+    [self setUserAvatar:nil];
     [self setUserName:nil];
 }
 
@@ -205,6 +216,11 @@ static EXPERTconnect* _sharedInstance;
     return [NSBundle ecs_bundleVersion];
 }
 
+- (NSString*)EXPERTconnectBuildVersion
+{
+    return [NSBundle ecs_buildVersion];
+}
+
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey
 {
     // Nathan Keeney 9/1/2015 changed to ALLOW CafeX escalation (no change to vanilla chats):
@@ -213,6 +229,9 @@ static EXPERTconnect* _sharedInstance;
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
+    chatAction.journeybegin = [NSNumber numberWithInt:1];
+    
+    [self breadcrumbDispatch]; 
     
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     // Do a login if there's no session:
@@ -281,7 +300,7 @@ static EXPERTconnect* _sharedInstance;
     return cbController;
 }
 
-- (UIViewController*)startAnswerEngine:(NSString*)aeContext
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext withDisplayName:(NSString*)displayName
 {
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
@@ -290,6 +309,28 @@ static EXPERTconnect* _sharedInstance;
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
+    answerEngineAction.displayName = displayName;
+    answerEngineAction.showSearchBar = YES;
+    
+    UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
+    ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
+    
+    return answerEngineController;
+}
+
+- (UIViewController*)startAnswerEngine:(NSString *)aeContext
+                       withDisplayName:(NSString *)displayName
+                         showSearchBar:(BOOL)showSearchBar
+{
+    ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
+    
+    answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
+    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    answerEngineAction.actionId = @"";
+    answerEngineAction.answerEngineContext = aeContext;
+    answerEngineAction.navigationContext = @"";
+    answerEngineAction.displayName = displayName;
+    answerEngineAction.showSearchBar = showSearchBar;
     
     UIViewController *answerEngineController = [self viewControllerForActionType:answerEngineAction];
     ((ECSAnswerEngineViewController *)answerEngineController).parentNavigationContext = @"";
@@ -511,11 +552,12 @@ static EXPERTconnect* _sharedInstance;
     ECSActionType *action = [ECSActionType new];
     action.type = actionType;
     action.actionId = @"";
+    action.displayName = @"";
     
     ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
     
     if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext];
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
         initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
@@ -558,36 +600,70 @@ static EXPERTconnect* _sharedInstance;
                                                         completion:nil];
 }
 
-
-/*
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSString *vals, NSError *error))completion {
+// This version does not present a view controller.
+- (UIViewController *)workflowViewWithAction:(NSString *)actionType
+                                    delegate:(id <ECSWorkflowDelegate>)workflowDelegate {
     
-    NSMutableArray *skills;
-    [skills addObject:skill];
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     
-    [self agentAvailabilityWithSkillArray:skills completion:completion];
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] init];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    return initialViewController;
 }
 
-// Check availability on multiple skills
-- (void) agentAvailabilityWithSkillArray:(NSArray *)skills
-                              completion:(void (^)(NSString *vals, NSError *error))completion {
+
+// Check availability on a singlar skill
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion {
+    
+    NSArray *skills = [NSArray arrayWithObjects:skill,@"Finance",nil];
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager agentAvailabilityWithSkills:skills
                                      completion:^(ECSAgentAvailableResponse *response, NSError *error)
+     {
+         // parse object and return in user-friendly array.
+         
+         if (error) {
+             completion(nil, error);
+         } else {
+             completion(response.skills[0], nil);
+         }
+     }];
+}
+
+- (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
     {
-        // TODO: parse object and return in user-friendly array.
-        if (error) {
-            completion(nil, error);
-        } else {
-            completion(@"return data", nil);
-        }
+        NSLog(@"Got details for skill: %@", skill);
+        completion( response, error );
     }];
 }
-*/
 
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
@@ -618,148 +694,176 @@ static EXPERTconnect* _sharedInstance;
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
                   destination: (NSString *)actionDestination
-                  geolocation: (CLLocation *)geolocation {
-    
-    if( [self clientID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. ClientID not initialized correctly");
-        return;
-    }
-    
-    bool retryingToGetJourney;
-    
-    if (!retryingToGetJourney && (![EXPERTconnect shared].journeyID || [EXPERTconnect shared].journeyID.length == 0)) {
-        ECSLogVerbose(@"breadcrumbsAction: No journeyID. Fetching journeyID then retrying...");
-        retryingToGetJourney = YES;
-        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
-            ECSLogVerbose(@"breadcrumbsAction: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            [self breadcrumbWithAction:actionType
-                           description:actionDescription
-                                source:actionSource
-                           destination:actionDestination
-                           geolocation:geolocation];
-        }];
-        ECSLogVerbose(@"breadcrumbsAction: bailing because we are going to wait for a journeyID...");
-        return;
-    }
-    
-    if( [self journeyID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. JourneyID not initialized correctly");
-        return;
-    }
-    
-    bool retryingToGetSession;
-    if(!retryingToGetSession && (![self sessionID] || self.sessionID.length == 0)) {
+                  geolocation: (CLLocation *)geolocation
+{
+    // This block will create a breadcrumb session if one is not already created.
+    bool retryingToGetSession = NO;
+    if( !retryingToGetSession && [self sessionID] == Nil )
+    {
+        retryingToGetSession = YES;
         ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
-        [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error) {
+        
+        [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
+        {
             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
-            [self breadcrumbWithAction:actionType
-                           description:actionDescription
-                                source:actionSource
-                           destination:actionDestination
-                           geolocation:geolocation];
+            
+            if ( !error )
+            {
+                [self breadcrumbWithAction:actionType
+                               description:actionDescription
+                                    source:actionSource
+                               destination:actionDestination
+                               geolocation:geolocation];
+            }
+            return;
+            
         }];
         ECSLogVerbose(@"breadcrumbsAction: bailing because we are going to wait for a sessionID...");
         return;
     }
     
-    if( [self sessionID] == Nil ) {
-        
-        ECSLogVerbose(@"breadcrumbsAction:: Ignoring. SessionID not initialized correctly");
+    if( [self sessionID] == Nil )
+    {
+        ECSLogVerbose(@"breadcrumbsAction::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
 
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    ECSBreadcrumbsAction *journeyAction = [[ECSBreadcrumbsAction alloc] init];
+    ECSBreadcrumbsAction *breadcrumb = [[ECSBreadcrumbsAction alloc] init];
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
-    [journeyAction setTenantId:[self clientID]];
-    [journeyAction setJourneyId:[self journeyID]];
-    [journeyAction setSessionId:[self sessionID]];
-    [journeyAction setActionType:actionType];
-    [journeyAction setActionDescription:actionDescription];
-    [journeyAction setActionSource:actionSource];
-    [journeyAction setActionDestination:actionDestination];
+    if([self clientID])[breadcrumb setTenantId:[self clientID]];
+    [breadcrumb setJourneyId:[self journeyID]];
+    [breadcrumb setSessionId:[self sessionID]];
+    [breadcrumb setUserId:(userManager.userToken ? userManager.userToken : userManager.deviceID)];
+    [breadcrumb setActionType:actionType];
+    [breadcrumb setActionDescription:actionDescription];
+    [breadcrumb setActionSource:actionSource];
+    [breadcrumb setActionDestination:actionDestination];
     
     if (geolocation) {
-        // TODO: add geolocation and send it to server.
+        [breadcrumb setGeoLocation:geolocation];
     }
     
-    NSMutableDictionary *properties = [journeyAction getProperties];
+    if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];
+    [storedBreadcrumbs addObject:[breadcrumb getProperties]];
     
+    ECSLogVerbose(@"breadcrumb Properties: %@", [breadcrumb getProperties]);
     
-    [sessionManager breadcrumbsAction:properties
-                           completion:^(NSDictionary *decisionResponse, NSError *error) {
+    ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
+    ECSLogVerbose(@"breadcrumbWithAction::Cache time=%lu, count=%d.", (unsigned long)config.breadcrumbCacheTime, breadcrumbCacheCount);
+    
+    if (storedBreadcrumbs.count >= breadcrumbCacheCount )
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb will be dispatched for sending.");
+        [self breadcrumbDispatch]; // Dispatch all breadcrumbs
+    }
+    else if(storedBreadcrumbs.count > 0 && !breadcrumbTimer && config.breadcrumbCacheTime > 0 )
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent. Starting timer to send.");
+        // Start a timer that fires after X time to send off the breadcrumbs.
         
-        if( error ) {
-            
-            ECSLogError(@"breadcrumbsAction:: Error: %@", error.description);
-            //completion(nil, error);
-            
-        } else {
-            
-            ECSBreadcrumbsAction *journeyActionRes = [[ECSBreadcrumbsAction alloc] initWithDic:decisionResponse];
-            
-            ECSLogVerbose(@"breadcrumbsAction:: Value of actionId is: %@", [journeyActionRes getId]);
-            
-            //completion([journeyActionRes getId], nil);
-            /*
-            NSData *responseData = [NSJSONSerialization dataWithJSONObject:decisionResponse
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:&error];
-            
-            NSString* responseJson = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-            
-            NSLog(@"Decision Response Json: %@", responseJson);
-             */
-        }
-    }];
+        //NSDate *fireTime = [NSDate dateWithTimeIntervalSinceNow:config.breadcrumbCacheTime];
+        breadcrumbTimer = [NSTimer scheduledTimerWithTimeInterval:config.breadcrumbCacheTime
+                                                           target:self
+                                                         selector:@selector(breadcrumbDispatch)
+                                                         userInfo:nil
+                                                          repeats:NO];
+    }
+    else
+    {
+        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent.");
+    }
 }
 
-- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion {
+- (void) breadcrumbDispatch
+{
+    if (storedBreadcrumbs.count < 1) return;
+    [breadcrumbTimer invalidate];
+    breadcrumbTimer = nil;
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
-    if([self clientID] == Nil || [self journeyID] == Nil ) {
+    [sessionManager breadcrumbsAction:storedBreadcrumbs
+                           completion:^(NSDictionary *decisionResponse, NSError *error)
+    {
         
-        ECSLogVerbose(@"breadcrumbsSession:: Ignore , Journey not initialized correctly ");
+       if( !error )
+           NSLog(@"bcDispatch::%lu breadcrumb(s) sent.", (unsigned long)storedBreadcrumbs.count);
+       else
+           ECSLogError(@"bcDispatch::Error: %@", error.description);
+       
+       // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
+       storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
+   }];
+}
+
+- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
+{
+    
+    bool retryingToGetJourney = NO;
+    
+    if (!retryingToGetJourney && [self journeyID] == Nil)
+    {
+        ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching journeyID then retrying...");
+        retryingToGetJourney = YES;
+        
+        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
+        {
+            ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
+            if( !error )
+            {
+                [self breadcrumbNewSessionWithCompletion:completion];
+            }
+            else
+            {
+                completion(nil, error);
+            }
+            return;
+        }];
+        ECSLogVerbose(@"breadcrumbNewSession: bailing because we are going to wait for a journeyID...");
         return;
     }
     
-    ECSLogVerbose(@"breadcrumbsSession:: calling with journeyId : %@", [self journeyID]);
+    if( [self journeyID] == Nil )
+    {
+        NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
+                                             code:1001
+                                         userInfo:nil];
+        completion(nil, error);
+        
+        return;
+    }
+    
+    ECSLogVerbose(@"breadcrumbNewSession:: calling with journeyId : %@", [self journeyID]);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
-    [journeySession setTenantId:[self clientID]];
+    if([self clientID])[journeySession setTenantId:[self clientID]];
     [journeySession setJourneyId:[self journeyID]];
     [journeySession setDeviceId:userManager.deviceID];
-    
     [journeySession setPlatform:@"iOS"];
     [journeySession setOSVersion:[[UIDevice currentDevice] systemVersion]];
-    
     [journeySession setBrowserType:@"NA"];
     [journeySession setBrowserVersion:@"NA"];
-    
-    //[journeySession setPhonenumber:phonenumber];
-    //[journeySession setIPAddress:ipAddress];
-    //[journeySession setGEOLocation:geoLocation];
-    //[journeySession setResolution:resolution];
 
     NSMutableDictionary *properties = [journeySession getProperties];
     
     [sessionManager breadcrumbsSession:properties
-                            completion:^(NSDictionary *decisionResponse, NSError *error) {
+                            completion:^(NSDictionary *decisionResponse, NSError *error)
+    {
         
-        if( error )  {
-            
+        if( error )
+        {
             ECSLogError(@"breadcrumbsSession:: Error: %@", error.description);
             if(completion) completion(nil, error);
-            
-        } else  {
-
+        }
+        else
+        {
             ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc]
                                                         initWithDic:decisionResponse];
             

@@ -518,6 +518,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 if (createResponse.conversationID && createResponse.conversationID.length > 0)
                 {
                     weakSelf.conversation = createResponse;
+                    ECSLogVerbose(@"New conversation started with ID=%@", createResponse.conversationID);
                 }
                 
                 if (completion)
@@ -654,15 +655,77 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               } failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion {
     
-    NSDictionary *parameters = @{ @"Name": @"Skills",
-                                  @"Value": [skills componentsJoinedByString:@","] };
+    NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
     
-    return [self POST:@"agentavailability/v1/available"
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/messages", channelString]
+          parameters:parameters
+             success:[self successWithExpectedType:[NSString class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
+                              duration:(int)theDuration
+                               channel:(NSString *)theChannel
+                            completion:(void(^)(NSString *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"state": theChatState, @"duration": [NSString stringWithFormat:@"%d", theDuration] };
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/chatState", theChannel]
+           parameters:parameters
+              success:[self successWithExpectedType:[NSString class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
+                                             type:(NSString *)typeString
+                                       objectData:(NSString *)objectDataString
+                                   conversationId:(NSString *)convoIdString
+                                          channel:(NSString *)theChannel
+                                       completion:(void(^)(NSString *response, NSError *error))completion
+{
+    NSDictionary *parameters = @{ @"from": fromString,
+                                  @"type": typeString,
+                                  @"object": objectDataString,
+                                  @"channelId": theChannel,
+                                  @"conversationId": convoIdString};
+    
+    /*NSString * const kECSHeaderBodyType = @"x-body-type";
+     NSString * const kECSHeaderBodyVersion = @"x-body-version";
+     
+     NSString * const kECSMessageBodyVersion = @"1";
+     NSString * const kECSChatNotificationMessage = @"NotificationMessage";
+     NSDictionary *headers = @{ kECSHeaderBodyType: kECSChatNotificationMessage,
+     kECSHeaderBodyVersion: kECSMessageBodyVersion };*/
+    
+    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/notifications", theChannel]
+           parameters:parameters
+              success:[self successWithExpectedType:[NSString class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
+                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
+    
+    return [self GET:@"/conversationengine/v1/skills"
            parameters:parameters
               success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion {
+    
+    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/skills/%@", skill]
+          parameters:nil
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
 }
 
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
@@ -802,6 +865,16 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 #pragma mark - Common Helpers
+- (id)getClassOfType:(Class)aClass withJSON:(id)result {
+    if ([result isKindOfClass:[NSDictionary class]]) {
+        if ([aClass conformsToProtocol:@protocol(ECSJSONClassTransformer)] ||
+            [aClass conformsToProtocol:@protocol(ECSJSONSerializing)]) {
+            return [ECSJSONSerializer objectFromJSONDictionary:result withClass:aClass];
+        }
+    }
+    return nil;
+}
+
 - (void (^)(id result, NSURLResponse *response))successWithExpectedType:(Class)aClass
                                                              completion:(void (^)(id resultObject, NSError *error))completion
 {
@@ -1070,6 +1143,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     __weak typeof(self) weakSelf = self;
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    if (configuration.clientID.length == 0) {
+        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
+                                                  code:-2000
+                                              userInfo:nil];
+        ECSLogError(@"Error: %@", err);
+        return nil;
+    }
+    
     ECSLogVerbose(@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
     return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
         if (!error && authToken)
@@ -1323,35 +1405,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
-
-- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
-                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+- (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
+                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
     
-    return [self POST:@"breadcrumb/v1/actions"
+    return [self POST:@"breadcrumb/v1/actions/bulk"
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
     
 }
 
-
-- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
-                                 completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+- (NSURLSessionDataTask *)breadcrumbsSession:(id)actionJson
+                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
-    
-    
-    
-    
-    
     return [self POST:@"breadcrumb/v1/sessions"
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
-    
 }
-
-
-
 
 @end

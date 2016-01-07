@@ -191,12 +191,19 @@
 #if TARGET_IPHONE_SIMULATOR || !INCLUDE_CAFEX
     NSLog(@"startCoBrowse - CafeX does not support x86_64 archictecture. Feature disabled.");
 #else
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    if (!ecsConfiguration.cafeXAssistHost) {
+        NSLog(@"CafeX - Assist error: cafeXAssistHost is empty.");
+        return;
+    }
+    
+    NSString *server = ecsConfiguration.cafeXAssistHost;
     NSDictionary *config = @{
                              @"videoMode": @"none",
                              @"acceptSelfSignedCerts": @YES,
                              @"correlationId": target
                              };
-    [AssistSDK startSupport: @"humanify.cloud1.cafex.com" supportParameters:config]; // TODO: Store host somewhere...
+    [AssistSDK startSupport:server supportParameters:config]; // TODO: Store host somewhere...
 #endif
 }
 

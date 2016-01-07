@@ -19,6 +19,13 @@ static NSString* const ECSBundleIdentifier = @"com.humanify.EXPERTconnect";
 + (NSString*)ecs_bundleVersion
 {
     NSDictionary* infoDict = [[NSBundle ecs_bundle] infoDictionary];
+    NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
+    return version;
+}
+
++ (NSString*)ecs_buildVersion
+{
+    NSDictionary* infoDict = [[NSBundle ecs_bundle] infoDictionary];
     NSString* version = [infoDict objectForKey:@"CFBundleVersion"];
     return version;
 }

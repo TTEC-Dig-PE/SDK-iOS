@@ -6,21 +6,19 @@
 //
 
 /*
- {"lastModifiedDate":1445295974709,
- "expirationDate":null,
- "conversationCount":0,
- "creationDate":1445295974709,
- "organization":null,
- "_links":
-    {"self":
-        {"href":"http://api.dce1.humanify.com/conversationengine/v1/journeys/journey_e7b3ea04-9d93-48d7-9e65-48475dc3f586_mktwebextc"},
-    "conversations":
-        {"href":"http://api.dce1.humanify.com/conversationengine/v1/conversations"}
-    },
-"id":"journey_e7b3ea04-9d93-48d7-9e65-48475dc3f586_mktwebextc",
-"_embedded":
-    {"conversations":[]}
+ skills =         (
+ {
+ "_links" =                 {
+ self =                     {
+ href = "http://api.humanify.com:8080/conversationengine/v1/skills/CE_Mobile_Chat";
+ };
+ };
+ agentsLoggedOn = 2;
+ open = 1;
+ skillName = "CE_Mobile_Chat";
  }
+ );
+ };
  */
 
 #import "ECSAgentAvailableResponse.h"
@@ -31,14 +29,8 @@
 
 - (NSDictionary *)ECSJSONMapping
 {
-    return @{@"lastModifiedDate": @"lastModifiedDate",
-             @"expirationDate": @"expirationDate",
-             @"conversationCount": @"conversationCount",
-             @"creationDate": @"creationDate",
-             @"organization": @"organization",
-             @"id": @"journeyID",
-             @"_links.self.href": @"selfLink",
-             @"_links.conversations.href": @"conversationLink",
+    return @{@"_embedded.skills": @"skills",
+             @"_links.self.href": @"selfLink"
              };
 }
 

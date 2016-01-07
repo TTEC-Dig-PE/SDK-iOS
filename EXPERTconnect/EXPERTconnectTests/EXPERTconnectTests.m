@@ -21,6 +21,9 @@
 
 - (void)setUp {
     [super setUp];
+}
+
+- (void)initSDK {
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
     ECSConfiguration *configuration = [ECSConfiguration new];
@@ -29,11 +32,8 @@
     configuration.appVersion    = @"1.0";
     configuration.appId         = @"12345";
     
-    //configuration.cafeXHost     = @"dcapp01.ttechenabled.net";
-    
-    configuration.host          = @"http://api.humanify.com:8080"; // IntDev
-    
-    configuration.clientID      = @"mktwebextc";
+    configuration.host          = @"http://api.tce1.humanify.com";
+    configuration.clientID      = @"mktwebextc_test";
     configuration.clientSecret  = @"secret123";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
@@ -58,6 +58,7 @@
  
  */
 - (void)testStartJourney {
+    [self initSDK];
     // Test startJourney returning a journeyID.
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
@@ -141,15 +142,16 @@
 
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
 - (void)testBreadcrumbAction {
-    
+    [self initSDK];
     XCTestExpectation *expectation = [self expectationWithDescription:@"breadcrumb"];
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         
         // Should use the journeyID gathered above.
-        [[EXPERTconnect shared] breadcrumbsAction:@"unitTestBreadcrumbAction"
-                                actionDescription:@"A developer is unit testing breadcrumbs"
-                                     actionSource:@"Xcode"
-                                actionDestination:@"Humanify"];
+        [[EXPERTconnect shared] breadcrumbWithAction:@"unit test"
+                                         description:@"EXPERTCONNECT unit test"
+                                              source:@"ExpertConnect"
+                                         destination:@"na"
+                                         geolocation:nil];
         
         
         [expectation fulfill];
@@ -165,7 +167,7 @@
 
 - (void)testExampleServerFetch {
     // Test startJourney returning a journeyID.
-    
+    [self initSDK];
     XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
     
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
@@ -180,11 +182,12 @@
     }];
 }
 
-/*- (void)testPerformanceExample {
- // This is an example of a performance test case.
- [self measureBlock:^{
- // Put the code you want to measure the time of here.
- }];
- }*/
+- (void)testStartupTiming {
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+    // Put the code you want to measure the time of here.
+        [self initSDK];
+    }];
+}
 
 @end

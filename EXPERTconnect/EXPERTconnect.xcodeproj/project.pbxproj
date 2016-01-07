@@ -179,7 +179,7 @@
 		035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 035C4C131A9CB9440016BCE8 /* MobileCoreServices.framework */; };
 		035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 035D7DDD1AE12D930021DF75 /* ECSMediaInfoHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		035D7DE01AE12D930021DF75 /* ECSMediaInfoHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 035D7DDE1AE12D930021DF75 /* ECSMediaInfoHelpers.m */; };
-		03639B751AA4E3EA00B617F6 /* ECSStompChatClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 03639B731AA4E3EA00B617F6 /* ECSStompChatClient.h */; };
+		03639B751AA4E3EA00B617F6 /* ECSStompChatClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 03639B731AA4E3EA00B617F6 /* ECSStompChatClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 03639B741AA4E3EA00B617F6 /* ECSStompChatClient.m */; };
 		037D19191A69707800B27B48 /* ECSJSONClassTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 037D19171A69707800B27B48 /* ECSJSONClassTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		037DD2E01AA9F107009C9637 /* ECSJSONObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 037DD2DE1AA9F107009C9637 /* ECSJSONObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -193,22 +193,22 @@
 		0380DEBB1AA09EBB003D9248 /* ECSSendConfirmationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEB81AA09EBB003D9248 /* ECSSendConfirmationViewController.h */; };
 		0380DEBC1AA09EBB003D9248 /* ECSSendConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEB91AA09EBB003D9248 /* ECSSendConfirmationViewController.m */; };
 		0380DEBD1AA09EBB003D9248 /* ECSSendConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0380DEBA1AA09EBB003D9248 /* ECSSendConfirmationViewController.xib */; };
-		0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEBE1AA0E276003D9248 /* ECSConversationCreateResponse.h */; };
+		0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEBE1AA0E276003D9248 /* ECSConversationCreateResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0380DEC11AA0E276003D9248 /* ECSConversationCreateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEBF1AA0E276003D9248 /* ECSConversationCreateResponse.m */; };
-		0380DEC41AA0E9E6003D9248 /* ECSConversationLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEC21AA0E9E6003D9248 /* ECSConversationLink.h */; };
+		0380DEC41AA0E9E6003D9248 /* ECSConversationLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEC21AA0E9E6003D9248 /* ECSConversationLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0380DEC51AA0E9E6003D9248 /* ECSConversationLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEC31AA0E9E6003D9248 /* ECSConversationLink.m */; };
-		0380DEC81AA10126003D9248 /* ECSStompClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEC61AA10126003D9248 /* ECSStompClient.h */; };
+		0380DEC81AA10126003D9248 /* ECSStompClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEC61AA10126003D9248 /* ECSStompClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0380DEC91AA10126003D9248 /* ECSStompClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEC71AA10126003D9248 /* ECSStompClient.m */; };
 		038781CA1AEA93C4008786A8 /* UIImage+ECSBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 038781C81AEA93C4008786A8 /* UIImage+ECSBundle.h */; };
 		038781CB1AEA93C4008786A8 /* UIImage+ECSBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 038781C91AEA93C4008786A8 /* UIImage+ECSBundle.m */; };
 		03890C0B1AB07EDC00B64A78 /* ECSChatPhotoOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03890C0A1AB07EDC00B64A78 /* ECSChatPhotoOptionsViewController.xib */; };
-		038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43F71AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h */; };
+		038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43F71AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		038E43FA1AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 038E43F81AA4FB8A00FF1D48 /* ECSChannelCreateResponse.m */; };
-		038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43FB1AA50C7F00FF1D48 /* ECSChannelConfiguration.h */; };
+		038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 038E43FB1AA50C7F00FF1D48 /* ECSChannelConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		038E43FE1AA50C7F00FF1D48 /* ECSChannelConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 038E43FC1AA50C7F00FF1D48 /* ECSChannelConfiguration.m */; };
-		039062301AC588E300E006BE /* ECSChatStateMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390622E1AC588E300E006BE /* ECSChatStateMessage.h */; };
+		039062301AC588E300E006BE /* ECSChatStateMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390622E1AC588E300E006BE /* ECSChatStateMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		039062311AC588E300E006BE /* ECSChatStateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390622F1AC588E300E006BE /* ECSChatStateMessage.m */; };
-		0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062381AC5C73000E006BE /* ECSChatTextMessage.h */; };
+		0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062381AC5C73000E006BE /* ECSChatTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390623B1AC5C73000E006BE /* ECSChatTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062391AC5C73000E006BE /* ECSChatTextMessage.m */; };
 		0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */; };
 		0390623F1AC9A11E00E006BE /* ECSChatURLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390623D1AC9A11E00E006BE /* ECSChatURLMessage.m */; };
@@ -217,12 +217,12 @@
 		039062461AC9C6A800E006BE /* ECSChatWaitView.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062441AC9C6A800E006BE /* ECSChatWaitView.h */; };
 		039062471AC9C6A800E006BE /* ECSChatWaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062451AC9C6A800E006BE /* ECSChatWaitView.m */; };
 		039062491AC9C6BA00E006BE /* ECSChatWaitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 039062481AC9C6BA00E006BE /* ECSChatWaitView.xib */; };
-		0390624C1AC9D3B100E006BE /* ECSChannelStateMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390624A1AC9D3B100E006BE /* ECSChannelStateMessage.h */; };
+		0390624C1AC9D3B100E006BE /* ECSChannelStateMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390624A1AC9D3B100E006BE /* ECSChannelStateMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390624D1AC9D3B100E006BE /* ECSChannelStateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390624B1AC9D3B100E006BE /* ECSChannelStateMessage.m */; };
 		03978EE81A602AEF007793D6 /* EXPERTconnect.h in Headers */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03978EEE1A602AEF007793D6 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03978EE21A602AEF007793D6 /* EXPERTconnect.framework */; };
 		03978EF51A602AEF007793D6 /* EXPERTconnectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978EF41A602AEF007793D6 /* EXPERTconnectTests.m */; };
-		039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039CDFBE1AD6CBA300F52600 /* ECSChatAddParticipantMessage.h */; };
+		039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039CDFBE1AD6CBA300F52600 /* ECSChatAddParticipantMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		039CDFC11AD6CBA300F52600 /* ECSChatAddParticipantMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039CDFBF1AD6CBA300F52600 /* ECSChatAddParticipantMessage.m */; };
 		039CDFC51AD6EC2900F52600 /* ECSChatTextTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 039CDFC21AD6EC2900F52600 /* ECSChatTextTableViewCell.h */; };
 		039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 039CDFC31AD6EC2900F52600 /* ECSChatTextTableViewCell.m */; };
@@ -230,11 +230,11 @@
 		039E13101A8BBACC00AD4927 /* ECSKeychainSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 039E130E1A8BBACC00AD4927 /* ECSKeychainSupport.h */; };
 		039E13111A8BBACC00AD4927 /* ECSKeychainSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 039E130F1A8BBACC00AD4927 /* ECSKeychainSupport.m */; };
 		039E13131A8BF39300AD4927 /* ECSNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 039E13121A8BF36400AD4927 /* ECSNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		039E13251A8E2F9F00AD4927 /* ECSChatMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039E13231A8E2F9F00AD4927 /* ECSChatMessage.h */; };
+		039E13251A8E2F9F00AD4927 /* ECSChatMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039E13231A8E2F9F00AD4927 /* ECSChatMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		039E13261A8E2F9F00AD4927 /* ECSChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039E13241A8E2F9F00AD4927 /* ECSChatMessage.m */; };
 		039E13531A9517F100AD4927 /* ECSQuickRatingForm.h in Headers */ = {isa = PBXBuildFile; fileRef = 039E13511A9517F100AD4927 /* ECSQuickRatingForm.h */; };
 		039E13541A9517F100AD4927 /* ECSQuickRatingForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 039E13521A9517F100AD4927 /* ECSQuickRatingForm.m */; };
-		03A64CF61AFB8B7700AED79D /* ECSAddressableChatMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A64CF51AFB8B7700AED79D /* ECSAddressableChatMessage.h */; };
+		03A64CF61AFB8B7700AED79D /* ECSAddressableChatMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A64CF51AFB8B7700AED79D /* ECSAddressableChatMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A64D301B01042000AED79D /* ECSEndChatSurveyView.h */; };
 		03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A64D311B01042000AED79D /* ECSEndChatSurveyView.m */; };
 		03A64D351B01044700AED79D /* ECSEndChatSurveyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A64D341B01044700AED79D /* ECSEndChatSurveyView.xib */; };
@@ -338,7 +338,7 @@
 		03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD4A1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m */; };
 		03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F189641A64416B003C6E14 /* ECSImageCache.h */; };
 		03F189671A64416B003C6E14 /* ECSImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F189651A64416B003C6E14 /* ECSImageCache.m */; };
-		03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F189691A644532003C6E14 /* ECSInjector.h */; };
+		03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F189691A644532003C6E14 /* ECSInjector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F1896C1A644532003C6E14 /* ECSInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1896A1A644532003C6E14 /* ECSInjector.m */; };
 		03F1896E1A644B9E003C6E14 /* EXPERTconnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F1896D1A644B9E003C6E14 /* EXPERTconnect.m */; };
 		03F417921AAE0EA100248BF0 /* ECSChatLocationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F4178F1AAE0EA100248BF0 /* ECSChatLocationViewController.h */; };
@@ -379,9 +379,6 @@
 		4679BD961B7A4949002E2D9E /* ECSUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD951B7A4949002E2D9E /* ECSUserProfile.m */; };
 		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
 		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */; };
-		46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; };
 		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
@@ -446,10 +443,15 @@
 		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
 		C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */; };
 		C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */; };
-		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; };
+		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C431B39A1BE867B500996102 /* ECSAgentAvailableResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
+		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
+		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
+		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
+		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -492,7 +494,7 @@
 		D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */; };
 		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
-		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; };
+		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8D3AAC01B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */; };
 		D8E1BBA61B9FF70000BE2A15 /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */; };
 		D8E1BBA71B9FF70000BE2A15 /* beforeenrollment.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */; };
@@ -508,6 +510,19 @@
 			remoteInfo = EXPERTconnect;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C466D40B1BFD332F00A8865E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Headers";
+			dstSubfolderSpec = 7;
+			files = (
+				C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatAddChannelMessage.h; path = Chat/ECSChatAddChannelMessage.h; sourceTree = "<group>"; };
@@ -878,9 +893,6 @@
 		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
-		46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBinaryImageView.h; sourceTree = "<group>"; };
-		46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBinaryImageView.m; sourceTree = "<group>"; };
-		46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBinaryRating.h; sourceTree = "<group>"; };
 		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsSession.h; sourceTree = "<group>"; };
 		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsSession.m; sourceTree = "<group>"; };
 		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
@@ -950,6 +962,9 @@
 		C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAgentAvailableResponse.m; path = Responses/ECSAgentAvailableResponse.m; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
+		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
+		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
+		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1132,11 +1147,6 @@
 				C1E99D0C1BC7CB5F000EC129 /* WYSIWYG Editor */,
 				C1E0E6051BC408910089C7E6 /* CalendarView */,
 				03F1895C1A641D67003C6E14 /* Cells */,
-				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
-				468EBC611B83710F008A0826 /* ECSRatingView.h */,
-				46A950DC1B8519010041C8A4 /* ECSBinaryRating.h */,
-				46A950D81B84F1E20041C8A4 /* ECSBinaryImageView.h */,
-				46A950D91B84F1E20041C8A4 /* ECSBinaryImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1711,6 +1721,9 @@
 				0342AFE91A9B60AE0009959E /* ECSRadioTableViewCell.h */,
 				0342AFEA1A9B60AE0009959E /* ECSRadioTableViewCell.m */,
 				0342AFEB1A9B60AE0009959E /* ECSRadioTableViewCell.xib */,
+				C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */,
+				C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */,
+				C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */,
 				0342B0041A9B60AE0009959E /* ECSRatingFormItemViewController.h */,
 				0342B0001A9B60AE0009959E /* ECSRatingFormItemViewController.m */,
 				0342AFF31A9B60AE0009959E /* ECSRatingFormItemViewController.xib */,
@@ -1728,6 +1741,8 @@
 				035C4C091A9B7E900016BCE8 /* ECSFormSubmittedViewController.xib */,
 				03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */,
 				03A7D2971ABC67C0000A21AE /* ECSFormTextField.m */,
+				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
+				468EBC611B83710F008A0826 /* ECSRatingView.h */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -1896,6 +1911,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
+				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
+				C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */,
+				0380DEC41AA0E9E6003D9248 /* ECSConversationLink.h in Headers */,
+				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
+				0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */,
+				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
+				039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */,
+				D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */,
+				03A64CF61AFB8B7700AED79D /* ECSAddressableChatMessage.h in Headers */,
+				039062301AC588E300E006BE /* ECSChatStateMessage.h in Headers */,
+				039E13251A8E2F9F00AD4927 /* ECSChatMessage.h in Headers */,
+				0390624C1AC9D3B100E006BE /* ECSChannelStateMessage.h in Headers */,
+				03639B751AA4E3EA00B617F6 /* ECSStompChatClient.h in Headers */,
+				0380DEC81AA10126003D9248 /* ECSStompClient.h in Headers */,
 				C1E0E6281BC409230089C7E6 /* ECSPeriod.h in Headers */,
 				C1E99D221BC7CBE7000EC129 /* ECSColorPickerMacros.h in Headers */,
 				C1E99D251BC7CBE7000EC129 /* ECSColorPickerViewController.h in Headers */,
@@ -1931,8 +1961,6 @@
 				03C310601A9B5B56006B3557 /* ECSMessageActionType.h in Headers */,
 				03F0BD471A71300400E90E7F /* UIView+ECSNibLoading.h in Headers */,
 				03AF24A51A9B601E00407BE5 /* ECSSearchTextField.h in Headers */,
-				0390624C1AC9D3B100E006BE /* ECSChannelStateMessage.h in Headers */,
-				039062301AC588E300E006BE /* ECSChatStateMessage.h in Headers */,
 				03A64D381B0145F000AED79D /* ECSNavigationController.h in Headers */,
 				0342B0141A9B60AE0009959E /* ECSQuickRatingViewController.h in Headers */,
 				03C310541A9B5B56006B3557 /* ECSActionTypeClassTransformer.h in Headers */,
@@ -1947,7 +1975,7 @@
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
 				039E13131A8BF39300AD4927 /* ECSNotifications.h in Headers */,
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
-				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
+				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
 				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
@@ -1959,13 +1987,13 @@
 				C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */,
 				C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
+				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
 				035C4C0A1A9B7E900016BCE8 /* ECSFormSubmittedViewController.h in Headers */,
 				039062461AC9C6A800E006BE /* ECSChatWaitView.h in Headers */,
 				03AF24AD1A9B601E00407BE5 /* ECSButton.h in Headers */,
-				039E13251A8E2F9F00AD4927 /* ECSChatMessage.h in Headers */,
 				C1E0E62A1BC409230089C7E6 /* ECSSelectionView.h in Headers */,
 				03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */,
 				C1E99D371BC7CC19000EC129 /* ECSToken.h in Headers */,
@@ -1976,7 +2004,6 @@
 				0342B0211A9B60AE0009959E /* ECSFormItemViewController.h in Headers */,
 				035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */,
 				2252C6AB1A7BE9E200B99912 /* ECSFormItemClassTransformer.h in Headers */,
-				0380DEC41AA0E9E6003D9248 /* ECSConversationLink.h in Headers */,
 				030F77BF1A77F62B006BD8B1 /* ECSUserManager.h in Headers */,
 				03BD9E2B1AF2A1F2003D808C /* ECSInlineFormViewController.h in Headers */,
 				0342AFDE1A9B60950009959E /* ECSChatToolbarController.h in Headers */,
@@ -1996,18 +2023,16 @@
 				03BE8F231AE037EB00BEC8B5 /* ECSChatMediaMessage.h in Headers */,
 				0342B0431A9B60C10009959E /* ECSButtonTableViewCell.h in Headers */,
 				03AF24AB1A9B601E00407BE5 /* ECSBorderContainerView.h in Headers */,
+				C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */,
 				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
 				0342AFBA1A9B60840009959E /* ECSCallbackViewController.h in Headers */,
 				0342B04C1A9B60C10009959E /* ECSSectionHeader.h in Headers */,
-				03A64CF61AFB8B7700AED79D /* ECSAddressableChatMessage.h in Headers */,
 				4665F6FF1B7D1E6700C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h in Headers */,
 				03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */,
 				C1E0E62C1BC409230089C7E6 /* ECSThemeEngine.h in Headers */,
 				03F0BD321A70095E00E90E7F /* ECSLocalization.h in Headers */,
-				0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */,
 				03C310261A9B59C0006B3557 /* ECSURLSessionManager.h in Headers */,
 				031B2D691AAF443900A00A36 /* ECSHistoryResponse.h in Headers */,
-				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
 				91E63BF51B834EA30019F9EF /* ECSViewControllerStack.h in Headers */,
 				0342AFA51A9B60700009959E /* ECSPullUpView.h in Headers */,
 				037D19191A69707800B27B48 /* ECSJSONClassTransformer.h in Headers */,
@@ -2023,11 +2048,9 @@
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
-				46A950DD1B8519380041C8A4 /* ECSBinaryRating.h in Headers */,
 				031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */,
 				03AF24A91A9B601E00407BE5 /* ECSPlaceholderTextView.h in Headers */,
 				0342B0701A9B60EF0009959E /* ECSMessageViewController.h in Headers */,
-				D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */,
 				0342B0281A9B60AE0009959E /* ECSTextFormItemViewController.h in Headers */,
 				123E26AE1B987455003DCCAD /* ECSFormSubmittedActionType.h in Headers */,
 				03F189661A64416B003C6E14 /* ECSImageCache.h in Headers */,
@@ -2036,11 +2059,9 @@
 				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
 				2252C6A71A7BE9E200B99912 /* ECSFormItem.h in Headers */,
 				039E13531A9517F100AD4927 /* ECSQuickRatingForm.h in Headers */,
-				039CDFC01AD6CBA300F52600 /* ECSChatAddParticipantMessage.h in Headers */,
 				03C3103E1A9B5B46006B3557 /* ECSFormSubmitResponse.h in Headers */,
 				C1E99D201BC7CBE7000EC129 /* ECSColorCursor.h in Headers */,
 				03ED2DAF1AC0A27500565F00 /* ECSChatMessageTableViewCell.h in Headers */,
-				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
 				0342AFD81A9B60950009959E /* ECSChatImageTableViewCell.h in Headers */,
 				03B3FA1E1A670C6E00D872B1 /* ECSResponseSerializer.h in Headers */,
 				0342B0241A9B60AE0009959E /* ECSRadioFormItemViewController.h in Headers */,
@@ -2051,12 +2072,10 @@
 				91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */,
 				033ACB2C1A602C9C0024F48F /* ECSJSONSerializer.h in Headers */,
 				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
-				0380DEC81AA10126003D9248 /* ECSStompClient.h in Headers */,
 				0342B0491A9B60C10009959E /* ECSListTableViewCell.h in Headers */,
 				030AF2161AF807E30056BFB0 /* ECSChatHistoryMessage.h in Headers */,
 				0342AFA81A9B60700009959E /* ECSTopQuestionsViewController.h in Headers */,
 				C1E0E61D1BC409230089C7E6 /* ECSCalendarBackgroundView.h in Headers */,
-				03639B751AA4E3EA00B617F6 /* ECSStompChatClient.h in Headers */,
 				0342B0091A9B60AE0009959E /* ECSFormQuestionView.h in Headers */,
 				039CDFC51AD6EC2900F52600 /* ECSChatTextTableViewCell.h in Headers */,
 				C1E0E6231BC409230089C7E6 /* ECSCalendarTheme.h in Headers */,
@@ -2068,9 +2087,7 @@
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
 				0342AFA21A9B60700009959E /* ECSPullDownView.h in Headers */,
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
-				46A950DA1B84F1E20041C8A4 /* ECSBinaryImageView.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
-				0380DEC01AA0E276003D9248 /* ECSConversationCreateResponse.h in Headers */,
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
 				03BE27521ADC1BD60099F2EB /* ECSChatNetworkActionCell.h in Headers */,
@@ -2087,9 +2104,7 @@
 				03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */,
 				0342B02A1A9B60AE0009959E /* ECSSliderFormItemViewController.h in Headers */,
 				C1E99D3F1BC7CC4B000EC129 /* ECSBarButtonItem.h in Headers */,
-				C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */,
 				466170CB1B867CEA0055A976 /* ECSReceiveAnswerMessage.h in Headers */,
-				03F1896B1A644532003C6E14 /* ECSInjector.h in Headers */,
 				03BD9E261AF29819003D808C /* ECSInlineFormTableViewCell.h in Headers */,
 				916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */,
 			);
@@ -2110,6 +2125,7 @@
 				03F1897F1A64786D003C6E14 /* ShellScript */,
 				EBD262558144996426F33A26 /* Copy Pods Resources */,
 				F02702F3542A7EDF36757A9E /* Upload Bugsnag dSYM */,
+				C466D40B1BFD332F00A8865E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2145,7 +2161,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECS;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978EE11A602AEF007793D6 = {
@@ -2237,6 +2253,7 @@
 				0342B00D1A9B60AE0009959E /* ECSCheckboxTableViewCell.xib in Resources */,
 				0342B06C1A9B60EF0009959E /* ECSWebViewController.xib in Resources */,
 				0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */,
+				C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */,
 				03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */,
 				D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */,
 				0342B04B1A9B60C10009959E /* ECSListTableViewCell.xib in Resources */,
@@ -2296,7 +2313,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\nWORKSPACE_FILE=\"../${PROJECT_NAME}.xcworkspace\"\n\n######################\n# Build Frameworks\n######################\n\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
+			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\nWORKSPACE_FILE=\"../${PROJECT_NAME}.xcworkspace\"\n\n######################\n# Build Frameworks\n######################\n\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
 		};
 		EBD262558144996426F33A26 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2345,6 +2362,7 @@
 				03639B761AA4E3EA00B617F6 /* ECSStompChatClient.m in Sources */,
 				0342B0711A9B60EF0009959E /* ECSMessageViewController.m in Sources */,
 				462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */,
+				C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */,
 				033ACB3D1A602C9C0024F48F /* ECSUtilities.m in Sources */,
 				03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */,
 				03C310671A9B5B56006B3557 /* ECSWebActionType.m in Sources */,
@@ -2522,7 +2540,6 @@
 				03F417931AAE0EA100248BF0 /* ECSChatLocationViewController.m in Sources */,
 				03AF24AA1A9B601E00407BE5 /* ECSPlaceholderTextView.m in Sources */,
 				03F0BD091A6D425200E90E7F /* ECSTheme.m in Sources */,
-				46A950DB1B84F1E20041C8A4 /* ECSBinaryImageView.m in Sources */,
 				0342B0121A9B60AE0009959E /* ECSPreSurveyViewController.m in Sources */,
 				0342AFBE1A9B60840009959E /* ECSCancelCallbackViewController.m in Sources */,
 				5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */,
@@ -2656,7 +2673,6 @@
 			baseConfigurationReference = 688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2702,7 +2718,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -2711,7 +2727,6 @@
 			baseConfigurationReference = 08C95D76530417F48A1621E3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2757,7 +2772,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

@@ -1,0 +1,6 @@
+#include "Pods-AXRatingView.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/AXRatingView" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AXRatingView" "${PODS_ROOT}/Headers/Public/Bugsnag" "${PODS_ROOT}/Headers/Public/MMDrawerController"
+OTHER_LDFLAGS = ${PODS_AXRATINGVIEW_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

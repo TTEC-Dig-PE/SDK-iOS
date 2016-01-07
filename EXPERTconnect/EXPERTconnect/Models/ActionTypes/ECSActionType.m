@@ -35,7 +35,7 @@ NSString *const ECSRequestVideoAction = @"RequestVideoAction";
 NSString *const ECSRequestChatAction = @"RequestChatAction";
 NSString *const ECSRequestCallbackAction = @"RequestCallbackAction";
 NSString *const ECSRequestVoiceChatAction = @"RequestVocieChatAction";
-
+NSString *const ECSRequestAnswerEngineAction = @"RequestAnswerEngineAction";
 
 @implementation ECSActionType
 

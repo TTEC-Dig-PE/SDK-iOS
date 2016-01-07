@@ -9,6 +9,11 @@
 #define EXPERTconnect_ECSNotifications_h
 
 // Notification when the user is logged out of the system.
-static NSString *const ECSUserSessionInvalidNotification = @"ECSUserSessionInvalidNotification";
+static NSString *const ECSUserSessionInvalidNotification    = @"ECSUserSessionInvalidNotification";
+static NSString *const ECSChatEndedNotification             = @"ECSChatEndedNotification";
+static NSString *const ECSCallbackEndedNotification         = @"ECSCallbackEndedNotification";
+
+// Host app can send this notification to simulate pressing an "End Chat" button.
+static NSString *const ECSEndChatNotification               = @"ECSEndChatNotification";
 
 #endif

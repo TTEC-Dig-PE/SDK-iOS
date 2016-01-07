@@ -29,6 +29,7 @@
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
 #import "NSBundle+ECSBundle.h"
+#import "ECSViewControllerStack.h"
 
 static NSString *const ECSListCellId = @"ECSListCellId";
 static NSString *const ECSWebCellId = @"ECSWebCellId";
@@ -86,7 +87,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = self.actionType.displayName;
     
     self.didAskInitialQuestion = NO;
@@ -107,9 +107,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                                                              metrics:nil
                                                                                views:@{@"guide": self.topLayoutGuide,
                                                                                        @"toolbar": self.searchToolbar}];
-
+    
     [self.view addConstraints:topToolbarConstraints];
-   
+    
     if (self.historyResponse)
     {
         [self configureForAnswerHistory];
@@ -118,7 +118,6 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     {
         [self configureForAnswerEngineAction];
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -131,6 +130,22 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         [self askQuestion];
         [self hideFAQPopoverAnimated:NO];
     }
+    if (!self.initialQuery && !self.didAskInitialQuestion &&
+        self.answerEngineAction.topQuestions.count == 0 && self.answerEngineAction.answerEngineContext)
+    {
+        // Let's get top questions.
+        ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+        
+        [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+                                         forContext:self.answerEngineAction.answerEngineContext
+                                     withCompletion:^(NSArray *context, NSError *error)
+         {
+             // Got our top questions...
+             self.answerEngineAction.topQuestions = context;
+             [self displayTopQuestions];
+         }];
+        
+    }
 }
 
 - (void)configureForAnswerHistory
@@ -142,7 +157,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     response.answerId = self.historyResponse.answerId;
     response.answer = self.historyResponse.response;
     response.requestRating = @NO;
-
+    
     ECSAnswerViewController *viewController = [self displayAnswerEngineAnswer:response
                                                         withAnimationPosition:AnswerAnimatePositionNone];
     viewController.showPullToNext = NO;
@@ -161,6 +176,11 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     self.escalationSeparator.backgroundColor = theme.separatorColor;
     
     
+    [self displayTopQuestions];
+}
+
+- (void) displayTopQuestions
+{
     if (self.answerEngineAction.topQuestions.count > 0)
     {
         self.topQuestions = [ECSTopQuestionsViewController ecs_loadFromNib];
@@ -172,6 +192,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         {
             [self.topQuestions willMoveToParentViewController:self];
             
+            ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
             self.topQuestions.view.backgroundColor = theme.primaryBackgroundColor;
             [self addChildViewController:self.topQuestions];
             [self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -190,21 +211,28 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [self.topQuestions didMoveToParentViewController:self];
         }
     }
-
 }
 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    
+
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    contentInsets.top = CGRectGetMaxY(self.searchToolbar.frame);
+    if (self.answerEngineAction.showSearchBar) {
+        contentInsets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        [self.searchToolbar setAlpha:1.0f];
+        [self.searchTextField setAlpha:1.0f];
+    } else {
+        contentInsets.top = 0;
+        [self.searchToolbar setAlpha:0.0f];
+        [self.searchTextField setAlpha:0.0f];
+    }
     
     if (self.topQuestions)
     {
         if (self.faqIsShowing)
         {
-            contentInsets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+            //contentInsets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
         }
         
         self.topQuestions.faqTableView.contentInset = contentInsets;
@@ -213,10 +241,12 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     if (self.answerViewController)
     {
         UIEdgeInsets insets = self.answerViewController.edgeInsets;
-        insets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        if (self.answerEngineAction.showSearchBar)
+            insets.top = CGRectGetMaxY(self.searchToolbar.frame);
+        else
+            insets.top = CGRectGetMaxY(self.navigationController.navigationBar.frame);
         self.answerViewController.edgeInsets = insets;
     }
-    
 }
 
 - (void)askQuestion
@@ -231,9 +261,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         if (self.navigationController)
         {
             self.faqBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeShortFAQKey, @"FAQ")
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(toggleFAQPopover:)];
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(toggleFAQPopover:)];
             NSMutableArray *rightBarItems = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
             [rightBarItems addObject:self.faqBarButtonItem];
             self.navigationItem.rightBarButtonItems = rightBarItems;
@@ -253,44 +283,93 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     [sessionManager startConversationForAction:self.answerEngineAction
                                andAlwaysCreate:NO
-                                 withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                     if (!error)
-                                     {
-                                         weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:weakSelf.searchTextField.text
-                                                                                                   inContext:weakSelf.answerEngineAction.answerEngineContext
-                                                                                             parentNavigator:weakSelf.parentNavigationContext
-                                                                                                    actionId:weakSelf.answerEngineAction.actionId
-                                                                                               questionCount:weakSelf.questionCount
-                                                                                                  customData:nil
-                                                                                                  completion:^(ECSAnswerEngineResponse *response, NSError *error) {
-                                                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                          [weakSelf handleAPIResponse:response forQuestion:question withError:error];
-                                                                                                          
-                                                                                                      });
-                                                                                                      
-                                                                                                  }];
-                                     }
-                                     else
-                                     {
-                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                             [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
-                                         });
-                                     }
-        }];
+                                withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
+                                    if (!error)
+                                    {
+                                        weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:weakSelf.searchTextField.text
+                                                                                                  inContext:weakSelf.answerEngineAction.answerEngineContext
+                                                                                            parentNavigator:weakSelf.parentNavigationContext
+                                                                                                   actionId:weakSelf.answerEngineAction.actionId
+                                                                                              questionCount:weakSelf.questionCount
+                                                                                                 customData:nil
+                                                                                                 completion:^(ECSAnswerEngineResponse *response, NSError *error) {
+                                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                         [weakSelf handleAPIResponse:response forQuestion:question withError:error];
+                                                                                                         
+                                                                                                     });
+                                                                                                     
+                                                                                                 }];
+                                    }
+                                    else
+                                    {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
+                                        });
+                                    }
+                                }];
 }
 
 - (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
+{
+    [self setLoadingIndicatorVisible:NO];
+    if ([response isKindOfClass:[ECSAnswerEngineResponse class]])
+    {
+        if (error) {
+            // Error processing request. 
+            NSLog(@"Answer Engine Error - %@", error);
+            self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
+            self.invalidResponseCount++;
+            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+        } else if (response.answerId.integerValue == -1 && response.answer.length > 0) {
+            // We did not find an answer.
+            self.invalidResponseCount++;
+            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+        } else {
+            // We found a good answer.
+            self.htmlString = response.answer;
+        }
+        
+        response.question = question;
+        [self.answerEngineResponses addObject:response];
+        self.escalationOptions = response.actions;
+        self.answerEngineResponseIndex = self.answerEngineResponses.count - 1;
+        if (!self.answerViewController)
+        {
+            [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
+                             withAnimationPosition:AnswerAnimatePositionNone];
+        }
+        else
+        {
+            [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
+                             withAnimationPosition:AnswerAnimatePositionFromBottom];
+        }
+    }
+    
+    self.questionCount = self.questionCount + 1;
+    [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
+}
+
+/*- (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
 {
     [self setLoadingIndicatorVisible:NO];
     if (!error && [response isKindOfClass:[ECSAnswerEngineResponse class]])
     {
         if (response.answerId.integerValue == -1 && response.answer.length > 0)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
-            [alert show];
+            if(![self.actionType.displayName isEqualToString:@"Answer Engine Worklflow"])
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response.answer delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
+                [alert show];
+            }
             //[self.searchTextField becomeFirstResponder];
             self.invalidResponseCount++;
-            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            
+            if(self.workflowDelegate)
+            {
+                [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+            }
         }
         else
         {
@@ -302,12 +381,12 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             if (!self.answerViewController)
             {
                 [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                                     withAnimationPosition:AnswerAnimatePositionNone];
+                                 withAnimationPosition:AnswerAnimatePositionNone];
             }
             else
             {
                 [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                                     withAnimationPosition:AnswerAnimatePositionFromBottom];
+                                 withAnimationPosition:AnswerAnimatePositionFromBottom];
             }
         }
     }
@@ -327,10 +406,10 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     self.questionCount = self.questionCount + 1;
     [self.workflowDelegate requestedValidQuestionsOnAnswerEngineCount:self.questionCount];
-}
+}*/
 
 - (void)displayAnswerEngineAnswerAtIndex:(NSInteger)index
-                     withAnimationPosition:(AnswerAnimatePosition)animatePosition
+                   withAnimationPosition:(AnswerAnimatePosition)animatePosition
 {
     ECSAnswerViewController *answerViewController = [self displayAnswerEngineAnswer:self.answerEngineResponses[index]
                                                               withAnimationPosition:animatePosition];
@@ -396,7 +475,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         default:
             break;
     }
-
+    
     
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:answerViewController.view
                                                            attribute:NSLayoutAttributeTop
@@ -431,7 +510,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     answerViewController.tableView.contentOffset = CGPointMake(0, -answerInsets.top);
     
     answerViewController.answer = response;
-
+    
     answerViewController.delegate = self;
     [answerViewController didMoveToParentViewController:self];
     [answerViewController.view layoutIfNeeded];
@@ -463,11 +542,11 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                              
                              top.constant = 0.0f;
                              [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            self.answerViewController = answerViewController;
-            self.topAnswerViewControllerConstraint = top;
-            [self buildEscalationItems];
-        }];
+                         } completion:^(BOOL finished) {
+                             self.answerViewController = answerViewController;
+                             self.topAnswerViewControllerConstraint = top;
+                             [self buildEscalationItems];
+                         }];
     }
     else
     {
@@ -486,7 +565,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     {
         self.answerEngineResponseIndex = self.answerEngineResponseIndex - 1;
         [self displayAnswerEngineAnswerAtIndex:self.answerEngineResponseIndex
-                  withAnimationPosition:AnswerAnimatePositionFromTop];
+                         withAnimationPosition:AnswerAnimatePositionFromTop];
         return YES;
     }
     return NO;
@@ -577,7 +656,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         UIActivityViewController *activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:@[answer]
                                           applicationActivities:nil];
-
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             activityViewController.popoverPresentationController.barButtonItem = self.shareButton;
@@ -632,7 +711,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     [self.view addConstraints:@[width, height, self.topQuestionsTopConstraint, left]];
     [self.view layoutIfNeeded];
-
+    
     self.topQuestions.view.alpha = 1.0f;
     [UIView animateWithDuration:0.3f animations:^{
         [self.faqBarButtonItem setTitle:ECSLocalizedString(ECSLocalizeShortHideFAQKey, @"Hide FAQ")];
@@ -642,7 +721,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     } completion:^(BOOL finished) {
         [self.topQuestions didMoveToParentViewController:self];
     }];
-
+    
 }
 
 - (void)hideFAQPopoverAnimated:(BOOL)animated
@@ -677,7 +756,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-
+    
     
 }
 
@@ -750,7 +829,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                    action:@selector(escalationTapped:)
          forControlEvents:UIControlEventTouchUpInside];
         
-
+        
         
         [self.escalationContainerView addSubview:button];
         
@@ -802,7 +881,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                                                      multiplier:1.0f
                                                                        constant:-15.0f];
             [self.escalationContainerView addConstraint:bottom];
-
+            
         }
         
         previousView = button;

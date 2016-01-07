@@ -16,6 +16,7 @@
 #import "ECSLocalization.h"
 #import "ECSMediaInfoHelpers.h"
 #import "ECSTheme.h"
+#import "ECSURLSessionManager.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -52,7 +53,9 @@
 {
     [super viewDidLoad];
     self.sendEnabled = YES;
-    self.inactiveColor = [UIColor colorWithRed:0.73 green:0.73 blue:0.73 alpha:1];
+    
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    self.inactiveColor = theme.disabledButtonColor;
     
     [self setup];
     
@@ -66,7 +69,8 @@
     // Ready to be sent
     self.sendEnabled = YES;
     // Send button disabled as the textView is displaying placeholder text at this point
-    self.sendButton.enabled = NO;
+    //self.sendButton.enabled = NO;
+    [self toggleSendButton:NO];
 }
 
 - (void)setSendEnabled:(BOOL)sendEnabled
@@ -77,6 +81,14 @@
     self.photoButton.enabled = sendEnabled;
     self.audioButton.enabled = sendEnabled;
     self.locationButton.enabled = sendEnabled;
+    
+    if (!_sendEnabled) {
+        [self.sendButton setAlpha:0.5f];
+        [self.textView setUserInteractionEnabled:NO];
+    } else {
+        [self.sendButton setAlpha:1.0f];
+        [self.textView setUserInteractionEnabled:YES]; 
+    }
 }
 
 - (void)setup
@@ -86,6 +98,8 @@
     self.textView.tintColor = theme.primaryColor;
     self.textView.font = theme.chatTextFieldFont;
     self.textView.delegate = self;
+    
+    self.view.backgroundColor = theme.secondaryBackgroundColor; 
     
     ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
     [self.photoButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_photo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
@@ -107,14 +121,17 @@
     self.separatorView.backgroundColor = theme.separatorColor;
     self.separatorHeightConstraint.constant = 1.0f / [[UIScreen mainScreen] scale];
     
-    self.sendButton.tintColor = theme.primaryColor;
-    self.sendButton.enabled = NO;
+    self.sendButton.backgroundColor = theme.primaryColor;
+    self.sendButton.tintColor = theme.primaryTextColor;
+    [self toggleSendButton:NO];
     self.sendButton.titleLabel.font = theme.chatSendButtonFont;
     [self.sendButton setTitle:ECSLocalizedString(ECSLocalizeSend, @"Send") forState:UIControlStateNormal];
     [self.sendButton addTarget:self
                         action:@selector(sendTapped:)
               forControlEvents:UIControlEventTouchUpInside];
-    self.cancelButton.tintColor = theme.primaryColor;
+    
+    self.cancelButton.backgroundColor = theme.primaryColor;
+    self.cancelButton.tintColor = theme.primaryTextColor;
     [self.cancelButton setTitle:ECSLocalizedString(ECSLocalizeCancel, @"Cancel")
                        forState:UIControlStateNormal];
 
@@ -131,8 +148,8 @@
                          self.sendButton.hidden = NO;
                          self.textViewHeightConstraint.constant = 30.0f;
                          self.cancelButton.hidden = YES;
-                         self.cancelSuperViewTrailing.active = NO;
-                         self.cancelSendTrailing.active = YES;
+                         //self.cancelSuperViewTrailing.active = NO;
+                         //self.cancelSendTrailing.active = YES;
                          [self hideContainer];
                          [self.view setNeedsLayout];
 
@@ -151,7 +168,25 @@
         [self.delegate sendText:self.textView.text];
         self.textView.text = @"";
         [self textViewDidChange:self.textView];
-        self.sendButton.enabled = NO;
+        [self toggleSendButton:NO];
+    }
+}
+
+- (void)toggleSendButton:(BOOL)isEnabled
+{
+    self.sendButton.enabled = isEnabled;
+    if (self.sendButton.enabled) {
+        [self.sendButton setAlpha:1.0f];
+    } else {
+        [self.sendButton setAlpha:0.5f];
+    }
+}
+
+- (void)sendChatState:(NSString *)chatState
+{
+    if (self.delegate)
+    {
+        [self.delegate sendChatState:chatState];
     }
 }
 
@@ -191,7 +226,8 @@
     
     self.textViewHeightConstraint.constant = size.height;
     
-    self.sendButton.enabled = (textView.text.length > 0);
+    [self sendChatState:(textView.text.length > 0 || !textView.text ? @"composing" : @"paused")];
+    [self toggleSendButton: (textView.text.length > 0)];
 }
 
 - (void)displayViewController:(UIViewController*)controller
@@ -306,8 +342,8 @@
     {
         self.sendButton.hidden = YES;
         self.cancelButton.hidden = NO;
-        self.cancelSendTrailing.active = NO;
-        self.cancelSuperViewTrailing.active = YES;
+        //self.cancelSendTrailing.active = NO;
+        //self.cancelSuperViewTrailing.active = YES;
 
     }
 }

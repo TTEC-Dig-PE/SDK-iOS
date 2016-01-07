@@ -28,6 +28,7 @@ static NSString* const ECDLocalizedVoiceItHeader = @"ECDLocalizedVoiceItHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
 static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
+static NSString* const ECDLocalizedCustomizeThemeHeader = @"ECDLocalizedCustomizeThemeHeader";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartVideoChatHeader = @"ECDLocalizedStartVideoChatHeader";
@@ -47,6 +48,13 @@ static NSString* const ECDLocalizedStartSubmitFormHeader = @"ECDLocalizedStartSu
 static NSString* const ECDLocalizedStartDatePickerHeader = @"ECDLocalizedStartDatePickerHeader";
 static NSString* const ECDLocalizedStartWYSIWYGEditorHeader = @"ECDLocalizedStartWYSIWYGEditorHeader";
 
+static NSString* const ECDLocalizedStartEscalateToChatHeader = @"ECDLocalizedStartEscalateToChatHeader";
+static NSString* const ECDLocalizedStartChatWithPostSurveyHeader = @"ECDLocalizedStartChatWithPostSurveyHeader";
+static NSString* const ECDLocalizedStartChatWithPreSurveyHeader = @"ECDLocalizedStartChatWithPreSurveyHeader";
+static NSString* const ECDLocalizedStartSurveyLeadsToBranchHeader = @"ECDLocalizedStartSurveyLeadsToBranchHeader";
+
+static NSString* const ECDLocalizedStartShowAvatarImagesHeader = @"ECDLocalizedStartShowAvatarImagesHeader";
+
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
@@ -64,6 +72,13 @@ static NSString* const ECDLocalizedStartAPIConfigLabel = @"ECDLocalizedStartAPIC
 static NSString* const ECDLocalizedStartSubmitFormLabel = @"ECDLocalizedStartSubmitFormLabel";
 static NSString* const ECDLocalizedStartDatePickerLabel = @"ECDLocalizedStartDatePickerLabel";
 static NSString* const ECDLocalizedStartWYSIWYGEditorLabel = @"ECDLocalizedStartWYSIWYGEditorLabel";
+
+static NSString* const ECDLocalizedStartWorkflowEscalateToChatLabel = @"ECDLocalizedStartWorkflowEscalateToChatLabel";
+static NSString* const ECDLocalizedStartWorkflowChatWithPostSurveyLabel = @"ECDLocalizedStartWorkflowChatWithPostSurveyLabel";
+static NSString* const ECDLocalizedStartWorkflowChatWithPreSurveyLabel = @"ECDLocalizedStartWorkflowChatWithPreSurveyLabel";
+static NSString* const ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel = @"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel";
+
+static NSString* const ECDLocalizedStartShowAvatarImagesLabel = @"ECDLocalizedStartShowAvatarImagesLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

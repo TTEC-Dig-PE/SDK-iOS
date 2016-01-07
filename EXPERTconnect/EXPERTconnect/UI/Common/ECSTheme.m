@@ -35,6 +35,7 @@
         self.userChatTextColor = [UIColor whiteColor];
         self.agentChatBackground = self.secondaryBackgroundColor;
         self.agentChatTextColor = self.primaryTextColor;
+        self.showAvatarImages = YES;
         
         self.headlineFont = [UIFont fontWithName:@"HelveticaNeue" size:24.0f];
         self.titleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
@@ -50,6 +51,10 @@
         self.chatInfoTitleFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
         self.chatInfoSubtitleFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
         self.chatSendButtonFont = [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+        
+        self.chatBubbleCornerRadius = 5;
+        self.chatBubbleHorizMargins = 10;
+        self.chatBubbleVertMargins = 5;
         
         NSString *path = [[NSBundle ecs_bundle] pathForResource:@"global_style" ofType:@"css"];
         self.cssStyle = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];

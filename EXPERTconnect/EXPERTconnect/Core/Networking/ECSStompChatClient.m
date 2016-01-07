@@ -134,15 +134,19 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
-    
-    if ((chatAction.agentId && chatAction.agentId.length > 0) &&
-        (chatAction.agentSkill.length <= 0))
-    {
-        configuration.to = chatAction.agentId;
-    }
-    else
-    {
-        configuration.to = chatAction.agentSkill;
+
+    if (chatAction) {
+        if ((chatAction.agentId && chatAction.agentId.length > 0) &&
+            (chatAction.agentSkill.length <= 0))
+        {
+            configuration.to = chatAction.agentId;
+        }
+        else
+        {
+            configuration.to = chatAction.agentSkill;
+        }
+    } else {
+        ECSLogError(@"setupChatChannel: Error converting actionType to chatAction.");
     }
 
     // check for video action type
@@ -152,9 +156,14 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
+    // mas - 8-dec-2015 - Changed to be "unknown user" as this is displayed in ExD window.
+    configuration.from = ( userManager.userToken ? userManager.userToken : @"Guest" );
+    
     // mas - 13-oct-2015 - use deviceID if userToken is unavailable ("not registered" or anonymous)
-    configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
+    //configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
+    
     //configuration.from = userManager.userToken;
+    
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";
     configuration.mediaType = @"Chat";
@@ -209,6 +218,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     self.stompClient.delegate = self;
     
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    [self.stompClient setAuthToken:sessionManager.authToken]; 
     
     NSString *hostName = [[NSURL URLWithString:host] host];
     NSString *bearerToken = sessionManager.authToken;
@@ -513,25 +523,24 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 - (void)handleChatNotificationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
 {
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveChatStateMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatStateMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                             withClass:[ECSChatStateMessage class]];
-            _chatState = message.chatState;
-            message.fromAgent = YES;
-            [self.delegate chatClient:self didReceiveChatStateMessage:message];
-        }
-        else
-        {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
-        }
-    }
-    
+	 if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveChatNotificationMessage:)])
+	 {
+		  NSError *serializationError = nil;
+		  id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+													  options:0 error:&serializationError];
+		  if (!serializationError)
+		  {
+			   ECSChatNotificationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+																					   withClass:[ECSChatNotificationMessage class]];
+			   message.fromAgent = YES;
+			   [self.delegate chatClient:self didReceiveChatNotificationMessage:message];
+		  }
+		  else
+		  {
+			   ECSLogError(@"Unable to parse chat state message %@", serializationError);
+		  }
+	 }
+	 
 }
 
 

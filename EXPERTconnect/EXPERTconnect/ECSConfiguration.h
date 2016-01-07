@@ -16,8 +16,11 @@
 // The host your EXPERTconnect SDK connects to.
 @property (strong, nonatomic) NSString *host;
 
-// The host your EXPERTconnect SDK connects to.
+// The host your EXPERTconnect CafeX SDK connects to.
 @property (strong, nonatomic) NSString *cafeXHost;
+
+// The host your EXPERTconnect Live Assist SDK connects to.
+@property (strong, nonatomic) NSString *cafeXAssistHost;
 
 // The name of your application
 @property (strong, nonatomic) NSString *appName;
@@ -40,12 +43,16 @@
 // The default display name for the navigation context.
 @property (strong, nonatomic) NSString *defaultNavigationDisplayName;
 
-
-
 // Default answer engine context for the Answer Engine.
 @property (strong, nonatomic) NSString *defaultAnswerEngineContext;
 
 // The default form name for survey.
 @property (strong, nonatomic) NSString *defaultCallBack;
+
+// How many breadcrumbs to cache up before sending.
+@property (nonatomic) NSUInteger breadcrumbCacheCount;
+
+// How many seconds to wait before sending breadcrumbs.
+@property (nonatomic) NSUInteger breadcrumbCacheTime;
 
 @end

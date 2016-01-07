@@ -64,7 +64,10 @@ static NSString *const ECSLocalizeChatJoin = @"ECSLocalizeChatJoin";
 static NSString *const ECSLocalizeWelcome = @"ECSLocalizeWelcome";
 static NSString *const ECSLocalizeWelcomeWithUsername = @"ECSLocalizeWelcomeWithUsername";
 static NSString *const ECSLocalizeGenericWaitTime = @"ECSLocalizeGenericWaitTime";
+
+static NSString *const ECSLocalizeWaitTimeShort = @"ECSLocalizeWaitTimeShort";
 static NSString *const ECSLocalizeWaitTime = @"ECSLocalizeWaitTime";
+static NSString *const ECSLocalizeWaitTimeLong = @"ECSLocalizeWaitTimeLong";
 
 static NSString *const ECSLocalizeReachabilityErrorKey = @"ECSLocalizeReachabilityErrorKey";
 

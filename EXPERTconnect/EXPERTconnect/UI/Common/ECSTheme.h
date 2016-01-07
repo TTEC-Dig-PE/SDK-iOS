@@ -69,6 +69,9 @@
 // Agent chat text
 @property (strong, nonatomic) UIColor *agentChatTextColor;
 
+// Show avatar images if set to YES.
+@property (assign, nonatomic) BOOL showAvatarImages;
+
 #pragma mark - Font
 
 // Font for headlines
@@ -109,6 +112,12 @@
 
 // Font used for the send button
 @property (strong, nonatomic) UIFont *chatSendButtonFont;
+
+@property (nonatomic) NSInteger chatBubbleCornerRadius;
+
+@property (nonatomic) NSInteger chatBubbleHorizMargins;
+
+@property (nonatomic) NSInteger chatBubbleVertMargins;
 
 // Style string for CSS
 @property (strong, nonatomic) NSString *cssStyle;

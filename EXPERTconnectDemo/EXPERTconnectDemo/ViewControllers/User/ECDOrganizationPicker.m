@@ -47,6 +47,7 @@ static NSString *const organizationKey = @"organization";
         for(NSString* org in self.organizationArray) {
             if([org isEqualToString:currentOrganization])  {
                 rowToSelect = currentRow;
+                break;
             }
             currentRow++;
         }
@@ -68,11 +69,10 @@ static NSString *const organizationKey = @"organization";
     
     // This will set clientID and blow away authToken so that we will reauthenticate with the new clientId.
     [[EXPERTconnect shared] setClientID:org];
+    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
     
 }
 
-// mas - 16-oct-2015 - This loads the available organizations from the JSON file we fetched
-// from our server on startup.
 -(BOOL)addItemsFromUserDefaults {
     
     NSArray *environmentConfig = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentConfig"];

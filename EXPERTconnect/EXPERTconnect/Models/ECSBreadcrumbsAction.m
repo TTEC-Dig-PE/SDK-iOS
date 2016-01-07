@@ -11,6 +11,7 @@
 #import "ECSBreadcrumbsAction.h"
 
 static NSString* PROPERTY_ID             = @"id";
+static NSString* PROPERTY_USERID         = @"userId";
 static NSString* PROPERTY_TENANTID       = @"tenantId";
 static NSString* PROPERTY_JOURNEYID      = @"journeyId";
 static NSString* PROPERTY_SESSIONID      = @"sessionId";
@@ -20,12 +21,14 @@ static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
 static NSString* PROPERTY_ACTIONDEST     = @"actionDestination";
 static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
 
+static NSString* PROPERTY_GEOLOCATION       = @"geolocation";
 static NSString* PROPERTY_LATITUDE          = @"latitude";
 static NSString* PROPERTY_LONGITUDE         = @"longitude";
 static NSString* PROPERTY_HORIZ_ACCURACY    = @"horizontalAccuracy";
 static NSString* PROPERTY_VERT_ACCURACY     = @"verticalAccuracy";
 static NSString* PROPERTY_SPEED             = @"speed";
 static NSString* PROPERTY_COURSE            = @"course";
+static NSString* PROPERTY_ALTITUDE          = @"altitude";
 static NSString* PROPERTY_TIMESTAMP         = @"timestamp";
 static NSString* PROPERTY_FLOOR             = @"floor";
 static NSString* PROPERTY_DESCRIPTION       = @"description";
@@ -101,6 +104,12 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     return self.properties[PROPERTY_JOURNEYID];
 }
 
+- (void)setUserId: (NSString *)userId {
+    [self.properties setObject:userId forKey:PROPERTY_USERID];
+}
+- (NSString *)getUserId {
+    return self.properties[PROPERTY_USERID];
+}
 
 - (void)setSessionId: (NSString *)sessionId {
     
@@ -174,29 +183,48 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 - (void)setGeoLocation: (CLLocation *)geolocation {
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
-                        forKey:PROPERTY_LATITUDE];
+    NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
-                        forKey:PROPERTY_LONGITUDE];
+    if (geolocation.coordinate.latitude) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
+                     forKey:PROPERTY_LATITUDE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
-                        forKey:PROPERTY_HORIZ_ACCURACY];
+    if (geolocation.coordinate.longitude) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
+                     forKey:PROPERTY_LONGITUDE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
-                        forKey:PROPERTY_VERT_ACCURACY];
+    if (geolocation.horizontalAccuracy) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
+                     forKey:PROPERTY_HORIZ_ACCURACY];
+    }
+        
+    if (geolocation.verticalAccuracy) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
+                     forKey:PROPERTY_VERT_ACCURACY];
+    }
+        
+    if (geolocation.speed) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
+                     forKey:PROPERTY_SPEED];
+    }
+        
+    if (geolocation.course) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
+                     forKey:PROPERTY_COURSE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
-                        forKey:PROPERTY_SPEED];
+    if (geolocation.altitude) {
+        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.altitude]
+                     forKey:PROPERTY_ALTITUDE];
+    }
     
-    [self.properties setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
-                        forKey:PROPERTY_COURSE];
+    [self.properties setObject:geoProps forKey:PROPERTY_GEOLOCATION];
     
-    [self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
-    
-    [self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
-    
-    [self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
+    //[self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
+    //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
+    //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
 }
 
 @end

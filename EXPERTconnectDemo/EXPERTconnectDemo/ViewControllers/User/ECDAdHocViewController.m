@@ -230,6 +230,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 @property (strong, nonatomic) ECDAdHocWebPagePicker *selectAdHocWebPagePicker;
 @end
 
+int agentsLoggedOn;
+bool agentAvailable;
+int estimatedWait;
+
 @implementation ECDAdHocViewController
 
 - (void)viewDidLoad {
@@ -260,11 +264,72 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     [self.selectAdHocFormsPicker setup];
     [self.selectAdHocVoiceCallbackPicker setup];
     [self.selectAdHocWebPagePicker setup];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatEnded:)
+                                                 name:ECSChatEndedNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(callbackEnded:)
+                                                 name:ECSCallbackEndedNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatInfoUpdated:)
+                                                 name:@"ChatSkillAgentInfoUpdated"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark Notification Functions
+
+- (void)chatInfoUpdated:(NSNotification *)notification
+{
+    NSDictionary *chatSkillStatus = notification.userInfo;
+    if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
+        agentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
+        agentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
+        estimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
+    }
+    [self.tableView reloadData]; 
+}
+
+- (void)callbackEnded:(NSNotification *)notification
+{
+    if (![notification.userInfo[@"reason"] isEqualToString:@"UserCancelled"]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
+                                                                                 message:@"Thank you for contacting us!"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok"
+                                                                  style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action)
+                                          {
+                                              [alertController dismissViewControllerAnimated:YES completion:nil];
+                                              //[self dismissviewAndNotify:YES];
+                                              //[self.workflowDelegate voiceCallBackEnded];
+                                          }];
+        
+        
+        [alertController addAction:alertActionStop];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"Callback ended. Reason? %@", notification.userInfo[@"reason"]);
+    }
+    
+}
+
+- (void)chatEnded:(NSNotification *)notification {
+
+    // If uncommented, this will hide chat when agent ends it.
+    //[self.navigationController popToViewController:self animated:YES];
+    NSLog(@"Chat ended!");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -371,6 +436,10 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
             switch (indexPath.row) {
                 case AdHocChatSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"AdHoc Chat");
+                    if (agentsLoggedOn) {
+                        cell.textLabel.text = [NSString stringWithFormat:@"%@",
+                                               cell.textLabel.text];
+                    }
                     cell.accessoryView = self.selectAdHocChatPicker;
                     break;
                 default:
@@ -704,6 +773,11 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
         case SettingsSectionAdHocChat:
         {
             title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
+            if (estimatedWait>-1) {
+                title = [NSString stringWithFormat:@"%@ - ETA: %dmin. Agents on: %d", title, (estimatedWait/60), agentsLoggedOn];
+            } else {
+                title = [NSString stringWithFormat:@"%@ - No agents available!", title];
+            }
         }
             break;
             
@@ -842,7 +916,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 -(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
     [[EXPERTconnect shared] breadcrumbWithAction:action
                                      description:desc
-                                          source:@"ECDemo"
+                                          source:@"AdHoc"
                                      destination:@"Humanify"
                                      geolocation:nil];
 }
@@ -853,13 +927,22 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
-    [self localBreadCrumb:@"startChat"
+    [self localBreadCrumb:@"Chat started"
               description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
-    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill withDisplayName:@"Chat" withSurvey:NO];
+    UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
+                                                         withDisplayName:@"Chat"
+                                                              withSurvey:NO];
     [self.navigationController pushViewController:chatController animated:YES];
 
+    
+    // Enable this to test the "end chat" notification.
+    //[self performSelector:@selector(endChatAfterTime:) withObject:nil afterDelay:30]; // End chat after 30 seconds for test.
+    
+}
+-(void)endChatAfterTime:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
 }
 
 -(void)handleAdHocVoiceCallback
@@ -868,7 +951,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
     
-    [self localBreadCrumb:@"startVoiceCallback"
+    [self localBreadCrumb:@"Voice callback started"
               description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
     
     UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
@@ -883,10 +966,13 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
     
-    [self localBreadCrumb:@"startAnswerEngine"
+    [self localBreadCrumb:@"Answer Engine started"
               description:[NSString stringWithFormat:@"Answer engine with context=%@", aeContext]];
     
-    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext];
+    UIViewController *answerEngineController = [[EXPERTconnect shared] startAnswerEngine:aeContext
+                                                                         withDisplayName:@""
+                                                                           showSearchBar:YES];
+    
     [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
@@ -896,7 +982,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 
     NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
     
-    [self localBreadCrumb:@"startVideoChat"
+    [self localBreadCrumb:@"Video chat started"
               description:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]];
 
     UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
@@ -909,7 +995,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     
     NSString *formName = [self.selectAdHocFormsPicker currentSelection];
     
-    [self localBreadCrumb:@"startSurvey"
+    [self localBreadCrumb:@"Survey started"
               description:[NSString stringWithFormat:@"Survey with name=%@", formName]];
     
     UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
@@ -920,7 +1006,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 {
     NSLog(@"Rendering an ad-hoc User Profile Form");
     
-    [self localBreadCrumb:@"startUserProfile"
+    [self localBreadCrumb:@"User profile displayed"
               description:@"Editing user profile"];
     
     UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];

@@ -79,7 +79,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.appVersion = @"1.0";
     configuration.appId = @"12345";
     configuration.host = [self hostURLFromSettings];
-    configuration.cafeXHost = @"dcapp01.ttechenabled.net"; // Demo not working yet: @"donkey.humanify.com";
+    //configuration.host          = @"http://api.ce03.humanify.com";
+    
+    configuration.cafeXHost = @"dce1.humanify.com"; // Demo not working yet: @"donkey.humanify.com";
+    configuration.cafeXAssistHost = @"https://cafex.dts.humanify.com:443";
     
     // Old authentication method.
     configuration.clientID = [self getClientFromSettings];
@@ -89,32 +92,48 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Note: To use new method, grab token from debug and put here. Then, comment out clientID and secret.
     // How to get token: put debug marker on "authToken" and po it from command line.
     //[[EXPERTconnect shared] setUserIdentityToken:@"760a0282-ac35-462e-89e8-28644c6b22c9"];
+    //[[EXPERTconnect shared] setUserIdentityToken:@"65c6af55-db6c-4fd2-a1dd-d2ffd01f6fe9"];
     
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
     
-    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    configuration.breadcrumbCacheCount = 3; // Wait for 3 breadcrumbs before sending.
+    configuration.breadcrumbCacheTime = 25; // Wait 25 seconds before sending breadcrumbs.
     
+    // Fetch the authToken from our webApp. 
+    [self fetchAuthTokenWithHost:configuration.host
+                        userName:@"mike@humanify.com"
+                        clientID:configuration.clientID
+                      completion:^(NSString *authToken)
+    {
+        [[EXPERTconnect shared] setUserIdentityToken:authToken];
+        
+        // Start a new journey, then send an "app launch" breadcrumb.
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+        {
+            if( !error )
+            {
+                NSLog(@"Starting journey with ID=%@", journeyId);
+                
+                // Send an "app launch" breadcrumb.
+                
+                [[EXPERTconnect shared] breadcrumbWithAction:@"ECDemo Started"
+                                                 description:@""
+                                                      source:@"ECDemo"
+                                                 destination:@"Humanify"
+                                                 geolocation:nil];
+            }
+        }];
+    }];
+    
+    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    // Start a new journey, then send an "app launch" breadcrumb. 
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
-        if(!err) {
-            
-            // Start a new breadcrumb session.
-            //[[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:nil];
-            
-            // Send an "app launch" breadcrumb.
-            NSString *desc = [NSString stringWithFormat:@"Launching ECDemo with clientid=%@, env=%@", configuration.clientID, configuration.host];
-            
-            [[EXPERTconnect shared] breadcrumbWithAction:@"app launch"
-                                             description:desc
-                                                  source:@"ECDemo"
-                                             destination:@"na"
-                                             geolocation:nil];
-        }
-    }]; // Start a new journey.
     [self setThemeFromSettings];
+    
+    // Setup the theme to look similar to Ford. 
+    [self setupThemeLikeFord];
+    [[EXPERTconnect shared] setUserAvatar:[UIImage imageNamed:@"default_avatar_medium"]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logout:)
@@ -262,9 +281,41 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     }
 }
 
+- (void)setupThemeLikeFord
+{
+    /* These are test settings for FORD */
+    ECSTheme *myTheme = [EXPERTconnect shared].theme;
+    myTheme.chatBubbleCornerRadius = 8;
+    myTheme.chatBubbleHorizMargins = 12;
+    myTheme.chatBubbleVertMargins = 10;
+    
+    myTheme.primaryBackgroundColor = [UIColor whiteColor];
+    myTheme.secondaryBackgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+    myTheme.disabledButtonColor = [UIColor lightGrayColor];
+    
+    myTheme.userChatTextColor = [UIColor whiteColor];
+    myTheme.agentChatTextColor = [UIColor whiteColor];
+    myTheme.userChatBackground = [UIColor grayColor];
+    myTheme.agentChatBackground =  [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];
+	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowAvatarImagesKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showAvatarImages = NO;
+	 }
+	 else{
+		  myTheme.showAvatarImages = YES;
+	 }
+	 
+    myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
+    [EXPERTconnect shared].theme = myTheme;
+    /* End test settings */
+}
+
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.
 - (void) fetchEnvironmentJSON {
     
+    //NSURL *url = [[NSURL alloc] initWithString:@"https://tce1.humanify.com/humanify_sdk_orgs.json"];
     NSURL *url = [[NSURL alloc] initWithString:@"https://dce1.humanify.com/humanify_sdk_orgs.json"];
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
@@ -294,6 +345,29 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             NSLog(@"Error fetching env/org JSON file. Error=%@", error);
         }
     }];
+}
+
+- (void) fetchAuthTokenWithHost:(NSString *)host
+                       userName:(NSString *)userName
+                       clientID:(NSString *)clientID
+                     completion:(void(^)(NSString *authToken))completion
+{
+    //Currently implemented on: api.dce1.humanify.com (DceDev)
+    NSURL *url = [[NSURL alloc] initWithString:
+                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens?username=%@&client_id=%@",
+                   host, userName, clientID]];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if(!error)
+         {
+             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             NSLog(@"Fetched authToken: %@", returnToken);
+             completion(returnToken);
+         }
+     }];
 }
 
 @end

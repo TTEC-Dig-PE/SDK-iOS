@@ -28,7 +28,6 @@
 @class ECSForm;
 @class ECSUserProfile;
 
-
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
 
@@ -275,11 +274,44 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
 
+
+// Send a chat message from the client
+- (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
+                                    from:(NSString *)fromString
+                                 channel:(NSString *)channelString
+                              completion:(void(^)(NSString *response, NSError *error))completion;
+
+
+// Send a chat state update from the client.
+- (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
+                              duration:(int)theDuration
+                               channel:(NSString *)theChannel
+                            completion:(void(^)(NSString *response, NSError *error))completion;
+
+// Send a chat notification message from the client
+- (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
+                                             type:(NSString *)typeString
+                                       objectData:(NSString *)objectDataString
+                                   conversationId:(NSString *)convoIdString
+                                          channel:(NSString *)theChannel
+                                       completion:(void(^)(NSString *response, NSError *error))completion;
+
+
+#pragma mark Agent Availability
+
 // Check agent availability
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
+                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+
+
+- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+#pragma mark Journey Management
 
 // Start a new journey
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
+
 
 #pragma mark - Media upload
 /**
@@ -317,6 +349,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 #pragma mark - Utilities
 
+- (id)getClassOfType:(Class)aClass withJSON:(id)result;
+
 - (NSURLSessionDataTask *)externalRequestWithMethod:(NSString *)method
                                                path:(NSString *)path
                                          parameters:(id)parameters
@@ -334,10 +368,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
 
-- (NSURLSessionDataTask *)breadcrumbsAction:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 
-- (NSURLSessionDataTask *)breadcrumbsSession:(NSDictionary*)actionJson
+- (NSURLSessionDataTask *)breadcrumbsSession:(id)actionJson
                                   completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 
 @end

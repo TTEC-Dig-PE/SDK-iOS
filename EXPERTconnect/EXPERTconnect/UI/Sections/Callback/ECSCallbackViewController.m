@@ -210,11 +210,8 @@
     {
         configuration.to = callbackAction.agentSkill;
     }
-//#ifdef DEBUG
-//    configuration.to = @"Calls for erik_mktwebextc";
-//#endif
     
-    configuration.from = userManager.userToken;
+    configuration.from = (userManager.userToken ? userManager.userToken : userManager.deviceID);
     configuration.subject = @"help";
     configuration.sourceType = channelType;
     
