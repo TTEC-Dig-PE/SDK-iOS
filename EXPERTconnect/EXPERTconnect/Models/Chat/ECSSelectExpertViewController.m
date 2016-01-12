@@ -61,7 +61,11 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         __weak typeof(self) weakSelf = self;
         
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        [urlSession getExpertsWithCompletion:^(ECSSelectExpertsResponse *response, NSError *error) {
+        [urlSession getExpertsWithEvent:@"determineTreatment"
+                               resultId:nil
+                       interactionItems:@{@"nps_score": @"2", @"intent": @"mutual funds"}
+                             completion:^(ECSSelectExpertsResponse *response, NSError *error)
+        {
             [weakSelf setLoadingIndicatorVisible:NO];
             if (!error)
             {

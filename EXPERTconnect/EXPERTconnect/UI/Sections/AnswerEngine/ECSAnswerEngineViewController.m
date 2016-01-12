@@ -34,6 +34,9 @@
 static NSString *const ECSListCellId = @"ECSListCellId";
 static NSString *const ECSWebCellId = @"ECSWebCellId";
 
+NSArray *_savedTopQuestions;
+NSTimer *_delayTypeaheadTimer;
+
 typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 {
     AnswerAnimatePositionNone,
@@ -142,6 +145,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
          {
              // Got our top questions...
              self.answerEngineAction.topQuestions = context;
+             _savedTopQuestions = self.answerEngineAction.topQuestions; // Save off the top questionsk
              [self displayTopQuestions];
          }];
         
@@ -181,7 +185,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 
 - (void) displayTopQuestions
 {
-    if (self.answerEngineAction.topQuestions.count > 0)
+    if (self.answerEngineAction.topQuestions.count > 0 && !self.topQuestions)
     {
         self.topQuestions = [ECSTopQuestionsViewController ecs_loadFromNib];
         self.topQuestions.delegate = self;
@@ -210,6 +214,10 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             [self.view addConstraints:horizonalConstraints];
             [self.topQuestions didMoveToParentViewController:self];
         }
+    }
+    if (self.topQuestions) {
+        // Refresh the answers.
+        [self.topQuestions reloadTableData]; 
     }
 }
 
@@ -796,6 +804,48 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
     
     return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= 3)
+    {
+        // Reset timer to 1 second until we search for suggested terms.
+        [_delayTypeaheadTimer invalidate];
+        _delayTypeaheadTimer = nil;
+        _delayTypeaheadTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                                target:self
+                                                              selector:@selector(doTypeAheadSearch)
+                                                              userInfo:nil
+                                                               repeats:NO];
+    }
+    
+    // If the user just deleted the last character and went back to an empty box...
+    if (!string.length && !range.location && range.length == 1)
+    {
+        // Display the top questions again.
+        self.answerEngineAction.topQuestions = _savedTopQuestions;
+        [self displayTopQuestions];
+    }
+    
+    return YES;
+}
+
+// called from a timer after user types a search term.
+-(void)doTypeAheadSearch
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [sessionManager getAnswerEngineTopQuestionsForKeyword:self.searchTextField.text
+                                               completion:^(NSDictionary *response, NSError *error)
+     {
+         // Got our top questions...
+         if (response[@"suggestedQuestions"]) {
+             
+             self.answerEngineAction.topQuestions = response[@"suggestedQuestions"];
+             [self displayTopQuestions];
+         }
+     }];
 }
 
 - (void)buildEscalationItems

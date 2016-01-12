@@ -24,4 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *faqTableView;
 
 @property (weak, nonatomic) id<ECSTopQuestionsViewControllerDelegate> delegate;
+
+-(void)reloadTableData;
+
 @end

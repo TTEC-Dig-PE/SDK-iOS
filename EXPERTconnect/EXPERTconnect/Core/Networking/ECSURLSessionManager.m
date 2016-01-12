@@ -278,13 +278,42 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSDictionary *parameters = nil;
     
-    if (num)
-    {
-        parameters = @{@"num": num, @"context": context};
-    }
+    if (!num) num = [NSNumber numberWithInt:10];
+    
+    parameters = @{@"num": num, @"context": context};
+    
     return [self GET:@"answerengine/v1/questions"
           parameters:parameters
              success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
+}
+
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
+                                                     completion:(void (^)(NSDictionary *response, NSError *error))completion;
+{
+    NSDictionary *parameters = nil;
+    
+    ECSLogVerbose(@"%s - Getting top questions for search string: %@", __PRETTY_FUNCTION__, theKeyword);
+    
+    // Do not allow empty keyword or search string less than 3 characters. 
+    if (!theKeyword || [theKeyword length] < 3)
+    {
+        NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Keyword parameter must be 3 or more characters." };
+        NSError *error = [NSError errorWithDomain:@"com.humanify.error"
+                                             code:1002
+                                         userInfo:userInfo];
+        
+        ECSLogError(@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);
+        completion(nil, error);
+        return nil;
+    }
+    
+    parameters = @{@"context": @"All", @"question": theKeyword, @"typeahead": @"true"};
+    
+    return [self POST:@"answerengine/v1/answers"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
              failure:[self failureWithCompletion:completion]];
     
 }
@@ -387,12 +416,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
+// event -
+// resultId -
+- (NSURLSessionDataTask *)getExpertsWithEvent:(NSString *)theEvent
+                                     resultId:(NSString *)theResultId
+                             interactionItems:(NSDictionary *)theInteractionItems
+                                   completion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
 {
     ECSLogVerbose(@"Get Experts matching by User");
     
-    return [self GET:@"registration/v1/experts"
-          parameters:nil
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init]; //determineTreatment
+
+    NSMutableString *theURL = [NSMutableString stringWithFormat:@"decision/v1/experts/%@", theEvent];
+    
+    if (theInteractionItems) {
+        [parameters addEntriesFromDictionary:theInteractionItems];
+    }
+    
+    return [self POST:theURL
+          parameters:parameters
              success:[self successWithExpectedType:[ECSSelectExpertsResponse class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
