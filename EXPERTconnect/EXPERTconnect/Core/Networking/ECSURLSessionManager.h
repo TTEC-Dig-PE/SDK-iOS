@@ -110,9 +110,22 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
                                        withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+
+// Same as above, but added @param context - answer engine context to retrieve top questions for
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+
+/**
+ Retrieves the top question from answer engine using a search keyword
+ 
+ @param theKeyword The search string to use
+ 
+ @return the data task for the answer engine call
+ */
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
+                                                     completion:(void (^)(NSDictionary *response, NSError *error))completion;
+
 /**
  Asks a question of the answer engine system.
  
@@ -161,7 +174,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSString *, NSError *))completion;
 
-- (NSURLSessionDataTask *)getExpertsWithCompletion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion;
+- (NSURLSessionDataTask *)getExpertsWithEvent:(NSString *)theEvent
+                                     resultId:(NSString *)theResultId
+                             interactionItems:(NSDictionary *)theInteractionItems
+                                   completion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion;
 
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *formNames, NSError *error))completion;
 

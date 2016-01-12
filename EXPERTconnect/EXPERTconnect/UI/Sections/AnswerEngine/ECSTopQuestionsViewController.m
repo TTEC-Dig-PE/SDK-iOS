@@ -155,4 +155,8 @@ static NSString *const ECSListCellId = @"ECSListCellId";
     
 }
 
+-(void)reloadTableData {
+    [self.faqTableView reloadData];
+}
+
 @end
