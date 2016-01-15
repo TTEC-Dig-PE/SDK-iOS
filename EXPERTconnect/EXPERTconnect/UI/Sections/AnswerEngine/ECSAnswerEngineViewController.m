@@ -703,31 +703,34 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 {
     self.faqIsShowing = YES;
     [self.view endEditing:YES];
-    self.topQuestions.view.backgroundColor = [UIColor clearColor];
-    [self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.topQuestions.blurView.hidden = NO;
+    //self.topQuestions.view.backgroundColor = [UIColor clearColor];
+    //[self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //self.topQuestions.blurView.hidden = NO;
     
-    
+    self.topQuestions = nil;
+    [self displayTopQuestions];
+    /*
     [self.topQuestions willMoveToParentViewController:self];
     [self.topQuestions.view setAlpha:0.0f];
     [self.view addSubview:self.topQuestions.view];
     
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
     NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
+    
     self.topQuestionsTopConstraint = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:-CGRectGetHeight(self.view.frame)];
     NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0.0f];
     
     [self.view addConstraints:@[width, height, self.topQuestionsTopConstraint, left]];
     [self.view layoutIfNeeded];
-    
+    */
     self.topQuestions.view.alpha = 1.0f;
     [UIView animateWithDuration:0.3f animations:^{
         [self.faqBarButtonItem setTitle:ECSLocalizedString(ECSLocalizeShortHideFAQKey, @"Hide FAQ")];
-        self.topQuestionsTopConstraint.constant = 0.0f;
+        //self.topQuestionsTopConstraint.constant = 0.0f;
         
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self.topQuestions didMoveToParentViewController:self];
+        //[self.topQuestions didMoveToParentViewController:self];
     }];
     
 }
