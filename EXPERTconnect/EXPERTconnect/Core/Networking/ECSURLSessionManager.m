@@ -255,14 +255,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
-- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
-                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 {
     NSDictionary *parameters = nil;
     
     if (num)
     {
-        parameters = @{@"num": num};
+        parameters = @{@"num": [NSNumber numberWithInt:num]};
     }
     return [self GET:@"answerengine/v1/questions"
           parameters:parameters
@@ -272,15 +272,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 
-- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
-                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 {
     NSDictionary *parameters = nil;
     
-    if (!num) num = [NSNumber numberWithInt:10];
+    if (!num) num = 10;
     
-    parameters = @{@"num": num, @"context": context};
+    parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
     
     return [self GET:@"answerengine/v1/questions"
           parameters:parameters
@@ -290,7 +290,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
-                                                     completion:(void (^)(NSDictionary *response, NSError *error))completion;
+                                            withOptionalContext:(NSString*)theContext
+                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
 {
     NSDictionary *parameters = nil;
     
@@ -309,13 +310,45 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         return nil;
     }
     
-    parameters = @{@"context": @"All", @"question": theKeyword, @"typeahead": @"true"};
+    NSString *context = (theContext ? theContext : @"All");
+    parameters = @{@"context": context, @"question": theKeyword, @"typeahead": @"true"};
     
     return [self POST:@"answerengine/v1/answers"
           parameters:parameters
-             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             success:[self successWithExpectedType:[ECSAnswerEngineResponse class] completion:completion]
              failure:[self failureWithCompletion:completion]];
     
+}
+
+- (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
+                                     inContext:(NSString*)answerEngineContext
+                                    customData:(NSDictionary *)customData
+                                    completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    
+    [parameters addEntriesFromDictionary:@{
+                                           @"question": question,
+                                           @"context": answerEngineContext,
+                                           @"navContext": @"",
+                                           @"action_id": @"",
+                                           @"questionCount": [NSNumber numberWithUnsignedInteger:0],
+                                           }];
+    
+    if (customData)
+    {
+        [parameters setObject:customData forKey:@"customData"];
+    }
+    else
+    {
+        [parameters setObject:[NSNull null] forKey:@"customData"];
+    }
+    
+    ECSLogVerbose(@"Get Answer with parameters %@", parameters);
+    return [self POST:@"answerengine/v1/answers"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSAnswerEngineResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
 }
 
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question

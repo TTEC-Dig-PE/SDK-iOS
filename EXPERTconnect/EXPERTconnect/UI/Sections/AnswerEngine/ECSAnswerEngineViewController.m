@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         // Let's get top questions.
         ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
-        [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+        [sessionManager getAnswerEngineTopQuestions:10
                                          forContext:self.answerEngineAction.answerEngineContext
                                      withCompletion:^(NSArray *context, NSError *error)
          {
@@ -840,12 +840,13 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [sessionManager getAnswerEngineTopQuestionsForKeyword:self.searchTextField.text
-                                               completion:^(NSDictionary *response, NSError *error)
+                                      withOptionalContext:nil
+                                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
          // Got our top questions...
-         if (response[@"suggestedQuestions"]) {
+         if (response.suggestedQuestions) {
              
-             self.answerEngineAction.topQuestions = response[@"suggestedQuestions"];
+             self.answerEngineAction.topQuestions = response.suggestedQuestions;
              [self displayTopQuestions];
          }
      }];

@@ -93,6 +93,24 @@
     }
 }
 
+// called from a timer after user types a search term.
+-(void)doTypeAheadSearch
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [sessionManager getAnswerEngineTopQuestionsForKeyword:self.searchTextField.text
+                                      withOptionalContext:nil
+                                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         // Got our top questions...
+         if (response.suggestedQuestions) {
+             
+             //self.answerEngineAction.topQuestions = response[@"suggestedQuestions"];
+             //[self displayTopQuestions];
+         }
+     }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
