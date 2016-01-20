@@ -834,13 +834,21 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     return YES;
 }
 
+-(BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    // Display the top questions again.
+    self.answerEngineAction.topQuestions = _savedTopQuestions;
+    [self displayTopQuestions];
+    return YES;
+}
+
 // called from a timer after user types a search term.
 -(void)doTypeAheadSearch
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [sessionManager getAnswerEngineTopQuestionsForKeyword:self.searchTextField.text
-                                      withOptionalContext:nil
+                                      withOptionalContext:self.answerEngineAction.answerEngineContext
                                                completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
          // Got our top questions...
