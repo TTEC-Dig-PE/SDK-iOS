@@ -59,6 +59,7 @@ UITableViewDelegate, UIWebViewDelegate, UIScrollViewDelegate, ECSAnswerRatingDel
                      forCellReuseIdentifier:ECSListCellId];
     [self.tableView registerNib:[ECSWebTableViewCell ecs_nib]
          forCellReuseIdentifier:ECSWebCellId];
+    
 }
 
 - (void)setEdgeInsets:(UIEdgeInsets)edgeInsets

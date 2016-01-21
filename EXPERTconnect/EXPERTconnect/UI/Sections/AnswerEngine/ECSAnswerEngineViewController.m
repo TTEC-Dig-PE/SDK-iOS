@@ -139,7 +139,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         // Let's get top questions.
         ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
-        [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+        [sessionManager getAnswerEngineTopQuestions:10
                                          forContext:self.answerEngineAction.answerEngineContext
                                      withCompletion:^(NSArray *context, NSError *error)
          {
@@ -703,31 +703,34 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 {
     self.faqIsShowing = YES;
     [self.view endEditing:YES];
-    self.topQuestions.view.backgroundColor = [UIColor clearColor];
-    [self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.topQuestions.blurView.hidden = NO;
+    //self.topQuestions.view.backgroundColor = [UIColor clearColor];
+    //[self.topQuestions.view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    //self.topQuestions.blurView.hidden = NO;
     
-    
+    self.topQuestions = nil;
+    [self displayTopQuestions];
+    /*
     [self.topQuestions willMoveToParentViewController:self];
     [self.topQuestions.view setAlpha:0.0f];
     [self.view addSubview:self.topQuestions.view];
     
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0.0f];
     NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
+    
     self.topQuestionsTopConstraint = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f constant:-CGRectGetHeight(self.view.frame)];
     NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:self.topQuestions.view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0f constant:0.0f];
     
     [self.view addConstraints:@[width, height, self.topQuestionsTopConstraint, left]];
     [self.view layoutIfNeeded];
-    
+    */
     self.topQuestions.view.alpha = 1.0f;
     [UIView animateWithDuration:0.3f animations:^{
         [self.faqBarButtonItem setTitle:ECSLocalizedString(ECSLocalizeShortHideFAQKey, @"Hide FAQ")];
-        self.topQuestionsTopConstraint.constant = 0.0f;
+        //self.topQuestionsTopConstraint.constant = 0.0f;
         
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [self.topQuestions didMoveToParentViewController:self];
+        //[self.topQuestions didMoveToParentViewController:self];
     }];
     
 }
@@ -831,18 +834,27 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     return YES;
 }
 
+-(BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    // Display the top questions again.
+    self.answerEngineAction.topQuestions = _savedTopQuestions;
+    [self displayTopQuestions];
+    return YES;
+}
+
 // called from a timer after user types a search term.
 -(void)doTypeAheadSearch
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [sessionManager getAnswerEngineTopQuestionsForKeyword:self.searchTextField.text
-                                               completion:^(NSDictionary *response, NSError *error)
+                                      withOptionalContext:self.answerEngineAction.answerEngineContext
+                                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
          // Got our top questions...
-         if (response[@"suggestedQuestions"]) {
+         if (response.suggestedQuestions) {
              
-             self.answerEngineAction.topQuestions = response[@"suggestedQuestions"];
+             self.answerEngineAction.topQuestions = response.suggestedQuestions;
              [self displayTopQuestions];
          }
      }];

@@ -271,6 +271,11 @@ int estimatedWait;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(chatMessageReceived:)
+                                                 name:ECSChatMessageReceivedNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(callbackEnded:)
                                                  name:ECSCallbackEndedNotification
                                                object:nil];
@@ -326,11 +331,32 @@ int estimatedWait;
 }
 
 - (void)chatEnded:(NSNotification *)notification {
-
+    
     // If uncommented, this will hide chat when agent ends it.
     //[self.navigationController popToViewController:self animated:YES];
     NSLog(@"Chat ended!");
 }
+
+- (void)chatMessageReceived:(NSNotification *)notification {
+    
+    // A chat text message.
+    if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
+        ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
+        NSLog(@"Chat - incoming chat message: %@", message.body);
+        
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
+    
+    // Add participant message.
+    if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+        ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
+        NSLog(@"Chat - Adding participant: %@ %@", message.firstName, message.lastName);
+        
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
+}
+
+#pragma mark TableView Construction
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -912,6 +938,8 @@ int estimatedWait;
         return nil;
     }
 }
+
+#pragma mark - Ad-Hoc SDK Functions
 
 -(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
     [[EXPERTconnect shared] breadcrumbWithAction:action

@@ -8,7 +8,7 @@
 
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
-
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface ECDAdHocViewController : ECSRootViewController
 

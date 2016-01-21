@@ -1,4 +1,4 @@
-//
+    //
 //  ECSChatViewController.m
 //  EXPERTconnect
 //
@@ -272,7 +272,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)dealloc
 {
-    [self doGracefulEndChat];
+    [self.chatClient disconnect];
     self.tableView.delegate = nil;
     self.workflowDelegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -998,6 +998,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification
+                                                        object:message];
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
@@ -1031,6 +1035,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         }
         _agentTypingIndex = -1;
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStateMessageReceivedNotification
+                                                        object:state];
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
@@ -1042,7 +1049,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 	 
 	 [self.tableView endUpdates];
 	 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatNotificationMessageReceivedNotification
+                                                        object:notificationMessage];
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
@@ -1404,7 +1414,22 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     notification.conversationId = self.chatClient.currentConversation.conversationID;
     notification.type = @"interview";
     notification.objectData = nil;
-    [self.chatClient sendNotificationMessage:notification];
+	 
+	 ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+	 
+	 [urlSession sendChatNotificationFrom:self.chatClient.fromUsername
+									 type:@"interview"
+							   objectData:@""
+						   conversationId:self.chatClient.currentConversation.conversationID
+								  channel:self.chatClient.currentChannelId
+							   completion:^(NSString *response, NSError *error)
+	  {
+		   if(error) {
+				NSLog(@"Error sending chat notification message: %@", error);
+		   }
+	  }];
+
+//    [self.chatClient sendNotificationMessage:notification];
 }
 
 - (void)sendCoBrowseMessage:(NSString *)meetID

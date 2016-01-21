@@ -108,13 +108,13 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  
  @return the data task for the answer engine call
  */
-- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
-                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 
 // Same as above, but added @param context - answer engine context to retrieve top questions for
-- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(NSNumber*)num
+- (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
-                                       withCompletion:(void (^)(NSArray *context, NSError *error))completion;
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 
 /**
  Retrieves the top question from answer engine using a search keyword
@@ -124,7 +124,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  @return the data task for the answer engine call
  */
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
-                                                     completion:(void (^)(NSDictionary *response, NSError *error))completion;
+                                            withOptionalContext:(NSString*)theContext
+                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
 
 /**
  Asks a question of the answer engine system.
@@ -139,6 +140,11 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  
  @return the data task for the answer engine call
  */
+- (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
+                                     inContext:(NSString*)answerEngineContext
+                                    customData:(NSDictionary *)customData
+                                    completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
+
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
                                      inContext:(NSString*)answerEngineContext
                                parentNavigator:(NSString*)parentNavigator
