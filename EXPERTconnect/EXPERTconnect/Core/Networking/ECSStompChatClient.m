@@ -533,14 +533,29 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 			   ECSChatNotificationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
 																					   withClass:[ECSChatNotificationMessage class]];
 			   message.fromAgent = YES;
-			   [self.delegate chatClient:self didReceiveChatNotificationMessage:message];
+			   NSString *fileName = message.objectData;
+			   NSString *tempString = [[fileName componentsSeparatedByString:@"."] lastObject];
+			   if([tempString isEqualToString:@"pdf"])
+			   {
+					ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+																				   withClass:[ECSChatURLMessage class]];
+					message.comment = fileName;
+					message.url = fileName;
+					message.urlType = @"PDF Document";
+					message.fromAgent = YES;
+					
+					[self.delegate chatClient:self didReceiveMessage:message];
+			   }
+			   else
+			   {
+					[self.delegate chatClient:self didReceiveChatNotificationMessage:message];
+			   }
 		  }
 		  else
 		  {
 			   ECSLogError(@"Unable to parse chat state message %@", serializationError);
 		  }
 	 }
-	 
 }
 
 
