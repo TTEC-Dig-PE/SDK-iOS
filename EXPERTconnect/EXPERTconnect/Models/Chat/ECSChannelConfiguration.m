@@ -23,7 +23,12 @@
              @"location": @"location",
              @"deviceId": @"deviceId",
              @"features": @"features",
+             @"options": @"options"
              };
+}
+
+-(BOOL)ignoreNilValues {
+    return YES;
 }
 
 @end

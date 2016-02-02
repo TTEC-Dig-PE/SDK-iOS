@@ -20,7 +20,7 @@
 
 static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
-@interface AppDelegate ()
+@interface AppDelegate () <ECSAuthenticationTokenDelegate>
 
 @end
 
@@ -101,10 +101,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.breadcrumbCacheTime = 25; // Wait 25 seconds before sending breadcrumbs.
     
     // Fetch the authToken from our webApp. 
-    [self fetchAuthTokenWithHost:configuration.host
-                        userName:@"mike@humanify.com"
-                        clientID:configuration.clientID
-                      completion:^(NSString *authToken)
+    [self fetchAuthenticationToken:^(NSString *authToken, NSError *error)
     {
         [[EXPERTconnect shared] setUserIdentityToken:authToken];
         
@@ -128,6 +125,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+    
+    [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
     [self setThemeFromSettings];
     
@@ -347,27 +346,33 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     }];
 }
 
-- (void) fetchAuthTokenWithHost:(NSString *)host
-                       userName:(NSString *)userName
-                       clientID:(NSString *)clientID
-                     completion:(void(^)(NSString *authToken))completion
+- (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion
 {
-    //Currently implemented on: api.dce1.humanify.com (DceDev)
+    
     NSURL *url = [[NSURL alloc] initWithString:
-                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens?username=%@&client_id=%@",
-                   host, userName, clientID]];
+                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                   [self hostURLFromSettings],
+                   @"mike@humanify.com",
+                   [self getClientFromSettings]]];
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
-         if(!error)
+         long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+         NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         
+         if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-             NSLog(@"Fetched authToken: %@", returnToken);
-             completion(returnToken);
+             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             completion([NSString stringWithFormat:@"%@", returnToken], nil);
+         }
+         else
+         {
+             NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
          }
      }];
 }
+
 
 @end

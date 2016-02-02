@@ -319,20 +319,20 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
             __weak typeof(self) weakSelf = self;
             [urlSession getChatHistoryDetailsForJourneyId:self.historyJourney
-                                           withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
-                                               NSLog(@"Completion");
-                                               weakSelf.messages = [[NSMutableArray alloc] initWithArray:[response chatMessages]];
-                                               for (ECSChatMessage *message in weakSelf.messages)
-                                               {
-                                                   if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
-                                                   {
-                                                       [weakSelf.participants setObject:message
-                                                                                 forKey:((ECSChatAddParticipantMessage*)message).userId];
-                                                   }
-                                               }
-                                               [weakSelf.tableView reloadData];
-                                               [weakSelf hideWaitView];
-                                           }];
+                                           withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+            {
+               weakSelf.messages = [[NSMutableArray alloc] initWithArray:[response chatMessages]];
+               for (ECSChatMessage *message in weakSelf.messages)
+               {
+                   if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
+                   {
+                       [weakSelf.participants setObject:message
+                                                 forKey:((ECSChatAddParticipantMessage*)message).userId];
+                   }
+               }
+               [weakSelf.tableView reloadData];
+               [weakSelf hideWaitView];
+           }];
         }
     }
     else if (!self.chatClient)

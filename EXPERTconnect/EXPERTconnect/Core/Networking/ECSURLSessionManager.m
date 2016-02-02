@@ -210,6 +210,31 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+/*
+[[EXPERTconnect shared] setIdentityDelegateFunction:^void (void (^)(NSString *authToken, NSError *error)completion)] {
+    NSString *tokenFromWebFetch = [doWebFetchForToken];
+    completion(tokenFromWebFetch, nil);
+}];
+ */
+- (NSURLSessionTask *)refreshIdentityDelegateWithCompletion:(void (^)(NSString *authToken, NSError *error))completion;
+{
+    __weak typeof(self) weakSelf = self;
+    
+    if (self.authTokenDelegate) {
+        [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error) {
+            if (authToken) {
+                weakSelf.authToken = authToken;
+                NSLog(@"New auth token is: %@", authToken);
+                completion(authToken, nil);
+            } else {
+                completion(nil, error);
+            }
+        }];
+    }
+    
+    return nil;
+}
+
 
 - (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
                                             completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
@@ -654,8 +679,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
-- (NSURLSessionDataTask*)setupChannel:(ECSChannelConfiguration*)channelConfig inConversation:(NSString*)conversation
-                                            completion:(void (^)(ECSChannelCreateResponse *response, NSError* error))completion
+- (NSURLSessionDataTask*)setupChannel:(ECSChannelConfiguration*)channelConfig
+                       inConversation:(NSString*)conversation
+                           completion:(void (^)(ECSChannelCreateResponse *response, NSError* error))completion
 {
     
     NSDictionary *parameters = [ECSJSONSerializer jsonDictionaryFromObject:channelConfig];
@@ -1244,6 +1270,30 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }];
 }
 
+- (void)authenticateAPIAndContinueCallWithRequest2:(NSURLRequest *)request
+                                                         success:(ECSSessionManagerSuccess)success
+                                                         failure:(ECSSessionManagerFailure)failure
+{
+    __weak typeof(self) weakSelf = self;
+    
+    ECSLogVerbose(@"Authenticating2 with server.");
+    
+    [self refreshIdentityDelegateWithCompletion:^(NSString *authToken, NSError *error) {
+        if (!error && authToken)
+        {
+            ECSLogVerbose(@"Authentication2 successful");
+            NSMutableURLRequest *mutableRequest = [request mutableCopy];
+            [self setCommonHTTPHeadersForRequest:mutableRequest];
+            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
+            [task resume];
+        }
+        else
+        {
+            ECSLogVerbose(@"Authentication2 failed.");
+        }
+    }];
+}
+
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                            allowAuthorization:(BOOL)allowAuthorization
                                       success:(ECSSessionManagerSuccess)success
@@ -1269,10 +1319,18 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
+        NSLog(@"HTTP RESPONSE: %ld", (long)((NSHTTPURLResponse*)response).statusCode);
+        
         if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
-            ECSLogVerbose(@"Authentication error. Attempting to generate new key..."); 
-            [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
+            ECSLogVerbose(@"Authentication error. Attempting to generate new key...");
+            if(weakSelf.authTokenDelegate) {
+                // Use the new method if an identity delegate is found.
+                [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
+            } else {
+                // Backwards compatibility (or non-identity delegate methods)
+                [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
+            }
             retryingWithAuthorization = YES;
         }
         else if ((error.code != NSURLErrorCancelled) &&
@@ -1393,10 +1451,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if (self.authToken.length > 0)
     {
         NSString *authValue = self.authToken;
-        if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
-        {
+        //if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
+        //{
             authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
-        }
+        //}
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     }
     

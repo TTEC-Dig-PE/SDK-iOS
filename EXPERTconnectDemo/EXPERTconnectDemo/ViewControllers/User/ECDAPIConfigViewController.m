@@ -174,7 +174,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 - (void)refreshButtonTapped:(UIButton*)button
 {
     NSString *context = self.selectAnswerEngineContextPicker.currentSelection;
-    NSNumber *num_questions = [NSNumber numberWithInt:4];
+    int num_questions = 4;
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     

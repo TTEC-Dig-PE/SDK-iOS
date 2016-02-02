@@ -100,6 +100,8 @@ FOUNDATION_EXPORT NSString *const ECSRequestAnswerEngineAction;
 // Specific configuration values based on the specific action type
 @property (nonatomic, strong) NSDictionary *configuration;
 
+@property (nonatomic, strong) NSDictionary *channelOptions; 
+
 // Presurvey for this action type
 @property (nonatomic, strong) ECSPreSurvey *presurvey;
 
