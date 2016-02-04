@@ -1270,18 +1270,20 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }];
 }
 
+// This version of the function uses the new identity delegate method.
 - (void)authenticateAPIAndContinueCallWithRequest2:(NSURLRequest *)request
                                                          success:(ECSSessionManagerSuccess)success
                                                          failure:(ECSSessionManagerFailure)failure
 {
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(@"Authenticating2 with server.");
+    ECSLogVerbose(@"Authenticating with server.");
     
-    [self refreshIdentityDelegateWithCompletion:^(NSString *authToken, NSError *error) {
+    [self refreshIdentityDelegateWithCompletion:^(NSString *authToken, NSError *error)
+    {
         if (!error && authToken)
         {
-            ECSLogVerbose(@"Authentication2 successful");
+            ECSLogVerbose(@"Authentication successful");
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             [self setCommonHTTPHeadersForRequest:mutableRequest];
             NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
@@ -1289,7 +1291,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         else
         {
-            ECSLogVerbose(@"Authentication2 failed.");
+            ECSLogVerbose(@"Authentication failed.");
         }
     }];
 }

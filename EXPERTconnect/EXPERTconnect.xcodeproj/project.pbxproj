@@ -1031,6 +1031,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
@@ -1055,7 +1056,6 @@
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
 				0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */,
 				0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */,
-				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

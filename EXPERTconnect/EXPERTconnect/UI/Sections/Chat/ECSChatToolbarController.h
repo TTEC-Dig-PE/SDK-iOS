@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @protocol ECSChatToolbarDelegate <NSObject>
 

@@ -346,9 +346,11 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     }];
 }
 
+// This function is called by both this app (host app) and the SDK as the official auth token fetch function.
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion
 {
     
+    // add /ust for new method
     NSURL *url = [[NSURL alloc] initWithString:
                   [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                    [self hostURLFromSettings],
@@ -359,6 +361,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
+         
          long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
          NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
          
@@ -369,7 +372,41 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          }
          else
          {
+             // If the new way didn't work, try the old way once.
              NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+             [self fetchOldAuthenticationToken:completion];
+         }
+     }];
+}
+
+// This function is called by both this app (host app) and the SDK as the official auth token fetch function.
+- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion
+{
+    
+    // add /ust for new method
+    NSURL *url = [[NSURL alloc] initWithString:
+                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens?username=%@&client_id=%@",
+                   [self hostURLFromSettings],
+                   @"mike@humanify.com",
+                   [self getClientFromSettings]]];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         
+         long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+         NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         
+         if(!error && (statusCode == 200 || statusCode == 201))
+         {
+             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             completion([NSString stringWithFormat:@"%@", returnToken], nil);
+         }
+         else
+         {
+             NSLog(@"ERROR FETCHING OLD AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+             
          }
      }];
 }
