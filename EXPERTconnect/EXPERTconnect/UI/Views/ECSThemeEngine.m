@@ -8,6 +8,7 @@
 
 #import "ECSThemeEngine.h"
 #import "ECSCalendarHelpers.h"
+#import "NSBundle+ECSBundle.h"
 #import <CoreText/CoreText.h>
 
 static ECSThemeEngine* sharedInstance;
@@ -276,8 +277,8 @@ static ECSThemeEngine* sharedInstance;
     }
     
     _themeName = themeName;
-    
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:themeName ofType:@"plist"];
+
+    NSString* filePath = [[NSBundle ecs_bundle] pathForResource:themeName ofType:@"plist"];
     self.themeDict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     
     NSAssert(self.themeDict, @"FATAL ERROR: Cannot initialize theme! Please check that you have at least default theme added to your project.");

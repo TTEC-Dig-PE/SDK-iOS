@@ -441,6 +441,8 @@
 		C1E99D421BC7CC4B000EC129 /* ECSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */; };
 		C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */; };
 		C1E99D441BC7CC4B000EC129 /* TextEditorTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */; };
+		C1F658711C50B2900093D7F3 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */; };
+		C1F658721C50B2900093D7F3 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */; };
 		C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */; };
 		C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */; };
 		C431B3991BE867B500996102 /* ECSAgentAvailableResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -960,6 +962,8 @@
 		C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSRichTextEditor.m; sourceTree = "<group>"; };
 		C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorTextView.h; sourceTree = "<group>"; };
 		C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorTextView.m; sourceTree = "<group>"; };
+		C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPad.plist; sourceTree = "<group>"; };
+		C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C431B3971BE867B500996102 /* ECSAgentAvailableResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAgentAvailableResponse.h; path = Responses/ECSAgentAvailableResponse.h; sourceTree = "<group>"; };
 		C431B3981BE867B500996102 /* ECSAgentAvailableResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAgentAvailableResponse.m; path = Responses/ECSAgentAvailableResponse.m; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
@@ -1254,6 +1258,8 @@
 				03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */,
 				C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */,
 				C1E99D091BC7CA46000EC129 /* editor.html */,
+				C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */,
+				C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */,
 				03F0BD381A70383B00E90E7F /* Localizable.strings */,
 				03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */,
 				03978EF11A602AEF007793D6 /* EXPERTconnectTests */,
@@ -2241,6 +2247,7 @@
 				0342B0261A9B60AE0009959E /* ECSSliderFormItemViewController.xib in Resources */,
 				0342B0181A9B60AE0009959E /* ECSRatingFormItemViewController.xib in Resources */,
 				0342B0101A9B60AE0009959E /* ECSRadioTableViewCell.xib in Resources */,
+				C1F658721C50B2900093D7F3 /* CalendarConfigiPhone.plist in Resources */,
 				03A64D351B01044700AED79D /* ECSEndChatSurveyView.xib in Resources */,
 				03101F301AAF356900D7562B /* ECSChatLogsViewController.xib in Resources */,
 				D87F2F071B66C01700B7B9D5 /* ECSSelectExpertViewController.xib in Resources */,
@@ -2261,6 +2268,7 @@
 				0342B06C1A9B60EF0009959E /* ECSWebViewController.xib in Resources */,
 				0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */,
 				C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */,
+				C1F658711C50B2900093D7F3 /* CalendarConfigiPad.plist in Resources */,
 				03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */,
 				D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */,
 				0342B04B1A9B60C10009959E /* ECSListTableViewCell.xib in Resources */,

@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 @property (strong, nonatomic) NSString *currentPath;
+@property (strong, nonatomic) NSURLRequest *request;
+
 @end
 
 @implementation ECSWebViewController
@@ -47,9 +49,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.currentPath]];
-    [self.webView loadRequest:request];
+	 
+	 if(!self.request)
+	 {
+		  self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.currentPath]];
+	 }
+	 [self.webView loadRequest:self.request];
 }
 
 - (void)viewDidLayoutSubviews
@@ -77,6 +82,7 @@
 
 - (void)loadRequest:(NSURLRequest*)request
 {
+    self.request=request;
     self.currentPath = request.URL.absoluteString;
     [self.webView loadRequest:request];
 }

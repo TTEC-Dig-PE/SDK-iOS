@@ -1337,12 +1337,23 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     id message = self.messages[indexPath.row];
     
-    if ([message isKindOfClass:[ECSChatURLMessage class]])
-    {
-        ECSWebViewController *webController = [ECSWebViewController ecs_loadFromNib];
-        [webController loadItemAtPath:[(ECSChatURLMessage*)message url]];
-        [self.navigationController pushViewController:webController animated:YES];
-    }
+	 if ([message isKindOfClass:[ECSChatURLMessage class]])
+	 {
+		  if([[(ECSChatURLMessage*)message urlType] isEqualToString:@"PDF Document"])
+		  {
+			   ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+			   NSURLRequest *request = [sessionManager urlRequestForMediaWithName:[(ECSChatURLMessage*)message url]];
+			   ECSWebViewController *webController = [ECSWebViewController ecs_loadFromNib];
+			   [webController loadRequest:request];
+			   [self.navigationController pushViewController:webController animated:YES];
+		  }
+		  else
+		  {
+			   ECSWebViewController *webController = [ECSWebViewController ecs_loadFromNib];
+			   [webController loadItemAtPath:[(ECSChatURLMessage*)message url]];
+			   [self.navigationController pushViewController:webController animated:YES];
+		  }
+	 }
     else if ([message isKindOfClass:[ECSChatMediaMessage class]])
     {
         ECSPhotoViewController *photoController = [ECSPhotoViewController ecs_loadFromNib];
