@@ -281,7 +281,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(@"Unable to parse chat notification message %@", serializationError);
         }
     }
     
@@ -338,7 +338,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(@"Unable to parse add channel message %@", serializationError);
         }
     }
     

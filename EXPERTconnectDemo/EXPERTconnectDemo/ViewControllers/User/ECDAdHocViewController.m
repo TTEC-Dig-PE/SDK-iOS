@@ -962,6 +962,8 @@ int estimatedWait;
     UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
                                                          withDisplayName:@"Chat"
                                                               withSurvey:NO];
+                                                      //withChannelOptions:@{@"testOption": @"testValue"}];
+    
     [self.navigationController pushViewController:chatController animated:YES];
 
     

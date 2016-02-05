@@ -24,7 +24,7 @@
     // Let's get top questions.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
-    [sessionManager getAnswerEngineTopQuestions:[NSNumber numberWithInt:10]
+    [sessionManager getAnswerEngineTopQuestions:10
                                      forContext:@"park"
                                  withCompletion:^(NSArray *answers, NSError *error)
      {

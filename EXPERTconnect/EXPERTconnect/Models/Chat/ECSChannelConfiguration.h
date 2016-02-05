@@ -48,4 +48,7 @@
 // Call Features
 @property (strong, nonatomic) NSDictionary *features;
 
+// Options
+@property (strong, nonatomic) NSDictionary *options;
+
 @end

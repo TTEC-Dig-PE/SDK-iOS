@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ECSAuthenticationToken.h"
 
 @class ECSActionType;
 @class ECSAnswerEngineTopQuestionsResponse;
@@ -53,6 +54,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 // Authorization token
 @property (nonatomic, strong) NSString *authToken;
+
+@property (nonatomic, weak) id<ECSAuthenticationTokenDelegate> authTokenDelegate;
 
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;

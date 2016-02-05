@@ -454,6 +454,8 @@
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
 		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
+		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -969,6 +971,8 @@
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
+		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
+		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1031,6 +1035,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
@@ -1055,7 +1060,6 @@
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
 				0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */,
 				0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */,
-				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1162,6 +1166,8 @@
 				033ACB291A602C9C0024F48F /* ECSUtilities.m */,
 				03F0BD1E1A6F622200E90E7F /* ECSLog.h */,
 				03F0BD1F1A6F622200E90E7F /* ECSLog.m */,
+				C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */,
+				C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1917,6 +1923,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */,
 				038E43F91AA4FB8A00FF1D48 /* ECSChannelCreateResponse.h in Headers */,
 				038E43FD1AA50C7F00FF1D48 /* ECSChannelConfiguration.h in Headers */,
 				C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */,
@@ -2516,6 +2523,7 @@
 				03AF24AE1A9B601E00407BE5 /* ECSButton.m in Sources */,
 				039062311AC588E300E006BE /* ECSChatStateMessage.m in Sources */,
 				0342B00F1A9B60AE0009959E /* ECSRadioTableViewCell.m in Sources */,
+				C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */,
 				C1E0E62D1BC409230089C7E6 /* ECSThemeEngine.m in Sources */,
 				03AF24B01A9B601E00407BE5 /* ECSCachingImageView.m in Sources */,
 				C1E99D281BC7CBE7000EC129 /* ECSColorUtil.m in Sources */,
