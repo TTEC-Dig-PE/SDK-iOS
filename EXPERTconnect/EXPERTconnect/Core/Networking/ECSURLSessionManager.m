@@ -1321,11 +1321,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        NSLog(@"HTTP RESPONSE: %ld", (long)((NSHTTPURLResponse*)response).statusCode);
+        ECSLogVerbose(@"HTTP RESPONSE: %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
         
         if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
-            ECSLogVerbose(@"Authentication error. Attempting to generate new key...");
+            ECSLogWarn(@"Authentication error. Attempting to generate new key...");
+            ECSLogVerbose(@"Packet: %@", response); 
             if(weakSelf.authTokenDelegate) {
                 // Use the new method if an identity delegate is found.
                 [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];

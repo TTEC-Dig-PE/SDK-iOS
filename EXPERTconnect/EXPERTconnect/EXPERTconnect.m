@@ -517,8 +517,8 @@ NSTimer *breadcrumbTimer;
 }
 
 
-- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
-{
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
+    
     [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];

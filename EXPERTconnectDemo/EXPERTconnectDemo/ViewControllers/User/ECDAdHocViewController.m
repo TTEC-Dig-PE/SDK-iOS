@@ -961,8 +961,8 @@ int estimatedWait;
     // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
     UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
                                                          withDisplayName:@"Chat"
-                                                              withSurvey:NO];
-                                                      //withChannelOptions:@{@"testOption": @"testValue"}];
+                                                              withSurvey:NO
+                                                      withChannelOptions:@{@"language": @"en-UK", @"department": @"rental"}];
     
     [self.navigationController pushViewController:chatController animated:YES];
 
