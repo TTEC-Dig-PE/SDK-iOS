@@ -78,6 +78,10 @@ ACBVideoCaptureResolution;
 @property (readonly) NSArray* currentCalls;
 /** The UIView for displaying the preview image */
 @property (strong) ACBView* previewView;
+#if TARGET_OS_IPHONE
+/** If true, the preview view is mirrored when using a front-facing camera (see [setCamera:]). Does not affect video sent to callee. */
+@property (nonatomic, assign) BOOL mirrorFrontFacingCameraPreview;
+#endif
 /** The preferred capture resolution. If no preferred resolution is specified, the best SD resolution that the device is capable of will be chosen. */
 @property ACBVideoCaptureResolution preferredCaptureResolution;
 /** The preferred capture framerate. If no preferred frame rate is specified, the best frame rate that the device is capable of will be chosen. */
