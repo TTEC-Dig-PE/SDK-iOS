@@ -81,6 +81,7 @@
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
+		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
 		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
@@ -392,6 +393,8 @@
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
 		C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleAnswerEngineController.m; path = Proof_of_Concept/ECDSimpleAnswerEngineController.m; sourceTree = "<group>"; };
+		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
+		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
@@ -798,6 +801,8 @@
 				033ACB4A1A602CC00024F48F /* Views */,
 				03978F0E1A602B2D007793D6 /* AppDelegate.h */,
 				03978F0F1A602B2D007793D6 /* AppDelegate.m */,
+				C4D0E5181C6A409A0032925F /* AppConfig.h */,
+				C4D0E5191C6A409A0032925F /* AppConfig.m */,
 				03978F171A602B2D007793D6 /* Images.xcassets */,
 				03978F191A602B2D007793D6 /* LaunchScreen.xib */,
 				03978F0A1A602B2D007793D6 /* Supporting Files */,
@@ -1247,6 +1252,7 @@
 				C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */,
 				4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				033A398E1AD579FC006B34B2 /* ECDRegisterViewController.m in Sources */,
+				C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */,
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
 				462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */,
