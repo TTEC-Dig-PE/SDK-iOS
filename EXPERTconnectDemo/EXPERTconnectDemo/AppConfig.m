@@ -98,7 +98,7 @@
     
     if (!url || url.length == 0)
     {
-        url = @"http://api.humanify.com:8080";
+        url = @"https://api.dce1.humanify.com";
     }
     
     return url;
@@ -119,6 +119,10 @@
     return ( currentOrganization ? currentOrganization : @"mktwebextc" );
 }
 
+-(NSString *)getUserName {
+    return ([EXPERTconnect shared].userName ? [EXPERTconnect shared].userName : @"Guest");
+}
+
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion {
     
@@ -126,7 +130,7 @@
     NSURL *url = [[NSURL alloc] initWithString:
                   [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                    [self getHostURL],
-                   [EXPERTconnect shared].userName,
+                   [self getUserName],
                    [self getClientID]]];
     
     NSLog(@"Fetch token URL: %@", url);
@@ -160,7 +164,7 @@
     NSURL *url = [[NSURL alloc] initWithString:
                   [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens?username=%@&client_id=%@",
                    [self getHostURL],
-                   [EXPERTconnect shared].userName,
+                   [self getUserName],
                    [self getClientID]]];
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]

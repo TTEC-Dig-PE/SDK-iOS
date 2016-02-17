@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <EXPERTconnect/EXPERTConnect.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface AppConfig : NSObject <ECSAuthenticationTokenDelegate>
 

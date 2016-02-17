@@ -28,6 +28,13 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 @implementation AppDelegate
 
+- (void)setApplicationDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
+                                                            forKey:@"beaconIdentifier"];
+    [defaults registerDefaults:appDefaults];
+    [defaults synchronize];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -73,6 +80,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setTintColor:[UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1]];
+    
+    [self setApplicationDefaults]; 
     
     // Initialize the SDK
     ECSConfiguration *configuration = [ECSConfiguration new];

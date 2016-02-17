@@ -90,6 +90,9 @@
 /* Start Forms Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartFormsHeader" = "Start AdHoc Forms Interview";
 
+/* iBeacon Demon Label */
+"ECDLocalizedBeaconLabel" = "iBeacon Demo";
+
 /* Start User Profile Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 

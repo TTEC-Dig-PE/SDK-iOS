@@ -14,7 +14,7 @@
     id result = nil;
     
     if ([data length] == 0) {
-        NSLog(@"WARNING: 0 byte JSON response from server.");
+        //NSLog(@"WARNING: 0 byte JSON response from server.");
         return nil;
     }
     

@@ -26,6 +26,7 @@
 #import "ECDLocalization.h"
 #import "ECDCalendarViewController.h"
 #import "ECDTextEditorViewController.h"
+#import "ECDBeaconViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -111,6 +112,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
     SettingsSectionCount
 };
 
+
 typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 {
     AdHocChatSectionRowStart,
@@ -138,6 +140,7 @@ typedef NS_ENUM(NSInteger, FormsSectionRows)
 typedef NS_ENUM(NSInteger, UserProfileSectionRows)
 {
     AdHocUserProfileSectionRowStart,
+    AdHocUtilityBeaconRow,
     AdHocUserProfileRowCount
 };
 
@@ -219,7 +222,9 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
     SettingsSectionSeventeenRowCount
 };
 
-@interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate> {
+    CLLocation *currentLocation;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectAdHocChatPicker;
@@ -242,6 +247,19 @@ int estimatedWait;
     self.navigationItem.title = @"AdHoc";
     
     ECSTheme *theme = [[EXPERTconnect shared] theme];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    
+    // In our demo app, we will only use GPS while the app is in the foreground
+    [self.locationManager requestWhenInUseAuthorization];
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.distanceFilter = 5; // meters
+        
+        [self.locationManager startUpdatingLocation];
+    }
     
     self.view.backgroundColor = theme.primaryBackgroundColor;
     self.tableView.backgroundColor = theme.primaryBackgroundColor;
@@ -291,68 +309,19 @@ int estimatedWait;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark Notification Functions
+#pragma mark Location Functions
 
-- (void)chatInfoUpdated:(NSNotification *)notification
-{
-    NSDictionary *chatSkillStatus = notification.userInfo;
-    if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
-        agentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
-        agentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
-        estimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
-    }
-    [self.tableView reloadData]; 
-}
-
-- (void)callbackEnded:(NSNotification *)notification
-{
-    if (![notification.userInfo[@"reason"] isEqualToString:@"UserCancelled"]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
-                                                                                 message:@"Thank you for contacting us!"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok"
-                                                                  style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action)
-                                          {
-                                              [alertController dismissViewControllerAnimated:YES completion:nil];
-                                              //[self dismissviewAndNotify:YES];
-                                              //[self.workflowDelegate voiceCallBackEnded];
-                                          }];
-        
-        
-        [alertController addAction:alertActionStop];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else
-    {
-        NSLog(@"Callback ended. Reason? %@", notification.userInfo[@"reason"]);
-    }
+// Delegate method from the CLLocationManagerDelegate protocol.
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
     
-}
-
-- (void)chatEnded:(NSNotification *)notification {
-    
-    // If uncommented, this will hide chat when agent ends it.
-    //[self.navigationController popToViewController:self animated:YES];
-    NSLog(@"Chat ended!");
-}
-
-- (void)chatMessageReceived:(NSNotification *)notification {
-    
-    // A chat text message.
-    if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
-        ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
-        NSLog(@"Chat - incoming chat message: %@", message.body);
-        
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-    }
-    
-    // Add participant message.
-    if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
-        ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
-        NSLog(@"Chat - Adding participant: %@ %@", message.firstName, message.lastName);
-        
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (fabs(howRecent) < 15.0) {
+        // If the event is recent, do something with it.
+        currentLocation = location;
     }
 }
 
@@ -371,12 +340,12 @@ int estimatedWait;
             rowCount = AdHocChatSectionRowCount;
             break;
             
-        case SettingsSectionAdHocAnswerEngine:
-            rowCount = AdHocAnswerEngineSectionRowCount;
-            break;
-            
         case SettingsSectionAdHocVideoChat:
             rowCount = AdHocVideoChatSectionRowCount;
+            break;
+            
+        case SettingsSectionAdHocAnswerEngine:
+            rowCount = AdHocAnswerEngineSectionRowCount;
             break;
             
         case SettingsSectionAdHocForms:
@@ -446,6 +415,18 @@ int estimatedWait;
     return rowCount;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    /*if (indexPath.section == SettingsSectionAdHocChat) {
+        return 64;
+    }
+    if (indexPath.section == SettingsSectionAdHocFunctions &&
+        (indexPath.row == AdHocFunctionRowVoiceCallback || indexPath.row == AdHocFunctionRowForms || indexPath.row == AdHocFunctionRowAnswerEngine)) {
+        return 64;
+    }*/
+    return 44;
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -473,6 +454,18 @@ int estimatedWait;
             }
             break;
             
+        case SettingsSectionAdHocVideoChat:
+             switch (indexPath.row) {
+                 case AdHocVideoChatRowStart:
+                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVideoChatLabel, @"AdHoc Video Chat");
+                     cell.accessoryView = self.selectAdHocVideoChatPicker;
+                     break;
+             
+                 default:
+                     break;
+             }
+             break;
+            
         case SettingsSectionAdHocAnswerEngine:
             switch (indexPath.row) {
                 case AdHocAnswerEngineRowStart:
@@ -480,18 +473,6 @@ int estimatedWait;
                     cell.accessoryView = self.selectAdHocAnswerEngineContextPicker;
                     break;
                     
-                default:
-                    break;
-            }
-            break;
-            
-        case SettingsSectionAdHocVideoChat:
-            switch (indexPath.row) {
-                case AdHocVideoChatRowStart:
-                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVideoChatLabel, @"AdHoc Video Chat");
-                    cell.accessoryView = self.selectAdHocVideoChatPicker;
-                    break;
-
                 default:
                     break;
             }
@@ -513,6 +494,11 @@ int estimatedWait;
             switch (indexPath.row) {
                 case AdHocUserProfileSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartUserProfileLabel, @"AdHoc User Profile");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                    
+                case AdHocUtilityBeaconRow:
+                    cell.textLabel.text = ECDLocalizedString(ECDLocalizedBeaconLabel, @"iBeacon Demo");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                     
@@ -550,7 +536,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocSMSMessage:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case AdHocSMSMessageSectionRowStart:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSMSMessageLabel, @"AdHoc SMS Message");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -563,7 +549,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocWebPage:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWebPageLabel, @"AdHoc Web Page");
                     cell.accessoryView = self.selectAdHocWebPagePicker;
                     break;
@@ -576,7 +562,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocAnswerEngineHistory:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAnswerEngineHistoryLabel, @"AdHoc Answer Engine History");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -589,7 +575,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocChatHistory:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatHistoryLabel, @"AdHoc Chat History");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -602,7 +588,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocSelectExpert:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSelectExpertLabel, @"AdHoc Select Expert Dialog");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -628,7 +614,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocAPIConfig:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartAPIConfigLabel, @"AdHoc API Configuration");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -641,7 +627,7 @@ int estimatedWait;
             
         case SettingsSectionAdHocSubmitForm:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSubmitFormLabel, @"AdHoc Submit Form");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -678,7 +664,7 @@ int estimatedWait;
             
         case SettingsSectionSeventeen:
             switch (indexPath.row) {
-                case AdHocUserProfileSectionRowStart:
+                case 0:
                     cell.textLabel.text = ECDLocalizedString(@"Localized Section Seventeen", @"Section Seventeen");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
@@ -701,14 +687,14 @@ int estimatedWait;
         [self handleAdHocStartChat];
     }
     
-    if (indexPath.section == SettingsSectionAdHocAnswerEngine && indexPath.row == AdHocAnswerEngineRowStart)
-    {
-        [self handleAdHocStartAnswerEngine];
-    }
-    
     if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
     {
         [self handleAdHocStartVideoChat];
+    }
+    
+    if (indexPath.section == SettingsSectionAdHocAnswerEngine && indexPath.row == AdHocAnswerEngineRowStart)
+    {
+        [self handleAdHocStartAnswerEngine];
     }
     
     if (indexPath.section == SettingsSectionAdHocForms && indexPath.row == AdHocFormsSectionRowStart)
@@ -716,9 +702,19 @@ int estimatedWait;
         [self handleAdHocRenderForm];
     }
     
-    if (indexPath.section == SettingsSectionAdHocUserProfile && indexPath.row == AdHocUserProfileSectionRowStart)
+    if (indexPath.section == SettingsSectionAdHocUserProfile)
     {
-        [self handleAdHocEditUserProfile];
+        switch (indexPath.row) {
+            case AdHocUserProfileSectionRowStart:
+                [self handleAdHocEditUserProfile];
+                break;
+                
+            case AdHocUtilityBeaconRow:
+                [self handleAdHocBeaconDemo];
+                
+            default:
+                break;
+        }
     }
     
     if (indexPath.section == SettingsSectionAdHocVoiceCallback && indexPath.row == AdHocVoiceCallbackSectionRowStart)
@@ -806,6 +802,11 @@ int estimatedWait;
             }
         }
             break;
+        case SettingsSectionAdHocVideoChat:
+        {
+             title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
+        }
+             break;
             
         case SettingsSectionAdHocAnswerEngine:
         {
@@ -813,11 +814,6 @@ int estimatedWait;
         }
             break;
             
-        case SettingsSectionAdHocVideoChat:
-        {
-            title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
-        }
-            break;
             
         case SettingsSectionAdHocForms:
         {
@@ -844,7 +840,6 @@ int estimatedWait;
             title = ECDLocalizedString(ECDLocalizedStartEmailMessageHeader, @"AdHoc Email Messsage");
         }
             break;
-            
             
         case SettingsSectionAdHocSMSMessage:
         {
@@ -939,6 +934,71 @@ int estimatedWait;
     }
 }
 
+#pragma mark Notification Functions
+
+- (void)chatInfoUpdated:(NSNotification *)notification
+{
+    NSDictionary *chatSkillStatus = notification.userInfo;
+    if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
+        agentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
+        agentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
+        estimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)callbackEnded:(NSNotification *)notification
+{
+    if (![notification.userInfo[@"reason"] isEqualToString:@"UserCancelled"]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Callback Completed"
+                                                                                 message:@"Thank you for contacting us!"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"Ok"
+                                                                  style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action)
+                                          {
+                                              [alertController dismissViewControllerAnimated:YES completion:nil];
+                                              //[self dismissviewAndNotify:YES];
+                                              //[self.workflowDelegate voiceCallBackEnded];
+                                          }];
+        
+        
+        [alertController addAction:alertActionStop];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else
+    {
+        NSLog(@"Callback ended. Reason? %@", notification.userInfo[@"reason"]);
+    }
+    
+}
+
+- (void)chatEnded:(NSNotification *)notification {
+    
+    // If uncommented, this will hide chat when agent ends it.
+    //[self.navigationController popToViewController:self animated:YES];
+    NSLog(@"Chat ended!");
+}
+
+- (void)chatMessageReceived:(NSNotification *)notification {
+    
+    // A chat text message.
+    if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
+        ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
+        NSLog(@"Chat - incoming chat message: %@", message.body);
+        
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
+    
+    // Add participant message.
+    if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+        ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
+        NSLog(@"Chat - Adding participant: %@ %@", message.firstName, message.lastName);
+        
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
+}
+
 #pragma mark - Ad-Hoc SDK Functions
 
 -(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
@@ -946,7 +1006,7 @@ int estimatedWait;
                                      description:desc
                                           source:@"AdHoc"
                                      destination:@"Humanify"
-                                     geolocation:nil];
+                                     geolocation:currentLocation];
 }
 
 -(void)handleAdHocStartChat
@@ -979,7 +1039,7 @@ int estimatedWait;
 {
     NSLog(@"Starting an ad-hoc Voice Callback Session");
     
-    NSString *callSkill = @"CE_Mobile_Chat";   //   [self.selectAdHocCallbackPicker currentSelection];
+    NSString *callSkill = [self.selectAdHocVoiceCallbackPicker currentSelection];
     
     [self localBreadCrumb:@"Voice callback started"
               description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
@@ -1041,6 +1101,14 @@ int estimatedWait;
     
     UIViewController *profileController = [[EXPERTconnect shared] startUserProfile];
     [self.navigationController pushViewController:profileController animated:YES];
+}
+
+-(void)handleAdHocBeaconDemo
+{
+    NSLog(@"Showing iBeacon Demo View Controller");
+    
+    ECDBeaconViewController *beaconController = [[ECDBeaconViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:beaconController animated:YES];
 }
 
 -(void)handleAdHocEmailMessage
