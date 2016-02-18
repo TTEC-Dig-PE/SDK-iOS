@@ -16,4 +16,8 @@ profile
 .DS_Store
 artifacts/*
 /EXPERTconnect/Output/*
-DerivedData/
+DerivedData/*
+*.xcent
+*.o
+
+*.dia
