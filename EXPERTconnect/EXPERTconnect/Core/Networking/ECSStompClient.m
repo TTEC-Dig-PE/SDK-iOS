@@ -369,10 +369,18 @@ NSString *authToken; // Local stored copy of the authToken.
         
         i = i + 1; // Skip newline separator
         
-        if (i < frameComponents.count)
+        int j;
+        NSMutableString *bodyString = [[NSMutableString alloc] init];
+        for (j = i ; i < frameComponents.count ; i++) {
+            [bodyString appendString:[frameComponents[i] stringByReplacingOccurrencesOfString:@"\x00" withString:@""]];
+        }
+        frame.body = [NSString stringWithString:bodyString];
+        
+        // Before the Spring 1.3.x upgrade, we expected the entire body JSON to be on one line (no linebreaks within). 
+        /*if (i < frameComponents.count)
         {
             frame.body = [frameComponents[i] stringByReplacingOccurrencesOfString:@"\x00" withString:@""];;
-        }
+        }*/
     }
     
     return frame;

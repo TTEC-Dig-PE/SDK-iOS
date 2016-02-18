@@ -21,7 +21,7 @@ static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
 static NSString* PROPERTY_ACTIONDEST     = @"actionDestination";
 static NSString* PROPERTY_CREATIONTIME   = @"creationTime";
 
-static NSString* PROPERTY_GEOLOCATION       = @"geolocation";
+static NSString* PROPERTY_GEOLOCATION       = @"geoLocation";
 static NSString* PROPERTY_LATITUDE          = @"latitude";
 static NSString* PROPERTY_LONGITUDE         = @"longitude";
 static NSString* PROPERTY_HORIZ_ACCURACY    = @"horizontalAccuracy";
@@ -105,6 +105,9 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 }
 
 - (void)setUserId: (NSString *)userId {
+    if (!userId) {
+        userId = @"";
+    }
     [self.properties setObject:userId forKey:PROPERTY_USERID];
 }
 - (NSString *)getUserId {

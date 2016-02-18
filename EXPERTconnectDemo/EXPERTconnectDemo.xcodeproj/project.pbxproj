@@ -81,6 +81,11 @@
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
+		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
+		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
+		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
+		C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5291C74C19E0032925F /* ECDBeaconViewController.m */; };
+		C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E52A1C74C19E0032925F /* ECDBeaconViewController.xib */; };
 		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
 		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
@@ -392,6 +397,14 @@
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
 		C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleAnswerEngineController.m; path = Proof_of_Concept/ECDSimpleAnswerEngineController.m; sourceTree = "<group>"; };
+		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
+		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
+		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
+		C4D0E51E1C723A630032925F /* iBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iBeaconViewController.m; sourceTree = "<group>"; };
+		C4D0E51F1C723A630032925F /* iBeaconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = iBeaconViewController.xib; sourceTree = "<group>"; };
+		C4D0E5281C74C19E0032925F /* ECDBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDBeaconViewController.h; sourceTree = "<group>"; };
+		C4D0E5291C74C19E0032925F /* ECDBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDBeaconViewController.m; sourceTree = "<group>"; };
+		C4D0E52A1C74C19E0032925F /* ECDBeaconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDBeaconViewController.xib; sourceTree = "<group>"; };
 		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
@@ -641,6 +654,10 @@
 		033A39851AD579FC006B34B2 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				C4D0E5221C74B7C60032925F /* AdHoc Picker Views */,
+				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
+				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
+				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
 				467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */,
 				467257F71B7E5D1D0091BE51 /* ECDAdHocFormsController.h */,
 				467257F31B7E5CF40091BE51 /* ECDAdHocFormsController.xib */,
@@ -657,38 +674,15 @@
 				0301CBFE1B0634C50068A0E1 /* ECDLicenseViewController.m */,
 				0301CBFF1B0634C50068A0E1 /* ECDLicenseViewController.xib */,
 				0301CC021B063C880068A0E1 /* ECDLicenses.txt */,
-				46BA32F61B604E6600E5C270 /* ECDEnvironmentPicker.h */,
-				46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */,
-				46BA32F91B60559000E5C270 /* ECDRunModePicker.h */,
-				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
-				C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */,
-				C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */,
-				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
-				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
-				D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */,
-				D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */,
-				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
-				46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */,
-				4643F6111B73E26600F0AF7E /* ECDAdHocVoiceCallbackPicker.h */,
-				4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */,
-				46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */,
-				46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */,
-				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
-				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
-				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
 				C1DBB4FA1BE88F8F00A61B61 /* ECDWorkflowViewController.h */,
 				C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */,
 				C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */,
-				46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */,
-				46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */,
-				4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */,
-				4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */,
-				4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */,
 				4679BD991B7A527D002E2D9E /* ECDExtendedUserProfileViewController.h */,
 				4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */,
-				462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */,
-				462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */,
+				4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */,
 				462E1DF41B7BD52B00AFC62D /* ECDAPIConfigViewController.h */,
+				462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */,
+				462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */,
 				C1E0E6321BC409ED0089C7E6 /* ECDCalendarViewController.h */,
 				C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */,
 				C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */,
@@ -697,6 +691,9 @@
 				C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */,
 				C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */,
 				C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */,
+				C4D0E5281C74C19E0032925F /* ECDBeaconViewController.h */,
+				C4D0E5291C74C19E0032925F /* ECDBeaconViewController.m */,
+				C4D0E52A1C74C19E0032925F /* ECDBeaconViewController.xib */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -735,6 +732,9 @@
 		033ACB4A1A602CC00024F48F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C4D0E51D1C723A630032925F /* iBeaconViewController.h */,
+				C4D0E51E1C723A630032925F /* iBeaconViewController.m */,
+				C4D0E51F1C723A630032925F /* iBeaconViewController.xib */,
 				033ACB4B1A602CC00024F48F /* Cells */,
 				033ACB4F1A602CC00024F48F /* Theme */,
 			);
@@ -798,6 +798,8 @@
 				033ACB4A1A602CC00024F48F /* Views */,
 				03978F0E1A602B2D007793D6 /* AppDelegate.h */,
 				03978F0F1A602B2D007793D6 /* AppDelegate.m */,
+				C4D0E5181C6A409A0032925F /* AppConfig.h */,
+				C4D0E5191C6A409A0032925F /* AppConfig.m */,
 				03978F171A602B2D007793D6 /* Images.xcassets */,
 				03978F191A602B2D007793D6 /* LaunchScreen.xib */,
 				03978F0A1A602B2D007793D6 /* Supporting Files */,
@@ -869,6 +871,33 @@
 				C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */,
 			);
 			name = Proof_of_Concept;
+			sourceTree = "<group>";
+		};
+		C4D0E5221C74B7C60032925F /* AdHoc Picker Views */ = {
+			isa = PBXGroup;
+			children = (
+				46BA32F61B604E6600E5C270 /* ECDEnvironmentPicker.h */,
+				46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */,
+				46BA32F91B60559000E5C270 /* ECDRunModePicker.h */,
+				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
+				C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */,
+				C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */,
+				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
+				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
+				D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */,
+				D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */,
+				46368EC51B7149A4001AA48B /* ECDAdHocAnswerEngineContextPicker.h */,
+				46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */,
+				4643F6111B73E26600F0AF7E /* ECDAdHocVoiceCallbackPicker.h */,
+				4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */,
+				46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */,
+				46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */,
+				46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */,
+				46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */,
+				4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */,
+				4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */,
+			);
+			name = "AdHoc Picker Views";
 			sourceTree = "<group>";
 		};
 		D8CEBDF11B546DC20053E9A0 /* Horizon */ = {
@@ -1058,6 +1087,7 @@
 				C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
+				C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */,
 				D8CEBE1D1B546DC20053E9A0 /* HZPerformanceViewController.xib in Resources */,
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
@@ -1068,6 +1098,7 @@
 				D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */,
 				46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */,
 				D8CEBE261B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
 				D8CEBE1F1B546DC20053E9A0 /* HZResearchViewController.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
@@ -1247,6 +1278,7 @@
 				C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */,
 				4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				033A398E1AD579FC006B34B2 /* ECDRegisterViewController.m in Sources */,
+				C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */,
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
 				462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */,
@@ -1263,6 +1295,7 @@
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
 				C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */,
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
+				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
@@ -1274,6 +1307,7 @@
 				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,
 				D8CEBE1A1B546DC20053E9A0 /* HZMainScreenViewController.m in Sources */,
 				46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */,
+				C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */,
 				C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */,
 				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,

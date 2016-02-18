@@ -85,6 +85,7 @@
 #import <EXPERTconnect/ECSWorkflow.h>
 #import <EXPERTconnect/ECSWorkflowNavigation.h>
 #import <EXPERTconnect/ECSMediaInfoHelpers.h>
+#import <EXPERTconnect/ECSAuthenticationToken.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -140,6 +141,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
+
+- (UIViewController*)startChat:(NSString*)chatSkill
+               withDisplayName:(NSString*)displayName
+                    withSurvey:(BOOL)shouldTakeSurvey
+            withChannelOptions:(NSDictionary *)channelOptions;
 
 /**
  Returns a view controller for an EXPERTconnect Chat session, with CafeX Video parameters.
@@ -329,7 +335,6 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
-
 // Check availability on a singlar skill
 - (void) agentAvailabilityWithSkill:(NSString *)skill
                          completion:(void(^)(NSDictionary *status, NSError *error))completion;
@@ -351,6 +356,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
  */
 - (void)setUserIdentityToken:(NSString *)token;
+
+/**
+ Set the authentication token delegate. This object should contain the function that will refresh
+ the token. The EXPERTconnect SDK will call this function if it detects an HTTP 401 (not authorized) error. 
+ */
+- (void)setAuthenticationTokenDelegate:(id<ECSAuthenticationTokenDelegate>)delegate;
 
 - (void)setUserAvatar:(UIImage *)userAvatar;
 

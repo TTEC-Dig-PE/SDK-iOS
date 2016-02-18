@@ -9,7 +9,10 @@
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface ECDAdHocViewController : ECSRootViewController
+
+@property (nonatomic) CLLocationManager *locationManager;
 
 @end

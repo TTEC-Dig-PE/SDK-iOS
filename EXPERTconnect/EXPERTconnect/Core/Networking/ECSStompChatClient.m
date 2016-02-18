@@ -150,20 +150,18 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     }
 
     // check for video action type
-    if ([chatAction isKindOfClass:[ECSVideoChatActionType class]]) {
+    if ([chatAction isKindOfClass:[ECSVideoChatActionType class]])
+    {
         ECSVideoChatActionType *videoChatAction = (ECSVideoChatActionType *)chatAction;
-        
         configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
-    // mas - 8-dec-2015 - Changed to be "unknown user" as this is displayed in ExD window.
+    if (self.actionType.channelOptions) {
+        // Goes into "options" subcategory
+        configuration.options = [NSDictionary dictionaryWithDictionary:self.actionType.channelOptions];
+    }
+    
     configuration.from = ( userManager.userToken ? userManager.userToken : @"Guest" );
-    
-    // mas - 13-oct-2015 - use deviceID if userToken is unavailable ("not registered" or anonymous)
-    //configuration.from = ( userManager.userToken ? userManager.userToken : userManager.deviceID );
-    
-    //configuration.from = userManager.userToken;
-    
     configuration.subject = @"help";
     configuration.sourceType = @"Mobile";
     configuration.mediaType = @"Chat";
@@ -180,34 +178,36 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
     if (url)
     {
-        self.currentNetworkTask = [urlSession setupChannel:configuration inConversation:url
-                                                completion:^(ECSChannelCreateResponse *response, NSError *error) {
+        self.currentNetworkTask = [urlSession setupChannel:configuration
+                                            inConversation:url
+                                                completion:^(ECSChannelCreateResponse *response, NSError *error)
+        {
                                                     
-                                                    if (!error && response)
-                                                    {
-                                                        if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
-                                                        {
-                                                            [weakSelf.delegate chatClient:self
-                                                                   didUpdateEstimatedWait:response.estimatedWait.integerValue];
-                                                        }
-                                                        
-                                                        weakSelf.currentChannelId = [response.channelId copy];
-                                                        weakSelf.channel = response;
-                                                        [weakSelf setMessagingChannelConfiguration:response];
-                                                    }
-                                                    else if (!(error.code == NSURLErrorCancelled))
-                                                    {
-                                                        if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
-                                                        {
-                                                            if (!error)
-                                                            {
-                                                                error = [NSError errorWithDomain:@"com.humanify" code:-1
-                                                                                        userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
-                                                            }
-                                                            [self.delegate chatClient:self didFailWithError:error];
-                                                        }
-                                                    }
-                                                }];
+            if (!error && response)
+            {
+                if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
+                {
+                    [weakSelf.delegate chatClient:self
+                           didUpdateEstimatedWait:response.estimatedWait.integerValue];
+                }
+                
+                weakSelf.currentChannelId = [response.channelId copy];
+                weakSelf.channel = response;
+                [weakSelf setMessagingChannelConfiguration:response];
+            }
+            else if (!(error.code == NSURLErrorCancelled))
+            {
+                if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
+                {
+                    if (!error)
+                    {
+                        error = [NSError errorWithDomain:@"com.humanify" code:-1
+                                                userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
+                    }
+                    [self.delegate chatClient:self didFailWithError:error];
+                }
+            }
+        }];
     }
 }
 

@@ -199,6 +199,12 @@ NSTimer *breadcrumbTimer;
     [self setUserName:nil];
 }
 
+- (void)setAuthenticationTokenDelegate:(id<ECSAuthenticationTokenDelegate>)delegate
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    sessionManager.authTokenDelegate = delegate;
+}
+
 - (NSString *)userDisplayName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -221,7 +227,21 @@ NSTimer *breadcrumbTimer;
     return [NSBundle ecs_buildVersion];
 }
 
-- (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey
+- (UIViewController*)startChat:(NSString*)chatSkill
+               withDisplayName:(NSString*)displayName
+                    withSurvey:(BOOL)shouldTakeSurvey
+{
+    // Call newer function to prevent code duplication. 
+    return [self startChat:chatSkill
+           withDisplayName:displayName
+                withSurvey:shouldTakeSurvey
+        withChannelOptions:nil];
+}
+
+- (UIViewController*)startChat:(NSString*)chatSkill
+               withDisplayName:(NSString*)displayName
+                    withSurvey:(BOOL)shouldTakeSurvey
+            withChannelOptions:(NSDictionary *)channelOptions
 {
     // Nathan Keeney 9/1/2015 changed to ALLOW CafeX escalation (no change to vanilla chats):
     ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
@@ -231,7 +251,11 @@ NSTimer *breadcrumbTimer;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
     chatAction.journeybegin = [NSNumber numberWithInt:1];
     
-    [self breadcrumbDispatch]; 
+    if (channelOptions) {
+        chatAction.channelOptions = [NSDictionary dictionaryWithDictionary:channelOptions];
+    }
+    
+    [self breadcrumbDispatch];
     
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     // Do a login if there's no session:
@@ -493,8 +517,8 @@ NSTimer *breadcrumbTimer;
 }
 
 
-- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
-{
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
+    
     [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
@@ -629,7 +653,6 @@ NSTimer *breadcrumbTimer;
     
     return initialViewController;
 }
-
 
 // Check availability on a singlar skill
 - (void) agentAvailabilityWithSkill:(NSString *)skill

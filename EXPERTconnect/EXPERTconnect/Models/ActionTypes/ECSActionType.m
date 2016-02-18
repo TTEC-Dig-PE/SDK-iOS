@@ -91,6 +91,10 @@ NSString *const ECSRequestAnswerEngineAction = @"RequestAnswerEngineAction";
     actionType.presurvey = [self.configuration copyWithZone:zone];
     actionType.navigationContext = [self.navigationContext copyWithZone:zone];
     
+    if (self.channelOptions) {
+        actionType.channelOptions = [[NSDictionary alloc] initWithDictionary:self.channelOptions copyItems:YES];
+    }
+    
     // TODO: REMOVE REMOVE REMOVE
     //
     // if ([actionType isKindOfClass:[ECSFormActionType class]])  {

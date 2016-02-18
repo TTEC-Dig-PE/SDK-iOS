@@ -53,8 +53,9 @@ NSString *currentContext;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
     [super pickerView:pickerView didSelectRow:row inComponent:component];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(int)row]
+    [[NSUserDefaults standardUserDefaults] setObject:[contextsArray objectAtIndex:row]
                                               forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastAnswerEngineContextSelected]];
 }
 

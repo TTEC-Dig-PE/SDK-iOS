@@ -26,7 +26,7 @@ static NSString *const organizationKey = @"organization";
     self.organizationArray = [NSMutableArray new];
     self.currentEnvironment = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentName"];
     if(!self.currentEnvironment) {
-        self.currentEnvironment = @"IntDev";
+        self.currentEnvironment = @"DceDev";
     }
     
     // First try to load from the JSON file. If that fails, load hardcoded values. 
