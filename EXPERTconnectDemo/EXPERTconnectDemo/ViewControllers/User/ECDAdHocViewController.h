@@ -11,7 +11,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface ECDAdHocViewController : ECSRootViewController
+@interface ECDAdHocViewController : ECSRootViewController <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *locationManager;
 

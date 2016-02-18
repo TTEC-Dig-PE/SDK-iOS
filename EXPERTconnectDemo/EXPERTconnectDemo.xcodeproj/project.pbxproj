@@ -654,7 +654,7 @@
 		033A39851AD579FC006B34B2 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				C4D0E5221C74B7C60032925F /* AdHoc Picker Views */,
+				C4D0E5221C74B7C60032925F /* Picker Views */,
 				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
 				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
 				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
@@ -873,15 +873,15 @@
 			name = Proof_of_Concept;
 			sourceTree = "<group>";
 		};
-		C4D0E5221C74B7C60032925F /* AdHoc Picker Views */ = {
+		C4D0E5221C74B7C60032925F /* Picker Views */ = {
 			isa = PBXGroup;
 			children = (
 				46BA32F61B604E6600E5C270 /* ECDEnvironmentPicker.h */,
 				46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */,
-				46BA32F91B60559000E5C270 /* ECDRunModePicker.h */,
-				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
 				C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */,
 				C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */,
+				46BA32F91B60559000E5C270 /* ECDRunModePicker.h */,
+				46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */,
 				46368EC01B7107C7001AA48B /* ECDAdHocChatPicker.h */,
 				46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */,
 				D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */,
@@ -897,7 +897,7 @@
 				4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */,
 				4643F6161B73E4C100F0AF7E /* ECDAdHocWebPagePicker.h */,
 			);
-			name = "AdHoc Picker Views";
+			name = "Picker Views";
 			sourceTree = "<group>";
 		};
 		D8CEBDF11B546DC20053E9A0 /* Horizon */ = {

@@ -197,13 +197,12 @@
         return;
     }
     
-    NSString *server = ecsConfiguration.cafeXAssistHost;
     NSDictionary *config = @{
                              @"videoMode": @"none",
                              @"acceptSelfSignedCerts": @YES,
                              @"correlationId": target
                              };
-    [AssistSDK startSupport:server supportParameters:config]; // TODO: Store host somewhere...
+    [AssistSDK startSupport:ecsConfiguration.cafeXAssistHost supportParameters:config]; // TODO: Store host somewhere...
 #endif
 }
 
