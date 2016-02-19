@@ -78,7 +78,7 @@
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
+"ECDLocalizedStartChatHeader" = "Chat";
 
 /* Start Video Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatHeader" = "Start AdHoc Video Chat";
@@ -212,3 +212,10 @@
 
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
+
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "No agents available.";
+"ECDLocalizedWaitString" = "Wait";
+"ECDLocalizedMinuteString" = "minute";
+"ECDLocalizedAgentString" = "Agents";
+

@@ -79,16 +79,16 @@
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartChatHeader" = "Start AdHoc Chat";
+"ECDLocalizedStartChatHeader" = "Chat";
 
 /* Start Video Chat Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVideoChatHeader" = "Start AdHoc Video Chat";
+"ECDLocalizedStartVideoChatHeader" = "Video Chat";
 
 /* Start Answer Engine Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartAnswerEngineHeader" = "Start AdHoc Answer Engine Session";
+"ECDLocalizedStartAnswerEngineHeader" = "Answer Engine";
 
 /* Start Forms Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartFormsHeader" = "Start AdHoc Forms Interview";
+"ECDLocalizedStartFormsHeader" = "Forms";
 
 /* iBeacon Demon Label */
 "ECDLocalizedBeaconLabel" = "iBeacon Demo";
@@ -214,5 +214,9 @@
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
 
-
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "No agents available.";
+"ECDLocalizedWaitString" = "Wait";
+"ECDLocalizedMinuteString" = "minute(s)";
+"ECDLocalizedAgentString" = "Agents";
 

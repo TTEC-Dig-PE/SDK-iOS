@@ -51,12 +51,18 @@
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Perfil se actualiza";
 
-"ECDLocalizedStartChatLabel" = "Iniciar el chat";
+"ECDLocalizedStartChatLabel" = "Chat";
 
-"ECDLocalizedStartVideoChatLabel" = "Iniciar chat de video";
+"ECDLocalizedStartVideoChatLabel" = "Chat de video";
 
 "ECDLocalizedStartAnswerEngineLabel" = "Motor Respuesta";
 
 "ECDLocalizedBugReportLabel" = "Informe de error";
 
 "ECDLocalizedWorkflowsLabel" = "Flujo de trabajo"; 
+
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "No hay agentes disponibles.";
+"ECDLocalizedWaitString" = "Espere";
+"ECDLocalizedMinuteString" = "minuto";
+"ECDLocalizedAgentString" = "Agentes";

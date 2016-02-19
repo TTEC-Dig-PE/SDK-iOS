@@ -32,13 +32,37 @@
     configuration.appVersion    = @"1.0";
     configuration.appId         = @"12345";
     
-    configuration.host          = @"http://api.tce1.humanify.com";
-    configuration.clientID      = @"mktwebextc_test";
+    configuration.host          = @"https://api.dce1.humanify.com";
+    configuration.clientID      = @"mktwebextc";
     configuration.clientSecret  = @"secret123";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
+    [[EXPERTconnect shared] setUserIdentityToken:[self fetchAuthenticationToken:configuration.host clientID:configuration.clientID]];
+    
+    [[EXPERTconnect shared] setDebugLevel:0];
+}
+
+// This function is called by both this app (host app) and the SDK as the official auth token fetch function.
+- (NSString *)fetchAuthenticationToken:(NSString *)hostURL clientID:(NSString *)theClientID {
+    
+    // add /ust for new method
+    NSURL *url = [[NSURL alloc] initWithString:
+                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                   hostURL,
+                   @"expertconnect_unit_test",
+                   theClientID]];
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *data = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    return returnToken;
 }
 
 - (void)tearDown {
@@ -58,6 +82,7 @@
  
  */
 - (void)testStartJourney {
+    
     [self initSDK];
     // Test startJourney returning a journeyID.
     
@@ -142,27 +167,31 @@
 
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
 - (void)testBreadcrumbAction {
-    [self initSDK];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"breadcrumb"];
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
-        
-        // Should use the journeyID gathered above.
-        [[EXPERTconnect shared] breadcrumbWithAction:@"unit test"
-                                         description:@"EXPERTCONNECT unit test"
-                                              source:@"ExpertConnect"
-                                         destination:@"na"
-                                         geolocation:nil];
-        
-        
-        [expectation fulfill];
-    }];
     
+    //XCTestExpectation *expectation = [self expectationWithDescription:@"breadcrumb"];
+    
+    [[EXPERTconnect shared] breadcrumbWithAction:@"BC Unit Test 1"
+                                     description:@"Missing journey/clientid/secret/etc"
+                                          source:@"ExpertConnect"
+                                     destination:@"na"
+                                     geolocation:nil];
+
+    [self initSDK];
+    
+    [[EXPERTconnect shared] breadcrumbWithAction:@"BC Unit Test 2"
+                                     description:@"Should be OK"
+                                          source:@"ExpertConnect"
+                                     destination:@"na"
+                                     geolocation:nil];
+    
+    //[expectation fulfill];
+    /*
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
-    
+    */
 }
 
 - (void)testExampleServerFetch {

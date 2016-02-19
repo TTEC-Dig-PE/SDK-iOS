@@ -104,7 +104,8 @@ NSString *authToken; // Local stored copy of the authToken.
     
     NSDictionary *headers = @{
                               @"accept-version": kStompVersion,
-                              @"host": host
+                              @"host": host,
+                              //@"heart-beat": @"5000,5000"
                               };
     self.connected = NO;
     [self sendCommand:kStompConnect withHeaders:headers andBody:nil];
@@ -132,7 +133,6 @@ NSString *authToken; // Local stored copy of the authToken.
     {
         headers[@"x-humanify-auth"] = authToken;
     }
-    // headers[@"heart-beat"] = @"5000,5000";
     
     self.subscribers[subscriptionID] = subscriber;
     [self sendCommand:kStompSubscribe withHeaders:headers andBody:nil];
