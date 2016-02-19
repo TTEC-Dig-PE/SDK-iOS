@@ -121,7 +121,9 @@ static NSString* PROPERTY_RESOLUTION     = @"resolution";
 }
 
 - (void)setDeviceId: (NSString *)deviceId{
-    
+    if (!deviceId) {
+        deviceId = @"";
+    }
     [self.properties setObject:deviceId forKey:PROPERTY_DEVICEID];
     
 }

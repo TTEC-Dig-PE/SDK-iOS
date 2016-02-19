@@ -862,7 +862,9 @@ static inline BOOL closeCodeIsValid(int closeCode) {
     
     switch (opcode) {
         case ECSOpCodeTextFrame: {
+            
             NSString *str = [[NSString alloc] initWithData:frameData encoding:NSUTF8StringEncoding];
+            
             if (str == nil && frameData) {
                 [self closeWithCode:ECSStatusCodeInvalidUTF8 reason:@"Text frames must be valid UTF-8"];
                 dispatch_async(_workQueue, ^{

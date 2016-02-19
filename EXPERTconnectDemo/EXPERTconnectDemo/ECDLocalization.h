@@ -24,6 +24,7 @@ static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
 static NSString* const ECDLocalizedOrganizationHeader = @"ECDLocalizedOrganizationHeader";
+static NSString* const ECDLocalizedBeaconHeader = @"ECDLocalizedBeaconHeader";
 static NSString* const ECDLocalizedVoiceItHeader = @"ECDLocalizedVoiceItHeader";
 static NSString* const ECDLocalizedRunModeHeader = @"ECDLocalizedRunModeHeader";
 static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWasUpdatedKey";
@@ -58,8 +59,10 @@ static NSString* const ECDLocalizedStartShowAvatarImagesHeader = @"ECDLocalizedS
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
+static NSString* const ECDLocalizedUtilityFunctionLabel = @"ECDLocalizedUtilityFunctionLabel"; 
 static NSString* const ECDLocalizedStartFormsLabel = @"ECDLocalizedStartFormsLabel";
 static NSString* const ECDLocalizedStartUserProfileLabel = @"ECDLocalizedStartUserProfileLabel";
+static NSString* const ECDLocalizedBeaconLabel = @"ECDLocalizedBeaconLabel";
 static NSString* const ECDLocalizedStartVoiceCallbackLabel = @"ECDLocalizedStartVoiceCallbackLabel";
 static NSString* const ECDLocalizedStartEmailMessageLabel = @"ECDLocalizedStartEmailMessageLabel";
 static NSString* const ECDLocalizedStartSMSMessageLabel = @"ECDLocalizedStartSMSMessageLabel";
@@ -80,6 +83,10 @@ static NSString* const ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel = @"ECD
 
 static NSString* const ECDLocalizedStartShowAvatarImagesLabel = @"ECDLocalizedStartShowAvatarImagesLabel";
 
+static NSString* const ECDLocalizedNoAgents = @"ECDLocalizedNoAgents";
+static NSString* const ECDLocalizedWaitString = @"ECDLocalizedWaitString";
+static NSString* const ECDLocalizedMinuteString = @"ECDLocalizedMinuteString";
+static NSString* const ECDLocalizedAgentString = @"ECDLocalizedAgentString";
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
  string in the application bundle.

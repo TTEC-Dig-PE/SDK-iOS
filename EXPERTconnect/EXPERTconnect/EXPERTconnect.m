@@ -107,6 +107,7 @@ NSTimer *breadcrumbTimer;
     // Set the host in the session manager.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [sessionManager setHostName:theHost];
+    //sessionManager.conversation = nil;
 }
 
 -(NSString *)clientID
@@ -123,6 +124,7 @@ NSTimer *breadcrumbTimer;
     // Reset the auth token. This should make us fetch a new one.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = nil;
+    //sessionManager.conversation = nil;
     [self setSessionID:nil]; // Clear the breadcrumb token.
 }
 
@@ -364,6 +366,11 @@ NSTimer *breadcrumbTimer;
 
 - (UIViewController*)startSurvey:(NSString*)formName
 {
+    if (!formName || formName.length == 0) {
+        ECSLogError(@"startSurvey: Form name must be specified!");
+        return nil;
+    }
+    
     ECSFormActionType *formAction = [ECSFormActionType new];
     formAction.actionId = formName;  // kwashington: Can't load the Form Synchronously, so set the actionId to the formName so the ECSFormViewController can do that in viewDidLoad()
     formAction.navigationContext = @"personas";
@@ -517,8 +524,8 @@ NSTimer *breadcrumbTimer;
 }
 
 
-- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion
-{
+- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
+    
     [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];

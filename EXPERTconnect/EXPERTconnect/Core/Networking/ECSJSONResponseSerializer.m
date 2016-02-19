@@ -13,6 +13,11 @@
 {
     id result = nil;
     
+    if ([data length] == 0) {
+        //NSLog(@"WARNING: 0 byte JSON response from server.");
+        return nil;
+    }
+    
     if (*error == nil)
     {
         NSError *serializationError = nil;

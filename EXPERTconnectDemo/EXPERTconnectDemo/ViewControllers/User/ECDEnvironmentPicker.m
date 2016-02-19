@@ -69,7 +69,6 @@ static NSString *const environmentNameKey = @"environmentName";
     NSAssert(url.length>0, @"Environment Picker - Chosen serverURL must exist.");
     [[EXPERTconnect shared] setHost:url];
     [[EXPERTconnect shared] startJourneyWithCompletion:nil];
-
 }
 
 // mas - 16-oct-2015 - This loads the available environments from the JSON file we fetched
