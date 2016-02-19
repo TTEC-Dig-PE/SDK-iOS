@@ -107,7 +107,7 @@ NSTimer *breadcrumbTimer;
     // Set the host in the session manager.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     [sessionManager setHostName:theHost];
-    sessionManager.conversation = nil;
+    //sessionManager.conversation = nil;
 }
 
 -(NSString *)clientID
@@ -124,7 +124,7 @@ NSTimer *breadcrumbTimer;
     // Reset the auth token. This should make us fetch a new one.
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = nil;
-    sessionManager.conversation = nil;
+    //sessionManager.conversation = nil;
     [self setSessionID:nil]; // Clear the breadcrumb token.
 }
 
