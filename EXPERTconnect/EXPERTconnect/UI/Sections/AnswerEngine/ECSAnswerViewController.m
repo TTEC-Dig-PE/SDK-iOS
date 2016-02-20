@@ -24,6 +24,8 @@
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
 
+static NSString *const ECSAnswerEngineNoAnswerString = @"ANSWER_ENGINE_NO_ANSWER";
+
 static NSString *const ECSListCellId = @"ECSListCellId";
 static NSString *const ECSWebCellId = @"ECSWebCellId";
 
@@ -196,6 +198,12 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 
 - (void)setAnswer:(ECSAnswerEngineResponse *)answer
 {
+    // Translate server codes into user friendly messages.
+    if ([answer.answer isEqualToString:ECSAnswerEngineNoAnswerString])
+    {
+        answer.answer = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"No answer found.");
+    }
+    
     _answer = answer;
     
     [self.tableView reloadData];
@@ -345,7 +353,11 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     
     switch (section) {
         case AnswerSectionsAnswer:
-            sectionHeader.textLabel.text = ECSLocalizedString(ECSLocalizePossibleAnswer, @"Possible Answer");
+            if ([self.answer.answerId intValue] == -1) {
+                sectionHeader.textLabel.text = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle, @"No Answer Found");
+            } else {
+                sectionHeader.textLabel.text = ECSLocalizedString(ECSLocalizePossibleAnswer, @"Possible Answer");
+            }
             break;
         case AnswerSectionsOthersAsked:
             if (self.answer.suggestedQuestions.count == 0)

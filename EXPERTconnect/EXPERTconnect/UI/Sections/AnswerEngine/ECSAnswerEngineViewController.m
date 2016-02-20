@@ -128,9 +128,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     [super viewWillAppear:animated];
     if (self.initialQuery && !self.didAskInitialQuestion)
     {
-        self.searchTextField.text = self.initialQuery;
+        //self.searchTextField.text = self.initialQuery;
         self.didAskInitialQuestion = YES;
-        [self askQuestion];
+        [self askQuestion:self.initialQuery];
         [self hideFAQPopoverAnimated:NO];
     }
     if (!self.initialQuery && !self.didAskInitialQuestion &&
@@ -257,7 +257,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
 }
 
-- (void)askQuestion
+- (void)askQuestion:(NSString *)theQuestion
 {
     [self.searchTextField resignFirstResponder];
     [self setLoadingIndicatorVisible:YES];
@@ -287,49 +287,72 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     }
     
     __weak typeof(self) weakSelf = self;
-    NSString *question = [self.searchTextField.text copy];
+    //NSString *question = [self.searchTextField.text copy];
+    NSString *question = [theQuestion copy];
     
     [sessionManager startConversationForAction:self.answerEngineAction
                                andAlwaysCreate:NO
-                                withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                    if (!error)
-                                    {
-                                        weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:weakSelf.searchTextField.text
-                                                                                                  inContext:weakSelf.answerEngineAction.answerEngineContext
-                                                                                            parentNavigator:weakSelf.parentNavigationContext
-                                                                                                   actionId:weakSelf.answerEngineAction.actionId
-                                                                                              questionCount:weakSelf.questionCount
-                                                                                                 customData:nil
-                                                                                                 completion:^(ECSAnswerEngineResponse *response, NSError *error) {
-                                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                         [weakSelf handleAPIResponse:response forQuestion:question withError:error];
-                                                                                                         
-                                                                                                     });
-                                                                                                     
-                                                                                                 }];
-                                    }
-                                    else
-                                    {
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
-                                        });
-                                    }
-                                }];
+                                withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+    {
+        if (!error)
+        {
+            weakSelf.currentQuestionTask = [sessionManager getAnswerForQuestion:question
+                                                                      inContext:weakSelf.answerEngineAction.answerEngineContext
+                                                                parentNavigator:weakSelf.parentNavigationContext
+                                                                       actionId:weakSelf.answerEngineAction.actionId
+                                                                  questionCount:weakSelf.questionCount
+                                                                     customData:nil
+                                                                     completion:^(ECSAnswerEngineResponse *response, NSError *error)
+                                                                     {
+                                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                                             
+                                                                             [weakSelf handleAPIResponse:response
+                                                                                             forQuestion:question
+                                                                                               withError:error];
+                                                                             
+                                                                         });
+                                                                         
+                                                                     }];
+        }
+        else
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
+            });
+        }
+    }];
 }
 
 - (void)handleAPIResponse:(ECSAnswerEngineResponse*)response forQuestion:(NSString*)question withError:(NSError*)error
 {
     [self setLoadingIndicatorVisible:NO];
+    
+    if (error) {
+        // Error processing request.
+        NSLog(@"Answer Engine Error - %@", error);
+        self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
+        self.invalidResponseCount++;
+        [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
+        
+        NSString *title = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle,
+                                             @"Answer not found title");
+        NSString *message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,
+                                               @"Answer not found message");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
+                                              otherButtonTitles:nil];
+        [alert show];
+        [self.searchTextField setText:@""];
+        [self showFAQPopover:nil];
+        
+        return;
+    }
+    
     if ([response isKindOfClass:[ECSAnswerEngineResponse class]])
     {
-        if (error) {
-            // Error processing request. 
-            NSLog(@"Answer Engine Error - %@", error);
-            self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
-            self.invalidResponseCount++;
-            [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
-            
-        } else if (response.answerId.integerValue == -1 && response.answer.length > 0) {
+        if (response.answerId.integerValue == -1 && response.answer.length > 0) {
             // We did not find an answer.
             self.invalidResponseCount++;
             [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
@@ -439,7 +462,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         answerViewController.showPullToNext = NO;
     }
     
-    self.searchTextField.text = [((ECSAnswerEngineResponse*)self.answerEngineResponses[index]) question];
+    //self.searchTextField.text = [((ECSAnswerEngineResponse*)self.answerEngineResponses[index]) question];
 }
 
 - (ECSAnswerViewController*)displayAnswerEngineAnswer:(ECSAnswerEngineResponse*)response
@@ -594,9 +617,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 
 - (void)askSuggestedQuestion:(NSString *)suggestedQuestion
 {
-    self.searchTextField.text = suggestedQuestion;
-    [self.searchTextField layoutIfNeeded];
-    [self askQuestion];
+    //self.searchTextField.text = suggestedQuestion;
+    //[self.searchTextField layoutIfNeeded];
+    [self askQuestion:suggestedQuestion];
 }
 
 - (void)didRateAnswer:(ECSAnswerEngineResponse *)answer withRating:(NSNumber *)rating
@@ -679,10 +702,10 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 #pragma mark - ECSTopQuestionsViewControllerDelegate and Popover
 - (void)controller:(ECSTopQuestionsViewController *)controller didSelectQuestion:(NSString *)question
 {
-    self.searchTextField.text = question;
-    [self.searchTextField layoutIfNeeded];
+    //self.searchTextField.text = question;
+    //[self.searchTextField layoutIfNeeded];
     
-    [self askQuestion];
+    [self askQuestion:question];
     
     [self hideFAQPopoverAnimated:YES];
 }
@@ -803,7 +826,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 {
     if (textField.text.length > 0)
     {
-        [self askQuestion];
+        [self askQuestion:textField.text];
     }
     
     return YES;

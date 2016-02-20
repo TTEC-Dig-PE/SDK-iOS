@@ -99,7 +99,7 @@
 "ECSLocalizedViewNextAnswer" = "Voir la réponse suivante";
 
 /* Réponse non trouvée titre */
-"ECSLocalizedAnswerNotFoundTitle" = "Essaye Encore";
+"ECSLocalizedAnswerNotFoundTitle" = "Aucune réponse trouvée";
 
 /* Réponse non trouvée un message */
 "ECSLocalizedAnswerNotFoundMessage" = "Nous avons été incapables de trouver une réponse à votre question, s'il vous plaît essayer de nouveau";
