@@ -278,6 +278,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 		  myTheme.showAvatarImages = YES;
 	 }
 	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatBubbleTailsKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showChatBubbleTails = NO;
+	 }
+	 else{
+		  myTheme.showChatBubbleTails = YES;
+	 }
+
     myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
     [EXPERTconnect shared].theme = myTheme;
     /* End test settings */

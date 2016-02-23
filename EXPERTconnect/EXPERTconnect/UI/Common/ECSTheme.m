@@ -36,6 +36,7 @@
         self.agentChatBackground = self.secondaryBackgroundColor;
         self.agentChatTextColor = self.primaryTextColor;
         self.showAvatarImages = YES;
+	    self.showChatBubbleTails = YES;
         
         self.headlineFont = [UIFont fontWithName:@"HelveticaNeue" size:24.0f];
         self.titleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];

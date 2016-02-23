@@ -17,6 +17,9 @@
 @property (assign, nonatomic) BOOL showAvatar;
 @property (assign, nonatomic, getter=isUserMessage) BOOL userMessage;
 
+@property (strong, nonatomic) IBOutlet UIImage *bubbleImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleImageView;
 - (void)setAvatarImage:(UIImage *)theAvatar;
 - (void)setAvatarImageFromPath:(NSString *)theAvatar;
 

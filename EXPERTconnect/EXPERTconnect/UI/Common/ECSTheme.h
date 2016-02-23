@@ -72,6 +72,9 @@
 // Show avatar images if set to YES.
 @property (assign, nonatomic) BOOL showAvatarImages;
 
+// Show avatar images if set to YES.
+@property (assign, nonatomic) BOOL showChatBubbleTails;
+
 #pragma mark - Font
 
 // Font for headlines

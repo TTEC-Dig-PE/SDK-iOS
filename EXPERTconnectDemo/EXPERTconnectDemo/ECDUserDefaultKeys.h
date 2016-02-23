@@ -12,5 +12,6 @@
 
 static NSString* const ECDPushNotificationsEnabledKey = @"ECDPushNotificationsEnabledKey";
 static NSString* const ECDShowAvatarImagesKey = @"ECDShowAvatarImagesKey";
+static NSString* const ECDShowChatBubbleTailsKey = @"ECDShowChatBubbleTailsKey";
 
 #endif

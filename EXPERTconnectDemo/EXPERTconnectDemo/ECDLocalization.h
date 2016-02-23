@@ -31,6 +31,7 @@ static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWas
 static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
 static NSString* const ECDLocalizedCustomizeThemeHeader = @"ECDLocalizedCustomizeThemeHeader";
 
+
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartVideoChatHeader = @"ECDLocalizedStartVideoChatHeader";
 static NSString* const ECDLocalizedStartAnswerEngineHeader = @"ECDLocalizedStartAnswerEngineHeader";
@@ -55,6 +56,7 @@ static NSString* const ECDLocalizedStartChatWithPreSurveyHeader = @"ECDLocalized
 static NSString* const ECDLocalizedStartSurveyLeadsToBranchHeader = @"ECDLocalizedStartSurveyLeadsToBranchHeader";
 
 static NSString* const ECDLocalizedStartShowAvatarImagesHeader = @"ECDLocalizedStartShowAvatarImagesHeader";
+static NSString* const ECDLocalizedStartShowChatBubbleTailsHeader = @"ECDLocalizedStartShowChatBubbleTailsHeader";
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
@@ -82,6 +84,7 @@ static NSString* const ECDLocalizedStartWorkflowChatWithPreSurveyLabel = @"ECDLo
 static NSString* const ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel = @"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel";
 
 static NSString* const ECDLocalizedStartShowAvatarImagesLabel = @"ECDLocalizedStartShowAvatarImagesLabel";
+static NSString* const ECDLocalizedStartShowChatBubbleTailsLabel = @"ECDLocalizedStartShowChatBubbleTailsLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

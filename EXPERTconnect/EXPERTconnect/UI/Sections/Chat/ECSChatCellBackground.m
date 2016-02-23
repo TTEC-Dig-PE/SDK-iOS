@@ -9,6 +9,7 @@
 
 #import "ECSDynamicLabel.h"
 #import "ECSInjector.h"
+#import "UIImage+ECSBundle.h"
 #import "ECSTheme.h"
 
 
@@ -34,7 +35,7 @@
     self.messageWidthConstraint = [NSLayoutConstraint constraintWithItem:self.messageContainerView attribute:NSLayoutAttributeWidth
                                                                relatedBy:NSLayoutRelationLessThanOrEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0.0f];
     [self addConstraint:self.messageWidthConstraint];
-    
+	 
     [self configureConstraints];
 }
 
@@ -45,29 +46,74 @@
 
 - (void)setUserMessage:(BOOL)userMessage
 {
-    _userMessage = userMessage;
-    
-    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-    if (_userMessage)
-    {
-        self.messageContainerView.backgroundColor = theme.userChatBackground;
-    }
-    else
-    {
-        self.messageContainerView.backgroundColor = theme.agentChatBackground;
-    }
-    
-    self.responseContainerView.backgroundColor = theme.userChatBackground;
-    
-    self.messageContainerView.layer.cornerRadius = theme.chatBubbleCornerRadius;
-    
-    [self configureConstraints];
+	 _userMessage = userMessage;
+	 
+	 ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+	 self.bubbleImage = [UIImage ecs_bundledImageNamed:@"ecs_chatbubble"];
+	 CGPoint center = CGPointMake(self.bubbleImage.size.width / 2.0f, self.bubbleImage.size.height / 2.0f);
+	 UIEdgeInsets capInsets = UIEdgeInsetsMake(center.y, center.x, center.y, center.x);
+	 if (_userMessage)
+	 {
+		  if(theme.showChatBubbleTails == NO)
+		  {
+			   self.messageContainerView.backgroundColor = theme.userChatBackground;
+		  }
+		  else
+		  {
+			   self.bubbleImage = [self imageMaskedWithColor:theme.userChatBackground];
+			   self.bubbleImage = [UIImage imageWithCGImage:self.bubbleImage.CGImage
+													  scale:self.bubbleImage.scale
+												orientation:UIImageOrientationDownMirrored];
+			   self.bubbleImage =  [self stretchableImageFromImage:self.bubbleImage withCapInsets:capInsets];
+			   [self.bubbleImageView setImage:self.bubbleImage];
+		  }
+	 }
+	 else
+	 {
+		  if(theme.showChatBubbleTails == NO)
+		  {
+			   self.messageContainerView.backgroundColor = theme.agentChatBackground;
+		  }
+		  else
+		  {
+			   self.bubbleImage = [self imageMaskedWithColor:theme.agentChatBackground];
+			   self.bubbleImage = [UIImage imageWithCGImage:self.bubbleImage.CGImage
+													  scale:self.bubbleImage.scale
+												orientation:UIImageOrientationDown];
+			   self.bubbleImage =  [self stretchableImageFromImage:self.bubbleImage withCapInsets:capInsets];
+			   [self.bubbleImageView setImage:self.bubbleImage];
+		  }
+	 }
+	 
+	 self.responseContainerView.backgroundColor = theme.userChatBackground;
+	 
+	 self.messageContainerView.layer.cornerRadius = theme.chatBubbleCornerRadius;
+	 
+	 [self configureConstraints];
+}
+
+- (UIImage *)imageMaskedWithColor:(UIColor *)maskColor
+{
+	 CGRect rect = CGRectMake(0, 0, self.bubbleImage.size.width, self.bubbleImage.size.height);
+	 UIGraphicsBeginImageContext(rect.size);
+	 CGContextRef context = UIGraphicsGetCurrentContext();
+	 CGContextClipToMask(context, rect, self.bubbleImage.CGImage);
+	 CGContextSetFillColorWithColor(context, maskColor.CGColor);
+	 CGContextFillRect(context, rect);
+	 UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+	 UIGraphicsEndImageContext();
+	 return newImage;
+}
+
+- (UIImage *)stretchableImageFromImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets
+{
+	 return [image resizableImageWithCapInsets:capInsets resizingMode:UIImageResizingModeStretch];
 }
 
 - (void)setShowAvatar:(BOOL)showAvatar
 {
     _showAvatar = showAvatar;
-    
+	 
     if (_showAvatar)
     {
         [self.avatarImageView setAlpha:1.0f];
