@@ -1636,6 +1636,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     ECSChatAddParticipantMessage *participant = nil;
     if ([message isKindOfClass:[ECSChatURLMessage class]])
     {
+        // A URL message
         cell.actionCellType = ECSChatActionCellTypeLink;
         ECSChatURLMessage *urlMesssage = (ECSChatURLMessage*)message;
         cell.messageLabel.text = (urlMesssage.comment && urlMesssage.comment.length > 0) ? urlMesssage.comment : urlMesssage.url;

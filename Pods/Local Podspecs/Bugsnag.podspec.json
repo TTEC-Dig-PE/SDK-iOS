@@ -1,6 +1,6 @@
 {
   "name": "Bugsnag",
-  "version": "4.0.7",
+  "version": "5.0.2",
   "summary": "Cocoa notifier for SDK for bugsnag.com",
   "homepage": "https://bugsnag.com",
   "license": "MIT",
@@ -9,38 +9,27 @@
   },
   "source": {
     "git": "https://github.com/bugsnag/bugsnag-cocoa.git",
-    "tag": "v4.0.7",
-    "submodules": true
+    "tag": "v5.0.2"
   },
   "frameworks": "Foundation",
-  "libraries": "c++",
-  "xcconfig": {
-    "GCC_ENABLE_CPP_EXCEPTIONS": "YES"
-  },
   "platforms": {
-    "ios": "5.0",
-    "osx": "10.7"
+    "ios": "6.0",
+    "osx": "10.8"
   },
   "source_files": [
-    "KSCrash/Source/KSCrash/Recording/**/*.{m,h,mm,c,cpp}",
-    "KSCrash/Source/KSCrash/Reporting/Filters/KSCrashReportFilter.h",
-    "Source/Bugsnag/**/*.{m,h,mm,c,cpp}"
-  ],
-  "exclude_files": [
-    "KSCrash/Source/KSCrash/Recording/Tools/KSZombie.{h,m}"
+    "Source/*.{m,h,mm,c,cpp}"
   ],
   "requires_arc": true,
   "public_header_files": [
-    "Source/Bugsnag/*.h",
-    "KSCrash/Source/KSCrash/Reporting/Filters/KSCrashReportFilter.h"
+    "Source/BSGKSCrashReportWriter.h",
+    "Source/Bugsnag{,MetaData,Configuration,Breadcrumb}.h"
   ],
-  "subspecs": [
-    {
-      "name": "no-arc",
-      "source_files": [
-        "KSCrash/Source/KSCrash/Recording/Tools/KSZombie.{h,m}"
-      ],
-      "requires_arc": false
-    }
-  ]
+  "dependencies": {
+    "KSCrash/Reporting": [
+      "~> 1.0.1"
+    ],
+    "KSCrash/Recording": [
+      "~> 1.0.1"
+    ]
+  }
 }
