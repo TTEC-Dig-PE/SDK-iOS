@@ -523,7 +523,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSAssert(formName != nil && formName.length > 0, @"formName must be specified");
     ECSLogVerbose(@"Get form %@", formName);
-    return [self POST:[NSString stringWithFormat:@"forms/v1/%@", formName]
+    return [self GET:[NSString stringWithFormat:@"forms/v1/%@", formName]
           parameters:nil
              success:[self successWithExpectedType:[ECSForm class] completion:completion]
              failure:[self failureWithCompletion:completion]];

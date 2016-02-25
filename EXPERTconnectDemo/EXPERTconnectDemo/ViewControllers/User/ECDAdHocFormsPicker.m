@@ -35,6 +35,8 @@ static NSString *const lastFormSelected = @"lastFormSelected";
             double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
             NSLog(@"Trait=%ld", UIScreen.mainScreen.traitCollection.horizontalSizeClass);
             [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
+        } else {
+            NSLog(@"Error fetching forms.");
         }
     }];
 }

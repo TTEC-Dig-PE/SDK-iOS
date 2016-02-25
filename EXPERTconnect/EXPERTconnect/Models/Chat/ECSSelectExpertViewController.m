@@ -106,10 +106,10 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
     [featuredCell setSelectExpertCellDelegate:self];
     [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
-    [featuredCell.name setText:expert[@"fullName"]];
-    [featuredCell.region setText:expert[@"region"]];
-    [featuredCell.expertiese setText:expert[@"expertise"]];
-    [featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
+    if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
+    if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
+    if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
+    if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
     [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
     
     return featuredCell;
