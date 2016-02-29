@@ -635,6 +635,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)sendText:(NSString *)text
 {
+    NSString *timeStamp = [[EXPERTconnect shared] getTimeStampMessage];
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+
     ECSChatTextMessage *message = [ECSChatTextMessage new];
     
     message.from = self.chatClient.fromUsername;
@@ -643,8 +646,24 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     message.conversationId = self.chatClient.currentConversation.conversationID;
     
     message.body = text;
+
+	 if(theme.showChatTimeStamp  == YES)
+	 {
+		  if(![timeStamp isEqualToString:[[EXPERTconnect shared] lastTimeStamp]])
+		  {
+			   message.timeStamp = timeStamp;
+		  }
+		  else{
+			   if ([EXPERTconnect shared].lastChatMessageFromAgent == YES) {
+					message.timeStamp = timeStamp;
+			   }
+		  }
+		  [EXPERTconnect shared].lastTimeStamp = timeStamp;
+	 }
+	 	 
     [self.messages addObject:message];
-    
+	 
+    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
    // [self sendChatState:@"paused"];
     
     //[self.chatClient sendChatMessage:message];
@@ -724,6 +743,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     
     [self.messages addObject:message];
+	 
+    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
+
     NSIndexPath *insertIndexPath = [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
     
     [self.tableView beginUpdates];
@@ -961,6 +983,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         self.agentInteractionCount += 1;
         [self pollForPostSurvey];
+		 
+	    [EXPERTconnect shared].lastChatMessageFromAgent = YES;
     }
     
     if (_agentTypingIndex != -1 && (_agentTypingIndex == self.messages.count - 1))
@@ -1043,6 +1067,9 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
 {
 	 [self.messages addObject:notificationMessage];
+	 
+	 [EXPERTconnect shared].lastChatMessageFromAgent = YES;
+
 	 [self.tableView beginUpdates];
 	 
 	 [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -1557,38 +1584,38 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 }
 
 - (void)configureMessageCell:(ECSChatTableViewCell*)cell
-                 withMessage:(ECSChatTextMessage *)chatMessage
-                 atIndexPath:(NSIndexPath*)indexPath
+				 withMessage:(ECSChatTextMessage *)chatMessage
+				 atIndexPath:(NSIndexPath*)indexPath
 {
-    ECSChatMessageTableViewCell *messageCell = (ECSChatMessageTableViewCell*)cell;
-    
-    messageCell.userMessage = !chatMessage.fromAgent;
-    messageCell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
-    
-    if (messageCell.background.showAvatar)
-    {
-        ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
-        //[messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
-        
-        if (!chatMessage.fromAgent)
-        {
-            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if(userManager.userAvatar)
-            {
-                [messageCell.background setAvatarImage:userManager.userAvatar];
-            }
-        }
-        else
-        {
-            if (participant.avatarURL)
-            {
-                [messageCell.background setAvatarImageFromPath:participant.avatarURL];
-            }
-            
-        }
-        
-    }
-    messageCell.messageLabel.text = chatMessage.body;
+	 ECSChatMessageTableViewCell *messageCell = (ECSChatMessageTableViewCell*)cell;
+	 
+	 messageCell.userMessage = !chatMessage.fromAgent;
+	 messageCell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
+	 
+	 if (messageCell.background.showAvatar)
+	 {
+		  ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
+		  //[messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
+		  
+		  if (!chatMessage.fromAgent)
+		  {
+			   ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+			   if(userManager.userAvatar)
+			   {
+					[messageCell.background setAvatarImage:userManager.userAvatar];
+			   }
+		  }
+		  else
+		  {
+			   if (participant.avatarURL)
+			   {
+					[messageCell.background setAvatarImageFromPath:participant.avatarURL];
+			   }
+		  }
+		  
+	 }
+	 messageCell.messageLabel.text = chatMessage.body;
+	 [messageCell.background.timestampLabel setText:chatMessage.timeStamp];
 }
 
 - (void)configureMessageCell:(ECSChatTableViewCell*)cell
@@ -1607,6 +1634,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
     
     [messageCell.webContent loadHTMLString:receiveAnswerMessage.answerText baseURL:nil];
+    [messageCell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureAssociateInfoCell:(ECSChatTableViewCell*)cell
@@ -1624,6 +1652,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
     }
     messageCell.messageLabel.text = chatMessage.message;
+    [messageCell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureActionCell:(ECSChatActionTableViewCell*)cell
@@ -1669,6 +1698,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
     }
+    [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureInlineFormCell:(ECSInlineFormTableViewCell*)cell
@@ -1701,6 +1731,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
     }
+	 [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 
@@ -1709,6 +1740,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     cell.userMessage = !chatMessage.fromAgent;
     [cell.messageImageView setImage:chatMessage.imageThumbnail];
     cell.showPlayIcon = (chatMessage.mediaType == ECSChatMediaTypeMovie);
+    [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureMediaCell:(ECSChatImageTableViewCell*)cell withNotificationMessage:(ECSChatNotificationMessage*)chatMessage;
@@ -1724,6 +1756,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         
         cell.showPlayIcon = NO;
     }
+	 [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
@@ -1778,6 +1811,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         cell.messageLabel.text = ECSLocalizedString(ECSLocalizeRequestASMS, nil);
         cell.actionCellType = ECSChatActionCellTypeTextback;
     }
+	 [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

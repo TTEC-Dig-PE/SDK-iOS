@@ -37,7 +37,12 @@
         self.agentChatTextColor = self.primaryTextColor;
         self.showAvatarImages = YES;
 	    self.showChatBubbleTails = YES;
-        
+	    self.showChatTimeStamp = YES;
+	    self.chatTimestampTextColor = [UIColor darkGrayColor];
+	    self.chatTimestampFont = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
+
+
+		 
         self.headlineFont = [UIFont fontWithName:@"HelveticaNeue" size:24.0f];
         self.titleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
         self.subheaderFont = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];

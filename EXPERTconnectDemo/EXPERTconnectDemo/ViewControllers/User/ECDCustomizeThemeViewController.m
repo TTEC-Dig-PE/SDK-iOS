@@ -17,6 +17,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 {
 	 SettingsSectionShowAvatarImages,
 	 SettingsSectionChatBubbleTails,
+	 SettingsSectionChatTimeStamp,
 	 SettingsSectionCount
 };
 
@@ -32,6 +33,13 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 	 ChatBubbleTailsSectionRowCount
 };
 
+typedef NS_ENUM(NSInteger, ChatTimeStampSectionRows)
+{
+	 ChatTimeStampSectionRowStart,
+	 ChatTimeStampSectionRowCount
+};
+
+
 @interface ECDCustomizeThemeViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,6 +47,8 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 @property (strong, nonatomic) UISwitch *showAvatarImagesSwitch;
 
 @property (strong, nonatomic) UISwitch *showChatBubbleTailsSwitch;
+
+@property (strong, nonatomic) UISwitch *showChatTimeStampSwitch;
 
 @end
 
@@ -86,6 +96,21 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 	 [self.showChatBubbleTailsSwitch addTarget:self
 									 action:@selector(showChatBubbleTailsSwitchChanged:)
 						   forControlEvents:UIControlEventValueChanged];
+	 
+	 self.showChatTimeStampSwitch = [UISwitch new];
+	 NSString *chatTimeStampSwitchState = [[NSUserDefaults standardUserDefaults]
+											 stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]];
+	 if (!chatTimeStampSwitchState) {
+		  [self.showChatTimeStampSwitch setOn:YES animated:NO];
+	 }
+	 else
+	 {
+		  self.showChatTimeStampSwitch.on = [chatTimeStampSwitchState intValue];
+	 }
+	 [self.showChatTimeStampSwitch addTarget:self
+									 action:@selector(showChatTimeStampSwitchChanged:)
+						   forControlEvents:UIControlEventValueChanged];
+
 	 // Do any additional setup after loading the view from its nib.
 }
 
@@ -109,6 +134,10 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 			   
 		  case SettingsSectionChatBubbleTails:
 			   rowCount = ChatBubbleTailsSectionRowCount;
+			   break;
+			   
+		  case SettingsSectionChatTimeStamp:
+			   rowCount = ChatTimeStampSectionRowCount;
 			   break;
 
 		  default:
@@ -154,7 +183,19 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 						 break;
 			   }
 			   break;
-
+			   
+		  case SettingsSectionChatTimeStamp:
+			   switch (indexPath.row) {
+					case ChatTimeStampSectionRowStart:
+						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartShowChatTimeStampLabel, @"Show Chat TimeStamp");
+						 cell.accessoryView = self.showChatTimeStampSwitch;
+						 self.showChatTimeStampSwitch.tintColor = theme.primaryColor;
+						 self.showChatTimeStampSwitch.onTintColor = theme.primaryColor;
+						 break;
+					default:
+						 break;
+			   }
+			   break;
 			   
 		  default:
 			   break;
@@ -183,6 +224,14 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 		  case SettingsSectionChatBubbleTails:
 		  {
 			   NSString *versionString = ECDLocalizedString(ECDLocalizedStartShowChatBubbleTailsHeader, @"Hide/Show Chat Bubble");
+			   versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
+			   title = versionString;
+		  }
+			   break;
+			   
+		  case SettingsSectionChatTimeStamp:
+		  {
+			   NSString *versionString = ECDLocalizedString(ECDLocalizedStartShowChatTimeStampHeader, @"Hide/Show Chat Bubble");
 			   versionString = [NSString stringWithFormat:versionString, [[EXPERTconnect shared] EXPERTconnectVersion]];
 			   title = versionString;
 		  }
@@ -234,6 +283,21 @@ typedef NS_ENUM(NSInteger, ChatBubbleTailsSectionRows)
 		  [EXPERTconnect shared].theme.showChatBubbleTails = YES;
 	 }
 }
+
+- (void)showChatTimeStampSwitchChanged:(id)sender
+{
+	 [[NSUserDefaults standardUserDefaults] setObject:@(self.showChatTimeStampSwitch.on) forKey:ECDShowChatTimeStampKey];
+	 
+	 if(self.showChatTimeStampSwitch.on == NO)
+	 {
+		  [EXPERTconnect shared].theme.showChatTimeStamp = NO;
+	 }
+	 else
+	 {
+		  [EXPERTconnect shared].theme.showChatTimeStamp = YES;
+	 }
+}
+
 
 /*
  #pragma mark - Navigation

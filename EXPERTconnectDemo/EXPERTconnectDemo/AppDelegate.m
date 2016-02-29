@@ -286,6 +286,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 	 else{
 		  myTheme.showChatBubbleTails = YES;
 	 }
+	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showChatTimeStamp = NO;
+	 }
+	 else{
+		  myTheme.showChatTimeStamp = YES;
+	 }
 
     myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
     [EXPERTconnect shared].theme = myTheme;

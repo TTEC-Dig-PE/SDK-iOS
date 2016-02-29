@@ -72,8 +72,18 @@
 // Show avatar images if set to YES.
 @property (assign, nonatomic) BOOL showAvatarImages;
 
-// Show avatar images if set to YES.
+// Show Chat Bubble Tails if set to YES.
 @property (assign, nonatomic) BOOL showChatBubbleTails;
+
+// Show Chat TimeStamp if set to YES.
+@property (assign, nonatomic) BOOL showChatTimeStamp;
+
+
+//Text color for timestamp label
+@property (strong, nonatomic) UIColor *chatTimestampTextColor;
+
+//Font for timestamp label
+@property (strong, nonatomic) UIFont *chatTimestampFont;
 
 #pragma mark - Font
 

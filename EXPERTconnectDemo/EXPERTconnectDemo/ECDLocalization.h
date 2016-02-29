@@ -57,6 +57,7 @@ static NSString* const ECDLocalizedStartSurveyLeadsToBranchHeader = @"ECDLocaliz
 
 static NSString* const ECDLocalizedStartShowAvatarImagesHeader = @"ECDLocalizedStartShowAvatarImagesHeader";
 static NSString* const ECDLocalizedStartShowChatBubbleTailsHeader = @"ECDLocalizedStartShowChatBubbleTailsHeader";
+static NSString* const ECDLocalizedStartShowChatTimeStampHeader = @"ECDLocalizedStartShowChatTimeStampHeader";
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
@@ -85,6 +86,8 @@ static NSString* const ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel = @"ECD
 
 static NSString* const ECDLocalizedStartShowAvatarImagesLabel = @"ECDLocalizedStartShowAvatarImagesLabel";
 static NSString* const ECDLocalizedStartShowChatBubbleTailsLabel = @"ECDLocalizedStartShowChatBubbleTailsLabel";
+static NSString* const ECDLocalizedStartShowChatTimeStampLabel = @"ECDLocalizedStartShowChatTimeStampLabel";
+
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
