@@ -127,11 +127,10 @@
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion {
     
     // add /ust for new method
-    NSURL *url = [[NSURL alloc] initWithString:
-                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                   [self getHostURL],
-                   [self getUserName],
-                   [self getClientID]]];
+    NSString *urlString = [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                           [self getHostURL],[[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[self getClientID]];
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
     
     NSLog(@"Fetch token URL: %@", url);
     

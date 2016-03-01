@@ -134,15 +134,17 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
     {
-         [[EXPERTconnect shared] setUserIdentityToken:authToken];
-         
-         [myAppConfig startBreadcrumbSession];
+        if (!error) {
+            [[EXPERTconnect shared] setUserIdentityToken:authToken];
+            [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
+        }
+        
+        [myAppConfig startBreadcrumbSession];
     }];
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
     [self setThemeFromSettings];
     

@@ -456,8 +456,9 @@
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
-		C4D0E51B1C6A8BDE0032925F /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; };
-		C4D0E51C1C6A8BE40032925F /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
+		C4E6F6DB1C7BCEDF00F9124A /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E6F6DA1C7BCEDF00F9124A /* AirshipKit.framework */; };
+		C4FE7CB91C7BC37300B70423 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
+		C4FE7CBA1C7BC37600B70423 /* libAssistSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
@@ -976,6 +977,7 @@
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
+		C4E6F6DA1C7BCEDF00F9124A /* AirshipKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AirshipKit.framework; path = "../EXPERTconnectDemo/ThirdParty/libUAirship-latest/Airship/AirshipKit.framework"; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -1039,6 +1041,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4E6F6DB1C7BCEDF00F9124A /* AirshipKit.framework in Frameworks */,
 				D8B3EC391C6A9EB60031B7C5 /* WebKit.framework in Frameworks */,
 				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
@@ -1056,12 +1059,12 @@
 				D87F2F871B697FA500B7B9D5 /* AudioToolbox.framework in Frameworks */,
 				D87F2F881B697FA500B7B9D5 /* AVFoundation.framework in Frameworks */,
 				D87F2F891B697FA500B7B9D5 /* CoreGraphics.framework in Frameworks */,
+				C4FE7CBA1C7BC37600B70423 /* libAssistSDK.a in Frameworks */,
 				D87F2F8B1B697FA500B7B9D5 /* CoreVideo.framework in Frameworks */,
 				D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */,
 				D87F2F8D1B697FA500B7B9D5 /* OpenGLES.framework in Frameworks */,
-				C4D0E51B1C6A8BDE0032925F /* libAssistSDK.a in Frameworks */,
 				D87F2F8E1B697FA500B7B9D5 /* QuartzCore.framework in Frameworks */,
-				C4D0E51C1C6A8BE40032925F /* ACBClientSDK.framework in Frameworks */,
+				C4FE7CB91C7BC37300B70423 /* ACBClientSDK.framework in Frameworks */,
 				D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */,
 				03CDD3FF1AB0BBE600E0C328 /* MapKit.framework in Frameworks */,
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
@@ -1605,6 +1608,7 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4E6F6DA1C7BCEDF00F9124A /* AirshipKit.framework */,
 				D8B3EC381C6A9EB60031B7C5 /* WebKit.framework */,
 				D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */,
 				D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */,
@@ -2712,6 +2716,7 @@
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
 					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)Demo/ThirdParty/libUAirship-latest/Airship",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -2766,9 +2771,10 @@
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
 					"$(PROJECT_DIR)/ThirdParty",
+					"$(PROJECT_DIR)Demo/ThirdParty/libUAirship-latest/Airship",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"INCLUDE_CAFEX=0",
+					"INCLUDE_CAFEX=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (

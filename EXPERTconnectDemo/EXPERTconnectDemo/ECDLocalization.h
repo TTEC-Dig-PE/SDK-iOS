@@ -89,6 +89,10 @@ static NSString* const ECDLocalizedStartShowChatBubbleTailsLabel = @"ECDLocalize
 static NSString* const ECDLocalizedStartShowChatTimeStampLabel = @"ECDLocalizedStartShowChatTimeStampLabel";
 
 
+static NSString* const ECDLocalizedNoAgents = @"ECDLocalizedNoAgents";
+static NSString* const ECDLocalizedWaitString = @"ECDLocalizedWaitString";
+static NSString* const ECDLocalizedMinuteString = @"ECDLocalizedMinuteString";
+static NSString* const ECDLocalizedAgentString = @"ECDLocalizedAgentString";
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
  string in the application bundle.

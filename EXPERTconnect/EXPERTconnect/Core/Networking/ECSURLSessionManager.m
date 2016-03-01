@@ -418,13 +418,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                    questionCount:(NSNumber*)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion
 {
-    NSDictionary *parameters = @{
-                                 @"inquiryId": inquiryID,
-                                 @"navContext": parentNavigator,
-                                 @"action_id": actionId,
-                                 @"rating": rating,
-                                 @"questionCount": questionCount
-                                 };
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if(inquiryID) parameters[@"inquiryId"] = inquiryID;
+    if(parentNavigator) parameters[@"navContext"] = parentNavigator;
+    if(actionId) parameters[@"action_id"] = actionId;
+    parameters[@"rating"] = rating;
+    parameters[@"questionCount"] = questionCount;
+    
     ECSLogVerbose(@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]
            parameters:parameters

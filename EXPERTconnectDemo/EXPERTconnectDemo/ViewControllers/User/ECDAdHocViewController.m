@@ -796,9 +796,15 @@ int estimatedWait;
         {
             title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
             if (estimatedWait>-1) {
-                title = [NSString stringWithFormat:@"%@ - ETA: %dmin. Agents on: %d", title, (estimatedWait/60), agentsLoggedOn];
+                title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
+                         title,
+                         ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
+                         (estimatedWait/60),
+                         ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
+                         ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
+                         agentsLoggedOn];
             } else {
-                title = [NSString stringWithFormat:@"%@ - No agents available!", title];
+                title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
             }
         }
             break;

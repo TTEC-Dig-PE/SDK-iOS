@@ -1665,6 +1665,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     ECSChatAddParticipantMessage *participant = nil;
     if ([message isKindOfClass:[ECSChatURLMessage class]])
     {
+        // A URL message
         cell.actionCellType = ECSChatActionCellTypeLink;
         ECSChatURLMessage *urlMesssage = (ECSChatURLMessage*)message;
         cell.messageLabel.text = (urlMesssage.comment && urlMesssage.comment.length > 0) ? urlMesssage.comment : urlMesssage.url;
@@ -1765,7 +1766,11 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     cell.chatTextLabel.font = theme.chatInfoTitleFont;
     cell.chatTextLabel.textColor = theme.primaryTextColor;
-    cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join"), message.firstName];
+    
+    // First name if available, otherwise choose userId.
+    NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
+    
+    cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join"), displayName];
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell

@@ -50,3 +50,8 @@
 
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Profil a été mis à jour";
+
+"ECDLocalizedNoAgents" = "Aucun des agents disponibles.";
+"ECDLocalizedWaitString" = "attendez";
+"ECDLocalizedMinuteString" = "minute";
+"ECDLocalizedAgentString" = "Agents";

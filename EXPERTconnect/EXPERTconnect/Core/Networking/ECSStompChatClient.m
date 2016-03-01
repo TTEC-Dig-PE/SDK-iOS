@@ -150,11 +150,21 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     }
 
     // check for video action type
+    NSMutableDictionary *featuresDic = [[NSMutableDictionary alloc] init];
     if ([chatAction isKindOfClass:[ECSVideoChatActionType class]])
     {
         ECSVideoChatActionType *videoChatAction = (ECSVideoChatActionType *)chatAction;
-        configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
+        featuresDic[@"cafexmode"] = videoChatAction.cafexmode;
+        featuresDic[@"cafextarget"] = videoChatAction.cafextarget;
+        //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
+    
+    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@",
+                                [[NSLocale preferredLanguages] objectAtIndex:0],
+                                [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]];
+    featuresDic[@"x-ia-locale"] = languageLocale;
+    
+    configuration.features = featuresDic; 
     
     if (self.actionType.channelOptions) {
         // Goes into "options" subcategory
