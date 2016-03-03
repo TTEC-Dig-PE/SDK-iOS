@@ -589,6 +589,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }];
 }
 
+- (void)doGracefulEndChat {
+    [self.workflowDelegate endVideoChat];
+    [self.chatClient disconnect];
+    [self showSurveyOrPopView];
+}
+
 #pragma mark - Chat Toolbar callbacks
 - (void)sendChatState:(NSString *)chatState
 {
