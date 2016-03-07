@@ -78,6 +78,8 @@
 // Show Chat TimeStamp if set to YES.
 @property (assign, nonatomic) BOOL showChatTimeStamp;
 
+//Chat bubble tails image
+@property (strong, nonatomic) IBOutlet UIImage *chatBubbleTailsImage;
 
 //Text color for timestamp label
 @property (strong, nonatomic) UIColor *chatTimestampTextColor;

@@ -220,15 +220,12 @@
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
 
-<<<<<<< HEAD
 /* Show Chat Bubble */
 "ECDLocalizedStartShowChatBubbleTailsLabel" = "Show Chat Bubble Tails";
 
 /* Show Chat TimeStamp */
 "ECDLocalizedStartShowChatTimeStampLabel" = "Show Chat TimeStamp";
 
-=======
->>>>>>> master
 /* Ad-Hoc Page Agent Availability Strings */
 "ECDLocalizedNoAgents" = "No agents available.";
 "ECDLocalizedWaitString" = "Wait";

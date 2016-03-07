@@ -51,8 +51,7 @@
 	 _userMessage = userMessage;
 	 
 	 ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-	 self.bubbleImage = [UIImage ecs_bundledImageNamed:@"ecs_chatbubble"];
-	 CGPoint center = CGPointMake(self.bubbleImage.size.width / 2.0f, self.bubbleImage.size.height / 2.0f);
+	 CGPoint center = CGPointMake(theme.chatBubbleTailsImage.size.width / 2.0f, theme.chatBubbleTailsImage.size.height / 2.0f);
 	 UIEdgeInsets capInsets = UIEdgeInsetsMake(center.y, center.x, center.y, center.x);
 	 
 	 self.timestampLabel.textColor = theme.chatTimestampTextColor;
@@ -66,12 +65,12 @@
 		  }
 		  else
 		  {
-			   self.bubbleImage = [self imageMaskedWithColor:theme.userChatBackground];
-			   self.bubbleImage = [UIImage imageWithCGImage:self.bubbleImage.CGImage
-													  scale:self.bubbleImage.scale
+			   UIImage *maskedWithColorImage = [self imageMaskedWithColor:theme.userChatBackground];
+			   UIImage *changeImageOrientation = [UIImage imageWithCGImage:maskedWithColorImage.CGImage
+													  scale:maskedWithColorImage.scale
 												orientation:UIImageOrientationDownMirrored];
-			   self.bubbleImage =  [self stretchableImageFromImage:self.bubbleImage withCapInsets:capInsets];
-			   [self.bubbleImageView setImage:self.bubbleImage];
+			   UIImage *stretchabeImage =  [self stretchableImageFromImage:changeImageOrientation withCapInsets:capInsets];
+			   [self.bubbleImageView setImage:stretchabeImage];
 		  }
 	 }
 	 else
@@ -82,12 +81,12 @@
 		  }
 		  else
 		  {
-			   self.bubbleImage = [self imageMaskedWithColor:theme.agentChatBackground];
-			   self.bubbleImage = [UIImage imageWithCGImage:self.bubbleImage.CGImage
-													  scale:self.bubbleImage.scale
+			   UIImage *maskedWithColorImage = [self imageMaskedWithColor:theme.agentChatBackground];
+			   UIImage *changeImageOrientation = [UIImage imageWithCGImage:maskedWithColorImage.CGImage
+													  scale:maskedWithColorImage.scale
 												orientation:UIImageOrientationDown];
-			   self.bubbleImage =  [self stretchableImageFromImage:self.bubbleImage withCapInsets:capInsets];
-			   [self.bubbleImageView setImage:self.bubbleImage];
+			   UIImage *stretchabeImage =  [self stretchableImageFromImage:changeImageOrientation withCapInsets:capInsets];
+			   [self.bubbleImageView setImage:stretchabeImage];
 		  }
 	 }
 	 
@@ -109,10 +108,11 @@
 
 - (UIImage *)imageMaskedWithColor:(UIColor *)maskColor
 {
-	 CGRect rect = CGRectMake(0, 0, self.bubbleImage.size.width, self.bubbleImage.size.height);
+	 ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+	 CGRect rect = CGRectMake(0, 0, theme.chatBubbleTailsImage.size.width, theme.chatBubbleTailsImage.size.height);
 	 UIGraphicsBeginImageContext(rect.size);
 	 CGContextRef context = UIGraphicsGetCurrentContext();
-	 CGContextClipToMask(context, rect, self.bubbleImage.CGImage);
+	 CGContextClipToMask(context, rect, theme.chatBubbleTailsImage.CGImage);
 	 CGContextSetFillColorWithColor(context, maskColor.CGColor);
 	 CGContextFillRect(context, rect);
 	 UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();

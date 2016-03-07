@@ -7,6 +7,7 @@
 
 #import "ECSTheme.h"
 #import "NSBundle+ECSBundle.h"
+#import "UIImage+ECSBundle.h"
 
 @implementation ECSTheme
 
@@ -40,9 +41,9 @@
 	    self.showChatTimeStamp = YES;
 	    self.chatTimestampTextColor = [UIColor darkGrayColor];
 	    self.chatTimestampFont = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
+	    self.chatBubbleTailsImage = [UIImage ecs_bundledImageNamed:@"ecs_chatbubble"];
 
 
-		 
         self.headlineFont = [UIFont fontWithName:@"HelveticaNeue" size:24.0f];
         self.titleFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20.0f];
         self.subheaderFont = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
