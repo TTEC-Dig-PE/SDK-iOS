@@ -296,10 +296,27 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+- (NSURLSessionDataTask *)startAnswerEngineWithTopQuestions:(int)num
+                                                 forContext:(NSString*)context
+                                             withCompletion:(void (^)(NSArray *questions, NSError *error))completion
+{
+    NSDictionary *parameters = nil;
+    
+    if (!num) num = 10;
+    
+    parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
+    
+    return [self GET:@"answerengine/v1/start"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
+}
+
 
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
-                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
     NSDictionary *parameters = nil;
     
@@ -316,7 +333,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
                                             withOptionalContext:(NSString*)theContext
-                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
+                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
 {
     NSDictionary *parameters = nil;
     
@@ -418,13 +435,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                    questionCount:(NSNumber*)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion
 {
-    NSDictionary *parameters = @{
-                                 @"inquiryId": inquiryID,
-                                 @"navContext": parentNavigator,
-                                 @"action_id": actionId,
-                                 @"rating": rating,
-                                 @"questionCount": questionCount
-                                 };
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if(inquiryID) parameters[@"inquiryId"] = inquiryID;
+    if(parentNavigator) parameters[@"navContext"] = parentNavigator;
+    if(actionId) parameters[@"action_id"] = actionId;
+    parameters[@"rating"] = rating;
+    parameters[@"questionCount"] = questionCount;
+    
     ECSLogVerbose(@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]
            parameters:parameters

@@ -82,11 +82,18 @@
                                  ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
                                  if(!formAction.form)
                                  {
-                                     [urlSession getFormByName:formAction.actionId withCompletion:^(ECSForm *form, NSError *error) {
-                                         formAction.form = [form copy];
-                                         [weakSelf setLoadingIndicatorVisible:NO];
-                                         
-                                         [self transitionToCurrentQuestionForwards:YES];
+                                     [urlSession getFormByName:formAction.actionId withCompletion:^(ECSForm *form, NSError *error)
+                                     {
+                                         if (!error) {
+                                             formAction.form = [form copy];
+                                             [weakSelf setLoadingIndicatorVisible:NO];
+                                             
+                                             [self transitionToCurrentQuestionForwards:YES];
+                                             
+                                         } else {
+                                             [weakSelf showMessageForError:error];
+                                             [weakSelf dismissViewControllerAnimated:YES completion:nil]; 
+                                         }
                                      }];
                                  } else {
                                     [weakSelf setLoadingIndicatorVisible:NO];

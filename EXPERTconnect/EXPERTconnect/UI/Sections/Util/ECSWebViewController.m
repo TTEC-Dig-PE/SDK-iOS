@@ -68,9 +68,9 @@
 
 - (void)loadItemAtPath:(NSString *)path
 {
-    if (![path hasPrefix:@"http"])
+    if (![path hasPrefix:@"http://"])
     {
-        self.currentPath = [NSString stringWithFormat:@"http://%@", path];
+        self.currentPath = [NSString stringWithFormat:@"https://%@", path];
     }
     else
     {

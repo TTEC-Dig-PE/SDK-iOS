@@ -1,1 +1,1 @@
-../../../Bugsnag/Source/Bugsnag/BugsnagMetaData.h
+../../../Bugsnag/Source/BugsnagMetaData.h

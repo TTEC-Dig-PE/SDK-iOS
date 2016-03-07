@@ -69,7 +69,6 @@
     NSMutableAttributedString *attrWaitTimeString = nil;
     
     NSInteger waitTimeMinutes = self.waitTime.integerValue / 60;
-    waitTimeMinutes += 13; // TODO: TESTING ONLY!
     NSString *waitTimeString = ECSLocalizedString(ECSLocalizeGenericWaitTime, nil); // Default value.
     
     if (waitTimeMinutes > 0)
