@@ -28,20 +28,36 @@ bool _userTyping;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (!self.chatClient)
+    
+    if (self.chatClient)
     {
-        self.chatClient = [ECSStompChatClient new];
-        self.chatClient.delegate = self;
+        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
-        ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
-        chatAction.actionId = @"";
-        chatAction.agentSkill = @"CE_Mobile_Chat";
-        chatAction.displayName = @"SimpleChatMike";
-        chatAction.shouldTakeSurvey = YES;
-        chatAction.journeybegin = [NSNumber numberWithInt:1];
-        
-        [self.chatClient setupChatClientWithActionType:chatAction];
+        [urlSession getDetailsForChannelId:self.chatClient.channel.channelId
+                                completion:^(ECSChannelConfiguration *response, NSError *error) {
+                                    
+            if ([response channelState] == ECSChannelStatePending ||
+                [response channelState] == ECSChannelStateQueued ||
+                [response channelState] == ECSChannelStateConnected) {
+                NSLog(@"Still connected to chat.");
+                return;
+            }
+        }];
     }
+    
+    // We are fresh window, or the previous chat has expired somehow. Let's start a new one.
+    
+    self.chatClient = [ECSStompChatClient new];
+    self.chatClient.delegate = self;
+    
+    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+    chatAction.actionId = @"";
+    chatAction.agentSkill = @"CE_Mobile_Chat";
+    chatAction.displayName = @"SimpleChatMike";
+    chatAction.shouldTakeSurvey = YES;
+    chatAction.journeybegin = [NSNumber numberWithInt:1];
+    
+    [self.chatClient setupChatClientWithActionType:chatAction];
 }
 
 #pragma mark - StompClient Callbacks

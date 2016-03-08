@@ -618,6 +618,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return nil;
 }
 
+#pragma mark Chat / Callback Actions
+
 - (NSURLSessionDataTask*)startConversationForAction:(ECSActionType*)actionType
                                     andAlwaysCreate:(BOOL)alwaysCreate
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
@@ -704,7 +706,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = [ECSJSONSerializer jsonDictionaryFromObject:channelConfig];
     
-    
+    // conversationengine/v1/conversations/%@/channels
     return [self POST:conversation
            parameters:parameters
               success:[self successWithExpectedType:[ECSChannelCreateResponse class] completion:completion]
@@ -813,19 +815,26 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                   @"channelId": theChannel,
                                   @"conversationId": convoIdString};
     
-    /*NSString * const kECSHeaderBodyType = @"x-body-type";
-     NSString * const kECSHeaderBodyVersion = @"x-body-version";
-     
-     NSString * const kECSMessageBodyVersion = @"1";
-     NSString * const kECSChatNotificationMessage = @"NotificationMessage";
-     NSDictionary *headers = @{ kECSHeaderBodyType: kECSChatNotificationMessage,
-     kECSHeaderBodyVersion: kECSMessageBodyVersion };*/
-    
     return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/notifications", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }
+
+/*
+ Get channel details (such as state) for a given channel ID.
+ */
+- (NSURLSessionDataTask*)getDetailsForChannelId:(NSString *)channelString
+                                     completion:(void(^)(ECSChannelConfiguration *response, NSError *error))completion {
+    
+    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@", channelString]
+           parameters:nil
+              success:[self successWithExpectedType:[ECSChannelConfiguration class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
+
+# pragma mark Utility Functions
 
 - (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
                                           completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
