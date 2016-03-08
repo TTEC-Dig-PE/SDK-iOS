@@ -11,6 +11,13 @@ typedef NS_ENUM(NSUInteger, ECSChannelState)
 {
     ECSChannelStateDisconnected,
     ECSChannelStateConnected,
+    ECSChannelStatePending,
+    ECSChannelStateAnswered,
+    ECSChannelStateQueued,
+    ECSChannelStateNotify,
+    ECSChannelStateFailed,
+    ECSChannelStateTimeout,
+    ECSChannelStateUnknown
 };
 
 @interface ECSChannelStateMessage : ECSChatMessage

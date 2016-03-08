@@ -68,15 +68,18 @@
 
 - (void)loadItemAtPath:(NSString *)path
 {
-    if (![path hasPrefix:@"http://"])
+    self.currentPath = path;
+    
+    if (![self.currentPath hasPrefix:@"http://"] && ![self.currentPath hasPrefix:@"https://"])
     {
-        self.currentPath = [NSString stringWithFormat:@"https://%@", path];
+        self.currentPath = [@"https://" stringByAppendingString:self.currentPath];
     }
-    else
+    else if([path hasPrefix:@"http://"])
     {
-        self.currentPath = path;
+       self.currentPath = [self.currentPath stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
     }
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.currentPath]];
     [self.webView loadRequest:request];
 }
 
