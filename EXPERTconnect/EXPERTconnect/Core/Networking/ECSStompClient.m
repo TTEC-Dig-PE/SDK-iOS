@@ -33,6 +33,9 @@ static NSString * const kStompError = @"ERROR";
 
 NSString *authToken; // Local stored copy of the authToken.
 
+int         _clientHeartbeatInterval;
+NSTimer *   _clientHeartbeatTimer;
+
 @implementation ECSStompFrame
 
 - (instancetype)init
@@ -41,6 +44,8 @@ NSString *authToken; // Local stored copy of the authToken.
     if (self)
     {
         self.headers = [NSMutableDictionary new];
+        _clientHeartbeatInterval = 0;
+        _clientHeartbeatTimer = nil;
     }
     
     return self;
@@ -78,6 +83,7 @@ NSString *authToken; // Local stored copy of the authToken.
 
 - (void)dealloc
 {
+    [_clientHeartbeatTimer invalidate]; 
     [self.subscribers removeAllObjects];
 }
 
@@ -113,6 +119,8 @@ NSString *authToken; // Local stored copy of the authToken.
 
 - (void)disconnect
 {
+    [_clientHeartbeatTimer invalidate];
+    self.connected = NO;
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
@@ -274,6 +282,12 @@ NSString *authToken; // Local stored copy of the authToken.
     
     ECSLogVerbose(@"Frame is: %@", frame);
     
+    // TODO: Commented out until 5.3!!!
+    // Check for, and update heart-beat if applicable
+    //if (frame.headers && frame.headers[@"heart-beat"]) {
+    //    [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
+    //}
+    
     if ([frame.command isEqualToString:kStompConnected])
     {
         self.connected = YES;
@@ -404,6 +418,44 @@ NSString *authToken; // Local stored copy of the authToken.
     decodedString = [decodedString stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     
     return decodedString;
+}
+
+#pragma mark Client Heartbeating
+
+-(void)updateHeartbeatFromHeader:(NSString *)theHeader
+{
+    // We have a heartbeat value to check.
+    // Will look like:    0,0  or  5000,0  or  0,5000
+    NSArray *parts = [theHeader componentsSeparatedByString:@","];
+    
+    // The second value indicates how often the server expects a heartbeat from the client.
+    if(parts[1]) _clientHeartbeatInterval = [parts[0] intValue];
+    
+    // NOTE: This will test heartbeat regardless of server setting.
+    //_clientHeartbeatInterval = 5000;
+    
+    // If server indicates it wants a heartbeat. Fire up the timer!
+    if (_clientHeartbeatInterval > 0)
+    {
+        if(_clientHeartbeatTimer)
+        {
+            [_clientHeartbeatTimer invalidate];
+        }
+        _clientHeartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
+                                                                 target:self
+                                                               selector:@selector(doStompHeartbeat:)
+                                                               userInfo:nil
+                                                                repeats:YES];
+    }
+}
+
+-(void)doStompHeartbeat:(NSTimer *)timer
+{
+    // Send a simple PING packet.
+    if (self.webSocket.readyState == ECS_OPEN)
+    {
+        [self.webSocket sendPing:nil];
+    }
 }
 
 @end

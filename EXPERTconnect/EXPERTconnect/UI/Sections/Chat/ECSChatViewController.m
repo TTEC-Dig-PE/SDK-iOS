@@ -559,7 +559,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         }
         
         NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
-        NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
+        NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPrompt, @"Chat Disconnect Prompt");
         
         // If we have something to do after, display a different message.
         if (self.postChatActions.count > 0)
@@ -571,14 +571,16 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                                                  message:alertMessage
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
-        
-        
-        
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
                                                             style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              [weakSelf showSurveyOrPopView];
-                                                          }]];
+                                                          handler:^(UIAlertAction *action)
+        {
+                                                              
+            [weakSelf.workflowDelegate endVideoChat];
+            [weakSelf.chatClient disconnect];
+            
+            [weakSelf showSurveyOrPopView];
+        }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
                                                             style:UIAlertActionStyleCancel

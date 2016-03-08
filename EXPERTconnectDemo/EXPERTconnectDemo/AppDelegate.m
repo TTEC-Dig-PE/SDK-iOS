@@ -95,7 +95,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     // Old authentication method.
     configuration.host = [myAppConfig getHostURL];
-    configuration.clientID = [myAppConfig getClientID];
+    //configuration.clientID = [myAppConfig getClientID];
     
     //configuration.host = @"http://demo.humanify.com";
     //configuration.clientID = @"horizon";
