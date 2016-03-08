@@ -69,17 +69,8 @@ int selectedRow;
     [self getAgentsAvailableForSkill:(int)row];
 }
 
--(void)getAgentsAvailableForSkill:(int)index {
-    
-    /*[[EXPERTconnect shared] agentAvailabilityWithSkill:[chatSkillsArray objectAtIndex:index]
-                                            completion:^(NSDictionary *data, NSError *error)
-     {
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
-                                                             object:nil
-                                                           userInfo:data];
-         
-     }];*/
-    
+-(void)getAgentsAvailableForSkill:(int)index
+{
     [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
                                     completion:^(NSDictionary *data, NSError *error)
     {

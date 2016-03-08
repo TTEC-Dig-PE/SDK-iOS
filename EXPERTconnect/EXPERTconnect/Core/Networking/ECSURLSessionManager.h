@@ -111,6 +111,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  
  @return the data task for the answer engine call
  */
+- (NSURLSessionDataTask *)startAnswerEngineWithTopQuestions:(int)num
+                                                 forContext:(NSString*)context
+                                             withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
+
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 

@@ -296,10 +296,27 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+- (NSURLSessionDataTask *)startAnswerEngineWithTopQuestions:(int)num
+                                                 forContext:(NSString*)context
+                                             withCompletion:(void (^)(NSArray *questions, NSError *error))completion
+{
+    NSDictionary *parameters = nil;
+    
+    if (!num) num = 10;
+    
+    parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
+    
+    return [self GET:@"answerengine/v1/start"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+    
+}
+
 
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
-                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
+                                       withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
     NSDictionary *parameters = nil;
     
@@ -316,7 +333,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
                                             withOptionalContext:(NSString*)theContext
-                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
+                                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
 {
     NSDictionary *parameters = nil;
     

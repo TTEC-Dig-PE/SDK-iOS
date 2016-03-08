@@ -139,9 +139,9 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         // Let's get top questions.
         ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
-        [sessionManager getAnswerEngineTopQuestions:10
-                                         forContext:self.answerEngineAction.answerEngineContext
-                                     withCompletion:^(NSArray *context, NSError *error)
+        [sessionManager startAnswerEngineWithTopQuestions:10
+                                               forContext:self.answerEngineAction.answerEngineContext
+                                           withCompletion:^(NSArray *context, NSError *error)
          {
              // Got our top questions...
              self.answerEngineAction.topQuestions = context;

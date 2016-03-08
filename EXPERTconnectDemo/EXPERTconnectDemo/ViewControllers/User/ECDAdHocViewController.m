@@ -1024,11 +1024,15 @@ int estimatedWait;
     [self localBreadCrumb:@"Chat started"
               description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
     
-    // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet. 
+    // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet.
+    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@",
+                                [[NSLocale preferredLanguages] objectAtIndex:0],
+                                [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]];
+    
     UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
                                                          withDisplayName:@"Chat"
                                                               withSurvey:NO
-                                                      withChannelOptions:@{@"language": @"en-UK", @"department": @"rental"}];
+                                                      withChannelOptions:@{@"language": languageLocale, @"department": @"rental"}];
     
     [self.navigationController pushViewController:chatController animated:YES];
 

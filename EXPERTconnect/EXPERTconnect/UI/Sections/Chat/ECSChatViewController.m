@@ -57,8 +57,8 @@
 #import "ECSPhotoViewController.h"
 #import "ECSStompChatClient.h"
 #import "ECSWebViewController.h"
-#import "ECSQuickRatingForm.h"
-#import "ECSQuickRatingViewController.h"
+//#import "ECSQuickRatingForm.h"
+//#import "ECSQuickRatingViewController.h"
 #import "ECSUserManager.h"
 #import "ECSURLSessionManager.h"
 #import "ECSChatAddChannelMessage.h"
@@ -381,7 +381,8 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     if (self.chatClient.channelState == ECSChannelStateConnected)
     {
-        [self handleBackNavigationAlert];
+        //- (void)exitChatButtonTapped:(id)sender
+        [self exitChatButtonTapped:nil];
     }
     else
     {
@@ -406,59 +407,46 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         return;
     }
-    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     __weak typeof(self) weakSelf = self;
-    [sessionManager getEndChatActionsForConversationId:self.chatClient.currentConversation.conversationID
-                             withAgentInteractionCount:self.agentInteractionCount
-                                     navigationContext:self.parentNavigationContext
-                                              actionId:self.actionType.actionId
-                                            completion:^(NSArray* result, NSError *error) {
-                                                if (!error &&
-                                                    (result.count > 0) &&
-                                                    ([result.firstObject isKindOfClass:[ECSFormActionType class]]))
-                                                {
-                                                    weakSelf.postChatActions = result;
-                                                }
-                                            }];
+    [self checkForPostActions:^(NSArray *result, NSError *error)
+    {
+        if (!error && (result.count > 0) && ([result.firstObject isKindOfClass:[ECSFormActionType class]]))
+        {
+            weakSelf.postChatActions = result;
+        }
+    }];
 }
 - (void)handleDisconnectPostSurveyCall
 {
-    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     __weak typeof(self) weakSelf = self;
+    [self checkForPostActions:^(NSArray *result, NSError *error)
+    {
+        [self.workflowDelegate endVideoChat];
+        //ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
+        
+        if (result && !error) {
+            weakSelf.postChatActions = result;
+            [weakSelf showSurveyDisconnectMessage];
+        }
+        else {
+            [weakSelf showNoSurveyDisconnectMessage];
+        }
+    }];
+}
+
+-(void)checkForPostActions:(void (^)(NSArray* result, NSError* error))completion {
+    
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    //__weak typeof(self) weakSelf = self;
     [sessionManager getEndChatActionsForConversationId:self.chatClient.currentConversation.conversationID
                              withAgentInteractionCount:self.agentInteractionCount
                                      navigationContext:self.parentNavigationContext
                                               actionId:self.actionType.actionId
-                                            completion:^(NSArray* result, NSError *error) {
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    [self.workflowDelegate endVideoChat];
-                                                    ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
-                                                    if (actionType.shouldTakeSurvey) {
-                                                        weakSelf.postChatActions = result;
-                                                        [weakSelf showSurveyDisconnectMessage];
-                                                    } else {
-                                                        if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
-                                                        {
-                                                            [self showSurveyDisconnectMessage];
-                                                        }
-                                                        else
-                                                        {
-                                                        [weakSelf showNoSurveyDisconnectMessage];
-                                                        }
-                                                    }
-                                                    //TODO: Need to we need some data from results, Navigations should be taken care by host app in Demo 2.0
-                                                    //                                                    if (error || (result.count == 0)) //|| !([result.firstObject isKindOfClass:[ECSFormActionType class]])
-                                                    //                                                    {
-                                                    //                                                        [weakSelf showNoSurveyDisconnectMessage];
-                                                    //                                                    }
-                                                    //                                                    else
-                                                    //                                                    {
-                                                    //                                                        weakSelf.postChatActions = result;
-                                                    //                                                        [weakSelf showSurveyDisconnectMessage];
-                                                    // }
-                                                });
-                                            }];
+                                            completion:^(NSArray* result, NSError *error)
+    {
+        completion(result, error);
+    }];
 }
 
 
@@ -498,39 +486,40 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     }
 }
 
-- (void)showSurvey
+- (void)showSurveyOrPopView
 {
     [self.chatToolbar resignFirstResponder];
-//    [self.workflowDelegate disconnectedFromChat];
     
-    if(!self.workflowDelegate)   {
-        if (self.postChatActions &&
-            (self.postChatActions.count > 0) &&
-            ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
-        {
-            ECSFormActionType *formAction = self.postChatActions.firstObject;
-            UIViewController *surveyFormController = [ECSRootViewController ecs_viewControllerForActionType:formAction];
-            
-            [self presentModal:surveyFormController withParentNavigationController:self.navigationController fromViewController:self.navigationController];
-            _showingPostChatSurvey = YES;
-        }
-        else
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-            
-            if (self.chatClient.channelState != ECSChannelStateDisconnected) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                                    object:self];
-            }
-        }
+    if(self.workflowDelegate)
+    {
+        //if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
+        //{
+        [self.workflowDelegate chatEndedWithTotalInteractionCount:self.messages.count
+                                                agentInteractions:self.agentInteractionCount
+                                                 userInteractions:self.messages.count-self.agentInteractionCount];
+        //}
+    }
+    
+    // Check to see if we have a chat action to act upon.
+    if (self.postChatActions && (self.postChatActions.count > 0) &&
+        ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
+    {
+        ECSFormActionType *formAction = self.postChatActions.firstObject;
+        
+        UIViewController *surveyFormController = [ECSRootViewController ecs_viewControllerForActionType:formAction];
+        
+        [self presentModal:surveyFormController withParentNavigationController:self.navigationController    fromViewController:self.navigationController];
+        
+        _showingPostChatSurvey = YES;
     }
     else
     {
+        // No post-action. Close the window and send the notification so host app can act.
         [self.navigationController popViewControllerAnimated:YES];
         
-        if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
-        {
-            [self.workflowDelegate chatEndedWithTotalInteractionCount:self.messages.count agentInteractions:self.agentInteractionCount userInteractions:self.messages.count-self.agentInteractionCount];
+        if (self.chatClient.channelState != ECSChannelStateDisconnected) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                                object:self];
         }
     }
 }
@@ -547,7 +536,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)showSurveyDisconnectMessage
 {
     ECSEndChatSurveyView *endChatView = [ECSEndChatSurveyView ecs_loadInstanceFromNib];
-    [endChatView.exitChatButton addTarget:self action:@selector(exitChatButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [endChatView.exitChatButton addTarget:self
+                                   action:@selector(exitChatButtonTapped:)
+                         forControlEvents:UIControlEventTouchUpInside];
+    
     self.tableView.tableFooterView = endChatView;
     [self.tableView reloadData];
     
@@ -559,51 +551,48 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 
 - (void)exitChatButtonTapped:(id)sender
 {
-    NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
-    NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                             message:alertMessage
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          [self showSurvey];
-                                                      }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)handleBackNavigationAlert
-{
-    NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
-    
-    NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPrompt, @"Chat Disconnect Prompt");
-    
-    if (self.postChatActions.count > 0)
-    {
-        alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
-    }
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                             message:alertMessage
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          [self doGracefulEndChat];
-                                                      }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    // Check for actions one more time. This should return
+    __weak typeof(self) weakSelf = self;
+    [weakSelf checkForPostActions:^(NSArray *results, NSError *error) {
+        if (results) {
+            weakSelf.postChatActions = results;
+        }
+        
+        NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
+        NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
+        
+        // If we have something to do after, display a different message.
+        if (self.postChatActions.count > 0)
+        {
+            alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
+        }
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                 message:alertMessage
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              [weakSelf showSurveyOrPopView];
+                                                          }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        
+        [weakSelf presentViewController:alertController animated:YES completion:nil];
+        
+    }];
 }
 
 - (void)doGracefulEndChat {
     [self.workflowDelegate endVideoChat];
     [self.chatClient disconnect];
-    [self showSurvey];
+    [self showSurveyOrPopView];
 }
 
 #pragma mark - Chat Toolbar callbacks
