@@ -9,6 +9,7 @@
 
 #import "ECSJSONObject.h"
 #import "ECSJSONSerializing.h"
+#import "ECSChannelStateMessage.h"
 
 /**
  Configuration used when creating a channel for chat.
@@ -50,5 +51,10 @@
 
 // Options
 @property (strong, nonatomic) NSDictionary *options;
+
+// State
+@property (strong, nonatomic) NSString *state;
+
+- (ECSChannelState)channelState;
 
 @end

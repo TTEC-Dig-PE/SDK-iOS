@@ -325,6 +325,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           channel:(NSString *)theChannel
                                        completion:(void(^)(NSString *response, NSError *error))completion;
 
+- (NSURLSessionDataTask*)getDetailsForChannelId:(NSString *)channelString
+                                     completion:(void(^)(ECSChannelConfiguration *response, NSError *error))completion;
 
 #pragma mark Agent Availability
 
