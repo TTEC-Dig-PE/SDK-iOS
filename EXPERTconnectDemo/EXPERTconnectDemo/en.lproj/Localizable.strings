@@ -97,7 +97,7 @@
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 
 /* Start Voice Callback Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVoiceCallbackHeader" = "AdHoc Voice Callback";
+"ECDLocalizedStartVoiceCallbackHeader" = "Voice Callback";
 
 /* Start Email Message Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartEmailMessageHeader" = "AdHoc Email Message";
