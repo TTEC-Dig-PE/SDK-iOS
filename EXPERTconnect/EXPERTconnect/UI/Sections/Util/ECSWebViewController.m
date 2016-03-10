@@ -74,11 +74,10 @@
     {
         self.currentPath = [@"https://" stringByAppendingString:self.currentPath];
     }
-    else if([path hasPrefix:@"http://"])
-    {
-       self.currentPath = [self.currentPath stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"];
-    }
 
+    // URL encode the link. 
+    self.currentPath = [self.currentPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.currentPath]];
     [self.webView loadRequest:request];
 }
