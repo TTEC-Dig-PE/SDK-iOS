@@ -425,7 +425,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [self.workflowDelegate endVideoChat];
         //ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
         
-        if (result && !error) {
+        if (result.count && !error) {
             weakSelf.postChatActions = result;
             [weakSelf showSurveyDisconnectMessage];
         }
