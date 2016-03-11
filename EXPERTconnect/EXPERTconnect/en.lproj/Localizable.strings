@@ -307,6 +307,9 @@
 /* Chat Join User */
 "ECSLocalizeChatJoin" = "You are connected with %1@.";
 
+/* Chat User Left */
+"ECSLocalizeChatLeave" = "%1@ has left the chat.";
+
 /* History */
 "ECSLocalizeHistory" = "History";
 
