@@ -299,6 +299,9 @@
 /* Charla Únete usuario */
 "ECSLocalizeChatJoin" = "% 1 @ Registrado";
 
+/* Chat User Left */
+"ECSLocalizeChatLeave" = "%1@ ha dejado el chat.";
+
 /* Historia */
 "ECSLocalizeHistory" = "Historia";
 

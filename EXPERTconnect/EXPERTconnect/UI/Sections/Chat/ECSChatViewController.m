@@ -17,6 +17,7 @@
 #import "ECSChannelConfiguration.h"
 #import "ECSChannelCreateResponse.h"
 #import "ECSChatAddParticipantMessage.h"
+#import "ECSChatRemoveParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
 #import "ECSCafeXMessage.h"
@@ -30,7 +31,6 @@
 #import "ECSChatMediaMessage.h"
 #import "ECSChatFormMessage.h"
 #import "ECSChatImageTableViewCell.h"
-#import "ECSChatAddParticipantMessage.h"
 #import "ECSChatMessage.h"
 #import "ECSChatTextMessage.h"
 #import "ECSSendQuestionMessage.h"
@@ -1277,6 +1277,13 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
         [self configureChatTextCell:textCell withAddParticipantMessage:message];
         cell = textCell;
     }
+    else if ([message isKindOfClass:[ECSChatRemoveParticipantMessage class]])
+    {
+        ECSChatTextTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:TextCellID
+                                                                                  forIndexPath:indexPath];
+        [self configureChatTextCell:textCell withRemoveParticipantMessage:message];
+        cell = textCell;
+    }
     else if ([message isKindOfClass:[ECSChatInfoMessage class]])
     {
         ECSChatTextTableViewCell *textCell = [self.tableView dequeueReusableCellWithIdentifier:TextCellID
@@ -1727,8 +1734,23 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     // First name if available, otherwise choose userId.
     NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
+    if(!displayName) displayName = @"";
     
     cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join"), displayName];
+}
+
+- (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
+    withRemoveParticipantMessage:(ECSChatRemoveParticipantMessage*)message
+{
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    cell.chatTextLabel.font = theme.chatInfoTitleFont;
+    cell.chatTextLabel.textColor = theme.primaryTextColor;
+    
+    // First name if available, otherwise choose userId.
+    NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
+    if(!displayName) displayName = @"";
+    
+    cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatLeave, @"Chat Leave"), displayName];
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
@@ -1876,6 +1898,12 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     {
         textCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44.0f);
         [self configureChatTextCell:textCell withAddParticipantMessage:(ECSChatAddParticipantMessage*)chatMessage];
+        height = [self calculateHeightForConfiguredSizingCell:textCell];
+    }
+    else if ([chatMessage isKindOfClass:[ECSChatRemoveParticipantMessage class]])
+    {
+        textCell.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 44.0f);
+        [self configureChatTextCell:textCell withRemoveParticipantMessage:(ECSChatRemoveParticipantMessage*)chatMessage];
         height = [self calculateHeightForConfiguredSizingCell:textCell];
     }
     else if ([chatMessage isKindOfClass:[ECSChatInfoMessage class]])
