@@ -60,6 +60,7 @@ static NSString *const ECSLocalizeExistingFromAlbum = @"ECSLocalizeExistingFromA
 static NSString *const ECSLocalizeSend = @"ECSLocalizeSend";
 static NSString *const ECSLocalizeCancel = @"ECSLocalizeCancel";
 static NSString *const ECSLocalizeChatJoin = @"ECSLocalizeChatJoin";
+static NSString *const ECSLocalizeChatLeave = @"ECSLocalizeChatLeave";
 
 static NSString *const ECSLocalizeWelcome = @"ECSLocalizeWelcome";
 static NSString *const ECSLocalizeWelcomeWithUsername = @"ECSLocalizeWelcomeWithUsername";

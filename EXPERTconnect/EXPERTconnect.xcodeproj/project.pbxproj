@@ -454,6 +454,8 @@
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
 		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
+		C484AC311C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */; };
+		C484AC321C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C4FE7CB91C7BC37300B70423 /* ACBClientSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */; };
@@ -974,6 +976,8 @@
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
+		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
+		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C4E6F6DA1C7BCEDF00F9124A /* AirshipKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AirshipKit.framework; path = "../EXPERTconnectDemo/ThirdParty/libUAirship-latest/Airship/AirshipKit.framework"; sourceTree = "<group>"; };
@@ -1446,6 +1450,8 @@
 				030AF2111AF7E20C0056BFB0 /* ECSChatAddChannelMessage.m */,
 				039CDFBE1AD6CBA300F52600 /* ECSChatAddParticipantMessage.h */,
 				039CDFBF1AD6CBA300F52600 /* ECSChatAddParticipantMessage.m */,
+				C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */,
+				C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */,
 				031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */,
 				031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */,
 				D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */,
@@ -2021,6 +2027,7 @@
 				03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */,
 				C1E99D371BC7CC19000EC129 /* ECSToken.h in Headers */,
 				C1E99D351BC7CC19000EC129 /* ECSTextView.h in Headers */,
+				C484AC311C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h in Headers */,
 				C1E0E6261BC409230089C7E6 /* ECSDimmingView.h in Headers */,
 				03AF24A71A9B601E00407BE5 /* ECSLoadingView.h in Headers */,
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
@@ -2520,6 +2527,7 @@
 				03C3102F1A9B5B39006B3557 /* ECSPreSurvey.m in Sources */,
 				D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */,
 				03F0BD331A70095E00E90E7F /* ECSLocalization.m in Sources */,
+				C484AC321C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m in Sources */,
 				03272A0F1AE7E36F009C6EDF /* ECSChatFormMessage.m in Sources */,
 				466170C81B864D010055A976 /* ECSSendQuestionMessage.m in Sources */,
 				2252C6B21A7BE9E200B99912 /* ECSFormItemSlider.m in Sources */,
