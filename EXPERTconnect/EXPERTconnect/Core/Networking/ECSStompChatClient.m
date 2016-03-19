@@ -11,6 +11,7 @@
 #import "ECSVideoChatActionType.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAddParticipantMessage.h"
+#import "ECSChatRemoveParticipantMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
 #import "ECSCafeXMessage.h"
@@ -45,6 +46,7 @@ static NSString * const kECSChatStateMessage = @"ChatState";
 static NSString * const kECSCommandMessage = @"CommandMessage";
 static NSString * const kECSChatRenderURLMessage = @"RenderURLCommand";
 static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";
+static NSString * const kECSChatRemoveParticipantMessage = @"RemoveParticipant";
 static NSString * const kECSChatAddChannelMessage = @"AddChannelCommand";
 static NSString * const kECSChatAssociateInfoMessage = @"AssociateInfoCommand";
 static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
@@ -458,6 +460,10 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     {
         [self handleAddParticipantMessage:message forClient:stompClient];
     }
+    else if ([bodyType isEqualToString:kECSChatRemoveParticipantMessage])
+    {
+        [self handleRemoveParticipantMessage:message forClient:stompClient];
+    }
     else if ([bodyType isEqualToString:kECSChatAddChannelMessage])
     {
         [self handleAddChannelMessage:message forClient:stompClient];
@@ -688,6 +694,29 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         {
             ECSChatAddParticipantMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                            withClass:[ECSChatAddParticipantMessage class]];
+            
+            message.fromAgent = NO;
+            [self.delegate chatClient:self didReceiveMessage:message];
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+        }
+    }
+    
+}
+
+- (void)handleRemoveParticipantMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0 error:&serializationError];
+        if (!serializationError)
+        {
+            ECSChatRemoveParticipantMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                         withClass:[ECSChatRemoveParticipantMessage class]];
             
             message.fromAgent = NO;
             [self.delegate chatClient:self didReceiveMessage:message];

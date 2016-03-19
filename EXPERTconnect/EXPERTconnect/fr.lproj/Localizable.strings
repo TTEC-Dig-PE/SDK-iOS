@@ -299,6 +299,9 @@
 /* Discuter Rejoignez utilisateur */
 "ECSLocalizeChatJoin" = "% 1 @ Inscrit";
 
+/* Chat User Left */
+"ECSLocalizeChatLeave" = "%1@ à quitté la discussion.";
+
 /* Histoire */
 "ECSLocalizeHistory" = "Histoire";
 
