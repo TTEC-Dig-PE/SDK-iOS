@@ -661,27 +661,6 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion {
-    
-    NSArray *skills = [NSArray arrayWithObjects:skill,@"Finance",nil];
-    
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    [sessionManager agentAvailabilityWithSkills:skills
-                                     completion:^(ECSAgentAvailableResponse *response, NSError *error)
-     {
-         // parse object and return in user-friendly array.
-         
-         if (error) {
-             completion(nil, error);
-         } else {
-             completion(response.skills[0], nil);
-         }
-     }];
-}
-
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion
 {

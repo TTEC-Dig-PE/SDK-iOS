@@ -11,11 +11,12 @@
 #import "ECSJSONObject.h"
 #import "ECSJSONSerializing.h"
 
+// Changed as per conversation on Mar 17, 2016 with Ken, Nainesh, and Mike
 typedef NS_ENUM(NSInteger, AnswerRating)
 {
     AnswerRatingUnknown = 0,
-    AnswerRatingPositive = 1,
-    AnswerRatingNegative = -1
+    AnswerRatingPositive = 2,
+    AnswerRatingNegative = 1
 };
 
 @interface ECSAnswerEngineResponse : ECSJSONObject <ECSJSONSerializing, UIActivityItemSource>

@@ -38,10 +38,9 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.experts = self.actionType.configuration[@"experts"];
-    
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.experts                = self.actionType.configuration[@"experts"];
+    self.tableView.delegate     = self;
+    self.tableView.dataSource   = self;
     
     // Apply themes
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
@@ -55,28 +54,34 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     UINib *featuredNib = [UINib nibWithNibName:[[ECSSelectExpertTableViewCell class] description]
                                         bundle:[NSBundle bundleForClass:[ECSSelectExpertTableViewCell class]]];
+    
     [self.tableView registerNib:featuredNib forCellReuseIdentifier:ECSExpertCellId];
     
+    // Try to load experts if none are currently loaded.
     if(self.experts == nil) {
-        __weak typeof(self) weakSelf = self;
         
+        __weak typeof(self) weakSelf = self;
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        [urlSession getExpertsWithEvent:@"determineTreatment"
-                               resultId:nil
-                       interactionItems:@{@"nps_score": @"2", @"intent": @"mutual funds"}
-                             completion:^(ECSSelectExpertsResponse *response, NSError *error)
-        {
+        
+        // Attempt to fetch list of available experts from server
+        [urlSession getExpertsWithInteractionItems:nil
+                                        completion:^(NSArray *expertArray, NSError *error) {
+                                            
             [weakSelf setLoadingIndicatorVisible:NO];
-            if (!error)
-            {
-                weakSelf.experts = response.action.configuration[@"experts"];
+                                            
+            if (!error) {
+                
+                // Reload the table with new data from response
+                weakSelf.experts = expertArray;
                 [weakSelf.tableView reloadData];
-            }
-            else
-            {
+                
+            } else {
+                
+                // Show a message to the user.
                 [weakSelf showMessageForError:error];
             }
         }];
+        
     }
     
     [self.tableView reloadData];
