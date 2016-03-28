@@ -26,6 +26,12 @@
 static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 @interface ECSSelectExpertViewController () <UITableViewDataSource, UITableViewDelegate, ECSSelectExpertTableViewCellDelegate>
+{
+	 NSArray *array1;
+	 NSArray *array2;
+	 NSArray *array3;
+	 NSArray *array4;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -38,6 +44,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	 CGRect rect = [UIScreen mainScreen].bounds;
+	 NSLog(@"%f %f",rect.size.width,rect.size.height);
     self.experts = self.actionType.configuration[@"experts"];
     
     self.tableView.delegate = self;
@@ -56,7 +64,12 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     UINib *featuredNib = [UINib nibWithNibName:[[ECSSelectExpertTableViewCell class] description]
                                         bundle:[NSBundle bundleForClass:[ECSSelectExpertTableViewCell class]]];
     [self.tableView registerNib:featuredNib forCellReuseIdentifier:ECSExpertCellId];
-    
+	 
+	 array1 = [[NSArray alloc] initWithObjects:@"M.Yasar arafath",@"Ganesh Babu",@"Praburam", nil];
+	 array2 = [[NSArray alloc] initWithObjects:@"America",@"United Kingdom",@"Chennai", nil];
+	 array3 = [[NSArray alloc] initWithObjects:@"cellForRowAtIndexPath",@"objectForClass",@"experts", nil];
+	 array4 = [[NSArray alloc] initWithObjects:@"Information Technology",@"Chemistry",@"Biology", nil];
+
     if(self.experts == nil) {
         __weak typeof(self) weakSelf = self;
         
@@ -97,7 +110,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.experts.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,10 +119,17 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
     [featuredCell setSelectExpertCellDelegate:self];
     [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
-    if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
-    if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
-    if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
-    if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
+	
+	 featuredCell.name.text = [array1 objectAtIndex:indexPath.row];
+	 featuredCell.region.text = [array2 objectAtIndex:indexPath.row];
+	 featuredCell.expertiese.text = [array3 objectAtIndex:indexPath.row];
+	 featuredCell.interests.text = [array4 objectAtIndex:indexPath.row];
+	 
+//    if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
+//    if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
+//    if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
+//    if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
+	 NSLog(@"%@",self.actionType.type);
     [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
     
     return featuredCell;
@@ -149,8 +169,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath; {
-    return 208.0;
+    return 250.0;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//	 return UITableViewAutomaticDimension;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

@@ -29,6 +29,22 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *callBackCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoButtonCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatButtonCenterY;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *leading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailing;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *top;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottom;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *height;
+@property (weak, nonatomic) IBOutlet UIView *messageView;
+
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+
+@property (strong, nonatomic) IBOutlet UIView *firstLineView;
+
+
+@property (weak, nonatomic) IBOutlet UIView *nameView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @property (nonatomic, strong) NSDictionary *expert;
 @end
@@ -57,7 +73,89 @@
     self.interests.textColor = theme.secondaryTextColor;
     
     [self configureButtons];
-    
+	 
+	 [self.chatButton setBackgroundColor:theme.buttonColor];
+	 [self.videoChatButton setBackgroundColor:theme.buttonColor];
+	 [self.voiceChatButton setBackgroundColor:theme.buttonColor];
+	 [self.callBackButton setBackgroundColor:theme.buttonColor];
+	 
+	 [self.chatButton setTitleColor:theme.buttonTextColor forState:UIControlStateNormal];
+	 [self.videoChatButton setTitleColor:theme.buttonTextColor forState:UIControlStateNormal];
+	 [self.voiceChatButton setTitleColor:theme.buttonTextColor forState:UIControlStateNormal];
+	 [self.callBackButton setTitleColor:theme.buttonTextColor forState:UIControlStateNormal];
+	 
+	 self.chatButton.titleLabel.font = theme.buttonFont;
+	 self.videoChatButton.titleLabel.font = theme.buttonFont;
+	 self.voiceChatButton.titleLabel.font = theme.buttonFont;
+	 self.callBackButton .titleLabel.font = theme.buttonFont;
+	 
+	 self.imageViewHeightConstraint.constant = 0.0f;
+	 
+//	 [self configureConstraints];
+}
+
+- (void)configureConstraints
+{
+	 
+	 [self.containerView removeConstraint:self.leading];
+//	 [self.containerView removeConstraint:self.trailing];
+	 [self.containerView removeConstraint:self.top];
+	 [self.containerView removeConstraint:self.bottom];
+//	 [self.containerView removeConstraint:self.height];
+
+
+	 [self.nameView setBackgroundColor:[UIColor redColor]];
+	 [self.messageView setBackgroundColor:[UIColor grayColor]];
+	 
+	 
+
+	 self.leading = [NSLayoutConstraint constraintWithItem:self.firstLineView
+												  attribute:NSLayoutAttributeLeading
+												  relatedBy:NSLayoutRelationEqual
+													 toItem:self.nameView
+												  attribute:NSLayoutAttributeTrailing
+												 multiplier:1.0f
+												   constant:0.0f];
+	 
+//	 self.trailing = [NSLayoutConstraint constraintWithItem:self.firstLineView
+//															  attribute:NSLayoutAttributeTrailing
+//															  relatedBy:NSLayoutRelationEqual
+//																 toItem:self.messageView
+//															  attribute:NSLayoutAttributeTrailing
+//															 multiplier:1.0f
+//															   constant:5.0f];
+
+//	 self.height = [NSLayoutConstraint constraintWithItem:self.messageView
+//												attribute:NSLayoutAttributeHeight
+//												relatedBy:NSLayoutRelationEqual
+//												   toItem:self.containerView
+//												attribute:NSLayoutAttributeHeight
+//											   multiplier:1.0f
+//												 constant:87.0f];
+
+	self.top = [NSLayoutConstraint constraintWithItem:self.messageView
+															attribute:NSLayoutAttributeTop
+															relatedBy:NSLayoutRelationEqual
+															   toItem:self.containerView
+															attribute:NSLayoutAttributeTop
+														   multiplier:1.0f
+															 constant:16.0f];
+
+//	 self.bottom = [NSLayoutConstraint constraintWithItem:self.messageView
+//											 attribute:NSLayoutAttributeBottom
+//											 relatedBy:NSLayoutRelationEqual
+//												toItem:self.containerView
+//											 attribute:NSLayoutAttributeBottom
+//											multiplier:1.0f
+//											  constant:160.0f];
+//	 
+
+	 [self.containerView addConstraint:self.leading];
+//	 [self.containerView addConstraint:self.trailing];
+	 [self.containerView addConstraint:self.top];
+//	 [self.containerView addConstraint:self.bottom];
+//	 [self.containerView addConstraint:self.height];
+	 
 }
 
 - (void)layoutSubviews
@@ -79,7 +177,7 @@
 - (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert {
     self.expert = expert;
     if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
-        [self displayOnlyChatActionButton];
+		 [self displayAllActionButtons];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
         [self displayOnlyVideoChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){
