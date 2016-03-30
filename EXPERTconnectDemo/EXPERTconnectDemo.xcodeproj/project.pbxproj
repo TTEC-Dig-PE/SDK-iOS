@@ -27,8 +27,6 @@
 		033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB4E1A602CC00024F48F /* ECDMainMenuTableViewCell.xib */; };
 		033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB511A602CC00024F48F /* ECDDefaultTheme.m */; };
 		0368D77D1B3AEADC00985673 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0368D77A1B3AEAD800985673 /* Localizable.strings */; };
-		038C9D8F1AC34003006B04CD /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; };
-		038C9D901AC34033006B04CD /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03978F0D1A602B2D007793D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
 		03978F101A602B2D007793D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0F1A602B2D007793D6 /* AppDelegate.m */; };
 		03978F181A602B2D007793D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03978F171A602B2D007793D6 /* Images.xcassets */; };
@@ -83,6 +81,8 @@
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
+		C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; };
+		C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -183,7 +183,6 @@
 		D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */; };
 		D8CEBEB11B55690C0053E9A0 /* HZResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */; };
 		D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
-		D8CEBEB51B55690C0053E9A0 /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; };
 		D8CEBEB71B55690C0053E9A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0368D77A1B3AEAD800985673 /* Localizable.strings */; };
 		D8CEBEB81B55690C0053E9A0 /* ECDDefaultTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = 0301CBFB1B0626900068A0E1 /* ECDDefaultTheme.css */; };
 		D8CEBEB91B55690C0053E9A0 /* HZMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDFF1B546DC20053E9A0 /* HZMainScreenViewController.xib */; };
@@ -216,7 +215,6 @@
 		D8CEBED51B55690C0053E9A0 /* HZRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0B1B546DC20053E9A0 /* HZRootViewController.xib */; };
 		D8CEBED61B55690C0053E9A0 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */; };
 		D8CEBED71B55690C0053E9A0 /* HZExpertConnectSDKTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */; };
-		D8CEBED91B55690C0053E9A0 /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA731B66A2EC00DA1762 /* libc++.dylib */; };
 		D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */; };
 		D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
@@ -260,6 +258,20 @@
 			remoteGlobalIDString = 03978F061A602B2D007793D6;
 			remoteInfo = EXPERTconnectDemo;
 		};
+		C47F52DB1CAC90770098A0BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 494DD9571B0EB677009C134E;
+			remoteInfo = AirshipKit;
+		};
+		C47F52DF1CAC90900098A0BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 494DD9561B0EB677009C134E;
+			remoteInfo = AirshipKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -269,7 +281,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				038C9D901AC34033006B04CD /* AirshipKit.framework in Embed Frameworks */,
+				C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */,
 				C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -281,7 +293,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D8CEBED91B55690C0053E9A0 /* AirshipKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,7 +332,6 @@
 		0368D7791B3AEAD800985673 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0368D77B1B3AEADB00985673 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0368D77C1B3AEADC00985673 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		038C9D8E1AC34003006B04CD /* AirshipKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AirshipKit.framework; path = "ThirdParty/libUAirship-latest/Airship/AirshipKit.framework"; sourceTree = SOURCE_ROOT; };
 		03978F071A602B2D007793D6 /* EXPERTconnectDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EXPERTconnectDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03978F0B1A602B2D007793D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03978F0C1A602B2D007793D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -394,6 +404,7 @@
 		C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDPersonasViewController.h; sourceTree = "<group>"; };
 		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
+		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -525,13 +536,13 @@
 				D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */,
 				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
+				C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */,
 				D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */,
 				D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */,
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
 				D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */,
 				3602ADF313F6EAAD4631A592 /* libPods.a in Frameworks */,
-				038C9D8F1AC34003006B04CD /* AirshipKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,7 +594,6 @@
 				D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */,
 				D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */,
 				D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */,
-				D8CEBEB51B55690C0053E9A0 /* AirshipKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +607,6 @@
 				D81614EB1B7916D7005BD20E /* libxml2.dylib */,
 				D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */,
 				D81612F01B6AB607005BD20E /* libicucore.dylib */,
-				038C9D8E1AC34003006B04CD /* AirshipKit.framework */,
 				D81614E91B79169B005BD20E /* CoreAudio.framework */,
 				D81612F21B6AB60D005BD20E /* GLKit.framework */,
 				D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */,
@@ -754,6 +763,7 @@
 		03978EFE1A602B2D007793D6 = {
 			isa = PBXGroup;
 			children = (
+				C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */,
 				C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */,
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
@@ -863,6 +873,14 @@
 			name = Proof_of_Concept;
 			sourceTree = "<group>";
 		};
+		C47F52D81CAC90770098A0BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C47F52DC1CAC90770098A0BC /* AirshipKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C4D0E5221C74B7C60032925F /* Picker Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,6 +984,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C47F52E01CAC90900098A0BC /* PBXTargetDependency */,
 			);
 			name = EXPERTconnectDemo;
 			productName = EXPERTconnectDemo;
@@ -1053,6 +1072,12 @@
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C47F52D81CAC90770098A0BC /* Products */;
+					ProjectRef = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				03978F061A602B2D007793D6 /* EXPERTconnectDemo */,
@@ -1061,6 +1086,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C47F52DC1CAC90770098A0BC /* AirshipKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AirshipKit.framework;
+			remoteRef = C47F52DB1CAC90770098A0BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03978F051A602B2D007793D6 /* Resources */ = {
@@ -1372,6 +1407,11 @@
 			target = 03978F061A602B2D007793D6 /* EXPERTconnectDemo */;
 			targetProxy = 03978F211A602B2D007793D6 /* PBXContainerItemProxy */;
 		};
+		C47F52E01CAC90900098A0BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AirshipKit;
+			targetProxy = C47F52DF1CAC90900098A0BC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1497,7 +1537,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
-					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
 				LD_NO_PIE = YES;
@@ -1531,7 +1570,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
-					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
 				LD_NO_PIE = YES;

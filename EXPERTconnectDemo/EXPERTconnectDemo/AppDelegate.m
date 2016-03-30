@@ -197,7 +197,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // etc.
     
     // Call takeOff (which creates the UAirship singleton)
-    /*[UAirship takeOff:config];
+    [UAirship takeOff:config];
     
     NSNumber *pushEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:ECDPushNotificationsEnabledKey];
     
@@ -205,19 +205,19 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     {
         [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:ECDPushNotificationsEnabledKey];
         
-        [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
+        [UAirship push].userNotificationTypes = (UIUserNotificationTypeAlert |
                                                  UIUserNotificationTypeBadge |
                                                  UIUserNotificationTypeSound);
-        [UAPush shared].userPushNotificationsEnabled = YES;
+        [UAirship push].userPushNotificationsEnabled = YES;
     }
     else
     {
-        [UAPush shared].userPushNotificationsEnabled = NO;
+        [UAirship push].userPushNotificationsEnabled = NO;
     }
     
-    [[UAPush shared] resetBadge];
+    [[UAirship push] resetBadge];
     
-    NSLog(@"Urban Airship Channel ID=%@",[UAPush shared].channelID);*/
+    NSLog(@"Urban Airship Channel ID=%@",[UAirship push].channelID);
 }
 
 - (void)reportBug {
