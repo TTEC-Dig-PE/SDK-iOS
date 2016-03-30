@@ -81,6 +81,8 @@
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
+		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
+		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -107,8 +109,6 @@
 		D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
 		D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA791B66A30D00DA1762 /* libz.dylib */; };
 		D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */; };
-		D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7C1B66A36F00DA1762 /* AddressBook.framework */; };
-		D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7D1B66A36F00DA1762 /* AddressBookUI.framework */; };
 		D87F2F601B6835A400B7B9D5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7E1B66A36F00DA1762 /* AssetsLibrary.framework */; };
 		D87F2F611B6835A400B7B9D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7F1B66A36F00DA1762 /* AudioToolbox.framework */; };
 		D87F2F621B6835A400B7B9D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA801B66A36F00DA1762 /* AVFoundation.framework */; };
@@ -182,7 +182,6 @@
 		D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
 		D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */; };
 		D8CEBEB11B55690C0053E9A0 /* HZResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */; };
-		D8CEBEB31B55690C0053E9A0 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */; };
 		D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
 		D8CEBEB51B55690C0053E9A0 /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; };
 		D8CEBEB71B55690C0053E9A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0368D77A1B3AEAD800985673 /* Localizable.strings */; };
@@ -218,14 +217,11 @@
 		D8CEBED61B55690C0053E9A0 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */; };
 		D8CEBED71B55690C0053E9A0 /* HZExpertConnectSDKTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */; };
 		D8CEBED91B55690C0053E9A0 /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 038C9D8E1AC34003006B04CD /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8CEBEDA1B55690C0053E9A0 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA731B66A2EC00DA1762 /* libc++.dylib */; };
 		D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */; };
 		D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
 		D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA791B66A30D00DA1762 /* libz.dylib */; };
 		D8D3AA981B66A36F00DA1762 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */; };
-		D8D3AA991B66A36F00DA1762 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7C1B66A36F00DA1762 /* AddressBook.framework */; };
-		D8D3AA9A1B66A36F00DA1762 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7D1B66A36F00DA1762 /* AddressBookUI.framework */; };
 		D8D3AA9B1B66A36F00DA1762 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7E1B66A36F00DA1762 /* AssetsLibrary.framework */; };
 		D8D3AA9C1B66A36F00DA1762 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7F1B66A36F00DA1762 /* AudioToolbox.framework */; };
 		D8D3AA9D1B66A36F00DA1762 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA801B66A36F00DA1762 /* AVFoundation.framework */; };
@@ -286,7 +282,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D8CEBED91B55690C0053E9A0 /* AirshipKit.framework in Embed Frameworks */,
-				D8CEBEDA1B55690C0053E9A0 /* EXPERTconnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,7 +294,6 @@
 		0301CBFE1B0634C50068A0E1 /* ECDLicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDLicenseViewController.m; sourceTree = "<group>"; };
 		0301CBFF1B0634C50068A0E1 /* ECDLicenseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDLicenseViewController.xib; sourceTree = "<group>"; };
 		0301CC021B063C880068A0E1 /* ECDLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ECDLicenses.txt; sourceTree = "<group>"; };
-		03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../../artifacts/EXPERTconnect.framework; sourceTree = SOURCE_ROOT; };
 		03243FDA1A656FB300A4CE6D /* ECDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDNavigationController.h; sourceTree = "<group>"; };
 		03243FDB1A656FB300A4CE6D /* ECDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDNavigationController.m; sourceTree = "<group>"; };
 		033A39861AD579FC006B34B2 /* ECDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDLoginViewController.h; sourceTree = "<group>"; };
@@ -397,6 +391,9 @@
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
 		C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleAnswerEngineController.m; path = Proof_of_Concept/ECDSimpleAnswerEngineController.m; sourceTree = "<group>"; };
+		C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDPersonasViewController.h; sourceTree = "<group>"; };
+		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
+		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -410,7 +407,6 @@
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		D81612F41B6AB620005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
 		D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D81614E91B79169B005BD20E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		D81614EB1B7916D7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -453,7 +449,6 @@
 		D8CEBE5E1B546EC10053E9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8CEBE5F1B546EC10053E9A0 /* HorizonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HorizonTests.m; sourceTree = "<group>"; };
 		D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
-		D8CEBE971B5567C90053E9A0 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "/Users/nathan/Desktop/Workspaces/SDK-iOS/Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<absolute>"; };
 		D8CEBEE01B55690C0053E9A0 /* Horizon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Horizon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8D3AA731B66A2EC00DA1762 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
@@ -511,8 +506,6 @@
 				D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */,
 				C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */,
 				D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */,
-				D87F2F5E1B6835A400B7B9D5 /* AddressBook.framework in Frameworks */,
-				D87F2F5F1B6835A400B7B9D5 /* AddressBookUI.framework in Frameworks */,
 				D87F2F601B6835A400B7B9D5 /* AssetsLibrary.framework in Frameworks */,
 				D87F2F611B6835A400B7B9D5 /* AudioToolbox.framework in Frameworks */,
 				D87F2F621B6835A400B7B9D5 /* AVFoundation.framework in Frameworks */,
@@ -563,8 +556,6 @@
 				D81614EE1B7917AF005BD20E /* libxml2.dylib in Frameworks */,
 				D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */,
 				D8D3AA981B66A36F00DA1762 /* Accelerate.framework in Frameworks */,
-				D8D3AA991B66A36F00DA1762 /* AddressBook.framework in Frameworks */,
-				D8D3AA9A1B66A36F00DA1762 /* AddressBookUI.framework in Frameworks */,
 				D8D3AA9B1B66A36F00DA1762 /* AssetsLibrary.framework in Frameworks */,
 				D8D3AA9C1B66A36F00DA1762 /* AudioToolbox.framework in Frameworks */,
 				D8D3AA9D1B66A36F00DA1762 /* AVFoundation.framework in Frameworks */,
@@ -591,7 +582,6 @@
 				D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */,
 				D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */,
 				D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */,
-				D8CEBEB31B55690C0053E9A0 /* EXPERTconnect.framework in Frameworks */,
 				D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */,
 				D8CEBEB51B55690C0053E9A0 /* AirshipKit.framework in Frameworks */,
 			);
@@ -605,11 +595,11 @@
 			children = (
 				D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */,
 				D81614EB1B7916D7005BD20E /* libxml2.dylib */,
-				D81614E91B79169B005BD20E /* CoreAudio.framework */,
 				D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */,
-				D81612F41B6AB620005BD20E /* ACBClientSDK.framework */,
-				D81612F21B6AB60D005BD20E /* GLKit.framework */,
 				D81612F01B6AB607005BD20E /* libicucore.dylib */,
+				038C9D8E1AC34003006B04CD /* AirshipKit.framework */,
+				D81614E91B79169B005BD20E /* CoreAudio.framework */,
+				D81612F21B6AB60D005BD20E /* GLKit.framework */,
 				D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */,
 				D8D3AA7C1B66A36F00DA1762 /* AddressBook.framework */,
 				D8D3AA7D1B66A36F00DA1762 /* AddressBookUI.framework */,
@@ -643,9 +633,6 @@
 				D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */,
 				D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */,
 				D8D3AA731B66A2EC00DA1762 /* libc++.dylib */,
-				D8CEBE971B5567C90053E9A0 /* libPods.a */,
-				038C9D8E1AC34003006B04CD /* AirshipKit.framework */,
-				03243FD61A655C0A00A4CE6D /* EXPERTconnect.framework */,
 				E51DEB25660943D05680D79A /* libPods.a */,
 			);
 			path = Frameworks;
@@ -655,6 +642,9 @@
 			isa = PBXGroup;
 			children = (
 				C4D0E5221C74B7C60032925F /* Picker Views */,
+				C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */,
+				C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */,
+				C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */,
 				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
 				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
 				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
@@ -1093,6 +1083,7 @@
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
 				462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */,
+				C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */,
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */,
@@ -1282,6 +1273,7 @@
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
 				462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */,
+				C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */,
 				03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */,
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,

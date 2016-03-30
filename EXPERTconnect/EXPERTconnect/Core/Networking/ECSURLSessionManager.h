@@ -16,12 +16,14 @@
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
-@class ECSAgentAvailableResponse;
+
+@class ECSSkillDetail;
+@class ECSExpertDetail; 
+
 @class ECSStartJourneyResponse;
 @class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
-@class ECSSelectExpertsResponse;
 @class ECSForm;
 @class ECSHistoryList;
 @class ECSHistoryResponse;
@@ -220,7 +222,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  Get list of experts
  
  @param Dictionary of values that may be used to more accurately select experts
- @param Completion block (returns ECSSelectExpertsResponse object)
+ @param Completion block (returns object)
  
  @return the data task for the select experts call
  */
@@ -412,7 +414,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  @return (completion block) ECSAgentAvailableResponse object
  */
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 /**
  Get details for a particular call or chat skill

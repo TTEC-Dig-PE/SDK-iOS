@@ -12,6 +12,7 @@
 #import "ECSTheme.h"
 #import "ECSInjector.h"
 #import "ECSActionType.h"
+#import "ECSExpertDetail.h"
 
 @interface ECSSelectExpertTableViewCell ()
 
@@ -30,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoButtonCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatButtonCenterY;
 
-@property (nonatomic, strong) NSDictionary *expert;
+@property (nonatomic, strong) ECSExpertDetail *expert;
 @end
 
 @implementation ECSSelectExpertTableViewCell
@@ -76,7 +77,8 @@
     [self.callBackButton.layer setCornerRadius:3.0];
 }
 
-- (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert {
+- (void)configureCellForActionType:(NSString *)actionType withExpert:(ECSExpertDetail *)expert {
+    
     self.expert = expert;
     if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
         [self displayOnlyChatActionButton];

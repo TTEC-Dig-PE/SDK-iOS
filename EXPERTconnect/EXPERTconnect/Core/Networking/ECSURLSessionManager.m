@@ -24,10 +24,8 @@
 #import "ECSConfiguration.h"
 #import "ECSConversationCreateResponse.h"
 #import "ECSStartJourneyResponse.h"
-#import "ECSAgentAvailableResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
-#import "ECSSelectExpertsResponse.h"
 #import "ECSUserProfile.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
@@ -43,6 +41,9 @@
 #import "ECSActionTypeClassTransformer.h"
 #import "ECSNavigationContext.h"
 #import "ECSUserManager.h"
+
+#import "ECSSkillDetail.h"
+#import "ECSExpertDetail.h"
 
 NSString *const ECSReachabilityChangedNotification = @"ECSNetworkReachabilityChangedNotification";
 
@@ -237,7 +238,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 - (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
-                                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
     return [self POST:@"decision/v1/makeDecision"
           parameters:decisionJson
@@ -497,7 +498,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  
  @param Mode to select experts. Values: selectExpertChat | selectExpertVoiceCallback | selectExpertVoiceChat | selectExpertVideo | selectExpertAndChannel
  @param Dictionary of values that may be used to more accurately select experts
- @param Completion block (returns ECSSelectExpertsResponse object)
+ @param Completion block (returns object)
  
  @return the data task for the select experts call
  */
@@ -837,13 +838,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 # pragma mark Utility Functions
 
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
     return [self GET:@"/experts/v1/skills"
            parameters:parameters
-              success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }
 
@@ -852,7 +853,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     return [self GET:[NSString stringWithFormat:@"/experts/v1/skills/%@", skill]
           parameters:nil
-             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
 
@@ -1387,7 +1388,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:userInfo];
+            retError = [NSError errorWithDomain:@"com.humanify"
+                                           code:((NSHTTPURLResponse*)response).statusCode
+                                       userInfo:userInfo];
         }
         
         // Only return if we are not trying to reauthenticate with the API.

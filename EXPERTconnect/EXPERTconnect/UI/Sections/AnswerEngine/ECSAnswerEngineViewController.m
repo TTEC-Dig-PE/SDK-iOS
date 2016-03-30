@@ -330,14 +330,27 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     if (error) {
         // Error processing request.
         NSLog(@"Answer Engine Error - %@", error);
-        self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
+        
+        NSString *title;
+        NSString *message;
+        
         self.invalidResponseCount++;
         [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         
-        NSString *title = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle,
-                                             @"Answer not found title");
-        NSString *message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,
-                                               @"Answer not found message");
+        if (error.code == 500)
+        {
+            // Some kind of internal error.
+            self.htmlString = error.localizedDescription;
+            title = ECSLocalizedString(ECSLocalizeErrorKey, @"Error");
+            message = ECSLocalizedString(ECSLocalizeErrorText, @"We are unable to complete your request. Please try again later.");
+        }
+        else
+        {
+            self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"Answer not found message");
+            title = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle, @"Answer not found title");
+            message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"Answer not found message");
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil

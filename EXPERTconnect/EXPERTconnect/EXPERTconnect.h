@@ -25,7 +25,10 @@
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
 #import <EXPERTconnect/ECSStartJourneyResponse.h>
-#import <EXPERTconnect/ECSAgentAvailableResponse.h>
+
+#import <EXPERTconnect/ECSSkillDetail.h>
+#import <EXPERTconnect/ECSExpertDetail.h>
+
 #import <EXPERTconnect/ECSJSONSerializer.h>
 #import <EXPERTconnect/ECSNavigationActionType.h>
 #import <EXPERTconnect/ECSNavigationContext.h>
@@ -339,7 +342,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  Get details for a skill - such as agent availability, etc.
  */
 - (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion;
+                 completion:(void(^)(ECSSkillDetail *details, NSError *error))completion;
 
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had

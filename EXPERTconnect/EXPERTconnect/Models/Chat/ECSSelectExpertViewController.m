@@ -8,7 +8,7 @@
 
 #import "ECSSelectExpertViewController.h"
 #import "ECSFeaturedTableViewCell.h"
-#import "ECSSelectExpertsResponse.h"
+#import "ECSExpertDetail.h"
 
 #import "ECSSelectExpertTableViewCell.h"
 
@@ -65,14 +65,15 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         
         // Attempt to fetch list of available experts from server
         [urlSession getExpertsWithInteractionItems:nil
-                                        completion:^(NSArray *expertArray, NSError *error) {
+                                        completion:^(NSArray *responseArray, NSError *error) {
                                             
             [weakSelf setLoadingIndicatorVisible:NO];
                                             
             if (!error) {
                 
                 // Reload the table with new data from response
-                weakSelf.experts = expertArray;
+                NSArray *expertsArray = [ECSJSONSerializer arrayFromJSONArray:responseArray withClass:[ECSExpertDetail class]];
+                weakSelf.experts = expertsArray;
                 [weakSelf.tableView reloadData];
                 
             } else {
@@ -107,14 +108,20 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
+    ECSExpertDetail *expert = [self.experts objectAtIndex:indexPath.row];
     ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
     [featuredCell setSelectExpertCellDelegate:self];
-    [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
-    if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
-    if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
-    if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
-    if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
+    [featuredCell.profileImage setImageWithPath:expert.pictureURL];
+    
+    if(!(expert.fullName == (id)[NSNull null])) [featuredCell.name setText:expert.fullName];
+    //if(!(expert.region == (id)[NSNull null]))   [featuredCell.region setText:expert.region];
+    //if(!(expert.expertise == (id)[NSNull null])) [featuredCell.expertise setText:expert.expertise];
+    //if(!(expert.interests == (id)[NSNull null])) [featuredCell.interests setText:expert.interests];
+    
+    //if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
+    //if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
+    //if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
+    //if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
     [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
     
     return featuredCell;
@@ -122,11 +129,11 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *expert = self.experts[indexPath.row];
+    //ECSExpertDetail *expert = self.experts[indexPath.row];
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    //actionType.agentId = expert.agentId;
+    //actionType.agentSkill = expert.agentSkill;
     
      //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
     
@@ -171,11 +178,11 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 #pragma mark - ECSSelectExpertTableViewCellDelegate Methods
 
-- (void)didSelectChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    //actionType.agentId = expert[@"agentId"];
+    //actionType.agentSkill = expert[@"agentSkill"];
     
     /**
      DEBUG CODE: BEGINS
@@ -194,7 +201,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)didSelectVideoChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectVideoChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -204,8 +211,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    //actionType.agentId = expert[@"agentId"];
+    //actionType.agentSkill = expert[@"agentSkill"];
     actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     
@@ -222,7 +229,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)didSelectVoiceChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectVoiceChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -232,8 +239,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    //actionType.agentId = expert[@"agentId"];
+    //actionType.agentSkill = expert[@"agentSkill"];
     actionType.cafexmode = @"voiceauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     

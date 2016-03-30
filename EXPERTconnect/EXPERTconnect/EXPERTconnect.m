@@ -662,15 +662,24 @@ NSTimer *breadcrumbTimer;
 }
 
 - (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+                 completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
 {
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager getDetailsForSkill:skill
                             completion:^(NSDictionary *response, NSError *error)
     {
-        NSLog(@"Got details for skill: %@", skill);
-        completion( response, error );
+        if(!error) {
+            NSArray *dataArray = [response objectForKey:@"data"];
+            NSArray *skillsArray = [ECSJSONSerializer arrayFromJSONArray:dataArray withClass:[ECSSkillDetail class]];
+            ECSSkillDetail *skillDetails = skillsArray[0];
+
+            NSLog(@"Result = %@", skillDetails);
+            
+            completion( skillDetails, error );
+        } else {
+            completion( nil, error ); 
+        }
     }];
 }
 

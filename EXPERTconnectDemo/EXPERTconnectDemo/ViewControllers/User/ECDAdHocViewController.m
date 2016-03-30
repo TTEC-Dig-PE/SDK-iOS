@@ -981,12 +981,17 @@ int estimatedWait;
 
 - (void)chatInfoUpdated:(NSNotification *)notification
 {
-    NSDictionary *chatSkillStatus = notification.userInfo;
-    if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
+    ECSSkillDetail *skill = [notification.userInfo objectForKey:@"skillDetail"];
+    
+    agentsLoggedOn = skill.chatReady;
+    agentAvailable = (skill.active && skill.chatReady>0 && skill.queueOpen);
+    estimatedWait = skill.estWait;
+    
+    /*if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
         agentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
         agentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
         estimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
-    }
+    }*/
     [self.tableView reloadData];
 }
 

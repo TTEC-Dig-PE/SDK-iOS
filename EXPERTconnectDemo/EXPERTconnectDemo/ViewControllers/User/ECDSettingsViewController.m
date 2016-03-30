@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     self.tableView.sectionFooterHeight = 0.0f;
 
     self.pushNotificationSwitch = [UISwitch new];
-    self.pushNotificationSwitch.on = [[UAPush shared] userPushNotificationsEnabled];
+    //self.pushNotificationSwitch.on = [[UAPush shared] userPushNotificationsEnabled];
     [self.pushNotificationSwitch addTarget:self
                                     action:@selector(pushNotificationSwitchChanged:)
                           forControlEvents:UIControlEventValueChanged];
@@ -517,7 +517,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (void)pushNotificationSwitchChanged:(id)sender
 {
-    [[UAPush shared] setUserPushNotificationsEnabled:self.pushNotificationSwitch.on];
+    //[[UAPush shared] setUserPushNotificationsEnabled:self.pushNotificationSwitch.on];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.pushNotificationSwitch.on) forKey:ECDPushNotificationsEnabledKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

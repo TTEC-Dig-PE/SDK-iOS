@@ -219,4 +219,58 @@
     }];
 }
 
+- (void)testGetDetailsForSkill {
+    
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+    
+    NSString *skillName = @"CE_Mobile_Chat";
+    
+    [[EXPERTconnect shared] getDetailsForSkill:skillName
+                                    completion:^(ECSSkillDetail *details, NSError *error)
+    {
+        NSLog(@"Details: %@", details);
+        
+        XCTAssert(details.description.length>0, @"Missing description text.");
+        XCTAssert(details.active == 1 || details.active == 0, @"Active must be 1 or 0");
+        XCTAssert([details.skillName containsString:skillName], @"Missing skill name");
+        XCTAssertGreaterThanOrEqual(details.estWait, -1, @"Bad estimated wait value");
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
+- (void)testSelectExperts {
+    
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    
+    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+    
+    [session getExpertsWithInteractionItems:nil
+                                 completion:^(NSArray *experts, NSError *error)
+    {
+        NSLog(@"Experts Array: %@", experts);
+        XCTAssert(experts.count>0,@"No experts returned.");
+        NSArray *expertsArray = [ECSJSONSerializer arrayFromJSONArray:experts withClass:[ECSExpertDetail class]];
+        ECSExpertDetail *expert1 = expertsArray[0];
+        XCTAssert(expert1.status.length>0,@"No status found.");
+        XCTAssert(expert1.chatsToRejectVoice == YES || expert1.chatsToRejectVoice == NO,@"chatToRejectVoice invalid value.");
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
 @end

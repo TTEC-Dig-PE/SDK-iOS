@@ -14,6 +14,7 @@
 #import "ECDAdHocViewController.h"
 #import "ECDWorkflowViewController.h"
 #import "ECDLocalization.h"
+#import "ECDPersonasViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
@@ -170,7 +171,8 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         UIViewController *actionViewController = nil;
         if ([item.type isEqualToString:@"landing"])
         {
-            actionViewController = [[EXPERTconnect shared] landingViewController];
+            //actionViewController = [[EXPERTconnect shared] landingViewController];
+            actionViewController = [[ECDPersonasViewController alloc] initWithNibName:nil bundle:nil];
         }
         else
         if ([item.type isEqualToString:@"settings"])
