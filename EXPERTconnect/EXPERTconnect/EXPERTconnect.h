@@ -337,10 +337,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion;
-
+/**
+ Get details for a skill - such as agent availability, etc.
+ */
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion;
 

@@ -15,15 +15,15 @@
 - (NSDictionary*)ECSJSONMapping
 {
     return @{
-             @"action": @"action"
+             @"experts": @"experts"
              };
 }
 
-- (NSDictionary*)ECSJSONTransformMapping
+/*- (NSDictionary*)ECSJSONTransformMapping
 {
     return @{
-             @"action": [ECSActionTypeClassTransformer class],
+             @"experts": [ECSActionTypeClassTransformer class],
              };
-}
+}*/
 
 @end

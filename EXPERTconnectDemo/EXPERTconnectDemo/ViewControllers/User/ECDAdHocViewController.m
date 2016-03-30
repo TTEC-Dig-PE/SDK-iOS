@@ -321,16 +321,53 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 // Delegate method from the CLLocationManagerDelegate protocol.
 - (void)locationManager:(CLLocationManager *)manager
-	 didUpdateLocations:(NSArray *)locations {
-	 
-	 // If it's a relatively recent event, turn off updates to save power.
-	 CLLocation* location = [locations lastObject];
-	 NSDate* eventDate = location.timestamp;
-	 NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-	 if (fabs(howRecent) < 15.0) {
-		  // If the event is recent, do something with it.
-		  currentLocation = location;
-	 }
+     didUpdateLocations:(NSArray *)locations {
+    
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (fabs(howRecent) < 15.0) {
+        // If the event is recent, do something with it.
+        currentLocation = location;
+        
+        //[self getLocationAddress:currentLocation];
+    }
+}
+
+-(void) getLocationAddress:(CLLocation *)location {
+
+    CLGeocoder *ceo = [[CLGeocoder alloc]init];
+    
+    [ceo reverseGeocodeLocation:location
+              completionHandler:^(NSArray *placemarks, NSError *error)
+    {
+                  
+        if(!error)
+        {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSLog(@"placemark %@",placemark);
+            //String to hold address
+            NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+            NSLog(@"addressDictionary %@", placemark.addressDictionary);
+
+            NSLog(@"placemark %@",placemark.region);
+            NSLog(@"placemark %@",placemark.country);  // Give Country Name
+            NSLog(@"placemark %@",placemark.locality); // Extract the city name
+            NSLog(@"location %@",placemark.name);
+            NSLog(@"location %@",placemark.ocean);
+            NSLog(@"location %@",placemark.postalCode);
+            NSLog(@"location %@",placemark.subLocality);
+
+            NSLog(@"location %@",placemark.location);
+            //Print the location to console
+            NSLog(@"I am currently at %@",locatedAt);
+        }
+        else
+        {
+            NSLog(@"Could not locate");
+        }
+    }];
 }
 
 #pragma mark TableView Construction

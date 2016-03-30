@@ -492,26 +492,26 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
-// event -
-// resultId -
-- (NSURLSessionDataTask *)getExpertsWithEvent:(NSString *)theEvent
-                                     resultId:(NSString *)theResultId
-                             interactionItems:(NSDictionary *)theInteractionItems
-                                   completion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion
+/**
+ Get list of experts
+ 
+ @param Mode to select experts. Values: selectExpertChat | selectExpertVoiceCallback | selectExpertVoiceChat | selectExpertVideo | selectExpertAndChannel
+ @param Dictionary of values that may be used to more accurately select experts
+ @param Completion block (returns ECSSelectExpertsResponse object)
+ 
+ @return the data task for the select experts call
+ */
+- (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
+                                              completion:(void (^)(NSArray *, NSError *))completion
 {
-    ECSLogVerbose(@"Get Experts matching by User");
     
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init]; //determineTreatment
-
-    NSMutableString *theURL = [NSMutableString stringWithFormat:@"decision/v1/experts/%@", theEvent];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    //[parameters setObject:theExpertMode forKey:@"expert_mode"];
+    if (theInteractionItems) [parameters addEntriesFromDictionary:theInteractionItems];
     
-    if (theInteractionItems) {
-        [parameters addEntriesFromDictionary:theInteractionItems];
-    }
-    
-    return [self POST:theURL
+    return [self GET:@"experts/v1/experts"
           parameters:parameters
-             success:[self successWithExpectedType:[ECSSelectExpertsResponse class] completion:completion]
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
 
@@ -836,12 +836,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 # pragma mark Utility Functions
 
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
-                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
+- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
+                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
     
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
-    return [self GET:@"/conversationengine/v1/skills"
+    return [self GET:@"/experts/v1/skills"
            parameters:parameters
               success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -850,7 +850,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/skills/%@", skill]
+    return [self GET:[NSString stringWithFormat:@"/experts/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -861,7 +861,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     //ECSKeychainSupport *support = [ECSKeychainSupport new];
     NSDictionary *parameters = @{};
     
-    return [self POST:@"conversationengine/v1/journeys"
+    //return [self POST:@"conversationengine/v1/journeys"
+    return [self POST:@"journeymanager/v1"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];

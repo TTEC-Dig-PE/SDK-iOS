@@ -95,17 +95,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     // Old authentication method.
     configuration.host = [myAppConfig getHostURL];
-    //configuration.clientID = [myAppConfig getClientID];
-    
-    //configuration.host = @"http://demo.humanify.com";
-    //configuration.clientID = @"horizon";
     configuration.clientSecret = @"secret123";
-    
-    // New authentication method.
-    // Note: To use new method, grab token from debug and put here. Then, comment out clientID and secret.
-    // How to get token: put debug marker on "authToken" and po it from command line.
-    //[[EXPERTconnect shared] setUserIdentityToken:@"760a0282-ac35-462e-89e8-28644c6b22c9"];
-    //[[EXPERTconnect shared] setUserIdentityToken:@"65c6af55-db6c-4fd2-a1dd-d2ffd01f6fe9"];
     
     configuration.defaultNavigationContext = @"personas";
     configuration.defaultNavigationDisplayName = ECDLocalizedString(ECDLocalizedLandingViewTitle, @"Personas");
@@ -149,7 +139,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [self setThemeFromSettings];
     
     // Setup the theme to look similar to Ford.
-    [self setupThemeLikeFord];
+    //[self setupThemeLikeFord];
     
     [[EXPERTconnect shared] setUserAvatar:[UIImage imageNamed:@"default_avatar_medium"]];
     

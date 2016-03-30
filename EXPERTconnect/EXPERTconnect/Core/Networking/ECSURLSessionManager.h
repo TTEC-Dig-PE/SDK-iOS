@@ -104,10 +104,13 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)getNavigationContextWithName:(NSString*)name
                                             completion:(void (^)(ECSNavigationContext *context, NSError *error))completion;
+
 /**
- Retrieves the Top Questions from the answer engine system.
+ Start answer engine journey (0 questions answered) and returns the top questions for given context
  
  @param num the max number of Top Questions to retrieve
+ @param answer engine context
+ @param completion block (returns array of questions)
  
  @return the data task for the answer engine call
  */
@@ -115,10 +118,26 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                  forContext:(NSString*)context
                                              withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 
+/**
+ Returns the top questions for given context
+ 
+ @param num the max number of Top Questions to retrieve
+ @param completion block (returns array of questions)
+ 
+ @return the data task for the answer engine call
+ */
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 
-// Same as above, but added @param context - answer engine context to retrieve top questions for
+/**
+ Returns the top questions for given context
+ 
+ @param num the max number of Top Questions to retrieve
+ @param answer engine context
+ @param completion block (returns array of questions)
+ 
+ @return the data task for the answer engine call
+ */
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
@@ -139,9 +158,6 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  
  @param question the question to ask
  @param answerEngineContext the context of the answer engine
- @param parentNavigator the parent navigation context
- @param actionId the action ID that defined this answer engine context.
- @param questionCount the current number of asked questions
  @param customData custom data to send with the request
  @param completion completion block called when the request is complete
  
@@ -152,6 +168,19 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                     customData:(NSDictionary *)customData
                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion;
 
+/**
+ Asks a question of the answer engine system.
+ 
+ @param question the question to ask
+ @param answerEngineContext the context of the answer engine
+ @param parentNavigator the parent navigation context
+ @param actionId the action ID that defined this answer engine context.
+ @param questionCount the current number of asked questions
+ @param customData custom data to send with the request
+ @param completion completion block called when the request is complete
+ 
+ @return the data task for the answer engine call
+ */
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
                                      inContext:(NSString*)answerEngineContext
                                parentNavigator:(NSString*)parentNavigator
@@ -187,10 +216,16 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSString *, NSError *))completion;
 
-- (NSURLSessionDataTask *)getExpertsWithEvent:(NSString *)theEvent
-                                     resultId:(NSString *)theResultId
-                             interactionItems:(NSDictionary *)theInteractionItems
-                                   completion:(void (^)(ECSSelectExpertsResponse *, NSError *))completion;
+/**
+ Get list of experts
+ 
+ @param Dictionary of values that may be used to more accurately select experts
+ @param Completion block (returns ECSSelectExpertsResponse object)
+ 
+ @return the data task for the select experts call
+ */
+- (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
+                                              completion:(void (^)(NSArray *, NSError *))completion;
 
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *formNames, NSError *error))completion;
 
@@ -206,6 +241,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion;
+
 
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                               intent:(NSString*)intent
@@ -304,20 +340,49 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                                  completion:(void (^)(NSArray *result, NSError* error))completion;
 
 
-// Send a chat message from the client
+/**
+ Send a chat message from the client (REST POST)
+ 
+ @param The message body
+ @param The FROM address
+ @param The channelID string to identify which channel to send to.
+ @param Completion block
+ 
+ @return (completion block) Response text (not currently used)
+ */
 - (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
                                     from:(NSString *)fromString
                                  channel:(NSString *)channelString
                               completion:(void(^)(NSString *response, NSError *error))completion;
 
 
-// Send a chat state update from the client.
+/**
+ Send a chat state update from the client (REST POST)
+ 
+ @param The chat state update message body
+ @param Duration of the particular state
+ @param The channelID string to identify which channel to send to.
+ @param Completion block
+ 
+ @return (completion block) Response text (not currently used)
+ */
 - (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
                               duration:(int)theDuration
                                channel:(NSString *)theChannel
                             completion:(void(^)(NSString *response, NSError *error))completion;
 
-// Send a chat notification message from the client
+/**
+ Send a chat notification update from the client (REST POST)
+ 
+ @param The FROM address
+ @param The TYPE of notification message
+ @param ???
+ @param The conversationID string to send to.
+ @param The channelID string to identify which channel to send to.
+ @param Completion block
+ 
+ @return (completion block) Response text (not currently used)
+ */
 - (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
                                              type:(NSString *)typeString
                                        objectData:(NSString *)objectDataString
@@ -325,16 +390,38 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                           channel:(NSString *)theChannel
                                        completion:(void(^)(NSString *response, NSError *error))completion;
 
+/**
+ Get details on a chat or voice callback channel (such as state=pending)
+ 
+ @param ChannelID string used to identify which channel to return
+ @param Completion block
+ 
+ @return (completion block) ECSChannelConfiguration object
+ */
 - (NSURLSessionDataTask*)getDetailsForChannelId:(NSString *)channelString
                                      completion:(void(^)(ECSChannelConfiguration *response, NSError *error))completion;
 
 #pragma mark Agent Availability
 
-// Check agent availability
-- (NSURLSessionDataTask*)agentAvailabilityWithSkills:(NSArray *)skills
-                                          completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+/**
+ Get details for a set of call or chat skills
+ 
+ @param Array of skill values to return data for
+ @param Completion block
+ 
+ @return (completion block) ECSAgentAvailableResponse object
+ */
+- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
+                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
 
-
+/**
+ Get details for a particular call or chat skill
+ 
+ @param Skill name to return data for (ex. "calls_for_mike")
+ @param Completion block
+ 
+ @return (completion block) ECSAgentAvailableResponse object
+ */
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
@@ -361,6 +448,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                completion:(void (^)(id *response, NSError* error))completion;
 
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name;
+
 - (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 
 #pragma mark - History

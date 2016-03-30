@@ -29,21 +29,19 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *callBackCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *videoButtonCenterY;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatButtonCenterY;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraints;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *leading;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailing;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *top;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottom;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *height;
-@property (weak, nonatomic) IBOutlet UIView *messageView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *firstLineLeadingConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *regionLeadingConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *buttonsLeadingConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *buttonsTrailingConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *regionTrailingConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *regionTopConstraints;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *regionBottomConstraints;
 
-@property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet UIView *secondLineView;
 
-@property (strong, nonatomic) IBOutlet UIView *firstLineView;
-
-
-@property (weak, nonatomic) IBOutlet UIView *nameView;
+@property (weak, nonatomic) IBOutlet UIView *profileView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @property (nonatomic, strong) NSDictionary *expert;
@@ -56,7 +54,7 @@
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
-    self.contentView.backgroundColor = [theme secondaryBackgroundColor];
+//    self.contentView.backgroundColor = [theme secondaryBackgroundColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.profileImage.backgroundColor = theme.primaryColor;
@@ -89,73 +87,64 @@
 	 self.voiceChatButton.titleLabel.font = theme.buttonFont;
 	 self.callBackButton .titleLabel.font = theme.buttonFont;
 	 
-	 self.imageViewHeightConstraint.constant = 0.0f;
-	 
-//	 [self configureConstraints];
+	 self.imageViewHeightConstraints.constant = 0.0f;
 }
 
 - (void)configureConstraints
 {
+	 [self.containerView removeConstraint:self.firstLineLeadingConstraints];
+	 [self.containerView removeConstraint:self.regionTrailingConstraints];
+	 [self.containerView removeConstraint:self.regionTopConstraints];
+	 [self.containerView removeConstraint:self.regionBottomConstraints];
+	 [self.containerView removeConstraint:self.regionLeadingConstraints];
+	 [self.containerView removeConstraint:self.buttonsLeadingConstraints];
+	 [self.containerView removeConstraint:self.buttonsTrailingConstraints];
 	 
-	 [self.containerView removeConstraint:self.leading];
-//	 [self.containerView removeConstraint:self.trailing];
-	 [self.containerView removeConstraint:self.top];
-	 [self.containerView removeConstraint:self.bottom];
-//	 [self.containerView removeConstraint:self.height];
-
-
-	 [self.nameView setBackgroundColor:[UIColor redColor]];
-	 [self.messageView setBackgroundColor:[UIColor grayColor]];
+	 self.firstLineLeadingConstraints = [NSLayoutConstraint constraintWithItem:self.firstLineView
+																	 attribute:NSLayoutAttributeLeading
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:self.profileView
+																	 attribute:NSLayoutAttributeTrailing
+																	multiplier:1.0f
+																	  constant:5.0f];
 	 
+	 self.regionLeadingConstraints = [NSLayoutConstraint constraintWithItem:self.regionView
+																  attribute:NSLayoutAttributeLeading
+																  relatedBy:NSLayoutRelationEqual
+																	 toItem:self.firstLineView
+																  attribute:NSLayoutAttributeTrailing
+																 multiplier:1.0f
+																   constant:12.0f];
 	 
-
-	 self.leading = [NSLayoutConstraint constraintWithItem:self.firstLineView
-												  attribute:NSLayoutAttributeLeading
-												  relatedBy:NSLayoutRelationEqual
-													 toItem:self.nameView
-												  attribute:NSLayoutAttributeTrailing
-												 multiplier:1.0f
-												   constant:0.0f];
+	 self.buttonsLeadingConstraints = [NSLayoutConstraint constraintWithItem:self.buttonsContainerView
+																   attribute:NSLayoutAttributeLeading
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:self.secondLineView
+																   attribute:NSLayoutAttributeTrailing
+																  multiplier:1.0f
+																	constant:12.0f];
 	 
-//	 self.trailing = [NSLayoutConstraint constraintWithItem:self.firstLineView
-//															  attribute:NSLayoutAttributeTrailing
-//															  relatedBy:NSLayoutRelationEqual
-//																 toItem:self.messageView
-//															  attribute:NSLayoutAttributeTrailing
-//															 multiplier:1.0f
-//															   constant:5.0f];
-
-//	 self.height = [NSLayoutConstraint constraintWithItem:self.messageView
-//												attribute:NSLayoutAttributeHeight
-//												relatedBy:NSLayoutRelationEqual
-//												   toItem:self.containerView
-//												attribute:NSLayoutAttributeHeight
-//											   multiplier:1.0f
-//												 constant:87.0f];
-
-	self.top = [NSLayoutConstraint constraintWithItem:self.messageView
-															attribute:NSLayoutAttributeTop
-															relatedBy:NSLayoutRelationEqual
-															   toItem:self.containerView
-															attribute:NSLayoutAttributeTop
-														   multiplier:1.0f
-															 constant:16.0f];
-
-//	 self.bottom = [NSLayoutConstraint constraintWithItem:self.messageView
-//											 attribute:NSLayoutAttributeBottom
-//											 relatedBy:NSLayoutRelationEqual
-//												toItem:self.containerView
-//											 attribute:NSLayoutAttributeBottom
-//											multiplier:1.0f
-//											  constant:160.0f];
-//	 
-
-	 [self.containerView addConstraint:self.leading];
-//	 [self.containerView addConstraint:self.trailing];
-	 [self.containerView addConstraint:self.top];
-//	 [self.containerView addConstraint:self.bottom];
-//	 [self.containerView addConstraint:self.height];
+	 self.buttonsTrailingConstraints = [NSLayoutConstraint constraintWithItem:self.buttonsContainerView
+																	attribute:NSLayoutAttributeTrailing
+																	relatedBy:NSLayoutRelationEqual
+																	   toItem:self.containerView
+																	attribute:NSLayoutAttributeTrailing
+																   multiplier:1.0f
+																	 constant:-12.0f];
 	 
+	 self.regionTopConstraints = [NSLayoutConstraint constraintWithItem:self.regionView
+															  attribute:NSLayoutAttributeTop
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.containerView
+															  attribute:NSLayoutAttributeTop
+															 multiplier:1.0f
+															   constant:16.0f];
+	 
+	 [self.containerView addConstraint:self.firstLineLeadingConstraints];
+	 [self.containerView addConstraint:self.regionLeadingConstraints];
+	 [self.containerView addConstraint:self.buttonsLeadingConstraints];
+	 [self.containerView addConstraint:self.buttonsTrailingConstraints];
+	 [self.containerView addConstraint:self.regionTopConstraints];
 }
 
 - (void)layoutSubviews
@@ -164,7 +153,6 @@
     self.name.preferredMaxLayoutWidth = self.name.frame.size.width;
     self.region.preferredMaxLayoutWidth = self.region.frame.size.width;
     [super layoutSubviews];
-    
 }
 
 - (void)configureButtons {
@@ -177,7 +165,7 @@
 - (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert {
     self.expert = expert;
     if ([actionType isEqualToString:ECSActionTypeSelectExpertChat]) {
-		 [self displayAllActionButtons];
+		 [self displayOnlyChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVideo]) {
         [self displayOnlyVideoChatActionButton];
     } else if ([actionType isEqualToString:ECSActionTypeSelectExpertVoiceCallback]){
@@ -195,7 +183,7 @@
 #pragma mark - Configure Methods
 
 - (void)displayOnlyChatActionButton {
-    [self.chatButtonCenterY setPriority:UILayoutPriorityRequired];
+    [self.videoButtonCenterY setPriority:UILayoutPriorityRequired];
     [self.chatButton setHidden:NO];
     [self.videoChatButton setHidden:YES];
     [self.voiceChatButton setHidden:YES];
@@ -203,7 +191,7 @@
 }
 
 - (void)displayOnlyVideoChatActionButton {
-    [self.videoButtonCenterY setPriority:UILayoutPriorityRequired];
+    [self.videoButtonCenterY setPriority:UILayoutPriorityDefaultHigh];
     [self.chatButton setHidden:YES];
     [self.videoChatButton setHidden:NO];
     [self.voiceChatButton setHidden:YES];
