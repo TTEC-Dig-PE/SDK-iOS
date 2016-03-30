@@ -62,7 +62,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 	 
 
     if(self.experts == nil) {
-		 
+        
         __weak typeof(self) weakSelf = self;
 		 [weakSelf setLoadingIndicatorVisible:YES];
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
@@ -78,12 +78,14 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
                 // Reload the table with new data from response
                 weakSelf.experts = expertArray;
                 [weakSelf.tableView reloadData];
+                
             } else {
                 
                 // Show a message to the user.
                 [weakSelf showMessageForError:error];
             }
         }];
+        
     }
 	 
     [self.tableView reloadData];
