@@ -388,6 +388,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 // configured to wait a time period or number of breadcrumbs before sending.
 - (void) breadcrumbDispatch;
 
+- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *decisionResponse, NSError *error))completion;
+
 /**
  Set the debug level.
  0 - None

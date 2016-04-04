@@ -83,6 +83,7 @@
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
 		C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; };
 		C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C47F52E41CAEBF140098A0BC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52E31CAEBF140098A0BC /* StoreKit.framework */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -132,7 +133,6 @@
 		D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */; };
 		D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */; };
 		D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA941B66A36F00DA1762 /* Security.framework */; };
-		D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA951B66A36F00DA1762 /* StoreKit.framework */; };
 		D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
 		D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
 		D88696611B556CD000C8F955 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
@@ -243,7 +243,6 @@
 		D8D3AAAF1B66A36F00DA1762 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */; };
 		D8D3AAB01B66A36F00DA1762 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */; };
 		D8D3AAB11B66A36F00DA1762 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA941B66A36F00DA1762 /* Security.framework */; };
-		D8D3AAB21B66A36F00DA1762 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA951B66A36F00DA1762 /* StoreKit.framework */; };
 		D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
 		D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
 		D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */; };
@@ -405,6 +404,7 @@
 		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
 		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
+		C47F52E31CAEBF140098A0BC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -491,7 +491,6 @@
 		D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D8D3AA941B66A36F00DA1762 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		D8D3AA951B66A36F00DA1762 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D8D3AA971B66A36F00DA1762 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D8EF94051BC32DC70068CAA0 /* ECDBugReportEmailer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDBugReportEmailer.h; sourceTree = "<group>"; };
@@ -528,6 +527,7 @@
 				D87F2F691B6835A400B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D87F2F6A1B6835A400B7B9D5 /* CoreTelephony.framework in Frameworks */,
 				D87F2F6C1B6835A400B7B9D5 /* CoreVideo.framework in Frameworks */,
+				C47F52E41CAEBF140098A0BC /* StoreKit.framework in Frameworks */,
 				D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */,
 				D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */,
 				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
@@ -537,7 +537,6 @@
 				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
 				C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */,
-				D87F2F771B6835A400B7B9D5 /* StoreKit.framework in Frameworks */,
 				D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */,
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
@@ -588,7 +587,6 @@
 				D8D3AAAF1B66A36F00DA1762 /* OpenGLES.framework in Frameworks */,
 				D8D3AAB01B66A36F00DA1762 /* QuartzCore.framework in Frameworks */,
 				D8D3AAB11B66A36F00DA1762 /* Security.framework in Frameworks */,
-				D8D3AAB21B66A36F00DA1762 /* StoreKit.framework in Frameworks */,
 				D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */,
 				D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */,
 				D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */,
@@ -603,6 +601,7 @@
 		03243FD01A65570300A4CE6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C47F52E31CAEBF140098A0BC /* StoreKit.framework */,
 				D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */,
 				D81614EB1B7916D7005BD20E /* libxml2.dylib */,
 				D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */,
@@ -635,7 +634,6 @@
 				D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */,
 				D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */,
 				D8D3AA941B66A36F00DA1762 /* Security.framework */,
-				D8D3AA951B66A36F00DA1762 /* StoreKit.framework */,
 				D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */,
 				D8D3AA971B66A36F00DA1762 /* UIKit.framework */,
 				D8D3AA791B66A30D00DA1762 /* libz.dylib */,
@@ -1045,6 +1043,9 @@
 						DevelopmentTeam = 4F2XQ7R275;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};

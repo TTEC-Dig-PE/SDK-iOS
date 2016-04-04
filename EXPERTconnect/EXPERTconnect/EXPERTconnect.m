@@ -798,23 +798,22 @@ NSTimer *breadcrumbTimer;
 
 - (void) breadcrumbDispatch
 {
+    [self breadcrumbDispatchWithCompletion:nil];
+}
+
+- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *decisionResponse, NSError *error))completion
+{
     if (storedBreadcrumbs.count < 1) return;
     [breadcrumbTimer invalidate];
     breadcrumbTimer = nil;
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager breadcrumbsAction:storedBreadcrumbs
-                           completion:^(NSDictionary *decisionResponse, NSError *error)
-    {
-        
-       if( !error )
-           NSLog(@"bcDispatch::%lu breadcrumb(s) sent.", (unsigned long)storedBreadcrumbs.count);
-       else
-           ECSLogError(@"bcDispatch::Error: %@", error.description);
-       
-       // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
-       storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
-   }];
+    NSArray *breadcrumbsToSend = [storedBreadcrumbs copy];
+    
+    [sessionManager breadcrumbsAction:breadcrumbsToSend completion:completion];
+
+    // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
+    storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
 }
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion

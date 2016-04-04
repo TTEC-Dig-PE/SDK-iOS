@@ -183,8 +183,18 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
             if ([item.type isEqualToString:@"bugreport"])
             {
                 actionViewController = nil;
+#ifdef DEBUG
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"Cannot send bug reports from simulators."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                return;
+#else
                 AppDelegate* app = [UIApplication sharedApplication].delegate;
                 [app reportBug];
+#endif
             }
         else
         if ([item.type isEqualToString:@"adhoc"])
