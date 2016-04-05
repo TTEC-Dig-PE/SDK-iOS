@@ -23,7 +23,7 @@
 
 #import "ECSWorkflowNavigation.h"
 #import "ECSBreadcrumbsSession.h"
-#import "ECSBreadcrumbsAction.h"
+#import "ECSBreadcrumb.h"
 #import "ECSLog.h"
 
 @interface EXPERTconnect ()
@@ -257,7 +257,7 @@ NSTimer *breadcrumbTimer;
         chatAction.channelOptions = [NSDictionary dictionaryWithDictionary:channelOptions];
     }
     
-    [self breadcrumbDispatch];
+    [self breadcrumbDispatchWithCompletion:nil];
     
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     // Do a login if there's no session:
@@ -708,66 +708,159 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
+/**
+ Send one "interesting" breadcrumb to server and wait for response.
+ */
+- (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
+            withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion
+{
+    if([self sessionID] == nil)
+    {
+        ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
+        [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
+        {
+            [self bc_internal_send_one_ex:theBreadcrumb withCompletion:theCompletion];
+        }];
+    }
+    else
+    {
+        [self bc_internal_send_one_ex:theBreadcrumb withCompletion:theCompletion];
+    }
+}
+
+/**
+ Queue a bulk breadcrumb for sending. Bulked breadcrumbs will fire after the timer delay or X breadcrumbs
+ have been queued as defined in config. Bulked breadcrumbs will not cause journeyManager actions or escalations.
+ */
+- (void) breadcrumbQueueBulk:(ECSBreadcrumb *)theBreadcrumb
+{
+    [self breadcrumbWithAction:theBreadcrumb.actionType
+                   description:theBreadcrumb.actionDescription
+                        source:theBreadcrumb.actionSource
+                   destination:theBreadcrumb.actionDestination
+                   geolocation:theBreadcrumb.geoLocation];
+}
+
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
                   destination: (NSString *)actionDestination
                   geolocation: (CLLocation *)geolocation
 {
+    // Build a new breadcrumb object.
+    ECSBreadcrumb *breadcrumb = [[ECSBreadcrumb alloc] init];
+
+    breadcrumb.actionType = actionType;
+    breadcrumb.actionDescription = actionDescription;
+    breadcrumb.actionSource = actionSource;
+    breadcrumb.actionDestination = actionDestination;
+    if (geolocation) [breadcrumb setGeoLocation:geolocation];
+    
     // This block will create a breadcrumb session if one is not already created.
-    bool retryingToGetSession = NO;
-    if( !retryingToGetSession && [self sessionID] == Nil )
+    if([self sessionID] == Nil)
     {
-        retryingToGetSession = YES;
         ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
-        
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
-        {
-            ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID. Recursively calling breadcrumb action again.");
-            
-            if ( !error )
-            {
-                [self breadcrumbWithAction:actionType
-                               description:actionDescription
-                                    source:actionSource
-                               destination:actionDestination
-                               geolocation:geolocation];
-            }
-            return;
-            
-        }];
-        ECSLogVerbose(@"breadcrumbsAction: bailing because we are going to wait for a sessionID...");
+         {
+             ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID.");
+             [self bc_internal_queue_bulk:breadcrumb];
+         }];
+    }
+    else
+    {
+        ECSLogVerbose(@"breadcrumbWithAction: queueing breadcrumb..."); 
+        [self bc_internal_queue_bulk:breadcrumb];
+    }
+}
+
+- (void) breadcrumbDispatch
+{
+    [self breadcrumbDispatchWithCompletion:nil];
+}
+
+- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *response, NSError *error))theCompletion
+{
+    if (storedBreadcrumbs.count < 1)
+    {
+        return;
+    }
+    [breadcrumbTimer invalidate];
+    breadcrumbTimer = nil;
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    NSArray *breadcrumbsToSend = [storedBreadcrumbs copy];
+    
+    [sessionManager breadcrumbsAction:breadcrumbsToSend completion:theCompletion];
+    
+    // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
+    storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
+}
+
+- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
+{
+    if([self journeyID] == Nil)
+    {
+        ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching new journeyID...");
+        [self startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+         {
+             if( !error )
+             {
+                 ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Now queuing breadcrumb...");
+                 [self bc_internal_start_session:completion];
+             }
+             else
+             {
+                 completion(nil, error);
+             }
+         }];
+    }
+    else
+    {
+        [self bc_internal_start_session:completion];
+    }
+}
+
+/**
+ Internal function for sending a breadcrumb. Assumes session & journey have been started.
+ */
+- (void) bc_internal_send_one_ex:(ECSBreadcrumb *)theBreadcrumb
+                  withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion
+{
+    if( [self sessionID] == Nil )
+    {
+        ECSLogVerbose(@"bc_internal_send_one_ex::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
+                                completion:^(NSDictionary *json, NSError *error)
+    {
+        theCompletion(json, error); 
+    }];
+}
+
+- (void) bc_internal_queue_bulk:(ECSBreadcrumb *)theBreadcrumb
+{
     if( [self sessionID] == Nil )
     {
         ECSLogVerbose(@"breadcrumbsAction::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
-    ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", actionType);
-
-    ECSBreadcrumbsAction *breadcrumb = [[ECSBreadcrumbsAction alloc] init];
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    if([self clientID])theBreadcrumb.tenantId = [self clientID];
+    theBreadcrumb.journeyId = [self journeyID];
+    theBreadcrumb.sessionId = [self sessionID];
+    theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
     
-    if([self clientID])[breadcrumb setTenantId:[self clientID]];
-    [breadcrumb setJourneyId:[self journeyID]];
-    [breadcrumb setSessionId:[self sessionID]];
-    [breadcrumb setUserId:(userManager.userToken ? userManager.userToken : userManager.deviceID)];
-    [breadcrumb setActionType:actionType];
-    [breadcrumb setActionDescription:actionDescription];
-    [breadcrumb setActionSource:actionSource];
-    [breadcrumb setActionDestination:actionDestination];
-    
-    if (geolocation) {
-        [breadcrumb setGeoLocation:geolocation];
-    }
-    
+    ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", theBreadcrumb.actionType);
+
     if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];
-    [storedBreadcrumbs addObject:[breadcrumb getProperties]];
+    [storedBreadcrumbs addObject:[theBreadcrumb getProperties]];
     
-    ECSLogVerbose(@"breadcrumb Properties: %@", [breadcrumb getProperties]);
+    ECSLogVerbose(@"breadcrumb Properties: %@", [theBreadcrumb getProperties]);
     
     ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
@@ -776,7 +869,7 @@ NSTimer *breadcrumbTimer;
     if (storedBreadcrumbs.count >= breadcrumbCacheCount )
     {
         ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb will be dispatched for sending.");
-        [self breadcrumbDispatch]; // Dispatch all breadcrumbs
+        [self breadcrumbDispatchWithCompletion:nil]; // Dispatch all breadcrumbs
     }
     else if(storedBreadcrumbs.count > 0 && !breadcrumbTimer && config.breadcrumbCacheTime > 0 )
     {
@@ -796,60 +889,14 @@ NSTimer *breadcrumbTimer;
     }
 }
 
-- (void) breadcrumbDispatch
+- (void) bc_internal_start_session:(void(^)(NSString *, NSError *))completion
 {
-    [self breadcrumbDispatchWithCompletion:nil];
-}
-
-- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *decisionResponse, NSError *error))completion
-{
-    if (storedBreadcrumbs.count < 1) return;
-    [breadcrumbTimer invalidate];
-    breadcrumbTimer = nil;
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    NSArray *breadcrumbsToSend = [storedBreadcrumbs copy];
-    
-    [sessionManager breadcrumbsAction:breadcrumbsToSend completion:completion];
-
-    // TODO: Possibly need to not wipe these everytime, maybe server down for limited time? Temporary error?
-    storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
-}
-
-- (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
-{
-    
-    bool retryingToGetJourney = NO;
-    
-    if (!retryingToGetJourney && [self journeyID] == Nil)
-    {
-        ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching journeyID then retrying...");
-        retryingToGetJourney = YES;
-        
-        [self startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
-        {
-            ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Recursively calling breadcrumbs action again.");
-            if( !error )
-            {
-                [self breadcrumbNewSessionWithCompletion:completion];
-            }
-            else
-            {
-                completion(nil, error);
-            }
-            return;
-        }];
-        ECSLogVerbose(@"breadcrumbNewSession: bailing because we are going to wait for a journeyID...");
-        return;
-    }
-    
     if( [self journeyID] == Nil )
     {
         NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
                                              code:1001
                                          userInfo:nil];
         completion(nil, error);
-        
         return;
     }
     

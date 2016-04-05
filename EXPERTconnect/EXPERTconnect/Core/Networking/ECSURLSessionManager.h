@@ -489,6 +489,11 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
 
+#pragma mark Breadcrumbs
+
+- (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
+                                      completion:(void (^)(NSDictionary *json, NSError *error))completion;
+
 - (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 

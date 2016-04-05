@@ -90,6 +90,8 @@
 #import <EXPERTconnect/ECSMediaInfoHelpers.h>
 #import <EXPERTconnect/ECSAuthenticationToken.h>
 
+#import <EXPERTconnect/ECSBreadcrumb.h>
+
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 
@@ -376,6 +378,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 -(void)setHost:(NSString *)theHost;
 
+#pragma mark Breadcrumb Functions
+
+- (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
+            withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion;
+
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
@@ -388,7 +395,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 // configured to wait a time period or number of breadcrumbs before sending.
 - (void) breadcrumbDispatch;
 
-- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *decisionResponse, NSError *error))completion;
+- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+
+
+#pragma mark Utility Functions
 
 /**
  Set the debug level.

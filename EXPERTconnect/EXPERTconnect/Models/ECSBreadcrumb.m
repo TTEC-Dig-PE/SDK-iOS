@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "ECSBreadcrumbsAction.h"
+#import "ECSBreadcrumb.h"
 
 static NSString* PROPERTY_ID             = @"id";
 static NSString* PROPERTY_USERID         = @"userId";
@@ -33,7 +33,7 @@ static NSString* PROPERTY_TIMESTAMP         = @"timestamp";
 static NSString* PROPERTY_FLOOR             = @"floor";
 static NSString* PROPERTY_DESCRIPTION       = @"description";
 
-@implementation ECSBreadcrumbsAction
+@implementation ECSBreadcrumb
 
 @synthesize properties;
 
@@ -48,6 +48,21 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     return self;
 }
 
+- (id) initWithAction:(NSString *)theAction
+          description:(NSString *)theDescription
+               source:(NSString *)source
+          destination:(NSString *)destination
+{
+    if (self = [super init]) {
+        
+        self.actionType = theAction;
+        self.actionDescription = theDescription;
+        self.actionSource = source;
+        self.actionDestination = destination;
+    }
+    
+    return self;
+}
 
 - (id) initWithDic : (NSDictionary *)dic {
     
@@ -60,131 +75,99 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     return self;
 }
 
-
-
 - (NSMutableDictionary *)getProperties {
     
     return self.properties;
 }
 
-
-- (void)setId: (NSString *)actionId {
-    
-    [self.properties setObject:actionId forKey:PROPERTY_TENANTID];
-    
+/* Action ID */
+- (void)setActionId: (NSString *)actionId {
+    [self.properties setObject:actionId forKey:PROPERTY_ID];
 }
-
-
-- (NSString *)getId {
-    
+- (NSString *)actionId {
     return self.properties[PROPERTY_ID];
 }
 
+/* Tenant ID */
 - (void)setTenantId: (NSString *)tenantId {
-    
     [self.properties setObject:tenantId forKey:PROPERTY_TENANTID];
-    
 }
-
-
-- (NSString *)getTenantId {
-    
+- (NSString *)tenantId {
     return self.properties[PROPERTY_TENANTID];
 }
 
-
+/* Journey ID */
 - (void)setJourneyId: (NSString *)journeyId {
-    
-    [self.properties setObject:journeyId forKey:PROPERTY_JOURNEYID];
-    
+    [self.properties setObject:(journeyId ? journeyId : @"") forKey:PROPERTY_JOURNEYID];
 }
-
-- (NSString *)getJourneyId {
-    
+- (NSString *)journeyId {
     return self.properties[PROPERTY_JOURNEYID];
 }
 
+/* User ID */
 - (void)setUserId: (NSString *)userId {
-    if (!userId) {
-        userId = @"";
-    }
-    [self.properties setObject:userId forKey:PROPERTY_USERID];
+    [self.properties setObject:(userId ? userId : @"") forKey:PROPERTY_USERID];
 }
-- (NSString *)getUserId {
+- (NSString *)userId {
     return self.properties[PROPERTY_USERID];
 }
 
+/* Session ID */
 - (void)setSessionId: (NSString *)sessionId {
-    
     [self.properties setObject:sessionId forKey:PROPERTY_SESSIONID];
-    
 }
 
-- (NSString *)getSessionId {
-    
+- (NSString *)sessionId {
     return self.properties[PROPERTY_SESSIONID];
 }
 
+/* Action Type */
 - (void)setActionType: (NSString *)actionType {
-    
     [self.properties setObject:actionType forKey:PROPERTY_ACTIONTYPE];
-    
 }
-
-- (NSString *)getActionType {
-    
+- (NSString *)actionType {
     return self.properties[PROPERTY_ACTIONTYPE];
 }
 
-
+/* Action Description */
 - (void)setActionDescription: (NSString *)actionDescription {
-    
     [self.properties setObject:actionDescription forKey:PROPERTY_ACTIONDESC];
-    
 }
-
-- (NSString *)getActionDescription {
-    
+- (NSString *)actionDescription {
     return self.properties[PROPERTY_ACTIONDESC];
 }
 
-
+/* Action Source */
 - (void)setActionSource: (NSString *)actionSource {
-    
     [self.properties setObject:actionSource forKey:PROPERTY_ACTIONSOURCE];
-    
 }
-
-- (NSString *)getActionSource{
-    
+- (NSString *)actionSource{
     return self.properties[PROPERTY_ACTIONSOURCE];
 }
 
-
+/* Action Destination */
 - (void)setActionDestination: (NSString *)actionDestination {
-    
     [self.properties setObject:actionDestination forKey:PROPERTY_ACTIONDEST];
-    
 }
-
-- (NSString *)getActionDestination{
-    
+- (NSString *)actionDestination{
     return self.properties[PROPERTY_ACTIONDEST];
 }
 
-
+/* Creation Time */
 - (void)setCreationTime: (NSString *)creationTime {
-    
     [self.properties setObject:creationTime forKey:PROPERTY_CREATIONTIME];
-    
 }
-
-- (NSString *)getCreationTime{
-    
+- (NSString *)creationTime{
     return self.properties[PROPERTY_CREATIONTIME];
 }
 
+/* Geo Location */
+- (CLLocation *)geoLocation {
+    return self.geoLocation;
+}
 - (void)setGeoLocation: (CLLocation *)geolocation {
+    
+    self.geoLocation = geolocation;
     
     NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
     

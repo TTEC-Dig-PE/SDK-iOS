@@ -240,8 +240,6 @@
 		03A64D351B01044700AED79D /* ECSEndChatSurveyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03A64D341B01044700AED79D /* ECSEndChatSurveyView.xib */; };
 		03A64D381B0145F000AED79D /* ECSNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A64D361B0145F000AED79D /* ECSNavigationController.h */; };
 		03A64D391B0145F000AED79D /* ECSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A64D371B0145F000AED79D /* ECSNavigationController.m */; };
-		03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 03A7D28C1AB9A7EF000A21AE /* global_style_test.html */; };
-		03A7D28F1AB9A8A7000A21AE /* theme_style_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */; };
 		03A7D2931ABB513A000A21AE /* ECSChatTypingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A7D2901ABB513A000A21AE /* ECSChatTypingTableViewCell.h */; };
 		03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A7D2911ABB513A000A21AE /* ECSChatTypingTableViewCell.m */; };
 		03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -379,7 +377,7 @@
 		468EBC601B8370E7008A0826 /* ECSRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 468EBC5F1B8370E7008A0826 /* ECSRatingView.m */; };
 		468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 468EBC611B83710F008A0826 /* ECSRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DB55F461BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */; };
-		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */; };
+		5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumb.m */; };
 		916F6ADA1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */; };
 		916F6ADB1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */; };
 		916F6ADC1BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */; };
@@ -443,7 +441,7 @@
 		C1F658711C50B2900093D7F3 /* CalendarConfigiPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */; };
 		C1F658721C50B2900093D7F3 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */; };
 		C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */; };
-		C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */; };
+		C431B3961BE7FEC800996102 /* ECSBreadcrumb.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
 		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -545,7 +543,7 @@
 		030AF25A1AF9533E0056BFB0 /* ECSHistoryList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSHistoryList.m; path = Responses/ECSHistoryList.m; sourceTree = "<group>"; };
 		030AF25D1AF954190056BFB0 /* ECSHistoryListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSHistoryListItem.h; path = Responses/ECSHistoryListItem.h; sourceTree = "<group>"; };
 		030AF25E1AF954190056BFB0 /* ECSHistoryListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSHistoryListItem.m; path = Responses/ECSHistoryListItem.m; sourceTree = "<group>"; };
-		030F77991A752D7C006BD8B1 /* global_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = global_style.css; path = EXPERTconnect/UI/global_style.css; sourceTree = "<group>"; };
+		030F77991A752D7C006BD8B1 /* global_style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = global_style.css; sourceTree = "<group>"; };
 		030F779B1A752E2F006BD8B1 /* NSBundle+ECSBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+ECSBundle.h"; path = "Core/NSBundle+ECSBundle.h"; sourceTree = "<group>"; };
 		030F779C1A752E2F006BD8B1 /* NSBundle+ECSBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+ECSBundle.m"; path = "Core/NSBundle+ECSBundle.m"; sourceTree = "<group>"; };
 		030F77BD1A77F62B006BD8B1 /* ECSUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSUserManager.h; path = Core/ECSUserManager.h; sourceTree = "<group>"; };
@@ -755,8 +753,6 @@
 		03A64D341B01044700AED79D /* ECSEndChatSurveyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSEndChatSurveyView.xib; path = EXPERTconnect/UI/Sections/Chat/ECSEndChatSurveyView.xib; sourceTree = SOURCE_ROOT; };
 		03A64D361B0145F000AED79D /* ECSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSNavigationController.h; path = Common/ECSNavigationController.h; sourceTree = "<group>"; };
 		03A64D371B0145F000AED79D /* ECSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSNavigationController.m; path = Common/ECSNavigationController.m; sourceTree = "<group>"; };
-		03A7D28C1AB9A7EF000A21AE /* global_style_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = global_style_test.html; path = EXPERTconnect/UI/global_style_test.html; sourceTree = "<group>"; };
-		03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = theme_style_test.html; path = EXPERTconnect/UI/theme_style_test.html; sourceTree = "<group>"; };
 		03A7D2901ABB513A000A21AE /* ECSChatTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatTypingTableViewCell.h; path = EXPERTconnect/UI/Sections/Chat/ECSChatTypingTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		03A7D2911ABB513A000A21AE /* ECSChatTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatTypingTableViewCell.m; path = EXPERTconnect/UI/Sections/Chat/ECSChatTypingTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSFormTextField.h; path = EXPERTconnect/UI/Sections/Forms/ECSFormTextField.h; sourceTree = SOURCE_ROOT; };
@@ -901,8 +897,8 @@
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
 		5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsSession.h; sourceTree = "<group>"; };
 		5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsSession.m; sourceTree = "<group>"; };
-		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumbsAction.h; sourceTree = "<group>"; };
-		5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumbsAction.m; sourceTree = "<group>"; };
+		5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSBreadcrumb.h; sourceTree = "<group>"; };
+		5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBreadcrumb.m; sourceTree = "<group>"; };
 		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAxRatingFormItemViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.h; sourceTree = SOURCE_ROOT; };
 		916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAxRatingFormItemViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.m; sourceTree = SOURCE_ROOT; };
@@ -935,8 +931,8 @@
 		C1E0E6191BC409230089C7E6 /* ECSThemeShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSThemeShadow.m; sourceTree = "<group>"; };
 		C1E0E61A1BC409230089C7E6 /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		C1E0E61B1BC409230089C7E6 /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
-		C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ECSRichTextEditor.js; sourceTree = "<group>"; };
-		C1E99D091BC7CA46000EC129 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
+		C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ECSRichTextEditor.js; path = ../../ECSRichTextEditor.js; sourceTree = "<group>"; };
+		C1E99D091BC7CA46000EC129 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = editor.html; path = ../../editor.html; sourceTree = "<group>"; };
 		C1E99D0F1BC7CBE7000EC129 /* ECSBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSBrightnessCursor.h; sourceTree = "<group>"; };
 		C1E99D101BC7CBE7000EC129 /* ECSBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSBrightnessCursor.m; sourceTree = "<group>"; };
 		C1E99D111BC7CBE7000EC129 /* ECSCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSCgUtil.h; sourceTree = "<group>"; };
@@ -964,8 +960,8 @@
 		C1E99D3C1BC7CC4B000EC129 /* ECSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSRichTextEditor.m; sourceTree = "<group>"; };
 		C1E99D3D1BC7CC4B000EC129 /* TextEditorTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorTextView.h; sourceTree = "<group>"; };
 		C1E99D3E1BC7CC4B000EC129 /* TextEditorTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorTextView.m; sourceTree = "<group>"; };
-		C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPad.plist; sourceTree = "<group>"; };
-		C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalendarConfigiPhone.plist; sourceTree = "<group>"; };
+		C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CalendarConfigiPad.plist; path = ../../CalendarConfigiPad.plist; sourceTree = "<group>"; };
+		C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CalendarConfigiPhone.plist; path = ../../CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -1137,6 +1133,11 @@
 				033ACB621A6052000024F48F /* Category */,
 				033ACB1D1A602C9C0024F48F /* Sections */,
 				033ACB211A602C9C0024F48F /* Views */,
+				030F77991A752D7C006BD8B1 /* global_style.css */,
+				C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */,
+				C1E99D091BC7CA46000EC129 /* editor.html */,
+				C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */,
+				C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1262,13 +1263,6 @@
 			isa = PBXGroup;
 			children = (
 				03978EE41A602AEF007793D6 /* EXPERTconnect */,
-				030F77991A752D7C006BD8B1 /* global_style.css */,
-				03A7D28C1AB9A7EF000A21AE /* global_style_test.html */,
-				03A7D28E1AB9A8A7000A21AE /* theme_style_test.html */,
-				C1E99D081BC7CA46000EC129 /* ECSRichTextEditor.js */,
-				C1E99D091BC7CA46000EC129 /* editor.html */,
-				C1F6586F1C50B2900093D7F3 /* CalendarConfigiPad.plist */,
-				C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */,
 				03F0BD381A70383B00E90E7F /* Localizable.strings */,
 				03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */,
 				03978EF11A602AEF007793D6 /* EXPERTconnectTests */,
@@ -1814,8 +1808,8 @@
 			children = (
 				5DB55F441BCEB68400CB8EA8 /* ECSBreadcrumbsSession.h */,
 				5DB55F451BCEB6C200CB8EA8 /* ECSBreadcrumbsSession.m */,
-				5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumbsAction.h */,
-				5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m */,
+				5DB55F471BCEB73E00CB8EA8 /* ECSBreadcrumb.h */,
+				5DB55F481BCEB76D00CB8EA8 /* ECSBreadcrumb.m */,
 			);
 			name = Breadcrumbs;
 			sourceTree = "<group>";
@@ -1942,6 +1936,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C431B3961BE7FEC800996102 /* ECSBreadcrumb.h in Headers */,
 				C495EA9F1CA57D8300BC4057 /* ECSExpertDetail.h in Headers */,
 				C495EAA11CA57D8300BC4057 /* ECSSkillDetail.h in Headers */,
 				C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */,
@@ -2018,7 +2013,6 @@
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
 				C431B3951BE7FEC800996102 /* ECSBreadcrumbsSession.h in Headers */,
-				C431B3961BE7FEC800996102 /* ECSBreadcrumbsAction.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
 				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
@@ -2256,7 +2250,6 @@
 				0342AFA71A9B60700009959E /* ECSPullUpView.xib in Resources */,
 				0342AFBF1A9B60840009959E /* ECSCancelCallbackViewController.xib in Resources */,
 				039CDFC71AD6EC2900F52600 /* ECSChatTextTableViewCell.xib in Resources */,
-				03A7D28F1AB9A8A7000A21AE /* theme_style_test.html in Resources */,
 				0342B0721A9B60EF0009959E /* ECSMessageViewController.xib in Resources */,
 				039062491AC9C6BA00E006BE /* ECSChatWaitView.xib in Resources */,
 				03BD9E2D1AF2A1F2003D808C /* ECSInlineFormViewController.xib in Resources */,
@@ -2290,7 +2283,6 @@
 				0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */,
 				C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */,
 				C1F658711C50B2900093D7F3 /* CalendarConfigiPad.plist in Resources */,
-				03A7D28D1AB9A7EF000A21AE /* global_style_test.html in Resources */,
 				D87F2F041B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.xib in Resources */,
 				0342B04B1A9B60C10009959E /* ECSListTableViewCell.xib in Resources */,
 				0342AFE31A9B60950009959E /* ECSChatViewController.xib in Resources */,
@@ -2408,7 +2400,7 @@
 				03F0BD4C1A7130CA00E90E7F /* UIViewController+ECSNibLoading.m in Sources */,
 				464DE2B71B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.m in Sources */,
 				03A7D2941ABB513A000A21AE /* ECSChatTypingTableViewCell.m in Sources */,
-				5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumbsAction.m in Sources */,
+				5DB55F491BCEB76D00CB8EA8 /* ECSBreadcrumb.m in Sources */,
 				466170CC1B867CEA0055A976 /* ECSReceiveAnswerMessage.m in Sources */,
 				037DD2E11AA9F107009C9637 /* ECSJSONObject.m in Sources */,
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,

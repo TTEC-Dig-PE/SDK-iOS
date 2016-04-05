@@ -41,7 +41,7 @@
     
     [[EXPERTconnect shared] setUserIdentityToken:[self fetchAuthenticationToken:configuration.host clientID:configuration.clientID]];
     
-    [[EXPERTconnect shared] setDebugLevel:0];
+    [[EXPERTconnect shared] setDebugLevel:5];
 }
 
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.
@@ -166,44 +166,37 @@
 }
 
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
-- (void)testBreadcrumbAction {
+- (void)testBreadcrumbBulk {
     
-    //XCTestExpectation *expectation = [self expectationWithDescription:@"breadcrumb"];
-    
+    [self initSDK];
+
     [[EXPERTconnect shared] breadcrumbWithAction:@"BC Unit Test 1"
                                      description:@"Missing journey/clientid/secret/etc"
                                           source:@"ExpertConnect"
                                      destination:@"na"
                                      geolocation:nil];
+    
+    // TBD: This is not a very good test!
 
-    [self initSDK];
-    
-    [[EXPERTconnect shared] breadcrumbWithAction:@"BC Unit Test 2"
-                                     description:@"Should be OK"
-                                          source:@"ExpertConnect"
-                                     destination:@"na"
-                                     geolocation:nil];
-    
-    //[expectation fulfill];
-    /*
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-        }
-    }];
-    */
 }
 
-- (void)testExampleServerFetch {
-    // Test startJourney returning a journeyID.
-    [self initSDK];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
+- (void)testBreadcrumbSendOne {
     
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
-        NSLog(@"Test journeyID 1 is %@", journeyID);
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testBreadcrumbSendOne"];
+    
+    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] initWithAction:@"click"
+                                                    description:@"Mobile Phone"
+                                                         source:@"Phones"
+                                                    destination:@"Product Page"];
+    
+    [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(NSDictionary *jsonDic, NSError *error)
+    {
         [expectation fulfill];
     }];
     
+    // Wait for the above code to finish (15 second timeout)...
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
@@ -211,12 +204,21 @@
     }];
 }
 
-- (void)testStartupTiming {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-    // Put the code you want to measure the time of here.
-        [self initSDK];
-    }];
+- (void)testBreadcrumbObject {
+    
+    [self initSDK];
+    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] init];
+    
+    // Test the getters and setters for fields in the BC object. 
+    myBc.actionId = @"testActionId";
+    XCTAssert([myBc.actionId isEqualToString:@"testActionId"],@"ActionId getter or setter failed");
+    NSString *actionFromProperties = [[myBc getProperties] objectForKey:@"id"];
+    XCTAssert([actionFromProperties isEqualToString:@"testActionId"],@"Properties array not built correctly.");
+    
+    myBc.journeyId = @"testJourneyId";
+    XCTAssert([myBc.journeyId isEqualToString:@"testJourneyId"],@"journeyId getter or setter failed");
+    NSString *journeyFromProperties = [[myBc getProperties] objectForKey:@"journeyId"];
+    XCTAssert([journeyFromProperties isEqualToString:@"testJourneyId"],@"Properties array not built correctly.");
 }
 
 - (void)testGetDetailsForSkill {
@@ -246,9 +248,11 @@
     }];
 }
 
+// Test the select experts endpoint.
 - (void)testSelectExperts {
     
     [self initSDK];
+    
     XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
     
     ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
@@ -270,6 +274,14 @@
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
+    }];
+}
+
+- (void)testStartupTiming {
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+        [self initSDK];
     }];
 }
 

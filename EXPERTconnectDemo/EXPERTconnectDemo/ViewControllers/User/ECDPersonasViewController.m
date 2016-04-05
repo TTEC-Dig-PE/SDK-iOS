@@ -72,21 +72,6 @@
                 
                 // Escalation should occur here.
                 
-                
-                // Build a breadcrumb
-                /*ECSBreadcrumb *myBreadcrumb = [[ECSBreadcrumb alloc] init];
-                myBreadcrumb.bcAction = @"Click";
-                myBreadcrumb.bcDescription = @"Power Pack 3";
-                myBreadcrumb.bcSource = @"SDK";
-                myBreadcrumb.bcDestination = @"Product Page";
-                
-                // Queue and send a bulk BC
-                [[EXPERTconnect shared].breadcrumbs queue:myBreadcrumb];
-                [[EXPERTconnect shared].breadcrumbs dispatch];
-                
-                // Send a single breadcrumb and analyze response (interesting breadcrumbs).
-                [[EXPERTconnect shared].breadcrumbs sendOne:myBreadcrumb completion:^(NSDictionary *json) {}];*/
-                
                 [self logAction:@"**END OF ROUTINE (Under construction)**"];
             }];
         }];
