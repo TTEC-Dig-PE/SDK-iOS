@@ -97,7 +97,7 @@
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 
 /* Start Voice Callback Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVoiceCallbackHeader" = "AdHoc Voice Callback";
+"ECDLocalizedStartVoiceCallbackHeader" = "Voice Callback";
 
 /* Start Email Message Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartEmailMessageHeader" = "AdHoc Email Message";
@@ -211,12 +211,24 @@
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesHeader" = "Hide/Show Avatar Images";
 
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsHeader" = "Hide/Show Chat Bubble Tails";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampHeader" = "Hide/Show Chat TimeStamp";
+
+
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsLabel" = "Show Chat Bubble Tails";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampLabel" = "Show Chat TimeStamp";
 
 /* Ad-Hoc Page Agent Availability Strings */
 "ECDLocalizedNoAgents" = "No agents available.";
 "ECDLocalizedWaitString" = "Wait";
 "ECDLocalizedMinuteString" = "minute(s)";
 "ECDLocalizedAgentString" = "Agents";
-

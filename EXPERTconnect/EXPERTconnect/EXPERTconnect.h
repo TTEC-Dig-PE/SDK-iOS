@@ -111,6 +111,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *treatmentType;
 @property (copy, nonatomic) NSString *lastSurveyScore;
 @property (copy, nonatomic) NSString *surveyFormName;
+@property (copy, nonatomic) NSString *lastTimeStamp;
+@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
@@ -335,10 +337,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion;
-
+/**
+ Get details for a skill - such as agent availability, etc.
+ */
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion;
 
@@ -395,6 +396,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  4 - Verbose
  */
 - (void)setDebugLevel:(int)logLevel;
+
+//Get TimeStamp Meassage
+-(NSString *)getTimeStampMessage;
 
 @end
 

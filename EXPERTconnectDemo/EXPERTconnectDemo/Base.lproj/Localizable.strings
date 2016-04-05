@@ -81,7 +81,7 @@
 "ECDLocalizedStartChatHeader" = "Chat";
 
 /* Start Video Chat Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVideoChatHeader" = "Start AdHoc Video Chat";
+"ECDLocalizedStartVideoChatHeader" = "Video Chat";
 
 /* Start Answer Engine Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartAnswerEngineHeader" = "Start AdHoc Answer Engine Session";
@@ -96,7 +96,7 @@
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 
 /* Start Voice Callback Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVoiceCallbackHeader" = "AdHoc Voice Callback";
+"ECDLocalizedStartVoiceCallbackHeader" = "Voice Callback";
 
 /* Start Email Message Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartEmailMessageHeader" = "AdHoc Email Message";
@@ -201,8 +201,8 @@
 /* Runtime Startup Application Header */
 "ECDLocalizedRunModeHeader" = "Select Runtime Application";
 
-/* Customize Theme Header */
-"ECDLocalizedCustomizeThemeHeader" = "Theme Customization";
+/* Customize ChatWindow Header */
+"ECDLocalizedCustomizeChatWindowHeader" = "ChatWindow Customization";
 
 /* Frequently asked Questions header */
 "ECSLocalizedFrequentlyAskedQuestionsKey" = "Get quick answers from common help topics.";/* ----------------------------------------------------- */
@@ -210,8 +210,21 @@
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesHeader" = "Hide/Show Avatar Images";
 
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsHeader" = "Hide/Show Chat Bubble Tails";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampHeader" = "Hide/Show Chat TimeStamp";
+
+
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "Show Avatar Images";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsLabel" = "Show Chat Bubble Tails";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampLabel" = "Show Chat TimeStamp";
 
 /* Ad-Hoc Page Agent Availability Strings */
 "ECDLocalizedNoAgents" = "No agents available.";

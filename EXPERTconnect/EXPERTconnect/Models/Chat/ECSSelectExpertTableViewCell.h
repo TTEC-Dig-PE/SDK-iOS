@@ -28,8 +28,16 @@
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *expertiese;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *interests;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *regionHeightConstraints;
+
+@property (strong, nonatomic) IBOutlet UIView *firstLineView;
+
+@property (weak, nonatomic) IBOutlet UIView *regionView;
+
 @property (nonatomic, weak) id <ECSSelectExpertTableViewCellDelegate> selectExpertCellDelegate;
 
 - (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert;
+
+- (void)configureConstraints;
 
 @end

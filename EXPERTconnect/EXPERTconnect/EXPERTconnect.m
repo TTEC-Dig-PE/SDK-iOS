@@ -661,27 +661,6 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion {
-    
-    NSArray *skills = [NSArray arrayWithObjects:skill,@"Finance",nil];
-    
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    [sessionManager agentAvailabilityWithSkills:skills
-                                     completion:^(ECSAgentAvailableResponse *response, NSError *error)
-     {
-         // parse object and return in user-friendly array.
-         
-         if (error) {
-             completion(nil, error);
-         } else {
-             completion(response.skills[0], nil);
-         }
-     }];
-}
-
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion
 {
@@ -918,5 +897,16 @@ NSTimer *breadcrumbTimer;
     NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
     ECSLogSetLogLevel(logLevel);
 }
+
+-(NSString *)getTimeStampMessage
+{
+	 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	 dateFormatter.dateFormat = @"h:mm a";
+	 NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+	 [dateFormatter setTimeZone:gmt];
+	 NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
+	 return timeStamp;
+}
+
 
 @end
