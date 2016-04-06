@@ -953,4 +953,15 @@ NSTimer *breadcrumbTimer;
     ECSLogSetLogLevel(logLevel);
 }
 
+-(NSString *)getTimeStampMessage
+{
+	 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	 dateFormatter.dateFormat = @"h:mm a";
+	 NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+	 [dateFormatter setTimeZone:gmt];
+	 NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
+	 return timeStamp;
+}
+
+
 @end

@@ -18,6 +18,7 @@ NSMutableArray *chatSkillsArray;
 NSString *currentEnvironment;
 NSString *currentChatSkill;
 int selectedRow;
+int rowToSelect;
 
 -(void)setup {
     
@@ -35,7 +36,7 @@ int selectedRow;
                         stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastVoiceCallbackKey]];
     
     int currentRow = 0;
-    int rowToSelect = 0;
+    rowToSelect = 0;
     if(currentChatSkill != nil)  {
         for(NSString* skill in chatSkillsArray) {
             if([skill isEqualToString:currentChatSkill])  {
@@ -50,6 +51,13 @@ int selectedRow;
     
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
+	 
+    [self performSelector:@selector(getAgentsForLastSelected) withObject:nil afterDelay:0.5];
+}
+
+-(void)getAgentsForLastSelected {
+	 //int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
+	 [self getAgentsAvailableForSkill:rowToSelect];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -57,10 +65,29 @@ int selectedRow;
     [super pickerView:pickerView didSelectRow:row inComponent:component];
     [[NSUserDefaults standardUserDefaults] setObject:[chatSkillsArray objectAtIndex:row]
                                               forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastVoiceCallbackKey]];
+	 [self getAgentsAvailableForSkill:(int)row];
+}
+
+-(void)getAgentsAvailableForSkill:(int)index
+{
+	 [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
+									 completion:^(ECSSkillDetail *data, NSError *error)
+	  {
+          if(!error)
+          {
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"CallbackSkillAgentInfoUpdated"
+                                                                  object:data
+                                                                userInfo:nil];
+          }
+          else
+          {
+              NSLog(@"Error fetching agent availability for callback skill.");
+          }
+	  }];
 }
 
 -(BOOL)addChatSkillsFromServer {
-    
+	 
     NSArray *environmentConfig = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentConfig"];
     
     if (!environmentConfig) {

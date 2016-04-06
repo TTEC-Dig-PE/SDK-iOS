@@ -162,12 +162,9 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 }
 
 /* Geo Location */
-- (CLLocation *)geoLocation {
-    return self.geoLocation;
-}
 - (void)setGeoLocation: (CLLocation *)geolocation {
     
-    self.geoLocation = geolocation;
+    //self.geoLocation = [geolocation copy];
     
     NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
     

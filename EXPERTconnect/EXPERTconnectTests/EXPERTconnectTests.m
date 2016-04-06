@@ -13,11 +13,13 @@
 
 @class ECSConversationCreateResponse;
 
-@interface EXPERTconnectTests : XCTestCase
+@interface EXPERTconnectTests : XCTestCase <ECSAuthenticationTokenDelegate>
 
 @end
 
 @implementation EXPERTconnectTests
+
+NSURL *_testAuthURL;
 
 - (void)setUp {
     [super setUp];
@@ -33,41 +35,118 @@
     configuration.appId         = @"12345";
     
     configuration.host          = @"https://api.dce1.humanify.com";
-    configuration.clientID      = @"mktwebextc";
-    configuration.clientSecret  = @"secret123";
+    //configuration.clientID      = @"mktwebextc";
+    //configuration.clientSecret  = @"secret123";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    [[EXPERTconnect shared] setUserIdentityToken:[self fetchAuthenticationToken:configuration.host clientID:configuration.clientID]];
+    // A GOOD auth URL
+    _testAuthURL = [[NSURL alloc] initWithString:
+                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                     @"expertconnect_unit_test",
+                     @"mktwebextc"]];
+    [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
     [[EXPERTconnect shared] setDebugLevel:5];
 }
 
-// This function is called by both this app (host app) and the SDK as the official auth token fetch function.
-- (NSString *)fetchAuthenticationToken:(NSString *)hostURL clientID:(NSString *)theClientID {
-    
+-(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
     // add /ust for new method
-    NSURL *url = [[NSURL alloc] initWithString:
-                  [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                   hostURL,
-                   @"expertconnect_unit_test",
-                   theClientID]];
-    
-    NSURLResponse *response;
-    NSError *error;
-    NSData *data = [NSURLConnection sendSynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
-                                         returningResponse:&response
-                                                     error:&error];
-    
-    NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    return returnToken;
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:_testAuthURL]
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         
+         long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+         NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         
+         if(!error && (statusCode == 200 || statusCode == 201))
+         {
+             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             completion([NSString stringWithFormat:@"%@", returnToken], nil);
+         }
+         else
+         {
+             NSError *myError = [NSError errorWithDomain:@"com.humanify"
+                                                    code:statusCode
+                                                userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+             completion(nil, myError);
+         }
+     }];
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+
+
+
+// ***** START OF TEST CASES ***** //
+
+
+
+
+/**
+ Test: startJourney()
+ 
+ Step1: Test missing auth delegate.
+ Step2: Test bogus URL (simulating that we cannot fetch a token). Should test retry & delays.
+ Step3: Test with a good auth token fetch.
+ */
+- (void)testAuthentication {
+    
+    ECSConfiguration *configuration = [ECSConfiguration new];
+    configuration.appName       = @"EXPERTconnect UnitTester";
+    configuration.appVersion    = @"1.0";
+    configuration.appId         = @"12345";
+    configuration.host          = @"https://api.dce1.humanify.com";
+    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testAuthentication"];
+    
+    // Test 1: No identity delegate function populated. Should fail with a 1001 error.
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+    {
+        XCTAssert(error.code==1001, @"Missing token delegate function error not working properly.");
+        
+        // A bad auth URL
+        _testAuthURL = [[NSURL alloc] initWithString:
+                        [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/xxxust?username=%@&client_id=%@",
+                         @"expertconnect_unit_test",
+                         @"mktwebextc"]];
+        
+        // Now let's set the auth delegate so it will pass that test. However, the URL is bogus, so it should go into retry mode.
+        [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
+        
+        // Test 2: Should throw an error after 3 auth attempts.
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+        {
+            XCTAssert(error.code==404, @"Should return a 404 error code for URL not found.");
+            
+            // A GOOD auth URL
+            _testAuthURL = [[NSURL alloc] initWithString:
+                            [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                             @"expertconnect_unit_test",
+                             @"mktwebextc"]];
+            
+            // Test 3: Now that we have plugged in a good URL, everything should work correctly.
+            [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+            {
+                XCTAssert((journeyId.length>0 && error == nil), @"Should have a good journeyID after a successful authentication attempt.");
+                XCTAssert([journeyId containsString:@"journey"] && [journeyId containsString:@"_mktwebextc"], @"JourneyId does not contain required pieces.");
+                [expectation fulfill];
+            }];
+        }];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (30 seconds). Error=%@", error);
+        }
+    }];
 }
 
 /**

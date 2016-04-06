@@ -211,26 +211,53 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
-/*
-[[EXPERTconnect shared] setIdentityDelegateFunction:^void (void (^)(NSString *authToken, NSError *error)completion)] {
-    NSString *tokenFromWebFetch = [doWebFetchForToken];
-    completion(tokenFromWebFetch, nil);
-}];
+/**
+ This calls the delegate function the host app has provided to fetch a new identity delegate token.
+ We will attempt this operation 3 times with a 500ms delay between each attempt.
  */
-- (NSURLSessionTask *)refreshIdentityDelegateWithCompletion:(void (^)(NSString *authToken, NSError *error))completion;
+- (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion
 {
     __weak typeof(self) weakSelf = self;
-    
-    if (self.authTokenDelegate) {
-        [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error) {
-            if (authToken) {
+    __block NSNumber *myRetryCount = [NSNumber numberWithInt:theRetryCount+1];
+
+    if (self.authTokenDelegate)
+    {
+        [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error)
+        {
+            if (authToken)
+            {
                 weakSelf.authToken = authToken;
                 NSLog(@"New auth token is: %@", authToken);
                 completion(authToken, nil);
-            } else {
-                completion(nil, error);
+            }
+            else
+            {
+                if( theRetryCount >= 3 )
+                {
+                    completion(nil, error); // We're done. Throw error.
+                }
+                else
+                {
+                    // wait 500ms and try again (up to 3 times)
+                    ECSLogVerbose(@"refreshIdentityDelegate: Sleeping... (RetryCount=%@)", myRetryCount);
+                    [NSThread sleepForTimeInterval:0.5f];
+                    ECSLogVerbose(@"refreshIdentityDelegate: Done sleeping.");
+                    [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
+                }
             }
         }];
+    }
+    else
+    {
+        // Build and throw an error to the completion block if the user forgot to set a delegate function. 
+        NSError *error = [NSError errorWithDomain:@"com.humanify"
+                                             code:1001
+                                         userInfo:[NSDictionary dictionaryWithObject:@"No identity token delegate function found!"
+                                                                              forKey:@"description"]];
+        
+        ECSLogError(@"refreshIdentityDelegateWithCompletion: No identity token delegate function found!");
+        completion(nil, error);
     }
     
     return nil;
@@ -499,7 +526,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  @param Mode to select experts. Values: selectExpertChat | selectExpertVoiceCallback | selectExpertVoiceChat | selectExpertVideo | selectExpertAndChannel
  @param Dictionary of values that may be used to more accurately select experts
  @param Completion block (returns object)
- 
  @return the data task for the select experts call
  */
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
@@ -839,7 +865,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
                                   completion:(void(^)(NSDictionary *response, NSError *error))completion {
-    
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
     return [self GET:@"/experts/v1/skills"
@@ -1308,7 +1333,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     ECSLogVerbose(@"Authenticating with server.");
     
-    [self refreshIdentityDelegateWithCompletion:^(NSString *authToken, NSError *error)
+    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
     {
         if (!error && authToken)
         {
@@ -1321,6 +1346,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         else
         {
             ECSLogVerbose(@"Authentication failed.");
+            failure(nil, nil, error);
         }
     }];
 }
@@ -1356,13 +1382,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         {
             ECSLogWarn(@"Authentication error. Attempting to generate new key...");
             ECSLogVerbose(@"Packet: %@", response); 
-            if(weakSelf.authTokenDelegate) {
+            //if(weakSelf.authTokenDelegate) {
                 // Use the new method if an identity delegate is found.
                 [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
-            } else {
+            //} else {
                 // Backwards compatibility (or non-identity delegate methods)
-                [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
-            }
+            //    [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
+            //}
             retryingWithAuthorization = YES;
         }
         else if ((error.code != NSURLErrorCancelled) &&

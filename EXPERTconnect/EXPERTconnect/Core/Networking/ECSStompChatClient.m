@@ -492,26 +492,44 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 - (void)handleChatMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
 {
-    self.agentInteractionCount++;
-    
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatTextMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                            withClass:[ECSChatTextMessage class]];
-            message.fromAgent = YES;
-            [self.delegate chatClient:self didReceiveMessage:message];
-        }
-        else
-        {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
-        }
-    }
-
+	 self.agentInteractionCount++;
+	 
+	 if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+	 {
+		  NSError *serializationError = nil;
+		  id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+													  options:0 error:&serializationError];
+		  if (!serializationError)
+		  {
+			   ECSChatTextMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+																			   withClass:[ECSChatTextMessage class]];
+			   message.fromAgent = YES;
+			   
+			   NSString *timeStamp = [[EXPERTconnect shared] getTimeStampMessage];
+			   ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+			   if(!message.timeStamp)
+			   {
+					if(theme.showChatTimeStamp  == YES)
+					{
+						 if(![timeStamp isEqualToString:[[EXPERTconnect shared] lastTimeStamp]])
+						 {
+							  message.timeStamp = timeStamp;
+						 }
+						 else{
+							  if ([EXPERTconnect shared].lastChatMessageFromAgent == NO) {
+								   message.timeStamp = timeStamp;
+							  }
+						 }
+						 [EXPERTconnect shared].lastTimeStamp = timeStamp;
+					}
+			   }
+			   [self.delegate chatClient:self didReceiveMessage:message];
+		  }
+		  else
+		  {
+			   ECSLogError(@"Unable to parse chat message %@", serializationError);
+		  }
+	 }
 }
 
 - (void)handleChatStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient

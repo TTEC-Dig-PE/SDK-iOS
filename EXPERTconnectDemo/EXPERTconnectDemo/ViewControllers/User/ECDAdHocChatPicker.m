@@ -18,6 +18,7 @@ NSMutableArray *chatSkillsArray;
 NSString *currentEnvironment;
 NSString *currentChatSkill;
 int selectedRow;
+int rowToSelect;
 
 -(void)setup {
     
@@ -36,7 +37,7 @@ int selectedRow;
     
     // Select the current skill in the flipper control.
     int currentRow = 0;
-    int rowToSelect = 0;
+    rowToSelect = 0;
     if(currentChatSkill != nil)  {
         for(NSString* skill in chatSkillsArray) {
             if([skill isEqualToString:currentChatSkill])  {
@@ -57,7 +58,7 @@ int selectedRow;
 
 -(void)getAgentsForLastSelected {
     //int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
-    [self getAgentsAvailableForSkill:selectedRow];
+    [self getAgentsAvailableForSkill:rowToSelect];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -74,7 +75,8 @@ int selectedRow;
     [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
                                     completion:^(ECSSkillDetail *data, NSError *error)
     {
-        if(!error) {
+        if(!error)
+        {
             NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
             [skillDic setObject:data forKey:@"skillDetail"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"

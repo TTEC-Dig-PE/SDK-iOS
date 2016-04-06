@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSString *from;
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *chatState;
+@property (strong, nonatomic) NSString *timeStamp;
 
 - (NSData*)socketMessage;
 

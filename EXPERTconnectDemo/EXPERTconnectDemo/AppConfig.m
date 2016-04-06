@@ -139,8 +139,12 @@
          else
          {
              // If the new way didn't work, try the old way once.
-             NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
-             [self fetchOldAuthenticationToken:completion];
+             //NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+             //[self fetchOldAuthenticationToken:completion];
+             NSError *myError = [NSError errorWithDomain:@"com.humanify"
+                                                    code:statusCode
+                                                userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+             completion(nil, myError);
          }
      }];
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSChatToolbarController">
@@ -38,7 +38,6 @@
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bu8-vX-tbo" userLabel="Audio Button">
                                         <rect key="frame" x="16" y="12" width="36" height="36"/>
-                                        <animations/>
                                         <state key="normal" image="ecs_ic_chat_audio">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -48,7 +47,6 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="219-bf-50d" userLabel="Location Button">
                                         <rect key="frame" x="16" y="12" width="36" height="36"/>
-                                        <animations/>
                                         <state key="normal" image="ecs_ic_chat_location">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -58,7 +56,6 @@
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-VT-syM">
                                         <rect key="frame" x="0.0" y="60" width="610" height="0.0"/>
-                                        <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="U94-7u-GpN"/>
@@ -66,7 +63,6 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXK-AP-otR">
                                         <rect key="frame" x="545" y="0.0" width="60" height="60"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="C9S-E8-OEH"/>
@@ -88,7 +84,6 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlI-dT-uI2" userLabel="Cancel">
                                         <rect key="frame" x="545" y="0.0" width="60" height="60"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="ktz-ym-sTO"/>
@@ -111,7 +106,6 @@
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" bounces="NO" text="Type a message" translatesAutoresizingMaskIntoConstraints="NO" id="vsP-Jl-5b8">
                                         <rect key="frame" x="62" y="8" width="473" height="42"/>
-                                        <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="Qhs-WC-ALS"/>
@@ -121,7 +115,6 @@
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahr-dw-Btz" userLabel="Photo Button">
                                         <rect key="frame" x="16" y="12" width="36" height="36"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="36" id="iB0-Wt-iCn"/>
                                             <constraint firstAttribute="height" constant="36" id="kyd-BL-FLp"/>
@@ -134,7 +127,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="DXK-AP-otR" secondAttribute="trailing" constant="20" id="03a-V4-Fyb"/>
@@ -234,14 +226,12 @@
                             </view>
                             <view contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-57-AsZ" userLabel="Container View">
                                 <rect key="frame" x="0.0" y="60" width="600" height="0.0"/>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="ATu-Or-P1r"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Mm1-57-AsZ" firstAttribute="leading" secondItem="Unh-KR-6Bc" secondAttribute="leading" id="56C-bu-0kM"/>
@@ -261,11 +251,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <animations/>
                     <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ef7-iG-Mca" secondAttribute="bottom" id="7GK-WS-Wk9"/>

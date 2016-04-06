@@ -220,10 +220,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 /**
  Get list of experts
- 
  @param Dictionary of values that may be used to more accurately select experts
  @param Completion block (returns object)
- 
  @return the data task for the select experts call
  */
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems

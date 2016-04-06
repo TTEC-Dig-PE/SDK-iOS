@@ -44,8 +44,9 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     // Apply themes
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+	 
     self.view.backgroundColor = theme.primaryBackgroundColor;
-    
+	 
     self.tableView.backgroundColor = [UIColor clearColor];
     
     self.tableView.sectionFooterHeight = 0.0f;
@@ -61,12 +62,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     if(self.experts == nil) {
         
         __weak typeof(self) weakSelf = self;
+
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
         // Attempt to fetch list of available experts from server
         [urlSession getExpertsWithInteractionItems:nil
                                         completion:^(NSArray *responseArray, NSError *error) {
-                                            
+                     
             [weakSelf setLoadingIndicatorVisible:NO];
                                             
             if (!error) {
@@ -84,7 +86,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
         }];
         
     }
-    
+	 
     [self.tableView reloadData];
 }
 
@@ -103,7 +105,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.experts.count;
+    return [self.experts count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,13 +118,33 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     if(!(expert.fullName == (id)[NSNull null])) [featuredCell.name setText:expert.fullName];
     //if(!(expert.region == (id)[NSNull null]))   [featuredCell.region setText:expert.region];
     //if(!(expert.expertise == (id)[NSNull null])) [featuredCell.expertise setText:expert.expertise];
-    //if(!(expert.interests == (id)[NSNull null])) [featuredCell.interests setText:expert.interests];
+    //if(!(expert.interests == (id)[NSNull null])) [featuredCell.interests setText:[expert.interests componentsJoinedByString:@", "]];
     
-    //if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
-    //if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
-    //if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
-    //if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
+    featuredCell.firstLineView.hidden = YES;
+    featuredCell.regionView.hidden = NO;
+    NSLog(@"%@",self.actionType.type);
     [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
+    
+    /*if(expert.region || expert.interests)
+    {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            featuredCell.firstLineView.hidden = NO;
+            [featuredCell configureConstraints];
+        }
+    }
+    else{*/
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            featuredCell.regionView.hidden = YES;
+            [featuredCell configureConstraints];
+        }
+        else
+        {
+            featuredCell.regionHeightConstraints.constant = 0.0f;
+            featuredCell.regionView.hidden = YES;
+        }
+    //}
     
     return featuredCell;
 }
@@ -161,8 +183,28 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath; {
-    return 208.0;
+	 
+	 CGFloat height = 0.0f;
+	 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		  height = 200;
+	 }
+	 else
+	 {
+		  NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
+		  
+		  if([expert objectForKey:@"region"] || [expert objectForKey:@"interests"])
+		  {
+			   height = 250;
+		  }
+		  else{
+			   height = 200;
+		  }
+		  
+	 }
+	 return height;
 }
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

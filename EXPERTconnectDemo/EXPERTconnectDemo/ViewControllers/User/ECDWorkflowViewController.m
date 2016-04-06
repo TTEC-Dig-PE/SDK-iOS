@@ -10,6 +10,7 @@
 #import "ECDWorkflowViewController.h"
 #import "ECDAdHocAnswerEngineContextPicker.h"
 #import "ECDAdHocChatPicker.h"
+#import "ECDAdHocFormsPicker.h"
 #import "ECDLocalization.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
@@ -55,7 +56,9 @@ typedef NS_ENUM(NSInteger, WorkflowSurveyLeadsToBranchSectionRows)
 @property (strong, nonatomic) ECDAdHocAnswerEngineContextPicker *selectWorkflowAnswerEngineContextPicker;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectWorkflowPostSurveyChatPicker;
 @property (strong, nonatomic) ECDAdHocChatPicker *selectWorkflowPreSurveyChatPicker;
+@property (strong, nonatomic) ECDAdHocFormsPicker *selectWorkflowFormsPicker;
 @property (nonatomic, strong) ECSWorkflow *workflow;
+@property (assign, nonatomic) BOOL preChatSurvey;
 
 @end
 
@@ -82,11 +85,13 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     self.selectWorkflowAnswerEngineContextPicker = [ECDAdHocAnswerEngineContextPicker new];
     self.selectWorkflowPostSurveyChatPicker = [ECDAdHocChatPicker new];
     self.selectWorkflowPreSurveyChatPicker = [ECDAdHocChatPicker new];
-    
+    self.selectWorkflowFormsPicker = [ECDAdHocFormsPicker new];
+	 
     [self.selectWorkflowAnswerEngineContextPicker setup];
     [self.selectWorkflowPostSurveyChatPicker setup];
     [self.selectWorkflowPreSurveyChatPicker setup];
-    
+    [self.selectWorkflowFormsPicker setup];
+	 
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -303,7 +308,9 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 -(void)startChatWithPostSurvey
 {
     NSLog(@"Starting an Workflow Chat Session");
-    
+	 
+   [[EXPERTconnect shared] setSurveyFormName:[self.selectWorkflowFormsPicker currentSelection]];
+	 
     NSString *chatSkill = [self.selectWorkflowPostSurveyChatPicker currentSelection];
     
     [self localBreadCrumb:@"startChat"
@@ -328,14 +335,16 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 -(void)startChatWithPreSurvey
 {
+    self.preChatSurvey = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[EXPERTconnect shared] setSurveyFormName:@"agentperformance"];
+        [[EXPERTconnect shared] setSurveyFormName:[self.selectWorkflowFormsPicker currentSelection]];
         [[EXPERTconnect shared] startWorkflow:ECSActionTypeFormString withAction:ECSActionTypeFormString delgate:self viewController:self];
     });
 }
 
 -(void)startSurveyLeadsToBranch
 {
+    self.preChatSurvey = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [[EXPERTconnect shared] setSurveyFormName:@"simple form"];
         [[EXPERTconnect shared] startWorkflow:ECSActionTypeFormString withAction:ECSActionTypeFormString delgate:self viewController:self];
@@ -373,27 +382,31 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     }
     if ([workflowName isEqualToString:ECSActionTypeFormString]) {
         NSString *formName = [params valueForKey:@"formName"];
-        if ([formName isEqualToString:@"agentperformance"]) {
-            if ([params valueForKey:@"formValue"]) {
-                NSString *formValue = [params valueForKey:@"formValue"];
-                if ([formValue isEqualToString:@"low"] ) {
-                    return @{@"ActionType":ECSRequestChatAction};
-                }
-            }
-        }
-    }
-    if ([workflowName isEqualToString:ECSActionTypeFormString]) {
-        NSString *formName = [params valueForKey:@"formName"];
-        if ([formName isEqualToString:@"simple form"]) {
-            if ([params valueForKey:@"formValue"]) {
-                NSString *formValue = [params valueForKey:@"formValue"];
-                if ([formValue isEqualToString:@"low"] ) {
-                    return @{@"ActionType":ECSRequestChatAction};
-                }
-                else{
-                    return @{@"ActionType":ECSRequestAnswerEngineAction};
-                }
-            }
+        if ([formName isEqualToString:[EXPERTconnect shared].surveyFormName]) {
+			 if(self.preChatSurvey == YES)
+			 {
+				  if ([params valueForKey:@"formValue"]) {
+					   NSString *formValue = [params valueForKey:@"formValue"];
+					   if ([formValue isEqualToString:@"low"] ) {
+							return @{@"ActionType":ECSRequestChatAction};
+					   }
+					   return @{@"ActionType":ECSRequestChatAction};
+				  }
+			 }
+			 else
+			 {
+				  if ([formName isEqualToString:@"simple form"]) {
+					   if ([params valueForKey:@"formValue"]) {
+							NSString *formValue = [params valueForKey:@"formValue"];
+							if ([formValue isEqualToString:@"low"] ) {
+								 return @{@"ActionType":ECSRequestChatAction};
+							}
+							else{
+								 return @{@"ActionType":ECSRequestAnswerEngineAction};
+							}
+					   }
+				  }
+			 }
         }
     }
     return nil;

@@ -34,7 +34,8 @@
     message.body = [self.body copyWithZone:zone];
     message.chatState = [self.chatState copyWithZone:zone];
     message.fromAgent = self.fromAgent;
-    
+    message.timeStamp = [self.timeStamp copyWithZone:zone];
+	 
     return message;
 }
 

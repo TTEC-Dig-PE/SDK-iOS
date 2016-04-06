@@ -50,8 +50,6 @@
 		031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */; };
 		031B2D691AAF443900A00A36 /* ECSHistoryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B2D671AAF443900A00A36 /* ECSHistoryResponse.h */; };
 		031B2D6A1AAF443900A00A36 /* ECSHistoryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B2D681AAF443900A00A36 /* ECSHistoryResponse.m */; };
-		031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B2D6B1AAF453200A00A36 /* ECSAnswerHistoryResponse.h */; };
-		031B2D6E1AAF453200A00A36 /* ECSAnswerHistoryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B2D6C1AAF453200A00A36 /* ECSAnswerHistoryResponse.m */; };
 		03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 03272A0C1AE7E36F009C6EDF /* ECSChatFormMessage.h */; };
 		03272A0F1AE7E36F009C6EDF /* ECSChatFormMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03272A0D1AE7E36F009C6EDF /* ECSChatFormMessage.m */; };
 		033ACB2C1A602C9C0024F48F /* ECSJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 033ACB131A602C9C0024F48F /* ECSJSONSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -449,6 +447,8 @@
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
 		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
+		C47F53121CB402A40098A0BC /* ECSAnswerHistoryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F53111CB402A40098A0BC /* ECSAnswerHistoryResponse.m */; };
+		C47F53141CB402B70098A0BC /* ECSAnswerHistoryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */; };
 		C484AC311C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */; };
 		C484AC321C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */; };
 		C495EA9F1CA57D8300BC4057 /* ECSExpertDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -560,8 +560,6 @@
 		031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatInfoMessage.m; path = Chat/ECSChatInfoMessage.m; sourceTree = "<group>"; };
 		031B2D671AAF443900A00A36 /* ECSHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSHistoryResponse.h; path = Responses/ECSHistoryResponse.h; sourceTree = "<group>"; };
 		031B2D681AAF443900A00A36 /* ECSHistoryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSHistoryResponse.m; path = Responses/ECSHistoryResponse.m; sourceTree = "<group>"; };
-		031B2D6B1AAF453200A00A36 /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
-		031B2D6C1AAF453200A00A36 /* ECSAnswerHistoryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAnswerHistoryResponse.m; path = Responses/ECSAnswerHistoryResponse.m; sourceTree = "<group>"; };
 		03272A0C1AE7E36F009C6EDF /* ECSChatFormMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatFormMessage.h; path = Chat/ECSChatFormMessage.h; sourceTree = "<group>"; };
 		03272A0D1AE7E36F009C6EDF /* ECSChatFormMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatFormMessage.m; path = Chat/ECSChatFormMessage.m; sourceTree = "<group>"; };
 		033ACB131A602C9C0024F48F /* ECSJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSJSONSerializer.h; sourceTree = "<group>"; };
@@ -967,6 +965,8 @@
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
+		C47F53111CB402A40098A0BC /* ECSAnswerHistoryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAnswerHistoryResponse.m; path = Responses/ECSAnswerHistoryResponse.m; sourceTree = "<group>"; };
+		C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
 		C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSExpertDetail.h; path = "Data Models/ECSExpertDetail.h"; sourceTree = "<group>"; };
@@ -1397,6 +1397,8 @@
 		03C3102A1A9B5A31006B3557 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */,
+				C47F53111CB402A40098A0BC /* ECSAnswerHistoryResponse.m */,
 				4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */,
 				4665F6FC1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m */,
 				03C310301A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h */,
@@ -1419,8 +1421,6 @@
 				038E43FC1AA50C7F00FF1D48 /* ECSChannelConfiguration.m */,
 				031B2D671AAF443900A00A36 /* ECSHistoryResponse.h */,
 				031B2D681AAF443900A00A36 /* ECSHistoryResponse.m */,
-				031B2D6B1AAF453200A00A36 /* ECSAnswerHistoryResponse.h */,
-				031B2D6C1AAF453200A00A36 /* ECSAnswerHistoryResponse.m */,
 				462C19231B7B9EEE00E230B7 /* ECSUserProfileSubmitResponse.h */,
 				462C19241B7B9F0A00E230B7 /* ECSUserProfileSubmitResponse.m */,
 			);
@@ -1991,6 +1991,7 @@
 				03F0BD471A71300400E90E7F /* UIView+ECSNibLoading.h in Headers */,
 				03AF24A51A9B601E00407BE5 /* ECSSearchTextField.h in Headers */,
 				03A64D381B0145F000AED79D /* ECSNavigationController.h in Headers */,
+				C47F53141CB402B70098A0BC /* ECSAnswerHistoryResponse.h in Headers */,
 				0342B0141A9B60AE0009959E /* ECSQuickRatingViewController.h in Headers */,
 				03C310541A9B5B56006B3557 /* ECSActionTypeClassTransformer.h in Headers */,
 				03C3103C1A9B5B46006B3557 /* ECSCallbackSetupResponse.h in Headers */,
@@ -2072,7 +2073,6 @@
 				03101F281AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.h in Headers */,
 				46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */,
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
-				031B2D6D1AAF453200A00A36 /* ECSAnswerHistoryResponse.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
@@ -2489,7 +2489,6 @@
 				0342B01A1A9B60AE0009959E /* ECSFormViewController.m in Sources */,
 				031B2D6A1AAF443900A00A36 /* ECSHistoryResponse.m in Sources */,
 				C1E0E62B1BC409230089C7E6 /* ECSSelectionView.m in Sources */,
-				031B2D6E1AAF453200A00A36 /* ECSAnswerHistoryResponse.m in Sources */,
 				0342B0151A9B60AE0009959E /* ECSQuickRatingViewController.m in Sources */,
 				C1E0E6251BC409230089C7E6 /* ECSCalendarView.m in Sources */,
 				038E43FE1AA50C7F00FF1D48 /* ECSChannelConfiguration.m in Sources */,
@@ -2558,6 +2557,7 @@
 				C1E99D321BC7CC19000EC129 /* ECSLayoutManager.m in Sources */,
 				0342B01B1A9B60AE0009959E /* ECSRadioFormItemViewController.m in Sources */,
 				C1E99D401BC7CC4B000EC129 /* ECSBarButtonItem.m in Sources */,
+				C47F53121CB402A40098A0BC /* ECSAnswerHistoryResponse.m in Sources */,
 				031B27471ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m in Sources */,
 				0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */,
 				039CDFC61AD6EC2900F52600 /* ECSChatTextTableViewCell.m in Sources */,

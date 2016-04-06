@@ -93,14 +93,14 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     
     // Fetch the authToken from our webApp
+    [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
     [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
      {
          if (!error) {
              [[EXPERTconnect shared] setUserIdentityToken:authToken];
-             [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
          }
-         
+        
          [myAppConfig startBreadcrumbSession];
      }];
     
@@ -289,6 +289,24 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 		  myTheme.showAvatarImages = YES;
 	 }
 	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatBubbleTailsKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showChatBubbleTails = NO;
+	 }
+	 else{
+		  myTheme.showChatBubbleTails = YES;
+	 }
+	 
+	 if([[[NSUserDefaults standardUserDefaults]
+		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]] isEqualToString:@"0"])
+	 {
+		  myTheme.showChatTimeStamp = NO;
+	 }
+	 else{
+		  myTheme.showChatTimeStamp = YES;
+	 }
+
     myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
     [EXPERTconnect shared].theme = myTheme;
 }*/
