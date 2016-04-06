@@ -1632,7 +1632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1660,7 +1660,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72C4C39460082123433B137E /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
