@@ -272,6 +272,7 @@ NSURL *_testAuthURL;
     
     [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(NSDictionary *jsonDic, NSError *error)
     {
+        NSLog(@"jsonDic=%@", jsonDic); 
         [expectation fulfill];
     }];
     

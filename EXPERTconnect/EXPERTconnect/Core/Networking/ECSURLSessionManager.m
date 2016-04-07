@@ -465,11 +465,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
     if(inquiryID) parameters[@"inquiryId"] = inquiryID;
     if(parentNavigator) parameters[@"navContext"] = parentNavigator;
     if(actionId) parameters[@"action_id"] = actionId;
     parameters[@"rating"] = rating;
     parameters[@"questionCount"] = questionCount;
+    parameters[@"min"] = @"1";
+    parameters[@"max"] = @"2";
     
     ECSLogVerbose(@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]

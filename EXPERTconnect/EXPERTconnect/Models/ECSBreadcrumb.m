@@ -210,6 +210,32 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@; type=%@, desc=%@, source=%@, dest=%@", [super description], self.actionType, self.actionDescription, self.actionSource, self.actionDestination];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    ECSBreadcrumb *newBC = [[[self class] allocWithZone:zone] init];
+    
+    newBC.properties = [[NSMutableDictionary alloc] initWithDictionary:self.properties copyItems:YES];
+    
+    if(self.actionId) newBC.actionId = [self.actionId copyWithZone:zone];
+    if(self.tenantId) newBC.tenantId = [self.tenantId copyWithZone:zone];
+    if(self.journeyId) newBC.journeyId = [self.journeyId copyWithZone:zone];
+    if(self.userId) newBC.userId = [self.userId copyWithZone:zone];
+    if(self.sessionId) newBC.sessionId = [self.sessionId copyWithZone:zone];
+    if(self.actionType) newBC.actionType = [self.actionType copyWithZone:zone];
+    if(self.actionDescription) newBC.actionDescription = [self.actionDescription copyWithZone:zone];
+    if(self.actionSource) newBC.actionSource = [self.actionSource copyWithZone:zone];
+    if(self.actionDestination) newBC.actionDestination = [self.actionDestination copyWithZone:zone];
+    if(self.creationTime) newBC.creationTime = [self.creationTime copyWithZone:zone];
+    if(self.geoLocation) newBC.geoLocation = [self.geoLocation copyWithZone:zone];
+    
+    return newBC;
+}
+
+
 @end
 
 

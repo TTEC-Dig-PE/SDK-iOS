@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface ECSBreadcrumb: NSObject
+@interface ECSBreadcrumb: NSObject <NSCopying>
 
 @property (nonatomic) NSMutableDictionary *properties;
 
