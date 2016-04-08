@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSChatToolbarController">
@@ -11,6 +11,8 @@
                 <outlet property="cancelButton" destination="dlI-dT-uI2" id="arL-X0-fQE"/>
                 <outlet property="cancelSendTrailing" destination="dS1-Ms-9rF" id="B1Y-9t-acT"/>
                 <outlet property="cancelSuperViewTrailing" destination="5Qd-mK-OIp" id="byn-8J-izn"/>
+                <outlet property="chatTextToLeftEdge" destination="ohF-yf-B4D" id="cfl-u8-rWg"/>
+                <outlet property="chatTextToPhotoButton" destination="a4x-Sl-Nhu" id="O9N-xd-iCb"/>
                 <outlet property="containerView" destination="Mm1-57-AsZ" id="4Ef-cv-96o"/>
                 <outlet property="containerViewHeightConstraint" destination="ATu-Or-P1r" id="5lY-Mb-zR3"/>
                 <outlet property="locationButton" destination="219-bf-50d" id="UBX-Vc-5cp"/>
@@ -172,6 +174,7 @@
                                     <constraint firstAttribute="bottom" secondItem="dlI-dT-uI2" secondAttribute="bottom" id="kWj-gQ-OUi"/>
                                     <constraint firstItem="dlI-dT-uI2" firstAttribute="trailing" secondItem="DXK-AP-otR" secondAttribute="trailing" id="n1V-2O-YiG"/>
                                     <constraint firstAttribute="trailing" secondItem="DXK-AP-otR" secondAttribute="trailing" constant="5" id="oKq-3d-Yom"/>
+                                    <constraint firstItem="vsP-Jl-5b8" firstAttribute="leading" secondItem="vuU-Lm-Ajf" secondAttribute="leading" priority="999" constant="10" id="ohF-yf-B4D"/>
                                     <constraint firstItem="dlI-dT-uI2" firstAttribute="width" secondItem="DXK-AP-otR" secondAttribute="width" id="rQe-I7-1qy"/>
                                     <constraint firstAttribute="centerY" secondItem="Ahr-dw-Btz" secondAttribute="centerY" id="sMO-IQ-h0f"/>
                                     <constraint firstItem="hb2-VT-syM" firstAttribute="leading" secondItem="vuU-Lm-Ajf" secondAttribute="leading" id="ske-L7-dxC"/>

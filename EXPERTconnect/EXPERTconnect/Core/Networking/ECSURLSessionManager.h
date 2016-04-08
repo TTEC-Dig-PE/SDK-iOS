@@ -206,10 +206,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
-                                 parentNavigator:(NSString*)parentNavigator
-                                        actionId:(NSString*)actionId
-                                          rating:(NSNumber*)rating
-                                   questionCount:(NSNumber*)questionCount
+                                          rating:(int)rating
+                                             min:(int)theMin
+                                             max:(int)theMax
+                                   questionCount:(int)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
 
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion;

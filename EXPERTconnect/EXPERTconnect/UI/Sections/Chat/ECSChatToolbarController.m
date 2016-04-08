@@ -106,13 +106,19 @@
                       forState:UIControlStateNormal];
     self.photoButton.tintColor = self.inactiveColor;
     
-    [self.audioButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_audio"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+    if( theme.showChatImageUploadButton == NO )
+    {
+        self.chatTextToPhotoButton.constant = -36;
+        [self.photoButton setHidden:YES];
+    }
+    
+    /*[self.audioButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_audio"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                       forState:UIControlStateNormal];
     self.audioButton.tintColor = self.inactiveColor;
     
     [self.locationButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_location"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                       forState:UIControlStateNormal];
-    self.locationButton.tintColor = self.inactiveColor;
+    self.locationButton.tintColor = self.inactiveColor;*/
     
     self.placeholderColor = theme.secondaryTextColor;
     self.textView.textColor = self.placeholderColor;

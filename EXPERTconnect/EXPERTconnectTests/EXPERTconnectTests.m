@@ -244,6 +244,69 @@ NSURL *_testAuthURL;
     }];
 }
 
+- (void)testRateResponse {
+    [self initSDK];
+    ECSURLSessionManager *sm = [[EXPERTconnect shared] urlSession];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testRateResponse"];
+    
+    // Give a thumbs up rating...
+    [sm rateAnswerWithAnswerID:@"146012322420964"
+                     inquiryID:@"146012322420964"
+                        rating:1
+                           min:-1
+                           max:1
+                 questionCount:1
+                    completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+    {
+        XCTAssert(response.constrainedRating==5, @"Rating was not converted to max for positive.");
+        
+        // Give a thumbs down rating...
+        [sm rateAnswerWithAnswerID:@"146012322420964"
+                         inquiryID:@"146012322420964"
+                            rating:-1
+                               min:-1
+                               max:1
+                     questionCount:2
+                        completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+         {
+             XCTAssert(response.constrainedRating==1, @"Rating was not converted to min for negative.");
+             
+             // Give a rating right in the middle (1-5, rating=3)
+             [sm rateAnswerWithAnswerID:@"146012322420964"
+                              inquiryID:@"146012322420964"
+                                 rating:3
+                                    min:1
+                                    max:5
+                          questionCount:3
+                             completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+              {
+                  XCTAssert(response.constrainedRating==3,@"Rating does not reflect answer.");
+                  
+                  // A bogus rating value (15 is higher than the max)
+                  [sm rateAnswerWithAnswerID:@"146012322420964"
+                                   inquiryID:@"146012322420964"
+                                      rating:15
+                                         min:1
+                                         max:5
+                               questionCount:3
+                                  completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+                   {
+                       XCTAssert(response.constrainedRating==1, @"Rating was not set to min value due to out of bound.");
+                  
+                      [expectation fulfill];
+                   }];
+              }];
+         }];
+    }];
+    
+    // Wait for the above code to finish (15 second timeout)...
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
 - (void)testBreadcrumbBulk {
     

@@ -24,6 +24,9 @@
 
 @property (assign, nonatomic) BOOL sendEnabled;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatTextToLeftEdge;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatTextToPhotoButton;
+
 - (void)initializeSendState;
 
 @end

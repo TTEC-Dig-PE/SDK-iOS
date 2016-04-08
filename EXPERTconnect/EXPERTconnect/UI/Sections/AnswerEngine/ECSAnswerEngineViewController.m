@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (strong, nonatomic) ECSTopQuestionsViewController *topQuestions;
 
 // Question Tracking
-@property (assign, nonatomic) NSInteger questionCount;
+@property (assign, nonatomic) int questionCount;
 
 @property (strong, nonatomic) NSLayoutConstraint *topQuestionsTopConstraint;
 @property (assign, nonatomic) BOOL faqIsShowing;
@@ -635,24 +635,24 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     [self askQuestion:suggestedQuestion];
 }
 
-- (void)didRateAnswer:(ECSAnswerEngineResponse *)answer withRating:(NSNumber *)rating
+- (void)didRateAnswer:(ECSAnswerEngineResponse *)answer withRating:(int)rating
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     __weak typeof(self) weakSelf = self;
     [sessionManager rateAnswerWithAnswerID:answer.answerId
                                  inquiryID:answer.inquiryId
-                           parentNavigator:self.parentNavigationContext
-                                  actionId:self.actionType.actionId
                                     rating:rating
-                             questionCount:@(self.questionCount)
-                                completion:^(ECSAnswerEngineRateResponse *response, NSError *error) {
-                                    
-                                    if (!error && response)
-                                    {
-                                        [weakSelf handleRatingResponse:response];
-                                    }
-                                }];
+                                       min:-1
+                                       max:1
+                             questionCount:self.questionCount
+                                completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+    {
+        if (!error && response)
+        {
+            [weakSelf handleRatingResponse:response];
+        }
+    }];
 }
 
 - (void)isReadyToRemoveFromParent:(UIViewController *)controller

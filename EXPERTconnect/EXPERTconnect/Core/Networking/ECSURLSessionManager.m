@@ -457,22 +457,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
-                                 parentNavigator:(NSString*)parentNavigator
-                                        actionId:(NSString*)actionId
-                                          rating:(NSNumber*)rating
-                                   questionCount:(NSNumber*)questionCount
+                                          rating:(int)rating
+                                             min:(int)theMin
+                                             max:(int)theMax
+                                   questionCount:(int)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion
 {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     if(inquiryID) parameters[@"inquiryId"] = inquiryID;
-    if(parentNavigator) parameters[@"navContext"] = parentNavigator;
-    if(actionId) parameters[@"action_id"] = actionId;
-    parameters[@"rating"] = rating;
-    parameters[@"questionCount"] = questionCount;
-    parameters[@"min"] = @"1";
-    parameters[@"max"] = @"2";
+    //if(parentNavigator) parameters[@"navContext"] = parentNavigator;
+    //if(actionId) parameters[@"action_id"] = actionId;
+    parameters[@"rating"] = [NSString stringWithFormat:@"%d",rating];
+    parameters[@"questionCount"] = [NSString stringWithFormat:@"%d",questionCount];
+    parameters[@"min"] = [NSString stringWithFormat:@"%d", theMin];
+    parameters[@"max"] = [NSString stringWithFormat:@"%d", theMax];
     
     ECSLogVerbose(@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]

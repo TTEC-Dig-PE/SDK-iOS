@@ -220,12 +220,16 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     
     NSString *answerid = self.lastAnswerEngineResponse.answerId;
     NSString *inquiryid = self.lastAnswerEngineResponse.inquiryId;
-    NSNumber *rating = [NSNumber numberWithInt:[self.sliderValueField.text intValue]];
+    int rating = [self.sliderValueField.text intValue];
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager rateAnswerWithAnswerID:answerid inquiryID:inquiryid parentNavigator:@"" actionId:@""
-                rating:rating questionCount:[NSNumber numberWithInt:0]
+    [sessionManager rateAnswerWithAnswerID:answerid
+                                 inquiryID:inquiryid
+                                    rating:rating
+                                       min:-1
+                                       max:1
+                             questionCount:0
                 completion:^(ECSAnswerEngineRateResponse *response, NSError *error) {
                     
         NSLog(@"Received AnswerEngine Rate Response:");

@@ -282,7 +282,7 @@
 		03C310271A9B59C0006B3557 /* ECSURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310251A9B59C0006B3557 /* ECSURLSessionManager.m */; };
 		03C3102E1A9B5B39006B3557 /* ECSPreSurvey.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C3102C1A9B5B39006B3557 /* ECSPreSurvey.h */; };
 		03C3102F1A9B5B39006B3557 /* ECSPreSurvey.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C3102D1A9B5B39006B3557 /* ECSPreSurvey.m */; };
-		03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310301A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h */; };
+		03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310301A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310311A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m */; };
 		03C3103A1A9B5B46006B3557 /* ECSAnswerEngineResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 03C310321A9B5B46006B3557 /* ECSAnswerEngineResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C310331A9B5B46006B3557 /* ECSAnswerEngineResponse.m */; };
@@ -1936,6 +1936,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */,
 				C431B3961BE7FEC800996102 /* ECSBreadcrumb.h in Headers */,
 				C495EA9F1CA57D8300BC4057 /* ECSExpertDetail.h in Headers */,
 				C495EAA11CA57D8300BC4057 /* ECSSkillDetail.h in Headers */,
@@ -2057,7 +2058,6 @@
 				0342AFBA1A9B60840009959E /* ECSCallbackViewController.h in Headers */,
 				0342B04C1A9B60C10009959E /* ECSSectionHeader.h in Headers */,
 				4665F6FF1B7D1E6700C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h in Headers */,
-				03C310381A9B5B46006B3557 /* ECSAnswerEngineRateResponse.h in Headers */,
 				C1E0E62C1BC409230089C7E6 /* ECSThemeEngine.h in Headers */,
 				03F0BD321A70095E00E90E7F /* ECSLocalization.h in Headers */,
 				03C310261A9B59C0006B3557 /* ECSURLSessionManager.h in Headers */,

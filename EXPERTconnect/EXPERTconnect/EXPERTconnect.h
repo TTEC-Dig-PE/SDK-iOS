@@ -13,6 +13,7 @@
 #import <EXPERTconnect/ECSActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineResponse.h>
+#import <EXPERTconnect/ECSAnswerEngineRateResponse.h>
 #import <EXPERTconnect/ECSAnswerEngineTopQuestionsResponse.h>
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
