@@ -37,7 +37,7 @@
         self.agentChatBackground = self.secondaryBackgroundColor;
         self.agentChatTextColor = self.primaryTextColor;
         self.showAvatarImages = YES;
-        self.showChatImageUploadButton = NO;
+        self.showChatImageUploadButton = YES;
 	    self.showChatBubbleTails = YES;
 	    self.showChatTimeStamp = YES;
 	    self.chatTimestampTextColor = [UIColor darkGrayColor];
