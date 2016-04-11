@@ -59,6 +59,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (nonatomic, weak) id<ECSAuthenticationTokenDelegate> authTokenDelegate;
 
+@property (copy, nonatomic) NSString *journeyID;
+
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
 
@@ -484,7 +486,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                             failure:(void(^)(NSURLResponse *response, NSError *error))failure;
 
 
-- (NSString *) getJourneyID ;
+//- (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
 
 #pragma mark Breadcrumbs

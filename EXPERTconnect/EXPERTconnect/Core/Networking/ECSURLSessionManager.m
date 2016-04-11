@@ -75,6 +75,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 @implementation ECSURLSessionManager
 
+@synthesize journeyID;
+
 - (instancetype)initWithHost:(NSString*)host
 {
     self = [super init];
@@ -283,23 +285,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         parameters = @{@"name": name};
     }
-    
-    /*
-    if (self.conversation && self.conversation.journeyID.length > 0) {
-        // Added to track breadcrumb of every navigation in the system
-        NSString *actionType = @"Navigation";
-        NSString *actionDescription = @"API Called everytime user navigates in ExpertConnect Demo";
-        NSString *actionSource = @"Navigation";
-        NSString *actionDestination = name;
-    
-        [[EXPERTconnect shared] breadcrumbsAction:actionType
-                            actionDescription:actionDescription
-                            actionSource:actionSource
-                            actionDestination:actionDestination];
-    }
-     */
-    
-    
     
     return [self GET:@"appconfig/v1/navigation"
           parameters:parameters
@@ -708,13 +693,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     ECSKeychainSupport *support = [ECSKeychainSupport new];
     
     NSDictionary *parameters;
-    if([EXPERTconnect shared].journeyID)
+    if(self.journeyID)
     {
         // Send the journeyID if startJourney() has been called.
         parameters = @{
                      @"location": location,
                      @"deviceId": [support deviceId],
-                     @"journeyId": [EXPERTconnect shared].journeyID
+                     @"journeyId": self.journeyID
                      };
     } else {
         parameters = @{
@@ -1548,9 +1533,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     // mas - 20-oct-2015 - First, try to grab journeyID from the global area. If not found, we may have one in the
     // conversation, use that instead.
-    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    if (self.journeyID && self.journeyID.length > 0)
     {
-        [mutableRequest setValue:[EXPERTconnect shared].journeyID forHTTPHeaderField:@"x-ia-journey-id"];
+        [mutableRequest setValue:self.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
     else if (self.conversation && self.conversation.journeyID.length > 0)
     {
@@ -1580,7 +1565,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return request;
 }
 
-- (NSString *) getJourneyID {
+/*- (NSString *) getJourneyID {
     
     if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
     {
@@ -1591,7 +1576,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         return self.conversation.journeyID;
     }
     return @"-1";
-}
+}*/
 
 - (NSString *) getConversationID {
     

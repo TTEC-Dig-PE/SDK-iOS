@@ -692,7 +692,8 @@ NSTimer *breadcrumbTimer;
         if (response && !error && response.journeyID && response.journeyID.length > 0)
         {
             // Set the global journeyID
-            self.journeyID = response.journeyID;
+            //self.journeyID = response.journeyID;
+            sessionManager.journeyID = response.journeyID;
             
             if( completion )
             {
@@ -808,7 +809,7 @@ NSTimer *breadcrumbTimer;
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
 {
-    if([self journeyID] == Nil)
+    if(self.journeyID == Nil)
     {
         ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching new journeyID...");
         [self startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
@@ -861,7 +862,7 @@ NSTimer *breadcrumbTimer;
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     if([self clientID])theBreadcrumb.tenantId = [self clientID];
-    theBreadcrumb.journeyId = [self journeyID];
+    theBreadcrumb.journeyId = self.journeyID;
     theBreadcrumb.sessionId = [self sessionID];
     theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
     
@@ -901,7 +902,7 @@ NSTimer *breadcrumbTimer;
 
 - (void) bc_internal_start_session:(void(^)(NSString *, NSError *))completion
 {
-    if( [self journeyID] == Nil )
+    if( self.journeyID == Nil )
     {
         NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
                                              code:1001
@@ -910,7 +911,7 @@ NSTimer *breadcrumbTimer;
         return;
     }
     
-    ECSLogVerbose(@"breadcrumbNewSession:: calling with journeyId : %@", [self journeyID]);
+    ECSLogVerbose(@"breadcrumbNewSession:: calling with journeyId : %@", self.journeyID);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
@@ -918,7 +919,7 @@ NSTimer *breadcrumbTimer;
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     if([self clientID])[journeySession setTenantId:[self clientID]];
-    [journeySession setJourneyId:[self journeyID]];
+    [journeySession setJourneyId:self.journeyID];
     [journeySession setDeviceId:userManager.deviceID];
     [journeySession setPlatform:@"iOS"];
     [journeySession setOSVersion:[[UIDevice currentDevice] systemVersion]];
@@ -958,6 +959,13 @@ NSTimer *breadcrumbTimer;
      3 - Debug
      4 - Verbose
  */
+-(NSString *)journeyID {
+    return self.urlSession.journeyID;
+}
+-(void)setJourneyID:(NSString *)theJourneyID {
+    self.urlSession.journeyID = theJourneyID; 
+}
+
 - (void)setDebugLevel:(int)logLevel {
     NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
     ECSLogSetLogLevel(logLevel);

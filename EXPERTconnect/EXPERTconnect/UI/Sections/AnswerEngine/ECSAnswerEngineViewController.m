@@ -317,7 +317,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         else
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
+                [weakSelf handleAPIResponse:nil forQuestion:nil withError:error]; 
             });
         }
     }];

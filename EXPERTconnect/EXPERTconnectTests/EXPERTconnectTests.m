@@ -149,6 +149,46 @@ NSURL *_testAuthURL;
     }];
 }
 
+- (void) testExpertConnectAsClass {
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testExpertConnectAsClass"];
+    EXPERTconnect *myEC = [[EXPERTconnect alloc] init];
+    ECSConfiguration *configuration = [ECSConfiguration new];
+    configuration.appName       = @"EXPERTconnect UnitTester";
+    configuration.appVersion    = @"1.0";
+    configuration.appId         = @"12345";
+    configuration.host          = @"https://api.dce1.humanify.com";
+    [myEC initializeWithConfiguration:configuration];
+    
+    _testAuthURL = [[NSURL alloc] initWithString:
+                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                     @"expertconnect_unit_test",
+                     @"mktwebextc"]];
+    [myEC setAuthenticationTokenDelegate:self];
+    
+    [myEC startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
+        NSLog(@"Journey created.");
+        
+        [myEC getDetailsForSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
+            // was journeyID in the header?
+            
+            [expectation fulfill];
+        }];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
+- (void)testJourneyIDParameter {
+    [EXPERTconnect shared].journeyID = @"MikeJourneyIDTest";
+    XCTAssert([[EXPERTconnect shared].journeyID isEqualToString:@"MikeJourneyIDTest"], @"JourneyID is not what we set it to");
+    XCTAssert([[EXPERTconnect shared].journeyID isEqualToString:[EXPERTconnect shared].urlSession.journeyID],@"JourneyID should match what URLSession has");
+}
+
 /**
  Test: startJourney()
  
@@ -418,6 +458,33 @@ NSURL *_testAuthURL;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testGetAnswerForQuestion {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getAnswerForQuestion:@"Parking"
+                               inContext:@"Park"
+                         parentNavigator:@""
+                                actionId:@""
+                           questionCount:1
+                              customData:nil
+                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
+    {
+        NSLog(@"Response=%@", response);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+    
 }
 
 - (void)testStartupTiming {
