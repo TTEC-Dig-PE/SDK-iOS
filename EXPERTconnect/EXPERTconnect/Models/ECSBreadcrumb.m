@@ -55,6 +55,7 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 {
     if (self = [super init]) {
         
+        properties = [NSMutableDictionary dictionary];
         self.actionType = theAction;
         self.actionDescription = theDescription;
         self.actionSource = source;

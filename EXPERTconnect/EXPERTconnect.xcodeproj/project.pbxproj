@@ -444,6 +444,7 @@
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
 		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
+		C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */; };
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
 		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
@@ -962,6 +963,7 @@
 		C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CalendarConfigiPhone.plist; path = ../../CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
+		C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_DceDev_Henry_Tests.m; sourceTree = "<group>"; };
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1311,6 +1313,7 @@
 		03978EF11A602AEF007793D6 /* EXPERTconnectTests */ = {
 			isa = PBXGroup;
 			children = (
+				C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */,
 				03978EF41A602AEF007793D6 /* EXPERTconnectTests.m */,
 				03978EF21A602AEF007793D6 /* Supporting Files */,
 			);
@@ -2584,6 +2587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03978EF51A602AEF007793D6 /* EXPERTconnectTests.m in Sources */,
+				C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -523,6 +523,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     //[parameters setObject:theExpertMode forKey:@"expert_mode"];
     if (theInteractionItems) [parameters addEntriesFromDictionary:theInteractionItems];
+    if (parameters.count==0) parameters = nil; 
     
     return [self GET:@"experts/v1/experts"
           parameters:parameters

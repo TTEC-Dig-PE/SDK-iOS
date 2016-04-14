@@ -26,7 +26,7 @@
                     <rect key="frame" x="8" y="8" width="208" height="49"/>
                     <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Purchase Daypack">
+                    <state key="normal" title="Start Case 1">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>

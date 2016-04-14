@@ -42,36 +42,35 @@
     [self.textViewLogging setText:@""];
     [self logAction:@"Starting Use Case 1..."];
     
-    [[EXPERTconnect shared] breadcrumbWithAction:@"Click"
-                                     description:@"Durable Pack 1"
-                                          source:@"SDK"
-                                     destination:@"Product Page"
-                                     geolocation:nil];
-    
-    [[EXPERTconnect shared] breadcrumbDispatchWithCompletion:^(NSDictionary *decisionResponse, NSError *error) {
+    ECSBreadcrumb *bc = [[ECSBreadcrumb alloc] initWithAction:@"Click"
+                                                  description:@"Durable Pack 1"
+                                                       source:@"SDK"
+                                                  destination:@"Product Page"];
+
+    [[EXPERTconnect shared] breadcrumbSendOne:bc withCompletion:^(NSDictionary *decisionResponse, NSError *error) {
         
         [self logAction:@"User clicked Durable Pack 1 (BC sent)"];
-        [[EXPERTconnect shared] breadcrumbWithAction:@"Click"
-                                         description:@"Lightweight Pack 2"
-                                              source:@"SDK"
-                                         destination:@"Product Page"
-                                         geolocation:nil];
         
-        [[EXPERTconnect shared] breadcrumbDispatchWithCompletion:^(NSDictionary *decisionResponse, NSError *error) {
+        ECSBreadcrumb *bc2 = [[ECSBreadcrumb alloc] initWithAction:@"Click"
+                                                       description:@"Lightweight Pack 2"
+                                                            source:@"SDK"
+                                                       destination:@"Product Page"];
+        
+        [[EXPERTconnect shared] breadcrumbSendOne:bc2 withCompletion:^(NSDictionary *decisionResponse, NSError *error) {
             
             [self logAction:@"User clicked Lightweight Pack 2 (BC sent)"];
-            [[EXPERTconnect shared] breadcrumbWithAction:@"Click"
-                                             description:@"Power Pack 3"
-                                                  source:@"SDK"
-                                             destination:@"Product Page"
-                                             geolocation:nil];
+
+            ECSBreadcrumb *bc3 = [[ECSBreadcrumb alloc] initWithAction:@"Click"
+                                                           description:@"Power Pack 3"
+                                                                source:@"SDK"
+                                                           destination:@"Product Page"];
             
-            [[EXPERTconnect shared] breadcrumbDispatchWithCompletion:^(NSDictionary *decisionResponse, NSError *error) {
+            [[EXPERTconnect shared] breadcrumbSendOne:bc3 withCompletion:^(NSDictionary *decisionResponse, NSError *error) {
                 
                 [self logAction:@"User clicked Power Pack 3 (BC sent)"];
                 
                 // Escalation should occur here.
-                
+                [[EXPERTconnect shared] breadcrumbDispatch];
                 [self logAction:@"**END OF ROUTINE (Under construction)**"];
             }];
         }];
