@@ -42,6 +42,9 @@
 #import "ECSNavigationContext.h"
 #import "ECSUserManager.h"
 
+#import "ECSBreadcrumbResponse.h"
+#import "ECSBreadcrumb.h"
+
 #import "ECSSkillDetail.h"
 #import "ECSExpertDetail.h"
 
@@ -1588,12 +1591,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 - (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
-                                      completion:(void (^)(NSDictionary *json, NSError *error))completion
+                                      completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion
 {
     
     return [self POST:@"breadcrumb/v1/actions"
            parameters:actionJson
-              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+              success:[self successWithExpectedType:[ECSBreadcrumbResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
     
 }

@@ -370,14 +370,18 @@ NSString *_testTenant;
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"testBreadcrumbSendOne"];
     
-    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] initWithAction:@"click"
-                                                    description:@"Mobile Phone"
-                                                         source:@"Phones"
-                                                    destination:@"Product Page"];
+    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] initWithAction:@"test!@$_\'"
+                                                    description:@"this is a very long description about sending one breadcrumb to the server. This unit test should successfully reflect my very long description."
+                                                         source:@"-(unit test)"
+                                                    destination:@"<script>alert('oh oh!')</script>"];
     
-    [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(NSDictionary *jsonDic, NSError *error)
+    [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(ECSBreadcrumbResponse *bcr, NSError *error)
     {
-        NSLog(@"jsonDic=%@", jsonDic); 
+        XCTAssert([bcr.actionType isEqualToString:@"test!@$_\'"], @"type missing or not matching.");
+        XCTAssert([bcr.actionDescription isEqualToString:@"this is a very long description about sending one breadcrumb to the server. This unit test should successfully reflect my very long description."], @"description missing or not matching.");
+        XCTAssert([bcr.actionSource isEqualToString:@"-(unit test)"], @"source missing or not matching.");
+        XCTAssert([bcr.actionDestination isEqualToString:@"<script>alert('oh oh!')</script>"], @"destination missing or not matching.");
+
         [expectation fulfill];
     }];
     

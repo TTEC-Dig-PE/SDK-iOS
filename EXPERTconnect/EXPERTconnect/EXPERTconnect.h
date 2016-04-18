@@ -66,6 +66,7 @@
 #import <EXPERTconnect/ECSChannelConfiguration.h>
 #import <EXPERTconnect/ECSChannelCreateResponse.h>
 
+
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 #import <EXPERTconnect/UIView+ECSNibLoading.h>
 #import <EXPERTconnect/ECSViewControllerStack.h>
@@ -92,6 +93,8 @@
 #import <EXPERTconnect/ECSAuthenticationToken.h>
 
 #import <EXPERTconnect/ECSBreadcrumb.h>
+#import <EXPERTconnect/ECSBreadcrumbsSession.h>
+#import <EXPERTconnect/ECSBreadcrumbResponse.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -384,7 +387,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 #pragma mark Breadcrumb Functions
 
 - (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
-            withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion;
+            withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion;
 
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription

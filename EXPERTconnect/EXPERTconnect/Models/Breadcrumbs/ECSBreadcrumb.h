@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSString *creationTime;
 @property (strong, nonatomic) CLLocation *geoLocation;
 
+- (id)init;
+
 - (id)initWithDic : (NSDictionary *)dic;
 
 - (id) initWithAction:(NSString *)theAction

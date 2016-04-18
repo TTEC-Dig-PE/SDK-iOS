@@ -22,8 +22,6 @@
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
 #import "ECSWorkflowNavigation.h"
-#import "ECSBreadcrumbsSession.h"
-#import "ECSBreadcrumb.h"
 #import "ECSLog.h"
 
 @interface EXPERTconnect ()
@@ -715,7 +713,7 @@ NSTimer *breadcrumbTimer;
  Send one "interesting" breadcrumb to server and wait for response.
  */
 - (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
-            withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion
+            withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion
 {
     __block ECSBreadcrumb *blockBC = [theBreadcrumb copy];
     if([self sessionID] == nil)
@@ -835,7 +833,7 @@ NSTimer *breadcrumbTimer;
  Internal function for sending a breadcrumb. Assumes session & journey have been started.
  */
 - (void) bc_internal_send_one_ex:(ECSBreadcrumb *)theBreadcrumb
-                  withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion
+                  withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion
 {
     if( [self sessionID] == Nil )
     {
@@ -846,7 +844,7 @@ NSTimer *breadcrumbTimer;
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
-                                completion:^(NSDictionary *json, NSError *error)
+                                completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
         theCompletion(json, error); 
     }];

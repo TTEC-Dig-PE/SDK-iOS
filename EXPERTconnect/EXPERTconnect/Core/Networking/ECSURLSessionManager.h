@@ -10,26 +10,29 @@
 #import "ECSAuthenticationToken.h"
 
 @class ECSActionType;
+
 @class ECSAnswerEngineTopQuestionsResponse;
 @class ECSAnswerEngineRateResponse;
 @class ECSAnswerEngineResponse;
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
-
-@class ECSSkillDetail;
-@class ECSExpertDetail; 
-
+@class ECSBreadcrumbResponse;
 @class ECSStartJourneyResponse;
-@class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
+@class ECSHistoryResponse;
+
+@class ECSSkillDetail;
+@class ECSExpertDetail;
+@class ECSBreadcrumb;
+
+@class ECSChannelConfiguration;
 @class ECSForm;
 @class ECSHistoryList;
-@class ECSHistoryResponse;
 @class ECSNavigationContext;
-@class ECSForm;
 @class ECSUserProfile;
+
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -492,7 +495,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 #pragma mark Breadcrumbs
 
 - (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
-                                      completion:(void (^)(NSDictionary *json, NSError *error))completion;
+                                      completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion;
 
 - (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
