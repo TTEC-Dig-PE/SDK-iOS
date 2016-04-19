@@ -8,7 +8,7 @@
 
 #import "ECSExpertDetail.h"
 
-#import "ECSActionTypeClassTransformer.h"
+//#import "ECSActionTypeClassTransformer.h"
 
 @implementation ECSExpertDetail
 
@@ -49,7 +49,7 @@
              @"readyTimestamp": @"readyTimestamp",
              @"skills": @"skills",
              @"status": @"status",
-             @"statusTimestamp": @"statusTimestamp",
+             @"statusTimestamp": @"statusTimestamp"
              };
 }
 

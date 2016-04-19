@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "ECSAuthenticationToken.h"
+#import "ECSBreadcrumb.h"
 
 @class ECSActionType;
 
@@ -25,7 +26,7 @@
 
 @class ECSSkillDetail;
 @class ECSExpertDetail;
-@class ECSBreadcrumb;
+//@class ECSBreadcrumb;
 
 @class ECSChannelConfiguration;
 @class ECSForm;
