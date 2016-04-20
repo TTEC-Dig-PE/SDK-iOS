@@ -96,7 +96,7 @@
 "ECDLocalizedStartUserProfileHeader" = "AdHoc Edit User Profile";
 
 /* Start Voice Callback Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartVoiceCallbackHeader" = "Voice Callback";
+"ECDLocalizedStartVoiceCallbackHeader" = "Callback";
 
 /* Start Email Message Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartEmailMessageHeader" = "AdHoc Email Message";
@@ -229,6 +229,6 @@
 /* Ad-Hoc Page Agent Availability Strings */
 "ECDLocalizedNoAgents" = "No agents available.";
 "ECDLocalizedWaitString" = "Wait";
-"ECDLocalizedMinuteString" = "minute";
-"ECDLocalizedAgentString" = "Agents";
+"ECDLocalizedMinuteString" = "mins";
+"ECDLocalizedAgentString" = "ReadyAgents";
 

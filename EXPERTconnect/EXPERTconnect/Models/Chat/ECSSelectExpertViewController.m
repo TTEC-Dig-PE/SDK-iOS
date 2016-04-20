@@ -163,11 +163,12 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //ECSExpertDetail *expert = self.experts[indexPath.row];
+    ECSExpertDetail *expert = self.experts[indexPath.row];
+    
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    //actionType.agentId = expert.agentId;
-    //actionType.agentSkill = expert.agentSkill;
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     
      //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
     
@@ -233,11 +234,12 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 #pragma mark - ECSSelectExpertTableViewCellDelegate Methods
 
 - (void)didSelectChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
+    
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    //actionType.agentId = expert[@"agentId"];
-    //actionType.agentSkill = expert[@"agentSkill"];
-    
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
+
     /**
      DEBUG CODE: BEGINS
      **/
@@ -265,8 +267,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    //actionType.agentId = expert[@"agentId"];
-    //actionType.agentSkill = expert[@"agentSkill"];
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     
@@ -293,8 +295,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    //actionType.agentId = expert[@"agentId"];
-    //actionType.agentSkill = expert[@"agentSkill"];
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     actionType.cafexmode = @"voiceauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     

@@ -1021,7 +1021,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 - (void)chatInfoUpdated:(NSNotification *)notification
 {
     
-    ECSSkillDetail *skill = notification.object;
+    ECSSkillDetail *skill = notification.userInfo[@"skillDetail"];
     
     if(skill) {
         chatAgentsLoggedOn = skill.chatReady;
@@ -1033,7 +1033,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 - (void)videoChatInfoUpdated:(NSNotification *)notification
 {
-	 ECSSkillDetail *skill = notification.object;
+	 ECSSkillDetail *skill = notification.userInfo[@"skillDetail"];
     
 	 if (skill) {
 		  videoChatAgentsLoggedOn = skill.chatReady;
@@ -1045,7 +1045,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 - (void)callbackInfoUpdated:(NSNotification *)notification
 {
-	 ECSSkillDetail *skill = notification.object;
+	 ECSSkillDetail *skill = notification.userInfo[@"skillDetail"];
     
 	 if (skill) {
 		  callbackAgentsLoggedOn = skill.voiceReady;
