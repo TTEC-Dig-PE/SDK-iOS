@@ -77,11 +77,11 @@ int rowToSelect;
     {
         if(!error)
         {
-            NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
-            [skillDic setObject:data forKey:@"skillDetail"];
+            //NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
+            //[skillDic setObject:data forKey:@"skillDetail"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
-                                                                object:nil
-                                                              userInfo:skillDic];
+                                                                object:data
+                                                              userInfo:nil];
         }
     }];
 }

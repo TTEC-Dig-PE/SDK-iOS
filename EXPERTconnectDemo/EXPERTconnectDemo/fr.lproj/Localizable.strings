@@ -54,4 +54,4 @@
 "ECDLocalizedNoAgents" = "Aucun des agents disponibles.";
 "ECDLocalizedWaitString" = "attendez";
 "ECDLocalizedMinuteString" = "mins";
-"ECDLocalizedAgentString" = "ReadyAgents";
+"ECDLocalizedAgentString" = "Agents";
