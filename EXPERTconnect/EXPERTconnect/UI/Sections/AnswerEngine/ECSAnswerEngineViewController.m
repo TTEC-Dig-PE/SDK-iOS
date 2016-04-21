@@ -1008,13 +1008,19 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 
 - (void)handleRatingResponse:(ECSAnswerEngineRateResponse*)response
 {
+    bool foundAutoRoute = NO;
     for (ECSActionType *actionType in response.actions)
     {
         if (actionType.autoRoute.boolValue)
         {
+            foundAutoRoute = YES;
             [self ecs_navigateToViewControllerForActionType:actionType];
             break;
         }
+    }
+    if(!foundAutoRoute && response.actions.count>0) {
+        self.escalationOptions = response.actions;
+        [self buildEscalationItems];
     }
 }
 

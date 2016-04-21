@@ -71,60 +71,40 @@ NSString *_chatSkill;
     
     [self resetButtons];
     [self.textViewLogging setText:@""];
-    [self logAction:@"Sending breadcrumb #1..."];
+    [self logAction:@"Tapped Power Pack (sending BC)"];
     
     ECSBreadcrumb *bc = [[ECSBreadcrumb alloc] initWithAction:@"Click"
-                                                  description:@"Durable Pack 1"
+                                                  description:@"Power Pack 3.0 Dayback"
                                                        source:@"SDK"
                                                   destination:@"Product Page"];
 
     [[EXPERTconnect shared] breadcrumbSendOne:bc withCompletion:^(ECSBreadcrumbResponse *bcResponse1, NSError *error)
     {
         [self ECDAssert:[bcResponse1.actionType isEqualToString:@"Click"] logWhenError:@"Response does not contain actionType"];
-        [self logAction:@"Sent. Sending breadcrumb #2..."];
+        [self logAction:@"Sent."];
+        [self checkForActionItem:bcResponse1 expectedAction:NO];
+        [self logAction:@"Tapped Gregory Cairn Pack (sending BC)"];
         
         ECSBreadcrumb *bc2 = [[ECSBreadcrumb alloc] initWithAction:@"Click"
-                                                       description:@"Lightweight Pack 2"
+                                                       description:@"Gregory Cairn 48"
                                                             source:@"SDK"
                                                        destination:@"Product Page"];
         
         [[EXPERTconnect shared] breadcrumbSendOne:bc2 withCompletion:^(ECSBreadcrumbResponse *bcResponse2, NSError *error)
          {
-            [self logAction:@"Sent. Sending breadcrumb #3..."];
+             [self logAction:@"Sent."];
+             [self checkForActionItem:bcResponse2 expectedAction:NO];
+             [self logAction:@"Tapped Deuter Guide Pack (sending BC)"];
 
             ECSBreadcrumb *bc3 = [[ECSBreadcrumb alloc] initWithAction:@"Click"
-                                                           description:@"Power Pack 3"
+                                                           description:@"Deuter Guide 40+"
                                                                 source:@"SDK"
                                                            destination:@"Product Page"];
             
             [[EXPERTconnect shared] breadcrumbSendOne:bc3 withCompletion:^(ECSBreadcrumbResponse *bcResponse3, NSError *error)
              {
                 [self logAction:@"Sent."];
-                 
-                 if(bcResponse3.actions.count>0) {
-                     for( ECSActionType *action in bcResponse3.actions) {
-                         [self logAction:[NSString stringWithFormat:@"Got action item: %@", action.actionId]];
-                         if([action.actionId isEqualToString:@"chat"]) {
-                             //ECSChatActionType *chatAction = action;
-                             _chatSkill = action.configuration[@"agentSkill"];
-                             [self logAction:[NSString stringWithFormat:@"Chat skill will be: %@. Activating chat button...", _chatSkill]];
-                             [self.actionItemA setTitle:@"Chat" forState:UIControlStateNormal];
-                             
-                             [UIView animateWithDuration:3.0
-                                                   delay:0.0
-                                                 options: UIViewAnimationOptionCurveEaseInOut
-                                              animations:^{self.actionItemA.alpha = 1.0; [self.actionItemA setEnabled:YES];}
-                                              completion:nil];
-                         }
-                         
-                     }
-                 } else {
-                     [self logAction:@"ERROR: Missing expected chat escalation action!"];
-                 }
-                 
-                 
-                // Escalation should occur here.
-                //[[EXPERTconnect shared] breadcrumbDispatch];
+                [self checkForActionItem:bcResponse3 expectedAction:YES];
                 [self logAction:@"Use Case 1 complete."];
             }];
         }];
@@ -132,9 +112,40 @@ NSString *_chatSkill;
     
 }
 
+- (void)checkForActionItem:(ECSBreadcrumbResponse *)response expectedAction:(bool)bExpected {
+    if(response.actions.count>0) {
+        for( ECSActionType *action in response.actions) {
+            [self logAction:[NSString stringWithFormat:@"Got action item: %@", action.actionId]];
+            if([action.actionId isEqualToString:@"chat"]) {
+                //ECSChatActionType *chatAction = action;
+                _chatSkill = action.configuration[@"agentSkill"];
+                [self logAction:[NSString stringWithFormat:@"Chat skill will be: %@. Activating chat button...", _chatSkill]];
+                [self.actionItemA setTitle:@"Chat" forState:UIControlStateNormal];
+                [self.actionItemA setBackgroundColor:[UIColor redColor]];
+                [UIView animateWithDuration:2.0
+                                      delay:0.0
+                                    options: UIViewAnimationOptionCurveEaseInOut
+                                 animations:^{
+                                     [self.actionItemA setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
+                                        self.actionItemA.alpha = 1.0;
+                                        [self.actionItemA setEnabled:YES];
+                                 }
+                                 completion:nil];
+            }
+            
+        }
+    } else {
+        if(bExpected) {
+            [self logAction:@"ERROR: Missing expected chat escalation action!"];
+        }
+    }
+}
+
 - (IBAction)btnCaseTwo_Touch:(id)sender {
     
-    UIViewController *aeController = [[EXPERTconnect shared] startAnswerEngine:@"Park" withDisplayName:@"Unit Test 2" showSearchBar:YES];
+    UIViewController *aeController = [[EXPERTconnect shared] startAnswerEngine:@"Park"
+                                                               withDisplayName:@"Service Request"
+                                                                 showSearchBar:YES];
     
     [self.navigationController pushViewController:aeController animated:YES];
 }
