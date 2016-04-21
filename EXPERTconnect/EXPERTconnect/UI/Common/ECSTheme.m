@@ -38,8 +38,8 @@
         self.agentChatTextColor = self.primaryTextColor;
         self.showAvatarImages = YES;
         self.showChatImageUploadButton = YES;
-	    self.showChatBubbleTails = YES;
-	    self.showChatTimeStamp = YES;
+	    self.showChatBubbleTails = NO;
+	    self.showChatTimeStamp = NO;
 	    self.chatTimestampTextColor = [UIColor darkGrayColor];
 	    self.chatTimestampFont = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
 	    self.chatBubbleTailsImage = [UIImage ecs_bundledImageNamed:@"ecs_chatbubble"];

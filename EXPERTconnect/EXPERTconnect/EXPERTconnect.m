@@ -524,6 +524,8 @@ NSTimer *breadcrumbTimer;
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
     
+    [self setUserIdentityToken:nil]; // Kill the token (we want it to fetch another)
+    
     [self setUserName:username];
 
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
@@ -716,6 +718,8 @@ NSTimer *breadcrumbTimer;
             withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion
 {
     __block ECSBreadcrumb *blockBC = [theBreadcrumb copy];
+    blockBC.journeyId = self.journeyID;
+    blockBC.sessionId = self.sessionID; 
     if([self sessionID] == nil)
     {
         ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
