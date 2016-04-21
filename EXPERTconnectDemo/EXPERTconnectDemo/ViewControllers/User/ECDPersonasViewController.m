@@ -23,6 +23,12 @@ NSString *_chatSkill;
     
     self.view.backgroundColor = [EXPERTconnect shared].theme.primaryBackgroundColor;
     
+    [self resetButtons];
+    
+    self.navigationItem.title = @"Personas"; 
+}
+
+- (void)resetButtons {
     self.btnCaseOne.backgroundColor = [EXPERTconnect shared].theme.buttonColor;
     self.btnCaseTwo.backgroundColor = [EXPERTconnect shared].theme.buttonColor;
     self.btnCaseThree.backgroundColor = [EXPERTconnect shared].theme.buttonColor;
@@ -38,10 +44,10 @@ NSString *_chatSkill;
     [self.actionItemB setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
     
     [self.btnCaseFour setHidden:YES]; // No case 4 yet.
-    [self.actionItemA setHidden:YES];
-    [self.actionItemB setHidden:YES];
-    
-    self.navigationItem.title = @"Personas"; 
+    [self.actionItemA setAlpha:0];
+    [self.actionItemA setEnabled:NO];
+    [self.actionItemB setAlpha:0];
+    [self.actionItemB setEnabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +69,7 @@ NSString *_chatSkill;
 
 - (IBAction)btnCaseOne_Touch:(id)sender {
     
+    [self resetButtons];
     [self.textViewLogging setText:@""];
     [self logAction:@"Sending breadcrumb #1..."];
     
@@ -94,10 +101,27 @@ NSString *_chatSkill;
              {
                 [self logAction:@"Sent."];
                  
-                 [self logAction:@"Got action item: Chat! Showing a chat button."]; 
-                 [self.actionItemA setTitle:@"Chat" forState:UIControlStateNormal];
-                 [self.actionItemA setHidden:NO];
-                 _chatSkill = @"CE_Mobile_Chat";
+                 if(bcResponse3.actions.count>0) {
+                     for( ECSActionType *action in bcResponse3.actions) {
+                         [self logAction:[NSString stringWithFormat:@"Got action item: %@", action.actionId]];
+                         if([action.actionId isEqualToString:@"chat"]) {
+                             //ECSChatActionType *chatAction = action;
+                             _chatSkill = action.configuration[@"agentSkill"];
+                             [self logAction:[NSString stringWithFormat:@"Chat skill will be: %@. Activating chat button...", _chatSkill]];
+                             [self.actionItemA setTitle:@"Chat" forState:UIControlStateNormal];
+                             
+                             [UIView animateWithDuration:3.0
+                                                   delay:0.0
+                                                 options: UIViewAnimationOptionCurveEaseInOut
+                                              animations:^{self.actionItemA.alpha = 1.0; [self.actionItemA setEnabled:YES];}
+                                              completion:nil];
+                         }
+                         
+                     }
+                 } else {
+                     [self logAction:@"ERROR: Missing expected chat escalation action!"];
+                 }
+                 
                  
                 // Escalation should occur here.
                 //[[EXPERTconnect shared] breadcrumbDispatch];

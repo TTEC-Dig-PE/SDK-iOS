@@ -115,7 +115,7 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 /* Session ID */
 - (void)setSessionId: (NSString *)sessionId {
-    [self.properties setObject:sessionId forKey:PROPERTY_SESSIONID];
+    [self.properties setObject:(sessionId ? sessionId : @"") forKey:PROPERTY_SESSIONID];
 }
 
 - (NSString *)sessionId {

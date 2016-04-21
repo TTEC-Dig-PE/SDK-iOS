@@ -718,18 +718,21 @@ NSTimer *breadcrumbTimer;
             withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion
 {
     __block ECSBreadcrumb *blockBC = [theBreadcrumb copy];
-    blockBC.journeyId = self.journeyID;
-    blockBC.sessionId = self.sessionID; 
+
     if([self sessionID] == nil)
     {
         ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
+            blockBC.journeyId = self.journeyID;
+            blockBC.sessionId = self.sessionID;
             [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
         }];
     }
     else
     {
+        blockBC.journeyId = self.journeyID;
+        blockBC.sessionId = self.sessionID;
         [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
     }
 }
