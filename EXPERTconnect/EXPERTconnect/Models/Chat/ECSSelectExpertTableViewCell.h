@@ -10,13 +10,14 @@
 
 @class ECSCircleImageView;
 @class ECSDynamicLabel;
+@class ECSExpertDetail;
 
 @protocol ECSSelectExpertTableViewCellDelegate <NSObject>
 
-- (void)didSelectCallBackButton:(id)sender forExpert:(NSDictionary *)expert;
-- (void)didSelectChatButton:(id)sender forExpert:(NSDictionary *)expert;
-- (void)didSelectVideoChatButton:(id)sender forExpert:(NSDictionary *)expert;
-- (void)didSelectVoiceChatButton:(id)sender forExpert:(NSDictionary *)expert;
+- (void)didSelectCallBackButton:(id)sender forExpert:(ECSExpertDetail *)expert;
+- (void)didSelectChatButton:(id)sender forExpert:(ECSExpertDetail *)expert;
+- (void)didSelectVideoChatButton:(id)sender forExpert:(ECSExpertDetail *)expert;
+- (void)didSelectVoiceChatButton:(id)sender forExpert:(ECSExpertDetail *)expert;
 
 @end
 
@@ -36,7 +37,7 @@
 
 @property (nonatomic, weak) id <ECSSelectExpertTableViewCellDelegate> selectExpertCellDelegate;
 
-- (void)configureCellForActionType:(NSString *)actionType withExpert:(NSDictionary *)expert;
+- (void)configureCellForActionType:(NSString *)actionType withExpert:(ECSExpertDetail *)expert;
 
 - (void)configureConstraints;
 

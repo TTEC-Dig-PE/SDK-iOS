@@ -71,11 +71,14 @@ int rowToSelect;
 -(void)getAgentsAvailableForSkill:(int)index
 {
 	 [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
-									 completion:^(NSDictionary *data, NSError *error)
+									 completion:^(ECSSkillDetail *data, NSError *error)
 	  {
-		   [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoChatSkillAgentInfoUpdated"
-															   object:nil
-															 userInfo:data];
+          if(!error)
+          {
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"VideoChatSkillAgentInfoUpdated"
+                                                                  object:data
+                                                                userInfo:nil];
+          }
 	  }];
 }
 

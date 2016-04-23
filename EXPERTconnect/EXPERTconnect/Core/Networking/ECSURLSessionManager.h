@@ -8,26 +8,32 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "ECSAuthenticationToken.h"
+#import "ECSBreadcrumb.h"
 
 @class ECSActionType;
+
 @class ECSAnswerEngineTopQuestionsResponse;
 @class ECSAnswerEngineRateResponse;
 @class ECSAnswerEngineResponse;
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
-@class ECSAgentAvailableResponse;
+@class ECSBreadcrumbResponse;
 @class ECSStartJourneyResponse;
-@class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
-@class ECSSelectExpertsResponse;
+@class ECSHistoryResponse;
+
+@class ECSSkillDetail;
+@class ECSExpertDetail;
+//@class ECSBreadcrumb;
+
+@class ECSChannelConfiguration;
 @class ECSForm;
 @class ECSHistoryList;
-@class ECSHistoryResponse;
 @class ECSNavigationContext;
-@class ECSForm;
 @class ECSUserProfile;
+
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -56,6 +62,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 @property (nonatomic, strong) NSString *authToken;
 
 @property (nonatomic, weak) id<ECSAuthenticationTokenDelegate> authTokenDelegate;
+
+@property (copy, nonatomic) NSString *journeyID;
 
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
@@ -204,10 +212,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
-                                 parentNavigator:(NSString*)parentNavigator
-                                        actionId:(NSString*)actionId
-                                          rating:(NSNumber*)rating
-                                   questionCount:(NSNumber*)questionCount
+                                          rating:(int)rating
+                                             min:(int)theMin
+                                             max:(int)theMax
+                                   questionCount:(int)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
 
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion;
@@ -218,10 +226,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 /**
  Get list of experts
- 
  @param Dictionary of values that may be used to more accurately select experts
- @param Completion block (returns ECSSelectExpertsResponse object)
- 
+ @param Completion block (returns object)
  @return the data task for the select experts call
  */
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
@@ -412,7 +418,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  @return (completion block) ECSAgentAvailableResponse object
  */
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion;
+                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 /**
  Get details for a particular call or chat skill
@@ -484,8 +490,13 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                             failure:(void(^)(NSURLResponse *response, NSError *error))failure;
 
 
-- (NSString *) getJourneyID ;
+//- (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
+
+#pragma mark Breadcrumbs
+
+- (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
+                                      completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion;
 
 - (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;

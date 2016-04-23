@@ -241,8 +241,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         hostName = [NSString stringWithFormat:@"%@:%@", hostName, port];
     }
     
-    // NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async", hostName];
-    NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async?access_token=%@", hostName, bearerToken];
+    // Use secure STOMP (wss) if the host is using HTTPS
+    NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async?access_token=%@", stompProtocol, hostName, bearerToken];
     
     [self.stompClient connectToHost:stompHostName];
 }

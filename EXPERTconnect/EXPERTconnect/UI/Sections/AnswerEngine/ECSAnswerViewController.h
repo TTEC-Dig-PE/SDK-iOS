@@ -15,7 +15,7 @@
 - (BOOL)navigateToNextAnswer;
 
 - (void)askSuggestedQuestion:(NSString*)suggestedQuestion;
-- (void)didRateAnswer:(ECSAnswerEngineResponse*)answer withRating:(NSNumber*)rating;
+- (void)didRateAnswer:(ECSAnswerEngineResponse*)answer withRating:(int)rating;
 
 - (void)isReadyToRemoveFromParent:(UIViewController*)controller;
 

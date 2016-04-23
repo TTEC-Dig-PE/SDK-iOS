@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @property (strong, nonatomic) ECSTopQuestionsViewController *topQuestions;
 
 // Question Tracking
-@property (assign, nonatomic) NSInteger questionCount;
+@property (assign, nonatomic) int questionCount;
 
 @property (strong, nonatomic) NSLayoutConstraint *topQuestionsTopConstraint;
 @property (assign, nonatomic) BOOL faqIsShowing;
@@ -317,7 +317,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
         else
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf handleAPIResponse:nil forQuestion:nil withError:[NSError new]];
+                [weakSelf handleAPIResponse:nil forQuestion:nil withError:error]; 
             });
         }
     }];
@@ -330,14 +330,27 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     if (error) {
         // Error processing request.
         NSLog(@"Answer Engine Error - %@", error);
-        self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,@"Answer not found message");
+        
+        NSString *title;
+        NSString *message;
+        
         self.invalidResponseCount++;
         [self.workflowDelegate invalidResponseOnAnswerEngineWithCount:self.invalidResponseCount];
         
-        NSString *title = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle,
-                                             @"Answer not found title");
-        NSString *message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage,
-                                               @"Answer not found message");
+        if (error.code == 500)
+        {
+            // Some kind of internal error.
+            self.htmlString = error.localizedDescription;
+            title = ECSLocalizedString(ECSLocalizeErrorKey, @"Error");
+            message = ECSLocalizedString(ECSLocalizeErrorText, @"We are unable to complete your request. Please try again later.");
+        }
+        else
+        {
+            self.htmlString = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"Answer not found message");
+            title = ECSLocalizedString(ECSLocalizedAnswerNotFoundTitle, @"Answer not found title");
+            message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"Answer not found message");
+        }
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil
@@ -622,24 +635,24 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     [self askQuestion:suggestedQuestion];
 }
 
-- (void)didRateAnswer:(ECSAnswerEngineResponse *)answer withRating:(NSNumber *)rating
+- (void)didRateAnswer:(ECSAnswerEngineResponse *)answer withRating:(int)rating
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     __weak typeof(self) weakSelf = self;
     [sessionManager rateAnswerWithAnswerID:answer.answerId
                                  inquiryID:answer.inquiryId
-                           parentNavigator:self.parentNavigationContext
-                                  actionId:self.actionType.actionId
                                     rating:rating
-                             questionCount:@(self.questionCount)
-                                completion:^(ECSAnswerEngineRateResponse *response, NSError *error) {
-                                    
-                                    if (!error && response)
-                                    {
-                                        [weakSelf handleRatingResponse:response];
-                                    }
-                                }];
+                                       min:-1
+                                       max:1
+                             questionCount:self.questionCount
+                                completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+    {
+        if (!error && response)
+        {
+            [weakSelf handleRatingResponse:response];
+        }
+    }];
 }
 
 - (void)isReadyToRemoveFromParent:(UIViewController *)controller
@@ -995,13 +1008,19 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 
 - (void)handleRatingResponse:(ECSAnswerEngineRateResponse*)response
 {
+    bool foundAutoRoute = NO;
     for (ECSActionType *actionType in response.actions)
     {
         if (actionType.autoRoute.boolValue)
         {
+            foundAutoRoute = YES;
             [self ecs_navigateToViewControllerForActionType:actionType];
             break;
         }
+    }
+    if(!foundAutoRoute && response.actions.count>0) {
+        self.escalationOptions = response.actions;
+        [self buildEscalationItems];
     }
 }
 

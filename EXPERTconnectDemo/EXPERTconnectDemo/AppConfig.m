@@ -33,23 +33,12 @@
 -(void) startBreadcrumbSession {
     // Start a new journey, then send an "app launch" breadcrumb.
     
-    
-    
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
-     {
-         if( !error )
-         {
-             NSLog(@"Starting journey with ID=%@", journeyId);
-             
-             // Send an "app launch" breadcrumb.
-             
-             [[EXPERTconnect shared] breadcrumbWithAction:@"ECDemo Started"
-                                              description:@""
-                                                   source:@"ECDemo"
-                                              destination:@"Humanify"
-                                              geolocation:nil];
-         }
-     }];
+    [[EXPERTconnect shared] breadcrumbWithAction:@"ECDemo Started"
+                                     description:@""
+                                          source:@"ECDemo"
+                                     destination:@"Humanify"
+                                     geolocation:nil];
+
 }
 
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.
@@ -150,14 +139,18 @@
          else
          {
              // If the new way didn't work, try the old way once.
-             NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
-             [self fetchOldAuthenticationToken:completion];
+             //NSLog(@"ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+             //[self fetchOldAuthenticationToken:completion];
+             NSError *myError = [NSError errorWithDomain:@"com.humanify"
+                                                    code:statusCode
+                                                userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+             completion(nil, myError);
          }
      }];
 }
 
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.
-- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion {
+/*- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion {
     
     // add /ust for new method
     NSURL *url = [[NSURL alloc] initWithString:
@@ -176,7 +169,7 @@
          
          if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             NSLog(@"Successfullyyy fetched authToken: %@", returnToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else
@@ -185,6 +178,6 @@
              
          }
      }];
-}
+}*/
 
 @end

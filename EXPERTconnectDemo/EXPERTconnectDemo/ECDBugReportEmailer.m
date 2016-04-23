@@ -12,17 +12,20 @@
 @implementation ECDBugReportEmailer
 
 - (void)reportBug {
+    
     if ([MFMailComposeViewController canSendMail])
     {
         MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
         mailComposer.mailComposeDelegate = self;
         [mailComposer setSubject:@"ECD/SDK Bug Report"];
         // Set up recipients
-        NSArray *toRecipients = [NSArray arrayWithObject:@"nathan.keeney@humanify.com"];
+        NSArray *toRecipients = [NSArray arrayWithObjects:@"nathan.keeney@humanify.com",@"mike.schmoyer@humanify.com", nil];
+                                 
         [mailComposer setToRecipients:toRecipients];
         // Attach the Log..
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                             NSUserDomainMask, YES);NSString *documentsDirectory = [paths objectAtIndex:0];
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"humanify-ecd-console.log"];
         NSData *myData = [NSData dataWithContentsOfFile:logPath];
         [mailComposer addAttachmentData:myData mimeType:@"Text/XML" fileName:@"humanify-ecd-console.log"];
@@ -35,6 +38,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You must first set up Mail on your device in order to send a Bug Report." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+
 }
 
 + (void)setUpLogging {

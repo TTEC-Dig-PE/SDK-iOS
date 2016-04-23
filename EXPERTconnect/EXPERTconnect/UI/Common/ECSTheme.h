@@ -69,6 +69,9 @@
 // Agent chat text
 @property (strong, nonatomic) UIColor *agentChatTextColor;
 
+// Show or hide the image/video upload icon.
+@property (assign, nonatomic) BOOL showChatImageUploadButton;
+
 // Show avatar images if set to YES.
 @property (assign, nonatomic) BOOL showAvatarImages;
 

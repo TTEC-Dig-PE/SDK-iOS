@@ -15,6 +15,8 @@
 {
     return @{
              @"actions": @"actions",
+             @"constrainedRating": @"constrainedRating",
+             @"requestRating": @"requestRating"
              };
 }
 

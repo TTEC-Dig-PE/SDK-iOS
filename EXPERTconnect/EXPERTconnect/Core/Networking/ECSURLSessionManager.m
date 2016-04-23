@@ -24,10 +24,8 @@
 #import "ECSConfiguration.h"
 #import "ECSConversationCreateResponse.h"
 #import "ECSStartJourneyResponse.h"
-#import "ECSAgentAvailableResponse.h"
 #import "ECSForm.h"
 #import "ECSFormSubmitResponse.h"
-#import "ECSSelectExpertsResponse.h"
 #import "ECSUserProfile.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
@@ -43,6 +41,12 @@
 #import "ECSActionTypeClassTransformer.h"
 #import "ECSNavigationContext.h"
 #import "ECSUserManager.h"
+
+#import "ECSBreadcrumbResponse.h"
+#import "ECSBreadcrumb.h"
+
+#import "ECSSkillDetail.h"
+#import "ECSExpertDetail.h"
 
 NSString *const ECSReachabilityChangedNotification = @"ECSNetworkReachabilityChangedNotification";
 
@@ -73,6 +77,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 @implementation ECSURLSessionManager
+
+@synthesize journeyID;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -210,26 +216,53 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
-/*
-[[EXPERTconnect shared] setIdentityDelegateFunction:^void (void (^)(NSString *authToken, NSError *error)completion)] {
-    NSString *tokenFromWebFetch = [doWebFetchForToken];
-    completion(tokenFromWebFetch, nil);
-}];
+/**
+ This calls the delegate function the host app has provided to fetch a new identity delegate token.
+ We will attempt this operation 3 times with a 500ms delay between each attempt.
  */
-- (NSURLSessionTask *)refreshIdentityDelegateWithCompletion:(void (^)(NSString *authToken, NSError *error))completion;
+- (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion
 {
     __weak typeof(self) weakSelf = self;
-    
-    if (self.authTokenDelegate) {
-        [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error) {
-            if (authToken) {
+    __block NSNumber *myRetryCount = [NSNumber numberWithInt:theRetryCount+1];
+
+    if (self.authTokenDelegate)
+    {
+        [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error)
+        {
+            if (authToken)
+            {
                 weakSelf.authToken = authToken;
                 NSLog(@"New auth token is: %@", authToken);
                 completion(authToken, nil);
-            } else {
-                completion(nil, error);
+            }
+            else
+            {
+                if( theRetryCount >= 3 )
+                {
+                    completion(nil, error); // We're done. Throw error.
+                }
+                else
+                {
+                    // wait 500ms and try again (up to 3 times)
+                    ECSLogVerbose(@"refreshIdentityDelegate: Sleeping... (RetryCount=%@)", myRetryCount);
+                    [NSThread sleepForTimeInterval:0.5f];
+                    ECSLogVerbose(@"refreshIdentityDelegate: Done sleeping.");
+                    [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
+                }
             }
         }];
+    }
+    else
+    {
+        // Build and throw an error to the completion block if the user forgot to set a delegate function. 
+        NSError *error = [NSError errorWithDomain:@"com.humanify"
+                                             code:1001
+                                         userInfo:[NSDictionary dictionaryWithObject:@"No identity token delegate function found!"
+                                                                              forKey:@"description"]];
+        
+        ECSLogError(@"refreshIdentityDelegateWithCompletion: No identity token delegate function found!");
+        completion(nil, error);
     }
     
     return nil;
@@ -237,7 +270,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 - (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
-                                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
+                            completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
     return [self POST:@"decision/v1/makeDecision"
           parameters:decisionJson
@@ -255,23 +288,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         parameters = @{@"name": name};
     }
-    
-    /*
-    if (self.conversation && self.conversation.journeyID.length > 0) {
-        // Added to track breadcrumb of every navigation in the system
-        NSString *actionType = @"Navigation";
-        NSString *actionDescription = @"API Called everytime user navigates in ExpertConnect Demo";
-        NSString *actionSource = @"Navigation";
-        NSString *actionDestination = name;
-    
-        [[EXPERTconnect shared] breadcrumbsAction:actionType
-                            actionDescription:actionDescription
-                            actionSource:actionSource
-                            actionDestination:actionDestination];
-    }
-     */
-    
-    
     
     return [self GET:@"appconfig/v1/navigation"
           parameters:parameters
@@ -429,19 +445,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
-                                 parentNavigator:(NSString*)parentNavigator
-                                        actionId:(NSString*)actionId
-                                          rating:(NSNumber*)rating
-                                   questionCount:(NSNumber*)questionCount
+                                          rating:(int)rating
+                                             min:(int)theMin
+                                             max:(int)theMax
+                                   questionCount:(int)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion
 {
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
     if(inquiryID) parameters[@"inquiryId"] = inquiryID;
-    if(parentNavigator) parameters[@"navContext"] = parentNavigator;
-    if(actionId) parameters[@"action_id"] = actionId;
-    parameters[@"rating"] = rating;
-    parameters[@"questionCount"] = questionCount;
+    //if(parentNavigator) parameters[@"navContext"] = parentNavigator;
+    //if(actionId) parameters[@"action_id"] = actionId;
+    parameters[@"rating"] = [NSString stringWithFormat:@"%d",rating];
+    parameters[@"questionCount"] = [NSString stringWithFormat:@"%d",questionCount];
+    parameters[@"min"] = [NSString stringWithFormat:@"%d", theMin];
+    parameters[@"max"] = [NSString stringWithFormat:@"%d", theMax];
     
     ECSLogVerbose(@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]
@@ -497,8 +516,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  
  @param Mode to select experts. Values: selectExpertChat | selectExpertVoiceCallback | selectExpertVoiceChat | selectExpertVideo | selectExpertAndChannel
  @param Dictionary of values that may be used to more accurately select experts
- @param Completion block (returns ECSSelectExpertsResponse object)
- 
+ @param Completion block (returns object)
  @return the data task for the select experts call
  */
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
@@ -508,6 +526,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     //[parameters setObject:theExpertMode forKey:@"expert_mode"];
     if (theInteractionItems) [parameters addEntriesFromDictionary:theInteractionItems];
+    if (parameters.count==0) parameters = nil; 
     
     return [self GET:@"experts/v1/experts"
           parameters:parameters
@@ -678,13 +697,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     ECSKeychainSupport *support = [ECSKeychainSupport new];
     
     NSDictionary *parameters;
-    if([EXPERTconnect shared].journeyID)
+    if(self.journeyID)
     {
         // Send the journeyID if startJourney() has been called.
         parameters = @{
                      @"location": location,
                      @"deviceId": [support deviceId],
-                     @"journeyId": [EXPERTconnect shared].journeyID
+                     @"journeyId": self.journeyID
                      };
     } else {
         parameters = @{
@@ -837,13 +856,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 # pragma mark Utility Functions
 
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(ECSAgentAvailableResponse *response, NSError *error))completion {
-    
+                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
     return [self GET:@"/experts/v1/skills"
            parameters:parameters
-              success:[self successWithExpectedType:[ECSAgentAvailableResponse class] completion:completion]
+              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }
 
@@ -852,7 +870,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     return [self GET:[NSString stringWithFormat:@"/experts/v1/skills/%@", skill]
           parameters:nil
-             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             success:[self successWithExpectedType:[NSArray class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
 
@@ -1307,7 +1325,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     ECSLogVerbose(@"Authenticating with server.");
     
-    [self refreshIdentityDelegateWithCompletion:^(NSString *authToken, NSError *error)
+    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
     {
         if (!error && authToken)
         {
@@ -1320,6 +1338,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         else
         {
             ECSLogVerbose(@"Authentication failed.");
+            failure(nil, nil, error);
         }
     }];
 }
@@ -1355,13 +1374,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         {
             ECSLogWarn(@"Authentication error. Attempting to generate new key...");
             ECSLogVerbose(@"Packet: %@", response); 
-            if(weakSelf.authTokenDelegate) {
+            //if(weakSelf.authTokenDelegate) {
                 // Use the new method if an identity delegate is found.
                 [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
-            } else {
+            //} else {
                 // Backwards compatibility (or non-identity delegate methods)
-                [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
-            }
+            //    [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
+            //}
             retryingWithAuthorization = YES;
         }
         else if ((error.code != NSURLErrorCancelled) &&
@@ -1387,7 +1406,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:userInfo];
+            retError = [NSError errorWithDomain:@"com.humanify"
+                                           code:((NSHTTPURLResponse*)response).statusCode
+                                       userInfo:userInfo];
         }
         
         // Only return if we are not trying to reauthenticate with the API.
@@ -1516,9 +1537,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     // mas - 20-oct-2015 - First, try to grab journeyID from the global area. If not found, we may have one in the
     // conversation, use that instead.
-    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
+    if (self.journeyID && self.journeyID.length > 0)
     {
-        [mutableRequest setValue:[EXPERTconnect shared].journeyID forHTTPHeaderField:@"x-ia-journey-id"];
+        [mutableRequest setValue:self.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
     else if (self.conversation && self.conversation.journeyID.length > 0)
     {
@@ -1548,7 +1569,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return request;
 }
 
-- (NSString *) getJourneyID {
+/*- (NSString *) getJourneyID {
     
     if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
     {
@@ -1559,13 +1580,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         return self.conversation.journeyID;
     }
     return @"-1";
-}
+}*/
 
 - (NSString *) getConversationID {
     
     if (self.conversation && self.conversation.conversationID.length > 0)
         return self.conversation.conversationID;
     return @"-1";
+    
+}
+
+- (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
+                                      completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion
+{
+    
+    return [self POST:@"breadcrumb/v1/actions"
+           parameters:actionJson
+              success:[self successWithExpectedType:[ECSBreadcrumbResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
     
 }
 

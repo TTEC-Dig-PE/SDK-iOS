@@ -18,7 +18,7 @@
 - (NSString *)getHostURL;
 - (NSString *)getClientID;
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
-- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
+//- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
 -(void) startBreadcrumbSession;
 
 @end

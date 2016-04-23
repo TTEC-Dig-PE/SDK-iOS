@@ -71,11 +71,18 @@ int rowToSelect;
 -(void)getAgentsAvailableForSkill:(int)index
 {
 	 [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
-									 completion:^(NSDictionary *data, NSError *error)
+									 completion:^(ECSSkillDetail *data, NSError *error)
 	  {
-		   [[NSNotificationCenter defaultCenter] postNotificationName:@"CallbackSkillAgentInfoUpdated"
-															   object:nil
-															 userInfo:data];
+          if(!error)
+          {
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"CallbackSkillAgentInfoUpdated"
+                                                                  object:data
+                                                                userInfo:nil];
+          }
+          else
+          {
+              NSLog(@"Error fetching agent availability for callback skill.");
+          }
 	  }];
 }
 

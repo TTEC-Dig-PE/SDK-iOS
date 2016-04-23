@@ -13,6 +13,7 @@
 #import <EXPERTconnect/ECSActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineResponse.h>
+#import <EXPERTconnect/ECSAnswerEngineRateResponse.h>
 #import <EXPERTconnect/ECSAnswerEngineTopQuestionsResponse.h>
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
@@ -25,7 +26,10 @@
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
 #import <EXPERTconnect/ECSStartJourneyResponse.h>
-#import <EXPERTconnect/ECSAgentAvailableResponse.h>
+
+#import <EXPERTconnect/ECSSkillDetail.h>
+#import <EXPERTconnect/ECSExpertDetail.h>
+
 #import <EXPERTconnect/ECSJSONSerializer.h>
 #import <EXPERTconnect/ECSNavigationActionType.h>
 #import <EXPERTconnect/ECSNavigationContext.h>
@@ -62,6 +66,7 @@
 #import <EXPERTconnect/ECSChannelConfiguration.h>
 #import <EXPERTconnect/ECSChannelCreateResponse.h>
 
+
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 #import <EXPERTconnect/UIView+ECSNibLoading.h>
 #import <EXPERTconnect/ECSViewControllerStack.h>
@@ -86,6 +91,10 @@
 #import <EXPERTconnect/ECSWorkflowNavigation.h>
 #import <EXPERTconnect/ECSMediaInfoHelpers.h>
 #import <EXPERTconnect/ECSAuthenticationToken.h>
+
+#import <EXPERTconnect/ECSBreadcrumb.h>
+#import <EXPERTconnect/ECSBreadcrumbsSession.h>
+#import <EXPERTconnect/ECSBreadcrumbResponse.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -341,7 +350,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  Get details for a skill - such as agent availability, etc.
  */
 - (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion;
+                 completion:(void(^)(ECSSkillDetail *details, NSError *error))completion;
 
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
@@ -375,6 +384,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 -(void)setHost:(NSString *)theHost;
 
+#pragma mark Breadcrumb Functions
+
+- (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
+            withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion;
+
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
@@ -386,6 +400,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 // Dispatch to the server any queued up breadcrumbs. These could be     queued if
 // configured to wait a time period or number of breadcrumbs before sending.
 - (void) breadcrumbDispatch;
+
+- (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+
+
+#pragma mark Utility Functions
 
 /**
  Set the debug level.

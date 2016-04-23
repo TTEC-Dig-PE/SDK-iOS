@@ -1020,33 +1020,37 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 - (void)chatInfoUpdated:(NSNotification *)notification
 {
-	 NSDictionary *chatSkillStatus = notification.userInfo;
-	 if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
-		  chatAgentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
-		  chatAgentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
-		  chatEstimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
-	 }
-	 [self.tableView reloadData];
+    
+    ECSSkillDetail *skill = notification.object;
+    
+    if(skill) {
+        chatAgentsLoggedOn = skill.chatReady;
+        chatAgentAvailable = (skill.active && skill.chatReady>0 && skill.queueOpen);
+        chatEstimatedWait = skill.estWait;
+    }
+    [self.tableView reloadData];
 }
 
 - (void)videoChatInfoUpdated:(NSNotification *)notification
 {
-	 NSDictionary *chatSkillStatus = notification.userInfo;
-	 if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
-		  videoChatAgentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
-		  videoChatAgentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
-		  videoChatEstimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
+	 ECSSkillDetail *skill = notification.object;
+    
+	 if (skill) {
+		  videoChatAgentsLoggedOn = skill.chatReady;
+		  videoChatAgentAvailable = (skill.active && skill.chatReady>0 && skill.queueOpen);
+		  videoChatEstimatedWait = skill.estWait;
 	 }
 	 [self.tableView reloadData];
 }
 
 - (void)callbackInfoUpdated:(NSNotification *)notification
 {
-	 NSDictionary *chatSkillStatus = notification.userInfo;
-	 if ([chatSkillStatus objectForKey:@"agentsLoggedOn"]) {
-		  callbackAgentsLoggedOn = [[chatSkillStatus objectForKey:@"agentsLoggedOn"] intValue];
-		  callbackAgentAvailable = [[chatSkillStatus objectForKey:@"open"] boolValue];
-		  callbackEstimatedWait = [[chatSkillStatus objectForKey:@"estimatedWait"] intValue];
+	 ECSSkillDetail *skill = notification.object;
+    
+	 if (skill) {
+		  callbackAgentsLoggedOn = skill.voiceReady;
+		  callbackAgentAvailable = (skill.active && skill.voiceReady>0 && skill.queueOpen);
+		  callbackEstimatedWait = skill.estWait;
 	 }
 	 [self.tableView reloadData];
 }
@@ -1105,7 +1109,9 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 #pragma mark - Ad-Hoc SDK Functions
 
--(void)localBreadCrumb:(NSString *)action description:(NSString *)desc {
+-(void)localBreadCrumb:(NSString *)action
+           description:(NSString *)desc
+{
 	 [[EXPERTconnect shared] breadcrumbWithAction:action
 									  description:desc
 										   source:@"AdHoc"
@@ -1118,9 +1124,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 NSLog(@"Starting an ad-hoc Chat Session");
 	 
 	 NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
-	 
-	 [self localBreadCrumb:@"Chat started"
-			   description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
+    
+    [self localBreadCrumb:@"Chat Started" description:[NSString stringWithFormat:@"Starting chat with skill %@", chatSkill]];
 	 
 	 // MAS - Oct-2015 - For demo app, do not show survey after chat. Workflows not implemented yet.
 	 NSString *languageLocale = [NSString stringWithFormat:@"%@_%@",

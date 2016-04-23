@@ -284,9 +284,9 @@ NSTimer *   _clientHeartbeatTimer;
     
     // TODO: Commented out until 5.3!!!
     // Check for, and update heart-beat if applicable
-    //if (frame.headers && frame.headers[@"heart-beat"]) {
-    //    [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
-    //}
+    if (frame.headers && frame.headers[@"heart-beat"]) {
+        [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
+    }
     
     if ([frame.command isEqualToString:kStompConnected])
     {

@@ -8,7 +8,7 @@
 
 #import "ECSSelectExpertViewController.h"
 #import "ECSFeaturedTableViewCell.h"
-#import "ECSSelectExpertsResponse.h"
+#import "ECSExpertDetail.h"
 
 #import "ECSSelectExpertTableViewCell.h"
 
@@ -59,25 +59,21 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self.tableView registerNib:featuredNib forCellReuseIdentifier:ECSExpertCellId];
     
     // Try to load experts if none are currently loaded.
-	 
-
     if(self.experts == nil) {
         
         __weak typeof(self) weakSelf = self;
-		 [weakSelf setLoadingIndicatorVisible:YES];
+
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         
         // Attempt to fetch list of available experts from server
         [urlSession getExpertsWithInteractionItems:nil
-                                        completion:^(NSArray *expertArray, NSError *error) {
-                                            
+                                        completion:^(NSArray *responseArray, NSError *error) {
+                     
             [weakSelf setLoadingIndicatorVisible:NO];
                                             
             if (!error) {
                 
-                // Reload the table with new data from response
-                weakSelf.experts = expertArray;
-                [weakSelf.tableView reloadData];
+                [self populateTable:responseArray];
                 
             } else {
                 
@@ -86,9 +82,24 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
             }
         }];
         
+    } else {
+        [self populateTable:self.experts];
     }
 	 
     [self.tableView reloadData];
+}
+
+- (void) populateTable:(NSArray *)expertData {
+    if(self) {
+        // Reload the table with new data from response
+        NSMutableArray *expertsArray = [[NSMutableArray alloc] init];// = [ECSJSONSerializer arrayFromJSONArray:responseArray withClass:[ECSExpertDetail class]];
+        for( NSDictionary *item in expertData) {
+            ECSExpertDetail *newItem = [ECSJSONSerializer objectFromJSONDictionary:item withClass:[ECSExpertDetail class]];
+            [expertsArray addObject:newItem];
+        }
+        self.experts = expertsArray;
+        [self.tableView reloadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,52 +122,53 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	 NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
-	 ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
-	 [featuredCell setSelectExpertCellDelegate:self];
-	 [featuredCell.profileImage setImageWithPath:expert[@"pictureURL"]];
-	 
-	 featuredCell.firstLineView.hidden = YES;
-	 featuredCell.regionView.hidden = NO;
-	 NSLog(@"%@",self.actionType.type);
-	 [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
-	 
-	 if(!([expert objectForKey:@"fullName"] == (id)[NSNull null]))[featuredCell.name setText:expert[@"fullName"]];
-	 if(!([expert objectForKey:@"region"] == (id)[NSNull null]))[featuredCell.region setText:expert[@"region"]];
-	 if(!([expert objectForKey:@"expertise"] == (id)[NSNull null]))[featuredCell.expertiese setText:expert[@"expertise"]];
-	 if(!([expert objectForKey:@"interests"] == (id)[NSNull null]))[featuredCell.interests setText:[expert[@"interests"] componentsJoinedByString:@", "]];
-	 
-	 if([expert objectForKey:@"region"] || [expert objectForKey:@"interests"])
-	 {
-		  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		  {
-			   featuredCell.firstLineView.hidden = NO;
-			   [featuredCell configureConstraints];
-		  }
-	 }
-	 else{
-		  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		  {
-			   featuredCell.regionView.hidden = YES;
-			   [featuredCell configureConstraints];
-		  }
-		  else
-		  {
-			   featuredCell.regionHeightConstraints.constant = 0.0f;
-			   featuredCell.regionView.hidden = YES;
-		  }
-	 }
-	 
-	 return featuredCell;
+    ECSExpertDetail *expert = [self.experts objectAtIndex:indexPath.row];
+    ECSSelectExpertTableViewCell *featuredCell = [tableView dequeueReusableCellWithIdentifier:ECSExpertCellId];
+    [featuredCell setSelectExpertCellDelegate:self];
+    if(!(expert.pictureURL == (id)[NSNull null]))[featuredCell.profileImage setImageWithPath:expert.pictureURL];
+    
+    if(!(expert.fullName == (id)[NSNull null])) [featuredCell.name setText:expert.fullName];
+    //if(!(expert.region == (id)[NSNull null]))   [featuredCell.region setText:expert.region];
+    //if(!(expert.expertise == (id)[NSNull null])) [featuredCell.expertise setText:expert.expertise];
+    //if(!(expert.interests == (id)[NSNull null])) [featuredCell.interests setText:[expert.interests componentsJoinedByString:@", "]];
+    
+    featuredCell.firstLineView.hidden = YES;
+    featuredCell.regionView.hidden = NO;
+    NSLog(@"%@",self.actionType.type);
+    [featuredCell configureCellForActionType:self.actionType.type withExpert:expert];
+    
+    /*if(expert.region || expert.interests)
+    {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            featuredCell.firstLineView.hidden = NO;
+            [featuredCell configureConstraints];
+        }
+    }
+    else{*/
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            featuredCell.regionView.hidden = YES;
+            [featuredCell configureConstraints];
+        }
+        else
+        {
+            featuredCell.regionHeightConstraints.constant = 0.0f;
+            featuredCell.regionView.hidden = YES;
+        }
+    //}
+    
+    return featuredCell;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *expert = self.experts[indexPath.row];
+    ECSExpertDetail *expert = self.experts[indexPath.row];
+    
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     
      //DEBUG CODE: This only occurs if there's an "override" agent set in the Debug menu. Safe to leave.
     
@@ -191,15 +203,15 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 	 }
 	 else
 	 {
-		  NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
+		  //NSDictionary *expert = [self.experts objectAtIndex:indexPath.row];
 		  
-		  if([expert objectForKey:@"region"] || [expert objectForKey:@"interests"])
-		  {
-			   height = 250;
-		  }
-		  else{
+		  //if([expert objectForKey:@"region"] || [expert objectForKey:@"interests"])
+		  //{
+			//   height = 250;
+		  //}
+		  //else{
 			   height = 200;
-		  }
+		  //}
 		  
 	 }
 	 return height;
@@ -221,12 +233,13 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
 
 #pragma mark - ECSSelectExpertTableViewCellDelegate Methods
 
-- (void)didSelectChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
+    
     ECSChatActionType *actionType = [ECSChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
-    
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
+
     /**
      DEBUG CODE: BEGINS
      **/
@@ -244,7 +257,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)didSelectVideoChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectVideoChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -254,8 +267,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     actionType.cafexmode = @"videoauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     
@@ -272,7 +285,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     [self handleAction:actionType];
 }
 
-- (void)didSelectVoiceChatButton:(id)sender forExpert:(NSDictionary *)expert {
+- (void)didSelectVoiceChatButton:(id)sender forExpert:(ECSExpertDetail *)expert {
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     
     // Do a login if there's no session:
@@ -282,8 +295,8 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
     
     ECSVideoChatActionType *actionType = [ECSVideoChatActionType new];
     actionType.actionId = self.actionType.actionId;
-    actionType.agentId = expert[@"agentId"];
-    actionType.agentSkill = expert[@"agentSkill"];
+    actionType.agentId = expert.expertID;
+    actionType.agentSkill = [NSString stringWithFormat:@"Calls for %@", expert.expertID];
     actionType.cafexmode = @"voiceauto"; // @"voicecapable,videocapable,cobrowsecapable";
     actionType.cafextarget = [cafeXController cafeXUsername];
     

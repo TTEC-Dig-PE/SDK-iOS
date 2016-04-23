@@ -73,11 +73,16 @@ int rowToSelect;
 -(void)getAgentsAvailableForSkill:(int)index
 {
     [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
-                                    completion:^(NSDictionary *data, NSError *error)
+                                    completion:^(ECSSkillDetail *data, NSError *error)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
-                                                            object:nil
-                                                          userInfo:data];
+        if(!error)
+        {
+            //NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
+            //[skillDic setObject:data forKey:@"skillDetail"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
+                                                                object:data
+                                                              userInfo:nil];
+        }
     }];
 }
 

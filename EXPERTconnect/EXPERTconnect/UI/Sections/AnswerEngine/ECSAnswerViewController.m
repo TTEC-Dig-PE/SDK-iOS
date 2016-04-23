@@ -442,7 +442,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
 {
     self.answer.answerRating = rating;
     
-    [self.delegate didRateAnswer:self.answer withRating:@(rating)];
+    [self.delegate didRateAnswer:self.answer
+                      withRating:rating];
     
 }
 
