@@ -79,6 +79,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @implementation ECSURLSessionManager
 
 @synthesize journeyID;
+@synthesize breadcrumbSessionID;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -653,7 +654,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         if (!self.conversation)
         {
             __weak typeof(self) weakSelf = self;
-            return [self setupConversationWithLocation:@"home" completion:^(ECSConversationCreateResponse *createResponse, NSError *error) {
+            
+            return [self setupConversationWithLocation:@"home"
+                                            completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
+            {
                 if (createResponse.conversationID && createResponse.conversationID.length > 0)
                 {
                     weakSelf.conversation = createResponse;
@@ -696,20 +700,29 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     ECSKeychainSupport *support = [ECSKeychainSupport new];
     
-    NSDictionary *parameters;
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    parameters[@"location"] = location;
+    parameters[@"deviceId"] = [support deviceId];
+    if(self.breadcrumbSessionID)
+    {
+        parameters[@"breadcrumbSessionID"] = self.breadcrumbSessionID;
+    }
     if(self.journeyID)
     {
+        parameters[@"journeyId"] = self.journeyID;
+        
         // Send the journeyID if startJourney() has been called.
-        parameters = @{
+        /*parameters = @{
                      @"location": location,
                      @"deviceId": [support deviceId],
                      @"journeyId": self.journeyID
-                     };
+                     };*/
     } else {
-        parameters = @{
+        /*parameters = @{
                      @"location": location,
                      @"deviceId": [support deviceId]
-                     };
+                     };*/
     }
     
     return [self POST:@"conversationengine/v1/conversations"

@@ -951,6 +951,8 @@ NSTimer *breadcrumbTimer;
             
             // Set the global sessionId
             self.sessionID = [journeySessionRes getSessionId];
+            sessionManager.breadcrumbSessionID = self.sessionID;
+            
             if(completion) completion(self.sessionID, nil);
         }
     }];

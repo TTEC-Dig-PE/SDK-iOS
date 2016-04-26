@@ -245,6 +245,11 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 [super viewDidLoad];
 	 
 	 self.navigationItem.title = @"AdHoc";
+    
+    // This means we have not fetched data from server yet.
+    chatAgentsLoggedOn = -1;
+    videoChatAgentsLoggedOn = -1;
+    callbackAgentsLoggedOn = -1;
 	 
 	 ECSTheme *theme = [[EXPERTconnect shared] theme];
 	 
@@ -848,7 +853,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocChat:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
-			   if (chatEstimatedWait>-1) {
+			   if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -856,7 +861,9 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 chatAgentsLoggedOn];
-			   } else {
+			   } else if(chatAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
+               } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }
 		  }
@@ -864,7 +871,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocVideoChat:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
-			   if (videoChatEstimatedWait>-1) {
+			   if (videoChatEstimatedWait>-1 && videoChatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -872,6 +879,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 videoChatAgentsLoggedOn];
+               } else if(videoChatAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
 			   } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }
@@ -901,7 +910,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocVoiceCallback:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartVoiceCallbackHeader, @"AdHoc Voice Callback");
-			   if (callbackEstimatedWait>-1) {
+			   if (callbackEstimatedWait>-1 && callbackAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -909,6 +918,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 callbackAgentsLoggedOn];
+               } else if(callbackAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
 			   } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }

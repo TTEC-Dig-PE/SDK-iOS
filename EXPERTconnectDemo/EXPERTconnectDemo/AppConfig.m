@@ -85,7 +85,7 @@
     
     NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverURL"];
     
-    if (!url || url.length == 0)
+    if (!url || url.length == 0 || [url isEqualToString:@"http://api.dce1.humanify.com"])
     {
         url = @"https://api.dce1.humanify.com";
     }
