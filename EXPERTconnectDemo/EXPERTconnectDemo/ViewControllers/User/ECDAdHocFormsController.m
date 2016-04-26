@@ -77,15 +77,24 @@
     [self.photoButton setImage:cameraImageFill forState:UIControlStateNormal];
     
     self.imageView.delegate = self;
-    NSString *imageName = self.downloadImageNameField.text;
-    [self loadAdHocImage:imageName];
+    
+    // We don't know which image to load on startup. Wait for user to type one in. 
+    //NSString *imageName = self.downloadImageNameField.text;
+    //[self loadAdHocImage:imageName];
 }
 
 - (void) errorOccurred:(NSString *)errorMessage {
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error) {
-        NSString *delim = @"";
+        
+        if(error) {
+            [self showAlert:@"Error:" withMessage:error.description];
+        }
+        if(fileNames.count==0) {
+            [self showAlert:@"File not found." withMessage:@"The image you requested does not exist on this server."];
+        }
+        /*NSString *delim = @"";
         NSMutableString *detailedErrorMessage = [[NSMutableString alloc] init];
         [detailedErrorMessage appendString:errorMessage];
         [detailedErrorMessage appendString:@" - try one of: "];
@@ -97,6 +106,7 @@
         }
         
         [self showAlert:@"Error!" withMessage:detailedErrorMessage];
+        */
     }];
 }
 
