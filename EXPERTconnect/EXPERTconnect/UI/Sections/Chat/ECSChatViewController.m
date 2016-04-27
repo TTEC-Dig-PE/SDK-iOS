@@ -1137,8 +1137,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 - (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient
 {
     if (_callbackViewController != nil) {
-        [self.navigationController popToViewController:self animated:YES];
-        _callbackViewController = nil;
+//        [self.navigationController popToViewController:self animated:YES];
+//        _callbackViewController = nil;
+		 
+		 [_callbackViewController voiceCallbackDidAnswer:stompClient.delegate];
     }
 }
 
