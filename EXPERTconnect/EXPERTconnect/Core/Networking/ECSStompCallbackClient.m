@@ -112,7 +112,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     [self.stompClient setAuthToken:sessionManager.authToken];
     
     NSString *hostName = [[NSURL URLWithString:host] host];
-    NSString *bearerToken = sessionManager.authToken;
+    //NSString *bearerToken = sessionManager.authToken;
     NSNumber *port = [[NSURL URLWithString:host] port];
     
     if (port)
@@ -122,14 +122,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     // Use secure STOMP (wss) if the host is using HTTPS
     NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
-    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async?access_token=%@", stompProtocol, hostName, bearerToken];
-    
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
 }
 
 - (void)reconnect
 {
     self.isReconnecting = YES;
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient reconnect];
 }
 

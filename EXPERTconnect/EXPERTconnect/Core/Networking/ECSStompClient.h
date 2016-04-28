@@ -70,6 +70,8 @@
 // The delegate for receiving asynchronous messages.
 @property (weak, nonatomic) id<ECSStompDelegate> delegate;
 
+@property (strong, nonatomic) NSString *authToken;
+
 /**
  Connect to the specified STOMP host.  Upon successful connection the ECSStompDelegate will be sent 
  the stompClientDidConnect: message

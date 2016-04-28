@@ -733,7 +733,7 @@ static __strong NSData *CRLFCRLF;
     // TODO: maybe not copy this for performance
     data = [data copy] ?: [NSData data]; // It's okay for a ping to be empty
     dispatch_async(_workQueue, ^{
-        [self _sendFrameWithOpcode:ECSOpCodePing data:data];
+        [self _sendFrameWithOpcode:ECSOpCodeTextFrame data:data];
     });
 }
 

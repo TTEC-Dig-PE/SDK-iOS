@@ -69,6 +69,8 @@ NSTimer *   _clientHeartbeatTimer;
 
 @implementation ECSStompClient
 
+@synthesize authToken;
+
 - (instancetype)init
 {
     self = [super init];
@@ -111,7 +113,7 @@ NSTimer *   _clientHeartbeatTimer;
     NSDictionary *headers = @{
                               @"accept-version": kStompVersion,
                               @"host": host,
-                              //@"heart-beat": @"5000,5000"
+                              @"heart-beat": @"20000,20000"
                               };
     self.connected = NO;
     [self sendCommand:kStompConnect withHeaders:headers andBody:nil];
@@ -454,7 +456,8 @@ NSTimer *   _clientHeartbeatTimer;
     // Send a simple PING packet.
     if (self.webSocket.readyState == ECS_OPEN)
     {
-        [self.webSocket sendPing:nil];
+        NSData *data = [NSData dataWithBytes:(unsigned char[]){0x0A} length:1];
+        [self.webSocket sendPing:data];
     }
 }
 

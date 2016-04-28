@@ -724,15 +724,15 @@ NSTimer *breadcrumbTimer;
         ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
-            blockBC.journeyId = self.journeyID;
-            blockBC.sessionId = self.sessionID;
+            //blockBC.journeyId = self.journeyID;
+            //blockBC.sessionId = self.sessionID;
             [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
         }];
     }
     else
     {
-        blockBC.journeyId = self.journeyID;
-        blockBC.sessionId = self.sessionID;
+        //blockBC.journeyId = self.journeyID;
+        //blockBC.sessionId = self.sessionID;
         [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
     }
 }
@@ -763,6 +763,7 @@ NSTimer *breadcrumbTimer;
     breadcrumb.actionDescription = actionDescription;
     breadcrumb.actionSource = actionSource;
     breadcrumb.actionDestination = actionDestination;
+    
     if (geolocation) [breadcrumb setGeoLocation:geolocation];
     
     // This block will create a breadcrumb session if one is not already created.
@@ -850,6 +851,13 @@ NSTimer *breadcrumbTimer;
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    if([self clientID])theBreadcrumb.tenantId = [self clientID];
+    theBreadcrumb.journeyId = self.journeyID;
+    theBreadcrumb.sessionId = [self sessionID];
+    theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
+    theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
+    
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
                                 completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
@@ -870,6 +878,7 @@ NSTimer *breadcrumbTimer;
     theBreadcrumb.journeyId = self.journeyID;
     theBreadcrumb.sessionId = [self sessionID];
     theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
+    theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", theBreadcrumb.actionType);
 
