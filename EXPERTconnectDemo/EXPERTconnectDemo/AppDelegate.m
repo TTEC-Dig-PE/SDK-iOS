@@ -90,8 +90,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    
-    
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
@@ -103,8 +101,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         
          [myAppConfig startBreadcrumbSession];
      }];
-    
-    
     
     [self setThemeFromSettings];
     

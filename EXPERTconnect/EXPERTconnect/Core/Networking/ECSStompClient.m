@@ -92,7 +92,20 @@ NSTimer *   _clientHeartbeatTimer;
 - (void)connectToHost:(NSString*)host
 {
     self.hostURL = [NSURL URLWithString:host];
-    self.webSocket = [[ECSWebSocket alloc] initWithURL:self.hostURL];
+    NSURL *url = self.hostURL;
+    
+    if(self.authToken)
+    {
+        // Attach the authToken query parameter to the URL
+        NSLog(@"Connecting to Stomp with authToken=%@", self.authToken);
+        
+        NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
+        NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
+                               [self.hostURL query] ? @"&" : @"?", queryString];
+        url = [NSURL URLWithString:URLString];
+    }
+    
+    self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
 }
@@ -101,11 +114,11 @@ NSTimer *   _clientHeartbeatTimer;
 {
     if (self.hostURL)
     {
-        self.webSocket = [[ECSWebSocket alloc] initWithURL:self.hostURL];
-        self.webSocket.delegate = self;
-        [self.webSocket open];
+        NSLog(@"Reconnecting to Stomp...");
+        [self connectToHost:[self.hostURL absoluteString]];
     }
 }
+
 - (void)sendConnectToHost:(NSString*)host
 {
     NSAssert(host, @"Host must not be nil");

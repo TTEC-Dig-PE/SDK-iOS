@@ -284,6 +284,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 #pragma mark - ConversationEngine
 
+- (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion;
+
 /**
  Starts a new conversation and call the callback once the new conversation is complete.  
  This call also stores the journey ID for future use in other API calls.

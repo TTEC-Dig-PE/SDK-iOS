@@ -99,6 +99,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     BOOL _userTyping;
     BOOL _networkDisconnected;
     BOOL _showingPostChatSurvey;
+    int _reconnectCount;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -147,7 +148,10 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
     
     self.showFullScreenReachabilityMessage = NO;
     _agentTypingIndex = -1;
+    
     self.currentReconnectIndex = -1;
+    _reconnectCount = 0;
+    
     _networkDisconnected = NO;
     
     self.chatToolbar.sendEnabled = NO;
@@ -553,41 +557,47 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
 {
     // Check for actions one more time. This should return
     __weak typeof(self) weakSelf = self;
-    [weakSelf checkForPostActions:^(NSArray *results, NSError *error) {
-        if (results) {
+    [weakSelf checkForPostActions:^(NSArray *results, NSError *error)
+    {
+        if (results && !error)
+        {
             weakSelf.postChatActions = results;
-        }
         
-        NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
-        NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPrompt, @"Chat Disconnect Prompt");
-        
-        // If we have something to do after, display a different message.
-        if (self.postChatActions.count > 0)
-        {
-            alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
-        }
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                                 message:alertMessage
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action)
-        {
-                                                              
-            [weakSelf.workflowDelegate endVideoChat];
-            [weakSelf.chatClient disconnect];
+            NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
+            NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPrompt, @"Chat Disconnect Prompt");
             
-            [weakSelf showSurveyOrPopView];
-        }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:nil]];
-        
-        [weakSelf presentViewController:alertController animated:YES completion:nil];
-        
+            // If we have something to do after, display a different message.
+            if (self.postChatActions.count > 0)
+            {
+                alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
+            }
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                                     message:alertMessage
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction *action)
+            {
+                                                                  
+                [self doGracefulEndChat];
+            }]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:nil]];
+            
+            [weakSelf presentViewController:alertController animated:YES completion:nil];
+        }
+        else
+        {
+            NSLog(@"exitChatButtonTapped - Error checking for post actions: %@", error.description);
+            if(weakSelf)
+            {
+                [self doGracefulEndChat];
+            }
+        }
     }];
 }
 
@@ -799,6 +809,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                               withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView endUpdates];
         self.currentReconnectIndex = -1;
+        _reconnectCount = 0;
     }
     
     [self.chatToolbar initializeSendState];
@@ -1073,41 +1084,71 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
                                                         object:notificationMessage];
 }
 
+- (void)attemptReconnect
+{
+    NSLog(@"Chat::attemptReconnect - Attempting to reconnect Stomp #%d", _reconnectCount);
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    // Attempt to get a new authToken.
+    [urlSession refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
+    {
+        // AuthToken updated. Try to reconnect.
+        [self.chatClient connectToHost:urlSession.hostName];
+    }];
+}
+
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
-    NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
+    NSLog(@"chat::didFailWithError - Reporting error: %@", error.description);
     
-    BOOL validError = (![error.userInfo[NSLocalizedDescriptionKey] isEqual:[NSNull null]] &&
-                       error.userInfo[NSLocalizedDescriptionKey]);
-    
-    if (error && validError)
+    if([error.domain isEqualToString:@"kCFErrorDomainCFNetwork"])
     {
-        errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+        // Network error. Don't kill it. Give user a chance to reconnect.
+        NSLog(@"chat::didFailWithError - Network error. Show reconnect button.");
+        [self networkConnectionChanged:nil];
     }
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
-                                                                             message:errorMessage
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    __weak typeof(self) weakSelf = self;
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          if (weakSelf.isBeingPresented)
-                                                          {
-                                                              [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                                                          }
-                                                          else if (weakSelf.navigationController.viewControllers.count > 1)
-                                                          {
-                                                              [weakSelf.navigationController popViewControllerAnimated:YES];
-                                                              
-                                                              // Post chat ended notification
-                                                              [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                                                                                  object:self
-                                                                                                                userInfo:@{@"reason":@"error",
-                                                                                                                            @"error":errorMessage}];
-                                                          }
-                                                      }]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    else if(_reconnectCount < 3)
+    {
+        NSLog(@"chat::didFailWithError - Unknown error. Try 3 reconnects @ 500ms apart.");
+        _reconnectCount++;
+        [self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
+    }
+    else
+    {
+        NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
+        
+        BOOL validError = (![error.userInfo[NSLocalizedDescriptionKey] isEqual:[NSNull null]] &&
+                           error.userInfo[NSLocalizedDescriptionKey]);
+        
+        if (error && validError)
+        {
+            errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+        }
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
+                                                                                 message:errorMessage
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        __weak typeof(self) weakSelf = self;
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action)
+        {
+            if (weakSelf.isBeingPresented)
+            {
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }
+            else if (weakSelf.navigationController.viewControllers.count > 1)
+            {
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+              
+                // Post chat ended notification
+                [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                                    object:self
+                                                                  userInfo:@{@"reason": @"error", @"error": errorMessage}];
+            }
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
@@ -2129,6 +2170,7 @@ static NSString *const InlineFormCellID = @"ChatInlineFormCellID";
             self.currentReconnectIndex = self.messages.count - 1;
             [self.tableView reloadData];
         }
+        _reconnectCount = 0;
         _networkDisconnected = YES;
     }
 }
