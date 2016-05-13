@@ -152,6 +152,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    UA_LTRACE(@"APNS device token: %@", deviceToken);
+    
+    // Updates the device token and registers the token with UA. This won't occur until
+    // push is enabled if the outlined process is followed. This call is required.
+    [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
+    [EXPERTconnect shared].pushNotificationID = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     // Display an in-app alert for push notifications.
@@ -213,7 +222,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[UAirship push] resetBadge];
     
-    NSLog(@"Urban Airship Channel ID=%@",[UAirship push].channelID);
+    NSLog(@"Urban Airship Channel ID=%@, DeviceToken=%@",[UAirship push].channelID, [UAirship push].deviceToken);
 }
 
 - (void)reportBug {

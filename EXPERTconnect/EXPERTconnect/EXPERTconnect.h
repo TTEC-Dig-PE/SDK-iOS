@@ -44,6 +44,7 @@
 #import <EXPERTconnect/ECSRootViewController+Navigation.h>
 #import <EXPERTconnect/ECSWebViewController.h>
 
+//#import  "EXPERTconnect/ECSRatingView.h"
 //#import <EXPERTconnect/ECSBinaryRating.h>
 //#import <EXPERTconnect/ECSBinaryImageView.h>
 #import <EXPERTconnect/ECSCalendar.h>
@@ -51,6 +52,7 @@
 
 // Core Networking
 
+#import <EXPERTconnect/ECSStompClient.h>
 #import <EXPERTconnect/ECSStompChatClient.h>
 #import <EXPERTconnect/ECSStompCallbackClient.h>
 #import <EXPERTconnect/ECSChannelStateMessage.h>
@@ -125,6 +127,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
+@property (copy, nonatomic) NSString *pushNotificationID; 
 @property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;

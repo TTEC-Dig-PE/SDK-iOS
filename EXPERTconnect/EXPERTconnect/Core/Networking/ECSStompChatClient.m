@@ -272,13 +272,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
                                withReason:@"Disconnected"
                     agentInteractionCount:self.agentInteractionCount
                                  actionId:self.actionType.actionId
-                               completion:nil];
+                               completion:^(id result, NSError* error)
+            {
+                // Do nothing.
+            }];
         }
     }
-    
     if (self.stompClient && self.stompClient.connected)
     {
         self.stompClient.delegate = nil;
+        [self unsubscribeWithSubscriptionID:@"ios-1"];
         [self.stompClient disconnect];
     }
 }
@@ -436,6 +439,15 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)])
     {
         [self.delegate chatClientDidConnect:self];
+    }
+}
+
+// Something bad happened...
+-(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
+
+    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
+    {
+        [self.delegate chatClientDisconnected:self wasGraceful:NO];
     }
 }
 
@@ -639,9 +651,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
                  [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:)])
+                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
         {
-            [self.delegate chatClientDisconnected:self];
+            [self.delegate chatClientDisconnected:self wasGraceful:YES];
         }
     }
     else

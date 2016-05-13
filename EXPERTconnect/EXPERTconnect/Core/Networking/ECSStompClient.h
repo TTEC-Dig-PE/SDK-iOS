@@ -40,6 +40,8 @@
  */
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient;
 
+- (void)stompClientDidDisconnect:(ECSStompClient *)stompClient; 
+
 /**
  Called when the STOMP client fails to connect.
  
@@ -58,6 +60,9 @@
 
 @end
 
+
+
+
 /**
  The ECSStompClient implements the base level STOMP protocol as defined by https://stomp.github.io/.
  This client connects via a websocket to the specified host.
@@ -71,6 +76,8 @@
 @property (weak, nonatomic) id<ECSStompDelegate> delegate;
 
 @property (strong, nonatomic) NSString *authToken;
+
+@property (strong, nonatomic) NSTimer *heartbeatTimer;
 
 /**
  Connect to the specified STOMP host.  Upon successful connection the ECSStompDelegate will be sent 

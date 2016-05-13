@@ -314,9 +314,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
                  [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:)])
+                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
         {
-            [self.delegate chatClientDisconnected:self];
+            [self.delegate chatClientDisconnected:self wasGraceful:YES];
         }
     }
     else

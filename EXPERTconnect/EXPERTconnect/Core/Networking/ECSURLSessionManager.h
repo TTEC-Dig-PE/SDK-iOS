@@ -67,6 +67,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (nonatomic, strong) NSString *breadcrumbSessionID;
 
+@property (nonatomic, strong) NSString *pushNotificationID;
+
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
 

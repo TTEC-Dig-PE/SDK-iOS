@@ -80,6 +80,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 @synthesize journeyID;
 @synthesize breadcrumbSessionID;
+@synthesize pushNotificationID;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -234,7 +235,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             if (authToken)
             {
                 weakSelf.authToken = authToken;
-                NSLog(@"New auth token is: %@", authToken);
+                
+                NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
+                                         [authToken substringToIndex:4],
+                                         [authToken substringFromIndex:authToken.length-4]];
+                ECSLogVerbose(@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
+                
                 completion(authToken, nil);
             }
             else
@@ -246,9 +252,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 else
                 {
                     // wait 500ms and try again (up to 3 times)
-                    ECSLogVerbose(@"refreshIdentityDelegate: Sleeping... (RetryCount=%@)", myRetryCount);
+                    ECSLogVerbose(@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
                     [NSThread sleepForTimeInterval:0.5f];
-                    ECSLogVerbose(@"refreshIdentityDelegate: Done sleeping.");
+                    ECSLogVerbose(@"refreshIdentityDelegate - Done sleeping.");
                     [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
                 }
             }
@@ -887,10 +893,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+#pragma mark Journey Functions
+
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
 {
     //ECSKeychainSupport *support = [ECSKeychainSupport new];
-    NSDictionary *parameters = @{};
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
     
     //return [self POST:@"conversationengine/v1/journeys"
     return [self POST:@"journeymanager/v1"
@@ -1336,13 +1345,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(@"Authenticating with server.");
+    ECSLogVerbose(@"SessionManager::Reauthenticate - Attempting to re-authenticate...");
     
     [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
     {
         if (!error && authToken)
         {
-            ECSLogVerbose(@"Authentication successful");
+            ECSLogVerbose(@"SessionManager::Reauthenticate - Authentication successful.");
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             [self setCommonHTTPHeadersForRequest:mutableRequest];
             NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
@@ -1350,7 +1359,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         else
         {
-            ECSLogVerbose(@"Authentication failed.");
+            ECSLogVerbose(@"SessionManager::Reauthenticate - Authentication failed.");
             failure(nil, nil, error);
         }
     }];
@@ -1381,11 +1390,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        ECSLogVerbose(@"HTTP RESPONSE: %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
+        ECSLogVerbose(@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
         
         if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
-            ECSLogWarn(@"Authentication error. Attempting to generate new key...");
+            ECSLogWarn(@"SessionManager::dataTaskWithRequest - Authentication error (http 401).");
             ECSLogVerbose(@"Packet: %@", response); 
             //if(weakSelf.authTokenDelegate) {
                 // Use the new method if an identity delegate is found.
@@ -1558,7 +1567,16 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         [mutableRequest setValue:self.conversation.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
+    
+    // iOS/9.3 (ExpertConnect SDK 5.3)
+    NSString *userAgent = [NSString stringWithFormat:@"iOS/%ld.%ld.%ld (EXPERTconnect SDK %@)",
+                           (long)[[NSProcessInfo processInfo] operatingSystemVersion].majorVersion,
+                           (long)[[NSProcessInfo processInfo] operatingSystemVersion].minorVersion,
+                           (long)[[NSProcessInfo processInfo] operatingSystemVersion].patchVersion,
+                           [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
 
+    [mutableRequest setValue:userAgent forHTTPHeaderField:@"x-ia-user-agent"];
+    
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
     

@@ -151,6 +151,21 @@ NSString *_chatSkill;
 }
 
 - (IBAction)btnCaseThree_Touch:(id)sender {
+    
+    [self logAction:@"Sending test breadcrumb..."];
+    
+    ECSBreadcrumb *bc3 = [[ECSBreadcrumb alloc] initWithAction:@"Click"
+                                                   description:@"Deuter Guide 40+"
+                                                        source:@"SDK"
+                                                   destination:@"Product Page"];
+    
+    [[EXPERTconnect shared] breadcrumbSendOne:bc3 withCompletion:^(ECSBreadcrumbResponse *bcResponse3, NSError *error)
+     {
+         [self logAction:@"Sent."];
+         [self checkForActionItem:bcResponse3 expectedAction:YES];
+         [self logAction:@"Use Case 1 complete."];
+     }];
+    
 }
 
 - (IBAction)btnCaseFour_Touch:(id)sender {
