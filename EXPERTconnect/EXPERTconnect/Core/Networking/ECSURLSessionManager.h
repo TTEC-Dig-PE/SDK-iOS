@@ -8,28 +8,32 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "ECSAuthenticationToken.h"
+#import "ECSBreadcrumb.h"
 
 @class ECSActionType;
+
 @class ECSAnswerEngineTopQuestionsResponse;
 @class ECSAnswerEngineRateResponse;
 @class ECSAnswerEngineResponse;
 @class ECSCallbackSetupResponse;
 @class ECSChatHistoryResponse;
 @class ECSConversationCreateResponse;
-
-@class ECSSkillDetail;
-@class ECSExpertDetail; 
-
+@class ECSBreadcrumbResponse;
 @class ECSStartJourneyResponse;
-@class ECSChannelConfiguration;
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
+@class ECSHistoryResponse;
+
+@class ECSSkillDetail;
+@class ECSExpertDetail;
+//@class ECSBreadcrumb;
+
+@class ECSChannelConfiguration;
 @class ECSForm;
 @class ECSHistoryList;
-@class ECSHistoryResponse;
 @class ECSNavigationContext;
-@class ECSForm;
 @class ECSUserProfile;
+
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -58,6 +62,12 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 @property (nonatomic, strong) NSString *authToken;
 
 @property (nonatomic, weak) id<ECSAuthenticationTokenDelegate> authTokenDelegate;
+
+@property (copy, nonatomic) NSString *journeyID;
+
+@property (nonatomic, strong) NSString *breadcrumbSessionID;
+
+@property (nonatomic, strong) NSString *pushNotificationID;
 
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
@@ -206,10 +216,10 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
-                                 parentNavigator:(NSString*)parentNavigator
-                                        actionId:(NSString*)actionId
-                                          rating:(NSNumber*)rating
-                                   questionCount:(NSNumber*)questionCount
+                                          rating:(int)rating
+                                             min:(int)theMin
+                                             max:(int)theMax
+                                   questionCount:(int)questionCount
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion;
 
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion;
@@ -275,6 +285,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                               completion:(void (^)(id userData, NSError* error))completion;
 
 #pragma mark - ConversationEngine
+
+- (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion;
 
 /**
  Starts a new conversation and call the callback once the new conversation is complete.  
@@ -484,13 +497,13 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                             failure:(void(^)(NSURLResponse *response, NSError *error))failure;
 
 
-- (NSString *) getJourneyID ;
+//- (NSString *) getJourneyID ;
 - (NSString *) getConversationID ;
 
 #pragma mark Breadcrumbs
 
 - (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
-                                      completion:(void (^)(NSDictionary *json, NSError *error))completion;
+                                      completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion;
 
 - (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;

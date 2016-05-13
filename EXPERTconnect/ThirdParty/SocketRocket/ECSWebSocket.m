@@ -729,11 +729,13 @@ static __strong NSData *CRLFCRLF;
 
 - (void)sendPing:(NSData *)data;
 {
-    NSAssert(self.readyState == ECS_OPEN, @"Invalid State: Cannot call send: until connection is open");
+    //NSAssert(self.readyState == ECS_OPEN, @"Invalid State: Cannot call send: until connection is open");
+    if(self.readyState != ECS_OPEN) return;
+    
     // TODO: maybe not copy this for performance
     data = [data copy] ?: [NSData data]; // It's okay for a ping to be empty
     dispatch_async(_workQueue, ^{
-        [self _sendFrameWithOpcode:ECSOpCodePing data:data];
+        [self _sendFrameWithOpcode:ECSOpCodeTextFrame data:data];
     });
 }
 

@@ -13,5 +13,6 @@
 @interface ECSAnswerEngineRateResponse : ECSJSONObject <ECSJSONSerializing>
 
 @property (strong, nonatomic) NSArray *actions;
-
+@property (nonatomic) int constrainedRating;
+@property (nonatomic) int requestRating;
 @end

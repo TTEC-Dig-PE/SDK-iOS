@@ -655,8 +655,8 @@
 				466A7EFE1B6FCC3F00A48DAC /* ECDAdHocViewController.h */,
 				466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */,
 				466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */,
-				467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */,
 				467257F71B7E5D1D0091BE51 /* ECDAdHocFormsController.h */,
+				467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */,
 				467257F31B7E5CF40091BE51 /* ECDAdHocFormsController.xib */,
 				03CF885C1AD5B45E0064085E /* ECDSettingsViewController.h */,
 				03CF885D1AD5B45E0064085E /* ECDSettingsViewController.m */,
@@ -1632,7 +1632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1660,7 +1660,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72C4C39460082123433B137E /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

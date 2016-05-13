@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface ECSBreadcrumb: NSObject
+@interface ECSBreadcrumb: NSObject <NSCopying>
 
 @property (nonatomic) NSMutableDictionary *properties;
 
@@ -17,12 +17,15 @@
 @property (strong, nonatomic) NSString *journeyId;
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *sessionId;
+@property (strong, nonatomic) NSString *pushNotificationId;
 @property (strong, nonatomic) NSString *actionType;
 @property (strong, nonatomic) NSString *actionDescription;
 @property (strong, nonatomic) NSString *actionSource;
 @property (strong, nonatomic) NSString *actionDestination;
 @property (strong, nonatomic) NSString *creationTime;
 @property (strong, nonatomic) CLLocation *geoLocation;
+
+- (id)init;
 
 - (id)initWithDic : (NSDictionary *)dic;
 
@@ -47,6 +50,9 @@
 
 - (void)setSessionId: (NSString *)sessionId;
 - (NSString *)sessionId;
+
+- (void)setPushNotificationId: (NSString *)pushNotificationId;
+- (NSString *)pushNotificationId;
 
 - (void)setActionType: (NSString *)actionType;
 - (NSString *)actionType;

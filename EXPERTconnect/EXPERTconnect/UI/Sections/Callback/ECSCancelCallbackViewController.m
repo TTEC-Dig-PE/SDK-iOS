@@ -138,8 +138,16 @@
 - (void)dismissviewAndNotify:(BOOL)shouldNotify reason:(NSString *)reasonString {
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
+	 
+	 if([self presentingViewController])
+	 {
+		  [self dismissViewControllerAnimated:YES completion:nil];
+	 }
+	 else{
+		  [self.navigationController popToRootViewControllerAnimated:YES];
+	 }
+
+
     if(shouldNotify) {
         NSDictionary *userInfoDic = @{@"reason":reasonString};
         [[NSNotificationCenter defaultCenter] postNotificationName:ECSCallbackEndedNotification

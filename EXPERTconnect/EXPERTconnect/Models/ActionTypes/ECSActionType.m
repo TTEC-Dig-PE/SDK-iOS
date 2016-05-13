@@ -77,6 +77,11 @@ NSString *const ECSRequestAnswerEngineAction = @"RequestAnswerEngineAction";
              };
 }
 
+-(NSString *)description {
+    return [NSString stringWithFormat:@"Type=%@, ActionId=%@, displayName=%@",
+            self.type, self.actionId, self.displayName];
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     ECSActionType *actionType = [[[self class] allocWithZone:zone] init];

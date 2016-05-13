@@ -20,6 +20,7 @@
 @implementation EXPERTconnectTests
 
 NSURL *_testAuthURL;
+NSString *_testTenant;
 
 - (void)setUp {
     [super setUp];
@@ -41,11 +42,12 @@ NSURL *_testAuthURL;
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
+    if(!_testTenant) _testTenant = @"mktwebextc";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
                     [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                      @"expertconnect_unit_test",
-                     @"mktwebextc"]];
+                     _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
     [[EXPERTconnect shared] setDebugLevel:5];
@@ -149,6 +151,40 @@ NSURL *_testAuthURL;
     }];
 }
 
+- (void) testExpertConnectAsClass {
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testExpertConnectAsClass"];
+    EXPERTconnect *myEC = [[EXPERTconnect alloc] init];
+    ECSConfiguration *configuration = [ECSConfiguration new];
+    configuration.appName       = @"EXPERTconnect UnitTester";
+    configuration.appVersion    = @"1.0";
+    configuration.appId         = @"12345";
+    configuration.host          = @"https://api.dce1.humanify.com";
+    [myEC initializeWithConfiguration:configuration];
+    
+    _testAuthURL = [[NSURL alloc] initWithString:
+                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                     @"expertconnect_unit_test",
+                     @"mktwebextc"]];
+    [myEC setAuthenticationTokenDelegate:self];
+    
+    [myEC startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
+        NSLog(@"Journey created.");
+        
+        [myEC getDetailsForSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
+            // was journeyID in the header?
+            
+            [expectation fulfill];
+        }];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
 /**
  Test: startJourney()
  
@@ -162,6 +198,12 @@ NSURL *_testAuthURL;
  */
 - (void)testStartJourney {
     
+    // First let's double check the parameter getter/setters
+    [EXPERTconnect shared].journeyID = @"MikeJourneyIDTest";
+    XCTAssert([[EXPERTconnect shared].journeyID isEqualToString:@"MikeJourneyIDTest"], @"JourneyID is not what we set it to");
+    XCTAssert([[EXPERTconnect shared].journeyID isEqualToString:[EXPERTconnect shared].urlSession.journeyID],@"JourneyID should match what URLSession has");
+    [EXPERTconnect shared].journeyID = nil;
+    
     [self initSDK];
     // Test startJourney returning a journeyID.
     
@@ -171,7 +213,7 @@ NSURL *_testAuthURL;
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
         NSLog(@"Test journeyID 1 is %@", journeyID);
         XCTAssert(journeyID.length > 0, @"JourneyID string length was 0.");
-        XCTAssert([journeyID containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
+        //XCTAssert([journeyID containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
         XCTAssert([journeyID containsString:@"journey"], @"JourneyID did not contain the word journey");
         XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
         
@@ -179,7 +221,7 @@ NSURL *_testAuthURL;
         [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID2, NSError *err2) {
             NSLog(@"Test journeyID 2 is %@", journeyID2);
             XCTAssert(journeyID2.length > 0, @"JourneyID string length was 0.");
-            XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
+            //XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
             XCTAssert([journeyID2 containsString:@"journey"], @"JourneyID did not contain the word journey");
             XCTAssertFalse([journeyID2 isEqualToString:journeyID]);
             
@@ -209,7 +251,7 @@ NSURL *_testAuthURL;
                       [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID3, NSError *err3) {
                           NSLog(@"Test journeyID 3 is %@", journeyID3);
                           XCTAssert(journeyID3.length > 0, @"JourneyID string length was 0.");
-                          XCTAssert([journeyID3 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
+                          //XCTAssert([journeyID3 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
                           XCTAssert([journeyID3 containsString:@"journey"], @"JourneyID did not contain the word journey");
                           XCTAssertFalse([journeyID3 isEqualToString:journeyID2]);
                           
@@ -244,6 +286,69 @@ NSURL *_testAuthURL;
     }];
 }
 
+- (void)testRateResponse {
+    [self initSDK];
+    ECSURLSessionManager *sm = [[EXPERTconnect shared] urlSession];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testRateResponse"];
+    
+    // Give a thumbs up rating...
+    [sm rateAnswerWithAnswerID:@"146012322420964"
+                     inquiryID:@"146012322420964"
+                        rating:1
+                           min:-1
+                           max:1
+                 questionCount:1
+                    completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+    {
+        XCTAssert(response.constrainedRating==5, @"Rating was not converted to max for positive.");
+        
+        // Give a thumbs down rating...
+        [sm rateAnswerWithAnswerID:@"146012322420964"
+                         inquiryID:@"146012322420964"
+                            rating:-1
+                               min:-1
+                               max:1
+                     questionCount:2
+                        completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+         {
+             XCTAssert(response.constrainedRating==1, @"Rating was not converted to min for negative.");
+             
+             // Give a rating right in the middle (1-5, rating=3)
+             [sm rateAnswerWithAnswerID:@"146012322420964"
+                              inquiryID:@"146012322420964"
+                                 rating:3
+                                    min:1
+                                    max:5
+                          questionCount:3
+                             completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+              {
+                  XCTAssert(response.constrainedRating==3,@"Rating does not reflect answer.");
+                  
+                  // A bogus rating value (15 is higher than the max)
+                  [sm rateAnswerWithAnswerID:@"146012322420964"
+                                   inquiryID:@"146012322420964"
+                                      rating:15
+                                         min:1
+                                         max:5
+                               questionCount:3
+                                  completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+                   {
+                       XCTAssert(response.constrainedRating==1, @"Rating was not set to min value due to out of bound.");
+                  
+                      [expectation fulfill];
+                   }];
+              }];
+         }];
+    }];
+    
+    // Wait for the above code to finish (15 second timeout)...
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
 // Can't do too much with this -- it just sends off to server and allows for no feedback.
 - (void)testBreadcrumbBulk {
     
@@ -265,13 +370,18 @@ NSURL *_testAuthURL;
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"testBreadcrumbSendOne"];
     
-    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] initWithAction:@"click"
-                                                    description:@"Mobile Phone"
-                                                         source:@"Phones"
-                                                    destination:@"Product Page"];
+    ECSBreadcrumb *myBc = [[ECSBreadcrumb alloc] initWithAction:@"test!@$_\'"
+                                                    description:@"this is a very long description about sending one breadcrumb to the server. This unit test should successfully reflect my very long description."
+                                                         source:@"-(unit test)"
+                                                    destination:@"<script>alert('oh oh!')</script>"];
     
-    [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(NSDictionary *jsonDic, NSError *error)
+    [[EXPERTconnect shared] breadcrumbSendOne:myBc withCompletion:^(ECSBreadcrumbResponse *bcr, NSError *error)
     {
+        XCTAssert([bcr.actionType isEqualToString:@"test!@$_\'"], @"type missing or not matching.");
+        XCTAssert([bcr.actionDescription isEqualToString:@"this is a very long description about sending one breadcrumb to the server. This unit test should successfully reflect my very long description."], @"description missing or not matching.");
+        XCTAssert([bcr.actionSource isEqualToString:@"-(unit test)"], @"source missing or not matching.");
+        XCTAssert([bcr.actionDestination isEqualToString:@"<script>alert('oh oh!')</script>"], @"destination missing or not matching.");
+
         [expectation fulfill];
     }];
     
@@ -330,6 +440,7 @@ NSURL *_testAuthURL;
 // Test the select experts endpoint.
 - (void)testSelectExperts {
     
+    _testTenant = @"mktwebextc";
     [self initSDK];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
@@ -340,11 +451,18 @@ NSURL *_testAuthURL;
                                  completion:^(NSArray *experts, NSError *error)
     {
         NSLog(@"Experts Array: %@", experts);
-        XCTAssert(experts.count>0,@"No experts returned.");
-        NSArray *expertsArray = [ECSJSONSerializer arrayFromJSONArray:experts withClass:[ECSExpertDetail class]];
-        ECSExpertDetail *expert1 = expertsArray[0];
-        XCTAssert(expert1.status.length>0,@"No status found.");
-        XCTAssert(expert1.chatsToRejectVoice == YES || expert1.chatsToRejectVoice == NO,@"chatToRejectVoice invalid value.");
+        XCTAssert(experts.count && experts.count>0,@"No experts returned.");
+        if(experts.count && experts.count>0)
+        {
+            NSArray *expertsArray = [ECSJSONSerializer arrayFromJSONArray:experts withClass:[ECSExpertDetail class]];
+            if(expertsArray && expertsArray.count>0)
+            {
+                ECSExpertDetail *expert1 = expertsArray[0];
+                XCTAssert(expert1.status.length>0,@"No status found.");
+                XCTAssert(expert1.chatsToRejectVoice == YES || expert1.chatsToRejectVoice == NO,@"chatToRejectVoice invalid value.");
+            }
+            XCTAssert(expertsArray, @"Missing experts array.");
+        }
         
         [expectation fulfill];
     }];
@@ -354,6 +472,34 @@ NSURL *_testAuthURL;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testGetAnswerForQuestion {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getAnswerForQuestion:@"Parking"
+                               inContext:@"Park"
+                         parentNavigator:@""
+                                actionId:@""
+                           questionCount:1
+                              customData:nil
+                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
+    {
+        NSLog(@"Response=%@", response);
+        XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
+        XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+    
 }
 
 - (void)testStartupTiming {

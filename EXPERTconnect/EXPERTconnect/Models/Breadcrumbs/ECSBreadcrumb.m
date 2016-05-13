@@ -15,6 +15,7 @@ static NSString* PROPERTY_USERID         = @"userId";
 static NSString* PROPERTY_TENANTID       = @"tenantId";
 static NSString* PROPERTY_JOURNEYID      = @"journeyId";
 static NSString* PROPERTY_SESSIONID      = @"sessionId";
+static NSString* PROPERTY_PUSHNOTIFICATIONID = @"pushNotificationId";
 static NSString* PROPERTY_ACTIONTYPE     = @"actionType";
 static NSString* PROPERTY_ACTIONDESC     = @"actionDescription";
 static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
@@ -55,6 +56,7 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 {
     if (self = [super init]) {
         
+        properties = [NSMutableDictionary dictionary];
         self.actionType = theAction;
         self.actionDescription = theDescription;
         self.actionSource = source;
@@ -114,11 +116,20 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 /* Session ID */
 - (void)setSessionId: (NSString *)sessionId {
-    [self.properties setObject:sessionId forKey:PROPERTY_SESSIONID];
+    [self.properties setObject:(sessionId ? sessionId : @"") forKey:PROPERTY_SESSIONID];
 }
 
 - (NSString *)sessionId {
     return self.properties[PROPERTY_SESSIONID];
+}
+
+/* Push Notification ID */
+- (void)setPushNotificationId:(NSString *)pushNotificationId {
+    [self.properties setObject:(pushNotificationId ? pushNotificationId : @"") forKey:PROPERTY_PUSHNOTIFICATIONID];
+}
+
+- (NSString *)pushNotificationId {
+    return self.properties[PROPERTY_PUSHNOTIFICATIONID];
 }
 
 /* Action Type */
@@ -209,6 +220,32 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
     //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
 }
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@; type=%@, desc=%@, source=%@, dest=%@", [super description], self.actionType, self.actionDescription, self.actionSource, self.actionDestination];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    ECSBreadcrumb *newBC = [[[self class] allocWithZone:zone] init];
+    
+    newBC.properties = [[NSMutableDictionary alloc] initWithDictionary:self.properties copyItems:YES];
+    
+    if(self.actionId) newBC.actionId = [self.actionId copyWithZone:zone];
+    if(self.tenantId) newBC.tenantId = [self.tenantId copyWithZone:zone];
+    if(self.journeyId) newBC.journeyId = [self.journeyId copyWithZone:zone];
+    if(self.userId) newBC.userId = [self.userId copyWithZone:zone];
+    if(self.sessionId) newBC.sessionId = [self.sessionId copyWithZone:zone];
+    if(self.actionType) newBC.actionType = [self.actionType copyWithZone:zone];
+    if(self.actionDescription) newBC.actionDescription = [self.actionDescription copyWithZone:zone];
+    if(self.actionSource) newBC.actionSource = [self.actionSource copyWithZone:zone];
+    if(self.actionDestination) newBC.actionDestination = [self.actionDestination copyWithZone:zone];
+    if(self.creationTime) newBC.creationTime = [self.creationTime copyWithZone:zone];
+    if(self.geoLocation) newBC.geoLocation = [self.geoLocation copyWithZone:zone];
+    
+    return newBC;
+}
+
 
 @end
 

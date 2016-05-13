@@ -54,7 +54,7 @@
  
  @param stompClient the chat client that had an agent disconnect
  */
-- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient;
+- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful;
 
 /**
  Called when the estimated wait time is updated.

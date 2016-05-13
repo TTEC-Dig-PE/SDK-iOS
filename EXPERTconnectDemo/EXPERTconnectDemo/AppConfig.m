@@ -85,7 +85,7 @@
     
     NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverURL"];
     
-    if (!url || url.length == 0)
+    if (!url || url.length == 0 || [url isEqualToString:@"http://api.dce1.humanify.com"])
     {
         url = @"https://api.dce1.humanify.com";
     }
@@ -121,7 +121,7 @@
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     
-    NSLog(@"Fetch token URL: %@", url);
+    //NSLog(@"Fetch token URL: %@", url);
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
@@ -133,7 +133,10 @@
          
          if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
+                                      [returnToken substringToIndex:4],
+                                      [returnToken substringFromIndex:returnToken.length-4]];
+             NSLog(@"Successfully fetched authToken: %@", abbrevToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else

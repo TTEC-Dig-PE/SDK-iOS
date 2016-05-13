@@ -263,16 +263,21 @@ withParentNavigationController:(UINavigationController*)navigationController
 
 - (void)showMessageForError:(NSError*)error
 {
-    NSString *title = ECSLocalizedString(ECSLocalizeErrorKey,
-                                         @"Error");
-    NSString *message = error.userInfo[NSLocalizedDescriptionKey];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
-                                          otherButtonTitles:nil];
-    [alert show];
-
+    // Ensure the alert box is shown on the main thread only.
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        
+        NSString *title = ECSLocalizedString(ECSLocalizeErrorKey,
+                                             @"Error");
+        NSString *message = error.userInfo[NSLocalizedDescriptionKey];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+    }];
 }
 
 @end

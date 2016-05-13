@@ -112,7 +112,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     [self.stompClient setAuthToken:sessionManager.authToken];
     
     NSString *hostName = [[NSURL URLWithString:host] host];
-    NSString *bearerToken = sessionManager.authToken;
+    //NSString *bearerToken = sessionManager.authToken;
     NSNumber *port = [[NSURL URLWithString:host] port];
     
     if (port)
@@ -120,15 +120,18 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         hostName = [NSString stringWithFormat:@"%@:%@", hostName, port];
     }
     
-    // NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async", hostName];
-    NSString *stompHostName = [NSString stringWithFormat:@"ws://%@/conversationengine/async?access_token=%@", hostName, bearerToken];
-    
+    // Use secure STOMP (wss) if the host is using HTTPS
+    NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
 }
 
 - (void)reconnect
 {
     self.isReconnecting = YES;
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient reconnect];
 }
 
@@ -311,9 +314,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
                  [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:)])
+                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
         {
-            [self.delegate chatClientDisconnected:self];
+            [self.delegate chatClientDisconnected:self wasGraceful:YES];
         }
     }
     else

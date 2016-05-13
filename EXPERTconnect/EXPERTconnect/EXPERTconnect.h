@@ -13,6 +13,7 @@
 #import <EXPERTconnect/ECSActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineActionType.h>
 #import <EXPERTconnect/ECSAnswerEngineResponse.h>
+#import <EXPERTconnect/ECSAnswerEngineRateResponse.h>
 #import <EXPERTconnect/ECSAnswerEngineTopQuestionsResponse.h>
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
@@ -43,6 +44,7 @@
 #import <EXPERTconnect/ECSRootViewController+Navigation.h>
 #import <EXPERTconnect/ECSWebViewController.h>
 
+//#import  "EXPERTconnect/ECSRatingView.h"
 //#import <EXPERTconnect/ECSBinaryRating.h>
 //#import <EXPERTconnect/ECSBinaryImageView.h>
 #import <EXPERTconnect/ECSCalendar.h>
@@ -50,6 +52,7 @@
 
 // Core Networking
 
+#import <EXPERTconnect/ECSStompClient.h>
 #import <EXPERTconnect/ECSStompChatClient.h>
 #import <EXPERTconnect/ECSStompCallbackClient.h>
 #import <EXPERTconnect/ECSChannelStateMessage.h>
@@ -64,6 +67,7 @@
 #import <EXPERTconnect/ECSConversationLink.h>
 #import <EXPERTconnect/ECSChannelConfiguration.h>
 #import <EXPERTconnect/ECSChannelCreateResponse.h>
+
 
 // #import <EXPERTconnect/ECSRatingView.h>     // kdw: causes "Include of non-modular header inside framework module EXPERTconnect.ECSRatingView"
 #import <EXPERTconnect/UIView+ECSNibLoading.h>
@@ -91,6 +95,8 @@
 #import <EXPERTconnect/ECSAuthenticationToken.h>
 
 #import <EXPERTconnect/ECSBreadcrumb.h>
+#import <EXPERTconnect/ECSBreadcrumbsSession.h>
+#import <EXPERTconnect/ECSBreadcrumbResponse.h>
 
 //! Project version number for EXPERTconnect.
 FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
@@ -121,6 +127,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
+@property (copy, nonatomic) NSString *pushNotificationID; 
 @property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
@@ -383,7 +390,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 #pragma mark Breadcrumb Functions
 
 - (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
-            withCompletion:(void(^)(NSDictionary *, NSError *))theCompletion;
+            withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion;
 
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription

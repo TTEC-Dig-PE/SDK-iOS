@@ -17,6 +17,7 @@
 #import "ECDLocalization.h"
 #import "ECDBugReportEmailer.h"
 #import "ECDCustomizeThemeViewController.h"
+#import "ECDSplashViewController.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -113,12 +114,15 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     self.view.backgroundColor = theme.primaryBackgroundColor;
     self.tableView.backgroundColor = theme.primaryBackgroundColor;
     
-    if ([[EXPERTconnect shared] authenticationRequired])
-    {
-        [self.logoutButton setEnabled:NO];
+    //if ([[EXPERTconnect shared] authenticationRequired])
+    //{
+        //[self.logoutButton setEnabled:NO];
+    if( ![EXPERTconnect shared].userName) {
+        [self.logoutButton setTitle:@"Login" forState:UIControlStateNormal];
+    } else {
+        [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizedLogoutButton, @"Log out button state.")
+                           forState:UIControlStateNormal];
     }
-    [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizedLogoutButton, @"Log out button state.")
-                       forState:UIControlStateNormal];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     self.tableView.sectionHeaderHeight = 42.0f;
@@ -481,18 +485,24 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (IBAction)logoutTapped:(id)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeLogoutTitle, nil)
-                                                                             message:ECSLocalizedString(ECSLocalizeLogoutText, nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, nil)
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, nil)
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          [ECDBugReportEmailer resetLogging];
-                                                          [[EXPERTconnect shared] logout];
-                                                      }]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    
+    if([self.logoutButton.currentTitle isEqualToString:@"Login"]) {
+        ECDSplashViewController *splashController = [[ECDSplashViewController alloc] initWithNibName:nil bundle:nil];
+        [self presentViewController:splashController animated:YES completion:nil];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeLogoutTitle, nil)
+                                                                                 message:ECSLocalizedString(ECSLocalizeLogoutText, nil) preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              [ECDBugReportEmailer resetLogging];
+                                                              [[EXPERTconnect shared] logout];
+                                                          }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)voiceItAuthenticate:(id)sender

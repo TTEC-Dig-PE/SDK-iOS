@@ -346,7 +346,7 @@
     [_cancelCallback displayInProgressCallBack];
 }
 
-- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient
+- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient wasGraceful:(bool)graceful
 {
     if (_callbackClient != nil) {
         [_callbackClient disconnect];

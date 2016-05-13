@@ -15,8 +15,8 @@
 typedef NS_ENUM(NSInteger, AnswerRating)
 {
     AnswerRatingUnknown = 0,
-    AnswerRatingPositive = 2,
-    AnswerRatingNegative = 1
+    AnswerRatingPositive = 1,
+    AnswerRatingNegative = -1
 };
 
 @interface ECSAnswerEngineResponse : ECSJSONObject <ECSJSONSerializing, UIActivityItemSource>

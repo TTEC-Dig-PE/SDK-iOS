@@ -90,8 +90,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    
-    
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
@@ -103,8 +101,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         
          [myAppConfig startBreadcrumbSession];
      }];
-    
-    
     
     [self setThemeFromSettings];
     
@@ -154,6 +150,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    UA_LTRACE(@"APNS device token: %@", deviceToken);
+    
+    // Updates the device token and registers the token with UA. This won't occur until
+    // push is enabled if the outlined process is followed. This call is required.
+    [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
+    [EXPERTconnect shared].pushNotificationID = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -217,7 +222,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[UAirship push] resetBadge];
     
-    NSLog(@"Urban Airship Channel ID=%@",[UAirship push].channelID);
+    NSLog(@"Urban Airship Channel ID=%@, DeviceToken=%@",[UAirship push].channelID, [UAirship push].deviceToken);
 }
 
 - (void)reportBug {
@@ -262,53 +267,5 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         }
     }
 }
-
-/*- (void)setupThemeLikeFord
-{
-    // These are test settings for FORD
-    ECSTheme *myTheme = [EXPERTconnect shared].theme;
-    myTheme.chatBubbleCornerRadius = 8;
-    myTheme.chatBubbleHorizMargins = 12;
-    myTheme.chatBubbleVertMargins = 10;
-    
-    myTheme.primaryBackgroundColor = [UIColor whiteColor];
-    myTheme.secondaryBackgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    myTheme.disabledButtonColor = [UIColor lightGrayColor];
-    
-    myTheme.userChatTextColor = [UIColor whiteColor];
-    myTheme.agentChatTextColor = [UIColor whiteColor];
-    myTheme.userChatBackground = [UIColor grayColor];
-    myTheme.agentChatBackground =  [UIColor colorWithRed:0.16 green:0.66 blue:0.8 alpha:1];
-	 
-	 if([[[NSUserDefaults standardUserDefaults]
-		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowAvatarImagesKey]] isEqualToString:@"0"])
-	 {
-		  myTheme.showAvatarImages = NO;
-	 }
-	 else{
-		  myTheme.showAvatarImages = YES;
-	 }
-	 
-	 if([[[NSUserDefaults standardUserDefaults]
-		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatBubbleTailsKey]] isEqualToString:@"0"])
-	 {
-		  myTheme.showChatBubbleTails = NO;
-	 }
-	 else{
-		  myTheme.showChatBubbleTails = YES;
-	 }
-	 
-	 if([[[NSUserDefaults standardUserDefaults]
-		  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]] isEqualToString:@"0"])
-	 {
-		  myTheme.showChatTimeStamp = NO;
-	 }
-	 else{
-		  myTheme.showChatTimeStamp = YES;
-	 }
-
-    myTheme.chatFont = [UIFont fontWithName:@"Verdana" size:14];
-    [EXPERTconnect shared].theme = myTheme;
-}*/
 
 @end

@@ -53,11 +53,6 @@ int rowToSelect;
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
     
-    [self performSelector:@selector(getAgentsForLastSelected) withObject:nil afterDelay:0.5]; 
-}
-
--(void)getAgentsForLastSelected {
-    //int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastSkillSelected] intValue];
     [self getAgentsAvailableForSkill:rowToSelect];
 }
 
@@ -77,11 +72,11 @@ int rowToSelect;
     {
         if(!error)
         {
-            NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
-            [skillDic setObject:data forKey:@"skillDetail"];
+            //NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
+            //[skillDic setObject:data forKey:@"skillDetail"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
-                                                                object:nil
-                                                              userInfo:skillDic];
+                                                                object:data
+                                                              userInfo:nil];
         }
     }];
 }
