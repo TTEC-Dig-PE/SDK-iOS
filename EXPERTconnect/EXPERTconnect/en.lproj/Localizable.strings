@@ -336,3 +336,7 @@
 
 /* Profile Error */
 "ECSLocalizeProfileError" = "There was an error creating your profile.  Please fill out all fields and try again.";
+
+/* No agents available */
+"ECSLocalizeNoAgents" = "No agents available.";
+

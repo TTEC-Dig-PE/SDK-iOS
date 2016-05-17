@@ -41,6 +41,18 @@
 
 }
 
+- (void) getCustomizedThemeSettings {
+    
+    bool showAvatars = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@", ECDShowAvatarImagesKey]];
+    [EXPERTconnect shared].theme.showAvatarImages = showAvatars;
+    
+    bool showBubbleTails = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@", ECDShowChatBubbleTailsKey]];
+    [EXPERTconnect shared].theme.showChatBubbleTails = showBubbleTails;
+    
+    bool chatTimestamps = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]];
+    [EXPERTconnect shared].theme.showChatTimeStamp = chatTimestamps;
+}
+
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.
 - (void) fetchEnvironmentJSON {
     
