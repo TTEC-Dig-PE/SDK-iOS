@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <EXPERTconnect/EXPERTConnect.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ECDUserDefaultKeys.h"
 
 @interface AppConfig : NSObject <ECSAuthenticationTokenDelegate>
 
@@ -20,5 +21,6 @@
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
 //- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
 -(void) startBreadcrumbSession;
+-(void) getCustomizedThemeSettings; 
 
 @end

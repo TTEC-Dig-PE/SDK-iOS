@@ -104,6 +104,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [self setThemeFromSettings];
     
+    [myAppConfig getCustomizedThemeSettings];
+    
     // Setup the theme to look similar to Ford.
     //[self setupThemeLikeFord];
     

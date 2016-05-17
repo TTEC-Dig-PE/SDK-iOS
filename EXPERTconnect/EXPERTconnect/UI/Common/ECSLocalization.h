@@ -141,6 +141,7 @@ static NSString *const ECSLocalizedLicensesRow = @"ECSLocalizedLicensesRow";
 
 static NSString *const ECSLocalizeError = @"ECSLocalizeError";
 static NSString *const ECSLocalizeErrorText = @"ECSLocalizeErrorText";
+static NSString *const ECSLocalizeNoAgents = @"ECSLocalizeNoAgents";
 
 // Profile View
 

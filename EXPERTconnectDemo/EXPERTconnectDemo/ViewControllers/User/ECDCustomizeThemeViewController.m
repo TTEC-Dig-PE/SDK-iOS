@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, ChatTimeStampSectionRows)
 	 NSString *avatarImagesSwitchState = [[NSUserDefaults standardUserDefaults]
 							  stringForKey:[NSString stringWithFormat:@"%@", ECDShowAvatarImagesKey]];
 	 if (!avatarImagesSwitchState) {
-		  [self.showAvatarImagesSwitch setOn:YES animated:NO];
+		  [self.showAvatarImagesSwitch setOn:[EXPERTconnect shared].theme.showAvatarImages animated:NO];
 	 }
 	 else
 	 {
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, ChatTimeStampSectionRows)
 	 NSString *chatBubbleTailsSwitchState = [[NSUserDefaults standardUserDefaults]
 							  stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatBubbleTailsKey]];
 	 if (!chatBubbleTailsSwitchState) {
-		  [self.showChatBubbleTailsSwitch setOn:YES animated:NO];
+		  [self.showChatBubbleTailsSwitch setOn:[EXPERTconnect shared].theme.showChatBubbleTails animated:NO];
 	 }
 	 else
 	 {
@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, ChatTimeStampSectionRows)
 	 NSString *chatTimeStampSwitchState = [[NSUserDefaults standardUserDefaults]
 											 stringForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]];
 	 if (!chatTimeStampSwitchState) {
-		  [self.showChatTimeStampSwitch setOn:YES animated:NO];
+		  [self.showChatTimeStampSwitch setOn:[EXPERTconnect shared].theme.showChatTimeStamp animated:NO];
 	 }
 	 else
 	 {

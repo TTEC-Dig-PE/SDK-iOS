@@ -1034,9 +1034,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         BOOL validError = (![error.userInfo[NSLocalizedDescriptionKey] isEqual:[NSNull null]] &&
                            error.userInfo[NSLocalizedDescriptionKey]);
         
+        // We have an actual error message to display. We'll replace the generic one with this. 
         if (error && validError)
         {
             errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+            
+            // TODO: This is a specific case to handle "No agents available" until the server does it correctly.
+            if([errorMessage isEqualToString:@"No agents available"])
+            {
+                // Let's localize this.
+                errorMessage = ECSLocalizedString(ECSLocalizeNoAgents, @"No Agents Available.");
+            }
         }
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)

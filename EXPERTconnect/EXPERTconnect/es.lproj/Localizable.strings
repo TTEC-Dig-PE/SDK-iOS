@@ -329,3 +329,6 @@
 /* Perfil de error */
 "ECSLocalizeProfileError" = "Se ha producido un error al crear su perfil ¡Por favor rellene todos los campos y vuelva a intentarlo..";
 
+/* No agents available */
+"ECSLocalizeNoAgents" = "No hay agentes disponibles.";
+
