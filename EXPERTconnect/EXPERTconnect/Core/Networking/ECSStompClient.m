@@ -120,8 +120,6 @@ int         _clientHeartbeatsMissed;
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
-    
-    NSLog(@"Self = %@", self);
 }
 
 - (void)reconnect
@@ -524,7 +522,6 @@ int         _clientHeartbeatsMissed;
     else if (self.webSocket.readyState == ECS_OPEN && self.connected && self.heartbeatTimer != nil)
     {
         _clientHeartbeatsMissed++;
-        NSLog(@"Self = %@", self);
         ECSLogVerbose(@"doStompHeartbeat: Connection good. Sending. (Pinging again in %d)", _clientHeartbeatInterval);
         NSData *pingData = [[NSData alloc] initWithBytes:(unsigned char[]){0x0A} length:1];
         [self.webSocket sendPing:pingData];
