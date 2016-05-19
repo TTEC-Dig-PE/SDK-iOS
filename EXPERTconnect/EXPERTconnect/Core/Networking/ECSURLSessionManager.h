@@ -69,6 +69,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (nonatomic, strong) NSString *pushNotificationID;
 
+@property (nonatomic, strong) NSString *localLocale;
+
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
 

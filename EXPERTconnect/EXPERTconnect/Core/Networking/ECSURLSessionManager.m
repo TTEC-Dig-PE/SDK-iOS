@@ -81,6 +81,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @synthesize journeyID;
 @synthesize breadcrumbSessionID;
 @synthesize pushNotificationID;
+@synthesize localLocale;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -1579,8 +1580,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-    
     NSString *languageLocale = [NSString stringWithFormat:@"%@_%@", language, locale];
+    
+    // Overwrite the device locale if the host app desires to do so. 
+    if(localLocale)
+    {
+        languageLocale = localLocale;
+    }
    
     [mutableRequest setValue:languageLocale forHTTPHeaderField:@"x-ia-locale"];
 

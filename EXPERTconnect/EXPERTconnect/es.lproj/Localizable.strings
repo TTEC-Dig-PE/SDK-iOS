@@ -196,7 +196,7 @@
 
 /* Toque para */
 
-/* Desconectado */
+/* Google Translate says: You have been disconnected from chat */
 "ECSLocalizeChatDisconnected" = "Has sido desconectado de la charla";
 
 /* Mantente conectado */
@@ -240,7 +240,7 @@
 "ECSLocalizeRequestSMSText" = "Introduzca su número de teléfono para recibir un SMS:";
 
 /* Se pueden aplicar tarifas de voz y de datos Carrier */
-"Se pueden aplicar tarifas de voz y datos del portador." = "ECSLocalizeRequestSMSDisclaimerText";
+"ECSLocalizeRequestSMSDisclaimerText" = "Se pueden aplicar tarifas de voz y datos del portador.";
 
 /* Nos lo llamemos. */
 "ECSLocalizeCallCancelTitle" = "Llamaremos a usted.";

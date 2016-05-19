@@ -355,6 +355,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(ECSSkillDetail *details, NSError *error))completion;
 
+
+/**
+ Overwrite the device locale. The format is a locale string (ex: fr_CA)
+ */
+- (void) overrideDeviceLocale:(NSString *)localeString;
+
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
  been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 
