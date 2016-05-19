@@ -685,6 +685,10 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
+- (void) overrideDeviceLocale:(NSString *)localeString {
+    self.urlSession.localLocale = localeString;
+}
+
 #pragma mark Journey Functions
 
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion

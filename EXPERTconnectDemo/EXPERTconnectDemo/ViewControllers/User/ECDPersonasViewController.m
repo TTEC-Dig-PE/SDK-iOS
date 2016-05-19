@@ -191,7 +191,7 @@ NSString *_chatSkill;
 -(void) ECDAssert:(bool)statement logWhenError:(NSString *)theString {
     if( !statement ) {
         [self logAction:theString];
-        [NSException raise:@"Test Failure" format:theString];
+        [NSException raise:@"Test Failure" format:@"%@",theString];
     }
 }
 
