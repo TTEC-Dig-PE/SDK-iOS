@@ -458,6 +458,8 @@
 		C495EAA01CA57D8300BC4057 /* ECSExpertDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */; };
 		C495EAA11CA57D8300BC4057 /* ECSSkillDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C495EAA21CA57D8300BC4057 /* ECSSkillDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */; };
+		C49ABB9B1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */; };
+		C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -979,6 +981,8 @@
 		C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSExpertDetail.m; path = "Data Models/ECSExpertDetail.m"; sourceTree = "<group>"; };
 		C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSkillDetail.h; path = "Data Models/ECSSkillDetail.h"; sourceTree = "<group>"; };
 		C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSkillDetail.m; path = "Data Models/ECSSkillDetail.m"; sourceTree = "<group>"; };
+		C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChannelTimeoutWarningMessage.h; path = Chat/ECSChannelTimeoutWarningMessage.h; sourceTree = "<group>"; };
+		C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChannelTimeoutWarningMessage.m; path = Chat/ECSChannelTimeoutWarningMessage.m; sourceTree = "<group>"; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
@@ -1437,6 +1441,8 @@
 		03C3102B1A9B5A86006B3557 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */,
+				C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */,
 				03A64CF51AFB8B7700AED79D /* ECSAddressableChatMessage.h */,
 				0390624A1AC9D3B100E006BE /* ECSChannelStateMessage.h */,
 				0390624B1AC9D3B100E006BE /* ECSChannelStateMessage.m */,
@@ -2119,6 +2125,7 @@
 				C1E0E6231BC409230089C7E6 /* ECSCalendarTheme.h in Headers */,
 				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
 				468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */,
+				C49ABB9B1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h in Headers */,
 				464DE2B61B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h in Headers */,
 				035931431AE6EBAB00F2EB4C /* ECSAttributedDynamicLabel.h in Headers */,
 				033ACB2E1A602C9C0024F48F /* ECSJSONSerializing.h in Headers */,
@@ -2402,6 +2409,7 @@
 				C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */,
 				033ACB3D1A602C9C0024F48F /* ECSUtilities.m in Sources */,
 				03C3103B1A9B5B46006B3557 /* ECSAnswerEngineResponse.m in Sources */,
+				C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */,
 				03C310671A9B5B56006B3557 /* ECSWebActionType.m in Sources */,
 				030AF25C1AF9533E0056BFB0 /* ECSHistoryList.m in Sources */,
 				0342AFA91A9B60700009959E /* ECSTopQuestionsViewController.m in Sources */,

@@ -5,10 +5,16 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
+#import "ECSStompClient.h"
 #import "ECSStompChatClient.h"
+#import "ECSInjector.h"
+#import "ECSLog.h"
+#import "ECSURLSessionManager.h"
+#import "ECSUserManager.h"
+#import "ECSJSONSerializer.h"
+#import "ECSJSONSerializing.h"
+#import "ECSChannelConfiguration.h"
 
-#import "ECSChatActionType.h"
-#import "ECSVideoChatActionType.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatRemoveParticipantMessage.h"
@@ -16,23 +22,24 @@
 #import "ECSChatCoBrowseMessage.h"
 #import "ECSCafeXMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
-#import "ECSChannelConfiguration.h"
-#import "ECSChatFormMessage.h"
 #import "ECSChatNotificationMessage.h"
 #import "ECSChatTextMessage.h"
-#import "ECSChatURLMessage.h"
-#import "ECSChannelCreateResponse.h"
 #import "ECSChannelStateMessage.h"
 #import "ECSSendQuestionMessage.h"
-#import "ECSConversationCreateResponse.h"
-#import "ECSJSONSerializer.h"
-#import "ECSJSONSerializing.h"
-#import "ECSInjector.h"
-#import "ECSLog.h"
-#import "ECSURLSessionManager.h"
-#import "ECSUserManager.h"
+#import "ECSChatFormMessage.h"
+#import "ECSChatURLMessage.h"
+#import "ECSChannelTimeoutWarningMessage.h"
 
-#import "ECSStompClient.h"
+#import "ECSChatActionType.h"
+#import "ECSVideoChatActionType.h"
+
+#import "ECSChannelCreateResponse.h"
+#import "ECSConversationCreateResponse.h"
+
+
+
+
+
 
 // Custom tags for ECS Chat
 static NSString * const kECSHeaderBodyType = @"x-body-type";
@@ -54,6 +61,7 @@ static NSString * const kECSCafeXMessage = @"CafeXCommand";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
+static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
 
 @interface ECSStompChatClient() <ECSStompDelegate>
 
@@ -511,6 +519,10 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     {
         [self handleSendQuestionMessage:message forClient:stompClient];
     }
+    else if ([bodyType isEqualToString:kECSChannelTimeoutWarning])
+    {
+        //TODO: Handle channel timeout warning.
+    }
 }
 
 - (void)handleChatMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
@@ -888,6 +900,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
 }
 
-
+- (void)handleChatTimeoutWarning:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    // TODO: Handle chat timeout warning message.
+}
 
 @end

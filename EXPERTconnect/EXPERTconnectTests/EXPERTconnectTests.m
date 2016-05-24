@@ -171,7 +171,7 @@ NSString *_testTenant;
     [myEC startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
         NSLog(@"Journey created.");
         
-        [myEC getDetailsForSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
+        [myEC getDetailsForExpertSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
             // was journeyID in the header?
             
             [expectation fulfill];
@@ -410,14 +410,14 @@ NSString *_testTenant;
     XCTAssert([journeyFromProperties isEqualToString:@"testJourneyId"],@"Properties array not built correctly.");
 }
 
-- (void)testGetDetailsForSkill {
+- (void)testGetDetailsForExpertSkill {
     
     [self initSDK];
     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
     
     NSString *skillName = @"CE_Mobile_Chat";
     
-    [[EXPERTconnect shared] getDetailsForSkill:skillName
+    [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                     completion:^(ECSSkillDetail *details, NSError *error)
     {
         NSLog(@"Details: %@", details);
@@ -429,6 +429,33 @@ NSString *_testTenant;
         
         [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
+- (void)testGetDetailsForSkill {
+    
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+    
+    NSString *skillName = @"CE_Mobile_Chat";
+    
+    [[EXPERTconnect shared] getDetailsForSkill:skillName
+                                          completion:^(NSDictionary *details, NSError *error)
+     {
+         NSLog(@"Details: %@", details);
+         
+         XCTAssert(details[@"description"], @"Missing description text.");
+         XCTAssert([details[@"active"] isEqualToString:@"1"] || [details[@"active"] isEqualToString: @"0"], @"Active must be 1 or 0");
+         XCTAssert([details[@"skillName"] containsString:skillName], @"Missing skill name");
+         XCTAssertGreaterThanOrEqual([details[@"estWait"] integerValue], -1, @"Bad estimated wait value");
+         
+         [expectation fulfill];
+     }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {

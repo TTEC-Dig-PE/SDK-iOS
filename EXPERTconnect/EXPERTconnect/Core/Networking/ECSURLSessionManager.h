@@ -440,6 +440,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
+- (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
+
 #pragma mark Journey Management
 
 // Start a new journey
