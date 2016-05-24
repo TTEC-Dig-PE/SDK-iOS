@@ -35,7 +35,7 @@
              @"expirationDate": @"expirationDate",
              @"conversationCount": @"conversationCount",
              @"creationDate": @"creationDate",
-             @"organization": @"organization",
+             @"organization": @"organization", // This field will NOT return correct data. Do not use.
              @"id": @"journeyID",
              @"_links.self.href": @"selfLink",
              @"_links.conversations.href": @"conversationLink",

@@ -663,13 +663,27 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
+// Copy getDetailsForSkill from 5.2.x branch
 - (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
+     {
+         NSLog(@"Got details for skill: %@", skill);
+         completion( response, error );
+     }];
+}
+
+- (void) getDetailsForExpertSkill:(NSString *)skill
                  completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
 {
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager getDetailsForSkill:skill
-                            completion:^(NSDictionary *response, NSError *error)
+    [sessionManager getDetailsForExpertSkill:skill
+                                  completion:^(NSDictionary *response, NSError *error)
     {
         if(!error) {
             NSArray *dataArray = [response objectForKey:@"data"];

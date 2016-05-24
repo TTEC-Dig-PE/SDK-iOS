@@ -888,6 +888,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
+    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/skills/%@", skill]
+          parameters:nil
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion {
+    
     return [self GET:[NSString stringWithFormat:@"/experts/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSArray class] completion:completion]
