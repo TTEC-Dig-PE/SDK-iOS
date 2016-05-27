@@ -5,6 +5,14 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Locale Override</string>
+			<key>Key</key>
+			<string>localeOverride</string>
+		</dict>
+		<dict>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>

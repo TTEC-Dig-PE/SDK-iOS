@@ -135,6 +135,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 + (instancetype)shared;
 
+#pragma mark SDK Functions
+
 /**
  Initializes the Humanify SDK components with the given configuration. Refer to Humanify documentation
  to read what the ECSConfiguration object should be populated with.
@@ -353,8 +355,14 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  Get details for a skill - such as agent availability, etc.
  */
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+
 - (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion;
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+
 /**
  Get details for a skill - such as agent availability, etc.
  */

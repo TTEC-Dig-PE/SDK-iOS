@@ -90,6 +90,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
         self.agentInteractionCount = 0;
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+        
+        //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
 
     }
@@ -144,7 +146,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
-
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     if (chatAction) {
         if ((chatAction.agentId && chatAction.agentId.length > 0) &&
             (chatAction.agentSkill.length <= 0))
@@ -169,9 +172,15 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
         //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
-    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@",
-                                [[NSLocale preferredLanguages] objectAtIndex:0],
-                                [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]];
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@", language, locale];
+    
+    // Overwrite the device locale if the host app desires to do so.
+    if(urlSession.localLocale)
+    {
+        languageLocale = urlSession.localLocale;
+    }
     featuresDic[@"x-ia-locale"] = languageLocale;
     
     configuration.features = featuresDic; 
@@ -192,7 +201,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
     NSString *url = nil;
     
     __weak typeof(self) weakSelf = self;
-    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     
     url = self.currentConversation.channelLink;
 
