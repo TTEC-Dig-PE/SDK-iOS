@@ -254,6 +254,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 ECSTheme *theme = [[EXPERTconnect shared] theme];
 	 
 	 self.locationManager = [[CLLocationManager alloc] init];
+    
+    [self checkAndUpdateLocaleOverride];
 	 
 	 // In our demo app, we will only use GPS while the app is in the foreground
 	 [self.locationManager requestWhenInUseAuthorization];
@@ -1178,6 +1180,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 {
 	 NSLog(@"Starting an ad-hoc Answer Engine Session");
 	 
+    [self checkAndUpdateLocaleOverride];
+    
 	 NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
 	 
 	 [self localBreadCrumb:@"Answer Engine started"
@@ -1194,6 +1198,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 {
 	 NSLog(@"Starting an ad-hoc Video Chat Session");
 	 
+    [self checkAndUpdateLocaleOverride];
+    
 	 NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
 	 
 	 [self localBreadCrumb:@"Video chat started"
@@ -1331,6 +1337,18 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 
 	 ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
 	 [self.navigationController pushViewController:license animated:YES];
+}
+
+#pragma mark Helper Functions
+
+-(void)checkAndUpdateLocaleOverride
+{
+    // Do a locale override if the settings have been modified.
+    NSString *localeOverride = [[NSUserDefaults standardUserDefaults] objectForKey:@"localeOverride"];
+    if( localeOverride )
+    {
+        [[EXPERTconnect shared] overrideDeviceLocale:localeOverride];
+    }
 }
 
 @end

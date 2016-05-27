@@ -80,6 +80,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         self.agentInteractionCount = 0;
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+        
+        //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
         
     }

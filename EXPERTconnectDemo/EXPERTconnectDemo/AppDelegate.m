@@ -182,8 +182,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 - (void)setApplicationDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
-                                                            forKey:@"beaconIdentifier"];
+    NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
+    appDefaults[@"beaconIdentifier"] = @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0";
+    appDefaults[@"localeOverride"] = Nil;
+    
     [defaults registerDefaults:appDefaults];
     [defaults synchronize];
 }

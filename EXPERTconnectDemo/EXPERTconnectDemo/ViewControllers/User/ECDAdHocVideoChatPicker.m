@@ -70,7 +70,7 @@ int rowToSelect;
 
 -(void)getAgentsAvailableForSkill:(int)index
 {
-	 [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
+	 [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
 									 completion:^(ECSSkillDetail *data, NSError *error)
 	  {
           if(!error)

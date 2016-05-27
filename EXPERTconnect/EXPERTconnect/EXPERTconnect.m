@@ -663,6 +663,20 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
+// Check availability on a singlar skill
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
+     {
+         NSLog(@"Got details for skill: %@", skill);
+         completion( response, error );
+     }];
+}
+
 // Copy getDetailsForSkill from 5.2.x branch
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion
@@ -699,7 +713,11 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
-- (void) overrideDeviceLocale:(NSString *)localeString {
+/**
+ Set the header for locale when sending to the Humanify server. Does not override localization strings. 
+ */
+- (void) overrideDeviceLocale:(NSString *)localeString
+{
     self.urlSession.localLocale = localeString;
 }
 

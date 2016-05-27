@@ -210,7 +210,8 @@ NSString *_testTenant;
     XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
     
     // Start the first journey
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err)
+    {
         NSLog(@"Test journeyID 1 is %@", journeyID);
         XCTAssert(journeyID.length > 0, @"JourneyID string length was 0.");
         //XCTAssert([journeyID containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
@@ -218,7 +219,8 @@ NSString *_testTenant;
         XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
         
         // Start a second journey
-        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID2, NSError *err2) {
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID2, NSError *err2)
+        {
             NSLog(@"Test journeyID 2 is %@", journeyID2);
             XCTAssert(journeyID2.length > 0, @"JourneyID string length was 0.");
             //XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
@@ -444,16 +446,22 @@ NSString *_testTenant;
     
     NSString *skillName = @"CE_Mobile_Chat";
     
+    // Should throw a deprecation warning but still work against 5.3 and later (until officially deprecated).
     [[EXPERTconnect shared] getDetailsForSkill:skillName
                                           completion:^(NSDictionary *details, NSError *error)
      {
          NSLog(@"Details: %@", details);
-         
-         XCTAssert(details[@"description"], @"Missing description text.");
-         XCTAssert([details[@"active"] isEqualToString:@"1"] || [details[@"active"] isEqualToString: @"0"], @"Active must be 1 or 0");
-         XCTAssert([details[@"skillName"] containsString:skillName], @"Missing skill name");
-         XCTAssertGreaterThanOrEqual([details[@"estWait"] integerValue], -1, @"Bad estimated wait value");
-         
+         if(error)
+         {
+             XCTFail(@"Error reported: %@", error.description);
+         }
+         else
+         {
+             XCTAssert(details[@"description"], @"Missing description text.");
+             XCTAssert([details[@"active"] isEqualToString:@"1"] || [details[@"active"] isEqualToString: @"0"], @"Active must be 1 or 0");
+             XCTAssert([details[@"skillName"] containsString:skillName], @"Missing skill name");
+             XCTAssertGreaterThanOrEqual([details[@"estWait"] integerValue], -1, @"Bad estimated wait value");
+         }
          [expectation fulfill];
      }];
     
