@@ -460,11 +460,12 @@
 		C495EAA21CA57D8300BC4057 /* ECSSkillDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */; };
 		C49ABB9B1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */; };
 		C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */; };
+		C49ABBA31CF8A587008D3401 /* AXRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABBA11CF8A587008D3401 /* AXRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49ABBA41CF8A587008D3401 /* AXRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABBA21CF8A587008D3401 /* AXRatingView.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
-		D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 275899F9AE2B3E67C2AF6AFE /* libPods.a */; };
 		D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F91B6BC3F7005BD20E /* libxml2.dylib */; };
 		D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FB1B6BC412005BD20E /* CoreImage.framework */; };
 		D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FC1B6BC412005BD20E /* CoreText.framework */; };
@@ -858,7 +859,6 @@
 		03F4178F1AAE0EA100248BF0 /* ECSChatLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatLocationViewController.h; path = EXPERTconnect/UI/Sections/Chat/ECSChatLocationViewController.h; sourceTree = SOURCE_ROOT; };
 		03F417901AAE0EA100248BF0 /* ECSChatLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatLocationViewController.m; path = EXPERTconnect/UI/Sections/Chat/ECSChatLocationViewController.m; sourceTree = SOURCE_ROOT; };
 		03F417911AAE0EA100248BF0 /* ECSChatLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSChatLocationViewController.xib; path = EXPERTconnect/UI/Sections/Chat/ECSChatLocationViewController.xib; sourceTree = SOURCE_ROOT; };
-		08C95D76530417F48A1621E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		123E26AC1B987455003DCCAD /* ECSFormSubmittedActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormSubmittedActionType.h; sourceTree = "<group>"; };
 		123E26AD1B987455003DCCAD /* ECSFormSubmittedActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormSubmittedActionType.m; sourceTree = "<group>"; };
 		2252C6931A7BE9E100B99912 /* ECSForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSForm.h; sourceTree = "<group>"; };
@@ -898,7 +898,6 @@
 		4679BD951B7A4949002E2D9E /* ECSUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSUserProfile.m; sourceTree = "<group>"; };
 		468EBC5F1B8370E7008A0826 /* ECSRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSRatingView.m; path = EXPERTconnect/UI/Views/ECSRatingView.m; sourceTree = SOURCE_ROOT; };
 		468EBC611B83710F008A0826 /* ECSRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSRatingView.h; path = EXPERTconnect/UI/Views/ECSRatingView.h; sourceTree = SOURCE_ROOT; };
-		688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAxRatingFormItemViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.h; sourceTree = SOURCE_ROOT; };
 		916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSAxRatingFormItemViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.m; sourceTree = SOURCE_ROOT; };
 		916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSAxRatingFormItemViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSAxRatingFormItemViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -983,6 +982,8 @@
 		C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSkillDetail.m; path = "Data Models/ECSSkillDetail.m"; sourceTree = "<group>"; };
 		C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChannelTimeoutWarningMessage.h; path = Chat/ECSChannelTimeoutWarningMessage.h; sourceTree = "<group>"; };
 		C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChannelTimeoutWarningMessage.m; path = Chat/ECSChannelTimeoutWarningMessage.m; sourceTree = "<group>"; };
+		C49ABBA11CF8A587008D3401 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Common/AXRatingView.h; sourceTree = "<group>"; };
+		C49ABBA21CF8A587008D3401 /* AXRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXRatingView.m; path = Common/AXRatingView.m; sourceTree = "<group>"; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
@@ -1074,7 +1075,6 @@
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
 				0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */,
 				0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */,
-				D6FFFE34AA52093A24549BE8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1089,15 +1089,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0185BAA63E7B3C0B4A0DD180 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */,
-				08C95D76530417F48A1621E3 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		03101F241AAF266E00D7562B /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -1279,7 +1270,6 @@
 				03CDD3FD1AB0825300E0C328 /* Frameworks */,
 				0380DEA81A9F6474003D9248 /* ThirdParty */,
 				03978EE31A602AEF007793D6 /* Products */,
-				0185BAA63E7B3C0B4A0DD180 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1685,6 +1675,8 @@
 		03F189681A644178003C6E14 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C49ABBA11CF8A587008D3401 /* AXRatingView.h */,
+				C49ABBA21CF8A587008D3401 /* AXRatingView.m */,
 				0342B07A1A9B61280009959E /* ECSRootViewController.h */,
 				0342B07B1A9B61280009959E /* ECSRootViewController.m */,
 				03AF249B1A9B601E00407BE5 /* ECSBorderContainerView.h */,
@@ -2132,6 +2124,7 @@
 				0342B00E1A9B60AE0009959E /* ECSRadioTableViewCell.h in Headers */,
 				0342AFA21A9B60700009959E /* ECSPullDownView.h in Headers */,
 				0342B00B1A9B60AE0009959E /* ECSCheckboxTableViewCell.h in Headers */,
+				C49ABBA31CF8A587008D3401 /* AXRatingView.h in Headers */,
 				033ACB3C1A602C9C0024F48F /* ECSUtilities.h in Headers */,
 				D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */,
 				03A64D321B01042000AED79D /* ECSEndChatSurveyView.h in Headers */,
@@ -2162,14 +2155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03978EF81A602AEF007793D6 /* Build configuration list for PBXNativeTarget "EXPERTconnect" */;
 			buildPhases = (
-				75773A84D1594720D417E1CC /* Check Pods Manifest.lock */,
 				03978EDD1A602AEF007793D6 /* Sources */,
 				03978EDE1A602AEF007793D6 /* Frameworks */,
 				03978EDF1A602AEF007793D6 /* Headers */,
 				03978EE01A602AEF007793D6 /* Resources */,
 				03F1897F1A64786D003C6E14 /* ShellScript */,
-				EBD262558144996426F33A26 /* Copy Pods Resources */,
-				F02702F3542A7EDF36757A9E /* Upload Bugsnag dSYM */,
 				C466D40B1BFD332F00A8865E /* CopyFiles */,
 			);
 			buildRules = (
@@ -2332,21 +2322,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\n\nFRAMEWORK_ARTIFACTS=\"${SRCROOT}/../artifacts\"\nmkdir -p \"${FRAMEWORK_ARTIFACTS}\"\ncp -R \"${TARGET_BUILD_DIR}/EXPERTconnect.framework\" \"${FRAMEWORK_ARTIFACTS}\"";
 		};
-		75773A84D1594720D417E1CC /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		C6492F381B7C775B00CC977E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -2359,36 +2334,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\nWORKSPACE_FILE=\"../${PROJECT_NAME}.xcworkspace\"\n\n######################\n# Build Frameworks\n######################\n\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
-		};
-		EBD262558144996426F33A26 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F02702F3542A7EDF36757A9E /* Upload Bugsnag dSYM */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Bugsnag dSYM";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/usr/bin/env ruby";
-			shellScript = "fork do\n  Process.setsid\n  STDIN.reopen(\"/dev/null\")\n  STDOUT.reopen(\"/dev/null\", \"a\")\n  STDERR.reopen(\"/dev/null\", \"a\")\n\n  require 'shellwords'\n\n  Dir[\"#{ENV[\"DWARF_DSYM_FOLDER_PATH\"]}/*/Contents/Resources/DWARF/*\"].each do |dsym|\n    system(\"curl -F dsym=@#{Shellwords.escape(dsym)} -F projectRoot=#{Shellwords.escape(ENV[\"PROJECT_DIR\"])} https://upload.bugsnag.com/\")\n  end\nend\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2425,6 +2370,7 @@
 				03A64D331B01042000AED79D /* ECSEndChatSurveyView.m in Sources */,
 				03BE8F241AE037EB00BEC8B5 /* ECSChatMediaMessage.m in Sources */,
 				C1E99D341BC7CC19000EC129 /* ECSTextStorage.m in Sources */,
+				C49ABBA41CF8A587008D3401 /* AXRatingView.m in Sources */,
 				C1E0E6291BC409230089C7E6 /* ECSPeriod.m in Sources */,
 				0342B01E1A9B60AE0009959E /* ECSTextFormItemViewController.m in Sources */,
 				0342B00A1A9B60AE0009959E /* ECSFormQuestionView.m in Sources */,
@@ -2720,7 +2666,6 @@
 		};
 		03978EF91A602AEF007793D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 688B8FBF74BD1F20EA83FDDD /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLEID = com.humanify.EXPERTconnect;
@@ -2747,7 +2692,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ThirdParty/**",
-					"$(PROJECT_DIR)/Pods/AXRatingView",
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2761,8 +2705,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lc++",
-					"-read_only_relocs",
-					suppress,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2775,7 +2717,6 @@
 		};
 		03978EFA1A602AEF007793D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08C95D76530417F48A1621E3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLEID = com.humanify.EXPERTconnect;
@@ -2802,7 +2743,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/ThirdParty/**",
-					"$(PROJECT_DIR)/Pods/AXRatingView",
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2816,8 +2756,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lc++",
-					"-read_only_relocs",
-					suppress,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.humanify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#import "HZAppDelegate.h"
+//#import "HZAppDelegate.h"
 
 
 static int const startExpertDemo = 0;
@@ -31,10 +31,10 @@ int main(int argc, char * argv[]) {
                 return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
                 break;
                 
-            default:
+            /*default:
                 [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:startExpertDemo] forKey:applicationRunMode];
                 return UIApplicationMain(argc, argv, nil, NSStringFromClass([HZAppDelegate class]));
-                break;
+                break;*/
 
         }
     }

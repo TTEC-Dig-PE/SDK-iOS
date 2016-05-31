@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 
-#import "Bugsnag.h"
+//#import "Bugsnag.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AirshipKit/AirshipKit.h>

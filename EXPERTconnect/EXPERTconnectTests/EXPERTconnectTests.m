@@ -50,7 +50,7 @@ NSString *_testTenant;
                      _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
-    [[EXPERTconnect shared] setDebugLevel:5];
+    [[EXPERTconnect shared] setDebugLevel:0];
 }
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
@@ -65,7 +65,7 @@ NSString *_testTenant;
          
          if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             //NSLog(@"Successfully fetched authToken: %@", returnToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else
@@ -422,7 +422,7 @@ NSString *_testTenant;
     [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                     completion:^(ECSSkillDetail *details, NSError *error)
     {
-        NSLog(@"Details: %@", details);
+        //NSLog(@"Details: %@", details);
         
         XCTAssert(details.description.length>0, @"Missing description text.");
         XCTAssert(details.active == 1 || details.active == 0, @"Active must be 1 or 0");
@@ -439,6 +439,31 @@ NSString *_testTenant;
     }];
 }
 
+/**
+ {
+     "chatEnabledAgentsLoggedOn": 0,
+     "estimatedWait": -1,
+     "inQueue": 0,
+     "escalationVoiceAvailability": 0,
+     "escalationChatAvailability": 0,
+     "voiceAvailability": 0,
+     "chatAvailability": 0,
+     "escalationSkill": null,
+     "escalationAgentsLoggedOn": 0,
+     "connectedToAgent": 0,
+     "escalationSkillOpen": false,
+     "escalationChatEnabledAgentsLoggedOn": 0,
+     "tenant": "ce03_ops",
+     "skillName": "CE_Mobile_Chat",
+     "agentsLoggedOn": 0,
+     "open": true,
+     "_links": {
+         "self": {
+            "href": "https:\/\/api.ce03.humanify.com\/conversationengine\/v1\/skills\/CE_Mobile_Chat"
+         }
+     }
+ }
+ */
 - (void)testGetDetailsForSkill {
     
     [self initSDK];
@@ -485,7 +510,7 @@ NSString *_testTenant;
     [session getExpertsWithInteractionItems:nil
                                  completion:^(NSArray *experts, NSError *error)
     {
-        NSLog(@"Experts Array: %@", experts);
+        //NSLog(@"Experts Array: %@", experts);
         XCTAssert(experts.count && experts.count>0,@"No experts returned.");
         if(experts.count && experts.count>0)
         {
@@ -523,7 +548,7 @@ NSString *_testTenant;
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
     {
-        NSLog(@"Response=%@", response);
+        //NSLog(@"Response=%@", response);
         XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
         XCTAssert(response.inquiryId>0,@"Response has inquiryID");
         [expectation fulfill];

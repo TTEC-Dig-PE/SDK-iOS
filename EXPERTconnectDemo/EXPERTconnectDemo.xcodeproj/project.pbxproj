@@ -52,23 +52,10 @@
 		467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4679BD971B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib */; };
 		4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */; };
-		4679BD9C1B7A6805002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679BD9A1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m */; };
 		4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
-		4695C37D1B5D802F00C95878 /* ECDLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4695C37B1B5D802F00C95878 /* ECDLocalization.m */; };
-		46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */; };
 		46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
 		46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
-		46BD59271B794FCC00032628 /* ECDAdHocViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466A7EFF1B6FCC5A00A48DAC /* ECDAdHocViewController.m */; };
-		46BD59281B794FD900032628 /* ECDAdHocChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC11B7107DE001AA48B /* ECDAdHocChatPicker.m */; };
-		46BD59291B794FFA00032628 /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
-		46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6121B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m */; };
-		46BD592B1B79500300032628 /* ECDAdHocWebPagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4643F6141B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m */; };
-		46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46368EC31B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m */; };
-		46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
-		46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
-		8112F9D41B9811EC004D99ED /* ECDAdHocViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466A7EFC1B6FCB8300A48DAC /* ECDAdHocViewController.xib */; };
-		8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
 		C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */; };
 		C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */; };
@@ -92,19 +79,11 @@
 		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
 		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
-		C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */; };
-		C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467257F51B7E5D0D0091BE51 /* ECDAdHocFormsController.m */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
 		D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
 		D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
 		D81614EA1B79169B005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614E91B79169B005BD20E /* CoreAudio.framework */; };
 		D81614EC1B7916D7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614EB1B7916D7005BD20E /* libxml2.dylib */; };
-		D81614ED1B7917AF005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614E91B79169B005BD20E /* CoreAudio.framework */; };
-		D81614EE1B7917AF005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614EB1B7916D7005BD20E /* libxml2.dylib */; };
-		D81614FD1B792B71005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
-		D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
-		D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
-		D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32F71B604E7D00E5C270 /* ECDEnvironmentPicker.m */; };
 		D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA731B66A2EC00DA1762 /* libc++.dylib */; };
 		D87F2F5A1B68354200B7B9D5 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */; };
 		D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
@@ -135,118 +114,8 @@
 		D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA941B66A36F00DA1762 /* Security.framework */; };
 		D87F2F781B6835A400B7B9D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
 		D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
-		D88696611B556CD000C8F955 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0C1A602B2D007793D6 /* main.m */; };
 		D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */; };
-		D8CEBE131B546DC20053E9A0 /* HZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */; };
-		D8CEBE141B546DC20053E9A0 /* HZDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */; };
-		D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF61B546DC20053E9A0 /* HZDrawerViewController.xib */; };
-		D8CEBE161B546DC20053E9A0 /* HZExpertConnectSDKTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */; };
-		D8CEBE171B546DC20053E9A0 /* HZExpertConnectSDKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF91B546DC20053E9A0 /* HZExpertConnectSDKTheme.m */; };
-		D8CEBE181B546DC20053E9A0 /* HZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFB1B546DC20053E9A0 /* HZLoginViewController.m */; };
-		D8CEBE191B546DC20053E9A0 /* HZLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDFC1B546DC20053E9A0 /* HZLoginViewController.xib */; };
-		D8CEBE1A1B546DC20053E9A0 /* HZMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */; };
-		D8CEBE1B1B546DC20053E9A0 /* HZMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDFF1B546DC20053E9A0 /* HZMainScreenViewController.xib */; };
-		D8CEBE1C1B546DC20053E9A0 /* HZPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE011B546DC20053E9A0 /* HZPerformanceViewController.m */; };
-		D8CEBE1D1B546DC20053E9A0 /* HZPerformanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE021B546DC20053E9A0 /* HZPerformanceViewController.xib */; };
-		D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */; };
-		D8CEBE1F1B546DC20053E9A0 /* HZResearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE051B546DC20053E9A0 /* HZResearchViewController.xib */; };
-		D8CEBE201B546DC20053E9A0 /* HZRiskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE071B546DC20053E9A0 /* HZRiskViewController.m */; };
-		D8CEBE211B546DC20053E9A0 /* HZRiskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE081B546DC20053E9A0 /* HZRiskViewController.xib */; };
-		D8CEBE221B546DC20053E9A0 /* HZRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE0A1B546DC20053E9A0 /* HZRootViewController.m */; };
-		D8CEBE231B546DC20053E9A0 /* HZRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0B1B546DC20053E9A0 /* HZRootViewController.xib */; };
-		D8CEBE241B546DC20053E9A0 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0C1B546DC20053E9A0 /* LICENSE.txt */; };
-		D8CEBE251B546DC20053E9A0 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0D1B546DC20053E9A0 /* RobotoCondensed-Bold.ttf */; };
-		D8CEBE261B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0E1B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf */; };
-		D8CEBE271B546DC20053E9A0 /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0F1B546DC20053E9A0 /* RobotoCondensed-Italic.ttf */; };
-		D8CEBE281B546DC20053E9A0 /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE101B546DC20053E9A0 /* RobotoCondensed-Light.ttf */; };
-		D8CEBE291B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE111B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf */; };
-		D8CEBE2A1B546DC20053E9A0 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */; };
-		D8CEBE9C1B55690C0053E9A0 /* HZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */; };
-		D8CEBE9D1B55690C0053E9A0 /* HZRiskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE071B546DC20053E9A0 /* HZRiskViewController.m */; };
-		D8CEBE9E1B55690C0053E9A0 /* HZDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */; };
-		D8CEBE9F1B55690C0053E9A0 /* ECDLicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0301CBFE1B0634C50068A0E1 /* ECDLicenseViewController.m */; };
-		D8CEBEA01B55690C0053E9A0 /* ECDRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A398A1AD579FC006B34B2 /* ECDRegisterViewController.m */; };
-		D8CEBEA11B55690C0053E9A0 /* ECDDefaultTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB511A602CC00024F48F /* ECDDefaultTheme.m */; };
-		D8CEBEA21B55690C0053E9A0 /* ECDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03243FDB1A656FB300A4CE6D /* ECDNavigationController.m */; };
-		D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 03978F0F1A602B2D007793D6 /* AppDelegate.m */; };
-		D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB481A602CC00024F48F /* ECDZoomViewController.m */; };
-		D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CF885D1AD5B45E0064085E /* ECDSettingsViewController.m */; };
-		D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE011B546DC20053E9A0 /* HZPerformanceViewController.m */; };
-		D8CEBEA71B55690C0053E9A0 /* HZLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFB1B546DC20053E9A0 /* HZLoginViewController.m */; };
-		D8CEBEA81B55690C0053E9A0 /* HZRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE0A1B546DC20053E9A0 /* HZRootViewController.m */; };
-		D8CEBEA91B55690C0053E9A0 /* ECDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033A39871AD579FC006B34B2 /* ECDLoginViewController.m */; };
-		D8CEBEAB1B55690C0053E9A0 /* ECDMainMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB4D1A602CC00024F48F /* ECDMainMenuTableViewCell.m */; };
-		D8CEBEAC1B55690C0053E9A0 /* ECDRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB451A602CC00024F48F /* ECDRootViewController.m */; };
-		D8CEBEAD1B55690C0053E9A0 /* HZExpertConnectSDKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDF91B546DC20053E9A0 /* HZExpertConnectSDKTheme.m */; };
-		D8CEBEAE1B55690C0053E9A0 /* ECDMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033ACB421A602CC00024F48F /* ECDMainMenuViewController.m */; };
-		D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
-		D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */; };
-		D8CEBEB11B55690C0053E9A0 /* HZResearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */; };
-		D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51DEB25660943D05680D79A /* libPods.a */; };
-		D8CEBEB71B55690C0053E9A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0368D77A1B3AEAD800985673 /* Localizable.strings */; };
-		D8CEBEB81B55690C0053E9A0 /* ECDDefaultTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = 0301CBFB1B0626900068A0E1 /* ECDDefaultTheme.css */; };
-		D8CEBEB91B55690C0053E9A0 /* HZMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDFF1B546DC20053E9A0 /* HZMainScreenViewController.xib */; };
-		D8CEBEBA1B55690C0053E9A0 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0D1B546DC20053E9A0 /* RobotoCondensed-Bold.ttf */; };
-		D8CEBEBB1B55690C0053E9A0 /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE101B546DC20053E9A0 /* RobotoCondensed-Light.ttf */; };
-		D8CEBEBC1B55690C0053E9A0 /* HZRiskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE081B546DC20053E9A0 /* HZRiskViewController.xib */; };
-		D8CEBEBD1B55690C0053E9A0 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
-		D8CEBEBE1B55690C0053E9A0 /* ECDRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033A398B1AD579FC006B34B2 /* ECDRegisterViewController.xib */; };
-		D8CEBEBF1B55690C0053E9A0 /* HZPerformanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE021B546DC20053E9A0 /* HZPerformanceViewController.xib */; };
-		D8CEBEC01B55690C0053E9A0 /* ECDMainMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB431A602CC00024F48F /* ECDMainMenuViewController.xib */; };
-		D8CEBEC11B55690C0053E9A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03978F191A602B2D007793D6 /* LaunchScreen.xib */; };
-		D8CEBEC21B55690C0053E9A0 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D452181AC1DB4C003607C4 /* AirshipConfig.plist */; };
-		D8CEBEC31B55690C0053E9A0 /* ECDZoomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB491A602CC00024F48F /* ECDZoomViewController.xib */; };
-		D8CEBEC41B55690C0053E9A0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
-		D8CEBEC51B55690C0053E9A0 /* HZDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF61B546DC20053E9A0 /* HZDrawerViewController.xib */; };
-		D8CEBEC61B55690C0053E9A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */; };
-		D8CEBEC71B55690C0053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0E1B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf */; };
-		D8CEBEC91B55690C0053E9A0 /* HZResearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE051B546DC20053E9A0 /* HZResearchViewController.xib */; };
-		D8CEBECA1B55690C0053E9A0 /* MainMenuConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB3E1A602CC00024F48F /* MainMenuConfig.json */; };
-		D8CEBECB1B55690C0053E9A0 /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE111B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf */; };
-		D8CEBECC1B55690C0053E9A0 /* HZLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDFC1B546DC20053E9A0 /* HZLoginViewController.xib */; };
-		D8CEBECD1B55690C0053E9A0 /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0F1B546DC20053E9A0 /* RobotoCondensed-Italic.ttf */; };
-		D8CEBECE1B55690C0053E9A0 /* ECDLicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0301CBFF1B0634C50068A0E1 /* ECDLicenseViewController.xib */; };
-		D8CEBECF1B55690C0053E9A0 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0C1B546DC20053E9A0 /* LICENSE.txt */; };
-		D8CEBED01B55690C0053E9A0 /* ECDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033A39881AD579FC006B34B2 /* ECDLoginViewController.xib */; };
-		D8CEBED11B55690C0053E9A0 /* ECDMainMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB4E1A602CC00024F48F /* ECDMainMenuTableViewCell.xib */; };
-		D8CEBED21B55690C0053E9A0 /* ECDSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CF885E1AD5B45E0064085E /* ECDSettingsViewController.xib */; };
-		D8CEBED31B55690C0053E9A0 /* ECDLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0301CC021B063C880068A0E1 /* ECDLicenses.txt */; };
-		D8CEBED41B55690C0053E9A0 /* ECDRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033ACB461A602CC00024F48F /* ECDRootViewController.xib */; };
-		D8CEBED51B55690C0053E9A0 /* HZRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE0B1B546DC20053E9A0 /* HZRootViewController.xib */; };
-		D8CEBED61B55690C0053E9A0 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */; };
-		D8CEBED71B55690C0053E9A0 /* HZExpertConnectSDKTheme.css in Resources */ = {isa = PBXBuildFile; fileRef = D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */; };
-		D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA731B66A2EC00DA1762 /* libc++.dylib */; };
-		D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */; };
-		D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */; };
-		D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA791B66A30D00DA1762 /* libz.dylib */; };
-		D8D3AA981B66A36F00DA1762 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7B1B66A36F00DA1762 /* Accelerate.framework */; };
-		D8D3AA9B1B66A36F00DA1762 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7E1B66A36F00DA1762 /* AssetsLibrary.framework */; };
-		D8D3AA9C1B66A36F00DA1762 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA7F1B66A36F00DA1762 /* AudioToolbox.framework */; };
-		D8D3AA9D1B66A36F00DA1762 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA801B66A36F00DA1762 /* AVFoundation.framework */; };
-		D8D3AA9E1B66A36F00DA1762 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA811B66A36F00DA1762 /* CFNetwork.framework */; };
-		D8D3AA9F1B66A36F00DA1762 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA821B66A36F00DA1762 /* CoreBluetooth.framework */; };
-		D8D3AAA01B66A36F00DA1762 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA831B66A36F00DA1762 /* CoreFoundation.framework */; };
-		D8D3AAA11B66A36F00DA1762 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA841B66A36F00DA1762 /* CoreGraphics.framework */; };
-		D8D3AAA21B66A36F00DA1762 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA851B66A36F00DA1762 /* CoreImage.framework */; };
-		D8D3AAA31B66A36F00DA1762 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA861B66A36F00DA1762 /* CoreLocation.framework */; };
-		D8D3AAA41B66A36F00DA1762 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA871B66A36F00DA1762 /* CoreMedia.framework */; };
-		D8D3AAA51B66A36F00DA1762 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA881B66A36F00DA1762 /* CoreTelephony.framework */; };
-		D8D3AAA61B66A36F00DA1762 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA891B66A36F00DA1762 /* CoreText.framework */; };
-		D8D3AAA71B66A36F00DA1762 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8A1B66A36F00DA1762 /* CoreVideo.framework */; };
-		D8D3AAA81B66A36F00DA1762 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8B1B66A36F00DA1762 /* EventKit.framework */; };
-		D8D3AAA91B66A36F00DA1762 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8C1B66A36F00DA1762 /* Foundation.framework */; };
-		D8D3AAAA1B66A36F00DA1762 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8D1B66A36F00DA1762 /* ImageIO.framework */; };
-		D8D3AAAB1B66A36F00DA1762 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8E1B66A36F00DA1762 /* MapKit.framework */; };
-		D8D3AAAC1B66A36F00DA1762 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA8F1B66A36F00DA1762 /* MediaPlayer.framework */; };
-		D8D3AAAD1B66A36F00DA1762 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA901B66A36F00DA1762 /* MessageUI.framework */; };
-		D8D3AAAE1B66A36F00DA1762 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA911B66A36F00DA1762 /* MobileCoreServices.framework */; };
-		D8D3AAAF1B66A36F00DA1762 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA921B66A36F00DA1762 /* OpenGLES.framework */; };
-		D8D3AAB01B66A36F00DA1762 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA931B66A36F00DA1762 /* QuartzCore.framework */; };
-		D8D3AAB11B66A36F00DA1762 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA941B66A36F00DA1762 /* Security.framework */; };
-		D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA961B66A36F00DA1762 /* SystemConfiguration.framework */; };
-		D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D3AA971B66A36F00DA1762 /* UIKit.framework */; };
 		D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */; };
-		D8EF94081BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,16 +151,6 @@
 			files = (
 				C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */,
 				C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8CEBED81B55690C0053E9A0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,8 +241,6 @@
 		46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDRunModePicker.m; sourceTree = "<group>"; };
 		46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDUIPicker.h; sourceTree = "<group>"; };
 		46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDUIPicker.m; sourceTree = "<group>"; };
-		72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		72C4C39460082123433B137E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDCustomizeThemeViewController.h; sourceTree = "<group>"; };
 		C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDCustomizeThemeViewController.m; sourceTree = "<group>"; };
@@ -424,43 +281,6 @@
 		D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ../../ACBClientSDK.framework; sourceTree = "<group>"; };
 		D890F74D1B96146F00B75692 /* ECDAdHocVideoChatPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocVideoChatPicker.m; sourceTree = "<group>"; };
 		D890F74F1B96147D00B75692 /* ECDAdHocVideoChatPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDAdHocVideoChatPicker.h; sourceTree = "<group>"; };
-		D8CEBDF21B546DC20053E9A0 /* HZAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZAppDelegate.h; sourceTree = "<group>"; };
-		D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZAppDelegate.m; sourceTree = "<group>"; };
-		D8CEBDF41B546DC20053E9A0 /* HZDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZDrawerViewController.h; sourceTree = "<group>"; };
-		D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZDrawerViewController.m; sourceTree = "<group>"; };
-		D8CEBDF61B546DC20053E9A0 /* HZDrawerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZDrawerViewController.xib; sourceTree = "<group>"; };
-		D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = HZExpertConnectSDKTheme.css; sourceTree = "<group>"; };
-		D8CEBDF81B546DC20053E9A0 /* HZExpertConnectSDKTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZExpertConnectSDKTheme.h; sourceTree = "<group>"; };
-		D8CEBDF91B546DC20053E9A0 /* HZExpertConnectSDKTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZExpertConnectSDKTheme.m; sourceTree = "<group>"; };
-		D8CEBDFA1B546DC20053E9A0 /* HZLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZLoginViewController.h; sourceTree = "<group>"; };
-		D8CEBDFB1B546DC20053E9A0 /* HZLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZLoginViewController.m; sourceTree = "<group>"; };
-		D8CEBDFC1B546DC20053E9A0 /* HZLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZLoginViewController.xib; sourceTree = "<group>"; };
-		D8CEBDFD1B546DC20053E9A0 /* HZMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZMainScreenViewController.h; sourceTree = "<group>"; };
-		D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZMainScreenViewController.m; sourceTree = "<group>"; };
-		D8CEBDFF1B546DC20053E9A0 /* HZMainScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZMainScreenViewController.xib; sourceTree = "<group>"; };
-		D8CEBE001B546DC20053E9A0 /* HZPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPerformanceViewController.h; sourceTree = "<group>"; };
-		D8CEBE011B546DC20053E9A0 /* HZPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPerformanceViewController.m; sourceTree = "<group>"; };
-		D8CEBE021B546DC20053E9A0 /* HZPerformanceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZPerformanceViewController.xib; sourceTree = "<group>"; };
-		D8CEBE031B546DC20053E9A0 /* HZResearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZResearchViewController.h; sourceTree = "<group>"; };
-		D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZResearchViewController.m; sourceTree = "<group>"; };
-		D8CEBE051B546DC20053E9A0 /* HZResearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZResearchViewController.xib; sourceTree = "<group>"; };
-		D8CEBE061B546DC20053E9A0 /* HZRiskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZRiskViewController.h; sourceTree = "<group>"; };
-		D8CEBE071B546DC20053E9A0 /* HZRiskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZRiskViewController.m; sourceTree = "<group>"; };
-		D8CEBE081B546DC20053E9A0 /* HZRiskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZRiskViewController.xib; sourceTree = "<group>"; };
-		D8CEBE091B546DC20053E9A0 /* HZRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZRootViewController.h; sourceTree = "<group>"; };
-		D8CEBE0A1B546DC20053E9A0 /* HZRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZRootViewController.m; sourceTree = "<group>"; };
-		D8CEBE0B1B546DC20053E9A0 /* HZRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZRootViewController.xib; sourceTree = "<group>"; };
-		D8CEBE0C1B546DC20053E9A0 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		D8CEBE0D1B546DC20053E9A0 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
-		D8CEBE0E1B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-BoldItalic.ttf"; sourceTree = "<group>"; };
-		D8CEBE0F1B546DC20053E9A0 /* RobotoCondensed-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Italic.ttf"; sourceTree = "<group>"; };
-		D8CEBE101B546DC20053E9A0 /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Light.ttf"; sourceTree = "<group>"; };
-		D8CEBE111B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
-		D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
-		D8CEBE5E1B546EC10053E9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8CEBE5F1B546EC10053E9A0 /* HorizonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HorizonTests.m; sourceTree = "<group>"; };
-		D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
-		D8CEBEE01B55690C0053E9A0 /* Horizon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Horizon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8D3AA731B66A2EC00DA1762 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D8D3AA751B66A2FA00DA1762 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		D8D3AA771B66A30300DA1762 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -549,49 +369,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8CEBEB21B55690C0053E9A0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D81614FF1B792C53005BD20E /* libicucore.dylib in Frameworks */,
-				D81614FE1B792BC3005BD20E /* GLKit.framework in Frameworks */,
-				D81614FD1B792B71005BD20E /* libsqlite3.dylib in Frameworks */,
-				D81614ED1B7917AF005BD20E /* CoreAudio.framework in Frameworks */,
-				D8D3AAA21B66A36F00DA1762 /* CoreImage.framework in Frameworks */,
-				D8D3AAA61B66A36F00DA1762 /* CoreText.framework in Frameworks */,
-				D8D3AA761B66A2FA00DA1762 /* libstdc++.6.dylib in Frameworks */,
-				D81614EE1B7917AF005BD20E /* libxml2.dylib in Frameworks */,
-				D8D3AAB31B66A36F00DA1762 /* SystemConfiguration.framework in Frameworks */,
-				D8D3AA981B66A36F00DA1762 /* Accelerate.framework in Frameworks */,
-				D8D3AA9B1B66A36F00DA1762 /* AssetsLibrary.framework in Frameworks */,
-				D8D3AA9C1B66A36F00DA1762 /* AudioToolbox.framework in Frameworks */,
-				D8D3AA9D1B66A36F00DA1762 /* AVFoundation.framework in Frameworks */,
-				D8D3AA9E1B66A36F00DA1762 /* CFNetwork.framework in Frameworks */,
-				D8D3AA9F1B66A36F00DA1762 /* CoreBluetooth.framework in Frameworks */,
-				D8D3AAA01B66A36F00DA1762 /* CoreFoundation.framework in Frameworks */,
-				D8D3AAA11B66A36F00DA1762 /* CoreGraphics.framework in Frameworks */,
-				D8D3AAA31B66A36F00DA1762 /* CoreLocation.framework in Frameworks */,
-				D8D3AAA41B66A36F00DA1762 /* CoreMedia.framework in Frameworks */,
-				D8D3AAA51B66A36F00DA1762 /* CoreTelephony.framework in Frameworks */,
-				D8D3AAA71B66A36F00DA1762 /* CoreVideo.framework in Frameworks */,
-				D8D3AAA81B66A36F00DA1762 /* EventKit.framework in Frameworks */,
-				D8D3AAA91B66A36F00DA1762 /* Foundation.framework in Frameworks */,
-				D8D3AAAA1B66A36F00DA1762 /* ImageIO.framework in Frameworks */,
-				D8D3AAAB1B66A36F00DA1762 /* MapKit.framework in Frameworks */,
-				D8D3AAAC1B66A36F00DA1762 /* MediaPlayer.framework in Frameworks */,
-				D8D3AAAD1B66A36F00DA1762 /* MessageUI.framework in Frameworks */,
-				D8D3AAAE1B66A36F00DA1762 /* MobileCoreServices.framework in Frameworks */,
-				D8D3AAAF1B66A36F00DA1762 /* OpenGLES.framework in Frameworks */,
-				D8D3AAB01B66A36F00DA1762 /* QuartzCore.framework in Frameworks */,
-				D8D3AAB11B66A36F00DA1762 /* Security.framework in Frameworks */,
-				D8D3AAB41B66A36F00DA1762 /* UIKit.framework in Frameworks */,
-				D8D3AA7A1B66A30D00DA1762 /* libz.dylib in Frameworks */,
-				D8D3AA781B66A30300DA1762 /* libxml2.2.dylib in Frameworks */,
-				D8D3AA741B66A2EC00DA1762 /* libc++.dylib in Frameworks */,
-				D8CEBEB41B55690C0053E9A0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,13 +543,10 @@
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
 				0368D77A1B3AEAD800985673 /* Localizable.strings */,
-				D8CEBDF11B546DC20053E9A0 /* Horizon */,
-				D8CEBE5C1B546EC10053E9A0 /* HorizonTests */,
 				03243FD01A65570300A4CE6D /* Frameworks */,
 				03978F091A602B2D007793D6 /* EXPERTconnectDemo */,
 				03978F231A602B2D007793D6 /* EXPERTconnectDemoTests */,
 				03978F081A602B2D007793D6 /* Products */,
-				21FD75E280C9707B91DF4A83 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -781,7 +555,6 @@
 			children = (
 				03978F071A602B2D007793D6 /* EXPERTconnectDemo.app */,
 				03978F201A602B2D007793D6 /* EXPERTconnectDemoTests.xctest */,
-				D8CEBEE01B55690C0053E9A0 /* Horizon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -830,15 +603,6 @@
 				03978F251A602B2D007793D6 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		21FD75E280C9707B91DF4A83 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */,
-				72C4C39460082123433B137E /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		4695C3781B5D7B8600C95878 /* UI */ = {
@@ -906,64 +670,6 @@
 			name = "Picker Views";
 			sourceTree = "<group>";
 		};
-		D8CEBDF11B546DC20053E9A0 /* Horizon */ = {
-			isa = PBXGroup;
-			children = (
-				D8CEBE6B1B54702D0053E9A0 /* Images.xcassets */,
-				D8CEBDF21B546DC20053E9A0 /* HZAppDelegate.h */,
-				D8CEBDF31B546DC20053E9A0 /* HZAppDelegate.m */,
-				D8CEBDF41B546DC20053E9A0 /* HZDrawerViewController.h */,
-				D8CEBDF51B546DC20053E9A0 /* HZDrawerViewController.m */,
-				D8CEBDF61B546DC20053E9A0 /* HZDrawerViewController.xib */,
-				D8CEBDF71B546DC20053E9A0 /* HZExpertConnectSDKTheme.css */,
-				D8CEBDF81B546DC20053E9A0 /* HZExpertConnectSDKTheme.h */,
-				D8CEBDF91B546DC20053E9A0 /* HZExpertConnectSDKTheme.m */,
-				D8CEBDFA1B546DC20053E9A0 /* HZLoginViewController.h */,
-				D8CEBDFB1B546DC20053E9A0 /* HZLoginViewController.m */,
-				D8CEBDFC1B546DC20053E9A0 /* HZLoginViewController.xib */,
-				D8CEBDFD1B546DC20053E9A0 /* HZMainScreenViewController.h */,
-				D8CEBDFE1B546DC20053E9A0 /* HZMainScreenViewController.m */,
-				D8CEBDFF1B546DC20053E9A0 /* HZMainScreenViewController.xib */,
-				D8CEBE001B546DC20053E9A0 /* HZPerformanceViewController.h */,
-				D8CEBE011B546DC20053E9A0 /* HZPerformanceViewController.m */,
-				D8CEBE021B546DC20053E9A0 /* HZPerformanceViewController.xib */,
-				D8CEBE031B546DC20053E9A0 /* HZResearchViewController.h */,
-				D8CEBE041B546DC20053E9A0 /* HZResearchViewController.m */,
-				D8CEBE051B546DC20053E9A0 /* HZResearchViewController.xib */,
-				D8CEBE061B546DC20053E9A0 /* HZRiskViewController.h */,
-				D8CEBE071B546DC20053E9A0 /* HZRiskViewController.m */,
-				D8CEBE081B546DC20053E9A0 /* HZRiskViewController.xib */,
-				D8CEBE091B546DC20053E9A0 /* HZRootViewController.h */,
-				D8CEBE0A1B546DC20053E9A0 /* HZRootViewController.m */,
-				D8CEBE0B1B546DC20053E9A0 /* HZRootViewController.xib */,
-				D8CEBE0C1B546DC20053E9A0 /* LICENSE.txt */,
-				D8CEBE0D1B546DC20053E9A0 /* RobotoCondensed-Bold.ttf */,
-				D8CEBE0E1B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf */,
-				D8CEBE0F1B546DC20053E9A0 /* RobotoCondensed-Italic.ttf */,
-				D8CEBE101B546DC20053E9A0 /* RobotoCondensed-Light.ttf */,
-				D8CEBE111B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf */,
-				D8CEBE121B546DC20053E9A0 /* RobotoCondensed-Regular.ttf */,
-			);
-			path = Horizon;
-			sourceTree = "<group>";
-		};
-		D8CEBE5C1B546EC10053E9A0 /* HorizonTests */ = {
-			isa = PBXGroup;
-			children = (
-				D8CEBE5F1B546EC10053E9A0 /* HorizonTests.m */,
-				D8CEBE5D1B546EC10053E9A0 /* Supporting Files */,
-			);
-			path = HorizonTests;
-			sourceTree = "<group>";
-		};
-		D8CEBE5D1B546EC10053E9A0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D8CEBE5E1B546EC10053E9A0 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -971,13 +677,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03978F2A1A602B2D007793D6 /* Build configuration list for PBXNativeTarget "EXPERTconnectDemo" */;
 			buildPhases = (
-				0D296F372D9918C2C7D004FE /* Check Pods Manifest.lock */,
 				03978F031A602B2D007793D6 /* Sources */,
 				03978F041A602B2D007793D6 /* Frameworks */,
 				03978F051A602B2D007793D6 /* Resources */,
 				03243FD51A65576B00A4CE6D /* Embed Frameworks */,
-				B119F73207BCEE6252331D81 /* Copy Pods Resources */,
-				D73E912153EAE3499981F814 /* Upload Bugsnag dSYM */,
 			);
 			buildRules = (
 			);
@@ -1007,27 +710,6 @@
 			productReference = 03978F201A602B2D007793D6 /* EXPERTconnectDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D8CEBE991B55690C0053E9A0 /* Horizon */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D8CEBEDD1B55690C0053E9A0 /* Build configuration list for PBXNativeTarget "Horizon" */;
-			buildPhases = (
-				D8CEBE9A1B55690C0053E9A0 /* Check Pods Manifest.lock */,
-				D8CEBE9B1B55690C0053E9A0 /* Sources */,
-				D8CEBEB21B55690C0053E9A0 /* Frameworks */,
-				D8CEBEB61B55690C0053E9A0 /* Resources */,
-				D8CEBED81B55690C0053E9A0 /* Embed Frameworks */,
-				D8CEBEDB1B55690C0053E9A0 /* Copy Pods Resources */,
-				D8CEBEDC1B55690C0053E9A0 /* Upload Bugsnag dSYM */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Horizon;
-			productName = EXPERTconnectDemo;
-			productReference = D8CEBEE01B55690C0053E9A0 /* Horizon.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1055,9 +737,6 @@
 						DevelopmentTeam = 4F2XQ7R275;
 						TestTargetID = 03978F061A602B2D007793D6;
 					};
-					D8CEBE991B55690C0053E9A0 = {
-						DevelopmentTeam = 4F2XQ7R275;
-					};
 				};
 			};
 			buildConfigurationList = 03978F021A602B2D007793D6 /* Build configuration list for PBXProject "EXPERTconnectDemo" */;
@@ -1083,7 +762,6 @@
 			targets = (
 				03978F061A602B2D007793D6 /* EXPERTconnectDemo */,
 				03978F1F1A602B2D007793D6 /* EXPERTconnectDemoTests */,
-				D8CEBE991B55690C0053E9A0 /* Horizon */,
 			);
 		};
 /* End PBXProject section */
@@ -1105,16 +783,11 @@
 			files = (
 				0368D77D1B3AEADC00985673 /* Localizable.strings in Resources */,
 				0301CBFC1B0626900068A0E1 /* ECDDefaultTheme.css in Resources */,
-				D8CEBE1B1B546DC20053E9A0 /* HZMainScreenViewController.xib in Resources */,
 				C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */,
-				D8CEBE251B546DC20053E9A0 /* RobotoCondensed-Bold.ttf in Resources */,
-				D8CEBE281B546DC20053E9A0 /* RobotoCondensed-Light.ttf in Resources */,
-				D8CEBE211B546DC20053E9A0 /* HZRiskViewController.xib in Resources */,
 				C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
 				C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */,
-				D8CEBE1D1B546DC20053E9A0 /* HZPerformanceViewController.xib in Resources */,
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
@@ -1122,20 +795,12 @@
 				C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */,
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
-				D8CEBE151B546DC20053E9A0 /* HZDrawerViewController.xib in Resources */,
-				46BA32F51B6020EB00E5C270 /* Images.xcassets in Resources */,
-				D8CEBE261B546DC20053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
-				D8CEBE1F1B546DC20053E9A0 /* HZResearchViewController.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
-				D8CEBE291B546DC20053E9A0 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
-				D8CEBE191B546DC20053E9A0 /* HZLoginViewController.xib in Resources */,
-				D8CEBE271B546DC20053E9A0 /* RobotoCondensed-Italic.ttf in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
-				D8CEBE241B546DC20053E9A0 /* LICENSE.txt in Resources */,
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
@@ -1143,9 +808,6 @@
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,
-				D8CEBE231B546DC20053E9A0 /* HZRootViewController.xib in Resources */,
-				D8CEBE2A1B546DC20053E9A0 /* RobotoCondensed-Regular.ttf in Resources */,
-				D8CEBE161B546DC20053E9A0 /* HZExpertConnectSDKTheme.css in Resources */,
 				466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1157,140 +819,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D8CEBEB61B55690C0053E9A0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8CEBEB71B55690C0053E9A0 /* Localizable.strings in Resources */,
-				D8CEBEB81B55690C0053E9A0 /* ECDDefaultTheme.css in Resources */,
-				D8CEBEB91B55690C0053E9A0 /* HZMainScreenViewController.xib in Resources */,
-				D8CEBEBA1B55690C0053E9A0 /* RobotoCondensed-Bold.ttf in Resources */,
-				D8CEBEBB1B55690C0053E9A0 /* RobotoCondensed-Light.ttf in Resources */,
-				D8CEBEBC1B55690C0053E9A0 /* HZRiskViewController.xib in Resources */,
-				D8CEBEBD1B55690C0053E9A0 /* ECDSplashViewController.xib in Resources */,
-				D8CEBEBE1B55690C0053E9A0 /* ECDRegisterViewController.xib in Resources */,
-				D8CEBEBF1B55690C0053E9A0 /* HZPerformanceViewController.xib in Resources */,
-				D8CEBEC01B55690C0053E9A0 /* ECDMainMenuViewController.xib in Resources */,
-				D8CEBEC11B55690C0053E9A0 /* LaunchScreen.xib in Resources */,
-				D8CEBEC21B55690C0053E9A0 /* AirshipConfig.plist in Resources */,
-				D8CEBEC31B55690C0053E9A0 /* ECDZoomViewController.xib in Resources */,
-				D8CEBEC41B55690C0053E9A0 /* Settings.bundle in Resources */,
-				D8CEBEC51B55690C0053E9A0 /* HZDrawerViewController.xib in Resources */,
-				D8CEBEC61B55690C0053E9A0 /* Images.xcassets in Resources */,
-				D8CEBEC71B55690C0053E9A0 /* RobotoCondensed-BoldItalic.ttf in Resources */,
-				D8CEBEC91B55690C0053E9A0 /* HZResearchViewController.xib in Resources */,
-				D8CEBECA1B55690C0053E9A0 /* MainMenuConfig.json in Resources */,
-				D8CEBECB1B55690C0053E9A0 /* RobotoCondensed-LightItalic.ttf in Resources */,
-				D8CEBECC1B55690C0053E9A0 /* HZLoginViewController.xib in Resources */,
-				D8CEBECD1B55690C0053E9A0 /* RobotoCondensed-Italic.ttf in Resources */,
-				D8CEBECE1B55690C0053E9A0 /* ECDLicenseViewController.xib in Resources */,
-				D8CEBECF1B55690C0053E9A0 /* LICENSE.txt in Resources */,
-				D8CEBED01B55690C0053E9A0 /* ECDLoginViewController.xib in Resources */,
-				D8CEBED11B55690C0053E9A0 /* ECDMainMenuTableViewCell.xib in Resources */,
-				D8CEBED21B55690C0053E9A0 /* ECDSettingsViewController.xib in Resources */,
-				D8CEBED31B55690C0053E9A0 /* ECDLicenses.txt in Resources */,
-				D8CEBED41B55690C0053E9A0 /* ECDRootViewController.xib in Resources */,
-				D8CEBED51B55690C0053E9A0 /* HZRootViewController.xib in Resources */,
-				D8CEBED61B55690C0053E9A0 /* RobotoCondensed-Regular.ttf in Resources */,
-				D8CEBED71B55690C0053E9A0 /* HZExpertConnectSDKTheme.css in Resources */,
-				8112F9D41B9811EC004D99ED /* ECDAdHocViewController.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0D296F372D9918C2C7D004FE /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B119F73207BCEE6252331D81 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D73E912153EAE3499981F814 /* Upload Bugsnag dSYM */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Bugsnag dSYM";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/usr/bin/env ruby";
-			shellScript = "fork do\n  Process.setsid\n  STDIN.reopen(\"/dev/null\")\n  STDOUT.reopen(\"/dev/null\", \"a\")\n  STDERR.reopen(\"/dev/null\", \"a\")\n\n  require 'shellwords'\n\n  Dir[\"#{ENV[\"DWARF_DSYM_FOLDER_PATH\"]}/*/Contents/Resources/DWARF/*\"].each do |dsym|\n    system(\"curl -F dsym=@#{Shellwords.escape(dsym)} -F projectRoot=#{Shellwords.escape(ENV[\"PROJECT_DIR\"])} https://upload.bugsnag.com/\")\n  end\nend\n";
-			showEnvVarsInLog = 0;
-		};
-		D8CEBE9A1B55690C0053E9A0 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D8CEBEDB1B55690C0053E9A0 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8CEBEDC1B55690C0053E9A0 /* Upload Bugsnag dSYM */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Bugsnag dSYM";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/usr/bin/env ruby";
-			shellScript = "fork do\n  Process.setsid\n  STDIN.reopen(\"/dev/null\")\n  STDOUT.reopen(\"/dev/null\", \"a\")\n  STDERR.reopen(\"/dev/null\", \"a\")\n\n  require 'shellwords'\n\n  Dir[\"#{ENV[\"DWARF_DSYM_FOLDER_PATH\"]}/*/Contents/Resources/DWARF/*\"].each do |dsym|\n    system(\"curl -F dsym=@#{Shellwords.escape(dsym)} -F projectRoot=#{Shellwords.escape(ENV[\"PROJECT_DIR\"])} https://upload.bugsnag.com/\")\n  end\nend\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		03978F031A602B2D007793D6 /* Sources */ = {
@@ -1298,9 +827,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */,
-				D8CEBE131B546DC20053E9A0 /* HZAppDelegate.m in Sources */,
-				D8CEBE201B546DC20053E9A0 /* HZRiskViewController.m in Sources */,
-				D8CEBE141B546DC20053E9A0 /* HZDrawerViewController.m in Sources */,
 				0301CC001B0634C50068A0E1 /* ECDLicenseViewController.m in Sources */,
 				C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */,
 				4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */,
@@ -1314,10 +840,7 @@
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,
 				03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */,
-				D8CEBE1C1B546DC20053E9A0 /* HZPerformanceViewController.m in Sources */,
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
-				D8CEBE181B546DC20053E9A0 /* HZLoginViewController.m in Sources */,
-				D8CEBE221B546DC20053E9A0 /* HZRootViewController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
 				D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
@@ -1327,17 +850,14 @@
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
-				D8CEBE171B546DC20053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
 				22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */,
 				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,
-				D8CEBE1A1B546DC20053E9A0 /* HZMainScreenViewController.m in Sources */,
 				46BA32F81B604E7D00E5C270 /* ECDEnvironmentPicker.m in Sources */,
 				C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */,
 				C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */,
-				D8CEBE1E1B546DC20053E9A0 /* HZResearchViewController.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
 				C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */,
 				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,
@@ -1353,50 +873,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				03978F271A602B2D007793D6 /* EXPERTconnectDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8CEBE9B1B55690C0053E9A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46BD59291B794FFA00032628 /* ECDAdHocFormsPicker.m in Sources */,
-				D8CEBE9C1B55690C0053E9A0 /* HZAppDelegate.m in Sources */,
-				D8CEBE9D1B55690C0053E9A0 /* HZRiskViewController.m in Sources */,
-				D8CEBE9E1B55690C0053E9A0 /* HZDrawerViewController.m in Sources */,
-				D8CEBE9F1B55690C0053E9A0 /* ECDLicenseViewController.m in Sources */,
-				46BD592E1B79503B00032628 /* ECDUIPicker.m in Sources */,
-				46BD59281B794FD900032628 /* ECDAdHocChatPicker.m in Sources */,
-				C6003B431B81C733005125CE /* ECDAPIConfigViewController.m in Sources */,
-				D8CEBEA01B55690C0053E9A0 /* ECDRegisterViewController.m in Sources */,
-				D83F78A51B7BC51E00F307D4 /* ECDEnvironmentPicker.m in Sources */,
-				D8CEBEA11B55690C0053E9A0 /* ECDDefaultTheme.m in Sources */,
-				46BD59271B794FCC00032628 /* ECDAdHocViewController.m in Sources */,
-				46BD592C1B79502100032628 /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
-				C6003B441B81C742005125CE /* ECDAdHocFormsController.m in Sources */,
-				D8CEBEA21B55690C0053E9A0 /* ECDNavigationController.m in Sources */,
-				46BD592A1B794FFF00032628 /* ECDAdHocVoiceCallbackPicker.m in Sources */,
-				D8CEBEA31B55690C0053E9A0 /* AppDelegate.m in Sources */,
-				D8CEBEA41B55690C0053E9A0 /* ECDZoomViewController.m in Sources */,
-				D8EF94081BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
-				D8CEBEA51B55690C0053E9A0 /* ECDSettingsViewController.m in Sources */,
-				8112F9D51B98120F004D99ED /* ECDAdHocVideoChatPicker.m in Sources */,
-				D8CEBEA61B55690C0053E9A0 /* HZPerformanceViewController.m in Sources */,
-				46BD592D1B79503800032628 /* ECDRunModePicker.m in Sources */,
-				D8CEBEA71B55690C0053E9A0 /* HZLoginViewController.m in Sources */,
-				D8CEBEA81B55690C0053E9A0 /* HZRootViewController.m in Sources */,
-				4679BD9C1B7A6805002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
-				D8CEBEA91B55690C0053E9A0 /* ECDLoginViewController.m in Sources */,
-				D8CEBEAB1B55690C0053E9A0 /* ECDMainMenuTableViewCell.m in Sources */,
-				D8CEBEAC1B55690C0053E9A0 /* ECDRootViewController.m in Sources */,
-				D8CEBEAD1B55690C0053E9A0 /* HZExpertConnectSDKTheme.m in Sources */,
-				D8CEBEAE1B55690C0053E9A0 /* ECDMainMenuViewController.m in Sources */,
-				D8CEBEAF1B55690C0053E9A0 /* ECDSplashViewController.m in Sources */,
-				D8CEBEB01B55690C0053E9A0 /* HZMainScreenViewController.m in Sources */,
-				D88696611B556CD000C8F955 /* main.m in Sources */,
-				D8CEBEB11B55690C0053E9A0 /* HZResearchViewController.m in Sources */,
-				46BD592B1B79500300032628 /* ECDAdHocWebPagePicker.m in Sources */,
-				4695C37D1B5D802F00C95878 /* ECDLocalization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,7 +1004,6 @@
 		};
 		03978F2B1A602B2D007793D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
@@ -1561,7 +1036,6 @@
 		};
 		03978F2C1A602B2D007793D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72C4C39460082123433B137E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
@@ -1628,62 +1102,6 @@
 			};
 			name = Release;
 		};
-		D8CEBEDE1B55690C0053E9A0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72A0652C82938D12D2EEB790 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
-				BUNDLEID = com.humanify.EXPERTconnectDemo;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../artifacts",
-					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
-					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					HORIZON_TARGET,
-				);
-				INFOPLIST_FILE = "Horizon-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLEID)";
-				PRODUCT_NAME = Horizon;
-				PROVISIONING_PROFILE = "";
-			};
-			name = Debug;
-		};
-		D8CEBEDF1B55690C0053E9A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72C4C39460082123433B137E /* Pods.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = HorizonAppIcon;
-				BUNDLEID = com.humanify.EXPERTconnectDemo;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../artifacts",
-					"$(PROJECT_DIR)/ThirdParty/libUAirship-latest/Airship",
-					"/Users/nathan/Desktop/Workspaces/SDK-iOS",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					HORIZON_TARGET,
-				);
-				INFOPLIST_FILE = "Horizon-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLEID)";
-				PRODUCT_NAME = Horizon;
-				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1710,15 +1128,6 @@
 			buildConfigurations = (
 				03978F2E1A602B2D007793D6 /* Debug */,
 				03978F2F1A602B2D007793D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D8CEBEDD1B55690C0053E9A0 /* Build configuration list for PBXNativeTarget "Horizon" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D8CEBEDE1B55690C0053E9A0 /* Debug */,
-				D8CEBEDF1B55690C0053E9A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

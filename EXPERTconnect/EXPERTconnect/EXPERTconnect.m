@@ -49,8 +49,8 @@ NSTimer *breadcrumbTimer;
 {
     NSAssert(configuration.host, @"You must specify the host when initializing the EXPERTconnect SDK.");
     
-    // Log config for debugging:
-    NSLog(@"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@ %@ (appId: %@)\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.defaultNavigationContext);
+    // Log config for debugging (at level: error, which means debugLevel 1 or higher)
+    ECSLogError( @"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@ %@ (appId: %@)\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.defaultNavigationContext);
     
     ECSURLSessionManager* sessionManager = [[ECSURLSessionManager alloc] initWithHost:configuration.host];
     [[ECSInjector defaultInjector] setObject:configuration forClass:[ECSConfiguration class]];
@@ -704,7 +704,7 @@ NSTimer *breadcrumbTimer;
             NSArray *skillsArray = [ECSJSONSerializer arrayFromJSONArray:dataArray withClass:[ECSSkillDetail class]];
             ECSSkillDetail *skillDetails = skillsArray[0];
 
-            NSLog(@"Result = %@", skillDetails);
+            //NSLog(@"Result = %@", skillDetails);
             
             completion( skillDetails, error );
         } else {
@@ -1034,7 +1034,7 @@ NSTimer *breadcrumbTimer;
 }
 
 - (void)setDebugLevel:(int)logLevel {
-    NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
+    if(logLevel>0)NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
     ECSLogSetLogLevel(logLevel);
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <AXRatingView/AXRatingView.h>
+#import "AXRatingView.h"
 
 @interface ECSRatingView : AXRatingView
 

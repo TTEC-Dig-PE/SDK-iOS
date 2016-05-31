@@ -53,7 +53,7 @@ NSString *_testTenant;
                      _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
-    [[EXPERTconnect shared] setDebugLevel:5];
+    [[EXPERTconnect shared] setDebugLevel:0];
 }
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
@@ -68,7 +68,7 @@ NSString *_testTenant;
          
          if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             //NSLog(@"Successfully fetched authToken: %@", returnToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else
