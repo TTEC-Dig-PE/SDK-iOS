@@ -44,7 +44,7 @@
 #import <EXPERTconnect/ECSRootViewController+Navigation.h>
 #import <EXPERTconnect/ECSWebViewController.h>
 
-//#import  "EXPERTconnect/ECSRatingView.h"
+#import  "EXPERTconnect/ECSRatingView.h"
 //#import <EXPERTconnect/ECSBinaryRating.h>
 //#import <EXPERTconnect/ECSBinaryImageView.h>
 #import <EXPERTconnect/ECSCalendar.h>
