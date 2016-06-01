@@ -45,6 +45,8 @@ NSTimer *breadcrumbTimer;
     return _sharedInstance;
 }
 
+#pragma mark Initialization Functions
+
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration
 {
     NSAssert(configuration.host, @"You must specify the host when initializing the EXPERTconnect SDK.");
@@ -75,6 +77,8 @@ NSTimer *breadcrumbTimer;
         [cafeXController setupCafeXSession];
     }
 }
+
+#pragma mark Properties
 
 - (BOOL)authenticationRequired
 {
@@ -187,18 +191,6 @@ NSTimer *breadcrumbTimer;
     sessionManager.authToken = token;
 }
 
-- (void)logout {
-    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    
-    // Log config for debugging:
-    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
-    
-    [self setUserAvatar:nil];
-    [self setUserName:nil];
-}
-
 - (void)setAuthenticationTokenDelegate:(id<ECSAuthenticationTokenDelegate>)delegate
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
@@ -225,6 +217,74 @@ NSTimer *breadcrumbTimer;
 - (NSString*)EXPERTconnectBuildVersion
 {
     return [NSBundle ecs_buildVersion];
+}
+
+/**
+ Set the debug level.
+ 0 - None
+ 1 - Error
+ 2 - Warning
+ 3 - Debug
+ 4 - Verbose
+ */
+-(NSString *)journeyID {
+    return self.urlSession.journeyID;
+}
+-(void)setJourneyID:(NSString *)theJourneyID {
+    self.urlSession.journeyID = theJourneyID;
+}
+
+-(NSString *)pushNotificationID {
+    return self.urlSession.pushNotificationID;
+}
+-(void)setPushNotificationID:(NSString *)thePushNotificationID {
+    self.urlSession.pushNotificationID = thePushNotificationID;
+}
+
+- (void)setDebugLevel:(int)logLevel {
+    if(logLevel>0)NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
+    ECSLogSetLogLevel(logLevel);
+}
+
+-(NSString *)getTimeStampMessage
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"h:mm a";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
+    return timeStamp;
+}
+
+/**
+ Set the header for locale when sending to the Humanify server. Does not override localization strings.
+ */
+- (void) overrideDeviceLocale:(NSString *)localeString
+{
+    self.urlSession.localLocale = localeString;
+}
+- (NSString *) overrideDeviceLocale
+{
+    return self.urlSession.localLocale;
+}
+
+- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
+{
+    return [ECSRootViewController ecs_viewControllerForActionType:actionType];
+}
+
+- (void)setDelegate:(id)delegate {
+    _externalDelegate = delegate;
+}
+
+- (UIViewController*)landingViewController
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    ECSNavigationActionType *navigationAction = [ECSNavigationActionType new];
+    navigationAction.displayName = configuration.defaultNavigationDisplayName;
+    navigationAction.navigationContext = configuration.defaultNavigationContext;
+    
+    return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
 }
 
 #pragma mark High Level UI Function Calls
@@ -490,6 +550,8 @@ NSTimer *breadcrumbTimer;
     return expertController;
 }
 
+#pragma mark VoiceIT Functions
+
 - (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
     // VoiceIT SDK. Call callback with response.
     ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
@@ -523,6 +585,35 @@ NSTimer *breadcrumbTimer;
     }
 }
 
+#pragma mark API Function Calls
+
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error)
+     {
+         if (response && !error && response.journeyID && response.journeyID.length > 0)
+         {
+             // Set the global journeyID
+             //self.journeyID = response.journeyID;
+             sessionManager.journeyID = response.journeyID;
+             
+             if( completion )
+             {
+                 completion(response.journeyID, error);
+             }
+             
+         }
+         else
+         {
+             if(completion)
+             {
+                 completion(nil, error);
+             }
+         }
+     }];
+}
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
     
@@ -552,116 +643,23 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
+- (void)logout {
+    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    
+    // Log config for debugging:
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
+    [self setUserAvatar:nil];
+    [self setUserName:nil];
+}
+
 -(void)recievedUnrecognizedAction:(NSString *)action {
     [self.workflow receivedUnrecognizedAction:action];
 }
 
-- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
-{
-    return [ECSRootViewController ecs_viewControllerForActionType:actionType];
-}
-
-- (void)setDelegate:(id)delegate {
-    _externalDelegate = delegate;
-}
-
-- (UIViewController*)landingViewController
-{
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    ECSNavigationActionType *navigationAction = [ECSNavigationActionType new];
-    navigationAction.displayName = configuration.defaultNavigationDisplayName;
-    navigationAction.navigationContext = configuration.defaultNavigationContext;
-    
-    return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
-}
-
-- (void)startWorkflow:(NSString *)workFlowName
-           withAction:(NSString *)actionType
-              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
-       viewController:(UIViewController *)viewController {
-    
-    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    
-    ECSActionType *action = [ECSActionType new];
-    action.type = actionType;
-    action.actionId = @"";
-    action.displayName = @"";
-    
-    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
-    
-    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
-    }
-    else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
-    }
-    
-    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
-
-    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
-                                             workflowDelegate:workflowDelegate
-                                            navigationManager:navManager];
-
-    initialViewController.workflowDelegate = self.workflow;
-    
-    [navManager presentViewControllerInNavigationControllerModally:initialViewController
-                                                          animated:YES
-                                                        completion:nil];
-
-}
-
-- (void)startChatWorkflow:(NSString *)workFlowName
-               withSkill:(NSString *)skillName
-               withSurvey:(BOOL)shouldTakeSurvey
-              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
-       viewController:(UIViewController *)viewController {
-
-    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName
-                                                                            withDisplayName:@"Chat"
-                                                                                 withSurvey:shouldTakeSurvey];
-    
-    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
-    
-    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workFlowName
-                                             workflowDelegate:workflowDelegate
-                                            navigationManager:navManager];
-    
-    initialViewController.workflowDelegate = self.workflow;
-    
-    [navManager presentViewControllerInNavigationControllerModally:initialViewController
-                                                          animated:YES
-                                                        completion:nil];
-}
-
-// This version does not present a view controller.
-- (UIViewController *)workflowViewWithAction:(NSString *)actionType
-                                    delegate:(id <ECSWorkflowDelegate>)workflowDelegate {
-    
-    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    
-    ECSActionType *action = [ECSActionType new];
-    action.type = actionType;
-    action.actionId = @"";
-    
-    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
-    
-    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
-        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
-    }
-    else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
-    }
-    
-    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] init];
-    
-    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
-                                             workflowDelegate:workflowDelegate
-                                            navigationManager:navManager];
-    
-    initialViewController.workflowDelegate = self.workflow;
-    
-    return initialViewController;
-}
+#pragma mark Agent Availability / Call skill detail Functions
 
 // Check availability on a singlar skill
 - (void) agentAvailabilityWithSkill:(NSString *)skill
@@ -713,42 +711,94 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
-/**
- Set the header for locale when sending to the Humanify server. Does not override localization strings. 
- */
-- (void) overrideDeviceLocale:(NSString *)localeString
-{
-    self.urlSession.localLocale = localeString;
+#pragma mark Workflow
+
+- (void)startWorkflow:(NSString *)workFlowName
+           withAction:(NSString *)actionType
+              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+       viewController:(UIViewController *)viewController {
+    
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    action.displayName = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+    
 }
 
-#pragma mark Journey Functions
-
-- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
-{
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+- (void)startChatWorkflow:(NSString *)workFlowName
+                withSkill:(NSString *)skillName
+               withSurvey:(BOOL)shouldTakeSurvey
+                  delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+           viewController:(UIViewController *)viewController {
     
-    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error)
-    {
-        if (response && !error && response.journeyID && response.journeyID.length > 0)
-        {
-            // Set the global journeyID
-            //self.journeyID = response.journeyID;
-            sessionManager.journeyID = response.journeyID;
-            
-            if( completion )
-            {
-                completion(response.journeyID, error);
-            }
-            
-        }
-        else
-        {
-            if(completion)
-            {
-                completion(nil, error);
-            }
-        }
-    }];
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName
+                                                                            withDisplayName:@"Chat"
+                                                                                 withSurvey:shouldTakeSurvey];
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:workFlowName
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    [navManager presentViewControllerInNavigationControllerModally:initialViewController
+                                                          animated:YES
+                                                        completion:nil];
+}
+
+// This version does not present a view controller.
+- (UIViewController *)workflowViewWithAction:(NSString *)actionType
+                                    delegate:(id <ECSWorkflowDelegate>)workflowDelegate {
+    
+    ECSConfiguration *ecsConfiguration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    
+    ECSActionType *action = [ECSActionType new];
+    action.type = actionType;
+    action.actionId = @"";
+    
+    ECSRootViewController *initialViewController = (ECSRootViewController *)[self viewControllerForActionType:action];
+    
+    if ([actionType isEqualToString:ECSActionTypeAnswerEngineString]) {
+        initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
+    }
+    else if([actionType isEqualToString:ECSActionTypeFormString]) {
+        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+    }
+    
+    ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] init];
+    
+    self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
+                                             workflowDelegate:workflowDelegate
+                                            navigationManager:navManager];
+    
+    initialViewController.workflowDelegate = self.workflow;
+    
+    return initialViewController;
 }
 
 #pragma mark Breadcrumb Functions
@@ -1009,43 +1059,6 @@ NSTimer *breadcrumbTimer;
             if(completion) completion(self.sessionID, nil);
         }
     }];
-}
-
-/**
- Set the debug level.
-     0 - None
-     1 - Error
-     2 - Warning
-     3 - Debug
-     4 - Verbose
- */
--(NSString *)journeyID {
-    return self.urlSession.journeyID;
-}
--(void)setJourneyID:(NSString *)theJourneyID {
-    self.urlSession.journeyID = theJourneyID; 
-}
-
--(NSString *)pushNotificationID {
-    return self.urlSession.pushNotificationID; 
-}
--(void)setPushNotificationID:(NSString *)thePushNotificationID {
-    self.urlSession.pushNotificationID = thePushNotificationID;
-}
-
-- (void)setDebugLevel:(int)logLevel {
-    if(logLevel>0)NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
-    ECSLogSetLogLevel(logLevel);
-}
-
--(NSString *)getTimeStampMessage
-{
-	 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	 dateFormatter.dateFormat = @"h:mm a";
-	 NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-	 [dateFormatter setTimeZone:gmt];
-	 NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
-	 return timeStamp;
 }
 
 

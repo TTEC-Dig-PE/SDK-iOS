@@ -482,10 +482,25 @@ NSString *_testTenant;
          }
          else
          {
-             XCTAssert(details[@"description"], @"Missing description text.");
-             XCTAssert([details[@"active"] isEqualToString:@"1"] || [details[@"active"] isEqualToString: @"0"], @"Active must be 1 or 0");
-             XCTAssert([details[@"skillName"] containsString:skillName], @"Missing skill name");
-             XCTAssertGreaterThanOrEqual([details[@"estWait"] integerValue], -1, @"Bad estimated wait value");
+             XCTAssert(details[@"chatEnabledAgentsLoggedOn"],@"Missing chatEnabledAgentsLoggedOn field.");
+             XCTAssert(details[@"estimatedWait"],@"Missing estimatedWait field.");
+             XCTAssert(details[@"inQueue"],@"Missing inQueue field.");
+             XCTAssert(details[@"escalationVoiceAvailability"],@"Missing escalationVoiceAvailability field.");
+             XCTAssert(details[@"escalationChatAvailability"],@"Missing escalationChatAvailability field.");
+             XCTAssert(details[@"voiceAvailability"],@"Missing voiceAvailability field.");
+             XCTAssert(details[@"chatAvailability"],@"Missing chatAvailability field.");
+             XCTAssert(details[@"escalationSkill"],@"Missing escalationSkill field.");
+             XCTAssert(details[@"escalationAgentsLoggedOn"],@"Missing escalationAgentsLoggedOn field.");
+             XCTAssert(details[@"connectedToAgent"],@"Missing connectedToAgent field.");
+             XCTAssert(details[@"escalationSkillOpen"],@"Missing escalationSkillOpen field.");
+             XCTAssert(details[@"escalationChatEnabledAgentsLoggedOn"],@"Missing escalationChatEnabledAgentsLoggedOn field.");
+             XCTAssert(details[@"tenant"],@"Missing tenant field.");
+             XCTAssert(details[@"skillName"],@"Missing skillName field.");
+             XCTAssert(details[@"agentsLoggedOn"],@"Missing agentsLoggedOn field.");
+             XCTAssert(details[@"open"],@"Missing open field.");
+             XCTAssert(details[@"_links"],@"Missing _links field.");
+             
+             XCTAssert([details[@"skillName"] isEqualToString:skillName], @"skillName does not match.");
          }
          [expectation fulfill];
      }];

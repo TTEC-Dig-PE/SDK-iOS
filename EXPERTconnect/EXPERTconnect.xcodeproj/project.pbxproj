@@ -438,6 +438,7 @@
 		C1F658721C50B2900093D7F3 /* CalendarConfigiPhone.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */; };
 		C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C444EFD41BD5AF3600E94AF3 /* ECSStartJourneyResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */; };
+		C4450B861CFF07F600486215 /* ECS_API_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4450B851CFF07F600486215 /* ECS_API_Tests.m */; };
 		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
 		C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */; };
@@ -962,6 +963,7 @@
 		C1F658701C50B2900093D7F3 /* CalendarConfigiPhone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CalendarConfigiPhone.plist; path = ../../CalendarConfigiPhone.plist; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
+		C4450B851CFF07F600486215 /* ECS_API_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_API_Tests.m; sourceTree = "<group>"; };
 		C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_DceDev_Henry_Tests.m; sourceTree = "<group>"; };
 		C47254591CC04C36003C0D4E /* ECSBreadcrumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBreadcrumb.m; path = Breadcrumbs/ECSBreadcrumb.m; sourceTree = "<group>"; };
 		C472545A1CC04C36003C0D4E /* ECSBreadcrumbResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBreadcrumbResponse.m; path = Breadcrumbs/ECSBreadcrumbResponse.m; sourceTree = "<group>"; };
@@ -1311,6 +1313,7 @@
 		03978EF11A602AEF007793D6 /* EXPERTconnectTests */ = {
 			isa = PBXGroup;
 			children = (
+				C4450B851CFF07F600486215 /* ECS_API_Tests.m */,
 				C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */,
 				03978EF41A602AEF007793D6 /* EXPERTconnectTests.m */,
 				03978EF21A602AEF007793D6 /* Supporting Files */,
@@ -2548,6 +2551,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4450B861CFF07F600486215 /* ECS_API_Tests.m in Sources */,
 				03978EF51A602AEF007793D6 /* EXPERTconnectTests.m in Sources */,
 				C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */,
 			);

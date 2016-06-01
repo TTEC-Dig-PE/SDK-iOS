@@ -374,6 +374,7 @@ __attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpert
  Overwrite the device locale. The format is a locale string (ex: fr_CA)
  */
 - (void) overrideDeviceLocale:(NSString *)localeString;
+- (NSString *) overrideDeviceLocale;
 
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
