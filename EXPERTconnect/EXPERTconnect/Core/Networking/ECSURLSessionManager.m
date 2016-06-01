@@ -171,6 +171,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return reachable;
 }
 
+// Deprecated
 - (NSURLSessionTask *)authenticateAPIWithClientID:(NSString*)clientID
                                         andSecret:(NSString*)clientSecret
                                        completion:(void (^)(NSString *authToken, NSError *error))completion;
@@ -276,6 +277,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return nil;
 }
 
+#pragma mark API Call Functions
 
 - (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
                             completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
