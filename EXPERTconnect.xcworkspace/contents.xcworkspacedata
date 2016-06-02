@@ -7,4 +7,7 @@
    <FileRef
       location = "container:EXPERTconnect/EXPERTconnect.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>
