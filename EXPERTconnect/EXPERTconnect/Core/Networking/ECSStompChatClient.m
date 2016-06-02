@@ -530,6 +530,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
     }
     else if ([bodyType isEqualToString:kECSChannelTimeoutWarning])
     {
+        [self handleChannelTimeoutWarning:message forClient:stompClient];
         //TODO: Handle channel timeout warning.
     }
 }
@@ -909,9 +910,27 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
     
 }
 
-- (void)handleChatTimeoutWarning:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+- (void)handleChannelTimeoutWarning:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
 {
     // TODO: Handle chat timeout warning message.
+    if( [self.delegate respondsToSelector:@selector(chatClientTimeoutWarning:timeoutSeconds:)] )
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0 error:&serializationError];
+        if (!serializationError)
+        {
+            ECSChannelTimeoutWarningMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                      withClass:[ECSChannelTimeoutWarningMessage class]];
+
+            [self.delegate chatClientTimeoutWarning:self timeoutSeconds:[message.timeoutSeconds intValue]];
+
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
 }
 
 @end

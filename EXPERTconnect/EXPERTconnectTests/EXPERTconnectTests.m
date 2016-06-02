@@ -39,18 +39,22 @@ NSString *_testTenant;
     //configuration.clientID      = @"mktwebextc";
     //configuration.clientSecret  = @"secret123";
     
-    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
-    //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
-    
     if(!_testTenant) _testTenant = @"mktwebextc";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
-                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                     @"expertconnect_unit_test",
-                     _testTenant]];
+                    [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                        configuration.host,
+                        @"expertconnect_unit_test",
+                        _testTenant]];
+    
+    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+    
+
+    
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
-    [[EXPERTconnect shared] setDebugLevel:0];
+    [[EXPERTconnect shared] setDebugLevel:5];
 }
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
@@ -422,7 +426,7 @@ NSString *_testTenant;
     [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                     completion:^(ECSSkillDetail *details, NSError *error)
     {
-        //NSLog(@"Details: %@", details);
+        NSLog(@"Details: %@", details);
         
         XCTAssert(details.description.length>0, @"Missing description text.");
         XCTAssert(details.active == 1 || details.active == 0, @"Active must be 1 or 0");

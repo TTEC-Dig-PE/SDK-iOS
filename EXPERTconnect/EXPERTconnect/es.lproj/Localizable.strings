@@ -332,3 +332,6 @@
 /* No agents available */
 "ECSLocalizeNoAgents" = "No hay agentes disponibles.";
 
+/* Channel Timeout Warning */
+"ECSChannelTimeoutWarning" = "Su charla será el tiempo de espera en %d segundos debido a la inactividad.";
+

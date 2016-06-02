@@ -340,3 +340,6 @@
 /* No agents available */
 "ECSLocalizeNoAgents" = "No agents available.";
 
+/* Channel Timeout Warning */
+"ECSChannelTimeoutWarning" = "Your chat will timeout in %d seconds due to inactivity.";
+
