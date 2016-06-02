@@ -38,7 +38,8 @@ NSString *_testTenant;
     configuration.appVersion    = @"1.0";
     configuration.appId         = @"12345";
     
-    configuration.host          = @"https://api.dce1.humanify.com";
+    configuration.host            = @"https://api.ce03.humanify.com";
+    //configuration.host          = @"https://api.dce1.humanify.com";
     //configuration.clientID      = @"mktwebextc";
     //configuration.clientSecret  = @"secret123";
     
@@ -58,6 +59,12 @@ NSString *_testTenant;
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
     // add /ust for new method
+    
+    NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodW1hbmlmeS5jb20iLCJpYXQiOjE0NTYxNzQzMTMsImV4cCI6MTQ4NzcxMDMxNywiYXVkIjoic2VydmljZXMuY3guZm9yZC5jb20uaWRlbnRpdHlEZWxlZ2F0ZSIsInN1YiI6ImtlbkBmb3JkLmNvbSIsImFwaUtleSI6IjgwMjA1N2ZmOWI1YjRlYjdmYmI4ODU2YjZlYjJjYzViIiwiY2xpZW50X2lkIjoiaGVucnkifQ.H2OhXg9WQPg20pvxe9t5mIpkeWsDp6xyjIKp79V7YOU";
+    
+    completion(token, nil); 
+    
+    /*
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:_testAuthURL]
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
@@ -78,10 +85,8 @@ NSString *_testTenant;
                                                 userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
              completion(nil, myError);
          }
-     }];
+     }];*/
 }
-
-
 
 
 - (void)testAstute {
@@ -137,6 +142,66 @@ NSString *_testTenant;
                }];
           }];
      }];
+    
+    [self waitForExpectationsWithTimeout:25.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (25 seconds). Error=%@", error);
+        }
+    }];
+}
+
+- (void)testFrenchContent {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    __block int answersToWaitFor = 0;
+    
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [[EXPERTconnect shared] overrideDeviceLocale:@"fr-CA"];
+    
+    // Simulate a type-ahead search on word "parking"
+    [sessionManager getAnswerEngineTopQuestionsForKeyword:@"NIV"
+                                      withOptionalContext:@"all"
+                                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         XCTAssert(response.suggestedQuestions.count>0,@"Returned some suggested questions.");
+         XCTAssert(!error, @"Response does not contain an error");
+         
+         NSLog(@"Testing %lu answers...", (unsigned long)response.suggestedQuestions.count);
+         
+         for( NSString *answer in response.suggestedQuestions)
+         {
+             // Simulate asking for an answer for a specific article.
+             answersToWaitFor++;
+             NSLog(@"Fetching answer for question: %@", answer);
+             [sessionManager getAnswerForQuestion:answer
+                                        inContext:@"Park"
+                                  parentNavigator:@""
+                                         actionId:@""
+                                    questionCount:1
+                                       customData:nil
+                                       completion:^(ECSAnswerEngineResponse *response, NSError *error)
+              {
+                  NSLog(@"Response Answer=%@", response);
+                  XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"No content. (Value=%@)", response.answerContent);
+                  XCTAssert(response.inquiryId>0,@"Bad inquiryID (Value=%@)", response.inquiryId);
+                  XCTAssert(!error, @"Response contains error: %@", error.description);
+                  
+                  // Happy path finished.
+                  answersToWaitFor--;
+                  if(answersToWaitFor<=0)
+                  {
+                      NSLog(@"Finished with answer. %d remaining...", answersToWaitFor);
+                      [expectation fulfill];
+                  }
+              }];
+             
+         }
+         
+         
+     }];
+
     
     [self waitForExpectationsWithTimeout:25.0 handler:^(NSError *error) {
         if (error) {

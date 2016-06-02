@@ -869,6 +869,18 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     // Stomp disconnected.
 }
 
+-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds
+{
+
+    ECSChatInfoMessage *message = [ECSChatInfoMessage new];
+    message.fromAgent = YES;
+    
+    NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
+    message.infoMessage = [NSString stringWithFormat:warningString, seconds];
+    [self.messages addObject:message];
+    [self.tableView reloadData];
+}
+
 -(void) screenShareEnded:(NSNotification*)notification
 {
     if ([notification.name isEqualToString:@"NotificationScreenShareEnded"])

@@ -50,6 +50,12 @@
 - (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient;
 
 /**
+ Called when a timeout warning is received.
+ */
+-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds;
+
+
+/**
  Called when a client disconnects.
  
  @param stompClient the chat client that had an agent disconnect

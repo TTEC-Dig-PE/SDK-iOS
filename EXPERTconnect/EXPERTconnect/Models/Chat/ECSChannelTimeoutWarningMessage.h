@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSString *conversationId;
 @property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSNumber *version;
-@property (strong, nonatomic) NSNumber *timeoutSeconds;
+@property (strong, nonatomic) NSString *timeoutSeconds;
 
 @property (strong, nonatomic) NSString *from;
 //@property (strong, nonatomic) NSString *to;

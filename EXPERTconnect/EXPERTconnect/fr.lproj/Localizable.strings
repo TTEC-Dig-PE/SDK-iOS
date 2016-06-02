@@ -332,3 +332,6 @@
 /* No agents available */
 "ECSLocalizeNoAgents" = "Aucun des agents disponibles.";
 
+/* Channel Timeout Warning */
+"ECSChannelTimeoutWarning" = "Votre discussion expirera dans %d secondes d'inactivité.";
+

@@ -81,6 +81,7 @@ static NSString *const ECSLocalizeContinueChattingKey = @"ECSLocalizeContinueCha
 static NSString *const ECSLocalizedStayConnectedKey = @"ECSLocalizedStayConnectedKey";
 
 static NSString *const ECSLocalizeChatDisconnected = @"ECSLocalizeChatDisconnected";
+static NSString *const ECSChannelTimeoutWarningKey = @"ECSChannelTimeoutWarning";
 
 static NSString *const ECSLocalizeInfoKey = @"ECSLocalizeInfoKey";
 static NSString *const ECSLocalizeWarningKey = @"ECSLocalizeWarningKey";
