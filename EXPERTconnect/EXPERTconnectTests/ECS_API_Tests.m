@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 #import <EXPERTconnect/EXPERTconnect.h>
+#import <EXPERTconnect/ECSNavigationContext.h>
+#import <EXPERTconnect/ECSAnswerEngineResponse.h>
+#import <EXPERTconnect/ECSUserProfile.h>
 
 @interface ECS_API_Tests : XCTestCase <ECSAuthenticationTokenDelegate>
 
@@ -160,6 +163,416 @@ NSString *_testTenant;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+//Get Answer Engine Top Quetions without Context
+- (void)testGetNavigationContextWithName
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetNavigationContextWithName"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getNavigationContextWithName:@"personas" completion:^(ECSNavigationContext *context,NSError *error)
+	  {
+		   NSLog(@"Details: %@", context);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+//Get Answer Engine Top Quetions without Context
+- (void)testgetAnswerEngineTopQuestions
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerEngineTopQuestions"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getAnswerEngineTopQuestions:10
+								  withCompletion:^(NSArray *answers, NSError *error)
+	  {
+		   NSLog(@"Details: %@", answers);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+//Get Answer Engine Top Quetions with Context
+- (void)testGetAnswerEngineTopQuestionsWithContext
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerEngineTopQuestionsWithContext"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getAnswerEngineTopQuestions:10
+									  forContext:@"All"
+								  withCompletion:^(NSArray *answers, NSError *error)
+	  {
+		   NSLog(@"Details: %@", answers);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	  [self waitForExpectationsWithTimeout:60.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testStartAnswerEngineWithTopQuestions
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerEngineTopQuestions"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager startAnswerEngineWithTopQuestions:10
+									  forContext:@"Park"
+								  withCompletion:^(NSArray *answers, NSError *error)
+	  {
+		   NSLog(@"Details: %@", answers);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetAnswerEngineTopQuestionsForKeyword
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerEngineTopQuestionsForKeyword"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getAnswerEngineTopQuestionsForKeyword:@"How Does Sharing Work?" withOptionalContext:@"All" completion:^(ECSAnswerEngineResponse *response, NSError *error)
+	  {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetAnswerForQuestion
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerForQuestion"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getAnswerForQuestion:@"How Does Borrow Work?" inContext:@"" customData:nil completion:^(ECSAnswerEngineResponse *response, NSError *error)
+	  {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetAnswerForQuestionWithQuetionCount
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerForQuestionWithQuetionCount"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getAnswerForQuestion:@"How Does Borrow Work?" inContext:@"" parentNavigator:@"" actionId:@"" questionCount:0 customData:nil completion:^(ECSAnswerEngineResponse *response, NSError *error)
+	  {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testRateAnswerWithAnswerID
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"rateAnswerWithAnswerID"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager rateAnswerWithAnswerID:@""
+								  inquiryID:@"146485321548926"
+									 rating:1
+										min:-1
+										max:1
+							  questionCount:1
+								 completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+	  
+	  {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetResponseFromEndpoint
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"GetResponseFromEndpoint"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 [sessionManager getResponseFromEndpoint:@"/appconfig/v1/read_rconfig?like=appconfig.mktwebextc.default.answerengine" withCompletion:^(NSString *response,NSError *error)
+	  {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetUserProfile
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"GetUserProfile"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)
+	  {
+		   NSLog(@"Details: %@", profile);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testSubmitUserProfile
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 NSString *testString = @"test";
+	 NSError *error = nil;
+	 NSData *jsonData = [testString dataUsingEncoding:NSUTF8StringEncoding];
+	 
+	 ECSUserProfile * profile = [ECSUserProfile new];
+	 
+	 profile.firstName = @"yasar";
+	 profile.lastName = @"yasar";
+	 profile.username = @"yasar.arafath@agiliztech.com";
+	 profile.city = @"Chennai";
+	 profile.state = @"Tamil Nadu";
+	 profile.postalCode = @"600028";
+	 profile.country = @"";
+	 profile.homePhone = @"8870071996";
+	 profile.mobilePhone = @"";
+	 profile.alternativeEmail = @"";
+	 profile.customData = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testSubmitUserProfile"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 [sessionManager submitUserProfile:profile withCompletion:^(NSString *response, NSError *error)
+	 {
+		   NSLog(@"Details: %@", response);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetFormNames
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetFormNames"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error)
+	  {
+		   NSLog(@"Details: %@", formNames);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testGetFormByName
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetFormNames"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error)
+	  {
+		   NSLog(@"Details: %@", form);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
+- (void)testSubmitForm
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testSubmitForm"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 ECSForm *form = [ECSForm new];
+
+	 [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error) {
+		  
+		  NSLog(@"Details: %@", response);
+		  
+		  if(error)
+		  {
+			   XCTFail(@"Error reported: %@", error.description);
+		  }
+		  [expectation fulfill];
+	 }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
 }
 
 -(void)testNetworkReachable {

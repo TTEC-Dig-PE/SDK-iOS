@@ -383,6 +383,7 @@
 		91E63BF61B834EA30019F9EF /* ECSViewControllerStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BEB1B834EA30019F9EF /* ECSViewControllerStack.m */; };
 		91E63BF71B834EA30019F9EF /* ECSWorkflowNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 91E63BEC1B834EA30019F9EF /* ECSWorkflowNavigation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		91E63BF81B834EA30019F9EF /* ECSWorkflowNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E63BED1B834EA30019F9EF /* ECSWorkflowNavigation.m */; };
+		C1B5865C1D002BC000AFCB7D /* ECS_API_Tests_2.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B5865B1D002BC000AFCB7D /* ECS_API_Tests_2.m */; };
 		C1E0E61C1BC409230089C7E6 /* ECSCalendar.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6061BC409230089C7E6 /* ECSCalendar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1E0E61D1BC409230089C7E6 /* ECSCalendarBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0E6071BC409230089C7E6 /* ECSCalendarBackgroundView.h */; };
 		C1E0E61E1BC409230089C7E6 /* ECSCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6081BC409230089C7E6 /* ECSCalendarBackgroundView.m */; };
@@ -908,6 +909,7 @@
 		91E63BEB1B834EA30019F9EF /* ECSViewControllerStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSViewControllerStack.m; path = ../Utilities/ECSViewControllerStack.m; sourceTree = "<group>"; };
 		91E63BEC1B834EA30019F9EF /* ECSWorkflowNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflowNavigation.h; path = ../Utilities/ECSWorkflowNavigation.h; sourceTree = "<group>"; };
 		91E63BED1B834EA30019F9EF /* ECSWorkflowNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflowNavigation.m; path = ../Utilities/ECSWorkflowNavigation.m; sourceTree = "<group>"; };
+		C1B5865B1D002BC000AFCB7D /* ECS_API_Tests_2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_API_Tests_2.m; sourceTree = "<group>"; };
 		C1E0E6061BC409230089C7E6 /* ECSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSCalendar.h; sourceTree = "<group>"; };
 		C1E0E6071BC409230089C7E6 /* ECSCalendarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSCalendarBackgroundView.h; sourceTree = "<group>"; };
 		C1E0E6081BC409230089C7E6 /* ECSCalendarBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSCalendarBackgroundView.m; sourceTree = "<group>"; };
@@ -1313,6 +1315,7 @@
 		03978EF11A602AEF007793D6 /* EXPERTconnectTests */ = {
 			isa = PBXGroup;
 			children = (
+				C1B5865B1D002BC000AFCB7D /* ECS_API_Tests_2.m */,
 				C4450B851CFF07F600486215 /* ECS_API_Tests.m */,
 				C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */,
 				03978EF41A602AEF007793D6 /* EXPERTconnectTests.m */,
@@ -2554,6 +2557,7 @@
 				C4450B861CFF07F600486215 /* ECS_API_Tests.m in Sources */,
 				03978EF51A602AEF007793D6 /* EXPERTconnectTests.m in Sources */,
 				C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */,
+				C1B5865C1D002BC000AFCB7D /* ECS_API_Tests_2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

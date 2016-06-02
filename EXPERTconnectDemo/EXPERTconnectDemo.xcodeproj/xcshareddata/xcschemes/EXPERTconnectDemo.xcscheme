@@ -66,6 +66,21 @@
                ReferencedContainer = "container:EXPERTconnectDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "03978EEC1A602AEF007793D6"
+               BuildableName = "EXPERTconnectTests.xctest"
+               BlueprintName = "EXPERTconnectTests"
+               ReferencedContainer = "container:../EXPERTconnect/EXPERTconnect.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ECS_API_Tests_2">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
