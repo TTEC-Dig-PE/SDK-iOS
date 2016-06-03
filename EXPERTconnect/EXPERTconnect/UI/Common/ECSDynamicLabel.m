@@ -94,4 +94,9 @@ static CGFloat defaultFontIndex;
 {
     self.font = self.baseFont;
 }
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.preferredMaxLayoutWidth = self.bounds.size.width;
+    [super layoutSubviews];
+}
 @end

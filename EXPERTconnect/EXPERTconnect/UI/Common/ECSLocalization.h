@@ -81,6 +81,7 @@ static NSString *const ECSLocalizeContinueChattingKey = @"ECSLocalizeContinueCha
 static NSString *const ECSLocalizedStayConnectedKey = @"ECSLocalizedStayConnectedKey";
 
 static NSString *const ECSLocalizeChatDisconnected = @"ECSLocalizeChatDisconnected";
+static NSString *const ECSChannelTimeoutWarningKey = @"ECSChannelTimeoutWarning";
 
 static NSString *const ECSLocalizeInfoKey = @"ECSLocalizeInfoKey";
 static NSString *const ECSLocalizeWarningKey = @"ECSLocalizeWarningKey";
@@ -141,6 +142,7 @@ static NSString *const ECSLocalizedLicensesRow = @"ECSLocalizedLicensesRow";
 
 static NSString *const ECSLocalizeError = @"ECSLocalizeError";
 static NSString *const ECSLocalizeErrorText = @"ECSLocalizeErrorText";
+static NSString *const ECSLocalizeNoAgents = @"ECSLocalizeNoAgents";
 
 // Profile View
 

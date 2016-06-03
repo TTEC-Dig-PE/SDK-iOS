@@ -5,10 +5,16 @@
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
 
+#import "ECSStompClient.h"
 #import "ECSStompChatClient.h"
+#import "ECSInjector.h"
+#import "ECSLog.h"
+#import "ECSURLSessionManager.h"
+#import "ECSUserManager.h"
+#import "ECSJSONSerializer.h"
+#import "ECSJSONSerializing.h"
+#import "ECSChannelConfiguration.h"
 
-#import "ECSChatActionType.h"
-#import "ECSVideoChatActionType.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAddParticipantMessage.h"
 #import "ECSChatRemoveParticipantMessage.h"
@@ -16,23 +22,24 @@
 #import "ECSChatCoBrowseMessage.h"
 #import "ECSCafeXMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
-#import "ECSChannelConfiguration.h"
-#import "ECSChatFormMessage.h"
 #import "ECSChatNotificationMessage.h"
 #import "ECSChatTextMessage.h"
-#import "ECSChatURLMessage.h"
-#import "ECSChannelCreateResponse.h"
 #import "ECSChannelStateMessage.h"
 #import "ECSSendQuestionMessage.h"
-#import "ECSConversationCreateResponse.h"
-#import "ECSJSONSerializer.h"
-#import "ECSJSONSerializing.h"
-#import "ECSInjector.h"
-#import "ECSLog.h"
-#import "ECSURLSessionManager.h"
-#import "ECSUserManager.h"
+#import "ECSChatFormMessage.h"
+#import "ECSChatURLMessage.h"
+#import "ECSChannelTimeoutWarningMessage.h"
 
-#import "ECSStompClient.h"
+#import "ECSChatActionType.h"
+#import "ECSVideoChatActionType.h"
+
+#import "ECSChannelCreateResponse.h"
+#import "ECSConversationCreateResponse.h"
+
+
+
+
+
 
 // Custom tags for ECS Chat
 static NSString * const kECSHeaderBodyType = @"x-body-type";
@@ -54,6 +61,7 @@ static NSString * const kECSCafeXMessage = @"CafeXCommand";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
 static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
 static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
+static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
 
 @interface ECSStompChatClient() <ECSStompDelegate>
 
@@ -82,6 +90,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         self.agentInteractionCount = 0;
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+        
+        //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
 
     }
@@ -136,7 +146,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
-
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     if (chatAction) {
         if ((chatAction.agentId && chatAction.agentId.length > 0) &&
             (chatAction.agentSkill.length <= 0))
@@ -161,9 +172,15 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
-    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@",
-                                [[NSLocale preferredLanguages] objectAtIndex:0],
-                                [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]];
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@", language, locale];
+    
+    // Overwrite the device locale if the host app desires to do so.
+    if(urlSession.localLocale)
+    {
+        languageLocale = urlSession.localLocale;
+    }
     featuresDic[@"x-ia-locale"] = languageLocale;
     
     configuration.features = featuresDic; 
@@ -184,7 +201,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     NSString *url = nil;
     
     __weak typeof(self) weakSelf = self;
-    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     
     url = self.currentConversation.channelLink;
 
@@ -233,7 +250,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     [self.stompClient setAuthToken:sessionManager.authToken]; 
     
     NSString *hostName = [[NSURL URLWithString:host] host];
-    NSString *bearerToken = sessionManager.authToken;
+    //NSString *bearerToken = sessionManager.authToken;
     NSNumber *port = [[NSURL URLWithString:host] port];
     
     if (port)
@@ -243,14 +260,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     // Use secure STOMP (wss) if the host is using HTTPS
     NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
-    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async?access_token=%@", stompProtocol, hostName, bearerToken];
-    
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
 }
 
 - (void)reconnect
 {
     self.isReconnecting = YES;
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient reconnect];
 }
 
@@ -270,13 +289,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
                                withReason:@"Disconnected"
                     agentInteractionCount:self.agentInteractionCount
                                  actionId:self.actionType.actionId
-                               completion:nil];
+                               completion:^(id result, NSError* error)
+            {
+                // Do nothing.
+            }];
         }
     }
-    
     if (self.stompClient && self.stompClient.connected)
     {
         self.stompClient.delegate = nil;
+        [self unsubscribeWithSubscriptionID:@"ios-1"];
         [self.stompClient disconnect];
     }
 }
@@ -404,6 +426,14 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 #pragma mark - ECSStompClient
 
+- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
+    {
+        [self.delegate chatClient:self didFailWithError:error];
+    }
+}
+
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient
 {
     if (self.isReconnecting)
@@ -426,6 +456,15 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)])
     {
         [self.delegate chatClientDidConnect:self];
+    }
+}
+
+// Something bad happened...
+-(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
+
+    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
+    {
+        [self.delegate chatClientDisconnected:self wasGraceful:NO];
     }
 }
 
@@ -488,6 +527,11 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     else if ([bodyType isEqualToString:kECSSendQuestionMessage])
     {
         [self handleSendQuestionMessage:message forClient:stompClient];
+    }
+    else if ([bodyType isEqualToString:kECSChannelTimeoutWarning])
+    {
+        [self handleChannelTimeoutWarning:message forClient:stompClient];
+        //TODO: Handle channel timeout warning.
     }
 }
 
@@ -629,9 +673,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
                  [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:)])
+                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
         {
-            [self.delegate chatClientDisconnected:self];
+            [self.delegate chatClientDisconnected:self wasGraceful:YES];
         }
     }
     else
@@ -866,6 +910,27 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
 }
 
+- (void)handleChannelTimeoutWarning:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+{
+    // TODO: Handle chat timeout warning message.
+    if( [self.delegate respondsToSelector:@selector(chatClientTimeoutWarning:timeoutSeconds:)] )
+    {
+        NSError *serializationError = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:0 error:&serializationError];
+        if (!serializationError)
+        {
+            ECSChannelTimeoutWarningMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                      withClass:[ECSChannelTimeoutWarningMessage class]];
 
+            [self.delegate chatClientTimeoutWarning:self timeoutSeconds:[message.timeoutSeconds intValue]];
+
+        }
+        else
+        {
+            ECSLogError(@"Unable to parse chat message %@", serializationError);
+        }
+    }
+}
 
 @end

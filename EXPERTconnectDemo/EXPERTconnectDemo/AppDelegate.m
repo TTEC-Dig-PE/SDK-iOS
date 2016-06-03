@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 
-#import "Bugsnag.h"
+//#import "Bugsnag.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AirshipKit/AirshipKit.h>
@@ -90,8 +90,6 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    
-    
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
@@ -104,9 +102,9 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          [myAppConfig startBreadcrumbSession];
      }];
     
-    
-    
     [self setThemeFromSettings];
+    
+    [myAppConfig getCustomizedThemeSettings];
     
     // Setup the theme to look similar to Ford.
     //[self setupThemeLikeFord];
@@ -156,6 +154,15 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    UA_LTRACE(@"APNS device token: %@", deviceToken);
+    
+    // Updates the device token and registers the token with UA. This won't occur until
+    // push is enabled if the outlined process is followed. This call is required.
+    [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
+    [EXPERTconnect shared].pushNotificationID = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     // Display an in-app alert for push notifications.
@@ -175,8 +182,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 - (void)setApplicationDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"
-                                                            forKey:@"beaconIdentifier"];
+    NSMutableDictionary *appDefaults = [[NSMutableDictionary alloc] init];
+    appDefaults[@"beaconIdentifier"] = @"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0";
+    appDefaults[@"localeOverride"] = Nil;
+    
     [defaults registerDefaults:appDefaults];
     [defaults synchronize];
 }
@@ -217,7 +226,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     
     [[UAirship push] resetBadge];
     
-    NSLog(@"Urban Airship Channel ID=%@",[UAirship push].channelID);
+    NSLog(@"Urban Airship Channel ID=%@, DeviceToken=%@",[UAirship push].channelID, [UAirship push].deviceToken);
 }
 
 - (void)reportBug {

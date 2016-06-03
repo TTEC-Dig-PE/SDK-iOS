@@ -45,12 +45,14 @@ NSTimer *breadcrumbTimer;
     return _sharedInstance;
 }
 
+#pragma mark Initialization Functions
+
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration
 {
     NSAssert(configuration.host, @"You must specify the host when initializing the EXPERTconnect SDK.");
     
-    // Log config for debugging:
-    NSLog(@"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    // Log config for debugging (at level: error, which means debugLevel 1 or higher)
+    ECSLogError( @"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@ %@ (appId: %@)\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.defaultNavigationContext);
     
     ECSURLSessionManager* sessionManager = [[ECSURLSessionManager alloc] initWithHost:configuration.host];
     [[ECSInjector defaultInjector] setObject:configuration forClass:[ECSConfiguration class]];
@@ -75,6 +77,8 @@ NSTimer *breadcrumbTimer;
         [cafeXController setupCafeXSession];
     }
 }
+
+#pragma mark Properties
 
 - (BOOL)authenticationRequired
 {
@@ -187,18 +191,6 @@ NSTimer *breadcrumbTimer;
     sessionManager.authToken = token;
 }
 
-- (void)logout {
-    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    
-    // Log config for debugging:
-    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
-    
-    [self setUserAvatar:nil];
-    [self setUserName:nil];
-}
-
 - (void)setAuthenticationTokenDelegate:(id<ECSAuthenticationTokenDelegate>)delegate
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
@@ -226,6 +218,76 @@ NSTimer *breadcrumbTimer;
 {
     return [NSBundle ecs_buildVersion];
 }
+
+/**
+ Set the debug level.
+ 0 - None
+ 1 - Error
+ 2 - Warning
+ 3 - Debug
+ 4 - Verbose
+ */
+-(NSString *)journeyID {
+    return self.urlSession.journeyID;
+}
+-(void)setJourneyID:(NSString *)theJourneyID {
+    self.urlSession.journeyID = theJourneyID;
+}
+
+-(NSString *)pushNotificationID {
+    return self.urlSession.pushNotificationID;
+}
+-(void)setPushNotificationID:(NSString *)thePushNotificationID {
+    self.urlSession.pushNotificationID = thePushNotificationID;
+}
+
+- (void)setDebugLevel:(int)logLevel {
+    if(logLevel>0)NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
+    ECSLogSetLogLevel(logLevel);
+}
+
+-(NSString *)getTimeStampMessage
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"h:mm a";
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
+    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
+    return timeStamp;
+}
+
+/**
+ Set the header for locale when sending to the Humanify server. Does not override localization strings.
+ */
+- (void) overrideDeviceLocale:(NSString *)localeString
+{
+    self.urlSession.localLocale = localeString;
+}
+- (NSString *) overrideDeviceLocale
+{
+    return self.urlSession.localLocale;
+}
+
+- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
+{
+    return [ECSRootViewController ecs_viewControllerForActionType:actionType];
+}
+
+- (void)setDelegate:(id)delegate {
+    _externalDelegate = delegate;
+}
+
+- (UIViewController*)landingViewController
+{
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    ECSNavigationActionType *navigationAction = [ECSNavigationActionType new];
+    navigationAction.displayName = configuration.defaultNavigationDisplayName;
+    navigationAction.navigationContext = configuration.defaultNavigationContext;
+    
+    return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
+}
+
+#pragma mark High Level UI Function Calls
 
 - (UIViewController*)startChat:(NSString*)chatSkill
                withDisplayName:(NSString*)displayName
@@ -488,6 +550,8 @@ NSTimer *breadcrumbTimer;
     return expertController;
 }
 
+#pragma mark VoiceIT Functions
+
 - (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
     // VoiceIT SDK. Call callback with response.
     ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
@@ -521,6 +585,35 @@ NSTimer *breadcrumbTimer;
     }
 }
 
+#pragma mark API Function Calls
+
+- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
+{
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error)
+     {
+         if (response && !error && response.journeyID && response.journeyID.length > 0)
+         {
+             // Set the global journeyID
+             //self.journeyID = response.journeyID;
+             sessionManager.journeyID = response.journeyID;
+             
+             if( completion )
+             {
+                 completion(response.journeyID, error);
+             }
+             
+         }
+         else
+         {
+             if(completion)
+             {
+                 completion(nil, error);
+             }
+         }
+     }];
+}
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
     
@@ -550,28 +643,75 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
+- (void)logout {
+    // In case the log has been wrapped by the host app, let's re-display configuration for the next log:
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    
+    // Log config for debugging:
+    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    
+    [self setUserAvatar:nil];
+    [self setUserName:nil];
+}
+
 -(void)recievedUnrecognizedAction:(NSString *)action {
     [self.workflow receivedUnrecognizedAction:action];
 }
 
-- (UIViewController *)viewControllerForActionType:(ECSActionType *)actionType
-{
-    return [ECSRootViewController ecs_viewControllerForActionType:actionType];
-}
+#pragma mark Agent Availability / Call skill detail Functions
 
-- (void)setDelegate:(id)delegate {
-    _externalDelegate = delegate;
-}
-
-- (UIViewController*)landingViewController
+// Check availability on a singlar skill
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion
 {
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    ECSNavigationActionType *navigationAction = [ECSNavigationActionType new];
-    navigationAction.displayName = configuration.defaultNavigationDisplayName;
-    navigationAction.navigationContext = configuration.defaultNavigationContext;
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
-    return [ECSRootViewController ecs_viewControllerForActionType:navigationAction];
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
+     {
+         NSLog(@"Got details for skill: %@", skill);
+         completion( response, error );
+     }];
 }
+
+// Copy getDetailsForSkill from 5.2.x branch
+- (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [sessionManager getDetailsForSkill:skill
+                            completion:^(NSDictionary *response, NSError *error)
+     {
+         NSLog(@"Got details for skill: %@", skill);
+         completion( response, error );
+     }];
+}
+
+- (void) getDetailsForExpertSkill:(NSString *)skill
+                 completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getDetailsForExpertSkill:skill
+                                  completion:^(NSDictionary *response, NSError *error)
+    {
+        if(!error) {
+            NSArray *dataArray = [response objectForKey:@"data"];
+            NSArray *skillsArray = [ECSJSONSerializer arrayFromJSONArray:dataArray withClass:[ECSSkillDetail class]];
+            ECSSkillDetail *skillDetails = skillsArray[0];
+
+            //NSLog(@"Result = %@", skillDetails);
+            
+            completion( skillDetails, error );
+        } else {
+            completion( nil, error ); 
+        }
+    }];
+}
+
+#pragma mark Workflow
 
 - (void)startWorkflow:(NSString *)workFlowName
            withAction:(NSString *)actionType
@@ -595,25 +735,25 @@ NSTimer *breadcrumbTimer;
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
-
+    
     self.workflow = [[ECSWorkflow alloc] initWithWorkflowName:actionType
                                              workflowDelegate:workflowDelegate
                                             navigationManager:navManager];
-
+    
     initialViewController.workflowDelegate = self.workflow;
     
     [navManager presentViewControllerInNavigationControllerModally:initialViewController
                                                           animated:YES
                                                         completion:nil];
-
+    
 }
 
 - (void)startChatWorkflow:(NSString *)workFlowName
-               withSkill:(NSString *)skillName
+                withSkill:(NSString *)skillName
                withSurvey:(BOOL)shouldTakeSurvey
-              delgate:(id <ECSWorkflowDelegate>)workflowDelegate
-       viewController:(UIViewController *)viewController {
-
+                  delgate:(id <ECSWorkflowDelegate>)workflowDelegate
+           viewController:(UIViewController *)viewController {
+    
     ECSRootViewController *initialViewController = (ECSRootViewController *)[self startChat:skillName
                                                                             withDisplayName:@"Chat"
                                                                                  withSurvey:shouldTakeSurvey];
@@ -661,55 +801,7 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
-- (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
-{
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    [sessionManager getDetailsForSkill:skill
-                            completion:^(NSDictionary *response, NSError *error)
-    {
-        if(!error) {
-            NSArray *dataArray = [response objectForKey:@"data"];
-            NSArray *skillsArray = [ECSJSONSerializer arrayFromJSONArray:dataArray withClass:[ECSSkillDetail class]];
-            ECSSkillDetail *skillDetails = skillsArray[0];
-
-            NSLog(@"Result = %@", skillDetails);
-            
-            completion( skillDetails, error );
-        } else {
-            completion( nil, error ); 
-        }
-    }];
-}
-
-- (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
-{
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error)
-    {
-        if (response && !error && response.journeyID && response.journeyID.length > 0)
-        {
-            // Set the global journeyID
-            //self.journeyID = response.journeyID;
-            sessionManager.journeyID = response.journeyID;
-            
-            if( completion )
-            {
-                completion(response.journeyID, error);
-            }
-            
-        }
-        else
-        {
-            if(completion)
-            {
-                completion(nil, error);
-            }
-        }
-    }];
-}
+#pragma mark Breadcrumb Functions
 
 /**
  Send one "interesting" breadcrumb to server and wait for response.
@@ -724,15 +816,15 @@ NSTimer *breadcrumbTimer;
         ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
-            blockBC.journeyId = self.journeyID;
-            blockBC.sessionId = self.sessionID;
+            //blockBC.journeyId = self.journeyID;
+            //blockBC.sessionId = self.sessionID;
             [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
         }];
     }
     else
     {
-        blockBC.journeyId = self.journeyID;
-        blockBC.sessionId = self.sessionID;
+        //blockBC.journeyId = self.journeyID;
+        //blockBC.sessionId = self.sessionID;
         [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
     }
 }
@@ -763,6 +855,7 @@ NSTimer *breadcrumbTimer;
     breadcrumb.actionDescription = actionDescription;
     breadcrumb.actionSource = actionSource;
     breadcrumb.actionDestination = actionDestination;
+    
     if (geolocation) [breadcrumb setGeoLocation:geolocation];
     
     // This block will create a breadcrumb session if one is not already created.
@@ -850,6 +943,14 @@ NSTimer *breadcrumbTimer;
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
+    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    if([self clientID])theBreadcrumb.tenantId = [self clientID];
+    theBreadcrumb.journeyId = self.journeyID;
+    theBreadcrumb.sessionId = [self sessionID];
+    theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
+    theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
+    if([self pushNotificationID])theBreadcrumb.pushNotificationId = self.pushNotificationID;
+    
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
                                 completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
@@ -870,6 +971,8 @@ NSTimer *breadcrumbTimer;
     theBreadcrumb.journeyId = self.journeyID;
     theBreadcrumb.sessionId = [self sessionID];
     theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
+    theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
+    if([self pushNotificationID])theBreadcrumb.pushNotificationId = self.pushNotificationID;
     
     ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", theBreadcrumb.actionType);
 
@@ -916,7 +1019,7 @@ NSTimer *breadcrumbTimer;
         return;
     }
     
-    ECSLogVerbose(@"breadcrumbNewSession:: calling with journeyId : %@", self.journeyID);
+    ECSLogVerbose(@"breadcrumbNewSession - calling with journeyId : %@", self.journeyID);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
@@ -939,7 +1042,7 @@ NSTimer *breadcrumbTimer;
         
         if( error )
         {
-            ECSLogError(@"breadcrumbsSession:: Error: %@", error.description);
+            ECSLogError(@"breadcrumbNewSession - Error: %@", error.description);
             if(completion) completion(nil, error);
         }
         else
@@ -947,43 +1050,15 @@ NSTimer *breadcrumbTimer;
             ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc]
                                                         initWithDic:decisionResponse];
             
-            ECSLogVerbose(@"breadcrumbsSession:: Value of sessionID is: %@", [journeySessionRes getSessionId]);
+            ECSLogVerbose(@"breadcrumbNewSession - Value of sessionID is: %@", [journeySessionRes getSessionId]);
             
             // Set the global sessionId
             self.sessionID = [journeySessionRes getSessionId];
+            sessionManager.breadcrumbSessionID = self.sessionID;
+            
             if(completion) completion(self.sessionID, nil);
         }
     }];
-}
-
-/**
- Set the debug level.
-     0 - None
-     1 - Error
-     2 - Warning
-     3 - Debug
-     4 - Verbose
- */
--(NSString *)journeyID {
-    return self.urlSession.journeyID;
-}
--(void)setJourneyID:(NSString *)theJourneyID {
-    self.urlSession.journeyID = theJourneyID; 
-}
-
-- (void)setDebugLevel:(int)logLevel {
-    NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
-    ECSLogSetLogLevel(logLevel);
-}
-
--(NSString *)getTimeStampMessage
-{
-	 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	 dateFormatter.dateFormat = @"h:mm a";
-	 NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-	 [dateFormatter setTimeZone:gmt];
-	 NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
-	 return timeStamp;
 }
 
 

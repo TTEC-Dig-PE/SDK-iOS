@@ -328,3 +328,10 @@
 
 /* Erreur de profil */
 "ECSLocalizeProfileError" = "Il y avait une erreur de créer votre profil S'il vous plaît remplir tous les champs et essayez à nouveau..";
+
+/* No agents available */
+"ECSLocalizeNoAgents" = "Aucun des agents disponibles.";
+
+/* Channel Timeout Warning */
+"ECSChannelTimeoutWarning" = "Votre discussion expirera dans %d secondes d'inactivité.";
+

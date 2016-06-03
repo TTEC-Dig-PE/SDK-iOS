@@ -245,10 +245,17 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 [super viewDidLoad];
 	 
 	 self.navigationItem.title = @"AdHoc";
+    
+    // This means we have not fetched data from server yet.
+    chatAgentsLoggedOn = -1;
+    videoChatAgentsLoggedOn = -1;
+    callbackAgentsLoggedOn = -1;
 	 
 	 ECSTheme *theme = [[EXPERTconnect shared] theme];
 	 
 	 self.locationManager = [[CLLocationManager alloc] init];
+    
+    [self checkAndUpdateLocaleOverride];
 	 
 	 // In our demo app, we will only use GPS while the app is in the foreground
 	 [self.locationManager requestWhenInUseAuthorization];
@@ -848,7 +855,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocChat:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
-			   if (chatEstimatedWait>-1) {
+			   if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -856,7 +863,9 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 chatAgentsLoggedOn];
-			   } else {
+			   } else if(chatAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
+               } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }
 		  }
@@ -864,7 +873,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocVideoChat:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
-			   if (videoChatEstimatedWait>-1) {
+			   if (videoChatEstimatedWait>-1 && videoChatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -872,6 +881,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 videoChatAgentsLoggedOn];
+               } else if(videoChatAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
 			   } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }
@@ -901,7 +912,7 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocVoiceCallback:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartVoiceCallbackHeader, @"AdHoc Voice Callback");
-			   if (callbackEstimatedWait>-1) {
+			   if (callbackEstimatedWait>-1 && callbackAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -909,6 +920,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
 							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
 							 callbackAgentsLoggedOn];
+               } else if(callbackAgentsLoggedOn == -1){
+                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
 			   } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
 			   }
@@ -1167,6 +1180,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 {
 	 NSLog(@"Starting an ad-hoc Answer Engine Session");
 	 
+    [self checkAndUpdateLocaleOverride];
+    
 	 NSString *aeContext = [self.selectAdHocAnswerEngineContextPicker currentSelection];
 	 
 	 [self localBreadCrumb:@"Answer Engine started"
@@ -1183,6 +1198,8 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 {
 	 NSLog(@"Starting an ad-hoc Video Chat Session");
 	 
+    [self checkAndUpdateLocaleOverride];
+    
 	 NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
 	 
 	 [self localBreadCrumb:@"Video chat started"
@@ -1320,6 +1337,18 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 
 	 ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
 	 [self.navigationController pushViewController:license animated:YES];
+}
+
+#pragma mark Helper Functions
+
+-(void)checkAndUpdateLocaleOverride
+{
+    // Do a locale override if the settings have been modified.
+    NSString *localeOverride = [[NSUserDefaults standardUserDefaults] objectForKey:@"localeOverride"];
+    if( localeOverride )
+    {
+        [[EXPERTconnect shared] overrideDeviceLocale:localeOverride];
+    }
 }
 
 @end

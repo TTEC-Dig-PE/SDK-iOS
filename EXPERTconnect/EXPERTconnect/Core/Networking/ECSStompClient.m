@@ -31,11 +31,6 @@ static NSString * const kStompMessage = @"MESSAGE";
 static NSString * const kStompReceipt = @"RECEIPT";
 static NSString * const kStompError = @"ERROR";
 
-NSString *authToken; // Local stored copy of the authToken.
-
-int         _clientHeartbeatInterval;
-NSTimer *   _clientHeartbeatTimer;
-
 @implementation ECSStompFrame
 
 - (instancetype)init
@@ -44,8 +39,6 @@ NSTimer *   _clientHeartbeatTimer;
     if (self)
     {
         self.headers = [NSMutableDictionary new];
-        _clientHeartbeatInterval = 0;
-        _clientHeartbeatTimer = nil;
     }
     
     return self;
@@ -58,16 +51,31 @@ NSTimer *   _clientHeartbeatTimer;
 
 @end
 
+@interface HeartBeatTimerTarget : NSObject
+@property (weak, nonatomic) id realTarget;
+@end
+
+@implementation HeartBeatTimerTarget
+-(void)doStompHeartbeat:(NSTimer *)theTimer
+{
+    [self.realTarget performSelector:@selector(doStompHeartbeat:) withObject:theTimer];
+}
+@end
+
 @interface ECSStompClient() <ECSWebSocketDelegate>
 
 @property (strong, nonatomic) ECSWebSocket *webSocket;
 @property (strong, nonatomic) NSURL *hostURL;
-
 @property (strong, nonatomic) NSMutableDictionary *subscribers;
 
 @end
 
 @implementation ECSStompClient
+
+int         _clientHeartbeatInterval;
+int         _clientHeartbeatsMissed;
+
+@synthesize authToken;
 
 - (instancetype)init
 {
@@ -76,6 +84,9 @@ NSTimer *   _clientHeartbeatTimer;
     {
         self.subscribers = [NSMutableDictionary new];
         authToken = @"";
+        _clientHeartbeatInterval = 0;
+        _clientHeartbeatsMissed = 0;
+        self.connected = NO;
     }
     
     return self;
@@ -83,14 +94,30 @@ NSTimer *   _clientHeartbeatTimer;
 
 - (void)dealloc
 {
-    [_clientHeartbeatTimer invalidate]; 
+    [self.heartbeatTimer invalidate];
+
     [self.subscribers removeAllObjects];
 }
 
 - (void)connectToHost:(NSString*)host
 {
     self.hostURL = [NSURL URLWithString:host];
-    self.webSocket = [[ECSWebSocket alloc] initWithURL:self.hostURL];
+    NSURL *url = self.hostURL;
+    
+    if(self.authToken)
+    {
+        NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
+        NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
+                               [self.hostURL query] ? @"&" : @"?", queryString];
+        
+        
+        
+        url = [NSURL URLWithString:URLString];
+    }
+    
+    ECSLogVerbose(@"StompClient::connectToHost: Connecting to %@...", self.hostURL);
+    
+    self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
 }
@@ -99,19 +126,20 @@ NSTimer *   _clientHeartbeatTimer;
 {
     if (self.hostURL)
     {
-        self.webSocket = [[ECSWebSocket alloc] initWithURL:self.hostURL];
-        self.webSocket.delegate = self;
-        [self.webSocket open];
+        ECSLogVerbose(@"StompClient: reconnecting to host %@", self.hostURL);
+        [self connectToHost:[self.hostURL absoluteString]];
     }
 }
+
 - (void)sendConnectToHost:(NSString*)host
 {
     NSAssert(host, @"Host must not be nil");
+    ECSLogVerbose(@"StompClient: connecting to host %@", host);
     
     NSDictionary *headers = @{
                               @"accept-version": kStompVersion,
                               @"host": host,
-                              //@"heart-beat": @"5000,5000"
+                              @"heart-beat": @"20000,20000"
                               };
     self.connected = NO;
     [self sendCommand:kStompConnect withHeaders:headers andBody:nil];
@@ -119,12 +147,16 @@ NSTimer *   _clientHeartbeatTimer;
 
 - (void)disconnect
 {
-    [_clientHeartbeatTimer invalidate];
+    ECSLogVerbose(@"StompClient::disconnect called.");
+    
+    [self.heartbeatTimer invalidate];
+    
     self.connected = NO;
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
-- (void)setAuthToken:(NSString *)token {
+- (void)setAuthToken:(NSString *)token
+{
     authToken = token;
 }
 
@@ -132,6 +164,8 @@ NSTimer *   _clientHeartbeatTimer;
             withSubscriptionID:(NSString*)subscriptionID
                     subscriber:(__weak id<ECSStompDelegate>)subscriber
 {
+    ECSLogVerbose(@"StompClient::subscribing to ID: %@", subscriptionID);
+    
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
     headers[@"id"] = subscriptionID;
     headers[@"destination"] = destination;
@@ -148,6 +182,8 @@ NSTimer *   _clientHeartbeatTimer;
 
 - (void)unsubscribe:(NSString*)subscriptionID
 {
+    ECSLogVerbose(@"StompClient::unsubscribing from ID: %@", subscriptionID);
+    
     NSDictionary *headers = @{
                               @"id": subscriptionID,
                               };
@@ -273,6 +309,11 @@ NSTimer *   _clientHeartbeatTimer;
         ECSLogError(@"Attempting to reconnect STOMP connection...");
         [self reconnect];
     }
+    else
+    {
+        self.connected = NO;
+        [self.delegate stompClient:self didFailWithError:error];
+    }
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceiveMessage:(id)message
@@ -282,7 +323,6 @@ NSTimer *   _clientHeartbeatTimer;
     
     ECSLogVerbose(@"Frame is: %@", frame);
     
-    // TODO: Commented out until 5.3!!!
     // Check for, and update heart-beat if applicable
     if (frame.headers && frame.headers[@"heart-beat"]) {
         [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
@@ -299,6 +339,22 @@ NSTimer *   _clientHeartbeatTimer;
     else if ([frame.command isEqualToString:kStompMessage])
     {
         [self processMessageFrame:frame];
+    }
+    else if ([frame.command isEqualToString:kStompError])
+    {
+        if(frame.headers.count>0 && frame.headers[@"message"])
+        {
+            NSError *newError = [NSError errorWithDomain:@"com.humanify"
+                                                    code:1049
+                                                userInfo:@{@"description": frame.headers[@"message"]}];
+            [self.delegate stompClient:self didFailWithError:newError];
+        }
+    }
+    else if (frame.command.length == 0 && frame.headers.count == 0)
+    {
+        // Pong
+        ECSLogVerbose(@"Stomp PONG arrived from server. Resetting miss count.");
+        _clientHeartbeatsMissed = 0;
     }
 }
 
@@ -437,24 +493,52 @@ NSTimer *   _clientHeartbeatTimer;
     // If server indicates it wants a heartbeat. Fire up the timer!
     if (_clientHeartbeatInterval > 0)
     {
-        if(_clientHeartbeatTimer)
+        if( self.heartbeatTimer )
         {
-            [_clientHeartbeatTimer invalidate];
+            [self.heartbeatTimer invalidate];
+            self.heartbeatTimer = nil;
         }
-        _clientHeartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
-                                                                 target:self
+
+        HeartBeatTimerTarget *timerTarget = [[HeartBeatTimerTarget alloc] init];
+        timerTarget.realTarget = self;
+        self.heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
+                                                                 target:timerTarget
                                                                selector:@selector(doStompHeartbeat:)
                                                                userInfo:nil
-                                                                repeats:YES];
+                                                                repeats:NO];
     }
 }
 
 -(void)doStompHeartbeat:(NSTimer *)timer
 {
-    // Send a simple PING packet.
-    if (self.webSocket.readyState == ECS_OPEN)
+    ECSLogVerbose(@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
+    
+    if( _clientHeartbeatsMissed >= 3 )
     {
-        [self.webSocket sendPing:nil];
+        ECSLogVerbose(@"doStompHeartbeat: server missed 3 heartbeats. Considering connection dead.");
+        self.connected = NO;
+        [self.delegate stompClientDidDisconnect:self];
+    }
+    else if (self.webSocket.readyState == ECS_OPEN && self.connected && self.heartbeatTimer != nil)
+    {
+        _clientHeartbeatsMissed++;
+        ECSLogVerbose(@"doStompHeartbeat: Connection good. Sending. (Pinging again in %d)", _clientHeartbeatInterval);
+        NSData *pingData = [[NSData alloc] initWithBytes:(unsigned char[]){0x0A} length:1];
+        [self.webSocket sendPing:pingData];
+        
+        HeartBeatTimerTarget *timerTarget = [[HeartBeatTimerTarget alloc] init];
+        timerTarget.realTarget = self;
+        self.heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
+                                                                 target:timerTarget
+                                                               selector:@selector(doStompHeartbeat:)
+                                                               userInfo:nil
+                                                                repeats:NO];
+    }
+    else
+    {
+        // Let delegates know that we disconnected.
+        [self.delegate stompClientDidDisconnect:self];
+        ECSLogVerbose(@"doStompHeartbeat: No heartbeat because Stomp not connected.");
     }
 }
 

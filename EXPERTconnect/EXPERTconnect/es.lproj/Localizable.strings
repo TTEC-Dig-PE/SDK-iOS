@@ -196,7 +196,7 @@
 
 /* Toque para */
 
-/* Desconectado */
+/* Google Translate says: You have been disconnected from chat */
 "ECSLocalizeChatDisconnected" = "Has sido desconectado de la charla";
 
 /* Mantente conectado */
@@ -240,7 +240,7 @@
 "ECSLocalizeRequestSMSText" = "Introduzca su número de teléfono para recibir un SMS:";
 
 /* Se pueden aplicar tarifas de voz y de datos Carrier */
-"Se pueden aplicar tarifas de voz y datos del portador." = "ECSLocalizeRequestSMSDisclaimerText";
+"ECSLocalizeRequestSMSDisclaimerText" = "Se pueden aplicar tarifas de voz y datos del portador.";
 
 /* Nos lo llamemos. */
 "ECSLocalizeCallCancelTitle" = "Llamaremos a usted.";
@@ -328,4 +328,10 @@
 
 /* Perfil de error */
 "ECSLocalizeProfileError" = "Se ha producido un error al crear su perfil ¡Por favor rellene todos los campos y vuelva a intentarlo..";
+
+/* No agents available */
+"ECSLocalizeNoAgents" = "No hay agentes disponibles.";
+
+/* Channel Timeout Warning */
+"ECSChannelTimeoutWarning" = "Su charla será el tiempo de espera en %d segundos debido a la inactividad.";
 

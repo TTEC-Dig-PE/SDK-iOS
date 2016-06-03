@@ -65,6 +65,12 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (copy, nonatomic) NSString *journeyID;
 
+@property (nonatomic, strong) NSString *breadcrumbSessionID;
+
+@property (nonatomic, strong) NSString *pushNotificationID;
+
+@property (nonatomic, strong) NSString *localLocale;
+
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
 
@@ -282,6 +288,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 #pragma mark - ConversationEngine
 
+- (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion;
+
 /**
  Starts a new conversation and call the callback once the new conversation is complete.  
  This call also stores the journey ID for future use in other API calls.
@@ -429,6 +438,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  @return (completion block) ECSAgentAvailableResponse object
  */
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+- (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 #pragma mark Journey Management

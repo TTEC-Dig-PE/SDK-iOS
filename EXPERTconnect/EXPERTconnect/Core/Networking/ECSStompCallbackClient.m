@@ -80,6 +80,8 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         self.agentInteractionCount = 0;
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+        
+        //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
         
     }
@@ -112,7 +114,7 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     [self.stompClient setAuthToken:sessionManager.authToken];
     
     NSString *hostName = [[NSURL URLWithString:host] host];
-    NSString *bearerToken = sessionManager.authToken;
+    //NSString *bearerToken = sessionManager.authToken;
     NSNumber *port = [[NSURL URLWithString:host] port];
     
     if (port)
@@ -122,14 +124,16 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     
     // Use secure STOMP (wss) if the host is using HTTPS
     NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
-    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async?access_token=%@", stompProtocol, hostName, bearerToken];
-    
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
 }
 
 - (void)reconnect
 {
     self.isReconnecting = YES;
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient reconnect];
 }
 
@@ -312,9 +316,9 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
         // before calling disconnect.
         else if ((message.channelState == ECSChannelStateDisconnected) &&
                  [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:)])
+                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
         {
-            [self.delegate chatClientDisconnected:self];
+            [self.delegate chatClientDisconnected:self wasGraceful:YES];
         }
     }
     else

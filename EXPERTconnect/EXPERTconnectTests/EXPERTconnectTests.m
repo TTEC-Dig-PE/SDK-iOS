@@ -39,15 +39,19 @@ NSString *_testTenant;
     //configuration.clientID      = @"mktwebextc";
     //configuration.clientSecret  = @"secret123";
     
-    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
-    //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
-    
     if(!_testTenant) _testTenant = @"mktwebextc";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
-                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                     @"expertconnect_unit_test",
-                     _testTenant]];
+                    [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                        configuration.host,
+                        @"expertconnect_unit_test",
+                        _testTenant]];
+    
+    [[EXPERTconnect shared] initializeWithConfiguration:configuration];
+    //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+    
+
+    
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
     [[EXPERTconnect shared] setDebugLevel:5];
@@ -65,7 +69,7 @@ NSString *_testTenant;
          
          if(!error && (statusCode == 200 || statusCode == 201))
          {
-             NSLog(@"Successfully fetched authToken: %@", returnToken);
+             //NSLog(@"Successfully fetched authToken: %@", returnToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else
@@ -171,7 +175,7 @@ NSString *_testTenant;
     [myEC startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
         NSLog(@"Journey created.");
         
-        [myEC getDetailsForSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
+        [myEC getDetailsForExpertSkill:@"CE_Mobile_Chat" completion:^(ECSSkillDetail *detail, NSError *error) {
             // was journeyID in the header?
             
             [expectation fulfill];
@@ -210,7 +214,8 @@ NSString *_testTenant;
     XCTestExpectation *expectation = [self expectationWithDescription:@"journeyid"];
     
     // Start the first journey
-    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err) {
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *err)
+    {
         NSLog(@"Test journeyID 1 is %@", journeyID);
         XCTAssert(journeyID.length > 0, @"JourneyID string length was 0.");
         //XCTAssert([journeyID containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
@@ -218,7 +223,8 @@ NSString *_testTenant;
         XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
         
         // Start a second journey
-        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID2, NSError *err2) {
+        [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID2, NSError *err2)
+        {
             NSLog(@"Test journeyID 2 is %@", journeyID2);
             XCTAssert(journeyID2.length > 0, @"JourneyID string length was 0.");
             //XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
@@ -410,14 +416,14 @@ NSString *_testTenant;
     XCTAssert([journeyFromProperties isEqualToString:@"testJourneyId"],@"Properties array not built correctly.");
 }
 
-- (void)testGetDetailsForSkill {
+- (void)testGetDetailsForExpertSkill {
     
     [self initSDK];
     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
     
     NSString *skillName = @"CE_Mobile_Chat";
     
-    [[EXPERTconnect shared] getDetailsForSkill:skillName
+    [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                     completion:^(ECSSkillDetail *details, NSError *error)
     {
         NSLog(@"Details: %@", details);
@@ -429,6 +435,79 @@ NSString *_testTenant;
         
         [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
+/**
+ {
+     "chatEnabledAgentsLoggedOn": 0,
+     "estimatedWait": -1,
+     "inQueue": 0,
+     "escalationVoiceAvailability": 0,
+     "escalationChatAvailability": 0,
+     "voiceAvailability": 0,
+     "chatAvailability": 0,
+     "escalationSkill": null,
+     "escalationAgentsLoggedOn": 0,
+     "connectedToAgent": 0,
+     "escalationSkillOpen": false,
+     "escalationChatEnabledAgentsLoggedOn": 0,
+     "tenant": "ce03_ops",
+     "skillName": "CE_Mobile_Chat",
+     "agentsLoggedOn": 0,
+     "open": true,
+     "_links": {
+         "self": {
+            "href": "https:\/\/api.ce03.humanify.com\/conversationengine\/v1\/skills\/CE_Mobile_Chat"
+         }
+     }
+ }
+ */
+- (void)testGetDetailsForSkill {
+    
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+    
+    NSString *skillName = @"CE_Mobile_Chat";
+    
+    // Should throw a deprecation warning but still work against 5.3 and later (until officially deprecated).
+    [[EXPERTconnect shared] getDetailsForSkill:skillName
+                                          completion:^(NSDictionary *details, NSError *error)
+     {
+         NSLog(@"Details: %@", details);
+         if(error)
+         {
+             XCTFail(@"Error reported: %@", error.description);
+         }
+         else
+         {
+             XCTAssert(details[@"chatEnabledAgentsLoggedOn"],@"Missing chatEnabledAgentsLoggedOn field.");
+             XCTAssert(details[@"estimatedWait"],@"Missing estimatedWait field.");
+             XCTAssert(details[@"inQueue"],@"Missing inQueue field.");
+             XCTAssert(details[@"escalationVoiceAvailability"],@"Missing escalationVoiceAvailability field.");
+             XCTAssert(details[@"escalationChatAvailability"],@"Missing escalationChatAvailability field.");
+             XCTAssert(details[@"voiceAvailability"],@"Missing voiceAvailability field.");
+             XCTAssert(details[@"chatAvailability"],@"Missing chatAvailability field.");
+             XCTAssert(details[@"escalationSkill"],@"Missing escalationSkill field.");
+             XCTAssert(details[@"escalationAgentsLoggedOn"],@"Missing escalationAgentsLoggedOn field.");
+             XCTAssert(details[@"connectedToAgent"],@"Missing connectedToAgent field.");
+             XCTAssert(details[@"escalationSkillOpen"],@"Missing escalationSkillOpen field.");
+             XCTAssert(details[@"escalationChatEnabledAgentsLoggedOn"],@"Missing escalationChatEnabledAgentsLoggedOn field.");
+             XCTAssert(details[@"tenant"],@"Missing tenant field.");
+             XCTAssert(details[@"skillName"],@"Missing skillName field.");
+             XCTAssert(details[@"agentsLoggedOn"],@"Missing agentsLoggedOn field.");
+             XCTAssert(details[@"open"],@"Missing open field.");
+             XCTAssert(details[@"_links"],@"Missing _links field.");
+             
+             XCTAssert([details[@"skillName"] isEqualToString:skillName], @"skillName does not match.");
+         }
+         [expectation fulfill];
+     }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
@@ -450,7 +529,7 @@ NSString *_testTenant;
     [session getExpertsWithInteractionItems:nil
                                  completion:^(NSArray *experts, NSError *error)
     {
-        NSLog(@"Experts Array: %@", experts);
+        //NSLog(@"Experts Array: %@", experts);
         XCTAssert(experts.count && experts.count>0,@"No experts returned.");
         if(experts.count && experts.count>0)
         {
@@ -488,7 +567,7 @@ NSString *_testTenant;
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
     {
-        NSLog(@"Response=%@", response);
+        //NSLog(@"Response=%@", response);
         XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
         XCTAssert(response.inquiryId>0,@"Response has inquiryID");
         [expectation fulfill];

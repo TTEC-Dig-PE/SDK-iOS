@@ -48,7 +48,7 @@
  
  @param stompClient the chat client that had an agent disconnect
  */
-- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient;
+- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient wasGraceful:(bool)graceful;
 
 /**
  Called when a chat client fails to connect to the chat server.

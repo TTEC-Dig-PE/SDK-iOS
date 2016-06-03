@@ -44,6 +44,7 @@
 #import <EXPERTconnect/ECSRootViewController+Navigation.h>
 #import <EXPERTconnect/ECSWebViewController.h>
 
+#import  "EXPERTconnect/ECSRatingView.h"
 //#import <EXPERTconnect/ECSBinaryRating.h>
 //#import <EXPERTconnect/ECSBinaryImageView.h>
 #import <EXPERTconnect/ECSCalendar.h>
@@ -51,6 +52,7 @@
 
 // Core Networking
 
+#import <EXPERTconnect/ECSStompClient.h>
 #import <EXPERTconnect/ECSStompChatClient.h>
 #import <EXPERTconnect/ECSStompCallbackClient.h>
 #import <EXPERTconnect/ECSChannelStateMessage.h>
@@ -125,12 +127,15 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
+@property (copy, nonatomic) NSString *pushNotificationID; 
 @property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 @property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;
 
 + (instancetype)shared;
+
+#pragma mark SDK Functions
 
 /**
  Initializes the Humanify SDK components with the given configuration. Refer to Humanify documentation
@@ -346,11 +351,30 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
                   delgate:(id <ECSWorkflowDelegate>)workflowDelegate
            viewController:(UIViewController *)viewController;
 
+
 /**
  Get details for a skill - such as agent availability, etc.
  */
+- (void) agentAvailabilityWithSkill:(NSString *)skill
+                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+
 - (void) getDetailsForSkill:(NSString *)skill
+                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+
+/**
+ Get details for a skill - such as agent availability, etc.
+ */
+- (void) getDetailsForExpertSkill:(NSString *)skill
                  completion:(void(^)(ECSSkillDetail *details, NSError *error))completion;
+
+
+/**
+ Overwrite the device locale. The format is a locale string (ex: fr_CA)
+ */
+- (void) overrideDeviceLocale:(NSString *)localeString;
+- (NSString *) overrideDeviceLocale;
 
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had

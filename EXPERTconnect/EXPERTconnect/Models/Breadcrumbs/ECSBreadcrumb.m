@@ -15,6 +15,7 @@ static NSString* PROPERTY_USERID         = @"userId";
 static NSString* PROPERTY_TENANTID       = @"tenantId";
 static NSString* PROPERTY_JOURNEYID      = @"journeyId";
 static NSString* PROPERTY_SESSIONID      = @"sessionId";
+static NSString* PROPERTY_PUSHNOTIFICATIONID = @"pushNotificationId";
 static NSString* PROPERTY_ACTIONTYPE     = @"actionType";
 static NSString* PROPERTY_ACTIONDESC     = @"actionDescription";
 static NSString* PROPERTY_ACTIONSOURCE   = @"actionSource";
@@ -120,6 +121,15 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 
 - (NSString *)sessionId {
     return self.properties[PROPERTY_SESSIONID];
+}
+
+/* Push Notification ID */
+- (void)setPushNotificationId:(NSString *)pushNotificationId {
+    [self.properties setObject:(pushNotificationId ? pushNotificationId : @"") forKey:PROPERTY_PUSHNOTIFICATIONID];
+}
+
+- (NSString *)pushNotificationId {
+    return self.properties[PROPERTY_PUSHNOTIFICATIONID];
 }
 
 /* Action Type */
