@@ -14,5 +14,6 @@
 @interface ECDAdHocViewController : ECSRootViewController <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) UIViewController *chatController;
 
 @end
