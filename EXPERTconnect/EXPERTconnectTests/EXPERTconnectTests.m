@@ -229,7 +229,7 @@ NSString *_testTenant;
             XCTAssert(journeyID2.length > 0, @"JourneyID string length was 0.");
             //XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
             XCTAssert([journeyID2 containsString:@"journey"], @"JourneyID did not contain the word journey");
-            XCTAssertFalse([journeyID2 isEqualToString:journeyID]);
+            XCTAssertFalse([journeyID2 isEqualToString:journeyID], @"Second journey call returned same journey as first.");
             
             XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
             
@@ -572,6 +572,62 @@ NSString *_testTenant;
         XCTAssert(response.inquiryId>0,@"Response has inquiryID");
         [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+    
+}
+
+- (void)testErrorGettingAnswer {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    [sessionManager getAnswerForQuestion:@"asdf"
+                               inContext:@"asdf"
+                         parentNavigator:@""
+                                actionId:@""
+                           questionCount:1
+                              customData:nil
+                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         //NSLog(@"Response=%@", response);
+         XCTAssert(!error,@"API call returned error.");
+         if(error)NSLog(@"Error=%@", error);
+         //XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
+         //XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+    
+}
+
+- (void)testErrorGettingForm {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    [sessionManager getFormByName:@"not_real" withCompletion:^(ECSForm *form, NSError *error)
+     {
+         //NSLog(@"Response=%@", response);
+         XCTAssert(!error,@"API call returned error.");
+         if(error)NSLog(@"Error=%@", error);
+         //XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
+         //XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+         [expectation fulfill];
+     }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {

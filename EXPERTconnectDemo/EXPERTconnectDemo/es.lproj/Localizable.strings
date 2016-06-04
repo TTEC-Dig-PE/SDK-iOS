@@ -51,7 +51,9 @@
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Perfil se actualiza";
 
-"ECDLocalizedStartChatLabel" = "Chat";
+/* Start Chat */
+"ECDLocalizedStartChatLabel" = "Comenzar Chat";
+"ECDLocalizedContinueChatLabel" = "Continuar el Chat";
 
 "ECDLocalizedStartVideoChatLabel" = "Chat de video";
 

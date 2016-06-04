@@ -178,6 +178,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                  name:ECSEndChatNotification
                                                object:nil];
     
+    // If host app sends this notification, we will end the chat (no dialog).
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(exitChatButtonTapped:)
+                                                 name:ECSEndChatWithDialogNotification
+                                               object:nil];
+    
     // View Setup Functions
     [self registerForKeyboardNotifications];    // Keyboard observers
     [self configureNavigationBar];              // Show back button if nav bar present.
@@ -212,7 +218,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     self.navigationItem.title = self.actionType.displayName;
     
-    if ([[self.navigationController viewControllers] count] > 1)
+    if ([[self.navigationController viewControllers] count] > 1 && !self.navigationItem.leftBarButtonItem)
     {
         // Configure the "back" button on the nav bar
         ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];

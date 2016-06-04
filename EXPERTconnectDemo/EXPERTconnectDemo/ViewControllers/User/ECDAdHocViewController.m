@@ -239,6 +239,8 @@ int chatAgentsLoggedOn,videoChatAgentsLoggedOn,callbackAgentsLoggedOn;
 bool chatAgentAvailable,videoChatAgentAvailable,callbackAgentAvailable;
 int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
+bool _chatActive;
+
 @implementation ECDAdHocViewController
 
 - (void)viewDidLoad {
@@ -494,7 +496,12 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 		  case SettingsSectionAdHocChat:
 			   switch (indexPath.row) {
 					case AdHocChatSectionRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"AdHoc Chat");
+                       if(_chatActive && self.chatController) {
+                           cell.textLabel.text = ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat");
+                       } else {
+                           cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat");
+                       }
+						 
 						 if (chatAgentsLoggedOn) {
 							  cell.textLabel.text = [NSString stringWithFormat:@"%@",
 													 cell.textLabel.text];
@@ -1098,7 +1105,9 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 	 
 	 // If uncommented, this will hide chat when agent ends it.
 	 //[self.navigationController popToViewController:self animated:YES];
-	 NSLog(@"Chat ended!");
+    _chatActive = NO;
+    NSLog(@"Chat ended!");
+    [self.tableView reloadData]; // show the start chat title
 }
 
 - (void)chatMessageReceived:(NSNotification *)notification {
@@ -1145,20 +1154,49 @@ int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 								 [[NSLocale preferredLanguages] objectAtIndex:0],
 								 [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]];
 	 
-	 UIViewController *chatController = [[EXPERTconnect shared] startChat:chatSkill
-														  withDisplayName:@"Chat"
-															   withSurvey:NO
-													   withChannelOptions:@{@"language": languageLocale, @"department": @"rental"}];
-	 
-	 [self.navigationController pushViewController:chatController animated:YES];
-	 
-	 
-	 // Enable this to test the "end chat" notification.
-	 //[self performSelector:@selector(endChatAfterTime:) withObject:nil afterDelay:30]; // End chat after 30 seconds for test.
+    // Create the chat view
+    if( !self.chatController || !_chatActive )
+    {
+        self.chatController = [[EXPERTconnect shared] startChat:chatSkill
+                                                withDisplayName:@"Chat"
+                                                     withSurvey:NO
+                                             withChannelOptions:@{@"language": languageLocale, @"department": @"rental"}];
+        
+        // Add our custom left bar button
+        self.chatController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                                           style:UIBarButtonItemStylePlain
+                                                                                          target:self
+                                                                                          action:@selector(backPushed:)];
+        
+        // Add our custom right bar button.
+        self.chatController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"End Chat"
+                                                                                            style:UIBarButtonItemStylePlain
+                                                                                           target:self
+                                                                                           action:@selector(endchatPushed:)];
+        
+        _chatActive = YES;
+        [self.tableView reloadData]; // make it show continue chat
+    }
+    
+    // Push it onto our navigation stack (so back buttons will work)
+    [self.navigationController pushViewController:self.chatController animated:YES];
 	 
 }
--(void)endChatAfterTime:(NSNotification *)notification {
-	 [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
+
+// User pressed our custom back button
+-(void)backPushed:(id)sender
+{
+    NSLog(@"Going back...");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// User pressed our custom End Chat button.
+-(void)endchatPushed:(id)sender
+{
+    NSLog(@"Ending chat...");
+    
+    // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatWithDialogNotification" object:nil];
 }
 
 -(void)handleAdHocVoiceCallback

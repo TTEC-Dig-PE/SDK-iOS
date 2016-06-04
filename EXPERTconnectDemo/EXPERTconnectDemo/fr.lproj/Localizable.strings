@@ -55,3 +55,7 @@
 "ECDLocalizedWaitString" = "attendez";
 "ECDLocalizedMinuteString" = "mins";
 "ECDLocalizedAgentString" = "Agents";
+
+/* Start Chat */
+"ECDLocalizedStartChatLabel" = "démarrer la chat";
+"ECDLocalizedContinueChatLabel" = "poursuivre le chat";
