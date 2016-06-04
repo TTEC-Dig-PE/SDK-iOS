@@ -11,6 +11,7 @@
 #import <EXPERTconnect/ECSNavigationContext.h>
 #import <EXPERTconnect/ECSAnswerEngineResponse.h>
 #import <EXPERTconnect/ECSUserProfile.h>
+#import <EXPERTconnect/ECSFormItem.h>
 
 @interface ECS_API_Tests : XCTestCase <ECSAuthenticationTokenDelegate>
 
@@ -20,6 +21,9 @@
 
 NSURL *_testAuthURL;
 NSString *_testTenant;
+NSString *_username;
+NSString *_fullname;
+NSString *_firstname;
 
 - (void)initSDK {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -36,12 +40,15 @@ NSString *_testTenant;
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
-    
+    _username = @"yasar.arafath@agiliztech.com";
+    _fullname = @"yasar yasar";
+    _firstname = @"yasar";
+	 
     if(!_testTenant) _testTenant = @"mktwebextc";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
                     [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                     @"expertconnect_unit_test",
+                     @"yasar.arafath@agiliztech.com",
                      _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
@@ -165,7 +172,6 @@ NSString *_testTenant;
     }];
 }
 
-//Get Answer Engine Top Quetions without Context
 - (void)testGetNavigationContextWithName
 {
 	 [self setUp];   // Test setup
@@ -194,7 +200,7 @@ NSString *_testTenant;
 }
 
 //Get Answer Engine Top Quetions without Context
-- (void)testgetAnswerEngineTopQuestions
+- (void)testGetAnswerEngineTopQuestions
 {
 	 [self setUp];   // Test setup
 	 [self initSDK]; // SDK setup
@@ -211,6 +217,10 @@ NSString *_testTenant;
 		   if(error)
 		   {
 				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   else
+		   {
+			   XCTAssert(answers != nil && answers.count != 0 ,@"No Questions found.");
 		   }
 		   [expectation fulfill];
 	  }];
@@ -242,6 +252,10 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else
+		   {
+				XCTAssert(answers != nil && answers.count != 0 ,@"No Questions found.");
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -271,6 +285,10 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else
+		   {
+				XCTAssert(answers != nil && answers.count != 0 ,@"No Questions found.");
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -297,6 +315,15 @@ NSString *_testTenant;
 		   if(error)
 		   {
 				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   else{
+				XCTAssert(response.suggestedQuestions.count>0,@"Not returned some suggested questions.");
+				XCTAssert(response.actions.count>0,@"Not returned some actions.");
+				XCTAssert(response.answerContent,@"Missing answerContent field.");
+				XCTAssert(response.answerId,@"Missing answerId field.");
+				XCTAssert(response.inquiryId,@"Missing inquiryId field.");
+				XCTAssert(response.requestRating > 0,@"Missing requestRating field.");
+				XCTAssert(![response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"],@"Answer not found.");
 		   }
 		   [expectation fulfill];
 	  }];
@@ -325,6 +352,15 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else{
+				XCTAssert(response.suggestedQuestions.count>0,@"Not returned some suggested questions.");
+				XCTAssert(response.actions.count>0,@"Not returned some actions.");
+				XCTAssert(response.answerContent,@"Missing answerContent field.");
+				XCTAssert(response.answerId,@"Missing answerId field.");
+				XCTAssert(response.inquiryId,@"Missing inquiryId field.");
+				XCTAssert(response.requestRating > 0,@"Missing requestRating field.");
+				XCTAssert(![response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"],@"Answer not found.");
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -352,6 +388,15 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else{
+				XCTAssert(response.suggestedQuestions.count>0,@"Not returned some suggested questions.");
+				XCTAssert(response.actions.count>0,@"Not returned some actions.");
+				XCTAssert(response.answerContent,@"Missing answerContent field.");
+				XCTAssert(response.answerId,@"Missing answerId field.");
+				XCTAssert(response.inquiryId,@"Missing inquiryId field.");
+				XCTAssert(response.requestRating > 0,@"Missing requestRating field.");
+				XCTAssert(![response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"],@"Answer not found.");
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -372,13 +417,12 @@ NSString *_testTenant;
 	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
 	 
 	 [sessionManager rateAnswerWithAnswerID:@""
-								  inquiryID:@"146485321548926"
+								  inquiryID:@"146495165541271"
 									 rating:1
 										min:-1
 										max:1
 							  questionCount:1
 								 completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
-	  
 	  {
 		   NSLog(@"Details: %@", response);
 		   
@@ -438,6 +482,12 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else
+		   {
+				//Test username and firstname fields.
+				XCTAssert([profile.username isEqualToString:_username]);
+				XCTAssert([profile.firstName isEqualToString:_firstname]);
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -482,6 +532,11 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else{
+				//Test username and firstname fields.
+				XCTAssert([profile.username isEqualToString:_username]);
+				XCTAssert([profile.firstName isEqualToString:_firstname]);
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -509,6 +564,10 @@ NSString *_testTenant;
 		   {
 				XCTFail(@"Error reported: %@", error.description);
 		   }
+		   else
+		   {
+				XCTAssert(formNames != nil && formNames.count != 0 ,@"No form names found.");
+		   }
 		   [expectation fulfill];
 	  }];
 	 
@@ -535,6 +594,23 @@ NSString *_testTenant;
 		   if(error)
 		   {
 				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   else
+		   {
+				XCTAssert(form.formData.count == 3 ,@"No form data found.");
+
+				for (ECSFormItem *formItem in form.formData)
+				{
+					 XCTAssert(formItem.treatment,@"Missing treatment field.");
+					 XCTAssert(formItem.formValue,@"Missing formValue field.");
+					 if ([formItem.treatment isEqualToString:@"email"]) {
+						  XCTAssert([formItem.formValue isEqualToString:_username]);
+					 }
+					 else if ([formItem.treatment isEqualToString:@"full name"])
+					 {
+						  XCTAssert([formItem.formValue isEqualToString:_fullname]);
+					 }
+				}
 		   }
 		   [expectation fulfill];
 	  }];
@@ -574,6 +650,38 @@ NSString *_testTenant;
 		  }
 	 }];
 }
+
+- (void)testGetMediaFileNames
+{
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testGetMediaFileNames"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 
+	 [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error) {
+		  
+		  NSLog(@"Details: %@", fileNames);
+		  
+		  if(error)
+		  {
+			   XCTFail(@"Error reported: %@", error.description);
+		  }
+		  else
+		  {
+			   XCTAssert(fileNames != nil && fileNames.count != 0 ,@"No media file names found.");
+		  }
+		  [expectation fulfill];
+	 }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
+}
+
 
 -(void)testNetworkReachable {
     ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
