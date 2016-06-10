@@ -410,9 +410,24 @@ __attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpert
 
 #pragma mark Breadcrumb Functions
 
+/**
+ Send one breadcrumb and allow for a completion handler. The response could potentially include
+ further actions for the host app or SDK to take.
+ */
 - (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
             withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion;
 
+/**
+ Add a breadcrumb to the bulk queue. No completion handler so no synchronous actions can be 
+ returned for a bulk breadcrumb. These will send to the server when the cache time or cache count
+ is exceeded.
+ */
+- (void) breadcrumbQueueBulk:(ECSBreadcrumb *)theBreadcrumb;
+
+/**
+ Functionally equivalent to "breadcrumbQueueBulk" with different parameters. May be deprecated in the future. 
+ Advised to use "breadcrumbQueueBulk" instead. 
+ */
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
