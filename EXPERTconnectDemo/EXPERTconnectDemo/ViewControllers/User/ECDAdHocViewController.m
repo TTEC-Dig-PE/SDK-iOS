@@ -28,6 +28,8 @@
 #import "ECDTextEditorViewController.h"
 #import "ECDBeaconViewController.h"
 
+#import "ECDChatConfigVC.h"
+
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 
@@ -496,17 +498,17 @@ bool _chatActive;
 		  case SettingsSectionAdHocChat:
 			   switch (indexPath.row) {
 					case AdHocChatSectionRowStart:
-                       if(_chatActive && self.chatController) {
-                           cell.textLabel.text = ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat");
-                       } else {
+                       //if(_chatActive && self.chatController) {
+                       //    cell.textLabel.text = ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat");
+                       //} else {
                            cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat");
-                       }
+                       //}
 						 
-						 if (chatAgentsLoggedOn) {
-							  cell.textLabel.text = [NSString stringWithFormat:@"%@",
-													 cell.textLabel.text];
-						 }
-						 cell.accessoryView = self.selectAdHocChatPicker;
+						 //if (chatAgentsLoggedOn) {
+						//	  cell.textLabel.text = [NSString stringWithFormat:@"%@",
+						//							 cell.textLabel.text];
+						 //}
+						 //cell.accessoryView = self.selectAdHocChatPicker;
 						 break;
 					default:
 						 break;
@@ -862,7 +864,7 @@ bool _chatActive;
 		  case SettingsSectionAdHocChat:
 		  {
 			   title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
-			   if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
+			   /*if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
 							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
@@ -874,7 +876,7 @@ bool _chatActive;
                    title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
                } else {
 					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
-			   }
+			   }*/
 		  }
 			   break;
 		  case SettingsSectionAdHocVideoChat:
@@ -1151,7 +1153,7 @@ bool _chatActive;
 
 -(void)handleAdHocStartChat
 {
-	 NSLog(@"Starting an ad-hoc Chat Session");
+	 /*NSLog(@"Starting an ad-hoc Chat Session");
 	 
 	 NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
@@ -1187,7 +1189,10 @@ bool _chatActive;
     }
     
     // Push it onto our navigation stack (so back buttons will work)
-    [self.navigationController pushViewController:self.chatController animated:YES];
+    [self.navigationController pushViewController:self.chatController animated:YES];*/
+    
+    ECDChatConfigVC *chatconfig = [[ECDChatConfigVC alloc] init];
+    [self.navigationController pushViewController:chatconfig animated:YES]; 
 	 
 }
 
