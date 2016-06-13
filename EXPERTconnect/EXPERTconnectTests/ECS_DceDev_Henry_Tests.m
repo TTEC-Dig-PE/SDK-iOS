@@ -54,7 +54,7 @@ NSString *_testTenant;
                      _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
     
-    [[EXPERTconnect shared] setDebugLevel:0];
+    [[EXPERTconnect shared] setDebugLevel:5];
 }
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
@@ -154,14 +154,16 @@ NSString *_testTenant;
     [self initSDK];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
-    __block int answersToWaitFor = 0;
+    //__block int answersToWaitFor = 0;
+    __block NSArray *blockAnswers;
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
     [[EXPERTconnect shared] overrideDeviceLocale:@"fr-CA"];
     
     // Simulate a type-ahead search on word "parking"
-    [sessionManager getAnswerEngineTopQuestionsForKeyword:@"NIV"
+    // Test keywords: NIV, moteur
+    [sessionManager getAnswerEngineTopQuestionsForKeyword:@"moteur"
                                       withOptionalContext:@"all"
                                                completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
@@ -169,45 +171,44 @@ NSString *_testTenant;
          XCTAssert(!error, @"Response does not contain an error");
          
          NSLog(@"Testing %lu answers...", (unsigned long)response.suggestedQuestions.count);
+         blockAnswers = response.suggestedQuestions;
          
-         for( NSString *answer in response.suggestedQuestions)
-         {
-             // Simulate asking for an answer for a specific article.
-             answersToWaitFor++;
-             NSLog(@"Fetching answer for question: %@", answer);
-             [sessionManager getAnswerForQuestion:answer
-                                        inContext:@"Park"
-                                  parentNavigator:@""
-                                         actionId:@""
-                                    questionCount:1
-                                       customData:nil
-                                       completion:^(ECSAnswerEngineResponse *response, NSError *error)
-              {
-                  NSLog(@"Response Answer=%@", response);
-                  XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"No content. (Value=%@)", response.answerContent);
-                  XCTAssert(response.inquiryId>0,@"Bad inquiryID (Value=%@)", response.inquiryId);
-                  XCTAssert(!error, @"Response contains error: %@", error.description);
-                  
-                  // Happy path finished.
-                  answersToWaitFor--;
-                  if(answersToWaitFor<=0)
-                  {
-                      NSLog(@"Finished with answer. %d remaining...", answersToWaitFor);
-                      [expectation fulfill];
-                  }
-              }];
-             
-         }
-         
-         
+         [self getAnswerAtIndex:0 inQuestions:blockAnswers withCompletion:^() {
+             [expectation fulfill];
+         }];
      }];
-
     
-    [self waitForExpectationsWithTimeout:25.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:50.0 handler:^(NSError *error) {
         if (error) {
-            XCTFail(@"Timeout error (25 seconds). Error=%@", error);
+            XCTFail(@"Timeout error (50 seconds). Error=%@", error);
         }
     }];
+}
+
+-(void) getAnswerAtIndex:(int)theIndex inQuestions:(NSArray *)questions withCompletion:(void (^)())completion {
+    
+    NSLog(@"\n\r\n\rQuestion = %@", questions[theIndex]);
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager getAnswerForQuestion:questions[theIndex]
+                               inContext:@"Park"
+                         parentNavigator:@""
+                                actionId:@""
+                           questionCount:0
+                              customData:nil
+                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         NSLog(@"Response Answer=%@", response);
+         XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"No content. (Value=%@)", response.answerContent);
+         XCTAssert(response.inquiryId>0,@"Bad inquiryID (Value=%@)", response.inquiryId);
+         XCTAssert(!error, @"Response contains error: %@", error.description);
+         
+         if(theIndex < (questions.count-1)) {
+             [self getAnswerAtIndex:(theIndex+1) inQuestions:questions withCompletion:completion];
+         } else {
+             completion();
+         }
+     }];
 }
 
 

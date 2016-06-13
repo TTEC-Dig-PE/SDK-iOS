@@ -28,6 +28,8 @@
 #import "ECDTextEditorViewController.h"
 #import "ECDBeaconViewController.h"
 
+#import "ECDChatConfigVC.h"
+
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
 
@@ -1143,7 +1145,7 @@ bool _chatActive;
 
 -(void)handleAdHocStartChat
 {
-	 NSLog(@"Starting an ad-hoc Chat Session");
+	 /*NSLog(@"Starting an ad-hoc Chat Session");
 	 
 	 NSString *chatSkill = [self.selectAdHocChatPicker currentSelection];
     
@@ -1179,7 +1181,10 @@ bool _chatActive;
     }
     
     // Push it onto our navigation stack (so back buttons will work)
-    [self.navigationController pushViewController:self.chatController animated:YES];
+    [self.navigationController pushViewController:self.chatController animated:YES];*/
+    
+    ECDChatConfigVC *chatconfig = [[ECDChatConfigVC alloc] init];
+    [self.navigationController pushViewController:chatconfig animated:YES]; 
 	 
 }
 
