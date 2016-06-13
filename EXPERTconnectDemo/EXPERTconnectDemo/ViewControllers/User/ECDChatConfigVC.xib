@@ -74,37 +74,37 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUd-pv-Ig6" userLabel="optAvatarImages">
-                            <rect key="frame" x="0.0" y="284" width="51" height="31"/>
+                            <rect key="frame" x="0.0" y="306" width="51" height="31"/>
                             <connections>
                                 <action selector="optAvatarImages_Change:" destination="-1" eventType="valueChanged" id="Y0C-CV-H21"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show avatar images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzF-x1-eqb">
-                            <rect key="frame" x="73" y="284" width="231" height="31"/>
+                            <rect key="frame" x="73" y="306" width="231" height="31"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-GE-puA" userLabel="optChatBubbles">
-                            <rect key="frame" x="0.0" y="245" width="51" height="31"/>
+                            <rect key="frame" x="0.0" y="267" width="51" height="31"/>
                             <connections>
                                 <action selector="optChatBubble_Change:" destination="-1" eventType="valueChanged" id="BUo-QD-lxd"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show chat bubbles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtM-VD-MUD">
-                            <rect key="frame" x="73" y="245" width="231" height="31"/>
+                            <rect key="frame" x="73" y="267" width="231" height="31"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ti-9ZM" userLabel="optTimestamps">
-                            <rect key="frame" x="0.0" y="206" width="51" height="31"/>
+                            <rect key="frame" x="0.0" y="228" width="51" height="31"/>
                             <connections>
                                 <action selector="optTimestamp_Change:" destination="-1" eventType="valueChanged" id="5OR-86-U4B"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show timestamps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7m-EG-jGc">
-                            <rect key="frame" x="73" y="206" width="231" height="31"/>
+                            <rect key="frame" x="73" y="228" width="231" height="31"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="31" id="RpX-Af-29Q"/>
                             </constraints>
@@ -113,13 +113,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Irw-P1-gM1" userLabel="optAvatarImages">
-                            <rect key="frame" x="0.0" y="323" width="51" height="31"/>
+                            <rect key="frame" x="0.0" y="345" width="51" height="31"/>
                             <connections>
                                 <action selector="optNavButtons_Change:" destination="-1" eventType="valueChanged" id="r6M-8L-NBA"/>
                             </connections>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use custom nav bar buttons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFE-ag-0TF">
-                            <rect key="frame" x="73" y="323" width="231" height="31"/>
+                            <rect key="frame" x="73" y="345" width="231" height="31"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -136,7 +136,7 @@
                         <constraint firstItem="i3I-ti-9ZM" firstAttribute="leading" secondItem="ufW-ne-ua5" secondAttribute="leading" id="7lE-5v-NFx"/>
                         <constraint firstItem="Irw-P1-gM1" firstAttribute="leading" secondItem="xUd-pv-Ig6" secondAttribute="leading" id="AXh-jJ-a8t"/>
                         <constraint firstItem="ufW-ne-ua5" firstAttribute="trailing" secondItem="3kM-kh-gfa" secondAttribute="trailing" id="Aqq-os-cfC"/>
-                        <constraint firstItem="i3I-ti-9ZM" firstAttribute="top" secondItem="ufW-ne-ua5" secondAttribute="bottom" constant="8" id="CII-Ti-q63"/>
+                        <constraint firstItem="i3I-ti-9ZM" firstAttribute="top" secondItem="ufW-ne-ua5" secondAttribute="bottom" constant="30" id="CII-Ti-q63"/>
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="height" secondItem="H7m-EG-jGc" secondAttribute="height" id="D79-v6-VjB"/>
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="top" secondItem="H7m-EG-jGc" secondAttribute="bottom" constant="8" id="DjH-JV-roX"/>
                         <constraint firstItem="fzF-x1-eqb" firstAttribute="height" secondItem="UtM-VD-MUD" secondAttribute="height" id="EEg-jN-3ua"/>

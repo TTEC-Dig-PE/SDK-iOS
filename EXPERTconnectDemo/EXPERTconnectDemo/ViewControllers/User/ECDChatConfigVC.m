@@ -40,7 +40,12 @@ bool _chatActive;
                                                object:nil];
     
     self.pickerChatSkill.delegate = self;
-    self.pickerChatSkill.dataSource = self; 
+    self.pickerChatSkill.dataSource = self;
+    
+    [self.btnStartChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
+    [self.btnEndChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
+    [self.btnStartChat setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+    [self.btnEndChat setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -252,6 +257,8 @@ bool _chatActive;
                                                  (data.queueOpen ? "Open" : "Closed"),
                                                  data.inQueue,
                                                  data.active]];
+         } else {
+             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
          }
      }];
 }
