@@ -178,7 +178,7 @@ NSTimer *breadcrumbTimer;
 }
 
 // Send user profile to server.
-- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager submitUserProfile:userProfile withCompletion:completion];
@@ -919,7 +919,7 @@ NSTimer *breadcrumbTimer;
              }
              else
              {
-                 completion(nil, error);
+                 if(completion) completion(nil, error);
              }
          }];
     }
@@ -954,7 +954,7 @@ NSTimer *breadcrumbTimer;
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
                                 completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
-        theCompletion(json, error); 
+        if(theCompletion) theCompletion(json, error);
     }];
 }
 

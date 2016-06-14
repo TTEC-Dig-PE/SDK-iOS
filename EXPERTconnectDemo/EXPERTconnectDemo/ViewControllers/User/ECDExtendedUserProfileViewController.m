@@ -181,7 +181,7 @@ static NSString *configFileName = @"UserProfile";
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager submitUserProfile:profile withCompletion:^(NSString *response, NSError *error)   {
+    [sessionManager submitUserProfile:profile withCompletion:^(NSDictionary *response, NSError *error)   {
         NSString *title = ECSLocalizedString(ECSLocalizeInfoKey, @"Info");
         NSString *profileMessage = ECDLocalizedString(ECDLocalizeProfileWasUpdatedKey, @"Profile was updated:");
         NSString *message = [NSString stringWithFormat:[profileMessage stringByAppendingString:@": %@"], response];
