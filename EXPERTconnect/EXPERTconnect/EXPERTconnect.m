@@ -919,7 +919,7 @@ NSTimer *breadcrumbTimer;
              }
              else
              {
-                 completion(nil, error);
+                 if(completion) completion(nil, error);
              }
          }];
     }
@@ -954,7 +954,7 @@ NSTimer *breadcrumbTimer;
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
                                 completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
-        theCompletion(json, error); 
+        if(theCompletion) theCompletion(json, error);
     }];
 }
 

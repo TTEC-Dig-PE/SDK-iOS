@@ -63,6 +63,8 @@
 		C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */; };
 		C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
+		C44388831D0B555000F42A7A /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C44388811D0B555000F42A7A /* ECDChatConfigVC.m */; };
+		C44388841D0B555000F42A7A /* ECDChatConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
@@ -252,6 +254,9 @@
 		C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCalendarViewController.xib; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C44388801D0B555000F42A7A /* ECDChatConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDChatConfigVC.h; sourceTree = "<group>"; };
+		C44388811D0B555000F42A7A /* ECDChatConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDChatConfigVC.m; sourceTree = "<group>"; };
+		C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDChatConfigVC.xib; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
@@ -423,6 +428,7 @@
 		033A39851AD579FC006B34B2 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				C443887F1D0B553100F42A7A /* Configuration Views */,
 				C4D0E5221C74B7C60032925F /* Picker Views */,
 				C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */,
 				C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */,
@@ -622,6 +628,16 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		C443887F1D0B553100F42A7A /* Configuration Views */ = {
+			isa = PBXGroup;
+			children = (
+				C44388801D0B555000F42A7A /* ECDChatConfigVC.h */,
+				C44388811D0B555000F42A7A /* ECDChatConfigVC.m */,
+				C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */,
+			);
+			name = "Configuration Views";
+			sourceTree = "<group>";
+		};
 		C45AC03E1C206E2800625004 /* Proof_of_Concept */ = {
 			isa = PBXGroup;
 			children = (
@@ -802,6 +818,7 @@
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
+				C44388841D0B555000F42A7A /* ECDChatConfigVC.xib in Resources */,
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */,
@@ -847,6 +864,7 @@
 				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
+				C44388831D0B555000F42A7A /* ECDChatConfigVC.m in Sources */,
 				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
@@ -1003,7 +1021,7 @@
 		03978F2B1A602B2D007793D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1035,7 +1053,7 @@
 		03978F2C1A602B2D007793D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
