@@ -178,7 +178,7 @@ NSTimer *breadcrumbTimer;
 }
 
 // Send user profile to server.
-- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager submitUserProfile:userProfile withCompletion:completion];
