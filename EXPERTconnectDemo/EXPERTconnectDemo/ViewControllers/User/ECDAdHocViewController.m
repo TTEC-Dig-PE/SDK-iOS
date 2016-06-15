@@ -29,6 +29,7 @@
 #import "ECDBeaconViewController.h"
 
 #import "ECDChatConfigVC.h"
+#import "ECDBreadcrumbConfigVC.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -118,6 +119,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 {
 	 AdHocChatSectionRowStart,
+     AdHocChatSectionRowBreadcrumb,
 	 AdHocChatSectionRowCount
 };
 
@@ -473,13 +475,6 @@ bool _chatActive;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-	 /*if (indexPath.section == SettingsSectionAdHocChat) {
-	  return 64;
-	  }
-	  if (indexPath.section == SettingsSectionAdHocFunctions &&
-	  (indexPath.row == AdHocFunctionRowVoiceCallback || indexPath.row == AdHocFunctionRowForms || indexPath.row == AdHocFunctionRowAnswerEngine)) {
-	  return 64;
-	  }*/
 	 return 44;
 }
 
@@ -498,18 +493,17 @@ bool _chatActive;
 		  case SettingsSectionAdHocChat:
 			   switch (indexPath.row) {
 					case AdHocChatSectionRowStart:
-                       //if(_chatActive && self.chatController) {
-                       //    cell.textLabel.text = ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat");
-                       //} else {
-                           cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat");
-                       //}
-						 
-						 //if (chatAgentsLoggedOn) {
-						//	  cell.textLabel.text = [NSString stringWithFormat:@"%@",
-						//							 cell.textLabel.text];
-						 //}
-						 //cell.accessoryView = self.selectAdHocChatPicker;
-						 break;
+
+                       cell.textLabel.text = @"Test Chat";
+                        //cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat");
+                        break;
+                       
+                   case AdHocChatSectionRowBreadcrumb:
+                       
+                       cell.textLabel.text = @"Test Breadcrumbs";
+                       //cell.textLabel.text = ECDLocalizedString(ECDLocalizedBreadcrumbLabel, @"Breadcrumb");
+                       break;
+                       
 					default:
 						 break;
 			   }
@@ -755,6 +749,11 @@ bool _chatActive;
 	 {
 		  [self handleAdHocStartChat];
 	 }
+    
+    if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowBreadcrumb)
+    {
+        [self handleBreadcrumbConfig];
+    }
 	 
 	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
 	 {
@@ -863,7 +862,8 @@ bool _chatActive;
 	 switch (section) {
 		  case SettingsSectionAdHocChat:
 		  {
-			   title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"AdHoc Chat");
+              title = @"Ad-Hoc SDK Tests";
+			   //title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"Ad-Hoc SDK Tests");
 			   /*if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
 							 title,
@@ -1196,8 +1196,14 @@ bool _chatActive;
 	 
 }
 
+-(void)handleBreadcrumbConfig
+{
+    ECDBreadcrumbConfigVC *bcConfig = [[ECDBreadcrumbConfigVC alloc] init];
+    [self.navigationController pushViewController:bcConfig animated:YES];
+}
+
 // User pressed our custom back button
--(void)backPushed:(id)sender
+/*-(void)backPushed:(id)sender
 {
     NSLog(@"Going back...");
     [self.navigationController popViewControllerAnimated:YES];
@@ -1210,7 +1216,7 @@ bool _chatActive;
     
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatWithDialogNotification" object:nil];
-}
+}*/
 
 -(void)handleAdHocVoiceCallback
 {

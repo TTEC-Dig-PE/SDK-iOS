@@ -132,6 +132,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 @property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;
+@property (copy, nonatomic) NSMutableArray *storedBreadcrumbs;
 
 + (instancetype)shared;
 

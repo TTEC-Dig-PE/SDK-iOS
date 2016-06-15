@@ -63,8 +63,6 @@
 		C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */; };
 		C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
-		C44388831D0B555000F42A7A /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C44388811D0B555000F42A7A /* ECDChatConfigVC.m */; };
-		C44388841D0B555000F42A7A /* ECDChatConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
@@ -72,6 +70,10 @@
 		C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; };
 		C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C47F52E41CAEBF140098A0BC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52E31CAEBF140098A0BC /* StoreKit.framework */; };
+		C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */; };
+		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
+		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
+		C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -254,9 +256,6 @@
 		C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCalendarViewController.xib; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
-		C44388801D0B555000F42A7A /* ECDChatConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDChatConfigVC.h; sourceTree = "<group>"; };
-		C44388811D0B555000F42A7A /* ECDChatConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDChatConfigVC.m; sourceTree = "<group>"; };
-		C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDChatConfigVC.xib; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
@@ -266,6 +265,12 @@
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
 		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
 		C47F52E31CAEBF140098A0BC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
+		C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDBreadcrumbConfigVC.m; path = "Configuration Views/ECDBreadcrumbConfigVC.m"; sourceTree = "<group>"; };
+		C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDBreadcrumbConfigVC.xib; path = "Configuration Views/ECDBreadcrumbConfigVC.xib"; sourceTree = "<group>"; };
+		C492B6031D10C1DD008BE187 /* ECDChatConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDChatConfigVC.h; path = "Configuration Views/ECDChatConfigVC.h"; sourceTree = "<group>"; };
+		C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDChatConfigVC.m; path = "Configuration Views/ECDChatConfigVC.m"; sourceTree = "<group>"; };
+		C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDChatConfigVC.xib; path = "Configuration Views/ECDChatConfigVC.xib"; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -631,9 +636,12 @@
 		C443887F1D0B553100F42A7A /* Configuration Views */ = {
 			isa = PBXGroup;
 			children = (
-				C44388801D0B555000F42A7A /* ECDChatConfigVC.h */,
-				C44388811D0B555000F42A7A /* ECDChatConfigVC.m */,
-				C44388821D0B555000F42A7A /* ECDChatConfigVC.xib */,
+				C492B6031D10C1DD008BE187 /* ECDChatConfigVC.h */,
+				C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */,
+				C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */,
+				C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */,
+				C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */,
+				C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -807,10 +815,12 @@
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
 				462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */,
 				C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */,
+				C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */,
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
+				C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
 				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
@@ -818,7 +828,6 @@
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
-				C44388841D0B555000F42A7A /* ECDChatConfigVC.xib in Resources */,
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */,
@@ -851,8 +860,10 @@
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
 				462E1DF31B7BD52000AFC62D /* ECDAPIConfigViewController.m in Sources */,
 				C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */,
+				C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */,
 				03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */,
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
+				C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,
 				03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */,
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
@@ -864,7 +875,6 @@
 				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
-				C44388831D0B555000F42A7A /* ECDChatConfigVC.m in Sources */,
 				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,

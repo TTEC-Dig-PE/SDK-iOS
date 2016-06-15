@@ -44,7 +44,11 @@ NSString *_firstname;
     configuration.host          = @"https://api.dce1.humanify.com";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
-    
+    //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+    _username = @"yasar.arafath@agiliztech.com";
+    _fullname = @"yasar yasar";
+    _firstname = @"yasar";
+	 
     if(!_testTenant) _testTenant = @"mktwebextc";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
@@ -93,31 +97,85 @@ NSString *_firstname;
 }
 
 - (void)testMakeDecision {
-    
-    [self setUp];
-    [self initSDK];
-    
-    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
-    
-    XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
-    
-    [session makeDecision:[NSDictionary dictionaryWithObject:@"test" forKey:@"test"]
-               completion:^(NSDictionary *response, NSError *error)
-    {
-        if(error) XCTFail(@"Error: %@", error.description);
-        NSLog(@"Response JSON = %@", response);
-        
-        XCTAssert(response[@"tenant"], @"Missing tenant field.");
-        
-        [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
-    }];
-    
-    // Goes at bottom of test function
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-        }
-    }];
+	 
+	 [self setUp];
+	 [self initSDK];
+	 
+	 NSMutableArray *interests = [[NSMutableArray alloc] initWithObjects:@"running", @"skiing", @"hiking", nil];
+	 
+	 NSMutableDictionary *affinity = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+									  @"9", @"sat_score",
+									  @"chris_horizon", @"expertId",
+									  @"financial advisor", @"skill",
+									  nil];
+	 
+	 NSMutableDictionary *interaction = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										 @"2", @"nps_score",
+										 @"mutual funds", @"intent",
+										 nil];
+	 
+	 NSMutableDictionary *customData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										@"4", @"nps",
+										@"60", @"klout",
+										@"250000", @"clv",
+										interests, @"interests",
+										@"midatlantic", @"region",
+										affinity, @"affinity",
+										interaction, @"interaction",
+										nil];
+	 
+	 NSMutableDictionary *consumerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										  @"null", @"userID",
+										  @"gwen@email.com", @"username",
+										  @"Gwen", @"firstName",
+										  @"", @"lastName",
+										  @"null", @"address",
+										  @"Denver", @"city",
+										  @"Colorado", @"state",
+										  @"80238", @"postalCode",
+										  @"United States", @"country",
+										  @"(312) 555-1155", @"homePhone",
+										  @"(312) 555-3944", @"mobilePhone",
+										  customData, @"customData",
+										  @"null", @"alternativeEmail",
+										  nil];
+	 
+	 NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+												consumerData, @"consumer",
+												@"horizon", @"ceTenant",
+												@"determineTreatment", @"eventId",
+												nil];
+	 
+	 NSError *error;
+	 NSData *decisionData = [NSJSONSerialization dataWithJSONObject:decisionDictionary
+															options:NSJSONWritingPrettyPrinted
+															  error:&error];
+	 NSString* decisionJson = [[NSString alloc] initWithData:decisionData encoding:NSUTF8StringEncoding];
+	 
+	 NSLog(@"Decision Request Json: %@", decisionJson);
+	 
+	 ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
+	 
+	 [session makeDecision:decisionDictionary
+				completion:^(NSDictionary *response, NSError *error)
+	  {
+		   XCTAssert(!error,@"API call had an error.");
+		   
+		   NSLog(@"Response JSON = %@", response);
+		   
+		   XCTAssert(response[@"tenant"], @"Missing tenant field.");
+		   
+		   [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
+	  }];
+	 
+	 // Goes at bottom of test function
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
 }
 
 - (void)testGetDetailsForSkill {
@@ -365,6 +423,7 @@ NSString *_firstname;
 
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
 
+    // Test good question
     [sessionManager getAnswerForQuestion:@"How Does Borrow Work?"
                                inContext:@""
                               customData:nil
@@ -381,7 +440,41 @@ NSString *_firstname;
 
         [expectation fulfill];
     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
 
+- (void)testGetAnswerForQuestion_MissingAnswer
+{
+    [self setUp];
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerForQuestion_MissingAnswer"];
+    
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    // Test invalid question
+    [sessionManager getAnswerForQuestion:@"asdf"
+                               inContext:@"asdf"
+                         parentNavigator:@""
+                                actionId:@""
+                           questionCount:1
+                              customData:nil
+                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
+     {
+         //NSLog(@"Response=%@", response);
+         XCTAssert(!error,@"API call returned error.");
+         if(error)NSLog(@"Error=%@", error);
+         //XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
+         //XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+         
+         [expectation fulfill];
+     }];
+    
+    
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
@@ -428,50 +521,61 @@ NSString *_firstname;
 {
     [self setUp];
     [self initSDK];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"rateAnswerWithAnswerID"];
-
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-
-    // First, ask a question (this is what we will rate)
-    [sessionManager getAnswerForQuestion:@"How Does Borrow Work?"
-                               inContext:@""
-                              customData:nil
-                              completion:^(ECSAnswerEngineResponse *response, NSError *error)
-    {
-        NSLog(@"Details: %@", response);
-        if(error) XCTFail(@"Error: %@", error.description);
-        
-        // Now rate the response...
-        [sessionManager rateAnswerWithAnswerID:response.answerId
-                                     inquiryID:response.inquiryId
-                                        rating:1
-                                           min:-1
-                                           max:1
-                                 questionCount:1
-                                    completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
-        {
-            NSLog(@"Details: %@", response);
-            if(error) XCTFail(@"Error: %@", error.description);
-
-            // Specific Tests:
-            XCTAssert(response.constrainedRating == 5, @"ConstraintedRating should be 5 for an answer of positive (1)");
-            /* Response: 
-             actions =     (
-             );
-             answer = "<null>";
-             answerContent = "<null>";
-             answerID = "<null>";
-             answersQuestion = "<null>";
-             constrainedRating = 5;
-             inquiryID = "<null>";
-             requestRating = "<null>";
-             suggestedQuestions = "<null>";
-             }
-             */
-            [expectation fulfill];
-        }];
-    }];
-
+    
+    ECSURLSessionManager *sm = [[EXPERTconnect shared] urlSession];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testRateResponse"];
+    
+    // Give a thumbs up rating...
+    [sm rateAnswerWithAnswerID:@"146012322420964"
+                     inquiryID:@"146012322420964"
+                        rating:1
+                           min:-1
+                           max:1
+                 questionCount:1
+                    completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+     {
+         XCTAssert(response.constrainedRating==5, @"Rating was not converted to max for positive.");
+         
+         // Give a thumbs down rating...
+         [sm rateAnswerWithAnswerID:@"146012322420964"
+                          inquiryID:@"146012322420964"
+                             rating:-1
+                                min:-1
+                                max:1
+                      questionCount:2
+                         completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+          {
+              XCTAssert(response.constrainedRating==1, @"Rating was not converted to min for negative.");
+              
+              // Give a rating right in the middle (1-5, rating=3)
+              [sm rateAnswerWithAnswerID:@"146012322420964"
+                               inquiryID:@"146012322420964"
+                                  rating:3
+                                     min:1
+                                     max:5
+                           questionCount:3
+                              completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+               {
+                   XCTAssert(response.constrainedRating==3,@"Rating does not reflect answer.");
+                   
+                   // A bogus rating value (15 is higher than the max)
+                   [sm rateAnswerWithAnswerID:@"146012322420964"
+                                    inquiryID:@"146012322420964"
+                                       rating:15
+                                          min:1
+                                          max:5
+                                questionCount:3
+                                   completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+                    {
+                        XCTAssert(response.constrainedRating==1, @"Rating was not set to min value due to out of bound.");
+                        
+                        [expectation fulfill];
+                    }];
+               }];
+          }];
+     }];
+    
+    // Wait for the above code to finish (15 second timeout)...
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
@@ -507,73 +611,43 @@ NSString *_firstname;
 
 - (void)testGetUserProfile
 {
-    [self setUp];   // Test setup
-    [self initSDK]; // SDK setup
-    XCTestExpectation *expectation = [self expectationWithDescription:@"GetUserProfile"];
-
-    [EXPERTconnect shared].userName = @"gwen@email.com";
-    
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)
-    {
-        NSLog(@"Details: %@", profile);
-        if(error) XCTFail(@"Error: %@", error.description);
-
-        XCTAssert([profile.username isEqualToString:[EXPERTconnect shared].userName],@"Expected username to match input.");
-        // Specific Tests:
-        
-        /* Response: 
-         address = "2020 39th Street";
-         alternativeEmail = "gwen@email.com";
-         city = Anchorville;
-         country = "United States";
-         customData =     {
-         affinity =         {
-         expertId = "chris_horizon";
-         "sat_score" = 9;
-         skill = "financial advisor";
-         };
-         clv = 250000;
-         demographics =         {
-         age = 29;
-         education = bachelors;
-         ethnicity = white;
-         gender = female;
-         income = high;
-         married = no;
-         profession = other;
-         };
-         interaction =         {
-         intent = "mutual funds";
-         "nps_score" = 2;
-         };
-         interests =         (
-         running,
-         skiing
-         );
-         klout = 60;
-         nps = 4;
-         region = midatlantic;
-         };
-         firstName = Gwen;
-         fullName = "Gwen Email";
-         homePhone = "333-778-8791";
-         lastName = Email;
-         mobilePhone = "";
-         postalCode = 48004;
-         "profile_was_updated" = "<null>";
-         state = Michigan;
-         username = "gwen@email.com";
-         */
-
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-        if (error) {
-            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-        }
-    }];
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"GetUserProfile"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+	 [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)
+	  {
+		   NSLog(@"Details: %@", profile);
+		   
+		   if(error)
+		   {
+				XCTFail(@"Error reported: %@", error.description);
+		   }
+		   else
+		   {
+				XCTAssert(profile.city,@"Missing city field.");
+				XCTAssert(profile.username,@"Missing username field.");
+				XCTAssert(profile.firstName,@"Missing firstname field.");
+				XCTAssert(profile.lastName,@"Missing lastname field.");
+				XCTAssert(profile.mobilePhone,@"Missing mobilephone field.");
+				XCTAssert(profile.city,@"Missing address field.");
+				XCTAssert(profile.state,@"Missing state field.");
+				XCTAssert(profile.homePhone,@"Missing homephone field.");
+				XCTAssert(profile.alternativeEmail,@"Missing alternativeemail field.");
+				XCTAssert(profile.country,@"Missing country field.");
+                XCTAssert(profile.postalCode,@"Missing postalcode field.");
+				XCTAssert(profile.customData != nil && profile.customData != 0, @"Missing customdata fields");
+		  }
+		   [expectation fulfill];
+	  }];
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
 }
 
 - (void)testSubmitUserProfile
@@ -587,9 +661,9 @@ NSString *_firstname;
 	 
 	 ECSUserProfile * profile = [ECSUserProfile new];
 	 
-	 profile.firstName = @"yasar3";
+	 profile.firstName = @"yasar";
 	 profile.lastName = @"yasar";
-	 profile.username = @"yasar.arafath3@agiliztech.com";
+	 profile.username = @"yasar.arafath@agiliztech.com";
 	 profile.city = @"Chennai";
 	 profile.state = @"Tamil Nadu";
 	 profile.postalCode = @"600028";
@@ -697,6 +771,32 @@ NSString *_firstname;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testGetFormbyName_NoForm {
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    
+    [sessionManager getFormByName:@"not_real"
+                   withCompletion:^(ECSForm *form, NSError *error)
+     {
+         //NSLog(@"Response=%@", response);
+         XCTAssert(!error,@"API call returned error.");
+         if(error)NSLog(@"Error=%@", error);
+         //XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
+         //XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+    
 }
 
 - (void)testSubmitForm
@@ -950,6 +1050,43 @@ NSString *_firstname;
                XCTFail(@"Timeout error (15 seconds). Error=%@", error);
           }
      }];
+}
+
+// Test the select experts endpoint.
+- (void)testGetExpertsWithInteractionItems {
+    
+    _testTenant = @"mktwebextc";
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
+    
+    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+    
+    [session getExpertsWithInteractionItems:nil
+                                 completion:^(NSArray *experts, NSError *error)
+     {
+         //NSLog(@"Experts Array: %@", experts);
+         XCTAssert(experts.count && experts.count>0,@"No experts returned.");
+         if(experts.count && experts.count>0)
+         {
+             NSArray *expertsArray = [ECSJSONSerializer arrayFromJSONArray:experts withClass:[ECSExpertDetail class]];
+             if(expertsArray && expertsArray.count>0)
+             {
+                 ECSExpertDetail *expert1 = expertsArray[0];
+                 XCTAssert(expert1.status.length>0,@"No status found.");
+                 XCTAssert(expert1.chatsToRejectVoice == YES || expert1.chatsToRejectVoice == NO,@"chatToRejectVoice invalid value.");
+             }
+             XCTAssert(expertsArray, @"Missing experts array.");
+         }
+         
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
 }
 
 -(void)testNetworkReachable {
