@@ -59,3 +59,6 @@
 /* Start Chat */
 "ECDLocalizedStartChatLabel" = "démarrer la chat";
 "ECDLocalizedContinueChatLabel" = "poursuivre le chat";
+
+/* Ad-Hoc Page Breadcrumb caption */
+"ECDLocalizedBreadcrumbLabel" = "Le Breadcrumb";

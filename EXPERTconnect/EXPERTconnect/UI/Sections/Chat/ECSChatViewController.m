@@ -1055,7 +1055,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         // We have an actual error message to display. We'll replace the generic one with this. 
         if (error && validError)
         {
-            errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+            // MAS - show generic error message
+            //errorMessage = error.userInfo[NSLocalizedDescriptionKey];
+            errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
             
             // TODO: This is a specific case to handle "No agents available" until the server does it correctly.
             if([errorMessage isEqualToString:@"No agents available"])

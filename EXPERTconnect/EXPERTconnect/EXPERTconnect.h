@@ -132,6 +132,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 @property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;
+@property (copy, nonatomic) NSMutableArray *storedBreadcrumbs;
 
 + (instancetype)shared;
 
@@ -383,7 +384,7 @@ __attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpert
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
 
 // Send user profile to server.
-- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSString *, NSError *))completion;
+- (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion;
 
 /**
  Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers
