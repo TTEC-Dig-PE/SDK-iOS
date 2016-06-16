@@ -980,6 +980,7 @@
 		C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
+		C492B5FD1D10B98D008BE187 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSExpertDetail.h; path = "Data Models/ECSExpertDetail.h"; sourceTree = "<group>"; };
 		C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSExpertDetail.m; path = "Data Models/ECSExpertDetail.m"; sourceTree = "<group>"; };
 		C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSkillDetail.h; path = "Data Models/ECSSkillDetail.h"; sourceTree = "<group>"; };
@@ -2226,6 +2227,7 @@
 				es,
 				de,
 				"zh-Hans",
+				"en-GB",
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2580,6 +2582,7 @@
 				463E815C1B4ED30F00396B7A /* es */,
 				C4450B871D02371800486215 /* de */,
 				C4450B881D02372000486215 /* zh-Hans */,
+				C492B5FD1D10B98D008BE187 /* en-GB */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect;

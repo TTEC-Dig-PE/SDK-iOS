@@ -26,7 +26,10 @@
 /* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
-"ECDLocalizedContinueChatLabel" = "Continue Chat"; 
+"ECDLocalizedContinueChatLabel" = "Continue Chat";
+
+/* Ad-Hoc Page Breadcrumb caption */
+"ECDLocalizedBreadcrumbLabel" = "Test Breadcrumb";
 
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Start Video Chat";
@@ -79,7 +82,7 @@
 /* ----------------------------------------------------- */
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
-"ECDLocalizedStartChatHeader" = "Chat";
+"ECDLocalizedStartChatHeader" = "Test SDK Functions";
 
 /* Start Video Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatHeader" = "Video Chat";

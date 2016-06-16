@@ -203,7 +203,8 @@ NSString *_testTenant;
          XCTAssert(response.inquiryId>0,@"Bad inquiryID (Value=%@)", response.inquiryId);
          XCTAssert(!error, @"Response contains error: %@", error.description);
          
-         if(theIndex < (questions.count-1)) {
+         //if(theIndex < (questions.count-1)) {
+         if(theIndex < MIN(questions.count-1,3)) {
              [self getAnswerAtIndex:(theIndex+1) inQuestions:questions withCompletion:completion];
          } else {
              completion();

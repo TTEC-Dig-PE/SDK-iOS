@@ -42,6 +42,8 @@ bool _chatActive;
     self.pickerChatSkill.delegate = self;
     self.pickerChatSkill.dataSource = self;
     
+    self.navigationItem.title = @"Humanify Chat";
+    
     [self.btnStartChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnEndChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnStartChat setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];

@@ -68,3 +68,6 @@
 "ECDLocalizedWaitString" = "Espere";
 "ECDLocalizedMinuteString" = "minuto";
 "ECDLocalizedAgentString" = "Agentes";
+
+/* Ad-Hoc Page Breadcrumb caption */
+"ECDLocalizedBreadcrumbLabel" = "El Pan crumb";

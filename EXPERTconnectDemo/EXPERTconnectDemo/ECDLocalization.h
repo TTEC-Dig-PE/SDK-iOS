@@ -61,6 +61,7 @@ static NSString* const ECDLocalizedStartShowChatTimeStampHeader = @"ECDLocalized
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedContinueChatLabel = @"ECDLocalizedContinueChatLabel";
+static NSString* const ECDLocalizedBreadcrumbLabel = @"ECDLocalizedBreadcrumbLabel"; 
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedUtilityFunctionLabel = @"ECDLocalizedUtilityFunctionLabel"; 

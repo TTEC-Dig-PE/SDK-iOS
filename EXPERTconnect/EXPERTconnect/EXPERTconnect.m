@@ -30,10 +30,12 @@
 
 static EXPERTconnect* _sharedInstance;
 
-NSMutableArray *storedBreadcrumbs;
+//NSMutableArray *storedBreadcrumbs;
 NSTimer *breadcrumbTimer;
 
 @implementation EXPERTconnect
+
+@synthesize storedBreadcrumbs;
 
 + (instancetype)shared
 {
