@@ -1089,6 +1089,62 @@ NSString *_firstname;
     }];
 }
 
+/*
+ Functionality: Setting a journey context changes how the journey behaves. It changes which rules will
+ get called and changes whether we create a new journey or resume an old one.
+ */
+- (void)testSetJourneyContext {
+    
+    [self setUp];
+    [self initSDK];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+    
+    // Let's set some of these values so we can check them in the response
+    [EXPERTconnect shared].journeyManagerContext = @"DevTest";
+    [EXPERTconnect shared].pushNotificationID = @"aaaa-bbbb-cccc-dddd";
+    
+    // Step 1: Start a new journey (prerequesite)
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+    {
+        NSLog(@"Journey response=%@", journeyId);
+        
+        __weak ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+        
+        // Test 1: Attempt to attach to a non-existant context.
+        [session setJourneyContext:@"non_existant_context"
+                        completion:^(ECSJourneyAttachResponse *response, NSError *error)
+         {
+             XCTAssert(error,@"Expecting an error (not found) here.");
+             XCTAssert(!response,@"Expecting nil response due to error.");
+             XCTAssert([error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"common.error.contextNotFound"],@"Expecting a common.error.contextNotFound error.");
+             
+             // Test 2: Attempt to attach to an existing, good context
+             [session setJourneyContext:@"SDK Baseline"
+                             completion:^(ECSJourneyAttachResponse *response, NSError *error)
+              {
+                  XCTAssert(!error,@"Not expecting an error.");
+                  XCTAssert(response,@"Expecting response.");
+                  XCTAssert([response.tenantId isEqualToString:_testTenant], @"Expecting input tenant.");
+                  XCTAssert([response.deviceType isEqualToString:@"ios"], @"Expecting ios as devicetype.");
+                  XCTAssert([response.pushNotificationId isEqualToString:@"aaaa-bbbb-cccc-dddd"],@"Expecting input pushID.");
+                  XCTAssert(response.contextId.length>0, @"Expecting populated contextID");
+                  XCTAssert(response.lastActivityTime, @"Expecting lastActivityTime");
+                  XCTAssert(response.creationTime, @"Expecting lastActivityTime");
+                  
+                  NSLog(@"Response=%@", response);
+                  
+                  [expectation fulfill];
+              }];
+         }];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
 -(void)testNetworkReachable {
     ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
     

@@ -455,6 +455,8 @@
 		C47F53141CB402B70098A0BC /* ECSAnswerHistoryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */; };
 		C484AC311C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */; };
 		C484AC321C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */; };
+		C492B60C1D12EE54008BE187 /* ECSJourneyAttachResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C492B60D1D12EE54008BE187 /* ECSJourneyAttachResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B60B1D12EE54008BE187 /* ECSJourneyAttachResponse.m */; };
 		C495EA9F1CA57D8300BC4057 /* ECSExpertDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C495EAA01CA57D8300BC4057 /* ECSExpertDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */; };
 		C495EAA11CA57D8300BC4057 /* ECSSkillDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -981,6 +983,8 @@
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
 		C492B5FD1D10B98D008BE187 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSJourneyAttachResponse.h; path = Responses/ECSJourneyAttachResponse.h; sourceTree = "<group>"; };
+		C492B60B1D12EE54008BE187 /* ECSJourneyAttachResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSJourneyAttachResponse.m; path = Responses/ECSJourneyAttachResponse.m; sourceTree = "<group>"; };
 		C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSExpertDetail.h; path = "Data Models/ECSExpertDetail.h"; sourceTree = "<group>"; };
 		C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSExpertDetail.m; path = "Data Models/ECSExpertDetail.m"; sourceTree = "<group>"; };
 		C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSkillDetail.h; path = "Data Models/ECSSkillDetail.h"; sourceTree = "<group>"; };
@@ -1404,6 +1408,8 @@
 		03C3102A1A9B5A31006B3557 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */,
+				C492B60B1D12EE54008BE187 /* ECSJourneyAttachResponse.m */,
 				C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */,
 				C47F53111CB402A40098A0BC /* ECSAnswerHistoryResponse.m */,
 				4665F6FE1B7D1B7A00C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h */,
@@ -1949,6 +1955,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C492B60C1D12EE54008BE187 /* ECSJourneyAttachResponse.h in Headers */,
 				C47254621CC04C36003C0D4E /* ECSBreadcrumbResponse.h in Headers */,
 				C47254611CC04C36003C0D4E /* ECSBreadcrumb.h in Headers */,
 				C47254641CC04C36003C0D4E /* ECSBreadcrumbsSession.h in Headers */,
@@ -2503,6 +2510,7 @@
 				C1E0E61E1BC409230089C7E6 /* ECSCalendarBackgroundView.m in Sources */,
 				4665F6FD1B7D1B7000C1FB67 /* ECSAnswerEngineTopQuestionsResponse.m in Sources */,
 				2252C6AA1A7BE9E200B99912 /* ECSFormItemCheckbox.m in Sources */,
+				C492B60D1D12EE54008BE187 /* ECSJourneyAttachResponse.m in Sources */,
 				91E63BF61B834EA30019F9EF /* ECSViewControllerStack.m in Sources */,
 				03B3FA2C1A670CDB00D872B1 /* ECSJSONRequestSerializer.m in Sources */,
 				03F0BD481A71300400E90E7F /* UIView+ECSNibLoading.m in Sources */,

@@ -23,6 +23,7 @@
 @class ECSChannelCreateResponse;
 @class ECSFormSubmitResponse;
 @class ECSHistoryResponse;
+@class ECSJourneyAttachResponse;
 
 @class ECSSkillDetail;
 @class ECSExpertDetail;
@@ -68,6 +69,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 @property (nonatomic, strong) NSString *breadcrumbSessionID;
 
 @property (nonatomic, strong) NSString *pushNotificationID;
+
+@property (nonatomic, strong) NSString *journeyManagerContext;
 
 @property (nonatomic, strong) NSString *localLocale;
 
@@ -286,6 +289,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
                                             mobileNumber:(NSString*)mobileNumber
                                               completion:(void (^)(id userData, NSError* error))completion;
 
+
 #pragma mark - ConversationEngine
 
 - (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
@@ -447,6 +451,14 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 // Start a new journey
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
+
+- (NSURLSessionDataTask*)setupJourneyWithName:(NSString *)theName
+                           pushNotificationId:(NSString *)thePushId
+                                      context:(NSString *)theContext
+                                   completion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion;
+
+- (NSURLSessionDataTask*)setJourneyContext:(NSString*)context
+                                completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion;
 
 
 #pragma mark - Media upload

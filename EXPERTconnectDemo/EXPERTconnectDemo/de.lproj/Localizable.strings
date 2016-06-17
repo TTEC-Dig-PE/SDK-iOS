@@ -1,0 +1,235 @@
+/*
+ Localizable.strings
+ EXPERTconnectDemo
+ 
+ Copyright (c) 2015 Humanify, Inc. Alle Rechte vorbehalten.
+ */
+
+/* Log in button text */
+// "ECSLocalizeLogInButton" = "Logge mich ein!";
+
+/* Unknown User text */
+"ECDLocalizedUnknownUser" = "Unbekannter Benutzer: Bitte registrieren Sie sich, um ein Konto anzulegen.";
+
+/* Splash Page Login Button   */
+"ECDLocalizedLoginButton" = "Anmelden";
+
+/* Splash Page Register Button   */
+"ECDLocalizedRegisterButton" = "Registrieren";
+
+/* Profile was updated  */
+"ECDLocalizeProfileWasUpdatedKey" = "Das Profil wurde aktualisiert.";
+
+/* Application Config Value was updated  */
+"ECDLocalizeConfigWasUpdatedKey" = "Der Konfigurationswert der Anwendung wurde aktualisiert.";
+
+/* AdHoc Section */
+/* Start Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatLabel" = "Chat beginnen";
+"ECDLocalizedContinueChatLabel" = "Chat fortsetzen";
+
+/* Start Video Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatLabel" = "Video-Chat beginnen";
+
+/* Start Answer Engine Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineLabel" = "Antwort-Engine";
+
+/* Start Forms Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsLabel" = "Formulare";
+
+/* Start User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileLabel" = "Benutzerprofil";
+
+/* Start Voice Callback Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackLabel" = "Sprach-R¸ckruf";
+
+/* Start Email Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageLabel" = "E-Mail-Nachricht";
+
+/* Start SMS Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageLabel" = "SMS-Nachricht";
+
+/* Start Web Page Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageLabel" = "Webseite";
+
+/* Start Answer Engine History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryLabel" = "Antwort-Engine-Historie";
+
+/* Start Chat History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryLabel" = "Chat-Historie";
+
+/* Start Select Expert Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertLabel" = "Experten ausw‰hlen";
+
+/* Start Extended User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileLabel" = "Registrierung: Profil bearbeiten";
+
+/* Start Application Configuration Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigLabel" = "Anwendungskonfiguration";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormLabel" = "AdHoc: Formular ¸bermitteln";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerLabel" = "AdHoc: Datumsselektor";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorLabel" = "AdHoc: WYSIWYG-Editor";
+
+/* ----------------------------------------------------- */
+
+/* Start Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHeader" = "Chat";
+
+/* Start Video Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatHeader" = "Video-Chat";
+
+/* Start Answer Engine Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHeader" = "Antwort-Engine";
+
+/* Start Forms Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsHeader" = "Formulare";
+
+/* iBeacon Demon Label */
+"ECDLocalizedBeaconLabel" = "iBeacon-Demo";
+
+/* Start User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileHeader" = "AdHoc: Benutzerprofil bearbeiten";
+
+/* Start Voice Callback Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackHeader" = "R¸ckruf";
+
+/* Start Email Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageHeader" = "AdHoc: E-Mail-Nachricht";
+
+/* Start SMS Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageHeader" = "AdHoc: SMS-Nachricht";
+
+/* Start Web Page Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageHeader" = "AdHoc: Webseite";
+
+/* Start Answer Engine History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryHeader" = "AdHoc: Antwort-Engine-Historie";
+
+/* Start Chat History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryHeader" = "AdHoc: Chat-Historie";
+
+/* Start Select Expert Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertHeader" = "AdHoc: Experten ausw‰hlen";
+
+/* Start Extended User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileHeader" = "AdHoc: (Erweitertes) Benutzerprofil bearbeiten";
+
+/* Start Application Configuration Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigHeader" = "AdHoc: Konfigurationseinstellungen der App bearbeiten";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormHeader" = "AdHoc: Formular ¸bermitteln";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerHeader" = "AdHoc: Datumsselektor";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorHeader" = "AdHoc: WYSIWYG-Editor";
+
+/* End AdHoc Section */
+
+/* Workflow Section */
+/* Start Escalate To Chat Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowEscalateToChatLabel" = "Eskalierung zum Chat beginnen";
+
+/* Start Chat With Post Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPostSurveyLabel" = "Chat mit nachtr‰glicher Befragung beginnen";
+
+/* Start Chat With Pre Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPreSurveyLabel" = "Chat mit vorheriger Befragung beginnen";
+
+/* Start Survey Leads To Branch Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel" = "'Befragung f¸hrt zu Verzweigung' beginnen";
+
+/* ----------------------------------------------------- */
+
+/* Start Escalate To Chat Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartEscalateToChatHeader" = "Vorgang 'Eskalierung zum Chat' beginnen";
+
+/* Start Chat With Post Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPostSurveyHeader" = "Vorgang 'Chat mit nachtr‰glicher Befragung' beginnen";
+
+/* Start Chat With Pre Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPreSurveyHeader" = "Vorgang 'Chat mit vorheriger Befragung' beginnen";
+
+/* Start Survey Leads To Branch Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartSurveyLeadsToBranchHeader" = "Vorgang 'Befragung f¸hrt zu Verzweigung' beginnen";
+
+/* End Workflow Section */
+
+/* Splash Page Skip Registration Button   */
+"ECDLocalizedSkipRegistrationButton" = "Registrierung ¸berspringen";
+
+/* Localized Title for Personas Navigation View */
+"ECDLocalizedLandingViewTitle" = "Navigationsansicht Rollen";
+
+/* Localized displayName for Personas in MainMenuConfig.json */
+"ECDLocalizedPersonasLabel" = "Rollen";
+
+/* Localized displayName for Humanify in MainMenuConfig.json */
+"ECDLocalizedHumanifyLabel" = "Humanify";
+
+/* Localized displayName for Profile in MainMenuConfig.json */
+"ECDLocalizedProfileLabel" = "Profil";
+
+/* Localized displayName for Settings in MainMenuConfig.json */
+"ECDLocalizedSettingsLabel" = "Einstellungen";
+
+/* Localized displayName for Bug Report in MainMenuConfig.json */
+"ECDLocalizedBugReportLabel" = "Fehler melden";
+
+/* Localized displayName for AdHoc in MainMenuConfig.json */
+"ECDLocalizedAdHocLabel" = "AdHoc";
+
+/* Localized displayName for Workflows in MainMenuConfig.json */
+"ECDLocalizedWorkflowsLabel" = "Vorgang";
+
+/* Runtime Environment Header */
+"ECDLocalizedEnvironmentsHeader" = "Umgebung ausw‰hlen";
+
+/* Organization Header */
+"ECDLocalizedOrganizationHeader" = "Organisation ausw‰hlen";
+
+/* VoiceIt Header */
+"ECDLocalizedVoiceItHeader" = "VoiceIt Utilities";
+
+/* Runtime Startup Application Header */
+"ECDLocalizedRunModeHeader" = "Runtime-Anwendung ausw‰hlen";
+
+//* Customize Theme Header */
+"ECDLocalizedCustomizeThemeHeader" = "Theme-Individualisierung";
+
+/* Frequently Asked Questions Header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "Am h‰ufigsten gestellte Fragen";/* ----------------------------------------------------- */
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesHeader" = "Avatar-Bilder verbergen/zeigen";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsHeader" = "Chat-Sprechblasen verbergen/zeigen";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampHeader" = "Chat-Zeitstempel verbergen/zeigen";
+
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesLabel" = "Avatar-Bilder zeigen";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsLabel" = "Chat-Sprechblasen zeigen";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampLabel" = "Chat-Zeitstempel zeigen";
+
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "Keine Bearbeiter verf¸gbar";
+"ECDLocalizedWaitString" = "Warten";
+"ECDLocalizedMinuteString" = "Minuten";
+"ECDLocalizedAgentString" = "Bearbeiter";
+

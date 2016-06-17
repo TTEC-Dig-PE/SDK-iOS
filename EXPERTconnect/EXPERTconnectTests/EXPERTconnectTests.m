@@ -9,9 +9,8 @@
 #import <XCTest/XCTest.h>
 
 #import <EXPERTconnect/EXPERTconnect.h>
-#import "ECSConversationCreateResponse.h"
-
-@class ECSConversationCreateResponse;
+//#import "ECSConversationCreateResponse.h"
+//@class ECSConversationCreateResponse;
 
 @interface EXPERTconnectTests : XCTestCase <ECSAuthenticationTokenDelegate>
 
@@ -351,6 +350,41 @@ NSString *_testTenant;
     XCTAssert([myBc.journeyId isEqualToString:@"testJourneyId"],@"journeyId getter or setter failed");
     NSString *journeyFromProperties = [[myBc getProperties] objectForKey:@"journeyId"];
     XCTAssert([journeyFromProperties isEqualToString:@"testJourneyId"],@"Properties array not built correctly.");
+}
+
+- (void)testSetJourneyContext {
+    
+    [self initSDK];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testBreadcrumbSendOne"];
+    
+    // First, start a journey...
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+    {
+        // Second, set the context...
+        [[EXPERTconnect shared] setJourneyContext:@"SDK Baseline"
+                                   withCompletion:^(ECSJourneyAttachResponse *response, NSError *error)
+         {
+             NSLog(@"Response=%@", response);
+             XCTAssert(!error,@"Not expecting an error.");
+             XCTAssert(response,@"Expecting response.");
+             XCTAssert([response.tenantId isEqualToString:_testTenant], @"Expecting input tenant.");
+             XCTAssert([response.deviceType isEqualToString:@"ios"], @"Expecting ios as devicetype.");
+             //XCTAssert([response.pushNotificationId isEqualToString:@"aaaa-bbbb-cccc-dddd"],@"Expecting input pushID.");
+             XCTAssert(response.contextId.length>0, @"Expecting populated contextID");
+             XCTAssert(response.lastActivityTime, @"Expecting lastActivityTime");
+             XCTAssert(response.creationTime, @"Expecting lastActivityTime");
+             [expectation fulfill];
+         }];
+        
+        
+    }];
+    // Wait for the above code to finish (15 second timeout)...
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
 }
 
 - (void)testStartupTiming {

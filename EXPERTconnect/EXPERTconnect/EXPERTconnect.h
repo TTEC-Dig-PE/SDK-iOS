@@ -64,6 +64,7 @@
 #import <EXPERTconnect/ECSInjector.h>
 #import <EXPERTconnect/ECSChatTextMessage.h>
 #import <EXPERTconnect/ECSConversationCreateResponse.h>
+#import <EXPERTconnect/ECSJourneyAttachResponse.h>
 #import <EXPERTconnect/ECSConversationLink.h>
 #import <EXPERTconnect/ECSChannelConfiguration.h>
 #import <EXPERTconnect/ECSChannelCreateResponse.h>
@@ -127,7 +128,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
-@property (copy, nonatomic) NSString *pushNotificationID; 
+@property (copy, nonatomic) NSString *pushNotificationID;
+@property (copy, nonatomic) NSString *journeyManagerContext;
 @property (copy, nonatomic) NSString *sessionID;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
@@ -377,11 +379,33 @@ __attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpert
 - (void) overrideDeviceLocale:(NSString *)localeString;
 - (NSString *) overrideDeviceLocale;
 
+#pragma mark Journey Functions
+
 /**
  Starts a fresh journey. When a conversation is started, it will use the journeyID fetched by this call if it had
  been invoked beforehand. Otherwise, the conversation begin will fetch a new journeyID. 
  */
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
+
+/**
+ Start a journey
+ Params:
+ Name:               Name of the journey (for reporting, not visible to user) (optional)
+ PushNotificationID: An identifier for push notifications (optional)
+ context:            Journey context (optional - default used if missing)
+ Returns:
+ (In completion block...)
+ NSString journeyID: Identifier of the journey that was just created or fetched
+ NSError error:      Error if one occurred. Nil otherwise.
+ */
+- (void) startJourneyWithName:(NSString *)theName
+           pushNotificationId:(NSString *)thePushId
+                      context:(NSString *)theContext
+                   completion:(void (^)(NSString *, NSError *))completion;
+
+// Set the journey context
+- (void) setJourneyContext:(NSString *)theContext
+            withCompletion:(void(^)(ECSJourneyAttachResponse *response, NSError *error))completion;
 
 // Send user profile to server.
 - (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion;
