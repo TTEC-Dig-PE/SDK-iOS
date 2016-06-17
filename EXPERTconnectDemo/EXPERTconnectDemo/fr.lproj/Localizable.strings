@@ -1,28 +1,173 @@
-/* 
-  Localizable.strings
-  EXPERTconnectDemo
-
-  Copyright (c) 2015 Humanify, Inc. All rights reserved.
-*/
-
+/*
+ Localizable.strings
+ EXPERTconnectDemo
+ 
+ Copyright (c) 2015 Humanify, Inc. All rights reserved.
+ */
 
 /* Log in button text */
-// "ECSLocalizeLogInButton" = "(FR)Log Me In!!!";
+// "ECSLocalizeLogInButton" = "Connectez-moi!!!";
 
 /* Unknown User text */
-"ECDLocalizedUnknownUser" = "Utilisateur inconnu, s'il vous plaît inscrivez-vous pour créer un compte.";
+"ECDLocalizedUnknownUser" = "Utilisateur inconnu, veuillez-vous inscrire pour créer un compte.";
 
 /* Splash Page Login Button   */
-"ECDLocalizedLoginButton" = "S'identifier";
+"ECDLocalizedLoginButton" = "Se connecter";
 
 /* Splash Page Register Button   */
-"ECDLocalizedRegisterButton" = "Inscription";
+"ECDLocalizedRegisterButton" = "S'inscrire";
 
-/* Splash Page Skip REgistration Button   */
-"ECDLocalizedSkipRegistrationButton" = "Passer inscription";
+/* Profile was updated  */
+"ECDLocalizeProfileWasUpdatedKey" = "Le profil a été mis à jour";
+
+/* Application Config Value was updated  */
+"ECDLocalizeConfigWasUpdatedKey" = "La valeur de configuration de l'application a été mise à jour";
+
+/* AdHoc Section */
+/* Start Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatLabel" = "Commencer le chat";
+"ECDLocalizedContinueChatLabel" = "Continuer le chat";
+
+/* Start Video Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatLabel" = "Commencer un chat Vidéo";
+
+/* Start Answer Engine Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineLabel" = "Moteur de réponses";
+
+/* Start Forms Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsLabel" = "Formulaires";
+
+/* Start User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileLabel" = "Profil d'utilisateur";
+
+/* Start Voice Callback Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackLabel" = "Rappel vocal";
+
+/* Start Email Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageLabel" = "Message par mail";
+
+/* Start SMS Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageLabel" = "Message SMS";
+
+/* Start Web Page Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageLabel" = "Page Web";
+
+/* Start Answer Engine History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryLabel" = "Historique du moteur de réponse";
+
+/* Start Chat History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryLabel" = "historique de Chat";
+
+/* Start Select Expert Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertLabel" = "Selection de l'expert";
+
+/* Start Extended User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileLabel" = "Modification du profil d'inscription";
+
+/* Start Application Configuration Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigLabel" = "Configuration de l'application";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormLabel" = "Soumettre le formulaire AdHoc";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerLabel" = "Sélecteur de date AdHoc";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorLabel" = "Éditeur AdHoc WYSIWYG";
+
+/* ----------------------------------------------------- */
+
+/* Start Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHeader" = "Chat";
+
+/* Start Video Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatHeader" = "Chat vidéo";
+
+/* Start Answer Engine Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHeader" = "Commencer une session de moteur de réponse AdHoc";
+
+/* Start Forms Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsHeader" = "Commencer une interview de formulaires AdHoc";
+
+/* iBeacon Demon Label */
+"ECDLocalizedBeaconLabel" = "Démo iBeacon";
+
+/* Start User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileHeader" = "Modifier le profil d'utilisateur AdHoc";
+
+/* Start Voice Callback Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackHeader" = "Rappeler";
+
+/* Start Email Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageHeader" = "Message mail AdHoc";
+
+/* Start SMS Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageHeader" = "Message SMS AdHoc";
+
+/* Start Web Page Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageHeader" = "Page Web AdHoc";
+
+/* Start Answer Engine History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryHeader" = "Historique du moteur de réponse AdHoc";
+
+/* Start Chat History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryHeader" = "Historique de chat AdHoc";
+
+/* Start Select Expert Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertHeader" = "Sélection de l'expert AdHoc";
+
+/* Start Extended User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileHeader" = "Modification du profil de l'utilisateur (extension) AdHoc";
+
+/* Start Applicaton Configuration Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigHeader" = "Modification des réglages de l'application AdHoc";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormHeader" = "Soumission du formulaire AdHoc";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerHeader" = "Sélecteur de date AdHoc";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorHeader" = "Éditeur AdHoc WYSIWYG";
+
+/* End AdHoc Section */
+
+/* Workflow Section */
+/* Start Escalate To Chat Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowEscalateToChatLabel" = "Commencer le lancement du chat";
+
+/* Start Chat With Post Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPostSurveyLabel" = "Commencer le chat avec un sondage postérieur";
+
+/* Start Chat With Pre Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPreSurveyLabel" = "Commencer le chat avec un sondage antérieur";
+
+/* Start Survey Leads To Branch Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel" = "Commencer le sondage menant à la branche";
+
+/* ----------------------------------------------------- */
+
+/* Start Escalate To Chat Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartEscalateToChatHeader" = "Commencer le flux de travail de lancement du chat";
+
+/* Start Chat With Post Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPostSurveyHeader" = "Commencer le flux de traval du chat avec un sondage  postérieur";
+
+/* Start Chat With Pre Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPreSurveyHeader" = "Commencer le flux de traval du chat avec un sondage  antérieur";
+
+/* Start Survey Leads To Branch Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartSurveyLeadsToBranchHeader" = "Commencer le flux de travail du chat menant à la branche";
+
+/* End Workflow Section */
+
+/* Splash Page Skip Registration Button   */
+"ECDLocalizedSkipRegistrationButton" = "Ignorer l'inscription";
 
 /* Localized Title for Personas Navigation View */
-"ECDLocalizedLandingViewTitle" = "Personas Navigation Voir";
+"ECDLocalizedLandingViewTitle" = "Vue de navigation des personas";
 
 /* Localized displayName for Personas in MainMenuConfig.json */
 "ECDLocalizedPersonasLabel" = "Personas";
@@ -34,31 +179,57 @@
 "ECDLocalizedProfileLabel" = "Profil";
 
 /* Localized displayName for Settings in MainMenuConfig.json */
-"ECDLocalizedSettingsLabel" = "Paramètres";
+"ECDLocalizedSettingsLabel" = "Réglages";
 
-/* Localized displayName for Settings in MainMenuConfig.json */
+/* Localized displayName for Bug Report in MainMenuConfig.json */
+"ECDLocalizedBugReportLabel" = "Signaler un bug";
+
+/* Localized displayName for Ad Hoc in MainMenuConfig.json */
 "ECDLocalizedAdHocLabel" = "Ad Hoc";
 
+/* Localized displayName for Workflows in MainMenuConfig.json */
+"ECDLocalizedWorkflowsLabel" = "Flux de travail";
+
 /* Runtime Environment Header */
-"ECDLocalizedEnvironmentsHeader" = "(FR) Select Environment";
+"ECDLocalizedEnvironmentsHeader" = "Sélectionner Environment";
+
+/* Organization Header */
+"ECDLocalizedOrganizationHeader" = "Sélectionner Organisation";
 
 /* VoiceIt Header */
-"ECDLocalizedVoiceItHeader" = "(FR) VoiceIt Utilities";
+"ECDLocalizedVoiceItHeader" = "Services VoiceIt";
 
 /* Runtime Startup Application Header */
-"ECDLocalizedRunModeHeader" = "(FR) Select Runtime Application";
+"ECDLocalizedRunModeHeader" = "Sélectionner  l'application d'exécution";
 
-/* Profile was updated  */
-"ECDLocalizeProfileWasUpdatedKey" = "Profil a été mis à jour";
+/* Customize ChatWindow Header */
+"ECDLocalizedCustomizeChatWindowHeader" = "Personnalisation de la ChatWindow";
 
-"ECDLocalizedNoAgents" = "Aucun des agents disponibles.";
-"ECDLocalizedWaitString" = "attendez";
+/* Frequently asked Questions header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "Obtenez des réponses rapides à partir de sujets communs d'aide.";/* ----------------------------------------------------- */
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesHeader" = "Masquer/afficher les images d'avatar";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsHeader" = "Masquer/afficher les entêtes des phylactères du chat";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampHeader" = "Masquer/afficher l'horodatage du chat";
+
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesLabel" = "Afficher les images d'avatar";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsLabel" = "Afficher les contenus des phylactères du chat";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampLabel" = "Afficher l'horodatage du chat";
+
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "Aucun agent de disponible.";
+"ECDLocalizedWaitString" = "Attendez";
 "ECDLocalizedMinuteString" = "mins";
 "ECDLocalizedAgentString" = "Agents";
 
-/* Start Chat */
-"ECDLocalizedStartChatLabel" = "démarrer la chat";
-"ECDLocalizedContinueChatLabel" = "poursuivre le chat";
-
-/* Ad-Hoc Page Breadcrumb caption */
-"ECDLocalizedBreadcrumbLabel" = "Le Breadcrumb";

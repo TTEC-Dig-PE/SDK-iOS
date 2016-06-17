@@ -10,22 +10,13 @@
 @import SystemConfiguration;
 #import <netinet/in.h>
 
+#import "ECSConfiguration.h"
 #import "ECSActionType.h"
 #import "ECSActionTypeClassTransformer.h"
-#import "ECSAnswerEngineResponse.h"
-#import "ECSAnswerEngineTopQuestionsResponse.h"
-#import "ECSAnswerEngineRateResponse.h"
 #import "ECSCafeXController.h"
-#import "ECSCallbackSetupResponse.h"
 #import "ECSChannelConfiguration.h"
-#import "ECSChannelCreateResponse.h"
-#import "ECSChatHistoryMessage.h"
-#import "ECSChatHistoryResponse.h"
-#import "ECSConfiguration.h"
-#import "ECSConversationCreateResponse.h"
-#import "ECSStartJourneyResponse.h"
 #import "ECSForm.h"
-#import "ECSFormSubmitResponse.h"
+#import "ECSBreadcrumb.h"
 #import "ECSUserProfile.h"
 #import "ECSInjector.h"
 #import "ECSHistoryList.h"
@@ -33,7 +24,6 @@
 #import "ECSLog.h"
 #import "ECSRequestSerializer.h"
 #import "ECSResponseSerializer.h"
-#import "ECSHistoryResponse.h"
 #import "ECSJSONResponseSerializer.h"
 #import "ECSJSONRequestSerializer.h"
 #import "ECSJSONSerializer.h"
@@ -42,8 +32,20 @@
 #import "ECSNavigationContext.h"
 #import "ECSUserManager.h"
 
+#import "ECSChatHistoryMessage.h"
+
+#import "ECSAnswerEngineResponse.h"
+#import "ECSAnswerEngineTopQuestionsResponse.h"
+#import "ECSAnswerEngineRateResponse.h"
+#import "ECSCallbackSetupResponse.h"
+#import "ECSChannelCreateResponse.h"
+#import "ECSChatHistoryResponse.h"
+#import "ECSConversationCreateResponse.h"
+#import "ECSStartJourneyResponse.h"
+#import "ECSFormSubmitResponse.h"
+#import "ECSHistoryResponse.h"
 #import "ECSBreadcrumbResponse.h"
-#import "ECSBreadcrumb.h"
+#import "ECSJourneyAttachResponse.h"
 
 #import "ECSSkillDetail.h"
 #import "ECSExpertDetail.h"
@@ -82,6 +84,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @synthesize breadcrumbSessionID;
 @synthesize pushNotificationID;
 @synthesize localLocale;
+@synthesize journeyManagerContext;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -920,6 +923,43 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+- (NSURLSessionDataTask*)setupJourneyWithName:(NSString *)theName
+                           pushNotificationId:(NSString *)thePushId
+                                      context:(NSString *)theContext
+                                   completion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
+{
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    
+    if(pushNotificationID)self.pushNotificationID = pushNotificationID;
+    if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
+    
+    if(theName)parameters[@"name"] = theName;
+    
+    if(theContext)self.journeyManagerContext = theContext;
+    if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
+    
+    return [self POST:@"journeymanager/v1"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)setJourneyContext:(NSString*)theContext
+                                completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion
+{
+    NSAssert(theContext, @"Context parameter cannot be null.");
+    
+    self.journeyManagerContext = theContext;
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    parameters[@"context"] = self.journeyManagerContext;
+    
+    return [self POST:@"journeymanager/v1/attach"
+           parameters:parameters
+              success:[self successWithExpectedType:[ECSJourneyAttachResponse class] completion:completion]
+              failure:[self failureWithCompletion:completion]];
+}
+
 #pragma mark - Media Upload
 - (NSURLSessionUploadTask*)uploadFileData:(NSData*)data
                                withName:(NSString*)name
@@ -1597,6 +1637,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(localLocale && localLocale.length>3)
     {
         languageLocale = localLocale;
+    }
+    
+    if(self.journeyManagerContext)
+    {
+        [mutableRequest setValue:self.journeyManagerContext forHTTPHeaderField:@"x-ia-context"];
     }
    
     [mutableRequest setValue:languageLocale forHTTPHeaderField:@"x-ia-locale"];
