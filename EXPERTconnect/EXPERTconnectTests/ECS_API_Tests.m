@@ -19,6 +19,8 @@
 #import "ECSHistoryList.h"
 #import "ECSChatHistoryResponse.h"
 #import "ECSHistoryListItem.h"
+#import "ECSConversationCreateResponse.h"
+#import "ECSCafeXController.h"
 
 @interface ECS_API_Tests : XCTestCase <ECSAuthenticationTokenDelegate>
 
@@ -919,7 +921,8 @@ NSString *_firstname;
 		  }
 		  else
 		  {
-			   XCTAssert(fileNames != nil && fileNames.count != 0 ,@"No media file names found.");
+               // Specific tests
+			   XCTAssert(fileNames.count > 0 ,@"Expected more than 0 filenames returned.");
 		  }
 		  [expectation fulfill];
 	 }];
@@ -1087,6 +1090,56 @@ NSString *_firstname;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testStartConversation
+{
+     [self initSDK];
+     
+     XCTestExpectation *expectation = [self expectationWithDescription:@"testStartConversation"];
+     
+     ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
+     chatAction.actionId = @"";
+     chatAction.agentSkill = @"CE_Mobile_Chat";
+     chatAction.displayName = @"Test screen";
+     chatAction.shouldTakeSurvey = NO;
+     chatAction.journeybegin = [NSNumber numberWithInt:1];
+     
+     
+     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+     // Do a login if there's no session:
+     if (![cafeXController hasCafeXSession]) {
+          [cafeXController setupCafeXSession];
+     }
+     chatAction.cafexmode = @"videocapable,voicecapable,cobrowsecapable";
+     chatAction.cafextarget = [cafeXController cafeXUsername];
+     ECSActionType *actionType = [[ECSActionType alloc] init];
+     actionType = chatAction;
+     ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+     // Start a new journey
+     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
+      {
+           XCTAssert(journeyID.length>0,@"Response contains a journeyID");
+           XCTAssert(!error, @"Response does not contain an error");
+           
+           // Same as high level chat, start a conversation.
+           [session startConversationForAction:actionType
+                               andAlwaysCreate:YES
+                                withCompletion:^(ECSConversationCreateResponse *response, NSError *error)
+            {
+                 XCTAssert(response.journeyID.length>0,@"Response contains a journeyID");
+                 XCTAssert(response.conversationID.length>0,@"Response has a conversationID");
+                 XCTAssert(response.channelLink.length>0,@"Response has a channelLink");
+                 XCTAssert(!error, @"Response does not contain an error");
+                 [expectation fulfill];
+            }];
+      }];
+     
+     [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
+          if (error) {
+               XCTFail(@"Timeout error (25 seconds). Error=%@", error);
+          }
+     }];
 }
 
 -(void)testNetworkReachable {
