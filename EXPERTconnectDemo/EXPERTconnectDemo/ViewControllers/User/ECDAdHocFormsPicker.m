@@ -24,6 +24,8 @@ static NSString *const lastFormSelected = @"lastFormSelected";
                 [formsArray addObject:formName];
             }
             
+            [formsArray addObject:@"BOGUS_FORM_NAME"]; // Add a bad form for QA error testing
+            
             int rowToSelect = [[[NSUserDefaults standardUserDefaults] objectForKey:lastFormSelected] intValue];
             if(rowToSelect > formsArray.count-1)
             {

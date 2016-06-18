@@ -1,337 +1,345 @@
-/*
-  Localization.strings
-  EXPERTconnect
+/* 
+  Localization.strings
+  EXPERTconnect
 
-  Copyright (c) 2015 Humanify, Inc. Tous droits réservés.
+  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Nom de la société */
+/* Name of the company */
 "ECSLocalizedCompanyNameKey" = "Humanify";
 
-/* Fermer */
+/* Close */
 "ECSLocalizedCloseKey" = "Fermer";
 
-/* Erreur */
+/* Error */
 "ECSLocalizeErrorKey" = "Erreur";
 
-/* Se Déconnecter */
-"ECSLocalizeLogoutTitle" = "Déconnexion";
+/* Logout */
+"ECSLocalizeLogoutTitle" = "Déconnecter?";
 
-/* Texte Déconnexion */
- "ECSLocalizeLogoutText" = "Etes-vous sûr que vous souhaitez vous déconnecter?";
- 
+/* Logout text */
+"ECSLocalizeLogoutText" = "Êtes-vous sûr de vouloir vous déconnecter ?";
+
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
-"ECSLocalizedAskAQuestionKey" = "posez une question";
- 
-/* Foire Aux Questions header */
-"ECSLocalizedFrequentlyAskedQuestionsKey" = "Foire aux questions";
+"ECSLocalizedAskAQuestionKey" = "Poser une question";
+
+/* Frequently asked Questions header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "FOIRE AUX QUESTIONS";
 
 /* FAQ */
 "ECSLocalizeShortFAQKey" = "FAQ";
 
-/* Masquer FAQ */
-"ECSLocalizeShortHideFAQKey" = "Masquer FAQ";
- 
-/* Adresse Email Placeholder */
-"ECSLocalizeEmailFieldPlaceholder" = "Adresse courriel";
+/* Hide FAQ */
+"ECSLocalizeShortHideFAQKey" = "Cacher la FAQ";
 
-/* Téléphone mobile Placeholder */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "Nombre Mobile";
+/* Email Address Placeholder */
+"ECSLocalizeEmailFieldPlaceholder" = "Adresse E-mail ";
 
-/* Se connecter texte de l'invite */
-"ECSLogInPromptText" = "Connexion à votre compte Humanify";
+/* Mobile Number Placeholder */
+"ECSLocalizeMobileNumberFieldPlaceholder" = "Numéro de mobile ";
 
-/* Texte tous les champs obligatoires */
-"ECSLocalizeAllFieldsRequired" = "tous les champs obligatoires";
+/* Log in prompt text */
+"ECSLogInPromptText" = "Log in to your Compte Humanify ";
 
-/* Erreur manquants champs obligatoires */
-"ECSLocalizeLoginErrorMissingRequiredFields" = "Le champ Adresse Email est requis.";
+/* All Fields Required Text */
+"ECSLocalizeAllFieldsRequired" = "Tous les champs sont nécessaires";
 
-/* Tous les champs d'inscription sont requried */
-"ECSLocalizeRegisterErrorMissingRequiredFields" = "Tous les champs sont obligatoires.";
+/* Error missing required fields */
+"ECSLocalizeLoginErrorMissingRequiredFields" = "Le champ de l'adresse mail est nécessaire.";
 
-/* Se connecter texte du bouton */
-"ECSLocalizeLogInButton" = "Connexion";
+/* All registration fields are requried */
+"ECSLocalizeRegisterErrorMissingRequiredFields" = "Tous les champs sont nécessaires.";
 
-/* Déconnexion bouton texte */
-"ECSLocalizedLogoutButton" = "Déconnexion";
+/* Log in button text */
+"ECSLocalizeLogInButton" = "Se connecter";
 
-/* Demande de créer un compte */
-"ECSCreateAccountPromptKey" = "Créez un compte Humanify";
+/* Log out button text */
+"ECSLocalizedLogoutButton" = "Se déconnecter";
 
-/* Nom complet champ texte espace réservé */
+/* Request to create an account */
+"ECSCreateAccountPromptKey" = "Créer un compte Humanify";
+
+/* Full Name text field placeholder */
 "ECSLocalizeFullNameFieldPlaceholderKey" = "Nom complet";
 
-/* Créer un compte texte du bouton */
+/* Create Account button text */
 "ECSLocalizeCreateAccountKey" = "Créer un compte";
 
-/* Question Suivante */
-"ECSLocalizeNextQuestionKey" = "Suivant";
+/* Next Question */
+"ECSLocalizeNextQuestionKey" = "Suivante";
 
-/* Question précédente */
-"ECSLocalizePreviousQuestionKey" = "Précédent";
+/* Previous Question */
+"ECSLocalizePreviousQuestionKey" = "Précédente";
 
-/* Question optionnelle */
-"ECSLocalizeOptionalKey" = "facultatif";
+/* Optional Question */
+"ECSLocalizeOptionalKey" = "Optionelle";
 
-/* Question Obligatoire */
-"ECSLocalizeRequiredKey" = "requis";
- 
- /* Sélectionnez toutes les cases */
-"ECSLocalizeSelectAllThatApplyKey" = "Sélectionnez toutes les cases";
+/* Required Question */
+"ECSLocalizeRequiredKey" = "Nécessaire";
 
-/* Soumettre */
+/* Select all that apply */
+"ECSLocalizeSelectAllThatApplyKey" = "Sélectionner tout ce qui s'applique";
+
+/* Submit */
 "ECSLocalizeSubmitKey" = "Soumettre";
 
-/* Possible réponse */
-"ECSLocalizePossibleAnswer" = "REPONSE POSSIBLE";
+/* Possible Answer */
+"ECSLocalizePossibleAnswer" = "RÉPONSE POSSIBLE";
 
-/* D'autres ont également demandé */
-"ECSLocalizeOthersAlsoAsked" = "AUTRES également demandé ...";
+/* Others also asked */
+"ECSLocalizeOthersAlsoAsked" = "D'AUTRES ONT AUSSI DEMANDÉ...";
 
-/* Cette réponse vous a été utile? */
-"ECSLocalizeWasThisResponseHelpful" = "Etait-ce la réponse utile?";
+/* Was this response helpful? */
+"ECSLocalizeWasThisResponseHelpful" = "Est-ce que cette réponse vous a aidé ?";
 
-/* Voir la réponse précédente */
-"ECSLocalizedViewPreviousAnswer" = "Voir réponse précédente";
+/* View Previous Answer */
+"ECSLocalizedViewPreviousAnswer" = "Voir la réponse précédente";
 
-/* Voir la réponse suivante */
+/* View Next Answer */
 "ECSLocalizedViewNextAnswer" = "Voir la réponse suivante";
 
-/* Réponse non trouvée titre */
+/* Answer not found title */
 "ECSLocalizedAnswerNotFoundTitle" = "Aucune réponse trouvée";
 
-/* Réponse non trouvée un message */
-"ECSLocalizedAnswerNotFoundMessage" = "Nous avons été incapables de trouver une réponse à votre question, s'il vous plaît essayer de nouveau";
+/* Answer not found message */
+"ECSLocalizedAnswerNotFoundMessage" = "Nous avons été incapables de trouver une réponse à votre question, veuillez essayer à nouveau.";
 
-/* OK Bouton texte */
+/* OK Button Text */
 "ECSLocalizedOkButton" = "OK";
 
-/* Erreur accessibilité connectant sur le site */
-"ECSLocalizeReachabilityErrorKey" = "Nous sommes incapables de se connecter au réseau Humanify S'il vous plaît vérifier votre connexion Internet.";
+/* Reachability error connecting to the website */
+"ECSLocalizeReachabilityErrorKey" = "Nous sommes incapables de vous connecter au réseau Humanify. Veuillez vérifier votre connexion Internet.";
 
-/* Notifications Push */
-"ECSLocalizedPushNotificationsHeader" = "Notifications Le' Push";
+/* Push Notifications */
+"ECSLocalizedPushNotificationsHeader" = "Notifications push";
 
 /* Start new journey */
-"ECSLocalizedStartJourneyHeader" = "Start new journey";
+"ECSLocalizedStartJourneyHeader" = "Commencer un nouveau parcours";
 
-/* IBeacons */
+/* iBeacons */
 "ECSLocalizedBeaconsHeader" = "iBeacons";
 
 /* Version */
-"ECSLocalizedVersionHeader" = "Version% @";
+"ECSLocalizedVersionHeader" = "Version %@";
 
-/* Recevoir les notifications */
+/* Receive Notifications */
 "ECSLocalizedReceiveNotificationsRow" = "Recevoir des notifications";
 
 /* Start new journey */
-"ECSLocalizedStartJourneyRow" = "Start New Journey";
+"ECSLocalizedStartJourneyRow" = "Commencer un nouveau parcours";
 
-/* Activer ibeacon Fonction */
-"ECSLocalizedEnableBeaconsRow" = "Activer ibeacon Feature";
+/* Enable iBeacon Feature */
+"ECSLocalizedEnableBeaconsRow" = "Activer les fonctions iBeacon";
 
-/* Licences open source */
-"ECSLocalizedLicensesRow" = "licences open source";
+/* Open Source Licenses */
+"ECSLocalizedLicensesRow" = "Licenses Open Source";
 
-/* Discuter vue texte d'espace réservé */
-"ECSLocalizedChatViewPlaceholder" = "Tapez un message";
+/* Chat view placeholder text */
+"ECSLocalizedChatViewPlaceholder" = "Taper a Message";
 
-/* Bienvenue */
+/* Welcome */
 "ECSLocalizeWelcome" = "Bienvenue";
 
-/* Bienvenue avec le nom d'utilisateur */
-"ECSLocalizeWelcomeWithUsername" = "Bienvenue,% 1 @";
+/* Welcome with user name */
+"ECSLocalizeWelcomeWithUsername" = "Bienvenue, %1@";
 
-/* Un générique message de temps d'attente */
+/* Generic wait time message */
 "ECSLocalizeGenericWaitTime" = "Vous serez connecté à un agent sous peu.";
 
-/* Attendre message de temps */
-"ECSLocalizeWaitTimeShort" = "Vous serez connecté à un agent en moins de 1 minute.";
-"ECSLocalizeWaitTime" = "Votre temps d'attente est %1d d'environ minutes.";
-"ECSLocalizeWaitTimeLong" = "Votre temps d'attente devrait être supérieure à 5 minutes.";
+/* Wait time message */
+"ECSLocalizeWaitTimeShort" = "Vous serez connecté à un agent dans moins d'une minute.";
+"ECSLocalizeWaitTime" = "Votre temps d'attente est d'environ %1d minutes.";
+"ECSLocalizeWaitTimeLong" = "Votre temps d'attente est susceptible d'être supérieur à 5 minutes.";
 
-/* Temporairement déconnecté */
-"ECSLocalizeChatReachabilityErrorKey" = "temporairement déconnecté";
+/* Temporarily Disconnected */
+"ECSLocalizeChatReachabilityErrorKey" = "Déconnecté de manière temporaire";
 
-/* Vérifiez votre connexion réseau */
-"ECSLocalizeChatReachabilityReconnectErrorKey" = "Vérifiez votre connexion réseau";
+/* Check your Network Connection */
+"ECSLocalizeChatReachabilityReconnectErrorKey" = "Vérifiez votre connection de réseau";
 
-/* Essayez de vous reconnecter */
+/* Try Reconnecting */
 "ECSLocalizeChatReachabilityReconnectButtonKey" = "Essayez de vous reconnecter";
 
-/* Message Idle */
-"ECSLocalizeIdleMessageKey" = "Vous avez été inactif pendant% 1d minutes";
+/* Idle Message */
+"ECSLocalizeIdleMessageKey" = "Vous êtes resté inactif pendant %1d minutes";
 
-/* Continuer Bavarder */
-"ECSLocalizeContinueChattingKey" = "Souhaitez-vous continuer à bavarder?";
+/* Continue Chatting */
+"ECSLocalizeContinueChattingKey" = "Voulez-vous continuer à chatter?";
 
 /* Info */
-"ECSLocalizeInfoKey" = "Infos";
+"ECSLocalizeInfoKey" = "Info";
 
-/* Attention */
+/* Warning */
 "ECSLocalizeWarningKey" = "Avertissement";
 
-/* Discuter invite de déconnexion */
-"ECSLocalizeChatDisconnectPrompt" = "Etes-vous sûr de vouloir quitter le chat";
+/* Chat disconnect prompt */
+"ECSLocalizeChatDisconnectPrompt" = "Êtes-vous sûr de vouloir quitter le chat?";
 
-/* Discuter invite de déconnexion avec l'enquête */
-"ECSLocalizeChatDisconnectPromptSurvey" = "Etes-vous sûr de vouloir quitter le chat et de continuer à l'enquête";
+/* Chat disconnect prompt with survey */
+"ECSLocalizeChatDisconnectPromptSurvey" = "Êtes-vous sûr de vouloir quitter le chat et continuer le sondage?";
 
-/* Localiser OUI */
+/* Localize YES */
 "ECSLocalizeYes" = "OUI";
 
-/* Localisez NO */
+/* Localize NO */
 "ECSLocalizeNo" = "NON";
 
-/* Appuyez sur pour répondre */
-"ECSLocalizeTapToRespond" = "Appuyez pour répondre";
+/* Tap to respond */
+"ECSLocalizeTapToRespond" = "Taper pour répondre";
 
-/* Demander un appel téléphonique */
-"ECSLocalizeRequestAPhoneCall" = "Demander un appel téléphonique";
+/* Request a phone call */
+"ECSLocalizeRequestAPhoneCall" = "Taper ici pour accepter l'appel téléphonique";
 
-/* Demander un message SMS */
+/* Request a SMS message */
 "ECSLocalizeRequestASMS" = "Demander un message SMS";
+ 
+/* Tap to
+
+/* Disconnected */
+"ECSLocalizeChatDisconnected" = "Vous avez été déconnecté du chat";
+
+/* Stay connected */
+"ECSLocalizedStayConnectedKey" = "Rester connecter";
 
 
-/* Appuyez sur pour  */
+/* Chat Session Ended */
+"ECSLocalizedChatSessionEnded" = "Session de chat terminée";
 
-/* Déconnecté */
-"ECSLocalizeChatDisconnected" = "Vous avez été déconnecté de conversation";
+/* Chat Session Ended Subtitle */
+"ECSLocalizedChatSessionEndedSubtitle" = "Veuillez répondre à quelques courtes questions sur votre expérience aujourd'hui.";
 
-/* Reste connecté */
-"ECSLocalizedStayConnectedKey" = "Restez connecté";
+/* Chat Session Ended Directions */
+"ECSLocalizedChatSessionEndedDirections" = "Répondre à ces questions nous aidera à mieux vous aider à l'avenir.";
 
-/* Session de conversation terminée */
-"ECSLocalizedChatSessionEnded" = "session de conversation terminée";
+/* Chat Session Ended Button */
+"ECSLocalizedExitChatButton" = "Sortir du chat";
 
-/* Discuter séance se termina sous-titres */
-"ECSLocalizedChatSessionEndedSubtitle" = "S'il vous plaît répondre à quelques courtes questions sur votre expérience aujourd'hui.";
-
-/* Séance de clavardage Indications terminés */
-"ECSLocalizedChatSessionEndedDirections" = "Répondre à ces questions nous aideront à mieux vous aider dans le futur.";
-
-/* Chat Button terminé session */
-"ECSLocalizedExitChatButton" = "Quitter chat";
-
-/* Message SMS */
+/* SMS Message */
 "ECSLocalizeCallNavigationTitle" = "Appel téléphonique";
 
-/* Demander un appel téléphonique */
-"ECSLocalizeRequestCallButton" = "Demander un appel téléphonique";
+/* Request a Phone Call */
+"ECSLocalizeRequestCallButton" = "Confirmer le numéro de téléphone";
 
-/* Entrez votre numéro de téléphone pour recevoir un appel: */
-"ECSLocalizeRequestCallText" = "Entrez votre numéro de téléphone pour recevoir un appel:";
+/* Enter your phone number to receive a call: */
+"ECSLocalizeRequestCallText" = "Saisissez votre numéro de téléphone pour recevoir un appel:";
 
-/* Voix de Carrier et des débits de données peuvent être facturés */
-"ECSLocalizeRequestCallDisclaimerText" = "Transporteur voix et données des taux d'utilisation.";
+/* Carrier voice and data rates may apply */
+"ECSLocalizeRequestCallDisclaimerText" = "Les tarifs voix et données de l'opérateur peuvent s'appliquer.";
 
-/* Traitement ... */
-"ECSLocalizeProcessingButton" = "Traitement ...";
+/* Processing... */
+"ECSLocalizeProcessingButton" = "Traitement en cours...";
 
-/* Message  SMS */
-"ECSLocalizeSMSNavigationTitle" = "un message SMS";
+/* SMS Message */
+"ECSLocalizeSMSNavigationTitle" = "Message SMS";
 
-/* Demander un SMS */
+/* Request a SMS */
 "ECSLocalizeRequestSMSButton" = "Demander un SMS";
 
-/* Entrez votre numéro de téléphone pour recevoir un SMS: */
-"ECSLocalizeRequestSMSText" = "Entrez votre numéro de téléphone pour recevoir un SMS:";
+/* Enter your phone number to receive a SMS: */
+"ECSLocalizeRequestSMSText" = "Saisissez votre numéro de téléphone pour recevoir un SMS:";
 
+/* Carrier voice and data rates may apply */
+"ECSLocalizeRequestSMSDisclaimerText" = "Les tarifs voix et données de l'opérateur peuvent s'appliquer.";
 
-/* Voix de Carrier et des débits de données peuvent être facturés */
-"ECSLocalizeRequestSMSDisclaimerText" = "Transporteur voix et données des taux d'utilisation.";
+/* We'll Call You. */
+"ECSLocalizeCallCancelTitle" = "Nous allons vous appeler.";
 
-/* Nous allons vous appeler. */
-"ECSLocalizeCallCancelTitle" = "Nous vous appellerai.";
+/* Call in Progress. */
+"ECSLocalizeCallInProgressTitle" = "Appel en cours.";
 
-/* Appel Annuler Description */
-"ECSLocalizeCallCancelDescription" = "Vous êtes en ligne et quand un agent est disponible, vous recevrez un appel automatisé de nous à% @";
+/* When finished, please hang up or use the End button below. */
+"ECSLocalizeCallInProgressDescription" = "Une fois terminé, veuiller raccrocher ou utiliser le bouton Fin ci-dessous.";
 
-/* Annuler la demande d'appel */
+/* End Call */
+"ECSLocalizeCallEndButton" = "Fin d'appel";
+
+/* Call Cancel Description */
+"ECSLocalizeCallCancelDescription" = "Vous êtes en ligne et quand un agent sera disponible, vous recevrez un appel automatisé de notre part à %@";
+
+/* Cancel Call Request */
 "ECSLocalizeCallCancelButton" = "Annuler la demande d'appel";
 
-/* Nous allons vous texte. */
-"ECSLocalizeSMSCancelTitle" = "nous vous texte.";
+/* We'll Text You. */
+"ECSLocalizeSMSCancelTitle" = "Nous vous enverrons un message.";
 
-/* SMS Annuler Description */
-"ECSLocalizeSMSCancelDescription" = "Vous êtes en ligne et quand un agent est disponible, vous recevrez un message SMS automatisé de nous à% @";
+/* SMS Cancel Description */
+"ECSLocalizeSMSCancelDescription" = "Vous êtes en ligne et quand un agent sera disponible, vous recevrez un message SMS automatisé de notre part à %@";
 
-/* Votre temps d'attente approximatif */
-"ECSLocalizeCallbackWaitTime" = "Votre temps d'attente approximatif est:";
+/* Your approximate wait time */
+"ECSLocalizeCallbackWaitTime" = "Votre temps d'attente est d'environ: ";
 
-/* Annuler SMS Demande */
-"ECSLocalizeSMSCancelButton" = "Annuler SMS Request";
+/* Cancel SMS Request */
+"ECSLocalizeSMSCancelButton" = "Annuler la demande de SMS";
 
 /* Minutes */
 "ECSLocalizeMinutes" = "minutes";
 
 /* Minute */
-"ECSLocalizeMinute" = "minutes";
+"ECSLocalizeMinute" = "minute";
 
-/* Erreur */
+/* Error */
 "ECSLocalizeError" = "Erreur";
 
-/* Défaut Erreur texte */
-"ECSLocalizeErrorText" = "Nous sommes incapables de compléter votre demande pour le moment S'il vous plaît réessayer plus tard";
+/* Default Error Text */
+"ECSLocalizeErrorText" = "Nous sommes incapables de compléter votre requête en ce moment. Veuillez réessayer plus tard.";
 
-/* Prend une photo */
-"ECSLocalizeTakeAPhoto" = "prendre une photo";
+/* Take a Photo */
+"ECSLocalizeTakeAPhoto" = "Prendre une photo";
 
-/* Enregistrement d'une vidéo */
-"ECSLocalizeRecordVideo" = "Enregistrez une vidéo";
+/* Record a Video */
+"ECSLocalizeRecordVideo" = "Enregistrer une vidéo";
 
-/* Existant de l'album */
-"ECSLocalizeExistingFromAlbum" = "existant de l'album";
+/* Existing from Album */
+"ECSLocalizeExistingFromAlbum" = "Existant depuis l'album";
 
-/* Envoyer */
+/* Send */
 "ECSLocalizeSend" = "Envoyer";
 
-/* Annuler */
+/* Cancel */
 "ECSLocalizeCancel" = "Annuler";
 
-/* Profil */
+/* Profile */
 "ECSLocalizeProfile" = "Profil";
 
-/* Clavardage */
-"ECSLocalizeChatLogs" = "les historiques de conversation";
+/* Chat Logs */
+"ECSLocalizeChatLogs" = "Liste de connexions Chat";
 
-/* Discuter Rejoignez utilisateur */
-"ECSLocalizeChatJoin" = "% 1 @ Inscrit";
+/* Chat Join User */
+"ECSLocalizeChatJoin" = "Vous êtes connecté à %1@.";
 
 /* Chat User Left */
-"ECSLocalizeChatLeave" = "%1@ à quitté la discussion.";
+"ECSLocalizeChatLeave" = "%1@ a quitté le chat.";
 
-/* Histoire */
-"ECSLocalizeHistory" = "Histoire";
+/* History */
+"ECSLocalizeHistory" = "Historique";
 
-/* Modifier le profil */
-"ECSLocalizeEditProfile" = "Modifier mon profil";
+/* Edit Profile */
+"ECSLocalizeEditProfile" = "Éditer le profil";
 
-/* Modifier le profil */
-"ECSLocalizeUpdateProfile" = "Profil de mise à jour";
+/* Edit Profile */
+"ECSLocalizeUpdateProfile" = "Mettre à jour le profil";
 
-/* soumettre Le Formulaire */
+/* Submit Form */
 "ECSLocalizedSubmittedFormHeaderLabel" = "Merci";
 
-/* soumettre Le Formulaire */
-"ECSLocalizedSubmittedFormDescriptionLabel" = "Votre réponse nous aidera à mieux vous aider et d'autres à l'avenir";
+/* Submit Form */
+"ECSLocalizedSubmittedFormDescriptionLabel" = "Votre réponse nous aidera à mieux vous aider à l'avenir";
 
-/* soumettre Le Formulaire */
+/* Submit Form */
 "ECSLocalizedSubmittedFormCloseLabel" = "Fermer";
 
-/* Réponses */
+/* Answers */
 "ECSLocalizeAnswers" = "Réponses";
 
-/* Indications Localisation */
-"ECSLocalizeDirections" = "<h1> Impossible de déterminer l'emplacement </ h1> <h2> S'il vous plaît suivez ces instructions pour activer Situation Accès </ h2> <ol> <li> Lancement <b> Paramètres </ b> sur votre iPhone ou iPad. </ li> <li> Faites défiler pour sélectionner <b> Confidentialité </ b>, puis sur <b> Location Services </ b> </ li> <li> Assurez-vous que l'interrupteur à bascule du haut est <b> Green </ b> </ li> <li> Faites défiler et sélectionnez *% @ * et assurez-vous qu'il est réglé sur \"Alors que l'aide de l'App \" ou \"toujours \" </ li> </ ol> ";
+/* Localization Directions */
+"ECSLocalizeDirections" = "<h1>Impossible de déterminer la localisation</h1><h2>Veuiller suivre ces instructions pour permettre l'accès à la localisation</h2><ol><li>Lancer <b>Réglages</b> sur votre iPhone ou iPad.</li><li>Faire défiler vers le bas pour sélectionner <b>Confidentialité</b>, puis <b>Services de localisation</b></li><li>Vérifier que l'interrupteur est  <b>vert</b></li><li>Faire défiler vers le bas et sélectionner *%@* et vérifier que c'est réglé sur \"App active\" ou \"Toujours\"</li></ol>";
 
-/* Erreur de profil */
-"ECSLocalizeProfileError" = "Il y avait une erreur de créer votre profil S'il vous plaît remplir tous les champs et essayez à nouveau..";
+/* Profile Error */
+"ECSLocalizeProfileError" = "Il y a eu une erreur lors de la création votre profil. Veuillez remplir tous les champs et essayez à nouveau.";
 
 /* No agents available */
-"ECSLocalizeNoAgents" = "Aucun des agents disponibles.";
+"ECSLocalizeNoAgents" = "Aucun agent de disponible.";
 
 /* Channel Timeout Warning */
-"ECSChannelTimeoutWarning" = "Votre discussion expirera dans %d secondes d'inactivité.";
+"ECSChannelTimeoutWarning" = "Votre discussion se terminera dans %d secondes en raison de votre inactivité.";
 

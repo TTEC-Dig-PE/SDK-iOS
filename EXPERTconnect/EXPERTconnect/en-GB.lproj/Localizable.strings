@@ -254,7 +254,7 @@
 "ECSLocalizeCallEndButton" = "End Call";
 
 /* Call Cancel Description */
-"ECSLocalizeCallCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated call from us at %@";
+"ECSLocalizeCallCancelDescription" = "You’re in the queue; when an agent is available, you’ll receive an automated call from us at %@";
 
 /* Cancel Call Request */
 "ECSLocalizeCallCancelButton" = "Cancel Call Request";
@@ -263,7 +263,7 @@
 "ECSLocalizeSMSCancelTitle" = "We'll Text You.";
 
 /* SMS Cancel Description */
-"ECSLocalizeSMSCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated SMS message from us at %@";
+"ECSLocalizeSMSCancelDescription" = "You’re in the queue; when an agent is available, you’ll receive an automated SMS message from us at %@";
 
 /* Your approximate wait time */
 "ECSLocalizeCallbackWaitTime" = "Your approximate wait time is: ";

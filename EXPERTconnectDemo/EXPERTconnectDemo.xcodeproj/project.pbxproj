@@ -74,6 +74,8 @@
 		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
 		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
 		C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */; };
+		C492B6131D1491DD008BE187 /* ECDJourneyConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */; };
+		C492B6141D1491DD008BE187 /* ECDJourneyConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -271,6 +273,11 @@
 		C492B6031D10C1DD008BE187 /* ECDChatConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDChatConfigVC.h; path = "Configuration Views/ECDChatConfigVC.h"; sourceTree = "<group>"; };
 		C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDChatConfigVC.m; path = "Configuration Views/ECDChatConfigVC.m"; sourceTree = "<group>"; };
 		C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDChatConfigVC.xib; path = "Configuration Views/ECDChatConfigVC.xib"; sourceTree = "<group>"; };
+		C492B60E1D148790008BE187 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C492B60F1D14879D008BE187 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDJourneyConfigVC.h; path = "Configuration Views/ECDJourneyConfigVC.h"; sourceTree = "<group>"; };
+		C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDJourneyConfigVC.m; path = "Configuration Views/ECDJourneyConfigVC.m"; sourceTree = "<group>"; };
+		C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDJourneyConfigVC.xib; path = "Configuration Views/ECDJourneyConfigVC.xib"; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -642,6 +649,9 @@
 				C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */,
 				C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */,
 				C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */,
+				C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */,
+				C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */,
+				C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -770,6 +780,8 @@
 				Base,
 				fr,
 				es,
+				de,
+				"en-GB",
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -803,6 +815,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C492B6141D1491DD008BE187 /* ECDJourneyConfigVC.xib in Resources */,
 				0368D77D1B3AEADC00985673 /* Localizable.strings in Resources */,
 				0301CBFC1B0626900068A0E1 /* ECDDefaultTheme.css in Resources */,
 				C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */,
@@ -886,6 +899,7 @@
 				C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */,
 				46368EC41B714999001AA48B /* ECDAdHocAnswerEngineContextPicker.m in Sources */,
 				C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */,
+				C492B6131D1491DD008BE187 /* ECDJourneyConfigVC.m in Sources */,
 				46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */,
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
@@ -925,6 +939,8 @@
 				0368D77B1B3AEADB00985673 /* en */,
 				0368D77C1B3AEADC00985673 /* fr */,
 				46004D531B5D60F900E78A83 /* es */,
+				C492B60E1D148790008BE187 /* de */,
+				C492B60F1D14879D008BE187 /* en-GB */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;

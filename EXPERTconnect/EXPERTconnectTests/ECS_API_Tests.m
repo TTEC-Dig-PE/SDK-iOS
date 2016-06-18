@@ -1140,6 +1140,7 @@ NSString *_firstname;
                XCTFail(@"Timeout error (25 seconds). Error=%@", error);
           }
      }];
+}
 /*
  Functionality: Setting a journey context changes how the journey behaves. It changes which rules will
  get called and changes whether we create a new journey or resume an old one.
