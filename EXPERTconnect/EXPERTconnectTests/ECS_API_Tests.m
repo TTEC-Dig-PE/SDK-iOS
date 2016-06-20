@@ -96,6 +96,9 @@ NSString *_firstname;
     [super tearDown];
 }
 
+/**
+ NOTE: This test is failing in v5.4. Config required on server. @kenwashington is contact for information.
+ */
 - (void)testMakeDecision {
 	 
 	 [self setUp];
@@ -784,10 +787,17 @@ NSString *_firstname;
                    withCompletion:^(ECSForm *form, NSError *error)
      {
          //NSLog(@"Response=%@", response);
-         XCTAssert(!error,@"API call returned error.");
-         if(error)NSLog(@"Error=%@", error);
-         //XCTAssert(response.answer.length > 0 || response.answerContent.length > 0, @"Response has answer engine content.");
-         //XCTAssert(response.inquiryId>0,@"Response has inquiryID");
+         XCTAssert(error, @"Expected a missing form error.");
+         if(error) {
+            NSLog(@"Error=%@", error);
+             XCTAssert([error.domain isEqualToString:@"com.humanify"],@"Expected humanify domain error.");
+             XCTAssert([error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"forms.error.failedRetrievingFormFromLegacySystem"],
+                       @"Expected form retreival error.");
+             
+             NSString *desc = [NSString stringWithFormat:@"%@", error.userInfo[NSLocalizedDescriptionKey]];
+             XCTAssert(desc.length > 0, @"Expected an error description.");
+         }
+         
          [expectation fulfill];
      }];
     
