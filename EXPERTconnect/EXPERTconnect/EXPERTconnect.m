@@ -221,19 +221,18 @@ NSTimer *breadcrumbTimer;
     return [NSBundle ecs_buildVersion];
 }
 
-/**
- Set the debug level.
- 0 - None
- 1 - Error
- 2 - Warning
- 3 - Debug
- 4 - Verbose
- */
 -(NSString *)journeyID {
     return self.urlSession.journeyID;
 }
 -(void)setJourneyID:(NSString *)theJourneyID {
     self.urlSession.journeyID = theJourneyID;
+}
+
+-(NSString *)journeyManagerContext {
+    return self.urlSession.journeyManagerContext;
+}
+-(void)setJourneyManagerContext:(NSString *)theContext {
+    self.urlSession.journeyManagerContext = theContext;
 }
 
 -(NSString *)pushNotificationID {
@@ -243,6 +242,14 @@ NSTimer *breadcrumbTimer;
     self.urlSession.pushNotificationID = thePushNotificationID;
 }
 
+/**
+ Set the debug level.
+ 0 - None
+ 1 - Error
+ 2 - Warning
+ 3 - Debug
+ 4 - Verbose
+ */
 - (void)setDebugLevel:(int)logLevel {
     if(logLevel>0)NSLog(@"EXPERTconnect SDK: Debug level set to %d", logLevel);
     ECSLogSetLogLevel(logLevel);
@@ -252,8 +259,11 @@ NSTimer *breadcrumbTimer;
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"h:mm a";
-    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    [dateFormatter setTimeZone:gmt];
+    
+    // Use the device's timezone
+    //NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    //[dateFormatter setTimeZone:gmt];
+    
     NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
     return timeStamp;
 }
@@ -615,6 +625,53 @@ NSTimer *breadcrumbTimer;
              }
          }
      }];
+}
+
+/**
+ Start a journey
+ Params:
+    Name:               Name of the journey (for reporting, not visible to user) (optional)
+    PushNotificationID: An identifier for push notifications (optional)
+    context:            Journey context (optional - default used if missing)
+ Returns: 
+    (In completion block...)
+    NSString journeyID: Identifier of the journey that was just created or fetched
+    NSError error:      Error if one occurred. Nil otherwise.
+ */
+- (void) startJourneyWithName:(NSString *)theName
+           pushNotificationId:(NSString *)thePushId
+                      context:(NSString *)theContext
+                   completion:(void (^)(NSString *, NSError *))completion
+{
+    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setupJourneyWithName:theName
+                      pushNotificationId:thePushId
+                                 context:theContext
+                              completion:^(ECSStartJourneyResponse *response, NSError* error)
+     {
+         if (response && !error && response.journeyID && response.journeyID.length > 0)
+         {
+             sessionManager.journeyID = response.journeyID;
+             
+             if( completion ) completion(response.journeyID, error);
+         }
+         else
+         {
+             if(completion) completion(nil, error);
+         }
+     }];
+}
+
+- (void) setJourneyContext:(NSString *)theContext
+            withCompletion:(void(^)(ECSJourneyAttachResponse *response, NSError *error))completion
+{
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager setJourneyContext:theContext completion:^(ECSJourneyAttachResponse *response, NSError *error)
+    {
+        if(completion) completion(response, error);
+    }];
 }
 
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {

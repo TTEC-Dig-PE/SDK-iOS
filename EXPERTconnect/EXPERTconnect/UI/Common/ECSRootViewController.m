@@ -269,7 +269,11 @@ withParentNavigationController:(UINavigationController*)navigationController
         
         NSString *title = ECSLocalizedString(ECSLocalizeErrorKey,
                                              @"Error");
-        NSString *message = error.userInfo[NSLocalizedDescriptionKey];
+        
+        // mas - Jun-15-16 - Changed to display a generic error message. 
+        //NSString *message = error.userInfo[NSLocalizedDescriptionKey];
+        NSString *message = ECSLocalizedString(ECSLocalizeErrorText, @"Error text");
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil

@@ -30,6 +30,7 @@
 
 #import "ECDChatConfigVC.h"
 #import "ECDBreadcrumbConfigVC.h"
+#import "ECDJourneyConfigVC.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -120,6 +121,7 @@ typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 {
 	 AdHocChatSectionRowStart,
      AdHocChatSectionRowBreadcrumb,
+     AdHocChatSectionRowJourney,
 	 AdHocChatSectionRowCount
 };
 
@@ -504,6 +506,10 @@ bool _chatActive;
                        //cell.textLabel.text = ECDLocalizedString(ECDLocalizedBreadcrumbLabel, @"Breadcrumb");
                        break;
                        
+                   case AdHocChatSectionRowJourney:
+                       cell.textLabel.text = @"Test Journey";
+                       break;
+                       
 					default:
 						 break;
 			   }
@@ -753,6 +759,11 @@ bool _chatActive;
     if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowBreadcrumb)
     {
         [self handleBreadcrumbConfig];
+    }
+    
+    if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowJourney)
+    {
+        [self handleJourneyConfig];
     }
 	 
 	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
@@ -1200,6 +1211,12 @@ bool _chatActive;
 {
     ECDBreadcrumbConfigVC *bcConfig = [[ECDBreadcrumbConfigVC alloc] init];
     [self.navigationController pushViewController:bcConfig animated:YES];
+}
+
+-(void)handleJourneyConfig
+{
+    ECDJourneyConfigVC *journeyConfig = [[ECDJourneyConfigVC alloc] init];
+    [self.navigationController pushViewController:journeyConfig animated:YES];
 }
 
 // User pressed our custom back button

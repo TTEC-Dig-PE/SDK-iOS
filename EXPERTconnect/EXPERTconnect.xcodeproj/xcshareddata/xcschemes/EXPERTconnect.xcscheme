@@ -53,7 +53,7 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "ECS_DceDev_Henry_Tests">
+                  Identifier = "ECS_API_Tests/testGetResponseFromEndpoint">
                </Test>
             </SkippedTests>
          </TestableReference>
