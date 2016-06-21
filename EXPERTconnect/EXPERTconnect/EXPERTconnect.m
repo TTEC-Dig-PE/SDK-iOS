@@ -674,6 +674,7 @@ NSTimer *breadcrumbTimer;
     }];
 }
 
+// Unit Test: EXPERTconnectTests::testLoginWithEmailID
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
     
     [self setUserIdentityToken:nil]; // Kill the token (we want it to fetch another)
@@ -748,6 +749,7 @@ NSTimer *breadcrumbTimer;
      }];
 }
 
+// Unit Test: EXPERTconnectTests::testGetDetailsForExpertSkill
 - (void) getDetailsForExpertSkill:(NSString *)skill
                  completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
 {
@@ -964,6 +966,7 @@ NSTimer *breadcrumbTimer;
     storedBreadcrumbs = [[NSMutableArray alloc] init]; // Reset the array.
 }
 
+// Unit Test: EXPERTconnectTests::testBreadcrumbNewSession
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
 {
     if(self.journeyID == Nil)
