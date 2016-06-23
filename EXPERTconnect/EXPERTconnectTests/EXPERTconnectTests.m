@@ -182,10 +182,39 @@ NSString *_testTenant;
     }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-        if (error) {
+        if (error) { 
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testGetDetailsForExpertSkill {
+     
+     [self initSDK];
+     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+     
+     NSString *skillName = @"CE_Mobile_Chat";
+     
+     [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
+                                           completion:^(ECSSkillDetail *details, NSError *error)
+      {
+           NSLog(@"Details: %@", details);
+           if(error) XCTFail(@"Error: %@", error.description);
+           
+           // Specific Tests
+           XCTAssert(details.description.length>0, @"Missing description text.");
+           XCTAssert(details.active == 1 || details.active == 0, @"Active must be 1 or 0");
+           XCTAssert([details.skillName containsString:skillName], @"Missing skill name");
+           XCTAssertGreaterThanOrEqual(details.estWait, -1, @"Bad estimated wait value");
+           
+           [expectation fulfill];
+      }];
+     
+     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+          if (error) {
+               XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+          }
+     }];
 }
 
 /**
@@ -228,6 +257,8 @@ NSString *_testTenant;
             XCTAssert(journeyID2.length > 0, @"JourneyID string length was 0.");
             //XCTAssert([journeyID2 containsString:@"mktwebextc"], @"JourneyID did not contain organization.");
             XCTAssert([journeyID2 containsString:@"journey"], @"JourneyID did not contain the word journey");
+            
+            // NOTE: This could be server config!
             XCTAssertFalse([journeyID2 isEqualToString:journeyID], @"Second journey call returned same journey as first.");
             
             XCTAssertNotNil([EXPERTconnect shared].journeyID, @"JourneyID was not populated in ExpertConnect object");
@@ -385,6 +416,63 @@ NSString *_testTenant;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+- (void)testLoginWithEmailID
+{
+     [self initSDK];
+     
+     __block int expectedResponses = 1;
+     __block NSString *inputFormName = @"userprofile";
+     XCTestExpectation *expectation = [self expectationWithDescription:@"testLoginWithEmailID"];
+     NSString *emailID = @"yasar.arafath@agiliztech.com";
+    
+     [[EXPERTconnect shared] login:emailID
+                    withCompletion:^(ECSForm *form, NSError *error)
+    {
+          NSLog(@"Details: %@", form);\
+          if(error) XCTFail(@"Error: %@", error.description);
+          
+          // Specific tests
+          XCTAssert(form.formData.count>0,@"Expected some form items");
+          XCTAssert([form isKindOfClass:[ECSForm class]],@"Expected a form class for response.");
+          XCTAssert(form.isInline == 1 || form.isInline == 0, @"Expected a 1 or 0 for isInline");
+          XCTAssert([form.name isEqualToString:inputFormName],@"Expected name field to be same as input form name.");
+          
+          XCTAssert(form.submitCompleteText.length>0,@"Expected submitCompleteText");
+          XCTAssert(form.submitCompleteHeaderText.length>0,@"Expected submitCompleteHeaderText");
+          //XCTAssert(form.submitText.length>0,@"Expected submitText");
+          
+          expectedResponses--;
+          if(expectedResponses <= 0)[expectation fulfill];
+     }];
+     // Wait for the above code to finish (15 second timeout)...
+     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+          if (error) {
+               XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+          }
+     }];
+}
+
+- (void)testBreadcrumbNewSession {
+     
+     [self initSDK];
+     
+     XCTestExpectation *expectation = [self expectationWithDescription:@"testBreadcrumbNewSession"];
+     
+     [[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:^(NSString *SessionID, NSError *error) {
+          
+          XCTAssert(!error,@"API call returned error.");
+          XCTAssert(SessionID.length>0,@"Expected SessionID");
+          [expectation fulfill];
+      }];
+     
+     // Wait for the above code to finish (15 second timeout)...
+     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+          if (error) {
+               XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+          }
+     }];
 }
 
 - (void)testStartupTiming {

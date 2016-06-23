@@ -154,6 +154,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
 }
 
+// Unit Test: ECS_API_Tests::testNetworkReachable
 - (BOOL)networkReachable
 {
     NSAssert(_reachabilityRef != NULL, @"currentNetworkStatus called with NULL SCNetworkReachabilityRef");
@@ -282,6 +283,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark API Call Functions
 
+// Unit Test: ECS_API_Tests::testMakeDecision
 - (NSURLSessionDataTask *)makeDecision:(NSDictionary*)decisionJson
                             completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
@@ -292,6 +294,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+// Unit Test: ECS_API_Tests::testGetNavigationContextWithName
 - (NSURLSessionDataTask *)getNavigationContextWithName:(NSString*)name
                           completion:(void (^)(ECSNavigationContext *context, NSError *error))completion;
 {
@@ -309,6 +312,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+// Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestions
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion;
 {
@@ -325,6 +329,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+// Unit Test: ECS_API_Tests::testStartAnswerEngineWithTopQuestions
 - (NSURLSessionDataTask *)startAnswerEngineWithTopQuestions:(int)num
                                                  forContext:(NSString*)context
                                              withCompletion:(void (^)(NSArray *questions, NSError *error))completion
@@ -342,7 +347,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
-
+// Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsWithContext
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestions:(int)num
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion
@@ -360,6 +365,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+// Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsForKeyword
 - (NSURLSessionDataTask *)getAnswerEngineTopQuestionsForKeyword:(NSString*)theKeyword
                                             withOptionalContext:(NSString*)theContext
                                                      completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
@@ -391,6 +397,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
 }
 
+// Unit Test: ECS_API_Tests::testGetAnswerForQuestion
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
                                      inContext:(NSString*)answerEngineContext
                                     customData:(NSDictionary *)customData
@@ -422,6 +429,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetAnswerForQuestion_MissingAnswer
+// Unit Test: ECS_API_Tests::testGetAnswerForQuestion2
 - (NSURLSessionDataTask *)getAnswerForQuestion:(NSString*)question
                                      inContext:(NSString*)answerEngineContext
                                parentNavigator:(NSString*)parentNavigator
@@ -456,6 +465,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testRateAnswerWithAnswerID
 - (NSURLSessionDataTask *)rateAnswerWithAnswerID:(NSString*)answerID
                                        inquiryID:(NSString*)inquiryID
                                           rating:(int)rating
@@ -483,6 +493,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+// Unit Test: ECS_API_Tests::testGetResponseFromEndpoint
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
 {
     ECSLogVerbose(@"Get Results from a known endpoint");
@@ -504,6 +515,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetUserProfile
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion
 {
     ECSLogVerbose(@"Get User's Profile");
@@ -514,6 +526,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testSubmitUserProfile
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
     ECSLogVerbose(@"Submit User Profile");
@@ -532,6 +545,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  @param Completion block (returns object)
  @return the data task for the select experts call
  */
+
+// Unit Test: ECS_API_Tests::testGetExpertsWithInteractionItems
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
                                               completion:(void (^)(NSArray *, NSError *))completion
 {
@@ -547,6 +562,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetFormNames
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
     ECSLogVerbose(@"Get form names");
@@ -568,6 +584,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetFormByName
+// Unit Test: ECS_API_Tests::testGetFormbyName_NoForm
 - (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     NSAssert(formName != nil && formName.length > 0, @"formName must be specified");
@@ -578,7 +596,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
-
+// Unit Test: ECS_API_Tests::testSubmitForm
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
@@ -589,6 +607,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: none
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                               intent:(NSString*)intent
                    navigationContext:(NSString*)navigationContext
@@ -613,6 +632,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: none
 - (NSURLSessionDataTask*)performLoginWithUsername:(NSString*)username
                                          password:(NSString*)password
                                        completion:(void (^)(id userData, NSError* error))completion
@@ -632,6 +652,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 }
 
+// Unit Test: none
 - (NSURLSessionDataTask*)performRegistrationWithFullName:(NSString*)fullName
                                             emailAddress:(NSString*)email
                                             mobileNumber:(NSString*)mobileNumber
@@ -652,6 +673,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark Chat / Callback Actions
 
+// Unit Test: ECS_API_Tests::testStartConversation
 - (NSURLSessionDataTask*)startConversationForAction:(ECSActionType*)actionType
                                     andAlwaysCreate:(BOOL)alwaysCreate
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
@@ -879,7 +901,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 # pragma mark Utility Functions
-
+// Unit Test: none
 - (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
                                   completion:(void(^)(NSDictionary *response, NSError *error))completion {
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
@@ -890,6 +912,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetDetailsForSkill
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
@@ -899,6 +922,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetDetailsForExpertSkill
 - (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
@@ -910,6 +934,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark Journey Functions
 
+// Unit Test: ECS_API_Tests::testSetJourneyContext
 - (NSURLSessionDataTask*)setupJourneyWithCompletion:(void (^)(ECSStartJourneyResponse *response, NSError* error))completion
 {
     //ECSKeychainSupport *support = [ECSKeychainSupport new];
@@ -923,6 +948,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: none
 - (NSURLSessionDataTask*)setupJourneyWithName:(NSString *)theName
                            pushNotificationId:(NSString *)thePushId
                                       context:(NSString *)theContext
@@ -944,6 +970,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
               failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testSetJourneyContext
 - (NSURLSessionDataTask*)setJourneyContext:(NSString*)theContext
                                 completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion
 {
@@ -961,6 +988,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 #pragma mark - Media Upload
+// Unit Test: ECS_API_Tests::testUploadDownloadMediaFile
 - (NSURLSessionUploadTask*)uploadFileData:(NSData*)data
                                withName:(NSString*)name
                         fileContentType:(NSString*)fileContentType
@@ -1016,6 +1044,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return task;
 }
 
+// Unit Test: ECS_API_Tests::testUploadDownloadMediaFile
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name
 {
     NSString *path = [NSString stringWithFormat:@"/utils/v1/media/files"];
@@ -1028,6 +1057,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return request;
 }
 
+// Unit Test: ECS_API_Tests::testGetMediaFileNames
 - (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
     ECSLogVerbose(@"Get Media File names");
@@ -1051,6 +1081,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 #pragma mark - History
+// Unit Test: ECS_API_Tests::testGetAnswerEngineHistory
 - (NSURLSessionDataTask*)getAnswerEngineHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {
     NSString *path = @"/conversationhistory/v1/";
@@ -1060,6 +1091,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                             failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetChatHistory
 - (NSURLSessionDataTask*)getChatHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {
     NSString *path = @"/conversationhistory/v2";
@@ -1069,9 +1101,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+// Unit Test: ECS_API_Tests::testGetChatHistory
 - (NSURLSessionDataTask*)getChatHistoryDetailsForJourneyId:(NSString*)journeyId
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion
 {
+    NSAssert(journeyId, @"Missing required parameter JourneyId"); 
     NSString *path = @"/conversationhistory/v2";
     return [self GET:path
           parameters:@{
