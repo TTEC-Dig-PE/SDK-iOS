@@ -82,6 +82,7 @@ NSTimer *breadcrumbTimer;
 
 #pragma mark Properties
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (BOOL)authenticationRequired
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -155,6 +156,7 @@ NSTimer *breadcrumbTimer;
     return [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString *)userName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -199,6 +201,7 @@ NSTimer *breadcrumbTimer;
     sessionManager.authTokenDelegate = delegate;
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString *)userDisplayName
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -211,11 +214,13 @@ NSTimer *breadcrumbTimer;
     userManager.userDisplayName = userDisplayName;
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString*)EXPERTconnectVersion
 {
     return [NSBundle ecs_bundleVersion];
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString*)EXPERTconnectBuildVersion
 {
     return [NSBundle ecs_buildVersion];
