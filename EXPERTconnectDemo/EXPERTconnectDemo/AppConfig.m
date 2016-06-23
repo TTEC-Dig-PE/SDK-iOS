@@ -51,6 +51,8 @@
     
     bool chatTimestamps = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@", ECDShowChatTimeStampKey]];
     [EXPERTconnect shared].theme.showChatTimeStamp = chatTimestamps;
+    
+    //[EXPERTconnect shared].theme.chatSendButtonUseImage = YES;
 }
 
 // mas - 16-oct-2015 - Fetch available environments and clientID's from a JSON file hosted on our server.

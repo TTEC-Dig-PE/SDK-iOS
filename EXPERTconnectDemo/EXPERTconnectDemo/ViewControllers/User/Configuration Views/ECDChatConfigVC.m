@@ -89,6 +89,8 @@ bool _chatActive;
     [EXPERTconnect shared].theme.showChatBubbleTails = self.optChatBubble.on;
     [EXPERTconnect shared].theme.showAvatarImages = self.optAvatarImages.on;
     [EXPERTconnect shared].theme.showChatTimeStamp = self.optTimestamp.on;
+    [EXPERTconnect shared].theme.showChatImageUploadButton = self.optImageUploadButton.on;
+    [EXPERTconnect shared].theme.chatSendButtonUseImage = self.optSendButtonImage.on;
     
     // Create the chat view
     if( !self.chatController || !_chatActive )

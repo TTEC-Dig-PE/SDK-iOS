@@ -22,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UISwitch *optChatBubble;
 @property (weak, nonatomic) IBOutlet UISwitch *optAvatarImages;
 @property (weak, nonatomic) IBOutlet UISwitch *optNavButtons;
+@property (weak, nonatomic) IBOutlet UISwitch *optSendButtonImage;
+@property (weak, nonatomic) IBOutlet UISwitch *optImageUploadButton;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *lblAgentAvailability;
 
 - (IBAction)btnStartChat_Touch:(id)sender;

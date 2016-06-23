@@ -549,7 +549,7 @@ NSString *_firstname;
 }
 
 // TODO: Deprecated? Not necessary in the SDK?
-- (void)testGetResponseFromEndpoint
+/*- (void)testGetResponseFromEndpoint
 {
     [self setUp];
     [self initSDK];
@@ -572,7 +572,7 @@ NSString *_firstname;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
-}
+}*/
 
 - (void)testGetUserProfile
 {

@@ -64,6 +64,9 @@
         self.chatBubbleHorizMargins = 10;
         self.chatBubbleVertMargins = 5;
         
+        self.chatSendButtonImage = [UIImage ecs_bundledImageNamed:@"ecs_chat_send"];
+        self.chatSendButtonUseImage = NO; // Maintain backwards compatibilty. Use text button. 
+        
         NSString *path = [[NSBundle ecs_bundle] pathForResource:@"global_style" ofType:@"css"];
         self.cssStyle = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     }
