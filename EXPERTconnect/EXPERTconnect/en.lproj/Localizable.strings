@@ -12,24 +12,30 @@
 "ECSLocalizedCloseKey" = "Close";
 
 /* Error */
+/* Usage: The title header for an error popup alert box */
 "ECSLocalizeErrorKey" = "Error";
 
 /* Logout */
+/* Usage: Only used in ECDemo. The text in a confirmation dialog to make sure the user really wants to logout now. */
 "ECSLocalizeLogoutTitle" = "Logout?";
 
 /* Logout text */
+/* Usage: Only used in ECDemo. Popup dialog to double-check user does want to log out */
 "ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
+/* Usage: Placeholder text in a text box where user can query our FAQ database */
 "ECSLocalizedAskAQuestionKey" = "Ask a Question";
 
 /* Frequently asked Questions header */
 "ECSLocalizedFrequentlyAskedQuestionsKey" = "FREQUENTLY ASKED QUESTIONS";
 
 /* FAQ */
+/* Usage: A nav bar button title. Returns the user to the Answer Engine home page */
 "ECSLocalizeShortFAQKey" = "FAQ";
 
 /* Hide FAQ */
+/* Usage: A nav bar button title. Returns the user to the answer they were looking at */
 "ECSLocalizeShortHideFAQKey" = "Hide FAQ";
 
 /* Email Address Placeholder */

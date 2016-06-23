@@ -104,64 +104,24 @@ NSString *_firstname;
 - (void)testMakeDecision {
 	 
 	 [self setUp];
+    
+    _testTenant = @"henry";
 	 [self initSDK];
-	 
-	 NSMutableArray *interests = [[NSMutableArray alloc] initWithObjects:@"running", @"skiing", @"hiking", nil];
-	 
-	 NSMutableDictionary *affinity = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									  @"9", @"sat_score",
-									  @"chris_horizon", @"expertId",
-									  @"financial advisor", @"skill",
-									  nil];
-	 
-	 NSMutableDictionary *interaction = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-										 @"2", @"nps_score",
-										 @"mutual funds", @"intent",
-										 nil];
-	 
-	 NSMutableDictionary *customData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-										@"4", @"nps",
-										@"60", @"klout",
-										@"250000", @"clv",
-										interests, @"interests",
-										@"midatlantic", @"region",
-										affinity, @"affinity",
-										interaction, @"interaction",
-										nil];
-	 
-	 NSMutableDictionary *consumerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-										  @"null", @"userID",
-										  @"gwen@email.com", @"username",
-										  @"Gwen", @"firstName",
-										  @"", @"lastName",
-										  @"null", @"address",
-										  @"Denver", @"city",
-										  @"Colorado", @"state",
-										  @"80238", @"postalCode",
-										  @"United States", @"country",
-										  @"(312) 555-1155", @"homePhone",
-										  @"(312) 555-3944", @"mobilePhone",
-										  customData, @"customData",
-										  @"null", @"alternativeEmail",
-										  nil];
+    
+    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
 	 
 	 NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-												consumerData, @"consumer",
-												@"horizon", @"ceTenant",
-												@"determineTreatment", @"eventId",
+                                                @"henry",@"name",
+                                                @"henryRule",@"projectServiceName",
+                                                @"determineRule",@"eventId",
+                                                @"henry",@"ceTenant",
+                                                @"EN",@"userLanguage",
+                                                @"US",@"userCountry",
+                                                @"My Vehicles",@"service",
+                                                @"mktwebextc",@"clientRequestId",
+                                                @"current local page",@"function",
 												nil];
-	 
-	 NSError *error;
-	 NSData *decisionData = [NSJSONSerialization dataWithJSONObject:decisionDictionary
-															options:NSJSONWritingPrettyPrinted
-															  error:&error];
-	 NSString* decisionJson = [[NSString alloc] initWithData:decisionData encoding:NSUTF8StringEncoding];
-	 
-	 NSLog(@"Decision Request Json: %@", decisionJson);
-	 
-	 ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
-	 
-	 XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
 	 
 	 [session makeDecision:decisionDictionary
 				completion:^(NSDictionary *response, NSError *error)
@@ -170,7 +130,7 @@ NSString *_firstname;
 		   
 		   NSLog(@"Response JSON = %@", response);
 		   
-		   XCTAssert(response[@"tenant"], @"Missing tenant field.");
+		   XCTAssert([response[@"eventId"] isEqualToString:@"determineRule"], @"Expected eventId matching input.");
 		   
 		   [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
 	  }];
@@ -854,7 +814,7 @@ NSString *_firstname;
 		  else
 		  {
 			   XCTAssert(response.identityToken, @"Missing identityToken field");
-			   XCTAssert(response.action,@"Missing action field");
+			   //XCTAssert(response.action,@"Missing action field");
 			   XCTAssert(response.profileUpdated, @"Missing profileUpdated field");
 			   XCTAssert(response.submitted, @"Missing submitted field");
 		  }
@@ -868,48 +828,79 @@ NSString *_firstname;
 	 }];
 }
 
-- (void)testUploadMediaFile
+- (void)testUploadDownloadMediaFile
 {
      // TODO: decide how this test should work
      
-//	 [self setUp];   // Test setup
-//	 [self initSDK]; // SDK setup
-//	 
-//	 XCTestExpectation *expectation = [self expectationWithDescription:@"testUploadMediaFile"];
-//	 
-//	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-//	 
-//	 ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-//
-//	 [sessionManager uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:theme.chatBubbleTailsImage]
-//					withName:@""
-//			 fileContentType:@"image/jpg"
-//				  completion:^(__autoreleasing id *response, NSError *error)
-//	  {
-//		  
-//		  NSLog(@"Details: %@", fileNames);
-//		  
-//		  if(error)
-//		  {
-//			   XCTFail(@"Error reported: %@", error.description);
-//		  }
-//		  else
-//		  {
-//			   XCTAssert(fileNames != nil && fileNames.count != 0 ,@"No media file names found.");
-//		  }
-//		  [expectation fulfill];
-//	 }];
-//	 
-//	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-//		  if (error) {
-//			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-//		  }
-//	 }];
-}
-
-- (void)testDownloadMediaFile
-{
-	// TODO: decide how this test should work
+	 [self setUp];   // Test setup
+	 [self initSDK]; // SDK setup
+	 
+	 XCTestExpectation *expectation = [self expectationWithDescription:@"testUploadMediaFile"];
+	 
+	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    __block NSString *fileName = @"unitTest_chatBubble";
+	 
+    // Use this to get the auth token setup correctly.
+    [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
+    {
+        ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+        
+        /*
+         NSString *const UIImagePickerControllerMediaType;
+         NSString *const UIImagePickerControllerOriginalImage;
+         NSString *const UIImagePickerControllerEditedImage;
+         NSString *const UIImagePickerControllerCropRect;
+         NSString *const UIImagePickerControllerMediaURL;
+         NSString *const UIImagePickerControllerReferenceURL;
+         NSString *const UIImagePickerControllerMediaMetadata;
+         NSString *const UIImagePickerControllerLivePhoto;
+         */
+        NSMutableDictionary *mediaInfo = [[NSMutableDictionary alloc] init];
+        mediaInfo[UIImagePickerControllerOriginalImage] = theme.chatBubbleTailsImage;
+        
+        [sessionManager uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
+                              withName:fileName
+                       fileContentType:@"image/jpg"
+                            completion:^(__autoreleasing id *response, NSError *error)
+         {
+             
+             // Response is nothing.
+             
+             if(error)
+             {
+                 XCTFail(@"Error reported: %@", error.description);
+             }
+             else
+             {
+                 NSLog(@"File uploaded.");
+                 
+                 // TODO: uploaded file. Now let's download it.
+                 //fileName = [fileName stringByAppendingString:@".jpg"];
+                 NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
+                 NSLog(@"Request is: %@", request);
+                 NSError *error;
+                 NSData *imageData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+                 NSLog(@"Data is %ld", imageData.length);
+                 NSLog(@"Error: %@", error);
+                 
+                 NSString *strData = [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+                 NSLog(@"String data is %@", strData);
+                 
+                 UIImage *image = [UIImage imageWithData:imageData];
+                 NSLog(@"Image is: %@", image);
+             }
+             
+             [expectation fulfill];
+         }];
+    }];
+    
+	 
+	 
+	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+		  if (error) {
+			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+		  }
+	 }];
 }
 
 - (void)testGetMediaFileNames
@@ -998,71 +989,70 @@ NSString *_firstname;
 
 - (void)testGetChatHistory
 {
-     [self setUp];   // Test setup
-     [self initSDK]; // SDK setup
-     
-     XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
-     
-     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-     
-     [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
-      {
-           NSLog(@"Details: %@", response);
-           
-           if(error)
-           {
-                XCTFail(@"Error reported: %@", error.description);
-           }
-           else
-           {
-                XCTAssert(response.journeys,@"Missing journeys field.");
-           }
-           ECSHistoryListItem *listItem = [response.journeys objectAtIndex:0];
-           NSString *journeyId = [listItem valueForKey:@"journeyId"];
-           NSLog(@"Details: %@", journeyId);
-           XCTAssert(listItem.active,@"Missing active field.");
-           XCTAssert(listItem.dateString,@"Missing datestring field.");
-           XCTAssert(listItem.details,@"Missing details field.");
-           XCTAssert(listItem.title,@"Missing titles field.");
-           XCTAssert(listItem.journeyId,@"Missing journeyID field.");
-           [sessionManager getChatHistoryDetailsForJourneyId:journeyId
-                                              withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+    [self setUp];   // Test setup
+    [self initSDK]; // SDK setup
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
+
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+
+    // Test 1: Get Chat history (record of chat starts for this user)
+    [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
+    {
+        NSLog(@"Details: %@", response);
+
+        if(error) XCTFail(@"Error reported: %@", error.description);
+        
+        XCTAssert(response.journeys,@"Missing journeys field.");
+    
+        // Test 2: Analyze the first item closely.
+        ECSHistoryListItem *listItem = [response.journeys objectAtIndex:0];
+        NSString *journeyId = [listItem valueForKey:@"journeyId"];
+        
+        XCTAssert(listItem.active,@"Missing active field.");
+        XCTAssert([listItem.active intValue]==0||[listItem.active intValue]==1, @"Active must be boolean (0 or 1)");
+        XCTAssert(listItem.dateString,@"Missing datestring field.");
+        XCTAssert(listItem.title,@"Missing titles field.");
+        XCTAssert(listItem.journeyId,@"Missing journeyID field.");
+          
+        //NSDictionary *firstItem = listItem.details
+
+        [sessionManager getChatHistoryDetailsForJourneyId:journeyId
+                                           withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+        {
+            NSLog(@"Details: %@", response);
+            if(error) XCTFail(@"Error reported: %@", error.description);
+
+            XCTAssert(response.journeys,@"Missing journeys field.");
+            
+            NSDictionary *listItem = [response.journeys objectAtIndex:0];
+            XCTAssert([listItem valueForKey:@"active"],@"Missing active field.");
+            XCTAssert([listItem valueForKey:@"date"],@"Missing date field.");
+            XCTAssert([listItem valueForKey:@"details"],@"Missing details field.");
+            XCTAssert([listItem valueForKey:@"title"],@"Missing titles field.");
+            XCTAssert([listItem valueForKey:@"journeyId"],@"Missing journeyID field.");
+            
+            for (NSDictionary *dictionary in [listItem valueForKey:@"details"])
             {
-                 NSLog(@"Details: %@", response);
-                 if(error)
-                 {
-                      XCTFail(@"Error reported: %@", error.description);
-                 }
-                 else
-                 {
-                      XCTAssert(response.journeys,@"Missing journeys field.");
-                      NSDictionary *listItem = [response.journeys objectAtIndex:0];
-                      XCTAssert([listItem valueForKey:@"active"],@"Missing active field.");
-                      XCTAssert([listItem valueForKey:@"date"],@"Missing date field.");
-                      XCTAssert([listItem valueForKey:@"details"],@"Missing details field.");
-                      XCTAssert([listItem valueForKey:@"title"],@"Missing titles field.");
-                      XCTAssert([listItem valueForKey:@"journeyId"],@"Missing journeyID field.");
-                      for (NSDictionary *dictionary in [listItem valueForKey:@"details"]) {
-                           
-                           XCTAssert([dictionary valueForKey:@"actionId"],@"Missing actionId field.");
-                           XCTAssert([dictionary valueForKey:@"context"],@"Missing context field.");
-                           XCTAssert([dictionary valueForKey:@"date"],@"Missing date field.");
-                           XCTAssert([dictionary valueForKey:@"id"],@"Missing id field.");
-                           XCTAssert([dictionary valueForKey:@"journeyId"],@"Missing journeyId field.");
-                           XCTAssert([dictionary valueForKey:@"request"]|| [dictionary valueForKey:@"response"],@"Missing request/reponse field.");
-                           XCTAssert([dictionary valueForKey:@"title"],@"Missing title field.");
-                           XCTAssert([dictionary valueForKey:@"type"],@"Missing type field.");
-                      }
-                 }
-                 [expectation fulfill];
-            }];
-      }];
-     
-     [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
-          if (error) {
-               XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-          }
-     }];
+                XCTAssert([dictionary valueForKey:@"actionId"],@"Missing actionId field.");
+                XCTAssert([dictionary valueForKey:@"context"],@"Missing context field.");
+                XCTAssert([dictionary valueForKey:@"date"],@"Missing date field.");
+                XCTAssert([dictionary valueForKey:@"id"],@"Missing id field.");
+                XCTAssert([dictionary valueForKey:@"journeyId"],@"Missing journeyId field.");
+                XCTAssert([dictionary valueForKey:@"request"]|| [dictionary valueForKey:@"response"],@"Missing request/reponse field.");
+                XCTAssert([dictionary valueForKey:@"title"],@"Missing title field.");
+                XCTAssert([dictionary valueForKey:@"type"],@"Missing type field.");
+            }
+
+            [expectation fulfill];
+
+        }];
+    }];
+
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error)
+    {
+        if (error) XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+    }];
 }
 
 // Test the select experts endpoint.

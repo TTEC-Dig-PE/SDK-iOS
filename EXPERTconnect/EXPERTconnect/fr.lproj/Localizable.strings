@@ -15,7 +15,7 @@
 "ECSLocalizeErrorKey" = "Erreur";
 
 /* Logout */
-"ECSLocalizeLogoutTitle" = "Déconnecter?";
+"ECSLocalizeLogoutTitle" = "Déconnexion?";
 
 /* Logout text */
 "ECSLocalizeLogoutText" = "Êtes-vous sûr de vouloir vous déconnecter ?";
@@ -23,14 +23,14 @@
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
 "ECSLocalizedAskAQuestionKey" = "Poser une question";
 
-/* Frequently asked Questions header */
-"ECSLocalizedFrequentlyAskedQuestionsKey" = "FOIRE AUX QUESTIONS";
+/* Frequently asked Questions header (FREQUENTLY ASKED QUESTIONS) */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "QUESTIONS FREQUENTES";
 
 /* FAQ */
 "ECSLocalizeShortFAQKey" = "FAQ";
 
 /* Hide FAQ */
-"ECSLocalizeShortHideFAQKey" = "Cacher la FAQ";
+"ECSLocalizeShortHideFAQKey" = "Cacher FAQ";
 
 /* Email Address Placeholder */
 "ECSLocalizeEmailFieldPlaceholder" = "Adresse E-mail ";
@@ -39,22 +39,22 @@
 "ECSLocalizeMobileNumberFieldPlaceholder" = "Numéro de mobile ";
 
 /* Log in prompt text */
-"ECSLogInPromptText" = "Log in to your Compte Humanify ";
+"ECSLogInPromptText" = "Connecter a votre Compte Humanify";
 
 /* All Fields Required Text */
-"ECSLocalizeAllFieldsRequired" = "Tous les champs sont nécessaires";
+"ECSLocalizeAllFieldsRequired" = "Tous les champs sont obligatoires";
 
 /* Error missing required fields */
-"ECSLocalizeLoginErrorMissingRequiredFields" = "Le champ de l'adresse mail est nécessaire.";
+"ECSLocalizeLoginErrorMissingRequiredFields" = "Le champ de l'adresse mail est obligatoire.";
 
 /* All registration fields are requried */
-"ECSLocalizeRegisterErrorMissingRequiredFields" = "Tous les champs sont nécessaires.";
+"ECSLocalizeRegisterErrorMissingRequiredFields" = "Tous les champs sont obligatoires.";
 
 /* Log in button text */
-"ECSLocalizeLogInButton" = "Se connecter";
+"ECSLocalizeLogInButton" = "Connexion";
 
 /* Log out button text */
-"ECSLocalizedLogoutButton" = "Se déconnecter";
+"ECSLocalizedLogoutButton" = "Déconnexion";
 
 /* Request to create an account */
 "ECSCreateAccountPromptKey" = "Créer un compte Humanify";
@@ -75,7 +75,7 @@
 "ECSLocalizeOptionalKey" = "Optionelle";
 
 /* Required Question */
-"ECSLocalizeRequiredKey" = "Nécessaire";
+"ECSLocalizeRequiredKey" = "Obligatoire";
 
 /* Select all that apply */
 "ECSLocalizeSelectAllThatApplyKey" = "Sélectionner tout ce qui s'applique";
@@ -102,16 +102,16 @@
 "ECSLocalizedAnswerNotFoundTitle" = "Aucune réponse trouvée";
 
 /* Answer not found message */
-"ECSLocalizedAnswerNotFoundMessage" = "Nous avons été incapables de trouver une réponse à votre question, veuillez essayer à nouveau.";
+"ECSLocalizedAnswerNotFoundMessage" = "Nous n'avons trouvé aucune réponse à votre question, veuillez essayer à nouveau.";
 
 /* OK Button Text */
 "ECSLocalizedOkButton" = "OK";
 
 /* Reachability error connecting to the website */
-"ECSLocalizeReachabilityErrorKey" = "Nous sommes incapables de vous connecter au réseau Humanify. Veuillez vérifier votre connexion Internet.";
+"ECSLocalizeReachabilityErrorKey" = "Nous ne sommes pas parvenu a vous connecter au Réseau Humanify. Veuillez vérifier votre connection internet.";
 
 /* Push Notifications */
-"ECSLocalizedPushNotificationsHeader" = "Notifications push";
+"ECSLocalizedPushNotificationsHeader" = "Notifications Directe";
 
 /* Start new journey */
 "ECSLocalizedStartJourneyHeader" = "Commencer un nouveau parcours";
@@ -149,13 +149,13 @@
 /* Wait time message */
 "ECSLocalizeWaitTimeShort" = "Vous serez connecté à un agent dans moins d'une minute.";
 "ECSLocalizeWaitTime" = "Votre temps d'attente est d'environ %1d minutes.";
-"ECSLocalizeWaitTimeLong" = "Votre temps d'attente est susceptible d'être supérieur à 5 minutes.";
+"ECSLocalizeWaitTimeLong" = "Nous prévoyons que votre temps d'attente durera plus de 5 minutes.";
 
 /* Temporarily Disconnected */
-"ECSLocalizeChatReachabilityErrorKey" = "Déconnecté de manière temporaire";
+"ECSLocalizeChatReachabilityErrorKey" = "Temporairement Déconnecté";
 
 /* Check your Network Connection */
-"ECSLocalizeChatReachabilityReconnectErrorKey" = "Vérifiez votre connection de réseau";
+"ECSLocalizeChatReachabilityReconnectErrorKey" = "Vérifiez votre Connection Réseau";
 
 /* Try Reconnecting */
 "ECSLocalizeChatReachabilityReconnectButtonKey" = "Essayez de vous reconnecter";
@@ -170,13 +170,13 @@
 "ECSLocalizeInfoKey" = "Info";
 
 /* Warning */
-"ECSLocalizeWarningKey" = "Avertissement";
+"ECSLocalizeWarningKey" = "Alert";
 
 /* Chat disconnect prompt */
-"ECSLocalizeChatDisconnectPrompt" = "Êtes-vous sûr de vouloir quitter le chat?";
+"ECSLocalizeChatDisconnectPrompt" = "Voulez-vous vraiment vous déconnecter du chat?";
 
 /* Chat disconnect prompt with survey */
-"ECSLocalizeChatDisconnectPromptSurvey" = "Êtes-vous sûr de vouloir quitter le chat et continuer le sondage?";
+"ECSLocalizeChatDisconnectPromptSurvey" = "Voulez-vous vraiment vous déconnecter du chat et poursuivre le questionnaire?";
 
 /* Localize YES */
 "ECSLocalizeYes" = "OUI";
@@ -199,11 +199,11 @@
 "ECSLocalizeChatDisconnected" = "Vous avez été déconnecté du chat";
 
 /* Stay connected */
-"ECSLocalizedStayConnectedKey" = "Rester connecter";
+"ECSLocalizedStayConnectedKey" = "Rester connecté";
 
 
 /* Chat Session Ended */
-"ECSLocalizedChatSessionEnded" = "Session de chat terminée";
+"ECSLocalizedChatSessionEnded" = "Session Chat Terminée";
 
 /* Chat Session Ended Subtitle */
 "ECSLocalizedChatSessionEndedSubtitle" = "Veuillez répondre à quelques courtes questions sur votre expérience aujourd'hui.";
@@ -242,7 +242,7 @@
 "ECSLocalizeRequestSMSDisclaimerText" = "Les tarifs voix et données de l'opérateur peuvent s'appliquer.";
 
 /* We'll Call You. */
-"ECSLocalizeCallCancelTitle" = "Nous allons vous appeler.";
+"ECSLocalizeCallCancelTitle" = "Nous Vous Apellerons";
 
 /* Call in Progress. */
 "ECSLocalizeCallInProgressTitle" = "Appel en cours.";
@@ -263,7 +263,7 @@
 "ECSLocalizeSMSCancelTitle" = "Nous vous enverrons un message.";
 
 /* SMS Cancel Description */
-"ECSLocalizeSMSCancelDescription" = "Vous êtes en ligne et quand un agent sera disponible, vous recevrez un message SMS automatisé de notre part à %@";
+"ECSLocalizeSMSCancelDescription" = "Vous êtes en ligne et quand un agent sera disponible, vous recevrez un message SMS automatique de notre part à %@";
 
 /* Your approximate wait time */
 "ECSLocalizeCallbackWaitTime" = "Votre temps d'attente est d'environ: ";
@@ -314,16 +314,16 @@
 "ECSLocalizeHistory" = "Historique";
 
 /* Edit Profile */
-"ECSLocalizeEditProfile" = "Éditer le profil";
+"ECSLocalizeEditProfile" = "Editer Profil";
 
 /* Edit Profile */
-"ECSLocalizeUpdateProfile" = "Mettre à jour le profil";
+"ECSLocalizeUpdateProfile" = "Modifier Profil";
 
 /* Submit Form */
 "ECSLocalizedSubmittedFormHeaderLabel" = "Merci";
 
 /* Submit Form */
-"ECSLocalizedSubmittedFormDescriptionLabel" = "Votre réponse nous aidera à mieux vous aider à l'avenir";
+"ECSLocalizedSubmittedFormDescriptionLabel" = "Votre réponse nous aidera à mieux vous assister à l'avenir";
 
 /* Submit Form */
 "ECSLocalizedSubmittedFormCloseLabel" = "Fermer";
