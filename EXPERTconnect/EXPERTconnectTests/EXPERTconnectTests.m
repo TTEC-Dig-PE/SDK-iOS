@@ -470,6 +470,27 @@ NSString *_testTenant;
      }];
 }
 
+- (void)testProperties
+{
+     [self initSDK];
+     
+     //Here sdk initialization properties are tested.
+     BOOL authentiacation = [[EXPERTconnect shared] authenticationRequired];
+     XCTAssert(authentiacation == 1 || authentiacation == 0, @"Expected a 1 or 0 for authentiaction");
+     
+     NSString *displayName = [[EXPERTconnect shared] userDisplayName];
+     XCTAssert(displayName.length>0,@"Expected display name");
+     
+     NSString *userName = [[EXPERTconnect shared] userName];
+     XCTAssert(userName.length>0,@"Expected user name");
+
+     NSString *EXPERTconnectVersion = [[EXPERTconnect shared] EXPERTconnectVersion];
+     XCTAssert(EXPERTconnectVersion.length>0,@"Expected EXPERTconnect Version");
+
+     NSString *EXPERTconnectBuildVersion = [[EXPERTconnect shared] EXPERTconnectBuildVersion];
+     XCTAssert(EXPERTconnectBuildVersion.length>0,@"Expected EXPERTconnect BuildVersion");
+}
+
 - (void)testStartupTiming {
     // This is an example of a performance test case.
     [self measureBlock:^{
