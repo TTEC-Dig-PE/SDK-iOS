@@ -94,6 +94,8 @@ static NSString *const organizationKey = @"organization";
         }
     }
     
+    [self.organizationArray addObject:@"INVALID_ORG"]; 
+    
     return YES;
 }
 

@@ -988,7 +988,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 #pragma mark - Media Upload
-// Unit Test: ECS_API_Tests::testUploadMediaFile
+// Unit Test: ECS_API_Tests::testUploadDownloadMediaFile
 - (NSURLSessionUploadTask*)uploadFileData:(NSData*)data
                                withName:(NSString*)name
                         fileContentType:(NSString*)fileContentType
@@ -1044,7 +1044,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return task;
 }
 
-// Unit Test: ECS_API_Tests::testDownloadMediaFile
+// Unit Test: ECS_API_Tests::testUploadDownloadMediaFile
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name
 {
     NSString *path = [NSString stringWithFormat:@"/utils/v1/media/files"];
@@ -1105,6 +1105,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getChatHistoryDetailsForJourneyId:(NSString*)journeyId
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion
 {
+    NSAssert(journeyId, @"Missing required parameter JourneyId"); 
     NSString *path = @"/conversationhistory/v2";
     return [self GET:path
           parameters:@{
