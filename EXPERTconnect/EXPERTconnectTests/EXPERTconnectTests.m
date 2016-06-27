@@ -494,6 +494,29 @@ NSString *_testTenant;
 
      NSString *EXPERTconnectBuildVersion = [[EXPERTconnect shared] EXPERTconnectBuildVersion];
      XCTAssert(EXPERTconnectBuildVersion.length>0,@"Expected EXPERTconnect BuildVersion");
+     
+     [[EXPERTconnect shared] setUserIntent:@"testUserIntent"];
+     NSString *userIntent = [[EXPERTconnect shared] userIntent];
+     XCTAssert([userIntent isEqualToString:@"testUserIntent"],@"userIntent getter or setter failed");
+     
+     [[EXPERTconnect shared] setJourneyID:@"testJourneyId"];
+     NSString *journeyID = [[EXPERTconnect shared] journeyID];
+     XCTAssert([journeyID isEqualToString:@"testJourneyId"],@"journeyID getter or setter failed");
+     
+     [[EXPERTconnect shared] setJourneyManagerContext:@"testJourneyManagerContext"];
+     NSString *journeyManagerContext = [[EXPERTconnect shared] journeyManagerContext];
+     XCTAssert([journeyManagerContext isEqualToString:@"testJourneyManagerContext"],@"JourneyManagerContext getter or setter failed");
+     
+     [[EXPERTconnect shared] setPushNotificationID:@"testPushNotificationID"];
+     NSString *pushNotificationID = [[EXPERTconnect shared] pushNotificationID];
+     XCTAssert([pushNotificationID isEqualToString:@"testPushNotificationID"],@"PushNotificationID getter or setter failed");
+     
+     NSString *getTimeStamp = [[EXPERTconnect shared] getTimeStampMessage];
+     XCTAssert(getTimeStamp.length>0,@"Expected TimeStamp Message");
+     
+     [[EXPERTconnect shared] overrideDeviceLocale:@"testOverrideDeviceLocale"];
+     NSString *overrideDeviceLocale = [[EXPERTconnect shared] overrideDeviceLocale];
+     XCTAssert([overrideDeviceLocale isEqualToString:@"testOverrideDeviceLocale"],@"OverrideDeviceLocale getter or setter failed");
 }
 
 - (void)testStartupTiming {

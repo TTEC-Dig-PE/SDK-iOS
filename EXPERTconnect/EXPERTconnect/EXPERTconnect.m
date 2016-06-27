@@ -145,6 +145,7 @@ NSTimer *breadcrumbTimer;
     userManager.userAvatar = userAvatar;
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString *)userIntent
 {
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -226,6 +227,7 @@ NSTimer *breadcrumbTimer;
     return [NSBundle ecs_buildVersion];
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)journeyID {
     return self.urlSession.journeyID;
 }
@@ -233,6 +235,7 @@ NSTimer *breadcrumbTimer;
     self.urlSession.journeyID = theJourneyID;
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)journeyManagerContext {
     return self.urlSession.journeyManagerContext;
 }
@@ -240,6 +243,7 @@ NSTimer *breadcrumbTimer;
     self.urlSession.journeyManagerContext = theContext;
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)pushNotificationID {
     return self.urlSession.pushNotificationID;
 }
@@ -260,6 +264,7 @@ NSTimer *breadcrumbTimer;
     ECSLogSetLogLevel(logLevel);
 }
 
+// Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)getTimeStampMessage
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -280,6 +285,8 @@ NSTimer *breadcrumbTimer;
 {
     self.urlSession.localLocale = localeString;
 }
+
+// Unit Test: EXPERTconnectTests::testProperties
 - (NSString *) overrideDeviceLocale
 {
     return self.urlSession.localLocale;
