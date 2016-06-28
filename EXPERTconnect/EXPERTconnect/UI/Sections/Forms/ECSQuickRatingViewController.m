@@ -40,7 +40,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = self.form.formTitle;
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(closeButtonTapped:)];
@@ -94,7 +94,7 @@
                                  animations:^{
                                      weakSelf.ratingView.alpha = 0.0f;
                                      weakSelf.submitCompleteContainer.alpha = 1.0f;
-                                     [weakSelf.submitButton setTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+                                     [weakSelf.submitButton setTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                         forState:UIControlStateNormal];
                                  }];
                 weakSelf.submitComplete = YES;

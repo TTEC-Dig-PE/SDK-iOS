@@ -13,7 +13,7 @@
 
 // Keys used in localization files
 static NSString* const ECSLocalizeCompanyNameKey = @"ECSLocalizedCompanyNameKey";
-static NSString* const ECSLocalizeCloseKey = @"ECSLocalizedCloseKey";
+static NSString* const ECSLocalizedCloseKey = @"ECSLocalizedCloseKey";
 static NSString* const ECSLocalizeErrorKey = @"ECSLocalizeErrorKey";
 
 static NSString* const ECSLocalizeLogoutTitle = @"ECSLocalizeLogoutTitle";

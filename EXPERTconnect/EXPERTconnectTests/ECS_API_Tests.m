@@ -838,7 +838,7 @@ NSString *_firstname;
 	 XCTestExpectation *expectation = [self expectationWithDescription:@"testUploadMediaFile"];
 	 
 	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    __block NSString *fileName = @"unitTest_chatBubble";
+    __block NSString *fileName = @"GermanÄäÖöÜüßé";
 	 
     // Use this to get the auth token setup correctly.
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
