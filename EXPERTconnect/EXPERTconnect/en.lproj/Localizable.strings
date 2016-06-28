@@ -9,6 +9,7 @@
 "ECSLocalizedCompanyNameKey" = "Humanify";
 
 /* Close */
+/* Usage: A close button that closes the current window or screen. */
 "ECSLocalizedCloseKey" = "Close";
 
 /* Error */
@@ -24,10 +25,11 @@
 "ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
-/* Usage: Placeholder text in a text box where user can query our FAQ database */
+/* Usage: Statement. Placeholder text in a text box where user can query our FAQ database. Lets user know they can click into this box and start typing a query. */
 "ECSLocalizedAskAQuestionKey" = "Ask a Question";
 
 /* Frequently asked Questions header */
+/* Usage: A header to a section of frequently asked questions. Intentionally all-caps. */
 "ECSLocalizedFrequentlyAskedQuestionsKey" = "FREQUENTLY ASKED QUESTIONS";
 
 /* FAQ */
@@ -39,12 +41,15 @@
 "ECSLocalizeShortHideFAQKey" = "Hide FAQ";
 
 /* Email Address Placeholder */
+/* Usage: Only used in ECDemo. Appears in a label letting the user know this is where they type in an email address. */
 "ECSLocalizeEmailFieldPlaceholder" = "Email Address";
 
 /* Mobile Number Placeholder */
+/* Usage: NOT IN USE */
 "ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
 
 /* Log in prompt text */
+/* Usage: Only used in ECDemo. Label directing user to login. */
 "ECSLogInPromptText" = "Log in to your Humanify Account";
 
 /* All Fields Required Text */

@@ -128,7 +128,7 @@ bool _chatActive;
     NSLog(@"Ending chat...");
     
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatWithDialogNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
     _chatActive = NO;
     [self.btnStartChat setTitle:@"Start Chat" forState:UIControlStateNormal];
 }

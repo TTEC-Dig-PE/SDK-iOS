@@ -172,9 +172,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
         //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
     }
     
-    NSString *languageLocale = [[NSLocale preferredLanguages] objectAtIndex:0];
-    //NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
-    //NSString *languageLocale = [NSString stringWithFormat:@"%@_%@", language, locale];
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString *languageLocale = [NSString stringWithFormat:@"%@_%@", language, locale];
     
     // Overwrite the device locale if the host app desires to do so.
     if(urlSession.localLocale && urlSession.localLocale.length>3)

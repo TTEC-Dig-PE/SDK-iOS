@@ -178,12 +178,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                  name:ECSEndChatNotification
                                                object:nil];
     
-    // If host app sends this notification, we will end the chat (no dialog).
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(exitChatButtonTapped:)
-                                                 name:ECSEndChatWithDialogNotification
-                                               object:nil];
-    
     // View Setup Functions
     [self registerForKeyboardNotifications];    // Keyboard observers
     [self configureNavigationBar];              // Show back button if nav bar present.
@@ -1060,7 +1054,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
             
             // TODO: This is a specific case to handle "No agents available" until the server does it correctly.
-            if([errorMessage isEqualToString:@"No agents available"])
+            if([error.userInfo[NSLocalizedDescriptionKey] isEqualToString:@"No agents available"])
             {
                 // Let's localize this.
                 errorMessage = ECSLocalizedString(ECSLocalizeNoAgents, @"No Agents Available.");
@@ -1212,12 +1206,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)showReconnectInChat {
     
     // Remove any previous reconnect messages.
-    for( id message in self.messages) {
-        if( [message isKindOfClass:[ECSChatNetworkMessage class]]) {
-            [self.messages removeObject:message];
+    //NSArray *localMessages = [self.messages copy];
+    /*int i, indexToRemove=-1;
+    for (i=0; i<self.messages.count; i++) {
+        if( [self.messages[i] isKindOfClass:[ECSChatNetworkMessage class]]) {
+            indexToRemove = i;
         }
     }
-    [self.messages addObject:[ECSChatNetworkMessage new]];
+    if(indexToRemove > 0)[self.messages removeObjectAtIndex:indexToRemove]; // Remove the old
+     */
+    [self.messages addObject:[ECSChatNetworkMessage new]]; // Add the new
+    
     self.currentReconnectIndex = self.messages.count - 1;
     [self.tableView reloadData];
 }

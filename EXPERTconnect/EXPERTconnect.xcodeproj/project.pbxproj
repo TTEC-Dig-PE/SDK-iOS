@@ -967,7 +967,6 @@
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
 		C4450B851CFF07F600486215 /* ECS_API_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_API_Tests.m; sourceTree = "<group>"; };
 		C4450B871D02371800486215 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C4450B881D02372000486215 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_DceDev_Henry_Tests.m; sourceTree = "<group>"; };
 		C47254591CC04C36003C0D4E /* ECSBreadcrumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBreadcrumb.m; path = Breadcrumbs/ECSBreadcrumb.m; sourceTree = "<group>"; };
 		C472545A1CC04C36003C0D4E /* ECSBreadcrumbResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBreadcrumbResponse.m; path = Breadcrumbs/ECSBreadcrumbResponse.m; sourceTree = "<group>"; };
@@ -2233,7 +2232,6 @@
 				fr,
 				es,
 				de,
-				"zh-Hans",
 				"en-GB",
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
@@ -2589,7 +2587,6 @@
 				463E815B1B4ED2F900396B7A /* fr */,
 				463E815C1B4ED30F00396B7A /* es */,
 				C4450B871D02371800486215 /* de */,
-				C4450B881D02372000486215 /* zh-Hans */,
 				C492B5FD1D10B98D008BE187 /* en-GB */,
 			);
 			name = Localizable.strings;

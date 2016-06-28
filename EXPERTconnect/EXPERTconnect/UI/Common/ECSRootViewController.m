@@ -69,7 +69,7 @@
     //TODO: Need to move this code to custom navigation Controller if required.
     
     if ([self.navigationController.viewControllers count] < 2 && self.navigationItem.leftBarButtonItem == nil) {
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                                         style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(closeButtonTapped:)];
@@ -220,7 +220,7 @@ withParentNavigationController:(UINavigationController*)navigationController
 {
     ECSNavigationController *presentController = [[ECSNavigationController alloc] initWithRootViewController:controller];
     
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:presentController
                                                                    action:@selector(closeButtonTapped:)];
