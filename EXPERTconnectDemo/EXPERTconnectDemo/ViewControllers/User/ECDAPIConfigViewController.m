@@ -44,7 +44,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     
     [self initializeFields];
 
-    NSString *endpoint = [kReadConfigUrlPath
+    /*NSString *endpoint = [kReadConfigUrlPath
                           stringByReplacingOccurrencesOfString:@"{name}" withString:self.configNameField.text];
     
     __weak typeof(self) weakSelf = self;
@@ -54,7 +54,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
     };
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-    [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenCompleted];
+    [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenCompleted];*/
 }
 
 -(void) initializeFields {
@@ -142,7 +142,8 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
 
 - (void)submitButtonTapped:(UIButton*)button
 {
-    NSString *endpoint = [[self.configEndpointField.text
+    NSLog(@"Deprecated functionality...");
+    /*NSString *endpoint = [[self.configEndpointField.text
                            stringByReplacingOccurrencesOfString:@"{name}" withString:self.configNameField.text]
                            stringByReplacingOccurrencesOfString:@"{value}" withString:self.configValueField.text];
     
@@ -168,7 +169,7 @@ static NSString * const kClearCacheUrlPath = @"/answerengine/v1/clear_cache";
         [sessionManager getResponseFromEndpoint:kClearCacheUrlPath withCompletion:whenCompleted];
     };
     
-    [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenUpdated];
+    [sessionManager getResponseFromEndpoint:endpoint withCompletion:whenUpdated];*/
 }
 
 - (void)refreshButtonTapped:(UIButton*)button

@@ -89,6 +89,8 @@ bool _chatActive;
     [EXPERTconnect shared].theme.showChatBubbleTails = self.optChatBubble.on;
     [EXPERTconnect shared].theme.showAvatarImages = self.optAvatarImages.on;
     [EXPERTconnect shared].theme.showChatTimeStamp = self.optTimestamp.on;
+    [EXPERTconnect shared].theme.showChatImageUploadButton = self.optImageUploadButton.on;
+    [EXPERTconnect shared].theme.chatSendButtonUseImage = self.optSendButtonImage.on;
     
     // Create the chat view
     if( !self.chatController || !_chatActive )
@@ -126,7 +128,7 @@ bool _chatActive;
     NSLog(@"Ending chat...");
     
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatWithDialogNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
     _chatActive = NO;
     [self.btnStartChat setTitle:@"Start Chat" forState:UIControlStateNormal];
 }

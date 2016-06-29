@@ -135,7 +135,7 @@ static char ECSUserActionCompletionBlockKey;
 - (void)ecs_presentLoginViewControllerWithCompletion:(void (^)(id userInfo))completion
 {
     ECDLoginViewController* login = [[ECDLoginViewController alloc] initWithNibName:nil bundle:nil];
-    UIBarButtonItem* closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+    UIBarButtonItem* closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                                     style:UIBarButtonItemStyleDone
                                                                    target:self
                                                                    action:@selector(closeUserActionController:)];
@@ -158,7 +158,7 @@ static char ECSUserActionCompletionBlockKey;
 - (void)ecs_presentRegisterViewControllerWithCompletion:(void (^)(id userInfo))completion
 {
     ECDRegisterViewController* registerVc = [[ECDRegisterViewController alloc] initWithNibName:nil bundle:nil];
-    UIBarButtonItem* closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizeCloseKey, @"Close")
+    UIBarButtonItem* closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
                                                                     style:UIBarButtonItemStyleDone
                                                                    target:self
                                                                    action:@selector(closeUserActionController:)];

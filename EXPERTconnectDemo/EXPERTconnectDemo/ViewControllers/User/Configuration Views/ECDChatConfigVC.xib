@@ -12,7 +12,9 @@
                 <outlet property="lblAgentAvailability" destination="ufW-ne-ua5" id="4K1-R1-mL9"/>
                 <outlet property="optAvatarImages" destination="xUd-pv-Ig6" id="cXq-rH-Sq9"/>
                 <outlet property="optChatBubble" destination="FG5-GE-puA" id="K49-Ci-BOJ"/>
+                <outlet property="optImageUploadButton" destination="YTY-tt-I0T" id="VEC-NA-9PV"/>
                 <outlet property="optNavButtons" destination="Irw-P1-gM1" id="72e-Jf-7ne"/>
+                <outlet property="optSendButtonImage" destination="PZE-ea-8wv" id="clY-yV-N9w"/>
                 <outlet property="optTimestamp" destination="i3I-ti-9ZM" id="Z7s-eq-MmX"/>
                 <outlet property="pickerChatSkill" destination="3kM-kh-gfa" id="zeC-vW-pBi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -85,7 +87,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-GE-puA" userLabel="optChatBubbles">
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FG5-GE-puA" userLabel="optChatBubbles">
                             <rect key="frame" x="0.0" y="267" width="51" height="31"/>
                             <connections>
                                 <action selector="optChatBubble_Change:" destination="-1" eventType="valueChanged" id="BUo-QD-lxd"/>
@@ -97,12 +99,6 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ti-9ZM" userLabel="optTimestamps">
-                            <rect key="frame" x="0.0" y="228" width="51" height="31"/>
-                            <connections>
-                                <action selector="optTimestamp_Change:" destination="-1" eventType="valueChanged" id="5OR-86-U4B"/>
-                            </connections>
-                        </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show timestamps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7m-EG-jGc">
                             <rect key="frame" x="73" y="228" width="231" height="31"/>
                             <constraints>
@@ -112,7 +108,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Irw-P1-gM1" userLabel="optAvatarImages">
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Irw-P1-gM1" userLabel="optAvatarImages">
                             <rect key="frame" x="0.0" y="345" width="51" height="31"/>
                             <connections>
                                 <action selector="optNavButtons_Change:" destination="-1" eventType="valueChanged" id="r6M-8L-NBA"/>
@@ -124,6 +120,30 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-ea-8wv" userLabel="optAvatarImages">
+                            <rect key="frame" x="0.0" y="384" width="51" height="31"/>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use image for send button" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPk-K3-lgI">
+                            <rect key="frame" x="73" y="384" width="231" height="31"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YTY-tt-I0T" userLabel="optAvatarImages">
+                            <rect key="frame" x="0.0" y="423" width="51" height="31"/>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show image upload button" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duI-aF-kZA">
+                            <rect key="frame" x="73" y="423" width="231" height="31"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ti-9ZM" userLabel="optTimestamps">
+                            <rect key="frame" x="0.0" y="228" width="51" height="31"/>
+                            <connections>
+                                <action selector="optTimestamp_Change:" destination="-1" eventType="valueChanged" id="5OR-86-U4B"/>
+                            </connections>
+                        </switch>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -140,27 +160,42 @@
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="height" secondItem="H7m-EG-jGc" secondAttribute="height" id="D79-v6-VjB"/>
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="top" secondItem="H7m-EG-jGc" secondAttribute="bottom" constant="8" id="DjH-JV-roX"/>
                         <constraint firstItem="fzF-x1-eqb" firstAttribute="height" secondItem="UtM-VD-MUD" secondAttribute="height" id="EEg-jN-3ua"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="trailing" secondItem="H7m-EG-jGc" secondAttribute="trailing" id="GaU-r7-kH0"/>
+                        <constraint firstItem="PZE-ea-8wv" firstAttribute="leading" secondItem="Irw-P1-gM1" secondAttribute="leading" id="HR0-bF-Snc"/>
+                        <constraint firstItem="YTY-tt-I0T" firstAttribute="leading" secondItem="PZE-ea-8wv" secondAttribute="leading" id="I1C-XZ-gOn"/>
                         <constraint firstItem="FG5-GE-puA" firstAttribute="leading" secondItem="i3I-ti-9ZM" secondAttribute="leading" id="KOx-uA-9Er"/>
                         <constraint firstItem="fzF-x1-eqb" firstAttribute="top" secondItem="UtM-VD-MUD" secondAttribute="bottom" constant="8" id="McQ-mD-Fa7"/>
+                        <constraint firstItem="cPk-K3-lgI" firstAttribute="bottom" secondItem="PZE-ea-8wv" secondAttribute="bottom" id="N3L-6Y-twQ"/>
+                        <constraint firstItem="cPk-K3-lgI" firstAttribute="leading" secondItem="H7m-EG-jGc" secondAttribute="leading" id="Okj-UU-rKd"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="leading" secondItem="YTY-tt-I0T" secondAttribute="trailing" constant="24" id="THK-1y-f3K"/>
                         <constraint firstItem="xUd-pv-Ig6" firstAttribute="trailing" secondItem="FG5-GE-puA" secondAttribute="trailing" id="Tgm-gE-ipJ"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="top" secondItem="cPk-K3-lgI" secondAttribute="bottom" constant="8" id="VTB-H5-Eyy"/>
                         <constraint firstItem="ufW-ne-ua5" firstAttribute="leading" secondItem="3kM-kh-gfa" secondAttribute="leading" id="X3o-mj-W0L"/>
                         <constraint firstItem="H7m-EG-jGc" firstAttribute="trailing" secondItem="ufW-ne-ua5" secondAttribute="trailing" id="Xqk-Db-f0r"/>
                         <constraint firstItem="3kM-kh-gfa" firstAttribute="trailing" secondItem="Et8-tt-mzH" secondAttribute="trailing" id="Y6Y-oQ-nXJ"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="leading" secondItem="H7m-EG-jGc" secondAttribute="leading" id="Zud-Gy-8p3"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="bottom" secondItem="YTY-tt-I0T" secondAttribute="bottom" id="aBf-qX-tuU"/>
                         <constraint firstItem="IFE-ag-0TF" firstAttribute="top" secondItem="fzF-x1-eqb" secondAttribute="bottom" constant="8" id="aS5-Jy-1kp"/>
                         <constraint firstItem="fzF-x1-eqb" firstAttribute="leading" secondItem="UtM-VD-MUD" secondAttribute="leading" id="bbi-3q-n2J"/>
                         <constraint firstItem="Irw-P1-gM1" firstAttribute="top" secondItem="xUd-pv-Ig6" secondAttribute="bottom" constant="8" id="bqD-Hw-WAJ"/>
                         <constraint firstItem="3kM-kh-gfa" firstAttribute="top" secondItem="Et8-tt-mzH" secondAttribute="bottom" id="cA1-us-bXJ"/>
                         <constraint firstItem="ufW-ne-ua5" firstAttribute="top" secondItem="3kM-kh-gfa" secondAttribute="bottom" constant="8" id="cjL-Ug-9fY"/>
+                        <constraint firstItem="cPk-K3-lgI" firstAttribute="leading" secondItem="PZE-ea-8wv" secondAttribute="trailing" constant="24" id="fec-Oe-zfK"/>
                         <constraint firstItem="Et8-tt-mzH" firstAttribute="leading" secondItem="Lhp-qm-x80" secondAttribute="leading" id="gkt-Ez-6zg"/>
+                        <constraint firstItem="cPk-K3-lgI" firstAttribute="top" secondItem="PZE-ea-8wv" secondAttribute="top" id="h46-n3-diL"/>
+                        <constraint firstItem="cPk-K3-lgI" firstAttribute="trailing" secondItem="H7m-EG-jGc" secondAttribute="trailing" id="hza-mx-Qgq"/>
                         <constraint firstItem="FG5-GE-puA" firstAttribute="top" secondItem="i3I-ti-9ZM" secondAttribute="bottom" constant="8" id="jdb-jt-6oo"/>
                         <constraint firstItem="Irw-P1-gM1" firstAttribute="trailing" secondItem="xUd-pv-Ig6" secondAttribute="trailing" id="jlg-SB-Jyg"/>
                         <constraint firstItem="xUd-pv-Ig6" firstAttribute="leading" secondItem="FG5-GE-puA" secondAttribute="leading" id="kks-Ik-3ap"/>
+                        <constraint firstItem="YTY-tt-I0T" firstAttribute="top" secondItem="PZE-ea-8wv" secondAttribute="bottom" constant="8" id="nDi-4T-MzA"/>
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="leading" secondItem="H7m-EG-jGc" secondAttribute="leading" id="pvQ-Q0-gGv"/>
                         <constraint firstItem="fzF-x1-eqb" firstAttribute="trailing" secondItem="UtM-VD-MUD" secondAttribute="trailing" id="q8q-u0-uLV"/>
                         <constraint firstAttribute="trailing" secondItem="Et8-tt-mzH" secondAttribute="trailing" id="qI0-we-BCw"/>
                         <constraint firstItem="xUd-pv-Ig6" firstAttribute="top" secondItem="FG5-GE-puA" secondAttribute="bottom" constant="8" id="s92-cT-KCO"/>
                         <constraint firstItem="FG5-GE-puA" firstAttribute="trailing" secondItem="i3I-ti-9ZM" secondAttribute="trailing" id="t3Y-NJ-s6c"/>
+                        <constraint firstItem="PZE-ea-8wv" firstAttribute="top" secondItem="Irw-P1-gM1" secondAttribute="bottom" constant="8" id="tig-lI-ycc"/>
                         <constraint firstItem="H7m-EG-jGc" firstAttribute="leading" secondItem="i3I-ti-9ZM" secondAttribute="trailing" constant="24" id="vyK-TR-lCG"/>
+                        <constraint firstItem="duI-aF-kZA" firstAttribute="top" secondItem="YTY-tt-I0T" secondAttribute="top" id="wLm-ej-4bH"/>
                         <constraint firstItem="UtM-VD-MUD" firstAttribute="trailing" secondItem="H7m-EG-jGc" secondAttribute="trailing" id="wUu-MI-P3s"/>
                         <constraint firstItem="Et8-tt-mzH" firstAttribute="top" secondItem="Lhp-qm-x80" secondAttribute="top" constant="8" id="whv-84-MmH"/>
                     </constraints>

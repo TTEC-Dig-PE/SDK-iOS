@@ -1219,22 +1219,6 @@ bool _chatActive;
     [self.navigationController pushViewController:journeyConfig animated:YES];
 }
 
-// User pressed our custom back button
-/*-(void)backPushed:(id)sender
-{
-    NSLog(@"Going back...");
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-// User pressed our custom End Chat button.
--(void)endchatPushed:(id)sender
-{
-    NSLog(@"Ending chat...");
-    
-    // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatWithDialogNotification" object:nil];
-}*/
-
 -(void)handleAdHocVoiceCallback
 {
 	 NSLog(@"Starting an ad-hoc Voice Callback Session");

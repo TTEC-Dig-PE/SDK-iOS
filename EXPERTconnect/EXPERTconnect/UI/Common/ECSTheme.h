@@ -137,6 +137,9 @@
 
 @property (nonatomic) NSInteger chatBubbleVertMargins;
 
+@property (strong, nonatomic) IBOutlet UIImage *chatSendButtonImage;
+@property (assign, nonatomic) BOOL chatSendButtonUseImage;
+
 // Style string for CSS
 @property (strong, nonatomic) NSString *cssStyle;
 

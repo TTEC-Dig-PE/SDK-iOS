@@ -267,15 +267,14 @@ NSTimer *breadcrumbTimer;
 // Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)getTimeStampMessage
 {
+    // get current date/time
+    NSDate *today = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"h:mm a";
+    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *currentTime = [dateFormatter stringFromDate:today];
     
-    // Use the device's timezone
-    //NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    //[dateFormatter setTimeZone:gmt];
-    
-    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate date]];
-    return timeStamp;
+    return currentTime;
 }
 
 /**

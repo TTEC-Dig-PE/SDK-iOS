@@ -130,11 +130,21 @@
     self.sendButton.backgroundColor = theme.primaryColor;
     self.sendButton.tintColor = theme.primaryTextColor;
     [self toggleSendButton:NO];
-    self.sendButton.titleLabel.font = theme.chatSendButtonFont;
-    [self.sendButton setTitle:ECSLocalizedString(ECSLocalizeSend, @"Send") forState:UIControlStateNormal];
     [self.sendButton addTarget:self
                         action:@selector(sendTapped:)
               forControlEvents:UIControlEventTouchUpInside];
+    
+    if( theme.chatSendButtonUseImage )
+    {
+        self.sendButton.tintColor = theme.buttonTextColor;
+        [self.sendButton setImage:theme.chatSendButtonImage forState:UIControlStateNormal];
+        [self.sendButton setTitle:@"" forState:UIControlStateNormal];
+    }
+    else
+    {
+        self.sendButton.titleLabel.font = theme.chatSendButtonFont;
+        [self.sendButton setTitle:ECSLocalizedString(ECSLocalizeSend, @"Send") forState:UIControlStateNormal];
+    }
     
     self.cancelButton.backgroundColor = theme.primaryColor;
     self.cancelButton.tintColor = theme.primaryTextColor;
