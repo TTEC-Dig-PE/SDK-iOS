@@ -118,7 +118,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     //{
         //[self.logoutButton setEnabled:NO];
     if( ![EXPERTconnect shared].userName) {
-        [self.logoutButton setTitle:@"Login" forState:UIControlStateNormal];
+        [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizeLogInButton, @"Log in button state.") forState:UIControlStateNormal];
     } else {
         [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizedLogoutButton, @"Log out button state.")
                            forState:UIControlStateNormal];
@@ -485,8 +485,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (IBAction)logoutTapped:(id)sender
 {
-    
-    if([self.logoutButton.currentTitle isEqualToString:@"Login"]) {
+    if(![EXPERTconnect shared].userName) {
         ECDSplashViewController *splashController = [[ECDSplashViewController alloc] initWithNibName:nil bundle:nil];
         [self presentViewController:splashController animated:YES completion:nil];
     } else {

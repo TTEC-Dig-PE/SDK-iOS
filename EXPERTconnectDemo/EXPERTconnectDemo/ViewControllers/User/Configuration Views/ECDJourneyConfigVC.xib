@@ -9,7 +9,10 @@
             <connections>
                 <outlet property="btnSetJourneyContext" destination="MzL-wG-I4d" id="Vxt-1M-c8g"/>
                 <outlet property="btnStartJourney" destination="yAf-6M-a3D" id="7rB-eS-Zlf"/>
+                <outlet property="contextLabel" destination="Xqi-11-7qx" id="4rv-Iu-n9Z"/>
+                <outlet property="currentJourneyInfoLabel" destination="i5q-K6-Yhx" id="ZLC-ml-nA7"/>
                 <outlet property="lblJourneyInfo" destination="DqZ-1h-vJ7" id="MnH-je-QrQ"/>
+                <outlet property="nameLabel" destination="xYh-eg-0nU" id="yPI-ko-N3r"/>
                 <outlet property="txtJourneyContext" destination="ox9-Va-ENm" id="6JV-ge-rSv"/>
                 <outlet property="txtJourneyName" destination="NOD-AK-m47" id="LDS-W0-ev3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -20,15 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Journey Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-K6-Yhx">
-                    <rect key="frame" x="8" y="17" width="304" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="vCj-1E-j11"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information about the current journey" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="DqZ-1h-vJ7">
                     <rect key="frame" x="8" y="46" width="304" height="127"/>
                     <constraints>
@@ -46,7 +40,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Context:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqi-11-7qx">
                     <rect key="frame" x="8" y="302" width="102" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAf-6M-a3D" userLabel="btnStartChat">
@@ -79,7 +73,7 @@
                         <constraint firstAttribute="width" constant="102" id="cbb-ow-n1l"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="default">
                         <mask key="constraints">
@@ -97,6 +91,15 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Journey Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-K6-Yhx">
+                    <rect key="frame" x="8" y="17" width="304" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="vCj-1E-j11"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -136,6 +139,7 @@
                     <exclude reference="4wd-AX-a7I"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="155" y="318"/>
         </view>
     </objects>
 </document>

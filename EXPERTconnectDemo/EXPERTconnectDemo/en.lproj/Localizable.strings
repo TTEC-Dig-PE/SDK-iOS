@@ -27,6 +27,16 @@
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Start Chat";
 "ECDLocalizedContinueChatLabel" = "Continue Chat"; 
+"ECDLocalizedEndChatLabel" = "End Chat";
+
+/* Test Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestChatLabel" = "Test Chat";
+
+/* Test Breadcrumbs Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestBreadcrumbsLabel" = "Test Breadcrumbs";
+
+/* Test Journey Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestJourneyLabel" = "Test Journey";
 
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Start Video Chat";
@@ -236,3 +246,90 @@
 
 /* Ad-Hoc Page Breadcrumb caption */
 "ECDLocalizedBreadcrumbLabel" = "Breadcrumb";
+
+/* Test Chat Page Labels */
+
+/* Chat Skill Label */
+"ECDLocalizedChatSkillLabel" = "Chat Skill:";
+
+/* Custom Nav Bar Buttons Label */
+"ECDLocalizedCustomNavBarButtonsLabel" = "Use custom nav bar buttons";
+
+/* Use Image For Send Button Label */
+"ECDLocalizedUseImageForSendButtonLabel" = "Use image for send button";
+
+/* Image Upload Button Label */
+"ECDLocalizedImageUploadButtonLabel" = "Show image upload button";
+
+/* End Test Chat Page Labels Section */
+
+/* Test Jouney Page Labels */
+
+/* Current Journey Info Label */
+"ECDLocalizedCurrentJourneyInfoLabel" = "Current Jouney Info:";
+
+/* Name Label */
+"ECDLocalizedNameLabel" = "Name:";
+
+/* Context Label */
+"ECDLocalizedContextLabel" = "Context:";
+
+/* Name Placeholder Label */
+"ECDLocalizedNamePlaceholderLabel" = "(Optional)";
+
+/* Context Placeholder Label */
+"ECDLocalizedContextPlaceholderLabel" = "SDK Baseline";
+
+/* Start Journey Label */
+"ECDLocalizedStartJourneyLabel" = "Start Jouney";
+
+/* Start Journey Context Label */
+"ECDLocalizedStartJourneyContextLabel" = "Set Journey Context";
+
+/* End Test Journey Page Labels Section */
+
+/* Test Breadcrumbs Page Labels */
+
+/* Type Label */
+"ECDLocalizedTypeLabel" = "Type:";
+
+/* Describtion Label */
+"ECDLocalizedDescribtionLabel" = "Description:";
+
+/* Source Label */
+"ECDLocalizedSourceLabel" = "Source:";
+
+/* Destination Label */
+"ECDLocalizedDestinationLabel" = "Destination:";
+
+/* Bulk Config Label */
+"ECDLocalizedBulkConfigLabel" = "Bulk Config:";
+
+/* GeoLocation Data Label */
+"ECDLocalizedGeoLocationDataLabel" = "Include geolocation data";
+
+/* Seconds Label */
+"ECDLocalizedSecondsLabel" = "Seconds:";
+
+/* Count Label */
+"ECDLocalizedCountLabel" = "Count:";
+
+/* SendOne Button Label */
+"ECDLocalizedSendOneButtonLabel" = "Send One";
+
+/* QueueBulk Button Label */
+"ECDLocalizedQueueBulkButtonLabel" = "Queue Bulk";
+
+/* Type Placeholder Label */
+"ECDLocalizedTypePlaceholderLabel" = "Product Interest";
+
+/*Describtion Placeholder Label */
+"ECDLocalizedDescribtionPlaceholderLabel" = "User clicked Backpack 1";
+
+/* Source Placeholder Label */
+"ECDLocalizedSourcePlaceholderLabel" = "Backpacks page";
+
+/* Destination Placeholder Label */
+"ECDLocalizedDestinationPlaceholderLabel" = "Backpack 1 product page";
+
+/* End Test Breadcrumbs Page Labels Section */
