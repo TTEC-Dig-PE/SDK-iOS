@@ -7,8 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDChatConfigVC">
             <connections>
+                <outlet property="avatarImagesLabel" destination="fzF-x1-eqb" id="bAM-Qg-o0m"/>
                 <outlet property="btnEndChat" destination="sZj-mM-z6a" id="qxr-90-Ucq"/>
                 <outlet property="btnStartChat" destination="JSf-ul-y3D" id="Gzf-1r-ghm"/>
+                <outlet property="chatBubblesLabel" destination="UtM-VD-MUD" id="DeN-zd-hT6"/>
+                <outlet property="chatSkillLabel" destination="Et8-tt-mzH" id="UX3-2Z-sZb"/>
+                <outlet property="customNavBarButtonsLabel" destination="IFE-ag-0TF" id="xf4-cK-XtE"/>
                 <outlet property="lblAgentAvailability" destination="ufW-ne-ua5" id="4K1-R1-mL9"/>
                 <outlet property="optAvatarImages" destination="xUd-pv-Ig6" id="cXq-rH-Sq9"/>
                 <outlet property="optChatBubble" destination="FG5-GE-puA" id="K49-Ci-BOJ"/>
@@ -17,6 +21,9 @@
                 <outlet property="optSendButtonImage" destination="PZE-ea-8wv" id="clY-yV-N9w"/>
                 <outlet property="optTimestamp" destination="i3I-ti-9ZM" id="Z7s-eq-MmX"/>
                 <outlet property="pickerChatSkill" destination="3kM-kh-gfa" id="zeC-vW-pBi"/>
+                <outlet property="showImageUploadButtonLabel" destination="duI-aF-kZA" id="pBx-Q3-btO"/>
+                <outlet property="timeStampLabel" destination="H7m-EG-jGc" id="1xB-0k-k63"/>
+                <outlet property="useImageForSendButtonLabel" destination="cPk-K3-lgI" id="tEu-ZL-VZs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

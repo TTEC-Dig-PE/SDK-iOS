@@ -21,5 +21,8 @@
 
 - (IBAction)btnStartJourney_Touch:(id)sender;
 - (IBAction)btnSetJourneyContext_Touch:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *currentJourneyInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contextLabel;
 
 @end

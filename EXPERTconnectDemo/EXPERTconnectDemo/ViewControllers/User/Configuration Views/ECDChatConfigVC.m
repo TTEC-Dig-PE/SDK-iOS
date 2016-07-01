@@ -7,6 +7,7 @@
 //
 
 #import "ECDChatConfigVC.h"
+#import "ECDLocalization.h"
 
 @interface ECDChatConfigVC () <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -48,6 +49,17 @@ bool _chatActive;
     [self.btnEndChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnStartChat setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
     [self.btnEndChat setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+     
+     self.chatSkillLabel.text =  ECDLocalizedString(ECDLocalizedChatSkillLabel, @"Chat Skill");
+     self.avatarImagesLabel.text =  ECDLocalizedString(ECDLocalizedStartShowAvatarImagesLabel, @"Avatar Images");
+     self.timeStampLabel.text =  ECDLocalizedString(ECDLocalizedStartShowChatTimeStampLabel, @"Time Stamp");
+     self.chatBubblesLabel.text =  ECDLocalizedString(ECDLocalizedStartShowChatBubbleTailsLabel, @"Chat Bubbles");
+     self.customNavBarButtonsLabel.text =  ECDLocalizedString(ECDLocalizedCustomNavBarButtonsLabel, @"Custom Nav Bar Buttons");
+     self.useImageForSendButtonLabel.text =  ECDLocalizedString(ECDLocalizedUseImageForSendButtonLabel, @"Use Image For Send Button");
+     self.showImageUploadButtonLabel.text =  ECDLocalizedString(ECDLocalizedImageUploadButtonLabel, @"Image Upload Button");
+     
+     [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
+     [self.btnEndChat setTitle:ECDLocalizedString(ECDLocalizedEndChatLabel, @"End Chat") forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -115,7 +127,7 @@ bool _chatActive;
                                                                                                     action:@selector(btnEndChat_Touch:)];
         }
         _chatActive = YES;
-        [self.btnStartChat setTitle:@"Continue Chat" forState:UIControlStateNormal];
+        [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
         //[self.tableView reloadData]; // make it show continue chat
     }
     
@@ -130,7 +142,7 @@ bool _chatActive;
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
     _chatActive = NO;
-    [self.btnStartChat setTitle:@"Start Chat" forState:UIControlStateNormal];
+    [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
 }
 
 - (IBAction)optTimestamp_Change:(id)sender {
