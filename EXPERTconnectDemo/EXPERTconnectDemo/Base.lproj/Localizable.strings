@@ -265,7 +265,7 @@
 /* Test Jouney Page Labels */
 
 /* Current Journey Info Label */
-"ECDLocalizedCurrentJourneyInfoLabel" = "Current Jouney Info:";
+"ECDLocalizedCurrentJourneyInfoLabel" = "Current Journey Info:";
 
 /* Name Label */
 "ECDLocalizedNameLabel" = "Name:";
@@ -280,7 +280,7 @@
 "ECDLocalizedContextPlaceholderLabel" = "SDK Baseline";
 
 /* Start Journey Label */
-"ECDLocalizedStartJourneyLabel" = "Start Jouney";
+"ECDLocalizedStartJourneyLabel" = "Start Journey";
 
 /* Start Journey Context Label */
 "ECDLocalizedStartJourneyContextLabel" = "Set Journey Context";
