@@ -27,6 +27,13 @@
 
 
 @property (weak, nonatomic) IBOutlet UILabel *lblAgentAvailability;
+@property (weak, nonatomic) IBOutlet UILabel *chatSkillLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeStampLabel;
+@property (weak, nonatomic) IBOutlet UILabel *chatBubblesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *avatarImagesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *customNavBarButtonsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *useImageForSendButtonLabel;
+@property (weak, nonatomic) IBOutlet UILabel *showImageUploadButtonLabel;
 
 - (IBAction)btnStartChat_Touch:(id)sender;
 - (IBAction)btnEndChat_Touch:(id)sender;

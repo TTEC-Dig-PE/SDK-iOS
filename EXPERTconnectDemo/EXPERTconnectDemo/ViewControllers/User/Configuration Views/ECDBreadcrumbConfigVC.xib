@@ -9,14 +9,22 @@
             <connections>
                 <outlet property="btnQueueBulk" destination="tBz-nf-cLd" id="WhM-sd-G4C"/>
                 <outlet property="btnSendOne" destination="vLe-f1-rs2" id="kmE-yc-qve"/>
+                <outlet property="bulkConfigLabel" destination="P0M-6B-JcA" id="drn-cm-pYm"/>
+                <outlet property="countLabel" destination="GsW-Lj-aH6" id="Fl3-hw-IOj"/>
+                <outlet property="describtionLabel" destination="xMd-nk-FAc" id="om1-q2-wae"/>
+                <outlet property="destinationLabel" destination="vrz-Jq-ZUT" id="egm-07-t65"/>
+                <outlet property="geolocationDataLabel" destination="3xc-S3-EAb" id="Iya-GU-8kG"/>
                 <outlet property="lblResponse" destination="wfM-zg-qpl" id="gVi-06-kbc"/>
                 <outlet property="optIncludeGeolocation" destination="sXA-SC-7Rw" id="GAP-BI-g0f"/>
+                <outlet property="secondsLabel" destination="Bhf-II-OgG" id="mRp-8X-1Se"/>
+                <outlet property="sourceLabel" destination="cWg-dK-zvN" id="IB9-gC-7yu"/>
                 <outlet property="txtActionDescription" destination="Gf6-og-JHP" id="0Ci-Zv-LXh"/>
                 <outlet property="txtActionDestination" destination="Npp-ff-7Rr" id="aRa-0H-6ai"/>
                 <outlet property="txtActionSource" destination="6uu-pK-tC6" id="kRk-MU-UIQ"/>
                 <outlet property="txtActionType" destination="yJO-jN-O0a" id="E3b-bc-zij"/>
                 <outlet property="txtBulkCount" destination="mSj-47-oUb" id="9wo-zI-IS3"/>
                 <outlet property="txtBulkSeconds" destination="r0Z-YJ-f6e" id="Qlt-lZ-6oq"/>
+                <outlet property="typeLabel" destination="4eE-nM-cVz" id="Bvi-jg-X2s"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,7 +40,7 @@
                         <constraint firstAttribute="width" constant="102" id="c7j-7a-wwR"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product Interest" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yJO-jN-O0a">
@@ -46,7 +54,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMd-nk-FAc">
                     <rect key="frame" x="8" y="64" width="102" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User clicked Backpack 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gf6-og-JHP">
@@ -57,7 +65,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWg-dK-zvN">
                     <rect key="frame" x="8" y="102" width="102" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Backpacks page" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6uu-pK-tC6">
@@ -68,7 +76,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrz-Jq-ZUT">
                     <rect key="frame" x="8" y="140" width="102" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Backpack 1 product page" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Npp-ff-7Rr">
@@ -82,7 +90,7 @@
                         <constraint firstAttribute="width" constant="230" id="U92-Iq-qNs"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sXA-SC-7Rw">
@@ -102,7 +110,7 @@
                         <constraint firstAttribute="width" constant="77" id="KrN-ci-pWM"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mSj-47-oUb">
@@ -116,7 +124,7 @@
                         <constraint firstAttribute="width" constant="114" id="HxL-9e-Kj0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLe-f1-rs2" userLabel="btnStartChat">
@@ -145,13 +153,13 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wfM-zg-qpl">
                     <rect key="frame" x="8" y="336" width="304" height="88"/>
                     <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsW-Lj-aH6">
                     <rect key="frame" x="130" y="230" width="77" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -223,6 +231,7 @@
                 <constraint firstItem="Npp-ff-7Rr" firstAttribute="trailing" secondItem="6uu-pK-tC6" secondAttribute="trailing" id="zaw-sU-MNu"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="196" y="305"/>
         </view>
     </objects>
 </document>
