@@ -54,7 +54,10 @@ static NSString *const environmentNameKey = @"environmentName";
 }
 
 
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+-(void)pickerView:(UIPickerView *)pickerView
+     didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component
+{
     [super pickerView:pickerView didSelectRow:row inComponent:component];
 
     NSString *url = [self.serverUrlsArray objectAtIndex: row];
@@ -63,12 +66,12 @@ static NSString *const environmentNameKey = @"environmentName";
     NSString *env = [self.environmentsArray objectAtIndex:row];
     [[NSUserDefaults standardUserDefaults] setObject:env forKey:environmentNameKey];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
-    
     // This will set host and reconfigure the session.
     NSAssert(url.length>0, @"Environment Picker - Chosen serverURL must exist.");
     [[EXPERTconnect shared] setHost:url];
-    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    //[[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
 }
 
 // mas - 16-oct-2015 - This loads the available environments from the JSON file we fetched

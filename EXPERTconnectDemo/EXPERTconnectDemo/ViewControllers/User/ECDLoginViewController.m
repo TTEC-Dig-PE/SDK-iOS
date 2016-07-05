@@ -7,6 +7,7 @@
 
 #import "ECDLoginViewController.h"
 #import "ECDLocalization.h"
+#import "AppConfig.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
@@ -127,39 +128,59 @@
             }
         }];
  */
+        AppConfig *myAppConfig = [AppConfig sharedAppConfig];
         
-        [[EXPERTconnect shared] login:self.emailAddressField.text withCompletion:^(ECSForm *form, NSError *error) {
-            if (form && form.formData)
-            {
-                if (weakSelf.delegate)
-                {
-                    [weakSelf setLoadingIndicatorVisible:NO];
-                    [weakSelf.delegate loginViewController:weakSelf
-                                      didLoginWithUserInfo:weakSelf.emailAddressField.text];
-                }
-            }
-            else
-            {
-                [weakSelf showLoginAlert];
-            }
-        }];
+        myAppConfig.userName = weakSelf.emailAddressField.text;
+        //[[EXPERTconnect shared] setUserName:myAppConfig.userName];
+        
+        [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
+         {
+             if (!error) {
+                 [[EXPERTconnect shared] setUserIdentityToken:authToken];
+             }
+
+             [[EXPERTconnect shared] login:self.emailAddressField.text withCompletion:^(ECSForm *form, NSError *error) {
+                 if (form && form.formData)
+                 {
+                     if (weakSelf.delegate)
+                     {
+                         [weakSelf setLoadingIndicatorVisible:NO];
+                         [weakSelf.delegate loginViewController:weakSelf
+                                           didLoginWithUserInfo:weakSelf.emailAddressField.text];
+                     }
+                     
+                     NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
+                     
+                     [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
+                 }
+                 else
+                 {
+                     [weakSelf showLoginAlert];
+                 }
+             }];
+         }];
+        
+        
     }
 }
 
 - (void)showLoginAlert
 {
-    NSString *ok_label = ECSLocalizedString(ECSLocalizedOkButton, @"OK");
-    NSString *error_label = ECSLocalizedString(ECSLocalizeErrorKey, @"Error");
-    NSString *error_message = ECDLocalizedString(ECDLocalizedUnknownUser, @"Unknown user, please register to create an account.");
-    
-    UIAlertController *loginAlert = [UIAlertController alertControllerWithTitle:error_label
-                                                                        message:error_message
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-    [loginAlert addAction:[UIAlertAction actionWithTitle:ok_label
-                                                   style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                       [[EXPERTconnect shared] setUserName:nil];
-                                                   }]];
-    [self presentViewController:loginAlert animated:YES completion:nil];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        
+        NSString *ok_label = ECSLocalizedString(ECSLocalizedOkButton, @"OK");
+        NSString *error_label = ECSLocalizedString(ECSLocalizeErrorKey, @"Error");
+        NSString *error_message = ECDLocalizedString(ECDLocalizedUnknownUser, @"Unknown user, please register to create an account.");
+        
+        UIAlertController *loginAlert = [UIAlertController alertControllerWithTitle:error_label
+                                                                            message:error_message
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+        [loginAlert addAction:[UIAlertAction actionWithTitle:ok_label
+                                                       style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                           [[EXPERTconnect shared] setUserName:nil];
+                                                       }]];
+        [self presentViewController:loginAlert animated:YES completion:nil];
+    }];
 }
 
 - (void)registerForKeyboardNotifications

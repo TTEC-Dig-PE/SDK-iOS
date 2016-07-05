@@ -13,14 +13,18 @@
 
 @interface AppConfig : NSObject <ECSAuthenticationTokenDelegate>
 
+@property (nonatomic, strong) NSString *organization;
+@property (nonatomic, strong) NSString *userName; 
+
 + (id)sharedAppConfig;
 - (void) fetchEnvironmentJSON;
 -(void) setupAuthenticationDelegate;
 - (NSString *)getHostURL;
-- (NSString *)getClientID;
+//- (NSString *)getClientID;
 - (void)fetchAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
 //- (void)fetchOldAuthenticationToken:(void (^)(NSString *authToken, NSError *error))completion;
 -(void) startBreadcrumbSession;
 -(void) getCustomizedThemeSettings; 
+- (NSString *)getClientID;
 
 @end

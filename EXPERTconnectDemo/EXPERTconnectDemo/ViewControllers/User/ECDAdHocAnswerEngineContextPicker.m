@@ -80,6 +80,8 @@ NSString *currentContext;
         }
     }
     
+    [contextsArray addObject:@"INVALID_CONTEXT"]; 
+    
     return YES;
 }
 

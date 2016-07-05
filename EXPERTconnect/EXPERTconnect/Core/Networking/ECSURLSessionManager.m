@@ -964,7 +964,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(theContext)self.journeyManagerContext = theContext;
     if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
     
-    return [self POST:@"journeymanager/v1"
+    //return [self POST:@"journeymanager/v1"
+    return [self POST:@"conversationengine/v1/journeys"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
