@@ -152,6 +152,7 @@
                      NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
                      
                      [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
+                     [[EXPERTconnect shared] startJourneyWithCompletion:nil]; // Start a new journey.
                  }
                  else
                  {

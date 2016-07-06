@@ -55,6 +55,18 @@
                <Test
                   Identifier = "ECS_API_Tests/testGetResponseFromEndpoint">
                </Test>
+               <Test
+                  Identifier = "ECS_API_Tests/testSetJourneyContext">
+               </Test>
+               <Test
+                  Identifier = "ECS_DceDev_Henry_Tests/testAstute">
+               </Test>
+               <Test
+                  Identifier = "ECS_DceDev_Henry_Tests/testFrenchContent">
+               </Test>
+               <Test
+                  Identifier = "EXPERTconnectTests/testSetJourneyContext">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

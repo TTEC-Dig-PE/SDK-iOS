@@ -501,7 +501,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (IBAction)logoutTapped:(id)sender
 {
-    if([self.logoutButton.currentTitle isEqualToString:@"Login"])
+    if([self.logoutButton.currentTitle isEqualToString:ECSLocalizedString(ECSLocalizeLogInButton, @"Log in button state.")])
     {
         ECDSplashViewController *splashController = [[ECDSplashViewController alloc] initWithNibName:nil bundle:nil];
         [self presentViewController:splashController animated:YES completion:nil];
