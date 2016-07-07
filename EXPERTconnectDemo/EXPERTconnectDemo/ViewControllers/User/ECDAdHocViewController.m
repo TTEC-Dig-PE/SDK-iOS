@@ -874,7 +874,7 @@ bool _chatActive;
 	 switch (section) {
 		  case SettingsSectionAdHocChat:
 		  {
-              title = @"Ad-Hoc SDK Tests";
+              title = [NSString stringWithFormat:@"User: %@", [EXPERTconnect shared].userName];
 			   //title = ECDLocalizedString(ECDLocalizedStartChatHeader, @"Ad-Hoc SDK Tests");
 			   /*if (chatEstimatedWait>-1 && chatAgentsLoggedOn > -1) {
 					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",

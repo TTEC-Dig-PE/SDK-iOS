@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         AppConfig *myAppConfig = [AppConfig sharedAppConfig];
         int initialIndex = 0;
         NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverURL"];
-        if(!url || !myAppConfig.organization || !myAppConfig.userName) {
+        if(!url || !myAppConfig.organization || ![EXPERTconnect shared].userName) {
             initialIndex = 3;
         }
         

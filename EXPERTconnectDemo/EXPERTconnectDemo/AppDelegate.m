@@ -97,9 +97,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
-    myAppConfig.userName = [EXPERTconnect shared].userName;
-    
-    if(myAppConfig.organization && myAppConfig.userName)
+    if(myAppConfig.organization && [EXPERTconnect shared].userName)
     {
         [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
          {

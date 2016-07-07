@@ -11,7 +11,6 @@
 @implementation AppConfig
 
 @synthesize organization;
-@synthesize userName; 
 
 #pragma mark Singleton Methods
 
@@ -134,9 +133,10 @@
 }
 
 -(NSString *)getUserName {
-    //return ([EXPERTconnect shared].userName ? [EXPERTconnect shared].userName : @"Guest");
+    return ([EXPERTconnect shared].userName ? [EXPERTconnect shared].userName : @"Guest");
     //return [EXPERTconnect shared].userName;
-    return self.userName; 
+    //return self.userName;
+    //return (self.userName ? self.userName : @"Guest");
 }
 
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.
@@ -151,13 +151,6 @@
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     
     NSLog(@"fetchAuthenticationToken - AuthToken URL: %@", url);
-    
-    if(!self.userName || !self.organization)
-    {
-        NSLog(@"Test Harness::fetchAuthenticationToken - Tried to issue API call with missing user or organization.");
-        completion(nil, nil);
-        return;
-    }
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
