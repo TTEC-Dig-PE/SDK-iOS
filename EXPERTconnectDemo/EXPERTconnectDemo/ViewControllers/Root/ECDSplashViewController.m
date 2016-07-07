@@ -63,20 +63,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)loginTapped:(id)sender
 {
-    [[EXPERTconnect shared] breadcrumbWithAction:@"User login initiated"
-                                     description:@"User pushed login button"
-                                          source:@"ECDemo"
-                                     destination:@"Humanify"
-                                     geolocation:nil];
-    
-    [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo) {
-        
-        [[EXPERTconnect shared] breadcrumbWithAction:@"Login successful"
-                                         description:[NSString stringWithFormat:@"Did login succeed?%d", (userInfo?1:0)]
-                                              source:@"ECDemo"
-                                         destination:@"Humanify"
-                                         geolocation:nil];
-        
+    [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo)
+    {
         if(userInfo)
         {
             [self switchToRootViewController];
@@ -90,19 +78,16 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)registerTapped:(id)sender
 {
+    NSLog(@"LoginView - User pressed register.");
+    
     [[EXPERTconnect shared] breadcrumbWithAction:@"Registration initiated"
                                      description:@"User pushed register button"
                                           source:@"ECDemo"
                                      destination:@"Humanify"
                                      geolocation:nil];
     
-    [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo) {
-        
-        [[EXPERTconnect shared] breadcrumbWithAction:@"Registration successful"
-                                         description:[NSString stringWithFormat:@"Did register succeed?%d", (userInfo?1:0)]
-                                              source:@"ECDemo"
-                                         destination:@"Humanify"
-                                         geolocation:nil];
+    [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo)
+    {
         
         if(userInfo)
         {
@@ -117,6 +102,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)skipTapped:(id)sender
 {
+    NSLog(@"LoginView - User pressed Skip.");
+    
     [self switchToRootViewController];
 }
 

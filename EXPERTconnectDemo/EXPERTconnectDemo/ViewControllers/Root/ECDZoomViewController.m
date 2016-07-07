@@ -7,6 +7,7 @@
 
 #import "ECDZoomViewController.h"
 #import <objc/runtime.h>
+#import "AppConfig.h"
 
 #import "ECDDefaultTheme.h"
 
@@ -191,16 +192,36 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
 
 - (void)showLeftViewController
 {
-    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:1.0f options:0 animations:^{
-        [self.contentViewController.view endEditing:YES];
-        self.contentContainerXOffset = self.leftViewSlideOffset;
-        [self updateViewsForContainerOffset:self.contentContainerXOffset];
-        [self setNeedsStatusBarAppearanceUpdate];
-    } completion:^(BOOL finished) {
-        [self.panGestureRecognizer setEnabled:YES];
-        [self.showContentButton setEnabled:YES];
-        [self.screenEdgeGestureRecognizer setEnabled:NO];
-    }];
+    AppConfig *appConfig = [AppConfig sharedAppConfig];
+    if(appConfig.userName && appConfig.organization) {
+    
+        [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:1.0f options:0 animations:^{
+            [self.contentViewController.view endEditing:YES];
+            self.contentContainerXOffset = self.leftViewSlideOffset;
+            [self updateViewsForContainerOffset:self.contentContainerXOffset];
+            [self setNeedsStatusBarAppearanceUpdate];
+        } completion:^(BOOL finished) {
+            [self.panGestureRecognizer setEnabled:YES];
+            [self.showContentButton setEnabled:YES];
+            [self.screenEdgeGestureRecognizer setEnabled:NO];
+        }];
+        
+    }
+    else
+    {
+        NSString *message;
+        if(!appConfig.userName) {
+            message = @"Must login with a user to proceed.";
+        } else if (!appConfig.organization) {
+            message = @"Must select an organiztion/environment to proceed.";
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Harness Error"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)hideLeftViewController

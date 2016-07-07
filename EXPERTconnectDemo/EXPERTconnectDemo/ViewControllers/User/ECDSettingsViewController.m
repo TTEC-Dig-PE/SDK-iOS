@@ -18,6 +18,7 @@
 #import "ECDBugReportEmailer.h"
 #import "ECDCustomizeThemeViewController.h"
 #import "ECDSplashViewController.h"
+#import "AppConfig.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -118,7 +119,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     //{
         //[self.logoutButton setEnabled:NO];
     if( ![EXPERTconnect shared].userName) {
-        [self.logoutButton setTitle:@"Login" forState:UIControlStateNormal];
+        [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizeLogInButton, @"Log in button state.") forState:UIControlStateNormal];
     } else {
         [self.logoutButton setTitle:ECSLocalizedString(ECSLocalizedLogoutButton, @"Log out button state.")
                            forState:UIControlStateNormal];
@@ -156,8 +157,23 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     [self.selectOrganizationPicker setup];
     // [self.selectEnvironmentPicker setFrame: CGRectMake(0.0f, 0.0f, 100.0f, 200.0f)];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(environmentPickerChanged:) name:@"EnvironmentPickerChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(environmentPickerChanged:)
+                                                 name:@"EnvironmentPickerChanged"
+                                               object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updatePickers:)
+                                                 name:@"ECDEnvironmentJsonFileUpdated"
+                                               object:nil];
+    
+}
+
+- (void)updatePickers:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.selectEnvironmentPicker setup]; // THis will cause organization to reload as well.
+        [self.tableView reloadData];
+    });
 }
 
 - (void)environmentPickerChanged:(NSNotification *)notification {
@@ -485,11 +501,13 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (IBAction)logoutTapped:(id)sender
 {
-    
-    if([self.logoutButton.currentTitle isEqualToString:@"Login"]) {
+    if([self.logoutButton.currentTitle isEqualToString:ECSLocalizedString(ECSLocalizeLogInButton, @"Log in button state.")])
+    {
         ECDSplashViewController *splashController = [[ECDSplashViewController alloc] initWithNibName:nil bundle:nil];
         [self presentViewController:splashController animated:YES completion:nil];
-    } else {
+    }
+    else
+    {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeLogoutTitle, nil)
                                                                                  message:ECSLocalizedString(ECSLocalizeLogoutText, nil) preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, nil)
@@ -497,10 +515,13 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
                                                           handler:nil]];
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, nil)
                                                             style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              [ECDBugReportEmailer resetLogging];
-                                                              [[EXPERTconnect shared] logout];
-                                                          }]];
+                                                          handler:^(UIAlertAction *action)
+        {
+          [ECDBugReportEmailer resetLogging];
+          [[EXPERTconnect shared] logout];
+            AppConfig *myAppConfig = [AppConfig sharedAppConfig];
+            myAppConfig.userName = nil;
+        }]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }

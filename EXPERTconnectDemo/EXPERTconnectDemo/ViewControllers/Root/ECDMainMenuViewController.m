@@ -15,6 +15,7 @@
 #import "ECDWorkflowViewController.h"
 #import "ECDLocalization.h"
 #import "ECDPersonasViewController.h"
+#import "AppConfig.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
@@ -86,10 +87,19 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         _initialSelectionComplete = YES;
     
         [self reloadContent];
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+        
+        AppConfig *myAppConfig = [AppConfig sharedAppConfig];
+        int initialIndex = 0;
+        NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverURL"];
+        if(!url || !myAppConfig.organization || !myAppConfig.userName) {
+            initialIndex = 3;
+        }
+        
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:initialIndex inSection:0]
                                     animated:NO
                               scrollPosition:UITableViewScrollPositionNone];
-        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        
+        [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:initialIndex inSection:0]];
     }
 }
 
@@ -214,6 +224,8 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         
         if (actionViewController)
         {
+            NSLog(@"TestHarness::MenuView - User switching to %@", item.type);
+            
             ECDNavigationController *rootNavigation = [[ECDNavigationController alloc] initWithRootViewController:actionViewController];
             
             rootNavigation.view.tintColor = [UIColor whiteColor];

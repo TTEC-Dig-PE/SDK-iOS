@@ -688,7 +688,7 @@ NSTimer *breadcrumbTimer;
 // Unit Test: EXPERTconnectTests::testLoginWithEmailID
 - (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion {
     
-    [self setUserIdentityToken:nil]; // Kill the token (we want it to fetch another)
+    //[self setUserIdentityToken:nil]; // Kill the token (we want it to fetch another)
     
     [self setUserName:username];
 

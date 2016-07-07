@@ -90,17 +90,26 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
+    [[EXPERTconnect shared] setDebugLevel:5]; // High debug.
+    
+    NSLog(@"Test Harness - Init with org:%@, url:%@",[myAppConfig getHostURL], [myAppConfig getClientID]);
+    
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
-    [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
-     {
-         if (!error) {
-             [[EXPERTconnect shared] setUserIdentityToken:authToken];
-         }
-        
-         [myAppConfig startBreadcrumbSession];
-     }];
+    myAppConfig.userName = [EXPERTconnect shared].userName;
+    
+    if(myAppConfig.organization && myAppConfig.userName)
+    {
+        [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
+         {
+             if (!error) {
+                 [[EXPERTconnect shared] setUserIdentityToken:authToken];
+             }
+            
+             [myAppConfig startBreadcrumbSession];
+         }];
+    }
     
     [self setThemeFromSettings];
     
@@ -117,16 +126,17 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] setUserIntent:@"mutual funds"];
         
     // If we are authenticated, skip the login view.
-    if ([[EXPERTconnect shared] authenticationRequired])
-    {
-        rootViewController = [[ECDSplashViewController alloc] init];
-    }
-    else
-    {
+    //if ([[EXPERTconnect shared] authenticationRequired])
+    //{
+    //    rootViewController = [[ECDSplashViewController alloc] init];
+    //}
+    //else
+    //{
         rootViewController = [[ECDRootViewController alloc] initWithNibName:nil bundle:nil];
-    }
+    //}
     
     [self.window setRootViewController:rootViewController];
+    
     [self.window makeKeyAndVisible];
     
     return YES;

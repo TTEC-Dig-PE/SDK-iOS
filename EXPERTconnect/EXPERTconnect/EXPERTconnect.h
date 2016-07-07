@@ -429,7 +429,8 @@ __attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpert
  */
 -(void)recievedUnrecognizedAction:(NSString *)action;
 
--(void)setClientID:(NSString *)theClientID;
+-(void)setClientID:(NSString *)theClientID
+__attribute__((deprecated("See documentation on the Identity Delegate authentication token.")));
 
 -(void)setHost:(NSString *)theHost;
 
