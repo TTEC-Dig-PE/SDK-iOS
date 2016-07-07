@@ -130,8 +130,8 @@
  */
         AppConfig *myAppConfig = [AppConfig sharedAppConfig];
         
-        myAppConfig.userName = weakSelf.emailAddressField.text;
-        //[[EXPERTconnect shared] setUserName:myAppConfig.userName];
+        //myAppConfig.userName = weakSelf.emailAddressField.text;
+        [[EXPERTconnect shared] setUserName:weakSelf.emailAddressField.text];
         
         [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
          {

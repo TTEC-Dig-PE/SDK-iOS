@@ -14,7 +14,6 @@
 @interface AppConfig : NSObject <ECSAuthenticationTokenDelegate>
 
 @property (nonatomic, strong) NSString *organization;
-@property (nonatomic, strong) NSString *userName; 
 
 + (id)sharedAppConfig;
 - (void) fetchEnvironmentJSON;

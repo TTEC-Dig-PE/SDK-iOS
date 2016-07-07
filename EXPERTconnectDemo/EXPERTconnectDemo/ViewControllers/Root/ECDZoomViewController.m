@@ -193,7 +193,7 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
 - (void)showLeftViewController
 {
     AppConfig *appConfig = [AppConfig sharedAppConfig];
-    if(appConfig.userName && appConfig.organization) {
+    if([EXPERTconnect shared].userName && appConfig.organization) {
     
         [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:1.0f options:0 animations:^{
             [self.contentViewController.view endEditing:YES];
@@ -210,7 +210,7 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
     else
     {
         NSString *message;
-        if(!appConfig.userName) {
+        if(![EXPERTconnect shared].userName) {
             message = @"Must login with a user to proceed.";
         } else if (!appConfig.organization) {
             message = @"Must select an organiztion/environment to proceed.";

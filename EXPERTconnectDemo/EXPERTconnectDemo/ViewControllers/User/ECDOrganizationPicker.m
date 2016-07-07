@@ -68,7 +68,7 @@ static NSString *const organizationKey = @"organization";
     AppConfig *myAppConfig = [AppConfig sharedAppConfig];
     
     // Start a journey and update org if it is different than what is already there. 
-    if(myAppConfig.userName && (![theOrg isEqualToString:myAppConfig.organization] || !myAppConfig.organization))
+    if([EXPERTconnect shared].userName && (![theOrg isEqualToString:myAppConfig.organization] || !myAppConfig.organization))
     {
         myAppConfig.organization = theOrg;
         [[EXPERTconnect shared] startJourneyWithCompletion:nil];
