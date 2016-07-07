@@ -43,6 +43,23 @@ bool _chatActive;
     self.pickerChatSkill.delegate = self;
     self.pickerChatSkill.dataSource = self;
     
+    // Attempt to load the selected skill for the selected environment
+    currentChatSkill = [[NSUserDefaults standardUserDefaults]
+                        stringForKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
+    
+    // Select the current skill in the flipper control.
+    int currentRow = 0;
+    rowToSelect = 0;
+    if(currentChatSkill != nil)  {
+        for(NSString* skill in chatSkillsArray) {
+            if([skill isEqualToString:currentChatSkill])  {
+                selectedRow = currentRow;
+                break;
+            }
+            currentRow++;
+        }
+    }
+    
     self.navigationItem.title = @"Humanify Chat";
     
     [self.btnStartChat setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
