@@ -100,13 +100,8 @@ static char ECSUserActionCompletionBlockKey;
                                      destination:@"Humanify"
                                      geolocation:nil];
     
-    [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo) {
-        
-        [[EXPERTconnect shared] breadcrumbWithAction:@"Registration successful"
-                                         description:[NSString stringWithFormat:@"Did register succeed?%d", (userInfo?1:0)]
-                                              source:@"ECDemo"
-                                         destination:@"Humanify"
-                                         geolocation:nil];
+    [self ecs_presentRegisterViewControllerWithCompletion:^(id userInfo)
+    {
         
         if(userInfo)
         {

@@ -27,6 +27,16 @@
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "Commencer le chat";
 "ECDLocalizedContinueChatLabel" = "Continuer le chat";
+"ECDLocalizedEndChatLabel" = "Fin le chat";
+
+/* Test Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestChatLabel" = "Chat test";
+
+/* Test Breadcrumbs Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestBreadcrumbsLabel" = "Breadcrumbs test";
+
+/* Test Journey Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestJourneyLabel" = "Test de Journey";
 
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Commencer un chat Vidéo";
@@ -232,4 +242,91 @@
 "ECDLocalizedWaitString" = "Attendez";
 "ECDLocalizedMinuteString" = "mins";
 "ECDLocalizedAgentString" = "Agents";
+
+/* Test Chat Page Labels */
+
+/* Chat Skill Label */
+"ECDLocalizedChatSkillLabel" = "Skill chat:";
+
+/* Custom Nav Bar Buttons Label */
+"ECDLocalizedCustomNavBarButtonsLabel" = "Utilisez les boutons de barre de navigation personnalisée";
+
+/* Use Image For Send Button Label */
+"ECDLocalizedUseImageForSendButtonLabel" = "l'image Utilisez pour le bouton d'envoi";
+
+/* Image Upload Button Label */
+"ECDLocalizedImageUploadButtonLabel" = "Afficher le bouton de téléchargement d'image";
+
+/* End Test Chat Page Labels Section */
+
+/* Test Jouney Page Labels */
+
+/* Current Journey Info Label */
+"ECDLocalizedCurrentJourneyInfoLabel" = "Journey Current Infos:";
+
+/* Name Label */
+"ECDLocalizedNameLabel" = "Prénom:";
+
+/* Context Label */
+"ECDLocalizedContextLabel" = "Le contexte:";
+
+/* Name Placeholder Label */
+"ECDLocalizedNamePlaceholderLabel" = "(optionnel)";
+
+/* Context Placeholder Label */
+"ECDLocalizedContextPlaceholderLabel" = "SDK référence";
+
+/* Start Journey Label */
+"ECDLocalizedStartJourneyLabel" = "Démarrer Journey";
+
+/* Start Journey Context Label */
+"ECDLocalizedStartJourneyContextLabel" = "Set Contexte Journey";
+
+/* End Test Journey Page Labels Section */
+
+/* Test Breadcrumbs Page Labels */
+
+/* Type Label */
+"ECDLocalizedTypeLabel" = "Type:";
+
+/* Describtion Label */
+"ECDLocalizedDescribtionLabel" = "La description:";
+
+/* Source Label */
+"ECDLocalizedSourceLabel" = "La source:";
+
+/* Destination Label */
+"ECDLocalizedDestinationLabel" = "Destination:";
+
+/* Bulk Config Label */
+"ECDLocalizedBulkConfigLabel" = "Bulk Config:";
+
+/* GeoLocation Data Label */
+"ECDLocalizedGeoLocationDataLabel" = "Inclure des données de géolocalisation";
+
+/* Seconds Label */
+"ECDLocalizedSecondsLabel" = "Secondes:";
+
+/* Count Label */
+"ECDLocalizedCountLabel" = "Compter:";
+
+/* SendOne Button Label */
+"ECDLocalizedSendOneButtonLabel" = "Envoyer un";
+
+/* QueueBulk Button Label */
+"ECDLocalizedQueueBulkButtonLabel" = "Queue Bulk";
+
+/* Type Placeholder Label */
+"ECDLocalizedTypePlaceholderLabel" = "Intérêts du produit";
+
+/*Describtion Placeholder Label */
+"ECDLocalizedDescribtionPlaceholderLabel" = "L'utilisateur a cliqué Sac à dos 1";
+
+/* Source Placeholder Label */
+"ECDLocalizedSourcePlaceholderLabel" = "Page Sacs à dos";
+
+/* Destination Placeholder Label */
+"ECDLocalizedDestinationPlaceholderLabel" = "Sac à dos page 1 produit";
+
+/* End Test Breadcrumbs Page Labels Section */
 

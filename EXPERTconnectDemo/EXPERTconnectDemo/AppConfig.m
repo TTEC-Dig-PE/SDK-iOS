@@ -8,7 +8,10 @@
 
 #import "AppConfig.h"
 
-@implementation AppConfig 
+@implementation AppConfig
+
+@synthesize organization;
+@synthesize userName; 
 
 #pragma mark Singleton Methods
 
@@ -24,6 +27,9 @@
 - (id)init {
     if (self = [super init]) {
         //someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
+        
+        NSString *curEnv = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentName"];
+        organization = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_organization", curEnv]];
     }
     return self;
 }
@@ -82,6 +88,8 @@
                  [[NSUserDefaults standardUserDefaults] setObject:envConfig forKey:@"environmentConfig"];
                  
                  //NSLog(@"Saving environment config from JSON successful.");
+                 
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ECDEnvironmentJsonFileUpdated" object:nil];
              }
              
          } else {
@@ -99,7 +107,10 @@
     
     NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"serverURL"];
     
-    if (!url || url.length == 0 || [url isEqualToString:@"http://api.dce1.humanify.com"])
+    if(!url || url.length == 0) {
+        url = @"localhost"; // Default
+    }
+    if ([url isEqualToString:@"http://api.dce1.humanify.com"])
     {
         url = @"https://api.dce1.humanify.com";
     }
@@ -123,7 +134,9 @@
 }
 
 -(NSString *)getUserName {
-    return ([EXPERTconnect shared].userName ? [EXPERTconnect shared].userName : @"Guest");
+    //return ([EXPERTconnect shared].userName ? [EXPERTconnect shared].userName : @"Guest");
+    //return [EXPERTconnect shared].userName;
+    return self.userName; 
 }
 
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.
@@ -131,7 +144,9 @@
     
     // add /ust for new method
     NSString *urlString = [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                           [self getHostURL],[[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[self getClientID]];
+                           [self getHostURL],
+                           [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                           organization];
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     

@@ -7,6 +7,7 @@
 //
 
 #import "ECDBreadcrumbConfigVC.h"
+#import "ECDLocalization.h"
 
 @interface ECDBreadcrumbConfigVC ()
 
@@ -27,6 +28,24 @@ CLLocation *_currentLocation;
     [self.btnQueueBulk setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnSendOne setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
     [self.btnQueueBulk setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+     
+     self.typeLabel.text = ECDLocalizedString(ECDLocalizedTypeLabel, @"Type Label");
+     self.describtionLabel.text = ECDLocalizedString(ECDLocalizedDescribtionLabel, @"Describtion Label");
+     self.sourceLabel.text = ECDLocalizedString(ECDLocalizedSourceLabel, @"Source Label");
+     self.destinationLabel.text = ECDLocalizedString(ECDLocalizedDestinationLabel, @"Destination Label");
+     self.geolocationDataLabel.text = ECDLocalizedString(ECDLocalizedGeoLocationDataLabel, @"GeoLocation Data Label");
+     self.bulkConfigLabel.text = ECDLocalizedString(ECDLocalizedBulkConfigLabel, @"Bulk Config Label");
+     self.secondsLabel.text = ECDLocalizedString(ECDLocalizedSecondsLabel, @"Seconds Label");
+     self.countLabel.text = ECDLocalizedString(ECDLocalizedCountLabel, @"Count Label");
+
+     self.txtActionType.placeholder = ECDLocalizedString(ECDLocalizedTypePlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionDescription.placeholder = ECDLocalizedString(ECDLocalizedDescribtionPlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionSource.placeholder = ECDLocalizedString(ECDLocalizedSourcePlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionDestination.placeholder = ECDLocalizedString(ECDLocalizedDestinationPlaceholderLabel, @"Text Field PlaceHolder Label");
+     
+     [self.btnSendOne setTitle:ECDLocalizedString(ECDLocalizedSendOneButtonLabel, @"SendOne") forState:UIControlStateNormal];
+     [self.btnQueueBulk setTitle:ECDLocalizedString(ECDLocalizedQueueBulkButtonLabel, @"QueueBulk") forState:UIControlStateNormal];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated

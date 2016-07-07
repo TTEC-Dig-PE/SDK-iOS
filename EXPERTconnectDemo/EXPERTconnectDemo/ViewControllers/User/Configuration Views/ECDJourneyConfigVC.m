@@ -7,6 +7,7 @@
 //
 
 #import "ECDJourneyConfigVC.h"
+#import "ECDLocalization.h"
 
 @interface ECDJourneyConfigVC ()
 
@@ -22,6 +23,15 @@
     [self.btnSetJourneyContext setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnStartJourney setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
     [self.btnSetJourneyContext setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+
+    self.currentJourneyInfoLabel.text = ECDLocalizedString(ECDLocalizedCurrentJourneyInfoLabel, @"Current Journey Info");
+    self.nameLabel.text = ECDLocalizedString(ECDLocalizedNameLabel, @"Name Label");
+    self.contextLabel.text = ECDLocalizedString(ECDLocalizedContextLabel, @"Context Label");
+    self.txtJourneyName.placeholder = ECDLocalizedString(ECDLocalizedNamePlaceholderLabel, @"Text Field PlaceHolder Label");
+    self.txtJourneyContext.placeholder = ECDLocalizedString(ECDLocalizedContextPlaceholderLabel, @"Text Field PlaceHolder Label");
+     
+    [self.btnStartJourney setTitle:ECDLocalizedString(ECDLocalizedStartJourneyLabel, @"Start Journey") forState:UIControlStateNormal];
+    [self.btnSetJourneyContext setTitle:ECDLocalizedString(ECDLocalizedStartJourneyContextLabel, @"Set Journey Context") forState:UIControlStateNormal];
 }
 
 -(void)viewWillAppear:(BOOL)animated

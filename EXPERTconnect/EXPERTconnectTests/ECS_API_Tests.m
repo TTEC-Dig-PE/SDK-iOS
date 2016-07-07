@@ -334,6 +334,7 @@ NSString *_firstname;
     }];
 }
 
+// This is testing our typeahead function.
 - (void)testGetAnswerEngineTopQuestionsForKeyword
 {
     [self setUp];
@@ -341,7 +342,6 @@ NSString *_firstname;
     XCTestExpectation *expectation = [self expectationWithDescription:@"testGetAnswerEngineTopQuestionsForKeyword"];
 
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    __block int expectedResponses = 2; // Set to number of tests in this block
 
     // Test 1: A question expecting a real answer
     [sessionManager getAnswerEngineTopQuestionsForKeyword:@"parking"
@@ -350,29 +350,28 @@ NSString *_firstname;
     {
         NSLog(@"Details: %@", response);
         if(error) XCTFail(@"Error: %@", error.description);
+        
+        XCTAssert(response.suggestedQuestions.count > 0, @"Expected some suggested questions.");
 
-        expectedResponses--;
-        if(expectedResponses<=0)[expectation fulfill];
+        // Test 2: A bogus question expecting no answer
+        [sessionManager getAnswerEngineTopQuestionsForKeyword:@"Non-Valid-Answer-Schmo"
+                                          withOptionalContext:@"Park"
+                                                   completion:^(ECSAnswerEngineResponse *response, NSError *error)
+         {
+             NSLog(@"Details: %@", response);
+             if(error) XCTFail(@"Error: %@", error.description);
+             
+             //Specific Tests
+             XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"], "Expected invalid question");
+             XCTAssert(!response.answerContent,@"Expected empty content.");
+             XCTAssert(response.inquiryId.length==0,@"Expected missing inquiryID");
+             XCTAssert([response.answersQuestion intValue] != 1, @"Expected to not answer question.");
+             XCTAssert(response.suggestedQuestions.count == 0, @"Expected no suggested content.");
+             
+             [expectation fulfill];
+         }];
     }];
     
-    // Test 2: A bogus question expecting no answer
-    [sessionManager getAnswerEngineTopQuestionsForKeyword:@"Non-Valid-Answer-Schmo"
-                                      withOptionalContext:@"Park"
-                                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
-     {
-         NSLog(@"Details: %@", response);
-         if(error) XCTFail(@"Error: %@", error.description);
-         
-         //Specific Tests
-         XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_ANSWER"], "Expected invalid question");
-         XCTAssert(!response.answerContent,@"Expected empty content.");
-         XCTAssert(response.inquiryId.length==0,@"Expected missing inquiryID");
-         XCTAssert([response.answersQuestion intValue] != 1, @"Expected to not answer question.");
-         
-         expectedResponses--;
-         if(expectedResponses<=0)[expectation fulfill];
-     }];
-
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
@@ -389,8 +388,8 @@ NSString *_firstname;
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
 
     // Test good question
-    [sessionManager getAnswerForQuestion:@"How Does Borrow Work?"
-                               inContext:@""
+    [sessionManager getAnswerForQuestion:@"Remote Start"
+                               inContext:@"sdk_unit_test"
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
     {

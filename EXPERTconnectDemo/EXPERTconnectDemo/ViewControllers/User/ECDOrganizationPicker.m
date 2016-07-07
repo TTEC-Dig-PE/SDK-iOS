@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ECDOrganizationPicker.h"
+#import "AppConfig.h"
 
 @interface ECDOrganizationPicker ()
 
@@ -55,12 +56,32 @@ static NSString *const organizationKey = @"organization";
     
     // This will set clientID and blow away authToken so that we will reauthenticate with the new clientId.
     [[EXPERTconnect shared] setClientID:currentOrganization];
+    [self setOrganization:currentOrganization];
     
     NSLog(@"Test Harness::Org Picker - Setup with item %@ selected.", self.organizationArray[rowToSelect]);
     
     [super setup:self.organizationArray withSelection:rowToSelect];
 }
 
+-(void) setOrganization:(NSString *)theOrg
+{
+    AppConfig *myAppConfig = [AppConfig sharedAppConfig];
+    
+    // Start a journey and update org if it is different than what is already there. 
+    if(myAppConfig.userName && (![theOrg isEqualToString:myAppConfig.organization] || !myAppConfig.organization))
+    {
+        myAppConfig.organization = theOrg;
+        [[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    }
+    else
+    {
+        myAppConfig.organization = theOrg;
+    }
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:theOrg
+                                              forKey:[NSString stringWithFormat:@"%@_%@", self.currentEnvironment, organizationKey]];
+}
 
 -(void)pickerView:(UIPickerView *)pickerView
      didSelectRow:(NSInteger)row
@@ -75,8 +96,7 @@ static NSString *const organizationKey = @"organization";
     NSLog(@"Test Harness::Org Picker - Selected org: %@", self.organizationArray[row]);
     
     // This will set clientID and blow away authToken so that we will reauthenticate with the new clientId.
-    [[EXPERTconnect shared] setClientID:org];
-    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    [self setOrganization:org];
     
 }
 

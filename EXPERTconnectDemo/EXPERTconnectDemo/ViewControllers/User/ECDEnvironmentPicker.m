@@ -74,7 +74,9 @@ static NSString *const environmentNameKey = @"environmentName";
     // This will set host and reconfigure the session.
     NSAssert(url.length>0, @"Environment Picker - Chosen serverURL must exist.");
     [[EXPERTconnect shared] setHost:url];
-    [[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    //[[EXPERTconnect shared] startJourneyWithCompletion:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
 }
 
 // mas - 16-oct-2015 - This loads the available environments from the JSON file we fetched

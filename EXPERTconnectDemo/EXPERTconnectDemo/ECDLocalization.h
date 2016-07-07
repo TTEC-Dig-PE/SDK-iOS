@@ -61,7 +61,11 @@ static NSString* const ECDLocalizedStartShowChatTimeStampHeader = @"ECDLocalized
 
 static NSString* const ECDLocalizedStartChatLabel = @"ECDLocalizedStartChatLabel";
 static NSString* const ECDLocalizedContinueChatLabel = @"ECDLocalizedContinueChatLabel";
-static NSString* const ECDLocalizedBreadcrumbLabel = @"ECDLocalizedBreadcrumbLabel"; 
+static NSString* const ECDLocalizedEndChatLabel = @"ECDLocalizedEndChatLabel";
+static NSString* const ECDLocalizedBreadcrumbLabel = @"ECDLocalizedBreadcrumbLabel";
+static NSString* const ECDLocalizedTestChatLabel = @"ECDLocalizedTestChatLabel";
+static NSString* const ECDLocalizedTestBreadcrumbsLabel = @"ECDLocalizedTestBreadcrumbsLabel";
+static NSString* const ECDLocalizedTestJourneyLabel = @"ECDLocalizedTestJourneyLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedUtilityFunctionLabel = @"ECDLocalizedUtilityFunctionLabel"; 
@@ -95,6 +99,37 @@ static NSString* const ECDLocalizedNoAgents = @"ECDLocalizedNoAgents";
 static NSString* const ECDLocalizedWaitString = @"ECDLocalizedWaitString";
 static NSString* const ECDLocalizedMinuteString = @"ECDLocalizedMinuteString";
 static NSString* const ECDLocalizedAgentString = @"ECDLocalizedAgentString";
+
+
+static NSString* const ECDLocalizedChatSkillLabel = @"ECDLocalizedChatSkillLabel";
+static NSString* const ECDLocalizedCustomNavBarButtonsLabel = @"ECDLocalizedCustomNavBarButtonsLabel";
+static NSString* const ECDLocalizedUseImageForSendButtonLabel = @"ECDLocalizedUseImageForSendButtonLabel";
+static NSString* const ECDLocalizedImageUploadButtonLabel = @"ECDLocalizedImageUploadButtonLabel";
+
+static NSString* const ECDLocalizedCurrentJourneyInfoLabel = @"ECDLocalizedCurrentJourneyInfoLabel";
+static NSString* const ECDLocalizedNameLabel = @"ECDLocalizedNameLabel";
+static NSString* const ECDLocalizedContextLabel = @"ECDLocalizedContextLabel";
+static NSString* const ECDLocalizedNamePlaceholderLabel = @"ECDLocalizedNamePlaceholderLabel";
+static NSString* const ECDLocalizedContextPlaceholderLabel = @"ECDLocalizedContextPlaceholderLabel";
+static NSString* const ECDLocalizedStartJourneyLabel = @"ECDLocalizedStartJourneyLabel";
+static NSString* const ECDLocalizedStartJourneyContextLabel = @"ECDLocalizedStartJourneyContextLabel";
+
+static NSString* const ECDLocalizedTypeLabel = @"ECDLocalizedTypeLabel";
+static NSString* const ECDLocalizedDescribtionLabel = @"ECDLocalizedDescribtionLabel";
+static NSString* const ECDLocalizedSourceLabel = @"ECDLocalizedSourceLabel";
+static NSString* const ECDLocalizedDestinationLabel = @"ECDLocalizedDestinationLabel";
+static NSString* const ECDLocalizedTypePlaceholderLabel = @"ECDLocalizedTypePlaceholderLabel";
+static NSString* const ECDLocalizedDescribtionPlaceholderLabel = @"ECDLocalizedDescribtionPlaceholderLabel";
+static NSString* const ECDLocalizedSourcePlaceholderLabel = @"ECDLocalizedSourcePlaceholderLabel";
+static NSString* const ECDLocalizedDestinationPlaceholderLabel = @"ECDLocalizedDestinationPlaceholderLabel";
+static NSString* const ECDLocalizedBulkConfigLabel = @"ECDLocalizedBulkConfigLabel";
+static NSString* const ECDLocalizedGeoLocationDataLabel = @"ECDLocalizedGeoLocationDataLabel";
+static NSString* const ECDLocalizedSecondsLabel = @"ECDLocalizedSecondsLabel";
+static NSString* const ECDLocalizedCountLabel = @"ECDLocalizedCountLabel";
+static NSString* const ECDLocalizedSendOneButtonLabel = @"ECDLocalizedSendOneButtonLabel";
+static NSString* const ECDLocalizedQueueBulkButtonLabel = @"ECDLocalizedQueueBulkButtonLabel";
+
+
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
  string in the application bundle.

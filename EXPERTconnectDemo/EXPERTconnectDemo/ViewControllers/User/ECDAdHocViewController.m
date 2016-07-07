@@ -496,18 +496,19 @@ bool _chatActive;
 			   switch (indexPath.row) {
 					case AdHocChatSectionRowStart:
 
-                       cell.textLabel.text = @"Test Chat";
-                        //cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat");
+//                       cell.textLabel.text = @"Test Chat";
+                        cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestChatLabel, @"Test Chat");
                         break;
                        
                    case AdHocChatSectionRowBreadcrumb:
                        
-                       cell.textLabel.text = @"Test Breadcrumbs";
-                       //cell.textLabel.text = ECDLocalizedString(ECDLocalizedBreadcrumbLabel, @"Breadcrumb");
+//                       cell.textLabel.text = @"Test Breadcrumbs";
+                       cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestBreadcrumbsLabel, @"Test Breadcrumbs");
                        break;
                        
                    case AdHocChatSectionRowJourney:
-                       cell.textLabel.text = @"Test Journey";
+//                       cell.textLabel.text = @"Test Journey";
+                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestJourneyLabel, @"Test Journey");
                        break;
                        
 					default:
