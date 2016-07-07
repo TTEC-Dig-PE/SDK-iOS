@@ -77,16 +77,10 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "ECS_API_Tests/testSetJourneyContext">
-               </Test>
-               <Test
                   Identifier = "ECS_API_Tests_2">
                </Test>
                <Test
                   Identifier = "ECS_DceDev_Henry_Tests">
-               </Test>
-               <Test
-                  Identifier = "EXPERTconnectTests/testSetJourneyContext">
                </Test>
             </SkippedTests>
          </TestableReference>
