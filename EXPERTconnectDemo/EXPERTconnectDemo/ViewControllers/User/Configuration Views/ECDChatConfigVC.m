@@ -71,12 +71,13 @@ bool _chatActive;
 
 - (IBAction)btnStartChat_Touch:(id)sender {
     
-    NSLog(@"Starting an ad-hoc Chat Session");
-    
     NSString *chatSkill = chatSkillsArray[selectedRow];
     
+    NSLog(@"Test Harness::Chat Config - Starting Ad-Hoc Chat with Skill: %@", chatSkill);
+    
     ECSBreadcrumb *chatBC = [[ECSBreadcrumb alloc] initWithAction:@"Start Chat"
-                                                      description:@"Starting an ad-hoc chat from Test Harness" source:@"Test Harness - iOS"
+                                                      description:@"Starting an ad-hoc chat from Test Harness"
+                                                           source:@"Test Harness - iOS"
                                                       destination:@""];
     
     [[EXPERTconnect shared] breadcrumbSendOne:chatBC withCompletion:nil];
@@ -123,9 +124,16 @@ bool _chatActive;
     [self.navigationController pushViewController:self.chatController animated:YES];
 }
 
+// User pressed our custom back button
+-(void)backPushed:(id)sender
+{
+    NSLog(@"Test Harness::Chat Nav Bar - Back button pushed.");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)btnEndChat_Touch:(id)sender
 {
-    NSLog(@"Ending chat...");
+    NSLog(@"Test Harness::Chat Nav Bar - End Chat button pushed.");
     
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
@@ -147,14 +155,9 @@ bool _chatActive;
 
 #pragma mark Notifications
 
-// User pressed our custom back button
--(void)backPushed:(id)sender
-{
-    NSLog(@"Going back...");
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)chatEnded:(NSNotification *)notification {
+    
+    NSLog(@"Test Harness::Chat Config - End chat notification received.");
     
     // If uncommented, this will hide chat when agent ends it.
     //[self.navigationController popToViewController:self animated:YES];

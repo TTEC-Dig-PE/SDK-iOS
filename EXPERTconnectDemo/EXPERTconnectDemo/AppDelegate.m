@@ -90,6 +90,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
+    [[EXPERTconnect shared] setDebugLevel:5]; // High debug.
+    
+    NSLog(@"Test Harness - Init with org:%@, url:%@",[myAppConfig getHostURL], [myAppConfig getClientID]);
+    
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     

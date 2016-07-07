@@ -63,6 +63,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)loginTapped:(id)sender
 {
+    NSLog(@"LoginView - User pressed login.");
+    
     [[EXPERTconnect shared] breadcrumbWithAction:@"User login initiated"
                                      description:@"User pushed login button"
                                           source:@"ECDemo"
@@ -90,6 +92,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)registerTapped:(id)sender
 {
+    NSLog(@"LoginView - User pressed register.");
+    
     [[EXPERTconnect shared] breadcrumbWithAction:@"Registration initiated"
                                      description:@"User pushed register button"
                                           source:@"ECDemo"
@@ -117,6 +121,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)skipTapped:(id)sender
 {
+    NSLog(@"LoginView - User pressed Skip.");
+    
     [self switchToRootViewController];
 }
 

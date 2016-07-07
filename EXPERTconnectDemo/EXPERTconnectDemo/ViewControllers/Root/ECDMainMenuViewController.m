@@ -214,6 +214,8 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
         
         if (actionViewController)
         {
+            NSLog(@"TestHarness::MenuView - User switching to %@", item.type);
+            
             ECDNavigationController *rootNavigation = [[ECDNavigationController alloc] initWithRootViewController:actionViewController];
             
             rootNavigation.view.tintColor = [UIColor whiteColor];
