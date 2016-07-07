@@ -152,6 +152,13 @@
     
     NSLog(@"fetchAuthenticationToken - AuthToken URL: %@", url);
     
+    if(!self.userName || !self.organization)
+    {
+        NSLog(@"Test Harness::fetchAuthenticationToken - Tried to issue API call with missing user or organization.");
+        completion(nil, nil);
+        return;
+    }
+    
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)

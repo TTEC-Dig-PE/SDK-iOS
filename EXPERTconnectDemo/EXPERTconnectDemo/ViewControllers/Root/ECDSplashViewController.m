@@ -63,22 +63,8 @@ static char ECSUserActionCompletionBlockKey;
 
 - (IBAction)loginTapped:(id)sender
 {
-    NSLog(@"LoginView - User pressed login.");
-    
-    [[EXPERTconnect shared] breadcrumbWithAction:@"User login initiated"
-                                     description:@"User pushed login button"
-                                          source:@"ECDemo"
-                                     destination:@"Humanify"
-                                     geolocation:nil];
-    
-    [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo) {
-        
-        [[EXPERTconnect shared] breadcrumbWithAction:@"Login successful"
-                                         description:[NSString stringWithFormat:@"Did login succeed?%d", (userInfo?1:0)]
-                                              source:@"ECDemo"
-                                         destination:@"Humanify"
-                                         geolocation:nil];
-        
+    [self ecs_presentLoginViewControllerWithCompletion:^(id userInfo)
+    {
         if(userInfo)
         {
             [self switchToRootViewController];
