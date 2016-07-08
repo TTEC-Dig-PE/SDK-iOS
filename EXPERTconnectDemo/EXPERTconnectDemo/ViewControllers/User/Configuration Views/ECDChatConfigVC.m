@@ -279,7 +279,7 @@ bool _chatActive;
     return title;
 }
 
--(void)getAgentsAvailableForSkill:(int)index
+-(void)getAgentsAvailableForExpertSkill:(int)index
 {
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)
@@ -293,6 +293,26 @@ bool _chatActive;
                                                  (data.queueOpen ? "Open" : "Closed"),
                                                  data.inQueue,
                                                  data.active]];
+         } else {
+             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
+         }
+     }];
+}
+
+-(void)getAgentsAvailableForSkill:(int)index
+{
+    [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
+                                    completion:^(NSDictionary *details, NSError *error)
+     {
+         if(!error)
+         {
+             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"Estimated wait is %@ seconds. %@ of %@ agents ready. Queue is: %s. %@ in queue now. Active=%@.",
+                                                 details[@"estWait"],
+                                                 details[@"chatReady"],
+                                                 details[@"chatCapacity"],
+                                                 (details[@"queueOpen"] ? "Open" : "Closed"),
+                                                 details[@"inQueue"],
+                                                 details[@"active"]]];
          } else {
              [self.lblAgentAvailability setText:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
          }
@@ -317,6 +337,7 @@ bool _chatActive;
                 for ( NSString *skill in envData[@"agent_skills"] ) {
                     [chatSkillsArray addObject:skill];
                 }
+                [chatSkillsArray addObject:@"INVALID_SKILL"];
             }
         }
     }
