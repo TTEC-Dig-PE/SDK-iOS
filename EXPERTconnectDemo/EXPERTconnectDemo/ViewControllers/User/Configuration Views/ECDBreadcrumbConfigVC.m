@@ -46,13 +46,14 @@ CLLocation *_currentLocation;
      [self.btnSendOne setTitle:ECDLocalizedString(ECDLocalizedSendOneButtonLabel, @"SendOne") forState:UIControlStateNormal];
      [self.btnQueueBulk setTitle:ECDLocalizedString(ECDLocalizedQueueBulkButtonLabel, @"QueueBulk") forState:UIControlStateNormal];
 
+    _locationManager = [[CLLocationManager alloc] init];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     // In our demo app, we will only use GPS while the app is in the foreground
     [_locationManager requestWhenInUseAuthorization];
-    
+
     if ([CLLocationManager locationServicesEnabled]) {
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
