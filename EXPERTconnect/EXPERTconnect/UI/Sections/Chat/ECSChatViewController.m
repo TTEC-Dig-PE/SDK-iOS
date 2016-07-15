@@ -1775,7 +1775,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         ECSChatImageTableViewCell *imageCell = [self.tableView dequeueReusableCellWithIdentifier:ImageCellID
                                                                                     forIndexPath:indexPath];
-        [self configureMediaCell:imageCell withNotificationMessage:message];
+        [self configureMediaCell:imageCell withNotificationMessage:message atIndexPath:(NSIndexPath*)indexPath];
         cell = imageCell;
         
     }
@@ -2198,20 +2198,28 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
-- (void)configureMediaCell:(ECSChatImageTableViewCell*)cell withNotificationMessage:(ECSChatNotificationMessage*)chatMessage;
+- (void)configureMediaCell:(ECSChatImageTableViewCell*)cell
+   withNotificationMessage:(ECSChatNotificationMessage*)chatMessage
+               atIndexPath:(NSIndexPath*)indexPath
 {
-    if ([chatMessage.type isEqualToString:@"artifact"])
-    {
-        cell.userMessage = !chatMessage.fromAgent;
-        NSString *fileName = chatMessage.objectData;
-        
-        ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
-        [cell.messageImageView setImageWithRequest:request];
-        
-        cell.showPlayIcon = NO;
-    }
-	 [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
+     if ([chatMessage.type isEqualToString:@"artifact"])
+     {
+          cell.userMessage = !chatMessage.fromAgent;
+          NSString *fileName = chatMessage.objectData;
+          
+          ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+          NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
+          [cell.messageImageView setImageWithRequest:request];
+          
+          cell.showPlayIcon = NO;
+     }
+     cell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
+     if (cell.background.showAvatar)
+     {
+          ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
+          [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
+     }
+     [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
