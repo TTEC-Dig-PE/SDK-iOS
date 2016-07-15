@@ -152,7 +152,20 @@
                      NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
                      
                      [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
-                     [[EXPERTconnect shared] startJourneyWithCompletion:nil]; // Start a new journey.
+                     
+                     NSString *savedContext = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
+                     if( savedContext) {
+                         // Set journey with context.
+                         [[EXPERTconnect shared] startJourneyWithName:@"ECDemoJourney"
+                                                   pushNotificationId:nil
+                                                              context:savedContext
+                                                           completion:^(NSString *journeyID, NSError *NSError)
+                         {
+                                                               
+                         }];
+                     } else {
+                         [[EXPERTconnect shared] startJourneyWithCompletion:nil]; // Start a new journey.
+                     }
                  }
                  else
                  {

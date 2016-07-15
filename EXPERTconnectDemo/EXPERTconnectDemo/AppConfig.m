@@ -38,12 +38,19 @@
 -(void) startBreadcrumbSession {
     // Start a new journey, then send an "app launch" breadcrumb.
     
-    [[EXPERTconnect shared] breadcrumbWithAction:@"ECDemo Started"
-                                     description:@""
-                                          source:@"ECDemo"
-                                     destination:@"Humanify"
-                                     geolocation:nil];
-
+    ECSBreadcrumb *bc = [[ECSBreadcrumb alloc] initWithAction:@"ECDemo Started"
+                                                  description:@""
+                                                       source:@"ECDemo"
+                                                  destination:@"Humanify" ];
+    [[EXPERTconnect shared] breadcrumbSendOne:bc
+                               withCompletion:^(ECSBreadcrumbResponse *response, NSError *error)
+    {
+        NSString *savedContext = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
+        if(savedContext)
+        {
+            [[EXPERTconnect shared] setJourneyContext:savedContext withCompletion:nil];
+        }
+    }];
 }
 
 - (void) getCustomizedThemeSettings {

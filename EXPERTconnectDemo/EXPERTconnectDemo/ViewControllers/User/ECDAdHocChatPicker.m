@@ -99,6 +99,7 @@ int rowToSelect;
                 for ( NSString *skill in envData[@"agent_skills"] ) {
                     [chatSkillsArray addObject:skill];
                 }
+                [chatSkillsArray addObject:@"INVALID_SKILL"]; 
             }
         }
     }
