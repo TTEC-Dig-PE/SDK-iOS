@@ -232,7 +232,19 @@
         [self sendText];
         return NO;
     }
-    
+    else
+    {
+         if (self.myTimer) {
+              [self.myTimer invalidate];
+              self.myTimer = nil;
+         }
+         self.myTimer =  [NSTimer scheduledTimerWithTimeInterval:15.0
+                                                          target:self
+                                                        selector:@selector(timeFired:)
+                                                        userInfo:nil
+                                                         repeats:NO];
+         
+    }
     return YES;
 }
 
@@ -244,6 +256,13 @@
     
     [self sendChatState:(textView.text.length > 0 || !textView.text ? @"composing" : @"paused")];
     [self toggleSendButton: (textView.text.length > 0)];
+}
+
+- (void)timeFired:(NSTimer *)timer
+{
+     if (_textView.text) {
+          [self sendChatState: @"paused"];
+     }
 }
 
 - (void)displayViewController:(UIViewController*)controller

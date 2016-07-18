@@ -29,4 +29,6 @@
 
 - (void)initializeSendState;
 
+@property (strong, nonatomic) NSTimer *myTimer;
+
 @end

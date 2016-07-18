@@ -385,17 +385,29 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)backButtonPressed:(id)sender
 {
-    if (self.chatClient.channelState == ECSChannelStateConnected)
-    {
-        //- (void)exitChatButtonTapped:(id)sender
-        [self exitChatButtonTapped:nil];
-    }
-    else
-    {
-        [self.workflowDelegate endVideoChat];
-        [self.chatClient disconnect];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+     if (self.chatClient.channelState == ECSChannelStateConnected)
+     {
+          //- (void)exitChatButtonTapped:(id)sender
+          [self exitChatButtonTapped:nil];
+     }
+     else
+     {
+          if(self.workflowDelegate)
+          {
+               //if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
+               //{
+               [self.workflowDelegate chatEndedWithTotalInteractionCount:self.messages.count
+                                                       agentInteractions:self.agentInteractionCount
+                                                        userInteractions:self.messages.count-self.agentInteractionCount];
+               //}
+               [self.navigationController popViewControllerAnimated:YES];
+          }else
+          {
+               [self.workflowDelegate endVideoChat];
+               [self.chatClient disconnect];
+               [self.navigationController popViewControllerAnimated:YES];
+          }
+     }
 }
 
 - (void)minimizeButtonPressed:(id)sender
@@ -647,14 +659,14 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)sendChatState:(NSString *)chatState
 {
     NSString *sendState = nil;
-    if (!_userTyping && [chatState isEqualToString:@"composing"])
+    if ([chatState isEqualToString:@"composing"])
     {
-        _userTyping = YES;
+//        _userTyping = YES;
         sendState = chatState;
     }
-    else if (_userTyping && [chatState isEqualToString:@"paused"])
+    else if ([chatState isEqualToString:@"paused"])
     {
-        _userTyping = NO;
+//        _userTyping = NO;
         sendState = chatState;
     }
     
