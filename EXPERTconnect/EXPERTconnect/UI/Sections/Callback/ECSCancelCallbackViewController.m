@@ -184,6 +184,8 @@
     
     // Instead, just indicate we are finished.
     [self.workflowDelegate voiceCallBackEnded];
+     
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
