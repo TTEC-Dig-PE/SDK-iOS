@@ -267,6 +267,8 @@
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
 		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
 		C47F52E31CAEBF140098A0BC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
 		C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDBreadcrumbConfigVC.m; path = "Configuration Views/ECDBreadcrumbConfigVC.m"; sourceTree = "<group>"; };
 		C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDBreadcrumbConfigVC.xib; path = "Configuration Views/ECDBreadcrumbConfigVC.xib"; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 				es,
 				de,
 				"en-GB",
+				"zh-Hans",
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -941,6 +944,7 @@
 				46004D531B5D60F900E78A83 /* es */,
 				C492B60E1D148790008BE187 /* de */,
 				C492B60F1D14879D008BE187 /* en-GB */,
+				C49206121D4FB66200B38C97 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -952,6 +956,7 @@
 				03978F1A1A602B2D007793D6 /* Base */,
 				0368D7771B3AEACF00985673 /* fr */,
 				46004D521B5D60F900E78A83 /* es */,
+				C49206111D4FB66200B38C97 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

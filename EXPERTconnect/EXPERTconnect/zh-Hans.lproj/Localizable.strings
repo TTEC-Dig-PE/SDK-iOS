@@ -9,337 +9,336 @@
 "ECSLocalizedCompanyNameKey" = "Humanify";
 
 /* Close */
-"ECSLocalizedCloseKey" = "Close";
+"ECSLocalizedCloseKey" = "关闭";
 
 /* Error */
-"ECSLocalizeErrorKey" = "Error";
+"ECSLocalizeErrorKey" = "错误";
 
 /* Logout */
-"ECSLocalizeLogoutTitle" = "Logout?";
+"ECSLocalizeLogoutTitle" = "注销？";
 
 /* Logout text */
-"ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
+"ECSLocalizeLogoutText" = "您确实想注销吗？";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
-"ECSLocalizedAskAQuestionKey" = "Ask a Question";
+"ECSLocalizedAskAQuestionKey" = "提出问题";
 
 /* Frequently asked Questions header */
-"ECSLocalizedFrequentlyAskedQuestionsKey" = "FREQUENTLY ASKED QUESTIONS";
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "常见问题解答";
 
 /* FAQ */
-"ECSLocalizeShortFAQKey" = "FAQ";
+"ECSLocalizeShortFAQKey" = "问答";
 
 /* Hide FAQ */
-"ECSLocalizeShortHideFAQKey" = "Hide FAQ";
+"ECSLocalizeShortHideFAQKey" = "隐藏问答";
 
 /* Email Address Placeholder */
-"ECSLocalizeEmailFieldPlaceholder" = "Email Address";
+"ECSLocalizeEmailFieldPlaceholder" = "电子邮件地址";
 
 /* Mobile Number Placeholder */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
+"ECSLocalizeMobileNumberFieldPlaceholder" = "手机号码";
 
 /* Log in prompt text */
-"ECSLogInPromptText" = "Log in to your Humanify Account";
+"ECSLogInPromptText" = "登录到您的 Humanify 帐户";
 
 /* All Fields Required Text */
-"ECSLocalizeAllFieldsRequired" = "All Fields Required";
+"ECSLocalizeAllFieldsRequired" = "必须填写所有字段";
 
 /* Error missing required fields */
-"ECSLocalizeLoginErrorMissingRequiredFields" = "The Email Address field is required.";
+"ECSLocalizeLoginErrorMissingRequiredFields" = "电子邮件地址字段是必需填写的。";
 
 /* All registration fields are requried */
-"ECSLocalizeRegisterErrorMissingRequiredFields" = "All fields are required.";
+"ECSLocalizeRegisterErrorMissingRequiredFields" = "所有字段都是必须填写的。";
 
 /* Log in button text */
-"ECSLocalizeLogInButton" = "Log In";
+"ECSLocalizeLogInButton" = "登录";
 
 /* Log out button text */
-"ECSLocalizedLogoutButton" = "Logout";
+"ECSLocalizedLogoutButton" = "注销";
 
 /* Request to create an account */
-"ECSCreateAccountPromptKey" = "Create a Humanify Account";
+"ECSCreateAccountPromptKey" = "创建 Humanify 帐户";
 
 /* Full Name text field placeholder */
-"ECSLocalizeFullNameFieldPlaceholderKey" = "Full Name";
+"ECSLocalizeFullNameFieldPlaceholderKey" = "全名";
 
 /* Create Account button text */
-"ECSLocalizeCreateAccountKey" = "Create Account";
+"ECSLocalizeCreateAccountKey" = "创建帐户";
 
 /* Next Question */
-"ECSLocalizeNextQuestionKey" = "Next";
+"ECSLocalizeNextQuestionKey" = "下一步";
 
 /* Previous Question */
-"ECSLocalizePreviousQuestionKey" = "Previous";
+"ECSLocalizePreviousQuestionKey" = "上一步";
 
 /* Optional Question */
-"ECSLocalizeOptionalKey" = "Optional";
+"ECSLocalizeOptionalKey" = "可选";
 
 /* Required Question */
-"ECSLocalizeRequiredKey" = "Required";
+"ECSLocalizeRequiredKey" = "必填";
 
 /* Select all that apply */
-"ECSLocalizeSelectAllThatApplyKey" = "Select all that apply";
+"ECSLocalizeSelectAllThatApplyKey" = "请选择所有适用项";
 
 /* Submit */
-"ECSLocalizeSubmitKey" = "Submit";
+"ECSLocalizeSubmitKey" = "提交";
 
 /* Possible Answer */
-"ECSLocalizePossibleAnswer" = "POSSIBLE ANSWER";
+"ECSLocalizePossibleAnswer" = "可能答复";
 
 /* Others also asked */
-"ECSLocalizeOthersAlsoAsked" = "OTHERS ALSO ASKED...";
+"ECSLocalizeOthersAlsoAsked" = "别人还问过...";
 
 /* Was this response helpful? */
-"ECSLocalizeWasThisResponseHelpful" = "Was this response helpful?";
+"ECSLocalizeWasThisResponseHelpful" = "这个回复有用吗？";
 
 /* View Previous Answer */
-"ECSLocalizedViewPreviousAnswer" = "View Previous Answer";
+"ECSLocalizedViewPreviousAnswer" = "查看上一答复";
 
 /* View Next Answer */
-"ECSLocalizedViewNextAnswer" = "View Next Answer";
+"ECSLocalizedViewNextAnswer" = "查看下一个答复";
 
 /* Answer not found title */
-"ECSLocalizedAnswerNotFoundTitle" = "No Answer Found";
+"ECSLocalizedAnswerNotFoundTitle" = "未找到任何答复";
 
 /* Answer not found message */
-"ECSLocalizedAnswerNotFoundMessage" = "We were unable to find an answer to your query, please try again.";
+"ECSLocalizedAnswerNotFoundMessage" = "我们没能找到针对您的查询的答复，请重试。";
 
 /* OK Button Text */
-"ECSLocalizedOkButton" = "OK";
+"ECSLocalizedOkButton" = "好";
 
 /* Reachability error connecting to the website */
-"ECSLocalizeReachabilityErrorKey" = "We are unable to connect to the Humanify Network. Please check your internet connection.";
+"ECSLocalizeReachabilityErrorKey" = "我们目前无法连接到 Humanify 网络。请检查您的互联网连接。";
 
 /* Push Notifications */
-"ECSLocalizedPushNotificationsHeader" = "Push Notifications";
+"ECSLocalizedPushNotificationsHeader" = "推送通知";
 
 /* Start new journey */
-"ECSLocalizedStartJourneyHeader" = "Start new journey";
+"ECSLocalizedStartJourneyHeader" = "开始新的旅程";
 
 /* iBeacons */
 "ECSLocalizedBeaconsHeader" = "iBeacons";
 
 /* Version */
-"ECSLocalizedVersionHeader" = "Version %@";
+"ECSLocalizedVersionHeader" = "版本 %@";
 
 /* Receive Notifications */
-"ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
+"ECSLocalizedReceiveNotificationsRow" = "接收通知";
 
 /* Start new journey */
-"ECSLocalizedStartJourneyRow" = "Start New Journey";
+"ECSLocalizedStartJourneyRow" = "开始新的旅程";
 
 /* Enable iBeacon Feature */
-"ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
+"ECSLocalizedEnableBeaconsRow" = "启用 iBeacon 功能";
 
 /* Open Source Licenses */
-"ECSLocalizedLicensesRow" = "Open Source Licenses";
+"ECSLocalizedLicensesRow" = "开放源码许可证";
 
 /* Chat view placeholder text */
-"ECSLocalizedChatViewPlaceholder" = "Type a Message";
+"ECSLocalizedChatViewPlaceholder" = "键入消息";
 
 /* Welcome */
-"ECSLocalizeWelcome" = "Welcome";
+"ECSLocalizeWelcome" = "欢迎";
 
 /* Welcome with user name */
-"ECSLocalizeWelcomeWithUsername" = "Welcome, %1@";
+"ECSLocalizeWelcomeWithUsername" = "欢迎您，%1@";
 
 /* Generic wait time message */
-"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
+"ECSLocalizeGenericWaitTime" = "很快将为您接通一位代表。";
 
 /* Wait time message */
-"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute.";
-"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
-"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+"ECSLocalizeWaitTimeShort" = "将在不到 1 分钟的时间内为您接通一位代表。";
+"ECSLocalizeWaitTime" = "您的等待时间为大约为 %1d 分钟。";
+"ECSLocalizeWaitTimeLong" = "您的等待时间预期要比 5 分钟长。";
 
 /* Temporarily Disconnected */
-"ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";
+"ECSLocalizeChatReachabilityErrorKey" = "已暂时中断连接";
 
 /* Check your Network Connection */
-"ECSLocalizeChatReachabilityReconnectErrorKey" = "Check your Network Connection";
+"ECSLocalizeChatReachabilityReconnectErrorKey" = "请检查你的网络连接";
 
 /* Try Reconnecting */
-"ECSLocalizeChatReachabilityReconnectButtonKey" = "Try Reconnecting";
+"ECSLocalizeChatReachabilityReconnectButtonKey" = "请尝试重新连接";
 
 /* Idle Message */
-"ECSLocalizeIdleMessageKey" = "You've been idle for %1d minutes";
+"ECSLocalizeIdleMessageKey" = "您已闲置 %1d 分钟";
 
 /* Continue Chatting */
-"ECSLocalizeContinueChattingKey" = "Would you like to continue chatting?";
+"ECSLocalizeContinueChattingKey" = "您想继续聊天吗？";
 
 /* Info */
-"ECSLocalizeInfoKey" = "Info";
+"ECSLocalizeInfoKey" = "信息";
 
 /* Warning */
-"ECSLocalizeWarningKey" = "Warning";
+"ECSLocalizeWarningKey" = "警告";
 
 /* Chat disconnect prompt */
-"ECSLocalizeChatDisconnectPrompt" = "Are you sure you want to exit the chat?";
+"ECSLocalizeChatDisconnectPrompt" = "您确实要退出聊天吗？";
 
 /* Chat disconnect prompt with survey */
-"ECSLocalizeChatDisconnectPromptSurvey" = "Are you sure you want to exit the chat and continue to the survey?";
+"ECSLocalizeChatDisconnectPromptSurvey" = "您确实要退出聊天并继续进行调查吗？";
 
 /* Localize YES */
-"ECSLocalizeYes" = "YES";
+"ECSLocalizeYes" = "是";
 
 /* Localize NO */
-"ECSLocalizeNo" = "NO";
+"ECSLocalizeNo" = "否";
 
 /* Tap to respond */
-"ECSLocalizeTapToRespond" = "Tap to respond";
+"ECSLocalizeTapToRespond" = "轻敲以回复";
 
 /* Request a phone call */
-"ECSLocalizeRequestAPhoneCall" = "Tap here to accept phone call";
+"ECSLocalizeRequestAPhoneCall" = "轻敲此处以接受电话通话";
 
 /* Request a SMS message */
-"ECSLocalizeRequestASMS" = "Request a SMS Message";
+"ECSLocalizeRequestASMS" = "申请短信消息";
  
 /* Tap to
 
 /* Disconnected */
-"ECSLocalizeChatDisconnected" = "You have been disconnected from chat";
+"ECSLocalizeChatDisconnected" = "您已从聊天断开";
 
 /* Stay connected */
-"ECSLocalizedStayConnectedKey" = "Stay Connected";
+"ECSLocalizedStayConnectedKey" = "保持连接";
 
 
 /* Chat Session Ended */
-"ECSLocalizedChatSessionEnded" = "Chat Session Ended";
+"ECSLocalizedChatSessionEnded" = "聊天时段已结束";
 
 /* Chat Session Ended Subtitle */
-"ECSLocalizedChatSessionEndedSubtitle" = "Please answer a few short questions about your experience today.";
+"ECSLocalizedChatSessionEndedSubtitle" = "请回答几个有关您今天所获得体验的简短问题。";
 
 /* Chat Session Ended Directions */
-"ECSLocalizedChatSessionEndedDirections" = "Answering these questions will help us better assist you in the future.";
+"ECSLocalizedChatSessionEndedDirections" = "答复这些问题将有助于我们将来更好地为您提供帮助。";
 
 /* Chat Session Ended Button */
-"ECSLocalizedExitChatButton" = "Exit Chat";
+"ECSLocalizedExitChatButton" = "退出聊天";
 
 /* SMS Message */
-"ECSLocalizeCallNavigationTitle" = "Phone Call";
+"ECSLocalizeCallNavigationTitle" = "电话通话";
 
 /* Request a Phone Call */
-"ECSLocalizeRequestCallButton" = "Confirm Phone Number";
+"ECSLocalizeRequestCallButton" = "确认电话号码";
 
 /* Enter your phone number to receive a call: */
-"ECSLocalizeRequestCallText" = "Enter your phone number to receive a call:";
+"ECSLocalizeRequestCallText" = "请输入您的电话号码以接听来电：";
 
 /* Carrier voice and data rates may apply */
-"ECSLocalizeRequestCallDisclaimerText" = "Carrier voice and data rates may apply.";
+"ECSLocalizeRequestCallDisclaimerText" = "运营商可能会收取通话和数据费率。";
 
 /* Processing... */
-"ECSLocalizeProcessingButton" = "Processing...";
+"ECSLocalizeProcessingButton" = "正在处理...";
 
 /* SMS Message */
-"ECSLocalizeSMSNavigationTitle" = "SMS Message";
+"ECSLocalizeSMSNavigationTitle" = "短信消息";
 
 /* Request a SMS */
-"ECSLocalizeRequestSMSButton" = "Request a SMS";
+"ECSLocalizeRequestSMSButton" = "申请短信";
 
 /* Enter your phone number to receive a SMS: */
-"ECSLocalizeRequestSMSText" = "Enter your phone number to receive a SMS:";
+"ECSLocalizeRequestSMSText" = "请输入您的电话号码以接收短信：";
 
 /* Carrier voice and data rates may apply */
-"ECSLocalizeRequestSMSDisclaimerText" = "Carrier voice and data rates may apply.";
+"ECSLocalizeRequestSMSDisclaimerText" = "运营商可能会收取通话和数据费率。";
 
 /* We'll Call You. */
-"ECSLocalizeCallCancelTitle" = "We'll Call You.";
+"ECSLocalizeCallCancelTitle" = "我们会给您打电话。";
 
 /* Call in Progress. */
-"ECSLocalizeCallInProgressTitle" = "Call in Progress.";
+"ECSLocalizeCallInProgressTitle" = "正在通话。";
 
 /* When finished, please hang up or use the End button below. */
-"ECSLocalizeCallInProgressDescription" = "When finished, please hang up or use the End button below.";
+"ECSLocalizeCallInProgressDescription" = "完成后，请挂机，或者使用下面的结束按钮。";
 
 /* End Call */
-"ECSLocalizeCallEndButton" = "End Call";
+"ECSLocalizeCallEndButton" = "结束通话";
 
 /* Call Cancel Description */
-"ECSLocalizeCallCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated call from us at %@";
+"ECSLocalizeCallCancelDescription" = "您正在排队；当有代表可用时，您会接到我们从 %@ 发起的自动通话";
 
 /* Cancel Call Request */
-"ECSLocalizeCallCancelButton" = "Cancel Call Request";
+"ECSLocalizeCallCancelButton" = "取消通话请求";
 
 /* We'll Text You. */
-"ECSLocalizeSMSCancelTitle" = "We'll Text You.";
+"ECSLocalizeSMSCancelTitle" = "我们会给您发短信。";
 
 /* SMS Cancel Description */
-"ECSLocalizeSMSCancelDescription" = "You’re in line and when an agent is available, you’ll receive an automated SMS message from us at %@";
+"ECSLocalizeSMSCancelDescription" = "您正在排队；当有代表可用时，您会收到我们从 %@ 发来的自动短信消息";
 
 /* Your approximate wait time */
-"ECSLocalizeCallbackWaitTime" = "Your approximate wait time is: ";
+"ECSLocalizeCallbackWaitTime" = "您的等待时间大约为： ";
 
 /* Cancel SMS Request */
-"ECSLocalizeSMSCancelButton" = "Cancel SMS Request";
+"ECSLocalizeSMSCancelButton" = "取消短信请求";
 
 /* Minutes */
-"ECSLocalizeMinutes" = "minutes";
+"ECSLocalizeMinutes" = "分钟";
 
 /* Minute */
-"ECSLocalizeMinute" = "minute";
+"ECSLocalizeMinute" = "分钟";
 
 /* Error */
-"ECSLocalizeError" = "Error";
+"ECSLocalizeError" = "错误";
 
 /* Default Error Text */
-"ECSLocalizeErrorText" = "We are unable to complete your request at this time.  Please try again later.";
+"ECSLocalizeErrorText" = "目前我们无法完成您的请求。请稍后再试。";
 
 /* Take a Photo */
-"ECSLocalizeTakeAPhoto" = "Take a Photo";
+"ECSLocalizeTakeAPhoto" = "拍摄照片";
 
 /* Record a Video */
-"ECSLocalizeRecordVideo" = "Record a Video";
+"ECSLocalizeRecordVideo" = "录制视频";
 
 /* Existing from Album */
-"ECSLocalizeExistingFromAlbum" = "Existing from Album";
+"ECSLocalizeExistingFromAlbum" = "相簿中已有";
 
 /* Send */
-"ECSLocalizeSend" = "Send";
+"ECSLocalizeSend" = "发送";
 
 /* Cancel */
-"ECSLocalizeCancel" = "Cancel";
+"ECSLocalizeCancel" = "取消";
 
 /* Profile */
-"ECSLocalizeProfile" = "Profile";
+"ECSLocalizeProfile" = "简介";
 
 /* Chat Logs */
-"ECSLocalizeChatLogs" = "Chat Logs";
+"ECSLocalizeChatLogs" = "聊天日志";
 
 /* Chat Join User */
-"ECSLocalizeChatJoin" = "You are connected with %1@.";
+"ECSLocalizeChatJoin" = "您已与 %1@ 连接。";
 
 /* Chat User Left */
-"ECSLocalizeChatLeave" = "%1@ has left the chat.";
+"ECSLocalizeChatLeave" = "%1@ 已退出聊天。";
 
 /* History */
-"ECSLocalizeHistory" = "History";
+"ECSLocalizeHistory" = "历史";
 
 /* Edit Profile */
-"ECSLocalizeEditProfile" = "Edit Profile";
+"ECSLocalizeEditProfile" = "编辑简介";
 
 /* Edit Profile */
-"ECSLocalizeUpdateProfile" = "Update Profile";
+"ECSLocalizeUpdateProfile" = "更新简介";
 
 /* Submit Form */
-"ECSLocalizedSubmittedFormHeaderLabel" = "Thank You";
+"ECSLocalizedSubmittedFormHeaderLabel" = "谢谢";
 
 /* Submit Form */
-"ECSLocalizedSubmittedFormDescriptionLabel" = "Your response will help us better assist you and others in the future";
+"ECSLocalizedSubmittedFormDescriptionLabel" = "您的回复将帮助我们将来更好地帮助您和其他人";
 
 /* Submit Form */
-"ECSLocalizedSubmittedFormCloseLabel" = "Close";
+"ECSLocalizedSubmittedFormCloseLabel" = "关闭";
 
 /* Answers */
-"ECSLocalizeAnswers" = "Answers";
+"ECSLocalizeAnswers" = "答复";
 
 /* Localization Directions */
-"ECSLocalizeDirections" = "<h1>Unable to Determine Location</h1><h2>Please follow these instructions to enable Location Access</h2><ol><li>Launch <b>Settings</b> on your iPhone or iPad.</li><li>Scroll down to select <b>Privacy</b>, then <b>Location Services</b></li><li>Make sure the top toggle switch is <b>Green</b></li><li>Scroll down and select *%@* and make sure it is set to \"While Using the App\" or \"Always\"</li></ol>";
+"ECSLocalizeDirections" = "<h1>无法确定位置</h1><h2>请遵守下列说明，以启用位置访问。</h2><ol><li>您的 iPhone 或 iPad 上启动<b>设置</b>。</li><li>向下滚动，选择<b>隐私</b>，然后选择<b>定位服务</b></li><li>请确保顶部的切换开关是<b>绿色</b>的</li><li>向下滚动，选择 *%@*，并确保将其设为“使用期间”或“始终”</li></ol>";
 
 /* Profile Error */
-"ECSLocalizeProfileError" = "There was an error creating your profile.  Please fill out all fields and try again.";
+"ECSLocalizeProfileError" = "创建您的简介时出错。请填写所有字段，然后重试。";
 
 /* No agents available */
-"ECSLocalizeNoAgents" = "No agents available.";
+"ECSLocalizeNoAgents" = "没有任何代表可用。";
 
 /* Channel Timeout Warning */
-"ECSChannelTimeoutWarning" = "Your chat will timeout in %d seconds due to inactivity.";
-
+"ECSChannelTimeoutWarning" = "由于处于非活动状态，您的聊天将在 %d 秒后超时。";
