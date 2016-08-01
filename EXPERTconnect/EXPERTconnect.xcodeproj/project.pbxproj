@@ -981,6 +981,7 @@
 		C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
+		C49206131D4FB68800B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FD1D10B98D008BE187 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSJourneyAttachResponse.h; path = Responses/ECSJourneyAttachResponse.h; sourceTree = "<group>"; };
 		C492B60B1D12EE54008BE187 /* ECSJourneyAttachResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSJourneyAttachResponse.m; path = Responses/ECSJourneyAttachResponse.m; sourceTree = "<group>"; };
@@ -2233,6 +2234,7 @@
 				es,
 				de,
 				"en-GB",
+				"zh-Hans",
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2588,6 +2590,7 @@
 				463E815C1B4ED30F00396B7A /* es */,
 				C4450B871D02371800486215 /* de */,
 				C492B5FD1D10B98D008BE187 /* en-GB */,
+				C49206131D4FB68800B38C97 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect;
