@@ -941,7 +941,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
     
-    return [self POST:@"journeymanager/v1"
+    //return [self POST:@"journeymanager/v1"
+    return [self GET:@"conversationhistory/v1"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -963,7 +964,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(theContext)self.journeyManagerContext = theContext;
     if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
     
-    return [self POST:@"journeymanager/v1"
+    //return [self POST:@"journeymanager/v1"
+    return [self GET:@"conversationhistory/v1"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
