@@ -1780,7 +1780,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         ECSChatImageTableViewCell *imageCell = [self.tableView dequeueReusableCellWithIdentifier:ImageCellID
                                                                                     forIndexPath:indexPath];
-        [self configureMediaCell:imageCell withMessage:message];
+        [self configureMediaCell:imageCell withMessage:message atIndexPath:(NSIndexPath*)indexPath];
         cell = imageCell;
     }
     else if ([message isKindOfClass:[ECSChatNotificationMessage class]])
@@ -2202,12 +2202,40 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 
-- (void)configureMediaCell:(ECSChatImageTableViewCell*)cell withMessage:(ECSChatMediaMessage*)chatMessage;
+- (void)configureMediaCell:(ECSChatImageTableViewCell*)cell
+               withMessage:(ECSChatMediaMessage*)chatMessage
+               atIndexPath:(NSIndexPath*)indexPath
 {
-    cell.userMessage = !chatMessage.fromAgent;
-    [cell.messageImageView setImage:chatMessage.imageThumbnail];
-    cell.showPlayIcon = (chatMessage.mediaType == ECSChatMediaTypeMovie);
-    [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
+     cell.userMessage = !chatMessage.fromAgent;
+     [cell.messageImageView setImage:chatMessage.imageThumbnail];
+     cell.showPlayIcon = (chatMessage.mediaType == ECSChatMediaTypeMovie);
+     cell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
+     
+     if (cell.background.showAvatar)
+     {
+          ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
+          //[messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
+          
+          if (!chatMessage.fromAgent)
+          {
+               ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+               if(userManager.userAvatar)
+               {
+                    [cell.background setAvatarImage:userManager.userAvatar];
+                    ECSLogVerbose(@"Setting (user) avatar image for participant %@ to image: %@", chatMessage.from, userManager.userAvatar.description);
+               }
+          }
+          else
+          {
+               if (participant.avatarURL)
+               {
+                    [cell.background setAvatarImageFromPath:participant.avatarURL];
+                    ECSLogVerbose(@"Setting (agent) avatar image for participant %@ to image: %@", chatMessage.from, participant.avatarURL);
+               }
+          }
+     }
+     
+     [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
 - (void)configureMediaCell:(ECSChatImageTableViewCell*)cell
