@@ -5,6 +5,8 @@
 ## Build generated
 build/
 DerivedData/
+artifacts/
+/EXPERTconnect/Output/
 
 ## Various settings
 *.pbxuser
