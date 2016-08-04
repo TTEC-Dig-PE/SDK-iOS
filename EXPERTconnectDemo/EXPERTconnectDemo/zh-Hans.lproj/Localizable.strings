@@ -26,7 +26,17 @@
 /* AdHoc Section */
 /* Start Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatLabel" = "开始聊天";
-"ECDLocalizedContinueChatLabel" = "继续聊天"; 
+"ECDLocalizedContinueChatLabel" = "继续聊天";
+"ECDLocalizedEndChatLabel" = "结束聊天";
+
+/* Test Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestChatLabel" = "测试聊天";
+
+/* Test Breadcrumbs Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestBreadcrumbsLabel" = "测试面包屑";
+
+/* Test Journey Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestJourneyLabel" = "测试之旅";
 
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "开始视频聊天";
@@ -217,7 +227,6 @@
 /* Show Chat TimeStamp */
 "ECDLocalizedStartShowChatTimeStampHeader" = "隐藏/显示聊天时间戳";
 
-
 /* Show Avatar Images */
 "ECDLocalizedStartShowAvatarImagesLabel" = "显示化身图像";
 
@@ -232,3 +241,94 @@
 "ECDLocalizedWaitString" = "等待";
 "ECDLocalizedMinuteString" = "分钟";
 "ECDLocalizedAgentString" = "代表";
+
+/* Ad-Hoc Page Breadcrumb caption */
+"ECDLocalizedBreadcrumbLabel" = "Breadcrumb";
+
+/* Test Chat Page Labels */
+
+/* Chat Skill Label */
+"ECDLocalizedChatSkillLabel" = "聊天技巧:";
+
+/* Custom Nav Bar Buttons Label */
+"ECDLocalizedCustomNavBarButtonsLabel" = "使用自定义导航栏按钮";
+
+/* Use Image For Send Button Label */
+"ECDLocalizedUseImageForSendButtonLabel" = "使用图像发送按钮";
+
+/* Image Upload Button Label */
+"ECDLocalizedImageUploadButtonLabel" = "显示图片上传按钮";
+
+
+/* End Test Chat Page Labels Section */
+
+/* Test Jouney Page Labels */
+
+/* Current Journey Info Label */
+"ECDLocalizedCurrentJourneyInfoLabel" = "当前旅程信息:";
+
+/* Name Label */
+"ECDLocalizedNameLabel" = "名称:";
+
+/* Context Label */
+"ECDLocalizedContextLabel" = "上下文:";
+
+/* Name Placeholder Label */
+"ECDLocalizedNamePlaceholderLabel" = "(可选的)";
+
+/* Context Placeholder Label */
+"ECDLocalizedContextPlaceholderLabel" = "SDK 底线";
+
+/* Start Journey Label */
+"ECDLocalizedStartJourneyLabel" = "开始旅程";
+
+/* Start Journey Context Label */
+"ECDLocalizedStartJourneyContextLabel" = "设置语境之旅";
+
+/* End Test Journey Page Labels Section */
+
+/* Test Breadcrumbs Page Labels */
+
+/* Type Label */
+"ECDLocalizedTypeLabel" = "类型:";
+
+/* Describtion Label */
+"ECDLocalizedDescribtionLabel" = "描述:";
+
+/* Source Label */
+"ECDLocalizedSourceLabel" = "资源:";
+
+/* Destination Label */
+"ECDLocalizedDestinationLabel" = "目的地:";
+
+/* Bulk Config Label */
+"ECDLocalizedBulkConfigLabel" = "批量配置:";
+
+/* GeoLocation Data Label */
+"ECDLocalizedGeoLocationDataLabel" = "包括地理定位数据";
+
+/* Seconds Label */
+"ECDLocalizedSecondsLabel" = "秒:";
+
+/* Count Label */
+"ECDLocalizedCountLabel" = "计数:";
+
+/* SendOne Button Label */
+"ECDLocalizedSendOneButtonLabel" = "发送一个";
+
+/* QueueBulk Button Label */
+"ECDLocalizedQueueBulkButtonLabel" = "队列散装";
+
+/* Type Placeholder Label */
+"ECDLocalizedTypePlaceholderLabel" = "感兴趣的产品";
+
+/*Describtion Placeholder Label */
+"ECDLocalizedDescribtionPlaceholderLabel" = "U用户点击背包1";
+
+/* Source Placeholder Label */
+"ECDLocalizedSourcePlaceholderLabel" = "背包页";
+
+/* Destination Placeholder Label */
+"ECDLocalizedDestinationPlaceholderLabel" = "背包1产品页面";
+
+/* End Test Breadcrumbs Page Labels Section */
