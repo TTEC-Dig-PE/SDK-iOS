@@ -634,25 +634,31 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)hideWaitView
 {
-    if (self.waitView)
-    {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.waitView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            [self.waitView removeFromSuperview];
-            self.waitView = nil;
-            if(![self.actionType.displayName isEqualToString:@"Chat Workflow"])
-            {
-                // mas - 11-oct-15 - only show "minimize" if we are in a workflow.
-                if(self.workflowDelegate) {
-                    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
-                                                                                              style:UIBarButtonItemStylePlain
-                                                                                             target:self
-                                                                                             action:@selector(minimizeButtonPressed:)];
-                }
-            }
-        }];
-    }
+     if (self.waitView)
+     {
+          [UIView animateWithDuration:0.3f animations:^{
+               self.waitView.alpha = 0.0f;
+          } completion:^(BOOL finished) {
+               [self.waitView removeFromSuperview];
+               self.waitView = nil;
+               
+               // mas - 11-oct-15 - only show "minimize" if we are in a workflow.
+               if(self.workflowDelegate) {
+                    if (self.navigationController)
+                    {
+                         if([self presentingViewController])
+                         {
+                              self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Minimize"
+                                                                                                        style:UIBarButtonItemStylePlain
+                                                                                                       target:self
+                                                                                                       action:@selector(minimizeButtonPressed:)];
+                              
+                         }
+                    }
+                    
+               }
+          }];
+     }
 }
 
 #pragma mark - Chat Toolbar callbacks
