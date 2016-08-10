@@ -347,7 +347,11 @@ int         _clientHeartbeatsMissed;
             NSError *newError = [NSError errorWithDomain:@"com.humanify"
                                                     code:1049
                                                 userInfo:@{@"description": frame.headers[@"message"]}];
-            [self.delegate stompClient:self didFailWithError:newError];
+            
+            if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)])
+            {
+                [self.delegate stompClient:self didFailWithError:newError];
+            }
         }
     }
     else if (frame.command.length == 0 && frame.headers.count == 0)

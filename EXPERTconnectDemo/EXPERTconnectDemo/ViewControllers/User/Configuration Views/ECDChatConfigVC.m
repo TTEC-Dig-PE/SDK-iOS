@@ -77,6 +77,8 @@ bool _chatActive;
      
      [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
      [self.btnEndChat setTitle:ECDLocalizedString(ECDLocalizedEndChatLabel, @"End Chat") forState:UIControlStateNormal];
+    
+    [self.btnEndChat setEnabled:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -145,6 +147,8 @@ bool _chatActive;
                                                                                                     action:@selector(btnEndChat_Touch:)];
         }
         _chatActive = YES;
+        [self.btnEndChat setEnabled:YES];
+        
         [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
         //[self.tableView reloadData]; // make it show continue chat
     }
@@ -167,6 +171,8 @@ bool _chatActive;
     // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
     _chatActive = NO;
+    [self.btnEndChat setEnabled:NO];
+    
     [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
 }
 
@@ -191,6 +197,8 @@ bool _chatActive;
     // If uncommented, this will hide chat when agent ends it.
     //[self.navigationController popToViewController:self animated:YES];
     _chatActive = NO;
+    [self.btnEndChat setEnabled:NO];
+    
     [self.btnStartChat setTitle:@"Start Chat" forState:UIControlStateNormal];
     NSLog(@"Chat ended!");
     //[self.tableView reloadData]; // show the start chat title
@@ -284,17 +292,30 @@ bool _chatActive;
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)
      {
+         NSMutableString *labelText = [[NSMutableString alloc] initWithString:@""];
+         
          if(!error)
          {
-             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"Estimated wait is %d seconds. %d of %d agents ready. Queue is: %s. %d in queue now. Active=%d.",
+             if(data.active && data.queueOpen && data.chatReady > 0)
+             {
+                 [labelText appendString:[NSString stringWithFormat:@"Estimated wait: %d seconds.", data.estWait]];
+                 [self.btnStartChat setEnabled:YES];
+             }
+             else
+             {
+                 // No agents available.
+                 [self.btnStartChat setEnabled:NO];
+             }
+             
+             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"Estimated wait is %d seconds. %d of %d agents ready. Queue is: %@. %d in queue now. Active=%d.",
                                                  data.estWait,
                                                  data.chatReady,
                                                  data.chatCapacity,
-                                                 (data.queueOpen ? "Open" : "Closed"),
+                                                 (data.queueOpen ? @"Open" : @"Closed"),
                                                  data.inQueue,
                                                  data.active]];
          } else {
-             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
+             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
          }
      }];
 }
@@ -304,18 +325,27 @@ bool _chatActive;
     [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
                                     completion:^(NSDictionary *details, NSError *error)
      {
+         NSMutableString *labelText = [[NSMutableString alloc] initWithString:@""];
          if(!error)
          {
-             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"Estimated wait is %@ seconds. %@ of %@ agents ready. Queue is: %s. %@ in queue now. Active=%@.",
-                                                 details[@"estWait"],
-                                                 details[@"chatReady"],
-                                                 details[@"chatCapacity"],
-                                                 (details[@"queueOpen"] ? "Open" : "Closed"),
+             if(details[@"agentsLoggedOn"] && [details[@"agentsLoggedOn"] intValue] > 0)
+             {
+                 [labelText appendString:[NSString stringWithFormat:@"Estimated wait: %@ seconds.", details[@"estimatedWait"]]];
+                 [self.btnStartChat setEnabled:YES];
+             }
+             else
+             {
+                 // No agents available.
+                 [self.btnStartChat setEnabled:NO];
+             }
+             [labelText appendString:[NSString stringWithFormat:@"%@ agents logged on. %@ in queue now. Open? %@.",
+                                                 details[@"agentsLoggedOn"],
                                                  details[@"inQueue"],
-                                                 details[@"active"]]];
+                                                 (details[@"open"] ? @"Open" : @"Closed")]];
          } else {
-             [self.lblAgentAvailability setText:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
+             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
          }
+         [self.lblAgentAvailability setText:labelText];
      }];
 }
 

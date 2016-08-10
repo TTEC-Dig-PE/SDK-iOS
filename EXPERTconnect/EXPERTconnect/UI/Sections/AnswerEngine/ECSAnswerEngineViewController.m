@@ -744,6 +744,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     //self.topQuestions.blurView.hidden = NO;
     
     self.topQuestions = nil;
+    self.answerEngineAction.topQuestions = _savedTopQuestions; 
     [self displayTopQuestions];
     /*
     [self.topQuestions willMoveToParentViewController:self];
