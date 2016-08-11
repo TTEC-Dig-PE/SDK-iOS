@@ -254,7 +254,7 @@ bool _chatActive;
         }
     }
     
-    [self getAgentsAvailableForSkill:rowToSelect];
+    [self getAgentsAvailableForExpertSkill:rowToSelect];
     
     [self.pickerChatSkill reloadAllComponents];
     [self.pickerChatSkill selectRow:rowToSelect inComponent:0 animated:NO];
@@ -266,7 +266,7 @@ bool _chatActive;
     [[NSUserDefaults standardUserDefaults] setObject:[chatSkillsArray objectAtIndex:row]
                                               forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
     
-    [self getAgentsAvailableForSkill:(int)row];
+    [self getAgentsAvailableForExpertSkill:(int)row];
     
     selectedRow = (int)row;
 }
@@ -299,12 +299,12 @@ bool _chatActive;
              if(data.active && data.queueOpen && data.chatReady > 0)
              {
                  [labelText appendString:[NSString stringWithFormat:@"Estimated wait: %d seconds.", data.estWait]];
-                 [self.btnStartChat setEnabled:YES];
+                 //[self.btnStartChat setEnabled:YES];
              }
              else
              {
                  // No agents available.
-                 [self.btnStartChat setEnabled:NO];
+                 //[self.btnStartChat setEnabled:NO];
              }
              
              [self.lblAgentAvailability setText:[NSString stringWithFormat:@"Estimated wait is %d seconds. %d of %d agents ready. Queue is: %@. %d in queue now. Active=%d.",
@@ -320,7 +320,7 @@ bool _chatActive;
      }];
 }
 
--(void)getAgentsAvailableForSkill:(int)index
+/*-(void)getAgentsAvailableForSkill:(int)index
 {
     [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
                                     completion:^(NSDictionary *details, NSError *error)
@@ -331,12 +331,12 @@ bool _chatActive;
              if(details[@"agentsLoggedOn"] && [details[@"agentsLoggedOn"] intValue] > 0)
              {
                  [labelText appendString:[NSString stringWithFormat:@"Estimated wait: %@ seconds.", details[@"estimatedWait"]]];
-                 [self.btnStartChat setEnabled:YES];
+                 //[self.btnStartChat setEnabled:YES];
              }
              else
              {
                  // No agents available.
-                 [self.btnStartChat setEnabled:NO];
+                 //[self.btnStartChat setEnabled:NO];
              }
              [labelText appendString:[NSString stringWithFormat:@"%@ agents logged on. %@ in queue now. Open? %@.",
                                                  details[@"agentsLoggedOn"],
@@ -347,7 +347,7 @@ bool _chatActive;
          }
          [self.lblAgentAvailability setText:labelText];
      }];
-}
+}*/
 
 -(BOOL)addChatSkillsFromServer {
     
