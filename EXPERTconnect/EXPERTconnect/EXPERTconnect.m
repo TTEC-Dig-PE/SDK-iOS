@@ -703,6 +703,16 @@ NSTimer *breadcrumbTimer;
                     self.userDisplayName = item.formValue;
                     break;
                 }
+                else if ([item.metadata isEqualToString:@"profile.firstname"] && !self.userDisplayName )
+                {
+                    self.userDisplayName = item.formValue;
+                    break;
+                }
+                else if ([item.metadata isEqualToString:@"profile.lastname"] && !self.userDisplayName )
+                {
+                    self.userDisplayName = item.formValue;
+                    break;
+                }
             }
             
             completion(form, error);

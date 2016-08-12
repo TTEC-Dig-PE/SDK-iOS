@@ -237,6 +237,8 @@
     if (allFieldsEntered)
     {
         NSString *userToken = nil;
+        ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+        
         for (ECSFormItem *item in self.form.formData)
         {
             for (ECSFormTextField *textField in self.textFields)
@@ -247,7 +249,14 @@
                 }
                 else if ([textField.metadata isEqualToString:@"profile.fullname"])
                 {
-                    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+                    userManager.userDisplayName = textField.text;
+                }
+                else if( [textField.metadata isEqualToString:@"profile.firstname"] && !userManager.userDisplayName)
+                {
+                    userManager.userDisplayName = textField.text;
+                }
+                else if( [textField.metadata isEqualToString:@"profile.lastname"] && !userManager.userDisplayName)
+                {
                     userManager.userDisplayName = textField.text;
                 }
                 

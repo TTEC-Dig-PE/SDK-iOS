@@ -37,7 +37,8 @@ static NSDateFormatter *sectionTitleDateFormatter;
     [super viewDidLoad];
     
     sectionTitleDateFormatter = [[NSDateFormatter alloc] init];
-    sectionTitleDateFormatter.dateFormat = @"MMMM dd, yyyy";
+    //sectionTitleDateFormatter.dateFormat = @"MMMM dd, yyyy";
+    sectionTitleDateFormatter.dateStyle = NSDateFormatterLongStyle;
     self.navigationItem.title = ECSLocalizedString(ECSLocalizeChatLogs, @"Chat Logs");
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];

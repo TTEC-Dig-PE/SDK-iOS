@@ -229,7 +229,16 @@
                 {
                     item.formValue = textField.text;
                     
+                    
                     if ([textField.metadata isEqualToString:@"profile.fullname"])
+                    {
+                        [EXPERTconnect shared].userDisplayName = textField.text;
+                    }
+                    else if ([textField.metadata isEqualToString:@"profile.firstname"] && ![EXPERTconnect shared].userDisplayName )
+                    {
+                        [EXPERTconnect shared].userDisplayName = textField.text;
+                    }
+                    else if ([textField.metadata isEqualToString:@"profile.lastname"] && ![EXPERTconnect shared].userDisplayName )
                     {
                         [EXPERTconnect shared].userDisplayName = textField.text;
                     }
@@ -237,6 +246,7 @@
                     {
                         userToken = textField.text;
                     }
+                    
                     break;
                 }
             }
