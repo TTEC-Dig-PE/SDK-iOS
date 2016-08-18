@@ -40,6 +40,8 @@
                                 [EXPERTconnect shared].journeyID,
                                 [EXPERTconnect shared].pushNotificationID,
                                 [EXPERTconnect shared].journeyManagerContext];
+    
+    self.txtJourneyContext.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +87,9 @@
                                withCompletion:^(ECSJourneyAttachResponse *response, NSError *error)
     {
         if(response && !error) {
+            [[NSUserDefaults standardUserDefaults] setObject:self.txtJourneyContext.text forKey:@"ECDJourneyManagerContextKey"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             self.lblJourneyInfo.text = [NSString stringWithFormat:@"Response: %@", response.description];
         } else {
             self.lblJourneyInfo.text = [NSString stringWithFormat:@"Error: %@", error.description];

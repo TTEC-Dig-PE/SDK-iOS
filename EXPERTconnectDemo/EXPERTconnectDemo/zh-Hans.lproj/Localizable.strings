@@ -1,0 +1,334 @@
+/* 
+  Localizable.strings
+  EXPERTconnectDemo
+
+  Copyright (c) 2015 Humanify, Inc. All rights reserved.
+*/
+
+/* Log in button text */
+// "ECSLocalizeLogInButton" = "让我登录！！！";
+
+/* Unknown User text */
+"ECDLocalizedUnknownUser" = "未知用户；请注册，以创建一个帐户。";
+
+/* Splash Page Login Button   */
+"ECDLocalizedLoginButton" = "登录";
+
+/* Splash Page Register Button   */
+"ECDLocalizedRegisterButton" = "注册";
+
+/* Profile was updated  */
+"ECDLocalizeProfileWasUpdatedKey" = "简介已更新";
+
+/* Application Config Value was updated  */
+"ECDLocalizeConfigWasUpdatedKey" = "应用程序配置值已更新";
+
+/* AdHoc Section */
+/* Start Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatLabel" = "开始聊天";
+"ECDLocalizedContinueChatLabel" = "继续聊天";
+"ECDLocalizedEndChatLabel" = "结束聊天";
+
+/* Test Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestChatLabel" = "测试聊天";
+
+/* Test Breadcrumbs Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestBreadcrumbsLabel" = "测试面包屑";
+
+/* Test Journey Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestJourneyLabel" = "测试之旅";
+
+/* Start Video Chat Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatLabel" = "开始视频聊天";
+
+/* Start Answer Engine Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineLabel" = "答复引擎";
+
+/* Start Forms Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsLabel" = "表单";
+
+/* Start User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileLabel" = "用户简介";
+
+/* Start Voice Callback Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackLabel" = "话音回呼";
+
+/* Start Email Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageLabel" = "电子邮件消息";
+
+/* Start SMS Message Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageLabel" = "短信消息";
+
+/* Start Web Page Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageLabel" = "网页";
+
+/* Start Answer Engine History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryLabel" = "答复引擎历史";
+
+/* Start Chat History Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryLabel" = "聊天历史";
+
+/* Start Select Expert Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertLabel" = "选择专家";
+
+/* Start Extended User Profile Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileLabel" = "注册编辑简介";
+
+/* Start Application Configuration Label for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigLabel" = "应用程序配置";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormLabel" = "提交特设表单";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerLabel" = "特设日期选取器";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorLabel" = "特设所见即所得编辑器";
+
+/* ----------------------------------------------------- */
+
+/* Start Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHeader" = "聊天";
+
+/* Start Video Chat Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVideoChatHeader" = "视频聊天";
+
+/* Start Answer Engine Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHeader" = "启动特设答复引擎时段";
+
+/* Start Forms Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartFormsHeader" = "启动特设表单访谈";
+
+/* iBeacon Demon Label */
+"ECDLocalizedBeaconLabel" = "ibeacon 演示";
+
+/* Start User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartUserProfileHeader" = "特设编辑用户简介";
+
+/* Start Voice Callback Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartVoiceCallbackHeader" = "回呼";
+
+/* Start Email Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartEmailMessageHeader" = "特设电子邮件消息";
+
+/* Start SMS Message Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSMSMessageHeader" = "特设短信消息";
+
+/* Start Web Page Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWebPageHeader" = "特设网页";
+
+/* Start Answer Engine History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAnswerEngineHistoryHeader" = "特设答复引擎历史";
+
+/* Start Chat History Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartChatHistoryHeader" = "特设聊天历史";
+
+/* Start Select Expert Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSelectExpertHeader" = "特设选择专家";
+
+/* Start Extended User Profile Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartExtendedUserProfileHeader" = "特设编辑（扩展）用户简介";
+
+/* Start Applicaton Configuration Header for AdHoc SDK Usage Page   */
+"ECDLocalizedStartAPIConfigHeader" = "特设修改应用程序配置设置";
+
+/* Start Submit Form for AdHoc SDK Usage Page   */
+"ECDLocalizedStartSubmitFormHeader" = "特设提交表单";
+
+/* Start Date Picker for AdHoc SDK Usage Page   */
+"ECDLocalizedStartDatePickerHeader" = "特设日期选取器";
+
+/* Start WYSIWYG Editor for AdHoc SDK Usage Page   */
+"ECDLocalizedStartWYSIWYGEditorHeader" = "特设所见即所得编辑器";
+
+/* End AdHoc Section */
+
+/* Workflow Section */
+/* Start Escalate To Chat Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowEscalateToChatLabel" = "启动升级聊天";
+
+/* Start Chat With Post Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPostSurveyLabel" = "开始先聊天后调查";
+
+/* Start Chat With Pre Survey Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowChatWithPreSurveyLabel" = "开始先调查后聊天";
+
+/* Start Survey Leads To Branch Label for Workflow SDK Usage Page   */
+"ECDLocalizedStartWorkflowSurveyLeadsToBranchLabel" = "开始调查商机到分支";
+
+/* ----------------------------------------------------- */
+
+/* Start Escalate To Chat Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartEscalateToChatHeader" = "启动工作流程升级聊天";
+
+/* Start Chat With Post Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPostSurveyHeader" = "开始先工作流程聊天后调查";
+
+/* Start Chat With Pre Survey Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartChatWithPreSurveyHeader" = "开始先调查后工作流程聊天";
+
+/* Start Survey Leads To Branch Header for Workflow SDK Usage Page   */
+"ECDLocalizedStartSurveyLeadsToBranchHeader" = "开始工作流程调查商机到分支";
+
+/* End Workflow Section */
+
+/* Splash Page Skip Registration Button   */
+"ECDLocalizedSkipRegistrationButton" = "跳过注册";
+
+/* Localized Title for Personas Navigation View */
+"ECDLocalizedLandingViewTitle" = "Personas 导航视图";
+
+/* Localized displayName for Personas in MainMenuConfig.json */
+"ECDLocalizedPersonasLabel" = "Personas";
+
+/* Localized displayName for Humanify in MainMenuConfig.json */
+"ECDLocalizedHumanifyLabel" = "Humanify";
+
+/* Localized displayName for Profile in MainMenuConfig.json */
+"ECDLocalizedProfileLabel" = "简介";
+
+/* Localized displayName for Settings in MainMenuConfig.json */
+"ECDLocalizedSettingsLabel" = "设置";
+
+/* Localized displayName for Bug Report in MainMenuConfig.json */
+"ECDLocalizedBugReportLabel" = "报告错误";
+
+/* Localized displayName for Ad Hoc in MainMenuConfig.json */
+"ECDLocalizedAdHocLabel" = "特设";
+
+/* Localized displayName for Workflows in MainMenuConfig.json */
+"ECDLocalizedWorkflowsLabel" = "工作流程";
+
+/* Runtime Environment Header */
+"ECDLocalizedEnvironmentsHeader" = "选择环境";
+
+/* Organization Header */
+"ECDLocalizedOrganizationHeader" = "选择机构";
+
+/* VoiceIt Header */
+"ECDLocalizedVoiceItHeader" = "VoiceIt 实用程序";
+
+/* Runtime Startup Application Header */
+"ECDLocalizedRunModeHeader" = "选择运行时应用程序";
+
+/* Customize ChatWindow Header */
+"ECDLocalizedCustomizeChatWindowHeader" = "ChatWindow 自定";
+
+/* Frequently asked Questions header */
+"ECSLocalizedFrequentlyAskedQuestionsKey" = "从常见帮助主题中获取快速答复。";/* ----------------------------------------------------- */
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesHeader" = "隐藏/显示化身图像";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsHeader" = "隐藏/显示聊天气泡尾巴";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampHeader" = "隐藏/显示聊天时间戳";
+
+/* Show Avatar Images */
+"ECDLocalizedStartShowAvatarImagesLabel" = "显示化身图像";
+
+/* Show Chat Bubble */
+"ECDLocalizedStartShowChatBubbleTailsLabel" = "显示聊天气泡尾巴";
+
+/* Show Chat TimeStamp */
+"ECDLocalizedStartShowChatTimeStampLabel" = "显示聊天时间戳";
+
+/* Ad-Hoc Page Agent Availability Strings */
+"ECDLocalizedNoAgents" = "没有任何代表可用。";
+"ECDLocalizedWaitString" = "等待";
+"ECDLocalizedMinuteString" = "分钟";
+"ECDLocalizedAgentString" = "代表";
+
+/* Ad-Hoc Page Breadcrumb caption */
+"ECDLocalizedBreadcrumbLabel" = "Breadcrumb";
+
+/* Test Chat Page Labels */
+
+/* Chat Skill Label */
+"ECDLocalizedChatSkillLabel" = "聊天技巧:";
+
+/* Custom Nav Bar Buttons Label */
+"ECDLocalizedCustomNavBarButtonsLabel" = "使用自定义导航栏按钮";
+
+/* Use Image For Send Button Label */
+"ECDLocalizedUseImageForSendButtonLabel" = "使用图像发送按钮";
+
+/* Image Upload Button Label */
+"ECDLocalizedImageUploadButtonLabel" = "显示图片上传按钮";
+
+
+/* End Test Chat Page Labels Section */
+
+/* Test Jouney Page Labels */
+
+/* Current Journey Info Label */
+"ECDLocalizedCurrentJourneyInfoLabel" = "当前旅程信息:";
+
+/* Name Label */
+"ECDLocalizedNameLabel" = "名称:";
+
+/* Context Label */
+"ECDLocalizedContextLabel" = "上下文:";
+
+/* Name Placeholder Label */
+"ECDLocalizedNamePlaceholderLabel" = "(可选的)";
+
+/* Context Placeholder Label */
+"ECDLocalizedContextPlaceholderLabel" = "SDK 底线";
+
+/* Start Journey Label */
+"ECDLocalizedStartJourneyLabel" = "开始旅程";
+
+/* Start Journey Context Label */
+"ECDLocalizedStartJourneyContextLabel" = "设置语境之旅";
+
+/* End Test Journey Page Labels Section */
+
+/* Test Breadcrumbs Page Labels */
+
+/* Type Label */
+"ECDLocalizedTypeLabel" = "类型:";
+
+/* Describtion Label */
+"ECDLocalizedDescribtionLabel" = "描述:";
+
+/* Source Label */
+"ECDLocalizedSourceLabel" = "资源:";
+
+/* Destination Label */
+"ECDLocalizedDestinationLabel" = "目的地:";
+
+/* Bulk Config Label */
+"ECDLocalizedBulkConfigLabel" = "批量配置:";
+
+/* GeoLocation Data Label */
+"ECDLocalizedGeoLocationDataLabel" = "包括地理定位数据";
+
+/* Seconds Label */
+"ECDLocalizedSecondsLabel" = "秒:";
+
+/* Count Label */
+"ECDLocalizedCountLabel" = "计数:";
+
+/* SendOne Button Label */
+"ECDLocalizedSendOneButtonLabel" = "发送一个";
+
+/* QueueBulk Button Label */
+"ECDLocalizedQueueBulkButtonLabel" = "队列散装";
+
+/* Type Placeholder Label */
+"ECDLocalizedTypePlaceholderLabel" = "感兴趣的产品";
+
+/*Describtion Placeholder Label */
+"ECDLocalizedDescribtionPlaceholderLabel" = "U用户点击背包1";
+
+/* Source Placeholder Label */
+"ECDLocalizedSourcePlaceholderLabel" = "背包页";
+
+/* Destination Placeholder Label */
+"ECDLocalizedDestinationPlaceholderLabel" = "背包1产品页面";
+
+/* End Test Breadcrumbs Page Labels Section */

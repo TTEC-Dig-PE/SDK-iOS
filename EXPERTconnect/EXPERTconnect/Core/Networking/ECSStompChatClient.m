@@ -46,22 +46,33 @@ static NSString * const kECSHeaderBodyType = @"x-body-type";
 static NSString * const kECSHeaderBodyVersion = @"x-body-version";
 
 static NSString * const kECSMessageBodyVersion = @"1";
-static NSString * const kECSChannelStateMessage = @"ChannelState";
-static NSString * const kECSChatMessage = @"ChatMessage";
-static NSString * const kECSChatNotificationMessage = @"NotificationMessage";
-static NSString * const kECSChatStateMessage = @"ChatState";
+static NSString * const kECSChannelStateMessage = @"ChannelState";                  // state messages - agent connected, voice call sent, disconnection
+/*
+ ECSChannelStateDisconnected,
+ ECSChannelStateConnected,
+ ECSChannelStatePending,
+ ECSChannelStateAnswered,
+ ECSChannelStateQueued,
+ ECSChannelStateNotify,
+ ECSChannelStateFailed,
+ ECSChannelStateTimeout,
+ ECSChannelStateUnknown
+ */
+static NSString * const kECSChatMessage = @"ChatMessage";                           // Regular text chat message from agent
+static NSString * const kECSChatNotificationMessage = @"NotificationMessage";       // Incoming images from agent
+static NSString * const kECSChatStateMessage = @"ChatState";                        // Chat state (0, 1=paused, 2=composing)
 static NSString * const kECSCommandMessage = @"CommandMessage";
-static NSString * const kECSChatRenderURLMessage = @"RenderURLCommand";
-static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";
-static NSString * const kECSChatRemoveParticipantMessage = @"RemoveParticipant";
+static NSString * const kECSChatRenderURLMessage = @"RenderURLCommand";             // A hyperlink chat message from agent
+static NSString * const kECSChatAddParticipantMessage = @"AddParticipant";          // An agent has joined the chat
+static NSString * const kECSChatRemoveParticipantMessage = @"RemoveParticipant";    // An agent has left the chat
 static NSString * const kECSChatAddChannelMessage = @"AddChannelCommand";
 static NSString * const kECSChatAssociateInfoMessage = @"AssociateInfoCommand";
 static NSString * const kECSChatCoBrowseMessage = @"CoBrowseMessage";
 static NSString * const kECSCafeXMessage = @"CafeXCommand";
 static NSString * const kECSVoiceAuthenticationMessage = @"VoiceAuthentication";
-static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";
+static NSString * const kECSChatRenderFormMessage = @"RenderFormCommand";           // A Forms chat message from agent
 static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
-static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";
+static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";       // Idle timeout warning (approx. 1 minute remaining)
 
 @interface ECSStompChatClient() <ECSStompDelegate>
 

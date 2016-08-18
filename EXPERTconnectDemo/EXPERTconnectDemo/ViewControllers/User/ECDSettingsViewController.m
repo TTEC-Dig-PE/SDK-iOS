@@ -519,7 +519,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
         {
           [ECDBugReportEmailer resetLogging];
           [[EXPERTconnect shared] logout];
-            AppConfig *myAppConfig = [AppConfig sharedAppConfig];
+            //AppConfig *myAppConfig = [AppConfig sharedAppConfig];
             [EXPERTconnect shared].userName = @"Guest";
             [[EXPERTconnect shared] setClientID:nil]; // Reset the auth token. 
         }]];

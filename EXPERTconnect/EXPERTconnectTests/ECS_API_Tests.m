@@ -143,7 +143,7 @@ NSString *_firstname;
 	 }];
 }
 
-- (void)testGetDetailsForSkill {
+/*- (void)testGetDetailsForSkill {
 	 
     [self setUp];   // Test setup
     [self initSDK]; // SDK setup
@@ -189,7 +189,7 @@ NSString *_firstname;
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
-}
+}*/
 
 - (void)testGetDetailsForExpertSkill {
     

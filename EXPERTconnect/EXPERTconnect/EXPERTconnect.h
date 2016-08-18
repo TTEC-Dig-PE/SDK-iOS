@@ -60,7 +60,13 @@
 #import <EXPERTconnect/ECSChatStateMessage.h>
 #import <EXPERTconnect/ECSAddressableChatMessage.h>
 #import <EXPERTconnect/ECSChatVoiceAuthenticationMessage.h>
+
 #import <EXPERTconnect/ECSChatAddParticipantMessage.h>
+#import <EXPERTconnect/ECSChatRemoveParticipantMessage.h>
+#import <EXPERTconnect/ECSSendQuestionMessage.h>
+#import <EXPERTconnect/ECSChatNotificationMessage.h>
+#import <EXPERTconnect/ECSChatAddChannelMessage.h>
+
 #import <EXPERTconnect/ECSInjector.h>
 #import <EXPERTconnect/ECSChatTextMessage.h>
 #import <EXPERTconnect/ECSConversationCreateResponse.h>
@@ -360,11 +366,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  */
 - (void) agentAvailabilityWithSkill:(NSString *)skill
                          completion:(void(^)(NSDictionary *status, NSError *error))completion
-__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 
 - (void) getDetailsForSkill:(NSString *)skill
                  completion:(void(^)(NSDictionary *details, NSError *error))completion
-__attribute__((deprecated("On API 5.3 or greater, please use getDetailsForExpertSkill instead.")));
+__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 
 /**
  Get details for a skill - such as agent availability, etc.

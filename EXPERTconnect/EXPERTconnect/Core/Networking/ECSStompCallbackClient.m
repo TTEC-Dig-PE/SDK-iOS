@@ -202,6 +202,14 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
 
 #pragma mark - ECSStompClient
 
+- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error
+{
+    if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
+    {
+        [self.delegate chatClient:self didFailWithError:error];
+    }
+}
+
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient
 {
     if (self.isReconnecting)

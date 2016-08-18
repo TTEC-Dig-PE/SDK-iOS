@@ -347,7 +347,11 @@ int         _clientHeartbeatsMissed;
             NSError *newError = [NSError errorWithDomain:@"com.humanify"
                                                     code:1049
                                                 userInfo:@{@"description": frame.headers[@"message"]}];
-            [self.delegate stompClient:self didFailWithError:newError];
+            
+            if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)])
+            {
+                [self.delegate stompClient:self didFailWithError:newError];
+            }
         }
     }
     else if (frame.command.length == 0 && frame.headers.count == 0)
@@ -517,7 +521,10 @@ int         _clientHeartbeatsMissed;
     {
         ECSLogVerbose(@"doStompHeartbeat: server missed 3 heartbeats. Considering connection dead.");
         self.connected = NO;
-        [self.delegate stompClientDidDisconnect:self];
+        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
+        {
+            [self.delegate stompClientDidDisconnect:self];
+        }
     }
     else if (self.webSocket.readyState == ECS_OPEN && self.connected && self.heartbeatTimer != nil)
     {
@@ -537,7 +544,10 @@ int         _clientHeartbeatsMissed;
     else
     {
         // Let delegates know that we disconnected.
-        [self.delegate stompClientDidDisconnect:self];
+        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
+        {
+            [self.delegate stompClientDidDisconnect:self];
+        }
         ECSLogVerbose(@"doStompHeartbeat: No heartbeat because Stomp not connected.");
     }
 }
