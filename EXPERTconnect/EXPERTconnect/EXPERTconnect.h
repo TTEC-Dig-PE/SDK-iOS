@@ -60,7 +60,13 @@
 #import <EXPERTconnect/ECSChatStateMessage.h>
 #import <EXPERTconnect/ECSAddressableChatMessage.h>
 #import <EXPERTconnect/ECSChatVoiceAuthenticationMessage.h>
+
 #import <EXPERTconnect/ECSChatAddParticipantMessage.h>
+#import <EXPERTconnect/ECSChatRemoveParticipantMessage.h>
+#import <EXPERTconnect/ECSSendQuestionMessage.h>
+#import <EXPERTconnect/ECSChatNotificationMessage.h>
+#import <EXPERTconnect/ECSChatAddChannelMessage.h>
+
 #import <EXPERTconnect/ECSInjector.h>
 #import <EXPERTconnect/ECSChatTextMessage.h>
 #import <EXPERTconnect/ECSConversationCreateResponse.h>
