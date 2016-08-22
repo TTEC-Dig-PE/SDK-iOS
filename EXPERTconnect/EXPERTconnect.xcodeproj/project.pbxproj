@@ -44,7 +44,7 @@
 		03101F2E1AAF356900D7562B /* ECSChatLogsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03101F2B1AAF356900D7562B /* ECSChatLogsViewController.h */; };
 		03101F2F1AAF356900D7562B /* ECSChatLogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03101F2C1AAF356900D7562B /* ECSChatLogsViewController.m */; };
 		03101F301AAF356900D7562B /* ECSChatLogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03101F2D1AAF356900D7562B /* ECSChatLogsViewController.xib */; };
-		031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */; };
+		031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		031B27471ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */; };
 		031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27481ADFFADD004AF3AA /* ECSChatInfoMessage.h */; };
 		031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */; };
@@ -1955,6 +1955,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
 				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
@@ -2053,7 +2054,6 @@
 				C1E99D351BC7CC19000EC129 /* ECSTextView.h in Headers */,
 				C1E0E6261BC409230089C7E6 /* ECSDimmingView.h in Headers */,
 				03AF24A71A9B601E00407BE5 /* ECSLoadingView.h in Headers */,
-				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				0342B0211A9B60AE0009959E /* ECSFormItemViewController.h in Headers */,
 				035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */,
 				2252C6AB1A7BE9E200B99912 /* ECSFormItemClassTransformer.h in Headers */,
