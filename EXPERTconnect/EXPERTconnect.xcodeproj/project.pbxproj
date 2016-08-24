@@ -208,7 +208,7 @@
 		039062311AC588E300E006BE /* ECSChatStateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390622F1AC588E300E006BE /* ECSChatStateMessage.m */; };
 		0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062381AC5C73000E006BE /* ECSChatTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390623B1AC5C73000E006BE /* ECSChatTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062391AC5C73000E006BE /* ECSChatTextMessage.m */; };
-		0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */; };
+		0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390623F1AC9A11E00E006BE /* ECSChatURLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390623D1AC9A11E00E006BE /* ECSChatURLMessage.m */; };
 		039062421AC9B0D800E006BE /* ECSChatActionTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062401AC9B0D800E006BE /* ECSChatActionTableViewCell.h */; };
 		039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062411AC9B0D800E006BE /* ECSChatActionTableViewCell.m */; };
@@ -1955,6 +1955,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
@@ -2094,7 +2095,6 @@
 				035C4C0F1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h in Headers */,
 				03101F281AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.h in Headers */,
 				46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */,
-				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
