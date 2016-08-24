@@ -1129,6 +1129,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStartedNotification
+                                                         object:self];
     [self hideWaitView];
 }
 

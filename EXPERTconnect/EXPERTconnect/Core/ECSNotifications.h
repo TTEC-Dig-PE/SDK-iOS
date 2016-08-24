@@ -10,6 +10,7 @@
 
 // Notification when the user is logged out of the system.
 static NSString *const ECSUserSessionInvalidNotification                = @"ECSUserSessionInvalidNotification";
+static NSString *const ECSChatStartedNotification                       = @"ECSChatStartedNotification";
 static NSString *const ECSChatEndedNotification                         = @"ECSChatEndedNotification";
 static NSString *const ECSCallbackEndedNotification                     = @"ECSCallbackEndedNotification";
 

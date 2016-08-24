@@ -31,6 +31,11 @@ bool _chatActive;
     _chatActive = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                              selector:@selector(chatStarted:)
+                                                  name:ECSChatStartedNotification
+                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(chatEnded:)
                                                  name:ECSChatEndedNotification
                                                object:nil];
@@ -146,11 +151,7 @@ bool _chatActive;
                                                                                                     target:self
                                                                                                     action:@selector(btnEndChat_Touch:)];
         }
-        _chatActive = YES;
-        [self.btnEndChat setEnabled:YES];
-        
-        [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
-        //[self.tableView reloadData]; // make it show continue chat
+               //[self.tableView reloadData]; // make it show continue chat
     }
     
     // Push it onto our navigation stack (so back buttons will work)
@@ -204,6 +205,13 @@ bool _chatActive;
     //[self.tableView reloadData]; // show the start chat title
 }
 
+- (void)chatStarted:(NSNotification *)notification {
+     _chatActive = YES;
+     [self.btnEndChat setEnabled:YES];
+     
+     [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
+     
+}
 - (void)chatMessageReceived:(NSNotification *)notification {
     
     // A chat text message.
