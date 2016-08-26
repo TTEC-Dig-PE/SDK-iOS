@@ -1628,13 +1628,26 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         {
             ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
             
-            if (previousMessage.fromAgent == message.fromAgent)
-            {
-                showAvatar = NO;
-            }
+             if (previousMessage.fromAgent == message.fromAgent)
+             {
+                  showAvatar = NO;
+             }
+             if(previousMessage.fromAgent)
+             {
+                  NSString *currentMessageClassNameString = NSStringFromClass([self.messages[indexPath.row] class]);
+                  NSString *previousMessageClassNameString = NSStringFromClass([self.messages[indexPath.row - 1] class]);
+                  Class currentMessageClassName = NSClassFromString(currentMessageClassNameString);
+                  Class previousMessageClassName = NSClassFromString(previousMessageClassNameString);
+                  id currrentMessage = [currentMessageClassName new];
+                  currrentMessage = self.messages[indexPath.row];
+                  id previousMessage = [previousMessageClassName new];
+                  previousMessage = self.messages[indexPath.row -1];
+                  if (![[currrentMessage from] isEqualToString:[previousMessage from]]) {
+                       showAvatar = YES;
+                  }
+             }
         }
     }
-    
     return showAvatar;
 }
 
