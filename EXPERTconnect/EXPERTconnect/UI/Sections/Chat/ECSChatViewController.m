@@ -1632,17 +1632,18 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
              {
                   showAvatar = NO;
              }
+             //Avatar does match when conference.
              if(previousMessage.fromAgent)
              {
                   NSString *currentMessageClassNameString = NSStringFromClass([self.messages[indexPath.row] class]);
                   NSString *previousMessageClassNameString = NSStringFromClass([self.messages[indexPath.row - 1] class]);
                   Class currentMessageClassName = NSClassFromString(currentMessageClassNameString);
                   Class previousMessageClassName = NSClassFromString(previousMessageClassNameString);
-                  id currrentMessage = [currentMessageClassName new];
-                  currrentMessage = self.messages[indexPath.row];
-                  id previousMessage = [previousMessageClassName new];
-                  previousMessage = self.messages[indexPath.row -1];
-                  if (![[currrentMessage from] isEqualToString:[previousMessage from]]) {
+                  id currrentChatMessage = [currentMessageClassName new];
+                  currrentChatMessage = self.messages[indexPath.row];
+                  id previousChatMessage = [previousMessageClassName new];
+                  previousChatMessage = self.messages[indexPath.row -1];
+                  if (![[currrentChatMessage from] isEqualToString:[previousChatMessage from]]) {
                        showAvatar = YES;
                   }
              }
