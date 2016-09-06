@@ -849,7 +849,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
     
-    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/messages", channelString]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString]
           parameters:parameters
              success:[self successWithExpectedType:[NSString class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -862,7 +862,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"state": theChatState, @"duration": [NSString stringWithFormat:@"%d", theDuration] };
     
-    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/chatState", theChannel]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -881,7 +881,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                   @"channelId": theChannel,
                                   @"conversationId": convoIdString};
     
-    return [self POST:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@/notifications", theChannel]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -893,7 +893,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForChannelId:(NSString *)channelString
                                      completion:(void(^)(ECSChannelConfiguration *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/channels/%@", channelString]
+    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/channels/%@", channelString]
            parameters:nil
               success:[self successWithExpectedType:[ECSChannelConfiguration class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -906,7 +906,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                   completion:(void(^)(NSDictionary *response, NSError *error))completion {
     NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
     
-    return [self GET:@"/experts/v1/skills"
+    return [self GET:@"experts/v1/skills"
            parameters:parameters
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -916,7 +916,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"/conversationengine/v1/skills/%@", skill]
+    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -926,7 +926,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"/experts/v1/skills/%@", skill]
+    return [self GET:[NSString stringWithFormat:@"experts/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSArray class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -995,7 +995,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                         fileContentType:(NSString*)fileContentType
                              completion:(void (^)(id *response, NSError* error))completion
 {
-    NSString *path = @"/utils/v1/media";
+    NSString *path = @"utils/v1/media";
     
     ECSLogVerbose(@"Upload file named %@", name);
     
@@ -1048,7 +1048,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testUploadDownloadMediaFile
 - (NSURLRequest*)urlRequestForMediaWithName:(NSString*)name
 {
-    NSString *path = [NSString stringWithFormat:@"/utils/v1/media/files"];
+    NSString *path = [NSString stringWithFormat:@"utils/v1/media/files"];
     
     ECSLogVerbose(@"Upload file named %@", name);
     
@@ -1085,7 +1085,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetAnswerEngineHistory
 - (NSURLSessionDataTask*)getAnswerEngineHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {
-    NSString *path = @"/conversationhistory/v1/";
+    NSString *path = @"conversationhistory/v1/";
     return [self GET:path
           parameters:@{@"type": @"answers"}
               success:[self successWithExpectedType:[ECSHistoryList class] completion:completion]
@@ -1095,7 +1095,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetChatHistory
 - (NSURLSessionDataTask*)getChatHistoryWithCompletion:(void (^)(ECSHistoryList *response, NSError* error))completion
 {
-    NSString *path = @"/conversationhistory/v2";
+    NSString *path = @"conversationhistory/v2";
     return [self GET:path
           parameters:@{@"type": @"chat"}
              success:[self successWithExpectedType:[ECSHistoryList class] completion:completion]
@@ -1107,7 +1107,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion
 {
     NSAssert(journeyId, @"Missing required parameter JourneyId"); 
-    NSString *path = @"/conversationhistory/v2";
+    NSString *path = @"conversationhistory/v2";
     return [self GET:path
           parameters:@{
                        @"type": @"chat",
