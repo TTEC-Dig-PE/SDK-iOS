@@ -230,6 +230,15 @@ static NSString * const kECSSendQuestionMessage = @"SendQuestionCommand";
     }
 }
 
+// Something bad happened...
+// 14-sep-16  mas  Added missing delegate function.
+-(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
+    
+    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
+    {
+        [self.delegate chatClientDisconnected:self wasGraceful:NO];
+    }
+}
 
 - (void)stompClient:(ECSStompClient *)stompClient didReceiveMessage:(ECSStompFrame *)message
 {
