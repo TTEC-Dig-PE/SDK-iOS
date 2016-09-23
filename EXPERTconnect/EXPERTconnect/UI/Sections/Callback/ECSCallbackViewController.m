@@ -22,6 +22,7 @@
 #import "ECSUserManager.h"
 #import "ECSTheme.h"
 #import "ECSURLSessionManager.h"
+#import "ECSLog.h"
 
 #import "UIViewController+ECSNibLoading.h"
 
@@ -271,12 +272,15 @@
 
     if (error)
     {
+        // Show a generic error to the user -- something bad happened!
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
                                                             message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
                                                            delegate:nil
                                                   cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
                                                   otherButtonTitles:nil];
         [alertView show];
+        ECSLogError(@"Callback error: %@", error);
+        
         self.requestCallButton.enabled = YES;
         self.callbackTextField.enabled = YES;
     }
@@ -322,8 +326,9 @@
         errorMessage = error.userInfo[NSLocalizedDescriptionKey];
     }
     
+    ECSLogError(@"Callback STOMP error: %@", error);
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
-                                                                             message:errorMessage
+                                                                             message:ECSLocalizedString(ECSLocalizeErrorText, errorMessage)
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(self) weakSelf = self;
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
