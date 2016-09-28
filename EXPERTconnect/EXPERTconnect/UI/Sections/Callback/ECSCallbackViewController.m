@@ -22,6 +22,7 @@
 #import "ECSUserManager.h"
 #import "ECSTheme.h"
 #import "ECSURLSessionManager.h"
+#import "ECSLog.h"
 
 #import "UIViewController+ECSNibLoading.h"
 
@@ -156,11 +157,15 @@
         [sessionManager startConversationForAction:self.actionType
                                     andAlwaysCreate:YES
                                      withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                         [weakSelf setupChannelOfType:@"Callback"
-                                                     withConversation:conversation
-                                                           completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
-                                                               [weakSelf handleCallbackRepsonse:setupResponse withError:error];
-                                                           }];
+                                         if(!conversation || error) {
+                                             [self handleGenericError:error];
+                                         } else {
+                                             [weakSelf setupChannelOfType:@"Callback"
+                                                         withConversation:conversation
+                                                               completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
+                                                                   [weakSelf handleCallbackRepsonse:setupResponse withError:error];
+                                                               }];
+                                         }
                                      }];
     }
     else if ([self.actionType isKindOfClass:[ECSSMSActionType class]])
@@ -168,11 +173,15 @@
         [sessionManager startConversationForAction:self.actionType
                                 andAlwaysCreate:YES
                                      withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                         [weakSelf setupChannelOfType:@"SMS"
-                                                     withConversation:conversation
-                                                           completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
-                                                               [weakSelf handleCallbackRepsonse:setupResponse withError:error];
-                                                           }];
+                                         if(!conversation || error) {
+                                             [self handleGenericError:error];
+                                         } else {
+                                             [weakSelf setupChannelOfType:@"SMS"
+                                                         withConversation:conversation
+                                                               completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
+                                                                   [weakSelf handleCallbackRepsonse:setupResponse withError:error];
+                                                               }];
+                                         }
                                      }];
 
       }
@@ -185,6 +194,7 @@
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     if (conversation.conversationID.length == 0)
     {
+        ECSLogError(@"Expected conversationID missing. Check above for errors.");
         return;
     }
     
@@ -271,14 +281,7 @@
 
     if (error)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
-                                                            message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
-                                                           delegate:nil
-                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        self.requestCallButton.enabled = YES;
-        self.callbackTextField.enabled = YES;
+        [self handleGenericError:error];
     }
     else
     {
@@ -297,6 +300,20 @@
         [self.navigationController pushViewController:_cancelCallback animated:YES];
 
     }
+}
+
+-(void)handleGenericError:(NSError *)error {
+    // Show a generic error to the user -- something bad happened!
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
+                                                        message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
+                                                       delegate:nil
+                                              cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                              otherButtonTitles:nil];
+    [alertView show];
+    ECSLogError(@"Callback error: %@", error);
+    
+    self.requestCallButton.enabled = YES;
+    self.callbackTextField.enabled = YES;
 }
 
 #pragma mark - StompCallbackClient
@@ -322,8 +339,9 @@
         errorMessage = error.userInfo[NSLocalizedDescriptionKey];
     }
     
+    ECSLogError(@"Callback STOMP error: %@", error);
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
-                                                                             message:errorMessage
+                                                                             message:ECSLocalizedString(ECSLocalizeErrorText, errorMessage)
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     __weak typeof(self) weakSelf = self;
     [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
