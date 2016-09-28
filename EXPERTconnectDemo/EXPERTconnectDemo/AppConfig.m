@@ -121,7 +121,8 @@
         url = @"https://api.dce1.humanify.com";
     }
     
-    return [url stringByAppendingString:@"/"];
+    //return [url stringByAppendingString:@"/"];
+    return url;
 }
 
 // Attempt to grab organization (clientid) from user defaults. Defaults otherwise.
@@ -152,6 +153,7 @@
     // add /ust for new method
     NSString *hostURL = [self getHostURL];
     if( ![hostURL hasSuffix:@"/"] ) hostURL = [hostURL stringByAppendingString:@"/"];
+
     NSString *urlString = [NSString stringWithFormat:@"%@authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                            hostURL,
                            [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],

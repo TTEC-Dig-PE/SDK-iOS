@@ -1592,6 +1592,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (CGFloat)calculateHeightForConfiguredSizingCell:(UITableViewCell *)sizingCell {
     [sizingCell setNeedsLayout];
     [sizingCell layoutIfNeeded];
+    [sizingCell layoutSubviews];
     
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return size.height; // Add 1.0f for the cell separator height
@@ -1820,6 +1821,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         cell = actionCell;
     }
     
+     [cell layoutIfNeeded];
+     [cell layoutSubviews];
+     
     return cell;
 }
 

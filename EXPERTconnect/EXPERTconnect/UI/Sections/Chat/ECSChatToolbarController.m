@@ -61,6 +61,19 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appHasGoneInBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (BOOL)resignFirstResponder {
     return [self.textView resignFirstResponder];
 }
@@ -87,7 +100,7 @@
         [self.textView setUserInteractionEnabled:NO];
     } else {
         [self.sendButton setAlpha:1.0f];
-        [self.textView setUserInteractionEnabled:YES]; 
+        [self.textView setUserInteractionEnabled:YES];
     }
 }
 
@@ -99,7 +112,7 @@
     self.textView.font = theme.chatTextFieldFont;
     self.textView.delegate = self;
     
-    self.view.backgroundColor = theme.secondaryBackgroundColor; 
+    self.view.backgroundColor = theme.secondaryBackgroundColor;
     
     ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
     [self.photoButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_photo"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
@@ -113,12 +126,12 @@
     }
     
     /*[self.audioButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_audio"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
-                      forState:UIControlStateNormal];
-    self.audioButton.tintColor = self.inactiveColor;
-    
-    [self.locationButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_location"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
-                      forState:UIControlStateNormal];
-    self.locationButton.tintColor = self.inactiveColor;*/
+     forState:UIControlStateNormal];
+     self.audioButton.tintColor = self.inactiveColor;
+     
+     [self.locationButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_location"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+     forState:UIControlStateNormal];
+     self.locationButton.tintColor = self.inactiveColor;*/
     
     self.placeholderColor = theme.secondaryTextColor;
     self.textView.textColor = self.placeholderColor;
@@ -150,7 +163,7 @@
     self.cancelButton.tintColor = theme.primaryTextColor;
     [self.cancelButton setTitle:ECSLocalizedString(ECSLocalizeCancel, @"Cancel")
                        forState:UIControlStateNormal];
-
+    
 }
 
 - (IBAction)cancelTapped:(id)sender {
@@ -168,9 +181,9 @@
                          //self.cancelSendTrailing.active = YES;
                          [self hideContainer];
                          [self.view setNeedsLayout];
-
+                         
                      }];
-    }
+}
 
 - (void)sendTapped:(id)sender
 {
@@ -234,16 +247,16 @@
     }
     else
     {
-         if (self.myTimer) {
-              [self.myTimer invalidate];
-              self.myTimer = nil;
-         }
-         self.myTimer =  [NSTimer scheduledTimerWithTimeInterval:15.0
-                                                          target:self
-                                                        selector:@selector(timeFired:)
-                                                        userInfo:nil
-                                                         repeats:NO];
-         
+        if (self.myTimer) {
+            [self.myTimer invalidate];
+            self.myTimer = nil;
+        }
+        self.myTimer =  [NSTimer scheduledTimerWithTimeInterval:15.0
+                                                         target:self
+                                                       selector:@selector(timeFired:)
+                                                       userInfo:nil
+                                                        repeats:NO];
+        
     }
     return YES;
 }
@@ -258,11 +271,18 @@
     [self toggleSendButton: (textView.text.length > 0)];
 }
 
+- (void)appHasGoneInBackground:(NSNotification *)notification
+{
+    [self.myTimer invalidate];
+    self.myTimer = nil;
+    [self sendChatState:@"paused"];
+}
+
 - (void)timeFired:(NSTimer *)timer
 {
-     if (_textView.text) {
-          [self sendChatState: @"paused"];
-     }
+    if (_textView.text) {
+        [self sendChatState: @"paused"];
+    }
 }
 
 - (void)displayViewController:(UIViewController*)controller
@@ -270,20 +290,20 @@
     [self.currentChildViewController willMoveToParentViewController:nil];
     [controller willMoveToParentViewController:self];
     [self addChildViewController:controller];
-   
+    
     
     if (self.currentChildViewController)
     {
         [self.currentChildViewController willMoveToParentViewController:nil];
         
         controller.view.alpha = 0.0f;
-
+        
         [self transitionFromViewController:self.currentChildViewController
                           toViewController:controller
                                   duration:0.3f
                                    options:UIViewAnimationOptionCurveEaseInOut
                                 animations:^{
-                                     controller.view.translatesAutoresizingMaskIntoConstraints = NO;
+                                    controller.view.translatesAutoresizingMaskIntoConstraints = NO;
                                     [self pinViewToContainer:controller.view];
                                     controller.view.alpha = 1.0f;
                                     self.currentChildViewController.view.alpha = 0.0f;
@@ -292,7 +312,7 @@
                                     [self.currentChildViewController removeFromParentViewController];
                                     self.currentChildViewController = controller;
                                 }];
-
+        
     }
     else
     {
@@ -304,7 +324,7 @@
         if (self.containerView.frame.size.height == 0)
         {
             // mas - 11-oct-2015 - The height of the container must be manually adjusted
-            self.containerViewHeightConstraint.constant = controller.view.frame.size.height; 
+            self.containerViewHeightConstraint.constant = controller.view.frame.size.height;
             [self.view setNeedsLayout];
             [UIView animateWithDuration:0.3f
                              animations:^{
@@ -333,7 +353,7 @@
     [self.containerView addConstraints:horizontalLayout];
     [self.containerView addConstraints:verticalLayout];
     
-
+    
 }
 
 - (void)hideContainer
@@ -351,7 +371,7 @@
     // occupy the entire view including overwritting the chat area.
     self.containerViewHeightConstraint.constant = 0;
     [self.view setNeedsLayout];
-
+    
 }
 
 - (void)updateToolbarStateForSelectedButton:(UIButton*)selectedButton
@@ -359,7 +379,7 @@
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     [self.textView resignFirstResponder];
     self.textViewHeightConstraint.constant = 0.0f;
-
+    
     NSArray *buttons = @[self.photoButton, self.locationButton, self.audioButton];
     for (UIButton *button in buttons)
     {
@@ -379,7 +399,7 @@
         self.cancelButton.hidden = NO;
         //self.cancelSendTrailing.active = NO;
         //self.cancelSuperViewTrailing.active = YES;
-
+        
     }
 }
 
@@ -395,7 +415,7 @@
 - (IBAction)audioButtonTapped:(id)sender
 {
     [self updateToolbarStateForSelectedButton:self.audioButton];
-
+    
 }
 
 - (IBAction)locationButtonTapped:(id)sender
@@ -403,11 +423,11 @@
     [self updateToolbarStateForSelectedButton:self.locationButton];
     ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
     [self.locationButton setImage:[[imageCache imageForPath:@"ecs_ic_chat_location"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
-                      forState:UIControlStateNormal];
+                         forState:UIControlStateNormal];
     
     
     ECSChatLocationViewController *locationView = [ECSChatLocationViewController ecs_loadFromNib];
-//    photoView.delegate = self;
+    //    photoView.delegate = self;
     [self displayViewController:locationView];
 }
 
@@ -430,7 +450,7 @@
             navWrapper.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
             navWrapper.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
         }
-
+        
         [self presentViewController:navWrapper animated:YES completion:nil];
         [self cancelTapped:self];
     }

@@ -44,7 +44,7 @@
 		03101F2E1AAF356900D7562B /* ECSChatLogsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 03101F2B1AAF356900D7562B /* ECSChatLogsViewController.h */; };
 		03101F2F1AAF356900D7562B /* ECSChatLogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03101F2C1AAF356900D7562B /* ECSChatLogsViewController.m */; };
 		03101F301AAF356900D7562B /* ECSChatLogsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03101F2D1AAF356900D7562B /* ECSChatLogsViewController.xib */; };
-		031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */; };
+		031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27441ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		031B27471ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B27451ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.m */; };
 		031B274A1ADFFADD004AF3AA /* ECSChatInfoMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 031B27481ADFFADD004AF3AA /* ECSChatInfoMessage.h */; };
 		031B274B1ADFFADD004AF3AA /* ECSChatInfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 031B27491ADFFADD004AF3AA /* ECSChatInfoMessage.m */; };
@@ -208,7 +208,7 @@
 		039062311AC588E300E006BE /* ECSChatStateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390622F1AC588E300E006BE /* ECSChatStateMessage.m */; };
 		0390623A1AC5C73000E006BE /* ECSChatTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062381AC5C73000E006BE /* ECSChatTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390623B1AC5C73000E006BE /* ECSChatTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062391AC5C73000E006BE /* ECSChatTextMessage.m */; };
-		0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */; };
+		0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0390623C1AC9A11E00E006BE /* ECSChatURLMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0390623F1AC9A11E00E006BE /* ECSChatURLMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0390623D1AC9A11E00E006BE /* ECSChatURLMessage.m */; };
 		039062421AC9B0D800E006BE /* ECSChatActionTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 039062401AC9B0D800E006BE /* ECSChatActionTableViewCell.h */; };
 		039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 039062411AC9B0D800E006BE /* ECSChatActionTableViewCell.m */; };
@@ -1955,6 +1955,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
+				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
 				466170C71B864D010055A976 /* ECSSendQuestionMessage.h in Headers */,
@@ -2053,7 +2055,6 @@
 				C1E99D351BC7CC19000EC129 /* ECSTextView.h in Headers */,
 				C1E0E6261BC409230089C7E6 /* ECSDimmingView.h in Headers */,
 				03AF24A71A9B601E00407BE5 /* ECSLoadingView.h in Headers */,
-				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				0342B0211A9B60AE0009959E /* ECSFormItemViewController.h in Headers */,
 				035D7DDF1AE12D930021DF75 /* ECSMediaInfoHelpers.h in Headers */,
 				2252C6AB1A7BE9E200B99912 /* ECSFormItemClassTransformer.h in Headers */,
@@ -2094,7 +2095,6 @@
 				035C4C0F1A9BB4450016BCE8 /* ECSChatPhotoOptionsViewController.h in Headers */,
 				03101F281AAF26C300D7562B /* ECSAnswerEngineHistoryViewController.h in Headers */,
 				46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */,
-				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				03B3FA231A670CA000D872B1 /* ECSJSONResponseSerializer.h in Headers */,
 				C1E99D311BC7CC19000EC129 /* ECSLayoutManager.h in Headers */,
 				03A7D2981ABC67C0000A21AE /* ECSFormTextField.h in Headers */,
@@ -2209,7 +2209,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECS;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978EE11A602AEF007793D6 = {
@@ -2603,6 +2603,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2612,8 +2613,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2623,6 +2626,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2649,6 +2653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2658,8 +2663,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2668,6 +2675,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2692,7 +2700,7 @@
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -2743,7 +2751,7 @@
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;

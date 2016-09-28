@@ -32,6 +32,8 @@
 
 - (void)awakeFromNib {
 	 // Initialization code
+    [super awakeFromNib];
+    
 	 [self setup];
 	 
 	 self.messageWidthConstraint = [NSLayoutConstraint constraintWithItem:self.messageContainerView attribute:NSLayoutAttributeWidth

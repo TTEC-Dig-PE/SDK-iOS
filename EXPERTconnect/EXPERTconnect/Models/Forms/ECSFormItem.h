@@ -12,13 +12,13 @@
 
 FOUNDATION_EXPORT NSString *const ECSFormTypeRadio;
 FOUNDATION_EXPORT NSString *const ECSFormTypeCheckbox;
-FOUNDATION_EXPORT NSString *const ECSFormTypeSingle;
-FOUNDATION_EXPORT NSString *const ECSFormTypeMultiple;
+FOUNDATION_EXPORT NSString *const ECSFormTypeSingle;        // TODO: Remove (Radio functionally equivalent)
+FOUNDATION_EXPORT NSString *const ECSFormTypeMultiple;      // TODO: Remove (Checkbox functionally equivalent)
 FOUNDATION_EXPORT NSString *const ECSFormTypeText;
 FOUNDATION_EXPORT NSString *const ECSFormTypeTextArea;
 FOUNDATION_EXPORT NSString *const ECSFormTypeSlider;
-FOUNDATION_EXPORT NSString *const ECSFormTypeRange;
-FOUNDATION_EXPORT NSString *const ECSFormTypeRating;
+FOUNDATION_EXPORT NSString *const ECSFormTypeRange;         // TODO: Remove (This is a treatment of Slider)
+FOUNDATION_EXPORT NSString *const ECSFormTypeRating;        // TODO: Remove (This is a treatment of Slider)
 
 FOUNDATION_EXPORT NSString *const ECSFormTreatmentRating;
 FOUNDATION_EXPORT NSString *const ECSFormTreatmentThumbs;

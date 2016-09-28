@@ -24,6 +24,7 @@ NSString* const ECSCheckboxTableViewCellIdentifier = @"ECSCheckboxTableViewCellI
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib]; 
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     [self setTintColor:theme.primaryColor];
     

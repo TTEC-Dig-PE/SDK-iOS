@@ -140,37 +140,35 @@
              }
 
              [[EXPERTconnect shared] login:self.emailAddressField.text withCompletion:^(ECSForm *form, NSError *error) {
-                 if (form && form.formData)
+                 if (!form || !form.formData)
                  {
-                     if (weakSelf.delegate)
+                     NSLog(@"Error getting userProfile -- %@", error);
+                 }
+                 if (weakSelf.delegate)
+                 {
+                     [weakSelf setLoadingIndicatorVisible:NO];
+                     [weakSelf.delegate loginViewController:weakSelf
+                                       didLoginWithUserInfo:weakSelf.emailAddressField.text];
+                 }
+                 
+                 NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
+                 
+                 [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
+                 
+                 NSString *savedContext = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
+                 if( savedContext) {
+                     // Set journey with context.
+                     [[EXPERTconnect shared] startJourneyWithName:@"ECDemoJourney"
+                                               pushNotificationId:nil
+                                                          context:savedContext
+                                                       completion:^(NSString *journeyID, NSError *NSError)
                      {
-                         [weakSelf setLoadingIndicatorVisible:NO];
-                         [weakSelf.delegate loginViewController:weakSelf
-                                           didLoginWithUserInfo:weakSelf.emailAddressField.text];
-                     }
-                     
-                     NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
-                     
-                     [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
-                     
-                     NSString *savedContext = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
-                     if( savedContext) {
-                         // Set journey with context.
-                         [[EXPERTconnect shared] startJourneyWithName:@"ECDemoJourney"
-                                                   pushNotificationId:nil
-                                                              context:savedContext
-                                                           completion:^(NSString *journeyID, NSError *NSError)
-                         {
-                                                               
-                         }];
-                     } else {
-                         [[EXPERTconnect shared] startJourneyWithCompletion:nil]; // Start a new journey.
-                     }
+                                                           
+                     }];
+                 } else {
+                     [[EXPERTconnect shared] startJourneyWithCompletion:nil]; // Start a new journey.
                  }
-                 else
-                 {
-                     [weakSelf showLoginAlert];
-                 }
+
              }];
          }];
         
