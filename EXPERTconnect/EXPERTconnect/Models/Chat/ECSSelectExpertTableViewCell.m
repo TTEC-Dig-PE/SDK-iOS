@@ -51,6 +51,7 @@
 @implementation ECSSelectExpertTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
