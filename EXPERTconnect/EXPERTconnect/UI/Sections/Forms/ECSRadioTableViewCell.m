@@ -25,7 +25,7 @@ NSString *const ECSRadioTableViewCellIdentifier = @"ECSRadioTableViewCellIdentif
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib]; 
+    [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];

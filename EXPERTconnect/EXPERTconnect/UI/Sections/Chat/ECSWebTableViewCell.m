@@ -25,7 +25,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    [super awakeFromNib]; 
+    [super awakeFromNib];
     [self setup];
 }
 

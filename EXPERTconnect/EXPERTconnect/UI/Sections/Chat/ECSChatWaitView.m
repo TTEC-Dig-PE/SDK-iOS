@@ -14,7 +14,7 @@
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib]; 
+    [super awakeFromNib];
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     self.backgroundColor = theme.primaryBackgroundColor;
     

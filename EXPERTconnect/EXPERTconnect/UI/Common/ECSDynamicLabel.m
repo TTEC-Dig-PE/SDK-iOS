@@ -33,7 +33,7 @@ static CGFloat defaultFontIndex;
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib]; 
+    [super awakeFromNib];
     [self setup];
 }
 
