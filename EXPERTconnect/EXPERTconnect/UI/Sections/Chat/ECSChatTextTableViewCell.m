@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib]; 
     // Initialization code
+    [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];

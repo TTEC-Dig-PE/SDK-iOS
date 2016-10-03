@@ -51,6 +51,7 @@
 @implementation ECSSelectExpertTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
     [super awakeFromNib]; 
     
