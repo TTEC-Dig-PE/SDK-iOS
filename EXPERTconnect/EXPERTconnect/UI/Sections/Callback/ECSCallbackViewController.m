@@ -352,7 +352,7 @@
         [_callbackClient disconnect];
     }
     NSLog(@"Chat client was disconnected.");
-    [_cancelCallback displayVoiceCallBackEndAlert];
+    [_cancelCallback dismissviewAndNotify:YES reason:@"CallCompleted"];
 }
 
 - (void)chatClient:(ECSStompCallbackClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message
