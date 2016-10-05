@@ -116,7 +116,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Setup the theme to look similar to Ford.
     //[self setupThemeLikeFord];
     
-    [[EXPERTconnect shared] setUserAvatar:[UIImage imageNamed:@"default_avatar_medium"]];
+    //[[EXPERTconnect shared] setUserAvatar:[UIImage imageNamed:@"default_avatar_medium"]];
     
     // Get env/clientid config from hosted site.
     [myAppConfig fetchEnvironmentJSON];

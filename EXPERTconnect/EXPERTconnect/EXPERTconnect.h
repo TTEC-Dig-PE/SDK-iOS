@@ -66,6 +66,8 @@
 #import <EXPERTconnect/ECSSendQuestionMessage.h>
 #import <EXPERTconnect/ECSChatNotificationMessage.h>
 #import <EXPERTconnect/ECSChatAddChannelMessage.h>
+#import <EXPERTconnect/ECSChatAssociateInfoMessage.h>
+#import <EXPERTconnect/ECSChatURLMessage.h>
 
 #import <EXPERTconnect/ECSInjector.h>
 #import <EXPERTconnect/ECSChatTextMessage.h>

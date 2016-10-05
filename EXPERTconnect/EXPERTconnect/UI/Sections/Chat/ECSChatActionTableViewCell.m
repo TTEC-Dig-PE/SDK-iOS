@@ -85,7 +85,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.messageLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.messageLabel.bounds);
+
+    self.messageLabel.preferredMaxLayoutWidth = (self.frame.size.width * 0.5f) - 45.0f;
+
     [super layoutSubviews];
 }
 
