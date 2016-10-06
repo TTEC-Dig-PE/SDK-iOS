@@ -17,6 +17,7 @@
 #import "ECSMediaInfoHelpers.h"
 #import "ECSTheme.h"
 #import "ECSURLSessionManager.h"
+#import "ECSChatStateMessage.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -44,6 +45,8 @@
 @property (strong, nonatomic) UIViewController *currentChildViewController;
 
 @property (strong, nonatomic) UIColor *inactiveColor;
+
+@property (nonatomic) ECSChatState chatState;
 
 @end
 
@@ -164,6 +167,9 @@
     [self.cancelButton setTitle:ECSLocalizedString(ECSLocalizeCancel, @"Cancel")
                        forState:UIControlStateNormal];
     
+    // Default to paused internal state.
+    _chatState = ECSChatStateTypingPaused;
+    
 }
 
 - (IBAction)cancelTapped:(id)sender {
@@ -213,6 +219,15 @@
 
 - (void)sendChatState:(NSString *)chatState
 {
+    if( [chatState isEqualToString:@"paused"])
+    {
+        _chatState = ECSChatStateTypingPaused;
+    }
+    else if( [chatState isEqualToString:@"composing"])
+    {
+        _chatState = ECSChatStateComposing;
+    }
+    
     if (self.delegate)
     {
         [self.delegate sendChatState:chatState];
@@ -267,7 +282,15 @@
     
     self.textViewHeightConstraint.constant = size.height;
     
-    [self sendChatState:(textView.text.length > 0 || !textView.text ? @"composing" : @"paused")];
+    if( _chatState == ECSChatStateTypingPaused && textView.text.length > 0)
+    {
+        [self sendChatState:@"composing"];
+    }
+    else if( _chatState == ECSChatStateComposing && textView.text.length == 0)
+    {
+        [self sendChatState:@"paused"];
+    }
+    
     [self toggleSendButton: (textView.text.length > 0)];
 }
 

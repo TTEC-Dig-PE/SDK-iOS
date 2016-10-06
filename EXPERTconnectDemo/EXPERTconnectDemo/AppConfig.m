@@ -121,8 +121,8 @@
         url = @"https://api.dce1.humanify.com";
     }
     
-    //return [url stringByAppendingString:@"/"];
-    return url;
+    return [url stringByAppendingString:@"/"];
+    //return url;
 }
 
 // Attempt to grab organization (clientid) from user defaults. Defaults otherwise.

@@ -164,7 +164,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @param chatSkill the Agent Chat Skill for the Chat
  @param displayName for the View Controller
- @param shouldTakeSurvey, determains
+ @param shouldTakeSurvey defunct - no longer used.
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
@@ -220,7 +220,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  Returns a view controller for an EXPERTconnect Survey
  
- @param form the Name of the Form to launch
+ @param formName the Name of the Form to launch
  
  @return the view controller for the Survey
  */
@@ -307,12 +307,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 /**
  Login support
- 
  @param username the Name of the user attempting to login
- 
- @return the Form returned from the login attempt
  */
-- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion;
+- (void) login:(NSString *)username withCompletion:(void (^)(ECSForm *, NSError *))completion;
 
 /**
  Returns a view controller for a specified EXPERTconnect action. If no view controller is
@@ -418,9 +415,10 @@ __attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 // Send user profile to server.
 - (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion;
 
-/**
- Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers
- outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+
+/*!
+ * @discussion  Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+ * @param token the identity delegate token
  */
 - (void)setUserIdentityToken:(NSString *)token;
 

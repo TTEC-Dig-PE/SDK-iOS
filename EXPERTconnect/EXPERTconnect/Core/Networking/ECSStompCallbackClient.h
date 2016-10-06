@@ -70,7 +70,7 @@
  Called when the chat client receives an add channel message.
  
  @param stompClient the chat client that received the state change
- @param state the updated state
+ @param message the updated state
  */
 - (void)chatClient:(ECSStompCallbackClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage*)message;
 
@@ -131,7 +131,7 @@
  Subscribes to the specified chat destination
  
  @param destination the chat destination to subscribe to
- @param subscriptionID the subscription ID to use for the subscription
+ @param subscriptionId the subscription ID to use for the subscription
  */
 - (void)subscribeToDestination:(NSString*)destination withSubscriptionID:(NSString*)subscriptionId;
 

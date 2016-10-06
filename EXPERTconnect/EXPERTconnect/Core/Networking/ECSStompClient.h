@@ -121,7 +121,7 @@
  Sends an ACK message to the STOMP server.
  
  @param messageId the message identifier to ACK
- @param transationId the optional transaction identifier to ACK
+ @param transactionId the optional transaction identifier to ACK
  */
 - (void)sendAckForMessage:(NSString*)messageId andTransaction:(NSString*)transactionId;
 
@@ -129,7 +129,7 @@
  Sends a NACK message to the STOMP server.
  
  @param messageId the message identifier to NCK
- @param transationId the optional transaction identifier to NACK
+ @param transactionId the optional transaction identifier to NACK
  */
 - (void)sendNackForMessage:(NSString*)messageId andTransaction:(NSString*)transactionId;
 

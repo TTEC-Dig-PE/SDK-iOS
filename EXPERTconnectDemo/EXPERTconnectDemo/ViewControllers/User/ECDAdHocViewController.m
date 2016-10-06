@@ -1148,19 +1148,16 @@ bool _chatActive;
 -(void)localBreadCrumb:(NSString *)action
            description:(NSString *)desc
 {
-	 /*[[EXPERTconnect shared] breadcrumbWithAction:action
-									  description:desc
-										   source:@"AdHoc"
-									  destination:@"Humanify"
-									  geolocation:currentLocation];*/
-    
     ECSBreadcrumb *myBreadcrumb = [[ECSBreadcrumb alloc] initWithAction:action
                                                             description:desc
                                                                  source:@"AdHoc"
                                                             destination:@"Humanify"];
     myBreadcrumb.geoLocation = currentLocation;
     
-    [[EXPERTconnect shared] breadcrumbQueueBulk:myBreadcrumb];
+    [[EXPERTconnect shared] breadcrumbSendOne:myBreadcrumb
+                               withCompletion:^(ECSBreadcrumbResponse *response, NSError *error) {
+        NSLog(@"Breadcrumb sent. Response=%@", response);
+    }];
 }
 
 -(void)handleAdHocStartChat

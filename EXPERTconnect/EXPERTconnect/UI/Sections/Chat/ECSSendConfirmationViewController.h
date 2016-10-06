@@ -24,7 +24,7 @@
 /**
  Called when the user confirms sending the image
  
- @param conroller the controller that the send originates from.
+ @param controller the controller that the send originates from.
  */
 - (void)userConfirmedSend:(ECSSendConfirmationViewController*)controller;
 

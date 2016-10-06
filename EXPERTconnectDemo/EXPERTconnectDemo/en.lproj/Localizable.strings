@@ -8,6 +8,16 @@
 /* Log in button text */
 // "ECSLocalizeLogInButton" = "Log Me In!!!";
 
+// Testing
+/* Welcome with user name */
+"ECSLocalizeWelcomeWithUsername" = "Welcome!";
+/* Wait time message */
+"ECSLocalizeGenericWaitTime" = "You'll be connected to a FordGuide shortly.";
+"ECSLocalizeWaitTimeShort" = "Your wait time is expected to be less than a minute.";
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
+"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+// End testing
+
 /* Unknown User text */
 "ECDLocalizedUnknownUser" = "Unknown user, please register to create an account.";
 

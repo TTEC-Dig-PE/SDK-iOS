@@ -190,6 +190,7 @@ NSTimer *breadcrumbTimer;
 }
 
 // Directly set the authToken
+
 - (void)setUserIdentityToken:(NSString *)token
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
