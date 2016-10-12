@@ -686,8 +686,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
              
              if(error)
              {
-                 [self showAlertForError:error fromFunction:@"sendChatState"];
-                 [self showReconnectInChat];
+                  //  12-oct-2016 - Chat state error will affect SDK.
+//                 [self showAlertForError:error fromFunction:@"sendChatState"];
+//                 [self showReconnectInChat];
              }
          }];
     }
