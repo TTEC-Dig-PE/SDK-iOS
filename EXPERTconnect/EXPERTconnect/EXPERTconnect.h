@@ -393,13 +393,11 @@ __attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
 
 /**
- Start a journey
- Params:
- Name:               Name of the journey (for reporting, not visible to user) (optional)
- PushNotificationID: An identifier for push notifications (optional)
- context:            Journey context (optional - default used if missing)
- Returns:
- (In completion block...)
+@desc Start a journey
+@param theName Name of the journey (for reporting, not visible to user) (optional)
+@param thePushId An identifier for push notifications (optional)
+@param theContext Journey context (optional - default used if missing)
+@note (In completion block...)
  NSString journeyID: Identifier of the journey that was just created or fetched
  NSError error:      Error if one occurred. Nil otherwise.
  */
