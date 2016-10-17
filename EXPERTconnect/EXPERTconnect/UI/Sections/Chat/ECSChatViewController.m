@@ -555,7 +555,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)showNoSurveyDisconnectMessage
 {
     ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-    disconnectedMessage.fromAgent = YES;
+//    disconnectedMessage.fromAgent = YES;
     disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
     [self.messages addObject:disconnectedMessage];
     [self.tableView reloadData];
@@ -891,7 +891,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     
     ECSChatInfoMessage *message = [ECSChatInfoMessage new];
-    message.fromAgent = YES;
+//    message.fromAgent = YES;
     
     NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
     message.infoMessage = [NSString stringWithFormat:warningString, seconds];
@@ -1623,34 +1623,34 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     ECSChatMessage *message = (ECSChatMessage*)self.messages[indexPath.row];
     //showAvatar = message.fromAgent;
-    
-    if (showAvatar)
-    {
-        if (indexPath.row > 1 || (indexPath.row > 0 && message.fromAgent))
-        {
-            ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
-            
-             if (previousMessage.fromAgent == message.fromAgent)
-             {
-                  showAvatar = NO;
-             }
-             //Avatar does match when conference.
-             if(previousMessage.fromAgent)
-             {
-                  NSString *currentMessageClassNameString = NSStringFromClass([self.messages[indexPath.row] class]);
-                  NSString *previousMessageClassNameString = NSStringFromClass([self.messages[indexPath.row - 1] class]);
-                  Class currentMessageClassName = NSClassFromString(currentMessageClassNameString);
-                  Class previousMessageClassName = NSClassFromString(previousMessageClassNameString);
-                  id currrentChatMessage = [currentMessageClassName new];
-                  currrentChatMessage = self.messages[indexPath.row];
-                  id previousChatMessage = [previousMessageClassName new];
-                  previousChatMessage = self.messages[indexPath.row -1];
-                  if (![[currrentChatMessage from] isEqualToString:[previousChatMessage from]]) {
-                       showAvatar = YES;
-                  }
-             }
-        }
-    }
+     if (showAvatar)
+     {
+          if (indexPath.row > 1 || (indexPath.row > 0 && message.fromAgent))
+          {
+               ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
+               
+               if (previousMessage.fromAgent == message.fromAgent && ![previousMessage isKindOfClass:[ECSChatInfoMessage class]] && ![previousMessage isKindOfClass:[ECSChatAddParticipantMessage class]])
+               {
+                    showAvatar = NO;
+               }
+               
+               //Avatar does match when conference.
+               NSString *currentMessageClassNameString = NSStringFromClass([self.messages[indexPath.row] class]);
+               NSString *previousMessageClassNameString = NSStringFromClass([self.messages[indexPath.row - 1] class]);
+               Class currentMessageClassName = NSClassFromString(currentMessageClassNameString);
+               Class previousMessageClassName = NSClassFromString(previousMessageClassNameString);
+               id currrentChatMessage = [currentMessageClassName new];
+               currrentChatMessage = self.messages[indexPath.row];
+               id previousChatMessage = [previousMessageClassName new];
+               previousChatMessage = self.messages[indexPath.row -1];
+               if(previousMessage.fromAgent)
+               {
+                    if (![[currrentChatMessage from] isEqualToString:[previousChatMessage from]]) {
+                         showAvatar = YES;
+                    }
+               }
+          }
+     }
     return showAvatar;
 }
 
