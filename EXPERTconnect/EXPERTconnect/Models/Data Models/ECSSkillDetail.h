@@ -11,18 +11,17 @@
 #import "ECSJSONSerializing.h"
 
 /**
- Response returnec when a journey is created.
- 
- active = 0;
- chatCapacity = 4;
- chatReady = 4;
- description = "Mobile Chat Skill for Testing";
- estWait = 0;
- inQueue = 0;
- queueOpen = 1;
- skillName = "CE_Mobile_Chat";
- voiceCapacity = 1;
- voiceReady = 1;
+ @desc This object contains the details on a specific call or chat skill
+ - active - Whether this skill queue is active or not.
+ - chatCapacity - Maximum capacity of agents this skill can contain.
+ - chatReady - Number of agents who are ready to accept chats.
+ - description - Text description of this skill
+ - estWait - The estimated wait time to get connected (seconds)
+ - inQueue - Is this particular user in the queue already?
+ - queueOpen - Is the queue open or closed?
+ - skillName - Name of the skill
+ - voiceCapacity - Maximum capacity of agents who can take voice calls.
+ - voiceReady - Current number of agents ready to accept calls.
  */
 @interface ECSSkillDetail : ECSJSONObject <ECSJSONSerializing>
 

@@ -280,6 +280,7 @@
 		C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDJourneyConfigVC.h; path = "Configuration Views/ECDJourneyConfigVC.h"; sourceTree = "<group>"; };
 		C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDJourneyConfigVC.m; path = "Configuration Views/ECDJourneyConfigVC.m"; sourceTree = "<group>"; };
 		C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDJourneyConfigVC.xib; path = "Configuration Views/ECDJourneyConfigVC.xib"; sourceTree = "<group>"; };
+		C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EXPERTconnectDemo.entitlements; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -580,6 +581,7 @@
 		03978F091A602B2D007793D6 /* EXPERTconnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */,
 				4695C3781B5D7B8600C95878 /* UI */,
 				033ACB3E1A602CC00024F48F /* MainMenuConfig.json */,
 				462C19261B7BC3CF00E230B7 /* UserProfile.json */,
@@ -762,6 +764,9 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1054,6 +1059,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
+				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -1087,6 +1093,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
+				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

@@ -10,14 +10,17 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import "ECSConversationCreateResponse.h"
 
-@interface ECS_DceDev_Henry_Tests : XCTestCase <ECSAuthenticationTokenDelegate>
+@interface ECS_DceDev_Henry_Tests : XCTestCase <ECSAuthenticationTokenDelegate>{
+    NSURL *_testAuthURL;
+    NSString *_testTenant;
+    NSString *_username;
+    NSString *_fullname;
+    NSString *_firstname;
+}
 
 @end
 
 @implementation ECS_DceDev_Henry_Tests
-
-NSURL *_testAuthURL;
-NSString *_testTenant;
 
 - (void)setUp {
     [super setUp];

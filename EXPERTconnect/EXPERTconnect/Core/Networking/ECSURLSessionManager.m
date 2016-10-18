@@ -183,10 +183,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     //NSAssert(clientID.length > 0, @"Client ID must be provided");
     //NSAssert(clientSecret.length > 0, @"Client secret must be provided");
     if (clientID.length == 0 || clientSecret.length == 0) {
-        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
-                                                  code:-2000
-                                              userInfo:nil];
-        completion(nil, err);
+        completion(nil, [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:-2000]);
     }
     
     NSURL *url = [self URLByAppendingPathComponent:@"authserver/oauth/token"];
@@ -268,14 +265,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     else
     {
-        // Build and throw an error to the completion block if the user forgot to set a delegate function. 
-        NSError *error = [NSError errorWithDomain:@"com.humanify"
-                                             code:1001
-                                         userInfo:[NSDictionary dictionaryWithObject:@"No identity token delegate function found!"
-                                                                              forKey:@"description"]];
-        
-        ECSLogError(@"refreshIdentityDelegateWithCompletion: No identity token delegate function found!");
-        completion(nil, error);
+        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:1001]);
     }
     
     return nil;
@@ -334,17 +324,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                  forContext:(NSString*)context
                                              withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
-    NSDictionary *parameters = nil;
-    
-    if (!num) num = 10;
-    
-    parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
-    
-    return [self GET:@"answerengine/v1/start"
-          parameters:parameters
-             success:[self successWithExpectedType:[NSArray class] completion:completion]
-             failure:[self failureWithCompletion:completion]];
-    
+    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/start" completion:completion];
 }
 
 // Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsWithContext
@@ -352,17 +332,28 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
+    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/questions" completion:completion];
+}
+
+// Internal only. Used to combine the code base of the above two functions.
+- (NSURLSessionDataTask *)internalGetAnswerEngineQuestions:(int)num
+                                                   context:(NSString*)context
+                                                       url:(NSString *)theURL
+                                                completion:(void (^)(NSArray *questions, NSError *error))completion
+{
+    if( !context )
+    {
+        completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:1003]);
+        return nil;
+    }
     NSDictionary *parameters = nil;
-    
     if (!num) num = 10;
-    
     parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
     
-    return [self GET:@"answerengine/v1/questions"
+    return [self GET:theURL
           parameters:parameters
              success:[self successWithExpectedType:[NSArray class] completion:completion]
              failure:[self failureWithCompletion:completion]];
-    
 }
 
 // Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsForKeyword
@@ -377,13 +368,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     // Do not allow empty keyword or search string less than 3 characters. 
     if (!theKeyword || [theKeyword length] < 3)
     {
-        NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Keyword parameter must be 3 or more characters." };
-        NSError *error = [NSError errorWithDomain:@"com.humanify.error"
-                                             code:1002
-                                         userInfo:userInfo];
-        
-        ECSLogError(@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);
-        completion(nil, error);
+        completion(nil, [self errorWithReason:@"Keyword parameter must be 3 or more characters." code:1002]);
         return nil;
     }
     
@@ -403,16 +388,22 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                     customData:(NSDictionary *)customData
                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
 {
+    if (!question) {
+        completion(nil, [self errorWithReason:@"Missing or null parameter 'question'" code:1004]);
+        return nil;
+    }
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     [parameters addEntriesFromDictionary:@{
                                            @"question": question,
-                                           @"context": answerEngineContext,
                                            @"navContext": @"",
                                            @"action_id": @"",
                                            @"questionCount": [NSNumber numberWithUnsignedInteger:0],
                                            }];
-    
+    if (answerEngineContext) {
+        [parameters setObject:answerEngineContext forKey:@"context"];
+    }
     if (customData)
     {
         [parameters setObject:customData forKey:@"customData"];
@@ -475,6 +466,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                       completion:(void (^)(ECSAnswerEngineRateResponse *response, NSError *error))completion
 {
     
+    if(!answerID || !rating || !theMin || !theMax || !questionCount) {
+        completion( nil, [self errorWithReason:@"Missing parameter (answerID, rating, min, max, questionCount required)." code:1005]);
+        return nil;
+    }
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     if(inquiryID) parameters[@"inquiryId"] = inquiryID;
@@ -529,7 +525,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testSubmitUserProfile
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
-    ECSLogVerbose(@"Submit User Profile");
+    if(!profile) {
+        completion(nil, [self errorWithReason:@"Missing required parameter 'profile'." code:1007]);
+        return nil; 
+    }
     
     return [self POST:@"registration/v1/profile"
           parameters:[ECSJSONSerializer jsonDictionaryFromObject:profile]
@@ -588,8 +587,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetFormbyName_NoForm
 - (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
-    NSAssert(formName != nil && formName.length > 0, @"formName must be specified");
-    ECSLogVerbose(@"Get form %@", formName);
+    if(!formName) {
+        completion(nil, [self errorWithReason:@"Missing required parameter 'formName'." code:1008]);
+        return nil; 
+    }
     return [self GET:[NSString stringWithFormat:@"forms/v1/%@", formName]
           parameters:nil
              success:[self successWithExpectedType:[ECSForm class] completion:completion]
@@ -601,7 +602,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
     ECSLogVerbose(@"Submit form %@", [form inlineFormResponse]);
-    NSLog(@"Submit form nsLOG = %@", form); 
+    if(!form) {
+        completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:1009]);
+        return nil; 
+    }
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
            parameters:[ECSJSONSerializer jsonDictionaryFromObject:form]
               success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
@@ -679,6 +683,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                     andAlwaysCreate:(BOOL)alwaysCreate
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
+    if(!actionType) {
+        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:1011]);
+        return nil; 
+    }
     if ([actionType.journeybegin boolValue] || alwaysCreate)
     {
         if ([actionType.journeybegin boolValue] && self.conversation)
@@ -976,7 +984,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)setJourneyContext:(NSString*)theContext
                                 completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion
 {
-    NSAssert(theContext, @"Context parameter cannot be null.");
+    if(!theContext) {
+        completion(nil, [self errorWithReason:@"Missing required parameter 'context'" code:1012]);
+        return nil;
+    }
     
     self.journeyManagerContext = theContext;
     
@@ -996,6 +1007,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                         fileContentType:(NSString*)fileContentType
                              completion:(void (^)(id *response, NSError* error))completion
 {
+    if( !data || !name) {
+        completion(nil, [self errorWithReason:@"Missing required parameter (data or name)." code:1010]);
+        return nil; 
+    }
     NSString *path = @"utils/v1/media";
     
     ECSLogVerbose(@"Upload file named %@", name);
@@ -1756,6 +1771,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
+}
+
+- (NSError *) errorWithReason:(NSString *)theReason
+                         code:(NSInteger)theCode
+{
+    NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: theReason };
+    NSError *error = [NSError errorWithDomain:@"com.humanify.error"
+                                         code:theCode
+                                     userInfo:userInfo];
+    ECSLogError(@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);
+    return error; 
 }
 
 @end
