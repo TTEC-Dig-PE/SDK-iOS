@@ -38,6 +38,9 @@
 /* Test Journey Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestJourneyLabel" = "测试之旅";
 
+/* Test Decision Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDecisionLabel" = "测试决策";
+
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "开始视频聊天";
 
@@ -332,3 +335,16 @@
 "ECDLocalizedDestinationPlaceholderLabel" = "背包1产品页面";
 
 /* End Test Breadcrumbs Page Labels Section */
+
+/* Test Decision Page Labels */
+
+/* Request Decision Label */
+"ECDLocalizedRequestDecisionLabel" = "请求决策数据:";
+
+/* Response Decision Label */
+"ECDLocalizedResponseDecisionLabel" = "响应决策数据:";
+
+/* Response Decision Label */
+"ECDLocalizedPostConsumerButtonLabel" = "消费者数据";
+
+/* End Test Decision Page Labels Section */

@@ -42,6 +42,9 @@
 /* Test Journey Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestJourneyLabel" = "Viaje de prueba";
 
+/* Test Decision Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDecisionLabel" = "Decisión de prueba";
+
 /* Localized displayName for Personas in MainMenuConfig.json */
 "ECDLocalizedPersonasLabel" = "Personas";
 
@@ -176,3 +179,16 @@
 "ECDLocalizedDestinationPlaceholderLabel" = "Mochila página 1 producto";
 
 /* End Test Breadcrumbs Page Labels Section */
+
+/* Test Decision Page Labels */
+
+/* Request Decision Label */
+"ECDLocalizedRequestDecisionLabel" = "Solicitud de Decisión de datos:";
+
+/* Response Decision Label */
+"ECDLocalizedResponseDecisionLabel" = "Decisión de datos de respuesta:";
+
+/* Response Decision Label */
+"ECDLocalizedPostConsumerButtonLabel" = "Los datos de los consumidores tras";
+
+/* End Test Decision Page Labels Section */

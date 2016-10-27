@@ -31,6 +31,7 @@
 #import "ECDChatConfigVC.h"
 #import "ECDBreadcrumbConfigVC.h"
 #import "ECDJourneyConfigVC.h"
+#import "ECDDecisionConfigVC.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -122,6 +123,7 @@ typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 	 AdHocChatSectionRowStart,
      AdHocChatSectionRowBreadcrumb,
      AdHocChatSectionRowJourney,
+     AdHocChatSectionRowDecision,
 	 AdHocChatSectionRowCount
 };
 
@@ -510,7 +512,10 @@ bool _chatActive;
 //                       cell.textLabel.text = @"Test Journey";
                          cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestJourneyLabel, @"Test Journey");
                        break;
-                       
+                    
+                   case AdHocChatSectionRowDecision:
+                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestDecisionLabel, @"Test Decision");
+                         
 					default:
 						 break;
 			   }
@@ -766,6 +771,11 @@ bool _chatActive;
     {
         [self handleJourneyConfig];
     }
+     
+     if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowDecision)
+     {
+          [self handleDecisionConfig];
+     }
 	 
 	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
 	 {
@@ -1215,6 +1225,12 @@ bool _chatActive;
 {
     ECDJourneyConfigVC *journeyConfig = [[ECDJourneyConfigVC alloc] init];
     [self.navigationController pushViewController:journeyConfig animated:YES];
+}
+
+-(void)handleDecisionConfig
+{
+     ECDDecisionConfigVC *decisionConfig = [ECDDecisionConfigVC new];
+     [self.navigationController pushViewController:decisionConfig animated:YES];
 }
 
 -(void)handleAdHocVoiceCallback

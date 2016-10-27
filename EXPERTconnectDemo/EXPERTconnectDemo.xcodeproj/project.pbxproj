@@ -56,6 +56,8 @@
 		46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
+		C13A61561DC093F100A28CA9 /* ECDDecisionConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */; };
+		C13A61571DC093F100A28CA9 /* ECDDecisionConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */; };
 		C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */; };
 		C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */; };
 		C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */; };
@@ -247,6 +249,9 @@
 		46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDUIPicker.h; sourceTree = "<group>"; };
 		46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDUIPicker.m; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDDecisionConfigVC.h; sourceTree = "<group>"; };
+		C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDDecisionConfigVC.m; sourceTree = "<group>"; };
+		C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDDecisionConfigVC.xib; sourceTree = "<group>"; };
 		C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDCustomizeThemeViewController.h; sourceTree = "<group>"; };
 		C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDCustomizeThemeViewController.m; sourceTree = "<group>"; };
 		C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCustomizeThemeViewController.xib; sourceTree = "<group>"; };
@@ -656,6 +661,9 @@
 				C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */,
 				C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */,
 				C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */,
+				C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */,
+				C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */,
+				C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -840,6 +848,7 @@
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */,
+				C13A61571DC093F100A28CA9 /* ECDDecisionConfigVC.xib in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
 				C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
@@ -886,6 +895,7 @@
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,
+				C13A61561DC093F100A28CA9 /* ECDDecisionConfigVC.m in Sources */,
 				03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */,
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,

@@ -136,6 +136,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 // Incremented each time an agent sends a message.
 @property (assign, nonatomic) NSUInteger agentInteractionCount;
+     
+@property (strong, nonatomic) ECSCachingImageView *tempImageView;
 
 @end
 
@@ -686,6 +688,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
              
              if(error)
              {
+                  NSLog(@"Error sending chat state message: %@", error);
                   //  12-oct-2016 - Chat state error will affect SDK.
 //                 [self showAlertForError:error fromFunction:@"sendChatState"];
 //                 [self showReconnectInChat];
@@ -737,8 +740,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if(error)
          {
-             [self showAlertForError:error fromFunction:@"sendText"];
-             [self showReconnectInChat];
+             NSLog(@"Error sending chat message: %@", error);
+//             [self showAlertForError:error fromFunction:@"sendText"];
+//             [self showReconnectInChat];
          }
      }];
     
@@ -770,8 +774,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if(error)
          {
-             [self showAlertForError:error fromFunction:@"sendSystemText"];
-             [self showReconnectInChat];
+            NSLog(@"Error sending chat system message: %@", error);
+//             [self showAlertForError:error fromFunction:@"sendSystemText"];
+//             [self showReconnectInChat];
          }
      }];
     
@@ -855,8 +860,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
               {
                   if(error)
                   {
-                      [self showReconnectInChat];
-                      [self showAlertForError:error fromFunction:@"sendMedia"];
+                       NSLog(@"Error sending chat media message: %@", error);
+//                      [self showReconnectInChat];
+//                      [self showAlertForError:error fromFunction:@"sendMedia"];
                   }
               }];
          }
@@ -1166,8 +1172,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     else
     {
         
-        [self showAlertForError:nil fromFunction:@"chatClientDisconnected"];
-        [self showReconnectInChat];
+//        [self showAlertForError:nil fromFunction:@"chatClientDisconnected"];
+//        [self showReconnectInChat];
     }
 }
 
@@ -1459,8 +1465,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
          if(error)
          {
              NSLog(@"Error sending chat notification message: %@", error);
-             [self showReconnectInChat];
-             [self showAlertForError:error fromFunction:@"sendFormNotification"];
+//             [self showReconnectInChat];
+//             [self showAlertForError:error fromFunction:@"sendFormNotification"];
          }
      }];
     
@@ -2043,24 +2049,45 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             
         }
         else
-        {
-            UIImage *thumbnail = nil;
-            
-            if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
-            {
-                thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
-            }
-            
-            CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
-            if (thumbnail)
-            {
-                height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
-            }
-            else
-            {
-                height = (CGRectGetWidth(self.tableView.frame) * 0.5);
-            }
-        }
+         {
+              UIImage *thumbnail = nil;
+              
+              if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
+              {
+                   thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
+              }
+              
+              if ([chatMessage isKindOfClass:[ECSChatNotificationMessage class]])
+              {
+                   NSString *fileName = ((ECSChatNotificationMessage *)chatMessage).objectData;
+                   
+                   ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+                   NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
+                   
+                   self.tempImageView = [[ECSCachingImageView alloc] init];
+                   
+                   [self.tempImageView setImageWithRequest:request];
+                   
+              }
+              
+              CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
+              if (thumbnail)
+              {
+                   height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
+              }
+              else
+              {
+                   height = (CGRectGetWidth(self.tableView.frame) * 0.5);
+              }
+              if (thumbnail && thumbnail.size.height < maxWidth) {
+                   
+                   height = thumbnail.size.height;
+              }
+              if ([chatMessage isKindOfClass:[ECSChatNotificationMessage class]] && self.tempImageView.image.size.height < maxWidth) {
+                   
+                   height = self.tempImageView.image.size.height;
+              }
+         }
     }
     else if ([chatMessage isKindOfClass:[ECSChatAddChannelMessage class]])
     {
