@@ -8,6 +8,8 @@
 
 #import "ECDJourneyConfigVC.h"
 #import "ECDLocalization.h"
+#import <AirshipKit/AirshipKit.h>
+#import <AirshipKit/UAPush.h>
 
 @interface ECDJourneyConfigVC ()
 
@@ -63,7 +65,7 @@
     
     self.lblJourneyInfo.text = @"Requesting a journey from server...";
     [[EXPERTconnect shared] startJourneyWithName:self.txtJourneyName.text
-                              pushNotificationId:nil
+                              pushNotificationId:[EXPERTconnect shared].pushNotificationID
                                          context:self.txtJourneyContext.text
                                       completion:^(NSString *journeyId, NSError *error)
     {

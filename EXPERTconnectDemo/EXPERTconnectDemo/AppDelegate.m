@@ -168,7 +168,14 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Updates the device token and registers the token with UA. This won't occur until
     // push is enabled if the outlined process is followed. This call is required.
     [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
-    [EXPERTconnect shared].pushNotificationID = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    
+    NSString * deviceTokenString = [[[[deviceToken description]
+                                      stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                     stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                    stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    NSLog(@"The generated device token string is : %@",deviceTokenString);
+    [EXPERTconnect shared].pushNotificationID = deviceTokenString;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

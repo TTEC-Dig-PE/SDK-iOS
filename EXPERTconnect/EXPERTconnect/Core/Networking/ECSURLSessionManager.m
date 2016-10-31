@@ -948,7 +948,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     //ECSKeychainSupport *support = [ECSKeychainSupport new];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
+    if(self.pushNotificationID) parameters[@"pushNotificationId"] = self.pushNotificationID;
     
     return [self POST:@"journeymanager/v1"
     //return [self POST:@"conversationengine/v1/journeys"
