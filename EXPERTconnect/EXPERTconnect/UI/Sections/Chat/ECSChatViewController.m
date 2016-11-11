@@ -713,21 +713,21 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     if(theme.showChatTimeStamp  == YES)
     {
-        if(![timeStamp isEqualToString:[[EXPERTconnect shared] lastTimeStamp]])
+        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp])
         {
             message.timeStamp = timeStamp;
         }
         else{
-            if ([EXPERTconnect shared].lastChatMessageFromAgent == YES) {
+            if (self.chatClient.lastChatMessageFromAgent == YES) {
                 message.timeStamp = timeStamp;
             }
         }
-        [EXPERTconnect shared].lastTimeStamp = timeStamp;
+        self.chatClient.lastTimeStamp = timeStamp;
     }
 	 	 
     [self.messages addObject:message];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
+    self.chatClient.lastChatMessageFromAgent = NO;
     // [self sendChatState:@"paused"];
     
     //[self.chatClient sendChatMessage:message];
@@ -814,7 +814,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     [self.messages addObject:message];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
+    self.chatClient.lastChatMessageFromAgent = NO;
     
     NSIndexPath *insertIndexPath = [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
     
@@ -944,7 +944,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         self.agentInteractionCount += 1;
         [self pollForPostSurvey];
-        [EXPERTconnect shared].lastChatMessageFromAgent = YES;
+        self.chatClient.lastChatMessageFromAgent = YES;
     }
     
     // Replace the typing (...) with the message if it is still at the end of the array of messages.
@@ -1033,7 +1033,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     [self.messages addObject:notificationMessage];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = YES;
+    self.chatClient.lastChatMessageFromAgent = YES;
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];

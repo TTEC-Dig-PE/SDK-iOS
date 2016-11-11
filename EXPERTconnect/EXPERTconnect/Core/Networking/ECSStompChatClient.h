@@ -131,6 +131,9 @@
 
 @property (strong, nonatomic) NSString *fromUsername;
 
+@property (copy, nonatomic) NSString *lastTimeStamp;
+@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
+
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through
  the delegate callbacks.

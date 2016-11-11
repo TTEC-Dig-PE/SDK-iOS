@@ -343,7 +343,7 @@ NSTimer *breadcrumbTimer;
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
-    chatAction.journeybegin = [NSNumber numberWithInt:1];
+    //chatAction.journeybegin = [NSNumber numberWithInt:1];
     
     if (channelOptions) {
         chatAction.channelOptions = [NSDictionary dictionaryWithDictionary:channelOptions];
@@ -423,7 +423,7 @@ NSTimer *breadcrumbTimer;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    //answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -443,7 +443,7 @@ NSTimer *breadcrumbTimer;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    //answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";

@@ -687,7 +687,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:1011]);
         return nil; 
     }
-    if ([actionType.journeybegin boolValue] || alwaysCreate)
+    //if ([actionType.journeybegin boolValue] || alwaysCreate)
+    if( alwaysCreate ) 
     {
         if ([actionType.journeybegin boolValue] && self.conversation)
         {
@@ -1720,19 +1721,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                                             error:error];
     return request;
 }
-
-/*- (NSString *) getJourneyID {
-    
-    if ([EXPERTconnect shared].journeyID && [EXPERTconnect shared].journeyID.length > 0)
-    {
-        return [EXPERTconnect shared].journeyID;
-    }
-    else if (self.conversation && self.conversation.journeyID.length > 0)
-    {
-        return self.conversation.journeyID;
-    }
-    return @"-1";
-}*/
 
 - (NSString *) getConversationID {
     
