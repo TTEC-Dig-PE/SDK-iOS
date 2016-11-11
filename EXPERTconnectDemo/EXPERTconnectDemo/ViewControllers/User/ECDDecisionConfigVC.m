@@ -33,7 +33,7 @@
      self.requestDecisionLabel.text = ECDLocalizedString(ECDLocalizedRequestDecisionLabel, @"Request Decision Data:");
      self.responseDecisionLabel.text = ECDLocalizedString(ECDLocalizedResponseDecisionLabel, @"Response Decision Data:");
      
-     self.decisionDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"determineRule",@"eventId",@"mktwebextc",@"clientRequestId",@"EN",@"userLanguage",@"US",@"userCountry",@"current local page",@"function",@"henry",@"name",@"My Vehicles",@"service",@"horizon",@"ceTenant", nil];
+     self.decisionDictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"sce1_ops",@"tenantId",@"HuSimple",@"projectServiceName",@"validateDE",@"eventId",@"hello world",@"inputString", nil];
      self.requestDecisionTextView.text = [NSString stringWithFormat:@"%@",self.decisionDictionary];
 
      [self.postCosumerDataButton setTitle:ECDLocalizedString(ECDLocalizedPostConsumerButtonLabel, @"Post Consumer Data") forState:UIControlStateNormal];
