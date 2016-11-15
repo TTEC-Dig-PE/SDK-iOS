@@ -1824,7 +1824,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         ECSChatActionTableViewCell *actionCell = [self.tableView dequeueReusableCellWithIdentifier:ActionCellID
                                                                                       forIndexPath:indexPath];
-        [self configureCallbackCell:actionCell withMessage:message];
+         
+        [self configureCallbackCell:actionCell withMessage:message atIndexPath:(NSIndexPath*)indexPath];
+
         cell = actionCell;
     }
     
@@ -2091,7 +2093,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
     else if ([chatMessage isKindOfClass:[ECSChatAddChannelMessage class]])
     {
-        [self configureCallbackCell:actionCell withMessage:(ECSChatAddChannelMessage*)chatMessage];
+        [self configureCallbackCell:actionCell withMessage:(ECSChatAddChannelMessage*)chatMessage atIndexPath:indexPath];
         height = [self calculateHeightForConfiguredSizingCell:actionCell];
     }
     
@@ -2349,6 +2351,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)configureCallbackCell:(ECSChatActionTableViewCell*)cell
                   withMessage:(ECSChatAddChannelMessage*)message
+                  atIndexPath:(NSIndexPath*)indexPath
 {
     if ([message.mediaType isEqualToString:@"voice"])
     {
@@ -2360,6 +2363,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         cell.messageLabel.text = ECSLocalizedString(ECSLocalizeRequestASMS, nil);
         cell.actionCellType = ECSChatActionCellTypeTextback;
     }
+    [self configureCellAvatarImage:cell from:message.from fromAgent:message.fromAgent atIndexPath:indexPath];
     [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
