@@ -769,7 +769,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                      };*/
     }
     
-    return [self POST:@"conversationengine/v1/conversations"
+    return [self POST:@"conversationengine/anonymous/v1/conversations"
            parameters:parameters
               success:[self successWithExpectedType:[ECSConversationCreateResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -782,7 +782,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = [ECSJSONSerializer jsonDictionaryFromObject:channelConfig];
     
-    // conversationengine/v1/conversations/%@/channels
+    // conversationengine/anonymous/v1/conversations/%@/channels
     return [self POST:conversation
            parameters:parameters
               success:[self successWithExpectedType:[ECSChannelCreateResponse class] completion:completion]
@@ -819,7 +819,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                    actionId:(NSString*)actionId
                                                  completion:(void (^)(NSArray* result, NSError* error))completion
 {
-    NSString *endChatActionsURL = [NSString stringWithFormat:@"conversationengine/v1/conversations/%@/actions", conversationId];
+    NSString *endChatActionsURL = [NSString stringWithFormat:@"conversationengine/anonymous/v1/conversations/%@/actions", conversationId];
     NSDictionary *parameters = nil;
 
     parameters = @{
@@ -859,7 +859,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
     
-    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/anonymous/v1/channels/%@/messages", channelString]
           parameters:parameters
              success:[self successWithExpectedType:[NSString class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -872,7 +872,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"state": theChatState, @"duration": [NSString stringWithFormat:@"%d", theDuration] };
     
-    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/anonymous/v1/channels/%@/chatState", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -891,7 +891,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                   @"channelId": theChannel,
                                   @"conversationId": convoIdString};
     
-    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel]
+    return [self POST:[NSString stringWithFormat:@"conversationengine/anonymous/v1/channels/%@/notifications", theChannel]
            parameters:parameters
               success:[self successWithExpectedType:[NSString class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -903,7 +903,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForChannelId:(NSString *)channelString
                                      completion:(void(^)(ECSChannelConfiguration *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/channels/%@", channelString]
+    return [self GET:[NSString stringWithFormat:@"conversationengine/anonymous/v1/channels/%@", channelString]
            parameters:nil
               success:[self successWithExpectedType:[ECSChannelConfiguration class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -926,7 +926,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
     
-    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/skills/%@", skill]
+    return [self GET:[NSString stringWithFormat:@"conversationengine/anonymous/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
              failure:[self failureWithCompletion:completion]];
@@ -952,7 +952,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(self.pushNotificationID) parameters[@"pushNotificationId"] = self.pushNotificationID;
     
     return [self POST:@"journeymanager/v1"
-    //return [self POST:@"conversationengine/v1/journeys"
+    //return [self POST:@"conversationengine/anonymous/v1/journeys"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -1640,6 +1640,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         //if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
         //{
             authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
+            // authValue = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U";
         //}
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     }
@@ -1716,6 +1717,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:url];
     [mutableRequest setHTTPMethod:method];
     [self setCommonHTTPHeadersForRequest:mutableRequest];
+    
+    NSString *nsurl = url.absoluteString;
+    
+    if( [nsurl containsString:@"anonymous" ] )   {
+        NSString *authValue = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U";
+        [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+    }
+    
     NSURLRequest *request = [[self requestSerializer] requestBySerializingRequest:mutableRequest
                                                                        parameters:parameters
                                                                             error:error];

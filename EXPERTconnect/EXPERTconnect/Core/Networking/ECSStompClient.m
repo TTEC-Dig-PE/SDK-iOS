@@ -107,6 +107,7 @@ int         _clientHeartbeatsMissed;
     if(self.authToken)
     {
         NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
+        // queryString = [NSString stringWithFormat:@"access_token=%@", @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U"];
         NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
                                [self.hostURL query] ? @"&" : @"?", queryString];
         
