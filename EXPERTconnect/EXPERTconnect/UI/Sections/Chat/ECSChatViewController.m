@@ -65,6 +65,7 @@
 #import "ECSEndChatSurveyView.h"
 #import "ECSRootViewController+Navigation.h"
 #import "ECSCafeXController.h"
+#import "UIImage+ECSBundle.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -2051,45 +2052,25 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             
         }
         else
-         {
-              UIImage *thumbnail = nil;
-              
-              if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
-              {
-                   thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
-              }
-              
-              if ([chatMessage isKindOfClass:[ECSChatNotificationMessage class]])
-              {
-                   NSString *fileName = ((ECSChatNotificationMessage *)chatMessage).objectData;
-                   
-                   ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-                   NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
-                   
-                   self.tempImageView = [[ECSCachingImageView alloc] init];
-                   
-                   [self.tempImageView setImageWithRequest:request];
-                   
-              }
-              
-              CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
-              if (thumbnail)
-              {
-                   height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
-              }
-              else
-              {
-                   height = (CGRectGetWidth(self.tableView.frame) * 0.5);
-              }
-              if (thumbnail && thumbnail.size.height < maxWidth) {
-                   
-                   height = thumbnail.size.height;
-              }
-              if ([chatMessage isKindOfClass:[ECSChatNotificationMessage class]] && self.tempImageView.image.size.height < maxWidth) {
-                   
-                   height = self.tempImageView.image.size.height;
-              }
-         }
+        {
+             //              UIImage *thumbnail = nil;
+             //
+             //              if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
+             //              {
+             //                   thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
+             //              }
+             
+             //
+             //              CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
+             //              if (thumbnail)
+             //              {
+             //                   height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
+             //              }
+             //              else
+             //              {
+             height = 160.0f;
+             //              }
+        }
     }
     else if ([chatMessage isKindOfClass:[ECSChatAddChannelMessage class]])
     {
@@ -2281,6 +2262,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
         ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
+         cell.messageImageView.image = [UIImage ecs_bundledImageNamed:@"expertconnect_chat_loading"];
         [cell.messageImageView setImageWithRequest:request];
         
         cell.showPlayIcon = NO;
