@@ -107,7 +107,7 @@ int         _clientHeartbeatsMissed;
     if(self.authToken)
     {
         NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
-        // queryString = [NSString stringWithFormat:@"access_token=%@", @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U"];
+        // queryString = [NSString stringWithFormat:@"access_token=%@", @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw=="];   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
         NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
                                [self.hostURL query] ? @"&" : @"?", queryString];
         
@@ -175,6 +175,7 @@ int         _clientHeartbeatsMissed;
     if(authToken)
     {
         headers[@"x-humanify-auth"] = authToken;
+        headers[@"x-humanify-anonymous"] = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw==";   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
     }
     
     self.subscribers[subscriptionID] = subscriber;
@@ -257,6 +258,7 @@ int         _clientHeartbeatsMissed;
     if(authToken)
     {
         headers[@"x-humanify-auth"] = authToken;
+        headers[@"x-humanify-anonymous"] = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw==";   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
     }
     
     if (additionalHeaders)
