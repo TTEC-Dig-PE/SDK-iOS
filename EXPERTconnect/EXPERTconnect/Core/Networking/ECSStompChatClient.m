@@ -274,7 +274,15 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     
     // Use secure STOMP (wss) if the host is using HTTPS
     NSString *stompProtocol = ([host containsString:@"https"] ? @"wss" : @"ws");
-    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    
+    // [Paas-1036] - Anonymous endpoint, need some NginX config to use api.dce1.humanify.com hostName
+    //
+    //
+    stompProtocol = @"ws";
+    hostName = @"10.12.13.137:8080";
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/anonymous", stompProtocol, hostName];
+    // NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
+    
     self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
 }

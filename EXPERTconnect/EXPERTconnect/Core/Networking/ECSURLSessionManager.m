@@ -1721,6 +1721,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSString *nsurl = url.absoluteString;
     
     if( [nsurl containsString:@"anonymous" ] )   {
+        // [Paas-1036] - Hack: Use the Api Key for Authhorization, exclude the UST for /anonymous requests
+        //
         NSString *authValue = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw==";   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     }

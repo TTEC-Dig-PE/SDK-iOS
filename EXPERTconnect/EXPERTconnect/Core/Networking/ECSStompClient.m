@@ -107,16 +107,18 @@ int         _clientHeartbeatsMissed;
     if(self.authToken)
     {
         NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
-        // queryString = [NSString stringWithFormat:@"access_token=%@", @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw=="];   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
+        
+        // [Paas-1036] access_token is for OAuth protected access only!
+        //
+        queryString = [NSString stringWithFormat:@"ignored_token=%@", @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw=="];   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
+        
         NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
                                [self.hostURL query] ? @"&" : @"?", queryString];
-        
-        
         
         url = [NSURL URLWithString:URLString];
     }
     
-    ECSLogVerbose(@"StompClient::connectToHost: Connecting to %@...", self.hostURL);
+    ECSLogVerbose(@"StompClient::connectToHost: Connecting to %@...", url);
     
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
@@ -174,7 +176,9 @@ int         _clientHeartbeatsMissed;
     headers[@"persistent"] = @"true";
     if(authToken)
     {
-        headers[@"x-humanify-auth"] = authToken;
+        // [Paas-1036] - include Api Key for StompInboundInterceptor. exclude the UST
+        //
+        // headers[@"x-humanify-auth"] = authToken;
         headers[@"x-humanify-anonymous"] = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw==";   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
     }
     
@@ -257,7 +261,9 @@ int         _clientHeartbeatsMissed;
     }
     if(authToken)
     {
-        headers[@"x-humanify-auth"] = authToken;
+        // [Paas-1036] - include Api Key for StompInboundInterceptor. exclude the UST
+        //
+        // headers[@"x-humanify-auth"] = authToken;
         headers[@"x-humanify-anonymous"] = @"ZmU1MzEzMmU1MmI0NDNlNWIxOWQzMTQyYmY2MzBiY2U6bWt0d2ViZXh0Yw==";   // Api Key: fe53132e52b443e5b19d3142bf630bce:mktwebextc
     }
     
