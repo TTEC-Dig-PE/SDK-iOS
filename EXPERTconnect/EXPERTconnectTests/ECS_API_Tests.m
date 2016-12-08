@@ -326,7 +326,7 @@
                                          forContext:nil
                                      withCompletion:^(NSArray *answers, NSError *error)
          {
-             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Input parameter 'context' must be populated."],
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Input parameter 'context' required."],
                        @"Expected bad request.");
              XCTAssert(error.code==1003,@"Expected SDK error 1003");
              XCTAssert(error, @"Expected an error");
@@ -821,7 +821,7 @@
          {
              XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'formName'."],
                        @"Expected error not thrown.");
-             XCTAssert(error.code==1007, @"Expected error code not thrown.");
+             XCTAssert(error.code==1008, @"Expected error code not thrown.");
              XCTAssert(error, @"Expected an error");
              
              [expectation fulfill];
@@ -1221,7 +1221,7 @@
      chatAction.agentSkill = @"CE_Mobile_Chat";
      chatAction.displayName = @"Test screen";
      chatAction.shouldTakeSurvey = NO;
-     chatAction.journeybegin = [NSNumber numberWithInt:1];
+     //chatAction.journeybegin = [NSNumber numberWithInt:1];
      
      
      ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
@@ -1245,6 +1245,7 @@
                                andAlwaysCreate:YES
                                 withCompletion:^(ECSConversationCreateResponse *response, NSError *error)
             {
+                // MAS - This may fail if your test device is iOS10. Requires the workaround to include a "capability".
                  XCTAssert(response.journeyID.length>0,@"Response contains a journeyID");
                  XCTAssert(response.conversationID.length>0,@"Response has a conversationID");
                  XCTAssert(response.channelLink.length>0,@"Response has a channelLink");

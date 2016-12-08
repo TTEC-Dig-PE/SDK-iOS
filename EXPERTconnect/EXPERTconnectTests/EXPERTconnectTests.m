@@ -46,7 +46,7 @@
     _testAuthURL = [[NSURL alloc] initWithString:
                     [NSString stringWithFormat:@"%@/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                         configuration.host,
-                        @"expertconnect_unit_test",
+                        @"ios@unittesting.com",
                         _testTenant]];
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
@@ -194,7 +194,7 @@
 - (void)testGetDetailsForExpertSkill {
      
      [self initSDK];
-     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
+     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForExpertSkill"];
      
      NSString *skillName = @"CE_Mobile_Chat";
      

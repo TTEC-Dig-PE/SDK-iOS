@@ -328,35 +328,6 @@ bool _chatActive;
      }];
 }
 
-/*-(void)getAgentsAvailableForSkill:(int)index
-{
-    [[EXPERTconnect shared] getDetailsForSkill:[chatSkillsArray objectAtIndex:index]
-                                    completion:^(NSDictionary *details, NSError *error)
-     {
-         NSMutableString *labelText = [[NSMutableString alloc] initWithString:@""];
-         if(!error)
-         {
-             if(details[@"agentsLoggedOn"] && [details[@"agentsLoggedOn"] intValue] > 0)
-             {
-                 [labelText appendString:[NSString stringWithFormat:@"Estimated wait: %@ seconds.", details[@"estimatedWait"]]];
-                 //[self.btnStartChat setEnabled:YES];
-             }
-             else
-             {
-                 // No agents available.
-                 //[self.btnStartChat setEnabled:NO];
-             }
-             [labelText appendString:[NSString stringWithFormat:@"%@ agents logged on. %@ in queue now. Open? %@.",
-                                                 details[@"agentsLoggedOn"],
-                                                 details[@"inQueue"],
-                                                 (details[@"open"] ? @"Open" : @"Closed")]];
-         } else {
-             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
-         }
-         [self.lblAgentAvailability setText:labelText];
-     }];
-}*/
-
 -(BOOL)addChatSkillsFromServer {
     
     NSArray *environmentConfig = [[NSUserDefaults standardUserDefaults] objectForKey:@"environmentConfig"];

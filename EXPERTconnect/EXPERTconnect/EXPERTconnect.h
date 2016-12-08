@@ -360,16 +360,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
            viewController:(UIViewController *)viewController;
 
 
-/**
- Get details for a skill - such as agent availability, etc.
- */
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion
-__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
-
-- (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion
-__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
+//- (void) agentAvailabilityWithSkill:(NSString *)skill
+//                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+//__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
+//
+//- (void) getDetailsForSkill:(NSString *)skill
+//                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+//__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 
 /**
  Get details for a skill - such as agent availability, etc.

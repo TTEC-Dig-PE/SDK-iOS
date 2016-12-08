@@ -423,16 +423,9 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 
 #pragma mark Agent Availability
 
-/**
- Get details for a set of call or chat skills
- 
- @param skills Array of skill values to return data for
- @param completion Completion block
- 
- @return (completion block) ECSAgentAvailableResponse object
- */
-- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
+// MAS - Old deprecated functions. 
+//- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills completion:(void(^)(NSDictionary *response, NSError *error))completion;
+//- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 /**
  Get details for a particular call or chat skill
@@ -442,11 +435,19 @@ __attribute__((deprecated("This function will be removed in a later release.")))
  
  @return (completion block) ECSAgentAvailableResponse object
  */
-- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
-                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
-
 - (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+/**
+ Get details for a particular call or chat skill
+ 
+ @param skills Skill name to return data for (ex. "calls_for_mike")
+ @param completion Completion block
+ 
+ @return (completion block) ECSAgentAvailableResponse object
+ */
+- (NSURLSessionDataTask*)getDetailsForExpertSkills:(NSArray *)skills
+                                       completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 #pragma mark Journey Management
 

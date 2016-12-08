@@ -690,7 +690,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     //if ([actionType.journeybegin boolValue] || alwaysCreate)
     if( alwaysCreate ) 
     {
-        if ([actionType.journeybegin boolValue] && self.conversation)
+        //if ([actionType.journeybegin boolValue] && self.conversation)
+        if( self.conversation )
         {
             self.conversation = nil;
         }
@@ -911,26 +912,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 
 # pragma mark Utility Functions
-// Unit Test: none
-- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
-    NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
-    
-    return [self GET:@"experts/v1/skills"
-           parameters:parameters
-              success:[self successWithExpectedType:[NSDictionary class] completion:completion]
-              failure:[self failureWithCompletion:completion]];
-}
+
 
 // Unit Test: ECS_API_Tests::testGetDetailsForSkill
-- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
-                                 completion:(void(^)(NSDictionary *response, NSError *error))completion {
-    
-    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/skills/%@", skill]
-          parameters:nil
-             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
-             failure:[self failureWithCompletion:completion]];
-}
+//- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
+//                                 completion:(void(^)(NSDictionary *response, NSError *error))completion {
+//    
+//    return [self GET:[NSString stringWithFormat:@"conversationengine/v1/skills/%@", skill]
+//          parameters:nil
+//             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
+//             failure:[self failureWithCompletion:completion]];
+//}
 
 // Unit Test: ECS_API_Tests::testGetDetailsForExpertSkill
 - (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
@@ -939,6 +931,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self GET:[NSString stringWithFormat:@"experts/v1/skills/%@", skill]
           parameters:nil
              success:[self successWithExpectedType:[NSArray class] completion:completion]
+             failure:[self failureWithCompletion:completion]];
+}
+
+- (NSURLSessionDataTask*)getDetailsForExpertSkills:(NSArray *)skills
+                                  completion:(void(^)(NSDictionary *response, NSError *error))completion {
+    
+    NSDictionary *parameters = @{ @"filter": [skills componentsJoinedByString:@","] };
+    
+    return [self GET:@"experts/v1/skills"
+          parameters:parameters
+             success:[self successWithExpectedType:[NSDictionary class] completion:completion]
              failure:[self failureWithCompletion:completion]];
 }
 
@@ -1123,7 +1126,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask*)getChatHistoryDetailsForJourneyId:(NSString*)journeyId
                                             withCompletion:(void (^)(ECSChatHistoryResponse *response, NSError* error))completion
 {
-    NSAssert(journeyId, @"Missing required parameter JourneyId"); 
+    //NSAssert(journeyId, @"Missing required parameter JourneyId");
     NSString *path = @"conversationhistory/v2";
     return [self GET:path
           parameters:@{
@@ -1147,6 +1150,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     return nil;
 }
+-(void)replaceJourneyIfFound:(NSDictionary *)responseDict
+{
+    if( responseDict && responseDict[@"journeyId"])
+    {
+        NSString *newJourneyId = responseDict[@"journeyId"];
+        if( ![newJourneyId isKindOfClass:[NSNull class]]  && newJourneyId.length > 8)
+        {
+            self.journeyID = responseDict[@"journeyId"];
+        }
+    }
+}
 
 - (void (^)(id result, NSURLResponse *response))successWithExpectedType:(Class)aClass
                                                              completion:(void (^)(id resultObject, NSError *error))completion
@@ -1168,12 +1182,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                         id resultObject = [ECSJSONSerializer objectFromJSONDictionary:result
                                                                             withClass:aClass];
                         
+                        [self replaceJourneyIfFound:result]; // If a journeyID was found, update our stored value. 
                         completion(resultObject, nil);
                     }
                     else {
                         // Simple JSON NSDictionary
                         //
                         id resultObject = result;
+                        [self replaceJourneyIfFound:result]; // If a journeyID was found, update our stored value. 
                         completion(resultObject, nil);
                     }
                     
