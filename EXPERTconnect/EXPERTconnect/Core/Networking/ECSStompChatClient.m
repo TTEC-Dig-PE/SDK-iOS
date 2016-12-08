@@ -278,9 +278,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     // [Paas-1036] - Anonymous endpoint, need some NginX config to use api.dce1.humanify.com hostName
     //
     //
-    stompProtocol = @"ws";
-    hostName = @"10.12.13.137:8080";
-    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/anonymous", stompProtocol, hostName];
+    // stompProtocol = @"ws";
+    // hostName = @"10.12.13.137:8080";
+    NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/anonymous/async", stompProtocol, hostName];
     // NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
     
     self.stompClient.authToken = sessionManager.authToken;
