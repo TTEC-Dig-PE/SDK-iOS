@@ -84,6 +84,10 @@ bool _chatActive;
      [self.btnEndChat setTitle:ECDLocalizedString(ECDLocalizedEndChatLabel, @"End Chat") forState:UIControlStateNormal];
     
     [self.btnEndChat setEnabled:NO];
+    
+    [self.txtHMargin setText:[NSString stringWithFormat:@"%ld",(long)[EXPERTconnect shared].theme.chatBubbleHorizMargins]];
+    [self.txtVMargin setText:[NSString stringWithFormat:@"%ld",(long)[EXPERTconnect shared].theme.chatBubbleVertMargins]];
+    [self.txtCornerRadius setText:[NSString stringWithFormat:@"%ld",(long)[EXPERTconnect shared].theme.chatBubbleCornerRadius]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -128,6 +132,10 @@ bool _chatActive;
     [EXPERTconnect shared].theme.showChatTimeStamp = self.optTimestamp.on;
     [EXPERTconnect shared].theme.showChatImageUploadButton = self.optImageUploadButton.on;
     [EXPERTconnect shared].theme.chatSendButtonUseImage = self.optSendButtonImage.on;
+    
+    [EXPERTconnect shared].theme.chatBubbleHorizMargins = [self.txtHMargin.text intValue];
+    [EXPERTconnect shared].theme.chatBubbleVertMargins = [self.txtVMargin.text intValue];
+    [EXPERTconnect shared].theme.chatBubbleCornerRadius = [self.txtCornerRadius.text intValue];
     
     // Create the chat view
     if( !self.chatController || !_chatActive )

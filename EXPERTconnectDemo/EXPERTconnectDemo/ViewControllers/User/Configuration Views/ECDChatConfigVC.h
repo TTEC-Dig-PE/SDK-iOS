@@ -35,6 +35,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *useImageForSendButtonLabel;
 @property (weak, nonatomic) IBOutlet UILabel *showImageUploadButtonLabel;
 
+// Bubble Configuration
+@property (weak, nonatomic) IBOutlet UITextField *txtHMargin;
+@property (weak, nonatomic) IBOutlet UITextField *txtVMargin;
+@property (weak, nonatomic) IBOutlet UITextField *txtCornerRadius;
+
 - (IBAction)btnStartChat_Touch:(id)sender;
 - (IBAction)btnEndChat_Touch:(id)sender;
 - (IBAction)optTimestamp_Change:(id)sender;
