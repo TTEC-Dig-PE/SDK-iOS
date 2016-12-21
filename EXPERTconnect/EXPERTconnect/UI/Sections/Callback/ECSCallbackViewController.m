@@ -198,14 +198,12 @@
         return;
     }
     
-    // We need a STOMP client set up to get notifications:
-    if (!self.chatClient)
-    {
-        self.callbackClient = [ECSStompCallbackClient new];
-        self.callbackClient.delegate = self;
-        self.callbackClient.currentConversation = conversation;
-        [self.callbackClient setupChatClientWithActionType:self.actionType];
-    }
+     // We need a STOMP client set up to get notifications:
+     
+     self.callbackClient = [ECSStompCallbackClient new];
+     self.callbackClient.delegate = self;
+     self.callbackClient.currentConversation = conversation;
+     [self.callbackClient setupChatClientWithActionType:self.actionType];
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChannelConfiguration *configuration = [ECSChannelConfiguration new];

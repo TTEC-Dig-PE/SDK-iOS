@@ -1665,7 +1665,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
-    [_callbackViewController setChatClient:_chatClient];
+//    [_callbackViewController setChatClient:_chatClient];
     
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
@@ -2105,10 +2105,18 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     cell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
     if (cell.background.showAvatar)
     {
-        if (!theFromAgent)
-        {
-            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if(userManager.userAvatar) [cell.background.avatarImageView setImage:userManager.userAvatar];
+         if (!theFromAgent)
+         {
+              ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+              if(userManager.userAvatar)
+              {
+                   [cell.background.avatarImageView setImage:userManager.userAvatar];
+              }
+              else
+              {
+                   ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+                   [cell.background.avatarImageView setImage:[imageCache imageForPath:@"ecs_img_avatar"]];
+              }
             ECSLogVerbose(@"Setting (user) avatar image for participant %@.", theFrom);
         } else {
             ECSChatAddParticipantMessage *participant = [self participantInfoForID:theFrom];
