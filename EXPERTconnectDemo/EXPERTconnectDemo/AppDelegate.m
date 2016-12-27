@@ -126,7 +126,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
             }
         }();
         
-        NSLog(@"[FOCUS SDK]: (%@): %@", levelString, message);
+        NSLog(@"[iOS SDK]: (%@): %@", levelString, message);
     }];
     
     [self setThemeFromSettings];
