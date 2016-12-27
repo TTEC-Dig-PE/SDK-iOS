@@ -19,7 +19,7 @@
 - (id)initWithDic : (NSDictionary *)dic;
 
 
-- (NSMutableDictionary *)getProperties;
+- (NSDictionary *)getProperties;
 
 - (void)setTenantId: (NSString *)tenantId;
 - (NSString *)getTenantId;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0810"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -58,6 +58,9 @@
                </Test>
                <Test
                   Identifier = "ECS_API_Tests/testSetJourneyContext">
+               </Test>
+               <Test
+                  Identifier = "ECS_API_Tests/testStartConversation">
                </Test>
                <Test
                   Identifier = "ECS_DceDev_Henry_Tests/testAstute">

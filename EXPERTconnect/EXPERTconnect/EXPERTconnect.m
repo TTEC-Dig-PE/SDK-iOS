@@ -1161,7 +1161,7 @@ NSTimer *breadcrumbTimer;
     [journeySession setBrowserType:@"NA"];
     [journeySession setBrowserVersion:@"NA"];
 
-    NSMutableDictionary *properties = [journeySession getProperties];
+    NSDictionary *properties = [journeySession getProperties];
     
     [sessionManager breadcrumbsSession:properties
                             completion:^(NSDictionary *decisionResponse, NSError *error)

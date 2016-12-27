@@ -14,11 +14,7 @@
 
 static NSString *const lastVoiceCallbackKey = @"lastVoiceCallbackKey";
 
-NSMutableArray *chatSkillsArray;
-NSString *currentEnvironment;
-NSString *currentChatSkill;
-int selectedRow;
-int rowToSelect;
+
 
 -(void)setup {
     

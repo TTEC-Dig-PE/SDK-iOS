@@ -346,19 +346,19 @@
 		2252C6A61A7BE9E200B99912 /* ECSForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6941A7BE9E100B99912 /* ECSForm.m */; };
 		2252C6A71A7BE9E200B99912 /* ECSFormItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6951A7BE9E100B99912 /* ECSFormItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6A81A7BE9E200B99912 /* ECSFormItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6961A7BE9E100B99912 /* ECSFormItem.m */; };
-		2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6971A7BE9E100B99912 /* ECSFormItemCheckbox.h */; };
+		2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6971A7BE9E100B99912 /* ECSFormItemCheckbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6AA1A7BE9E200B99912 /* ECSFormItemCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6981A7BE9E100B99912 /* ECSFormItemCheckbox.m */; };
 		2252C6AB1A7BE9E200B99912 /* ECSFormItemClassTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6991A7BE9E100B99912 /* ECSFormItemClassTransformer.h */; };
 		2252C6AC1A7BE9E200B99912 /* ECSFormItemClassTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C69A1A7BE9E100B99912 /* ECSFormItemClassTransformer.m */; };
-		2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69B1A7BE9E100B99912 /* ECSFormItemRadio.h */; };
+		2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69B1A7BE9E100B99912 /* ECSFormItemRadio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6AE1A7BE9E200B99912 /* ECSFormItemRadio.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C69C1A7BE9E100B99912 /* ECSFormItemRadio.m */; };
-		2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69D1A7BE9E100B99912 /* ECSFormItemRating.h */; };
+		2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69D1A7BE9E100B99912 /* ECSFormItemRating.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6B01A7BE9E200B99912 /* ECSFormItemRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C69E1A7BE9E100B99912 /* ECSFormItemRating.m */; };
-		2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69F1A7BE9E100B99912 /* ECSFormItemSlider.h */; };
+		2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C69F1A7BE9E100B99912 /* ECSFormItemSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6B21A7BE9E200B99912 /* ECSFormItemSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A01A7BE9E100B99912 /* ECSFormItemSlider.m */; };
-		2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A11A7BE9E100B99912 /* ECSFormItemText.h */; };
+		2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A11A7BE9E100B99912 /* ECSFormItemText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */; };
-		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; };
+		2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2252C6B61A7BE9E200B99912 /* ECSFormItemTextArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */; };
 		46064F061B7AAFB2004AF12B /* ECSUserProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 4679BD941B7A493D002E2D9E /* ECSUserProfile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		462C19211B7B88B000E230B7 /* ECSCustomDataClassTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */; };
@@ -1956,6 +1956,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
+				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
+				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
+				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
+				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
+				2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */,
+				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
@@ -2032,10 +2038,8 @@
 				03B3FA271A670CBC00D872B1 /* ECSRequestSerializer.h in Headers */,
 				033ACB311A602C9C0024F48F /* ECSNavigationContext.h in Headers */,
 				039E13131A8BF39300AD4927 /* ECSNotifications.h in Headers */,
-				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
-				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
 				C1E99D271BC7CBE7000EC129 /* ECSColorUtil.h in Headers */,
 				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
 				C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */,
@@ -2071,13 +2075,11 @@
 				2252C6A51A7BE9E200B99912 /* ECSForm.h in Headers */,
 				0342AFDB1A9B60950009959E /* ECSChatCellBackground.h in Headers */,
 				03C3102E1A9B5B39006B3557 /* ECSPreSurvey.h in Headers */,
-				2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */,
 				03F417921AAE0EA100248BF0 /* ECSChatLocationViewController.h in Headers */,
 				03BE8F231AE037EB00BEC8B5 /* ECSChatMediaMessage.h in Headers */,
 				0342B0431A9B60C10009959E /* ECSButtonTableViewCell.h in Headers */,
 				03AF24AB1A9B601E00407BE5 /* ECSBorderContainerView.h in Headers */,
 				C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */,
-				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
 				0342AFBA1A9B60840009959E /* ECSCallbackViewController.h in Headers */,
 				0342B04C1A9B60C10009959E /* ECSSectionHeader.h in Headers */,
 				4665F6FF1B7D1E6700C1FB67 /* ECSAnswerEngineTopQuestionsResponse.h in Headers */,
@@ -2120,7 +2122,6 @@
 				03B3FA2B1A670CDB00D872B1 /* ECSJSONRequestSerializer.h in Headers */,
 				91E63BF11B834EA30019F9EF /* ECSMappingReference.h in Headers */,
 				033ACB2C1A602C9C0024F48F /* ECSJSONSerializer.h in Headers */,
-				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
 				0342B0491A9B60C10009959E /* ECSListTableViewCell.h in Headers */,
 				030AF2161AF807E30056BFB0 /* ECSChatHistoryMessage.h in Headers */,
 				0342AFA81A9B60700009959E /* ECSTopQuestionsViewController.h in Headers */,
@@ -2128,7 +2129,6 @@
 				0342B0091A9B60AE0009959E /* ECSFormQuestionView.h in Headers */,
 				039CDFC51AD6EC2900F52600 /* ECSChatTextTableViewCell.h in Headers */,
 				C1E0E6231BC409230089C7E6 /* ECSCalendarTheme.h in Headers */,
-				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
 				468EBC621B837EE2008A0826 /* ECSRatingView.h in Headers */,
 				C49ABB9B1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h in Headers */,
 				464DE2B61B8779D300BED4B3 /* ECSHtmlMessageTableViewCell.h in Headers */,

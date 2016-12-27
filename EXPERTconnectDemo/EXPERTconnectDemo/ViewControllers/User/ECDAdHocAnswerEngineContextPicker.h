@@ -12,7 +12,11 @@
 
 #import "ECDUIPicker.h"
 
-@interface ECDAdHocAnswerEngineContextPicker : ECDUIPicker
+@interface ECDAdHocAnswerEngineContextPicker : ECDUIPicker {
+    NSMutableArray *contextsArray;
+    NSString *currentEnvironment;
+    NSString *currentContext;
+}
 
 -(void)setup;
 

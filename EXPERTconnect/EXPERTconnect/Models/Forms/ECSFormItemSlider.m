@@ -37,8 +37,11 @@
 
 - (BOOL)answered
 {
-    NSInteger value = [self.formValue integerValue];
-    return value >= [self.minValue integerValue] && value <= [self.maxValue integerValue];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    NSNumber *value = [f numberFromString:self.formValue];
+    //return value  >= self.minValue  && value <= self.maxValue;
+    return ([value compare:self.minValue] == NSOrderedDescending && [value compare:self.maxValue] == NSOrderedAscending);
 }
 
 @end

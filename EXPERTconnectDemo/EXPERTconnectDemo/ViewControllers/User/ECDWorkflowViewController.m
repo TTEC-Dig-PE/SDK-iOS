@@ -64,7 +64,6 @@ typedef NS_ENUM(NSInteger, WorkflowSurveyLeadsToBranchSectionRows)
 
 @implementation ECDWorkflowViewController
 
-NSString *currentEnvironment;
 static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (void)viewDidLoad {

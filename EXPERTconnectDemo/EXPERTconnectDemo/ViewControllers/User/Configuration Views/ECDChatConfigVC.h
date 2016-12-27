@@ -10,7 +10,14 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface ECDChatConfigVC : UIViewController
+@interface ECDChatConfigVC : UIViewController {
+    NSMutableArray *chatSkillsArray;
+    NSString *currentEnvironment;
+    NSString *currentChatSkill;
+    int selectedRow;
+    int rowToSelect;
+    bool _chatActive;
+}
 
 @property (strong, nonatomic) UIViewController *chatController;
 

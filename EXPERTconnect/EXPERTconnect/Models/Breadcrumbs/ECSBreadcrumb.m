@@ -77,7 +77,7 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     return self;
 }
 
-- (NSMutableDictionary *)getProperties {
+- (NSDictionary *)getProperties {
     
     return self.properties;
 }

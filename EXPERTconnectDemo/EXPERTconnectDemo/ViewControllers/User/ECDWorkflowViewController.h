@@ -10,6 +10,8 @@
 #import <EXPERTconnect/ECSRootViewController.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 
-@interface ECDWorkflowViewController : ECSRootViewController
+@interface ECDWorkflowViewController : ECSRootViewController {
+    NSString *currentEnvironment;
+}
 
 @end

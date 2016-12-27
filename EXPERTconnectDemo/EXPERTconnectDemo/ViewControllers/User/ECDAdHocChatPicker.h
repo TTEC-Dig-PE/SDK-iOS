@@ -12,7 +12,13 @@
 
 #import "ECDUIPicker.h"
 
-@interface ECDAdHocChatPicker : ECDUIPicker
+@interface ECDAdHocChatPicker : ECDUIPicker {
+    NSMutableArray *chatSkillsArray;
+    NSString *currentEnvironment;
+    NSString *currentChatSkill;
+    int selectedRow;
+    int rowToSelect;
+}
 
 -(void)setup;
 

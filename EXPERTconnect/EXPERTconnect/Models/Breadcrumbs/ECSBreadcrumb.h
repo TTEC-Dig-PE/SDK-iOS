@@ -34,7 +34,7 @@
                source:(NSString *)source
           destination:(NSString *)destination;
 
-- (NSMutableDictionary *)getProperties;
+- (NSDictionary *)getProperties;
 
 - (void)setActionId: (NSString *)actionId;
 - (NSString *)actionId;
