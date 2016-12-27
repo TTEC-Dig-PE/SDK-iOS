@@ -6,6 +6,7 @@
 //
 
 #import <EXPERTconnect/EXPERTconnect.h>
+@class ECSLog;
 
 #define SCREEN_SHARE_FRAME_HEIGHT            100
 
@@ -14,6 +15,8 @@
 // Setting history makes the view readonly and pulls the chat information from history.
 @property (strong, nonatomic) NSString *historyJourney;
 @property (assign, nonatomic) BOOL showingMoxtra;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 - (void)doGracefulEndChat;
 

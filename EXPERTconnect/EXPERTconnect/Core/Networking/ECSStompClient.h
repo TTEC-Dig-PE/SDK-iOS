@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 @class ECSStompClient;
+@class ECSLog;
 
 /**
  ECSStompFrame defines the basic frame structure for communicating over the STOMP protocol.
@@ -78,6 +79,8 @@
 @property (strong, nonatomic) NSString *authToken;
 
 @property (strong, nonatomic) NSTimer *heartbeatTimer;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 /**
  Connect to the specified STOMP host.  Upon successful connection the ECSStompDelegate will be sent 

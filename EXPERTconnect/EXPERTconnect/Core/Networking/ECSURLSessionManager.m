@@ -242,7 +242,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
                                          [authToken substringToIndex:4],
                                          [authToken substringFromIndex:authToken.length-4]];
-                ECSLogVerbose(@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
+                ECSLogVerbose(self.logger,@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
                 
                 completion(authToken, nil);
             }
@@ -255,9 +255,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 else
                 {
                     // wait 500ms and try again (up to 3 times)
-                    ECSLogVerbose(@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
+                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
                     [NSThread sleepForTimeInterval:0.5f];
-                    ECSLogVerbose(@"refreshIdentityDelegate - Done sleeping.");
+                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
                     [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
                 }
             }
@@ -363,7 +363,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSDictionary *parameters = nil;
     
-    ECSLogVerbose(@"%s - Getting top questions for search string: %@", __PRETTY_FUNCTION__, theKeyword);
+    ECSLogVerbose(self.logger,@"%s - Getting top questions for search string: %@", __PRETTY_FUNCTION__, theKeyword);
     
     // Do not allow empty keyword or search string less than 3 characters. 
     if (!theKeyword || [theKeyword length] < 3)
@@ -413,7 +413,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         [parameters setObject:[NSNull null] forKey:@"customData"];
     }
     
-    ECSLogVerbose(@"Get Answer with parameters %@", parameters);
+    ECSLogVerbose(self.logger,@"Get Answer with parameters %@", parameters);
     return [self POST:@"answerengine/v1/answers"
            parameters:parameters
               success:[self successWithExpectedType:[ECSAnswerEngineResponse class] completion:completion]
@@ -449,7 +449,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         [parameters setObject:[NSNull null] forKey:@"customData"];
     }
 
-    ECSLogVerbose(@"Get Answer with parameters %@", parameters);
+    ECSLogVerbose(self.logger,@"Get Answer with parameters %@", parameters);
     return [self POST:@"answerengine/v1/answers"
           parameters:parameters
              success:[self successWithExpectedType:[ECSAnswerEngineResponse class] completion:completion]
@@ -481,7 +481,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     parameters[@"min"] = [NSString stringWithFormat:@"%d", theMin];
     parameters[@"max"] = [NSString stringWithFormat:@"%d", theMax];
     
-    ECSLogVerbose(@"Rate answer with parameters %@", parameters);
+    ECSLogVerbose(self.logger,@"Rate answer with parameters %@", parameters);
     return [self PUT:[NSString stringWithFormat:@"answerengine/v1/answers/rate/%@", answerID]
            parameters:parameters
               success:[self successWithExpectedType:[ECSAnswerEngineRateResponse class] completion:completion]
@@ -492,7 +492,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetResponseFromEndpoint
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
 {
-    ECSLogVerbose(@"Get Results from a known endpoint");
+    ECSLogVerbose(self.logger,@"Get Results from a known endpoint");
     
     NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:[self.baseURL.path stringByAppendingString:endpoint]];
     
@@ -514,7 +514,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetUserProfile
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion
 {
-    ECSLogVerbose(@"Get User's Profile");
+    ECSLogVerbose(self.logger,@"Get User's Profile");
     
     return [self GET:@"registration/v1/profile"
           parameters:nil
@@ -564,7 +564,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetFormNames
 - (NSURLSessionDataTask *)getFormNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
-    ECSLogVerbose(@"Get form names");
+    ECSLogVerbose(self.logger,@"Get form names");
     return [self GET:@"forms/v1/"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
@@ -601,7 +601,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)submitForm:(ECSForm*)form
                           completion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
-    ECSLogVerbose(@"Submit form %@", [form inlineFormResponse]);
+    ECSLogVerbose(self.logger,@"Submit form %@", [form inlineFormResponse]);
     if(!form) {
         completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:1009]);
         return nil; 
@@ -629,7 +629,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     [formWithIntentAndNavContext setObject:@"intent" forKey:intent];
     [formWithIntentAndNavContext setObject:@"navigationContext" forKey:navigationContext];
 
-    ECSLogVerbose(@"Submit form %@", formWithIntentAndNavContext);
+    ECSLogVerbose(self.logger,@"Submit form %@", formWithIntentAndNavContext);
     
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
            parameters:formWithIntentAndNavContext
@@ -644,7 +644,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSDictionary *parameters = @{ @"username": username, @"password": password };
     
-    ECSLogVerbose(@"Login with parameters %@", parameters);
+    ECSLogVerbose(self.logger,@"Login with parameters %@", parameters);
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
@@ -665,7 +665,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSDictionary *parameters = @{ @"name": fullName, @"email": email, @"mobileNumber": mobileNumber };
     
-    ECSLogVerbose(@"Register with parameters %@", parameters);
+    ECSLogVerbose(self.logger,@"Register with parameters %@", parameters);
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         ECSUserManager* user = [ECSUserManager new];
@@ -706,7 +706,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 if (createResponse.conversationID && createResponse.conversationID.length > 0)
                 {
                     weakSelf.conversation = createResponse;
-                    ECSLogVerbose(@"New conversation started with ID=%@", createResponse.conversationID);
+                    ECSLogVerbose(self.logger,@"New conversation started with ID=%@", createResponse.conversationID);
                 }
                 
                 if (completion)
@@ -1017,7 +1017,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     NSString *path = @"utils/v1/media";
     
-    ECSLogVerbose(@"Upload file named %@", name);
+    ECSLogVerbose(self.logger,@"Upload file named %@", name);
     
     NSURL *url = [self URLByAppendingPathComponent:path];
 
@@ -1070,7 +1070,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSString *path = [NSString stringWithFormat:@"utils/v1/media/files"];
     
-    ECSLogVerbose(@"Upload file named %@", name);
+    ECSLogVerbose(self.logger,@"Upload file named %@", name);
     
     NSURL *url = [self URLByAppendingPathComponent:path];
     NSURLRequest *request = [self requestWithMethod:@"GET" URL:url parameters:@{@"name": name} error:nil];
@@ -1081,7 +1081,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // Unit Test: ECS_API_Tests::testGetMediaFileNames
 - (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
 {
-    ECSLogVerbose(@"Get Media File names");
+    ECSLogVerbose(self.logger,@"Get Media File names");
     return [self GET:@"utils/v1/media"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
@@ -1167,7 +1167,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     return ^(id result, NSURLResponse *response)
     {
-        ECSLogVerbose(@"API: Success with response %@ and object %@", response, result);
+        ECSLogVerbose(self.logger,@"API: Success with response %@ and object %@", response, result);
         
         if (completion)
         {
@@ -1239,7 +1239,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     return ^(id result, NSURLResponse *response, NSError *error) {
         
-        ECSLogVerbose(@"API: Request failure %@ with error %@ and object %@", response, error, result);
+        ECSLogVerbose(self.logger,@"API: Request failure %@ with error %@ and object %@", response, error, result);
         if (completion)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1302,7 +1302,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
     
-    ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    ECSLogVerbose(self.logger,@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
     
     //__weak typeof(self) weakSelf = self;
     
@@ -1327,7 +1327,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 200) &&
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
-            ECSLogVerbose(@"API Error %@", error);
+            ECSLogVerbose(self.logger,@"API Error %@", error);
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
             if ([result isKindOfClass:[NSDictionary class]])
@@ -1384,7 +1384,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
     
-    ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    ECSLogVerbose(self.logger,@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
 
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -1426,7 +1426,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
     
-    ECSLogVerbose(@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    ECSLogVerbose(self.logger,@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
     NSURLSessionDataTask *task = [self dataTaskWithRequest:request
                                                    success:success failure:failure];
     [task resume];
@@ -1445,15 +1445,15 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
                                                   code:-2000
                                               userInfo:nil];
-        ECSLogError(@"Error: %@", err);
+        ECSLogError(self.logger,@"Error: %@", err);
         return nil;
     }
     
-    ECSLogVerbose(@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
+    ECSLogVerbose(self.logger,@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
     return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
         if (!error && authToken)
         {
-            ECSLogVerbose(@"Authentication successful");
+            ECSLogVerbose(self.logger,@"Authentication successful");
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             [self setCommonHTTPHeadersForRequest:mutableRequest];
             NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
@@ -1461,7 +1461,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         else
         {
-            ECSLogVerbose(@"Authentication failed.");
+            ECSLogVerbose(self.logger,@"Authentication failed.");
         }
     }];
 }
@@ -1473,13 +1473,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(@"SessionManager::Reauthenticate - Attempting to re-authenticate...");
+    ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Attempting to re-authenticate...");
     
     [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
     {
         if (!error && authToken)
         {
-            ECSLogVerbose(@"SessionManager::Reauthenticate - Authentication successful.");
+            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication successful.");
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             [self setCommonHTTPHeadersForRequest:mutableRequest];
             NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
@@ -1487,7 +1487,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         }
         else
         {
-            ECSLogVerbose(@"SessionManager::Reauthenticate - Authentication failed.");
+            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication failed.");
             failure(nil, nil, error);
         }
     }];
@@ -1518,12 +1518,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
             }
         }
         
-        ECSLogVerbose(@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
+        ECSLogVerbose(self.logger,@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
         
         if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
         {
-            ECSLogWarn(@"SessionManager::dataTaskWithRequest - Authentication error (http 401).");
-            ECSLogVerbose(@"Packet: %@", response); 
+            ECSLogWarn(self.logger,@"SessionManager::dataTaskWithRequest - Authentication error (http 401).");
+            ECSLogVerbose(self.logger,@"Packet: %@", response);
             //if(weakSelf.authTokenDelegate) {
                 // Use the new method if an identity delegate is found.
                 [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
@@ -1538,7 +1538,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
             if (error) {
-                ECSLogVerbose(@"API Error: %@", error);
+                ECSLogVerbose(self.logger,@"API Error: %@", error);
             }
             
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
@@ -1784,7 +1784,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSError *error = [NSError errorWithDomain:@"com.humanify.error"
                                          code:theCode
                                      userInfo:userInfo];
-    ECSLogError(@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);
+    ECSLogError(self.logger,@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);
     return error; 
 }
 

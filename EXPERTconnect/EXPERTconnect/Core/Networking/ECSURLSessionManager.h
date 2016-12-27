@@ -34,7 +34,7 @@
 @class ECSHistoryList;
 @class ECSNavigationContext;
 @class ECSUserProfile;
-
+@class ECSLog;
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -73,6 +73,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 @property (nonatomic, strong) NSString *journeyManagerContext;
 
 @property (nonatomic, strong) NSString *localLocale;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;

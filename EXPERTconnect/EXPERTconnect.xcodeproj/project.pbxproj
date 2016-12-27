@@ -323,7 +323,7 @@
 		03F0BD081A6D425200E90E7F /* ECSTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD061A6D425200E90E7F /* ECSTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F0BD091A6D425200E90E7F /* ECSTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD071A6D425200E90E7F /* ECSTheme.m */; };
 		03F0BD0B1A6EBF4000E90E7F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03F0BD0A1A6EBF4000E90E7F /* Media.xcassets */; };
-		03F0BD201A6F622200E90E7F /* ECSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD1E1A6F622200E90E7F /* ECSLog.h */; };
+		03F0BD201A6F622200E90E7F /* ECSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD1E1A6F622200E90E7F /* ECSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F0BD211A6F622200E90E7F /* ECSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD1F1A6F622200E90E7F /* ECSLog.m */; };
 		03F0BD321A70095E00E90E7F /* ECSLocalization.h in Headers */ = {isa = PBXBuildFile; fileRef = 03F0BD301A70095E00E90E7F /* ECSLocalization.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03F0BD331A70095E00E90E7F /* ECSLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F0BD311A70095E00E90E7F /* ECSLocalization.m */; };
@@ -1956,12 +1956,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
+<<<<<<< HEAD
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
 				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
 				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
 				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
 				2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */,
 				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
+=======
+				03F0BD201A6F622200E90E7F /* ECSLog.h in Headers */,
+>>>>>>> origin/develop
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
@@ -2033,7 +2037,6 @@
 				030F779D1A752E2F006BD8B1 /* NSBundle+ECSBundle.h in Headers */,
 				03C310561A9B5B56006B3557 /* ECSActionType.h in Headers */,
 				03ED2DAB1AC09CC300565F00 /* ECSChatTableViewCell.h in Headers */,
-				03F0BD201A6F622200E90E7F /* ECSLog.h in Headers */,
 				C1E0E6221BC409230089C7E6 /* ECSCalendarHelpers.h in Headers */,
 				03B3FA271A670CBC00D872B1 /* ECSRequestSerializer.h in Headers */,
 				033ACB311A602C9C0024F48F /* ECSNavigationContext.h in Headers */,

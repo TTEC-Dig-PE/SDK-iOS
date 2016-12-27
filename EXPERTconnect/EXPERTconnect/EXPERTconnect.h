@@ -102,6 +102,7 @@
 #import <EXPERTconnect/ECSJSONSerializing.h>
 #import <EXPERTconnect/ECSNotifications.h>
 #import <EXPERTconnect/ECSConfiguration.h>
+#import <EXPERTconnect/ECSLog.h>
 
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
@@ -491,8 +492,15 @@ __attribute__((deprecated("See documentation on the Identity Delegate authentica
  */
 - (void)setDebugLevel:(int)logLevel;
 
+
+
 //Get TimeStamp Meassage
 -(NSString *)getTimeStampMessage;
+
+/*
+@param callback Block executed when the framework produces a log message.
+*/
+- (void)setLoggingCallback:(void(^ _Nullable)(ECSLogLevel level, NSString * _Nonnull message))callback;
 
 @end
 

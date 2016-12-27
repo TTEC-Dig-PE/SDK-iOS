@@ -20,7 +20,7 @@
 @class ECSConversationCreateResponse;
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
-
+@class ECSLog;
 /**
  Defines callback messages used by a chat client
  */
@@ -133,6 +133,8 @@
 
 @property (copy, nonatomic) NSString *lastTimeStamp;
 @property (assign, nonatomic) BOOL lastChatMessageFromAgent;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through

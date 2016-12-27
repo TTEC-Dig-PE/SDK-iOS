@@ -109,6 +109,26 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          }];
     }
     
+    [[EXPERTconnect shared] setLoggingCallback:^(ECSLogLevel level, NSString *message) {
+        NSString *levelString = ^NSString *() {
+            switch (level)
+            {
+                case ECSLogLevelError:
+                    return @"Error";
+                case ECSLogLevelWarning:
+                    return @"Warning";
+                case ECSLogLevelDebug:
+                    return @"Debug";
+                case ECSLogLevelVerbose:
+                    return @"Info";
+                case ECSLogLevelNone:
+                    return @"None";
+            }
+        }();
+        
+        NSLog(@"[iOS SDK]: (%@): %@", levelString, message);
+    }];
+    
     [self setThemeFromSettings];
     
     [myAppConfig getCustomizedThemeSettings];

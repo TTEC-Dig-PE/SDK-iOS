@@ -194,18 +194,16 @@
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     if (conversation.conversationID.length == 0)
     {
-        ECSLogError(@"Expected conversationID missing. Check above for errors.");
+        ECSLogError(self.logger,@"Expected conversationID missing. Check above for errors.");
         return;
     }
     
-    // We need a STOMP client set up to get notifications:
-    if (!self.chatClient)
-    {
-        self.callbackClient = [ECSStompCallbackClient new];
-        self.callbackClient.delegate = self;
-        self.callbackClient.currentConversation = conversation;
-        [self.callbackClient setupChatClientWithActionType:self.actionType];
-    }
+     // We need a STOMP client set up to get notifications:
+     
+     self.callbackClient = [ECSStompCallbackClient new];
+     self.callbackClient.delegate = self;
+     self.callbackClient.currentConversation = conversation;
+     [self.callbackClient setupChatClientWithActionType:self.actionType];
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     ECSChannelConfiguration *configuration = [ECSChannelConfiguration new];
@@ -310,7 +308,7 @@
                                               cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
                                               otherButtonTitles:nil];
     [alertView show];
-    ECSLogError(@"Callback error: %@", error);
+    ECSLogError(self.logger,@"Callback error: %@", error);
     
     self.requestCallButton.enabled = YES;
     self.callbackTextField.enabled = YES;
@@ -339,7 +337,7 @@
         errorMessage = error.userInfo[NSLocalizedDescriptionKey];
     }
     
-    ECSLogError(@"Callback STOMP error: %@", error);
+    ECSLogError(self.logger,@"Callback STOMP error: %@", error);
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
                                                                              message:ECSLocalizedString(ECSLocalizeErrorText, errorMessage)
                                                                       preferredStyle:UIAlertControllerStyleAlert];

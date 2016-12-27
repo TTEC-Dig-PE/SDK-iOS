@@ -837,11 +837,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if (error)
          {
-             ECSLogError(@"Failed to send media %@", error);
+             ECSLogError(self.logger,@"Failed to send media %@", error);
          }
          else
          {
-             ECSLogVerbose(@"Media uploaded successfully");
+             ECSLogVerbose(self.logger,@"Media uploaded successfully");
              /*ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
               notification.from = self.chatClient.fromUsername;
               notification.channelId = self.chatClient.currentChannelId;
@@ -1156,7 +1156,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     if( graceful )
     {
-        ECSLogVerbose(@"Chat client was disconnected.");
+        ECSLogVerbose(self.logger,@"Chat client was disconnected.");
         
         ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
         if ([cafeXController hasCafeXSession])
@@ -1192,7 +1192,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)attemptReconnect
 {
-    ECSLogVerbose(@"Chat::attemptReconnect - Attempt #%d to reconnect Stomp...", _reconnectCount);
+    ECSLogVerbose(self.logger,@"Chat::attemptReconnect - Attempt #%d to reconnect Stomp...", _reconnectCount);
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     // Attempt to get a new authToken.
@@ -1316,7 +1316,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
     else
     {
-        ECSLogError(@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
+        ECSLogError(self.logger,@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
         return; // no UI
     }
     
@@ -1372,7 +1372,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
                                                               // No
-                                                              ECSLogVerbose(@"User rejected %@ request.", channelType);
+                                                              ECSLogVerbose(self.logger,@"User rejected %@ request.", channelType);
                                                               [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
                                                           }]];
         
@@ -1402,7 +1402,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // Show an alert popup to the user with the generic "an error has occurred" style message.
 - (void)showAlertForError:(NSError *)theError fromFunction:(NSString *)theFunction
 {
-    ECSLogError(@"Chat::%@ - %@", theFunction, theError.description);
+    ECSLogError(self.logger,@"Chat::%@ - %@", theFunction, theError.description);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
                                                                              message:ECSLocalizedString(ECSLocalizeErrorText,nil)
@@ -1446,7 +1446,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)sendFormNotification
 {
-    ECSLogVerbose(@"Form complete notification");
+    ECSLogVerbose(self.logger,@"Form complete notification");
     ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
     notification.from = self.chatClient.fromUsername;
     notification.channelId = self.chatClient.currentChannelId;
@@ -1480,7 +1480,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     // backend. So, we must obfuscate it:
     meetID = [meetID stringByAppendingString:@"0000"];
     
-    ECSLogVerbose(@"Co Browse Meet Started notification");
+    ECSLogVerbose(self.logger,@"Co Browse Meet Started notification");
     ECSChatCoBrowseMessage *notification = [ECSChatCoBrowseMessage new];
     notification.from = self.chatClient.fromUsername;
     notification.channelId = self.chatClient.currentChannelId;
@@ -1665,7 +1665,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
-    [_callbackViewController setChatClient:_chatClient];
+//    [_callbackViewController setChatClient:_chatClient];
     
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
@@ -2105,15 +2105,23 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     cell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
     if (cell.background.showAvatar)
     {
-        if (!theFromAgent)
-        {
-            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if(userManager.userAvatar) [cell.background.avatarImageView setImage:userManager.userAvatar];
-            ECSLogVerbose(@"Setting (user) avatar image for participant %@.", theFrom);
+         if (!theFromAgent)
+         {
+              ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+              if(userManager.userAvatar)
+              {
+                   [cell.background.avatarImageView setImage:userManager.userAvatar];
+              }
+              else
+              {
+                   ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+                   [cell.background.avatarImageView setImage:[imageCache imageForPath:@"ecs_img_avatar"]];
+              }
+            ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
         } else {
             ECSChatAddParticipantMessage *participant = [self participantInfoForID:theFrom];
             [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
-            ECSLogVerbose(@"Setting (agent) avatar image for participant %@.", theFrom);
+            ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
         }
     }
 }
