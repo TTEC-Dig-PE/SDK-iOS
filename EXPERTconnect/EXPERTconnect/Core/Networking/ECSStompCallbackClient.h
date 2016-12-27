@@ -21,6 +21,7 @@
 @class ECSConversationCreateResponse;
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
+@class ECSLog;
 
 /**
  Defines callback messages used by a chat client
@@ -94,6 +95,8 @@
 @property (strong, nonatomic) ECSConversationCreateResponse *currentConversation;
 
 @property (strong, nonatomic) NSString *fromUsername;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through

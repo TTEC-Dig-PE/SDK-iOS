@@ -173,7 +173,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             configuration.to = chatAction.agentSkill;
         }
     } else {
-        ECSLogError(@"setupChatChannel: Error converting actionType to chatAction.");
+        ECSLogError(self.logger,@"setupChatChannel: Error converting actionType to chatAction.");
     }
 
     // check for video action type
@@ -377,7 +377,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -405,7 +405,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -433,7 +433,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -587,7 +587,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 		  }
 		  else
 		  {
-			   ECSLogError(@"Unable to parse chat message %@", serializationError);
+			   ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
 		  }
 	 }
 }
@@ -609,7 +609,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -647,7 +647,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 		  }
 		  else
 		  {
-			   ECSLogError(@"Unable to parse chat state message %@", serializationError);
+			   ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
 		  }
 	 }
 }
@@ -695,7 +695,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Unable to parse channel state message %@", serializationError);
+        ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
     }
 }
 
@@ -715,7 +715,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
 }
@@ -736,7 +736,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat form message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat form message %@", serializationError);
         }
     }
     
@@ -760,7 +760,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -783,7 +783,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -805,7 +805,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -828,7 +828,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -850,7 +850,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -872,7 +872,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -894,7 +894,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -919,7 +919,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
     
@@ -943,7 +943,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
