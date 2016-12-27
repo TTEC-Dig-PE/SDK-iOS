@@ -1956,16 +1956,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
-<<<<<<< HEAD
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
 				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
 				2252C6A91A7BE9E200B99912 /* ECSFormItemCheckbox.h in Headers */,
 				2252C6B31A7BE9E200B99912 /* ECSFormItemText.h in Headers */,
 				2252C6AD1A7BE9E200B99912 /* ECSFormItemRadio.h in Headers */,
 				2252C6B11A7BE9E200B99912 /* ECSFormItemSlider.h in Headers */,
-=======
 				03F0BD201A6F622200E90E7F /* ECSLog.h in Headers */,
->>>>>>> origin/develop
 				031B27461ADFE82F004AF3AA /* ECSChatAssociateInfoMessage.h in Headers */,
 				030AF2571AF91FAF0056BFB0 /* ECSChatNotificationMessage.h in Headers */,
 				030AF2121AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h in Headers */,
