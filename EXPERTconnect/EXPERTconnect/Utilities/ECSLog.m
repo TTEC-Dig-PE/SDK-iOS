@@ -34,9 +34,9 @@ void ECSLogging(ECSLog * _Nonnull logger,ECSLogLevel logLevel, NSString * _Nonnu
     {
         va_list args;
         va_start(args, format);
-        NSLogv(format, args);
         NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
-        logger.handler(logLevel,message);
+        logger.handler(logLevel, message);
+        
     }
 }
