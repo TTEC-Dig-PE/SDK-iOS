@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 NSArray *sortedHistory = response.journeys;
-                sortedHistory = [sortedHistory sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2) {
+                /*sortedHistory = [sortedHistory sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2) {
                     
                     if ([obj1.date compare:obj2.date] == NSOrderedAscending)
                     {
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
                     {
                         return NSOrderedAscending;
                     }
-                }];
+                }];*/
 
                 NSMutableArray *answersArray = [NSMutableArray arrayWithCapacity:sortedHistory.count];
                 
@@ -87,6 +87,8 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
                         }
                     }
                 }
+                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+                [answersArray sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
                     
                 weakSelf.answers = answersArray;
                 [weakSelf.tableView reloadData];
@@ -131,8 +133,11 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
         case ECSAnswerEngineHistorySectionAnswers:
         {
             ECSAnswerHistoryResponse *response = self.answers[indexPath.row];
+#if (TARGET_OS_SIMULATOR)
+            cell.titleLabel.text = [NSString stringWithFormat:@"%@\n%@",response.request, response.date];
+#else
             cell.titleLabel.text = response.request;
-    
+#endif
         }
             break;
         default:

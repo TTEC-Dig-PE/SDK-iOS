@@ -10,9 +10,17 @@
 
 #import <EXPERTconnect/EXPERTconnect.h>
 
-#import "ECDAdHocChatPicker.h"
+#import "ECDUIPicker.h"
 
-@interface ECDAdHocVoiceCallbackPicker: ECDAdHocChatPicker
+@interface ECDAdHocVoiceCallbackPicker: ECDUIPicker {
+    NSMutableArray *chatSkillsArray;
+    NSString *currentEnvironment;
+    NSString *currentChatSkill;
+    int selectedRow;
+    int rowToSelect;
+}
+
+-(void) setup;
 
 @end
 

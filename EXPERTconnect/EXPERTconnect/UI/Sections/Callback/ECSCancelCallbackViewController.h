@@ -20,5 +20,6 @@
 
 - (void)displayInProgressCallBack;
 - (void)displayVoiceCallBackEndAlert;
+- (void)dismissviewAndNotify:(BOOL)shouldNotify reason:(NSString *)reasonString;
 
 @end

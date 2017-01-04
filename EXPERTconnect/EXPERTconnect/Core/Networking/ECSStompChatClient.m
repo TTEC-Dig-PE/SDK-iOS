@@ -93,6 +93,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 @implementation ECSStompChatClient
 
+@synthesize lastTimeStamp;
+@synthesize lastChatMessageFromAgent;
+
 - (instancetype)init
 {
     self = [super init];
@@ -170,7 +173,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             configuration.to = chatAction.agentSkill;
         }
     } else {
-        ECSLogError(@"setupChatChannel: Error converting actionType to chatAction.");
+        ECSLogError(self.logger,@"setupChatChannel: Error converting actionType to chatAction.");
     }
 
     // check for video action type
@@ -374,7 +377,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -402,7 +405,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -430,7 +433,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
     }
 }
 
@@ -561,29 +564,30 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 																			   withClass:[ECSChatTextMessage class]];
 			   message.fromAgent = YES;
 			   
-			   NSString *timeStamp = [[EXPERTconnect shared] getTimeStampMessage];
+			   NSString *timeStamp = [self getTimeStampMessage];
 			   ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
 			   if(!message.timeStamp)
 			   {
 					if(theme.showChatTimeStamp  == YES)
 					{
-						 if(![timeStamp isEqualToString:[[EXPERTconnect shared] lastTimeStamp]])
+						 if(![timeStamp isEqualToString:self.lastTimeStamp])
 						 {
 							  message.timeStamp = timeStamp;
 						 }
 						 else{
-							  if ([EXPERTconnect shared].lastChatMessageFromAgent == NO) {
+                             // TODO: move this variable to an internal container.
+							  if (self.lastChatMessageFromAgent == NO) {
 								   message.timeStamp = timeStamp;
 							  }
 						 }
-						 [EXPERTconnect shared].lastTimeStamp = timeStamp;
+						 self.lastTimeStamp = timeStamp;
 					}
 			   }
 			   [self.delegate chatClient:self didReceiveMessage:message];
 		  }
 		  else
 		  {
-			   ECSLogError(@"Unable to parse chat message %@", serializationError);
+			   ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
 		  }
 	 }
 }
@@ -605,7 +609,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -643,7 +647,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 		  }
 		  else
 		  {
-			   ECSLogError(@"Unable to parse chat state message %@", serializationError);
+			   ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
 		  }
 	 }
 }
@@ -691,7 +695,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(@"Unable to parse channel state message %@", serializationError);
+        ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
     }
 }
 
@@ -711,7 +715,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
 }
@@ -732,7 +736,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat form message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat form message %@", serializationError);
         }
     }
     
@@ -756,7 +760,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -779,7 +783,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -801,7 +805,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat state message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
         }
     }
     
@@ -824,7 +828,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -846,7 +850,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -868,7 +872,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -890,7 +894,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
 }
@@ -915,7 +919,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
     
@@ -939,9 +943,22 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         }
         else
         {
-            ECSLogError(@"Unable to parse chat message %@", serializationError);
+            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
         }
     }
+}
+
+// Unit Test: EXPERTconnectTests::testProperties
+-(NSString *)getTimeStampMessage
+{
+    // get current date/time
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *currentTime = [dateFormatter stringFromDate:today];
+    
+    return currentTime;
 }
 
 @end

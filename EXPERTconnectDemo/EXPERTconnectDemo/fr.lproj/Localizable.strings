@@ -38,6 +38,9 @@
 /* Test Journey Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestJourneyLabel" = "Test de Journey";
 
+/* Test Decision Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDecisionLabel" = "Décision de test";
+
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Commencer un chat Vidéo";
 
@@ -330,3 +333,15 @@
 
 /* End Test Breadcrumbs Page Labels Section */
 
+/* Test Decision Page Labels */
+
+/* Request Decision Label */
+"ECDLocalizedRequestDecisionLabel" = "Demande de décision de données:";
+
+/* Response Decision Label */
+"ECDLocalizedResponseDecisionLabel" = "Décision de la réponse donnée:";
+
+/* Response Decision Label */
+"ECDLocalizedPostConsumerButtonLabel" = "Données post-consommation";
+
+/* End Test Decision Page Labels Section */

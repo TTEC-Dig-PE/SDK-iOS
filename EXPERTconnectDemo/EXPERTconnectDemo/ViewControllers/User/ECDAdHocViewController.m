@@ -31,6 +31,7 @@
 #import "ECDChatConfigVC.h"
 #import "ECDBreadcrumbConfigVC.h"
 #import "ECDJourneyConfigVC.h"
+#import "ECDDecisionConfigVC.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -101,8 +102,8 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 	 SettingsSectionAdHocForms,
 	 SettingsSectionAdHocUserProfile,
 	 SettingsSectionAdHocVoiceCallback,
-	 SettingsSectionAdHocEmailMessage,
-	 SettingsSectionAdHocSMSMessage,
+//	 SettingsSectionAdHocEmailMessage,
+//	 SettingsSectionAdHocSMSMessage,
 	 SettingsSectionAdHocWebPage,
 	 SettingsSectionAdHocAnswerEngineHistory,
 	 SettingsSectionAdHocChatHistory,
@@ -110,8 +111,8 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 	 SettingsSectionAdHocExtendedUserProfile,
 	 SettingsSectionAdHocAPIConfig,
 	 SettingsSectionAdHocSubmitForm,
-	 SettingsSectionAdHocDatePicker,
-	 SettingsSectionAdHocWYSIWYGEditor,
+//	 SettingsSectionAdHocDatePicker,
+//	 SettingsSectionAdHocWYSIWYGEditor,
 	 SettingsSectionSeventeen,
 	 SettingsSectionCount
 };
@@ -122,6 +123,7 @@ typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 	 AdHocChatSectionRowStart,
      AdHocChatSectionRowBreadcrumb,
      AdHocChatSectionRowJourney,
+     AdHocChatSectionRowDecision,
 	 AdHocChatSectionRowCount
 };
 
@@ -156,17 +158,17 @@ typedef NS_ENUM(NSInteger, VoiceCallbackSectionRows)
 	 AdHocVoiceCallbackRowCount
 };
 
-typedef NS_ENUM(NSInteger, EmailMessageSectionRows)
-{
-	 AdHocEmailMessageSectionRowStart,
-	 AdHocEmailMessageRowCount
-};
-
-typedef NS_ENUM(NSInteger, SMSMessageSectionRows)
-{
-	 AdHocSMSMessageSectionRowStart,
-	 AdHocSMSMessageRowCount
-};
+//typedef NS_ENUM(NSInteger, EmailMessageSectionRows)
+//{
+//	 AdHocEmailMessageSectionRowStart,
+//	 AdHocEmailMessageRowCount
+//};
+//
+//typedef NS_ENUM(NSInteger, SMSMessageSectionRows)
+//{
+//	 AdHocSMSMessageSectionRowStart,
+//	 AdHocSMSMessageRowCount
+//};
 
 typedef NS_ENUM(NSInteger, WebPagebackSectionRows)
 {
@@ -210,17 +212,17 @@ typedef NS_ENUM(NSInteger, AdHocSubmitFormRows)
 	 AdHocSubmitFormRowCount
 };
 
-typedef NS_ENUM(NSInteger, AdHocDatePickerRows)
-{
-	 AdHocDatePickerRowStart,
-	 AdHocDatePickerRowCount
-};
-
-typedef NS_ENUM(NSInteger, AdHocWYSIWYGEditorRows)
-{
-	 AdHocWYSIWYGEditorRowStart,
-	 AdHocWYSIWYGEditorRowCount
-};
+//typedef NS_ENUM(NSInteger, AdHocDatePickerRows)
+//{
+//	 AdHocDatePickerRowStart,
+//	 AdHocDatePickerRowCount
+//};
+//
+//typedef NS_ENUM(NSInteger, AdHocWYSIWYGEditorRows)
+//{
+//	 AdHocWYSIWYGEditorRowStart,
+//	 AdHocWYSIWYGEditorRowCount
+//};
 
 typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 {
@@ -420,13 +422,13 @@ bool _chatActive;
 			   rowCount = AdHocVoiceCallbackRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocEmailMessage:
-			   rowCount = AdHocEmailMessageRowCount;
-			   break;
-			   
-		  case SettingsSectionAdHocSMSMessage:
-			   rowCount = AdHocSMSMessageRowCount;
-			   break;
+//		  case SettingsSectionAdHocEmailMessage:
+//			   rowCount = AdHocEmailMessageRowCount;
+//			   break;
+//			   
+//		  case SettingsSectionAdHocSMSMessage:
+//			   rowCount = AdHocSMSMessageRowCount;
+//			   break;
 			   
 		  case SettingsSectionAdHocWebPage:
 			   rowCount = AdHocWebPageRowCount;
@@ -456,13 +458,13 @@ bool _chatActive;
 			   rowCount = AdHocSubmitFormRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocDatePicker:
-			   rowCount = AdHocDatePickerRowCount;
-			   break;
-			   
-		  case SettingsSectionAdHocWYSIWYGEditor:
-			   rowCount = AdHocWYSIWYGEditorRowCount;
-			   break;
+//		  case SettingsSectionAdHocDatePicker:
+//			   rowCount = AdHocDatePickerRowCount;
+//			   break;
+//			   
+//		  case SettingsSectionAdHocWYSIWYGEditor:
+//			   rowCount = AdHocWYSIWYGEditorRowCount;
+//			   break;
 			   
 		  case SettingsSectionSeventeen:
 			   rowCount = SettingsSectionSeventeenRowCount;
@@ -510,7 +512,10 @@ bool _chatActive;
 //                       cell.textLabel.text = @"Test Journey";
                          cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestJourneyLabel, @"Test Journey");
                        break;
-                       
+                    
+                   case AdHocChatSectionRowDecision:
+                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestDecisionLabel, @"Test Decision");
+                         
 					default:
 						 break;
 			   }
@@ -590,32 +595,32 @@ bool _chatActive;
 			   }
 			   break;
 			   
-			   
-		  case SettingsSectionAdHocEmailMessage:
-			   switch (indexPath.row) {
-					case AdHocUserProfileSectionRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartEmailMessageLabel, @"AdHoc Email Message");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
-			   
-			   
-		  case SettingsSectionAdHocSMSMessage:
-			   switch (indexPath.row) {
-					case AdHocSMSMessageSectionRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSMSMessageLabel, @"AdHoc SMS Message");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
-			   
+//			   
+//		  case SettingsSectionAdHocEmailMessage:
+//			   switch (indexPath.row) {
+//					case AdHocUserProfileSectionRowStart:
+//						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartEmailMessageLabel, @"AdHoc Email Message");
+//						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//						 break;
+//						 
+//					default:
+//						 break;
+//			   }
+//			   break;
+//			   
+//			   
+//		  case SettingsSectionAdHocSMSMessage:
+//			   switch (indexPath.row) {
+//					case AdHocSMSMessageSectionRowStart:
+//						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSMSMessageLabel, @"AdHoc SMS Message");
+//						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//						 break;
+//						 
+//					default:
+//						 break;
+//			   }
+//			   break;
+//			   
 			   
 		  case SettingsSectionAdHocWebPage:
 			   switch (indexPath.row) {
@@ -708,29 +713,29 @@ bool _chatActive;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocDatePicker:
-			   switch (indexPath.row) {
-					case AdHocDatePickerRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartDatePickerLabel, @"AdHoc Date Picker");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
-			   
-		  case SettingsSectionAdHocWYSIWYGEditor:
-			   switch (indexPath.row) {
-					case AdHocWYSIWYGEditorRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorLabel, @"AdHoc WYSIWYG Editor");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
+//		  case SettingsSectionAdHocDatePicker:
+//			   switch (indexPath.row) {
+//					case AdHocDatePickerRowStart:
+//						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartDatePickerLabel, @"AdHoc Date Picker");
+//						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//						 break;
+//						 
+//					default:
+//						 break;
+//			   }
+//			   break;
+//			   
+//		  case SettingsSectionAdHocWYSIWYGEditor:
+//			   switch (indexPath.row) {
+//					case AdHocWYSIWYGEditorRowStart:
+//						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorLabel, @"AdHoc WYSIWYG Editor");
+//						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//						 break;
+//						 
+//					default:
+//						 break;
+//			   }
+//			   break;
 			   
 		  case SettingsSectionSeventeen:
 			   switch (indexPath.row) {
@@ -766,6 +771,11 @@ bool _chatActive;
     {
         [self handleJourneyConfig];
     }
+     
+     if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowDecision)
+     {
+          [self handleDecisionConfig];
+     }
 	 
 	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
 	 {
@@ -802,15 +812,15 @@ bool _chatActive;
 		  [self handleAdHocVoiceCallback];
 	 }
 	 
-	 if (indexPath.section == SettingsSectionAdHocEmailMessage && indexPath.row == AdHocEmailMessageSectionRowStart)
-	 {
-		  [self handleAdHocEmailMessage];
-	 }
-	 
-	 if (indexPath.section == SettingsSectionAdHocSMSMessage && indexPath.row == AdHocSMSMessageSectionRowStart)
-	 {
-		  [self handleAdHocSMSMessage];
-	 }
+//	 if (indexPath.section == SettingsSectionAdHocEmailMessage && indexPath.row == AdHocEmailMessageSectionRowStart)
+//	 {
+//		  [self handleAdHocEmailMessage];
+//	 }
+//	 
+//	 if (indexPath.section == SettingsSectionAdHocSMSMessage && indexPath.row == AdHocSMSMessageSectionRowStart)
+//	 {
+//		  [self handleAdHocSMSMessage];
+//	 }
 	 
 	 if (indexPath.section == SettingsSectionAdHocWebPage && indexPath.row == AdHocWebPageSectionRowStart)
 	 {
@@ -847,15 +857,15 @@ bool _chatActive;
 		  [self handleAdHocSubmitForm];
 	 }
 	 
-	 if (indexPath.section == SettingsSectionAdHocDatePicker && indexPath.row == AdHocDatePickerRowStart)
-	 {
-		  [self handleAdHocShowCalendar];
-	 }
-	 
-	 if (indexPath.section == SettingsSectionAdHocWYSIWYGEditor && indexPath.row == AdHocWYSIWYGEditorRowStart)
-	 {
-		  [self handleAdHocShowTextEditor];
-	 }
+//	 if (indexPath.section == SettingsSectionAdHocDatePicker && indexPath.row == AdHocDatePickerRowStart)
+//	 {
+//		  [self handleAdHocShowCalendar];
+//	 }
+//	 
+//	 if (indexPath.section == SettingsSectionAdHocWYSIWYGEditor && indexPath.row == AdHocWYSIWYGEditorRowStart)
+//	 {
+//		  [self handleAdHocShowTextEditor];
+//	 }
 	 
 	 if (indexPath.section == SettingsSectionSeventeen && indexPath.row == SettingsSectionSeventeenRowStart)
 	 {
@@ -951,18 +961,18 @@ bool _chatActive;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocEmailMessage:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartEmailMessageHeader, @"AdHoc Email Messsage");
-		  }
-			   break;
-			   
-		  case SettingsSectionAdHocSMSMessage:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartSMSMessageHeader, @"AdHoc SMS Message");
-		  }
-			   break;
-			   
+//		  case SettingsSectionAdHocEmailMessage:
+//		  {
+//			   title = ECDLocalizedString(ECDLocalizedStartEmailMessageHeader, @"AdHoc Email Messsage");
+//		  }
+//			   break;
+//			   
+//		  case SettingsSectionAdHocSMSMessage:
+//		  {
+//			   title = ECDLocalizedString(ECDLocalizedStartSMSMessageHeader, @"AdHoc SMS Message");
+//		  }
+//			   break;
+//			   
 			   
 		  case SettingsSectionAdHocWebPage:
 		  {
@@ -1013,18 +1023,18 @@ bool _chatActive;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocDatePicker:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartDatePickerHeader, @"Ad Hoc Date Picker");
-		  }
-			   break;
-			   
-		  case SettingsSectionAdHocWYSIWYGEditor:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorHeader, @"Ad Hoc WYSIWYG Editor");
-		  }
-			   break;
-			   
+//		  case SettingsSectionAdHocDatePicker:
+//		  {
+//			   title = ECDLocalizedString(ECDLocalizedStartDatePickerHeader, @"Ad Hoc Date Picker");
+//		  }
+//			   break;
+//			   
+//		  case SettingsSectionAdHocWYSIWYGEditor:
+//		  {
+//			   title = ECDLocalizedString(ECDLocalizedStartWYSIWYGEditorHeader, @"Ad Hoc WYSIWYG Editor");
+//		  }
+//			   break;
+//			   
 		  case SettingsSectionSeventeen:
 		  {
 			   title = ECDLocalizedString(@"Localized Section Seventeen Header", @"Seventeen Header");
@@ -1148,19 +1158,16 @@ bool _chatActive;
 -(void)localBreadCrumb:(NSString *)action
            description:(NSString *)desc
 {
-	 /*[[EXPERTconnect shared] breadcrumbWithAction:action
-									  description:desc
-										   source:@"AdHoc"
-									  destination:@"Humanify"
-									  geolocation:currentLocation];*/
-    
     ECSBreadcrumb *myBreadcrumb = [[ECSBreadcrumb alloc] initWithAction:action
                                                             description:desc
                                                                  source:@"AdHoc"
                                                             destination:@"Humanify"];
     myBreadcrumb.geoLocation = currentLocation;
     
-    [[EXPERTconnect shared] breadcrumbQueueBulk:myBreadcrumb];
+    [[EXPERTconnect shared] breadcrumbSendOne:myBreadcrumb
+                               withCompletion:^(ECSBreadcrumbResponse *response, NSError *error) {
+        NSLog(@"Breadcrumb sent. Response=%@", response);
+    }];
 }
 
 -(void)handleAdHocStartChat
@@ -1218,6 +1225,12 @@ bool _chatActive;
 {
     ECDJourneyConfigVC *journeyConfig = [[ECDJourneyConfigVC alloc] init];
     [self.navigationController pushViewController:journeyConfig animated:YES];
+}
+
+-(void)handleDecisionConfig
+{
+     ECDDecisionConfigVC *decisionConfig = [ECDDecisionConfigVC new];
+     [self.navigationController pushViewController:decisionConfig animated:YES];
 }
 
 -(void)handleAdHocVoiceCallback

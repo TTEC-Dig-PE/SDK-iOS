@@ -20,7 +20,7 @@
 @class ECSConversationCreateResponse;
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
-
+@class ECSLog;
 /**
  Defines callback messages used by a chat client
  */
@@ -82,7 +82,7 @@
  Called when a chat client receives a message from the chat server
  
  @param stompClient the chat client that connected
- @param the chat message received from the server
+ @param message the chat message received from the server
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage*)message;
 
@@ -98,7 +98,7 @@
  Called when the chat client receives an add channel message.
  
  @param stompClient the chat client that received the state change
- @param state the updated state
+ @param message the add channel message
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage*)message;
 
@@ -106,7 +106,7 @@
  Called when a chat client receives a message from the chat server
  
  @param stompClient the chat client that received notification message
- @param the notification message received from the server
+ @param notificationMessage the notification message received from the server
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage;
 
@@ -130,6 +130,11 @@
 @property (strong, nonatomic) ECSConversationCreateResponse *currentConversation;
 
 @property (strong, nonatomic) NSString *fromUsername;
+
+@property (copy, nonatomic) NSString *lastTimeStamp;
+@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through
@@ -167,7 +172,7 @@
  Subscribes to the specified chat destination
  
  @param destination the chat destination to subscribe to
- @param subscriptionID the subscription ID to use for the subscription
+ @param subscriptionId the subscription ID to use for the subscription
  */
 - (void)subscribeToDestination:(NSString*)destination withSubscriptionID:(NSString*)subscriptionId;
 

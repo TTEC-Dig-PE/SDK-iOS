@@ -14,9 +14,7 @@
 
 static NSString *const lastAnswerEngineContextSelected = @"lastAnswerEngineContextSelected";
 
-NSMutableArray *contextsArray;
-NSString *currentEnvironment;
-NSString *currentContext;
+
 
 -(void)setup {
     

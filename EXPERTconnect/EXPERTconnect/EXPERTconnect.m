@@ -22,10 +22,12 @@
 #import "ECSAnswerEngineViewController.h"   // TODO: Eliminate references to "specific" View Controllers!
 
 #import "ECSWorkflowNavigation.h"
-#import "ECSLog.h"
+@class ECSLog;
 
 @interface EXPERTconnect ()
 @property (nonatomic, strong) ECSWorkflow *workflow;
+@property (nonatomic, strong) ECSLog *logger;
+
 @end
 
 static EXPERTconnect* _sharedInstance;
@@ -47,14 +49,28 @@ NSTimer *breadcrumbTimer;
     return _sharedInstance;
 }
 
+
+- (instancetype)init
+{
+    if((self = [super init]))
+    {
+        _logger = [[ECSLog alloc] init];
+
+    }
+    return self;
+}
 #pragma mark Initialization Functions
 
+/**
+ @desc Initialize the SDK with provided configuration object
+ @param configuration An SDK configuration object. At minimum, the host parameter is required to be populated.
+ */
 - (void)initializeWithConfiguration:(ECSConfiguration*)configuration
 {
     NSAssert(configuration.host, @"You must specify the host when initializing the EXPERTconnect SDK.");
     
     // Log config for debugging (at level: error, which means debugLevel 1 or higher)
-    ECSLogError( @"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@ %@ (appId: %@)\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.defaultNavigationContext);
+    ECSLogError(self.logger,@"Initialized SDK with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@ %@ (appId: %@)\ndefaultNavigationContext: %@", configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.defaultNavigationContext);
     
     ECSURLSessionManager* sessionManager = [[ECSURLSessionManager alloc] initWithHost:configuration.host];
     [[ECSInjector defaultInjector] setObject:configuration forClass:[ECSConfiguration class]];
@@ -190,12 +206,17 @@ NSTimer *breadcrumbTimer;
 }
 
 // Directly set the authToken
+
 - (void)setUserIdentityToken:(NSString *)token
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = token;
 }
 
+/**
+ @desc Sets the user identity token delegate function. This function is used by the SDK to re-authenticate if an authentication token expires or fails authentication. If a function is provided here, the SDK will automatically try to fetch a new token. 
+ @param delegate The delegate function. See definition of ECSAuthenticationTokenDelegate for details.
+ */
 - (void)setAuthenticationTokenDelegate:(id<ECSAuthenticationTokenDelegate>)delegate
 {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
@@ -334,7 +355,7 @@ NSTimer *breadcrumbTimer;
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
     chatAction.shouldTakeSurvey = shouldTakeSurvey;
-    chatAction.journeybegin = [NSNumber numberWithInt:1];
+    //chatAction.journeybegin = [NSNumber numberWithInt:1];
     
     if (channelOptions) {
         chatAction.channelOptions = [NSDictionary dictionaryWithDictionary:channelOptions];
@@ -414,7 +435,7 @@ NSTimer *breadcrumbTimer;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    //answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -434,7 +455,7 @@ NSTimer *breadcrumbTimer;
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless Internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    //answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";
@@ -450,7 +471,7 @@ NSTimer *breadcrumbTimer;
 - (UIViewController*)startSurvey:(NSString*)formName
 {
     if (!formName || formName.length == 0) {
-        ECSLogError(@"startSurvey: Form name must be specified!");
+        ECSLogError(self.logger,@"startSurvey: Form name must be specified!");
         return nil;
     }
     
@@ -573,6 +594,18 @@ NSTimer *breadcrumbTimer;
     return expertController;
 }
 
+//- (void)setDebugCallback
+//{
+//    NSUInteger c;
+//    NSString *format;
+//    ECSLog(c, format);
+//}
+
+- (void)setLoggingCallback:(void(^ _Nullable)(ECSLogLevel level, NSString * _Nonnull message))callback
+{
+    self.logger.handler = callback;
+}
+
 #pragma mark VoiceIT Functions
 
 - (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
@@ -610,6 +643,10 @@ NSTimer *breadcrumbTimer;
 
 #pragma mark API Function Calls
 
+/**
+ @discussion Starts a new journey. All future breadcrumbs and API calls will use the same journeyID generated by this call. Subsequent calls will create a new journeyID.
+ @param completion Returns the journey as a NSString an any errors encountered
+ */
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
@@ -639,15 +676,11 @@ NSTimer *breadcrumbTimer;
 }
 
 /**
- Start a journey
- Params:
-    Name:               Name of the journey (for reporting, not visible to user) (optional)
-    PushNotificationID: An identifier for push notifications (optional)
-    context:            Journey context (optional - default used if missing)
- Returns: 
-    (In completion block...)
-    NSString journeyID: Identifier of the journey that was just created or fetched
-    NSError error:      Error if one occurred. Nil otherwise.
+  @discussion Starts a new journey. All future breadcrumbs and API calls will use the same journeyID generated by this call. Subsequent calls will create a new journeyID.
+  @param theName Name this journey. This name is displayed in reporting and analytics.
+  @param thePushId A push notification ID (optional). This enables push notification functionality on this journey if the feature is enabled on your server.
+  @param theContext The journey context to use. Context is used to determine which Journey Manager rules may act based on actions taken while on this journey.
+  @param completion Returns the journey as a NSString an any errors encountered
  */
 - (void) startJourneyWithName:(NSString *)theName
            pushNotificationId:(NSString *)thePushId
@@ -673,7 +706,11 @@ NSTimer *breadcrumbTimer;
          }
      }];
 }
-
+/**
+ @desc Sets the context on the current journey. Context is used to determine which Journey Manager rules may act based on actions taken while on this journey.
+ @param theContext The context value to set for the current journey
+ @param completion Returns the response object or an error if one occurred
+ */
 - (void) setJourneyContext:(NSString *)theContext
             withCompletion:(void(^)(ECSJourneyAttachResponse *response, NSError *error))completion
 {
@@ -730,7 +767,7 @@ NSTimer *breadcrumbTimer;
     //ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     // Log config for debugging:
-    ECSLogVerbose(@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
+    ECSLogVerbose(self.logger,@"SDK Performing logout for user %@ with configuration:\nhost: %@\ncafeXHost: %@\nappName: %@\nappVersion: %@\nappId: %@\nclientID: %@\ndefaultNavigationContext: %@", [self userName], configuration.host, configuration.cafeXHost, configuration.appName, configuration.appVersion, configuration.appId, configuration.clientID, configuration.defaultNavigationContext);
     
     [self setUserAvatar:nil];
     [self setUserName:nil];
@@ -742,35 +779,12 @@ NSTimer *breadcrumbTimer;
 
 #pragma mark Agent Availability / Call skill detail Functions
 
-// Check availability on a singlar skill
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion
-{
-    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    [sessionManager getDetailsForSkill:skill
-                            completion:^(NSDictionary *response, NSError *error)
-     {
-         NSLog(@"Got details for skill: %@", skill);
-         completion( response, error );
-     }];
-}
-
-// Copy getDetailsForSkill from 5.2.x branch
-- (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion
-{
-    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    [sessionManager getDetailsForSkill:skill
-                            completion:^(NSDictionary *response, NSError *error)
-     {
-         NSLog(@"Got details for skill: %@", skill);
-         completion( response, error );
-     }];
-}
-
 // Unit Test: EXPERTconnectTests::testGetDetailsForExpertSkill
+/**
+ @desc Get chat/call skill details such as availability, estimated wait time, open/closed status. See the definition of the ECSSkillDetail object for details on particular fields
+ @param skill The chat or call skill 
+ @param completion Returns the skill data or an error if one occurred.
+ */
 - (void) getDetailsForExpertSkill:(NSString *)skill
                  completion:(void(^)(ECSSkillDetail *details, NSError *error))completion
 {
@@ -792,6 +806,29 @@ NSTimer *breadcrumbTimer;
         }
     }];
 }
+
+//- (void) agentAvailabilityWithSkill:(NSString *)skill
+//                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+//{
+//    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+//    [sessionManager getDetailsForSkill:skill
+//                            completion:^(NSDictionary *response, NSError *error)
+//     {
+//         NSLog(@"Got details for skill: %@", skill);
+//         completion( response, error );
+//     }];
+//}
+//- (void) getDetailsForSkill:(NSString *)skill
+//                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+//{
+//    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+//    [sessionManager getDetailsForSkill:skill
+//                            completion:^(NSDictionary *response, NSError *error)
+//     {
+//         NSLog(@"Got details for skill: %@", skill);
+//         completion( response, error );
+//     }];
+//}
 
 #pragma mark Workflow
 
@@ -886,34 +923,51 @@ NSTimer *breadcrumbTimer;
 #pragma mark Breadcrumb Functions
 
 /**
- Send one "interesting" breadcrumb to server and wait for response.
+ @desc Send one breadcrumb to the Humanify server and wait for response.
+ @param theBreadcrumb A breadcrumb object (contains all 4 data fields and more)
+ @param theCompletion The server response (echos the breadcrumb fields back) or an error if one occurred
  */
 - (void) breadcrumbSendOne:(ECSBreadcrumb *)theBreadcrumb
             withCompletion:(void(^)(ECSBreadcrumbResponse *, NSError *))theCompletion
 {
     __block ECSBreadcrumb *blockBC = [theBreadcrumb copy];
-
     if([self sessionID] == nil)
     {
-        ECSLogVerbose(@"breadcrumbSendOne: No sessionID, fetching sessionID...");
+        ECSLogVerbose(self.logger,@"breadcrumbSendOne: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
-            //blockBC.journeyId = self.journeyID;
-            //blockBC.sessionId = self.sessionID;
             [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
         }];
     }
     else
     {
-        //blockBC.journeyId = self.journeyID;
-        //blockBC.sessionId = self.sessionID;
         [self bc_internal_send_one_ex:blockBC withCompletion:theCompletion];
     }
+    
+//    // MAS - This contains the feature for automatic journeyID creation. Uncomment this when the feature is ready. 
+//    // This block will attempt to send the breadcrumb. If that fails, it will attempt to fetch a breadcrumb
+//    // session and possibly a journeyID. This would occur on older server versions (API 5.6 and older).
+//    __weak typeof(self) weakSelf = self;
+//    [self bc_internal_send_one_ex:theBreadcrumb withCompletion:^(ECSBreadcrumbResponse *response, NSError *error) {
+//        
+//         if( error || response.sessionId.length==0 || response.journeyId.length==0 )
+//         {
+//             [weakSelf breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error) {
+//                 
+//                  [weakSelf bc_internal_send_one_ex:theBreadcrumb withCompletion:theCompletion];
+//              }];
+//         }
+//         else
+//         {
+//             if(theCompletion) theCompletion(response, error);
+//         }
+//     }];
 }
 
 /**
- Queue a bulk breadcrumb for sending. Bulked breadcrumbs will fire after the timer delay or X breadcrumbs
+ @desc Queue a bulk breadcrumb for sending. Bulked breadcrumbs will fire after the timer delay or X breadcrumbs
  have been queued as defined in config. Bulked breadcrumbs will not cause journeyManager actions or escalations.
+ @param theBreadcrumb A breadcrumb object (contains all 4 data fields and more)
  */
 - (void) breadcrumbQueueBulk:(ECSBreadcrumb *)theBreadcrumb
 {
@@ -943,32 +997,39 @@ NSTimer *breadcrumbTimer;
     // This block will create a breadcrumb session if one is not already created.
     if([self sessionID] == Nil)
     {
-        ECSLogVerbose(@"breadcrumbWithAction: No sessionID, fetching sessionID...");
+        ECSLogVerbose(self.logger,@"breadcrumbWithAction: No sessionID, fetching sessionID...");
         [self breadcrumbNewSessionWithCompletion:^(NSString *sessionID, NSError *error)
         {
             if( sessionID && !error)
             {
-                ECSLogVerbose(@"breadcrumbWithAction: Acquired sessionID.");
+                ECSLogVerbose(self.logger,@"breadcrumbWithAction: Acquired sessionID.");
                 [self bc_internal_queue_bulk:breadcrumb];
             }
             else
             {
-                ECSLogVerbose(@"breadcrumbWithAction: Failed to acquire a breadcrumb session or journey ID. Cannot send breadcrumb.");
+                ECSLogVerbose(self.logger,@"breadcrumbWithAction: Failed to acquire a breadcrumb session or journey ID. Cannot send breadcrumb.");
             }
         }];
     }
     else
     {
-        ECSLogVerbose(@"breadcrumbWithAction: queueing breadcrumb..."); 
+        ECSLogVerbose(self.logger,@"breadcrumbWithAction: queueing breadcrumb...");
         [self bc_internal_queue_bulk:breadcrumb];
     }
 }
 
+/**
+ @desc Immediately dispatches any bulk breadcrumbs still in the queue.
+ */
 - (void) breadcrumbDispatch
 {
     [self breadcrumbDispatchWithCompletion:nil];
 }
 
+/**
+ @desc Immediately dispatches any bulk breadcrumbs still in the queue.
+ @param theCompletion The server response or an error if one occurred.
+ */
 - (void) breadcrumbDispatchWithCompletion:(void(^)(NSDictionary *response, NSError *error))theCompletion
 {
     if (storedBreadcrumbs.count < 1)
@@ -990,14 +1051,18 @@ NSTimer *breadcrumbTimer;
 // Unit Test: EXPERTconnectTests::testBreadcrumbNewSession
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion
 {
+    // MAS - If we are in this function, it probably means we are on server version 5.6 or earlier.
+    // Therefore, we can assume "automatic journeyId generation" is also not working.
+    // This is why we will now attempt to manually start a journey.
+    
     if(self.journeyID == Nil)
     {
-        ECSLogVerbose(@"breadcrumbNewSession: No journeyID. Fetching new journeyID...");
+        ECSLogVerbose(self.logger,@"breadcrumbNewSession: No journeyID. Fetching new journeyID...");
         [self startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
          {
              if( !error && journeyId )
              {
-                 ECSLogVerbose(@"breadcrumbNewSession: Acquired journeyID. Now queuing breadcrumb...");
+                 ECSLogVerbose(self.logger,@"breadcrumbNewSession: Acquired journeyID. Now queuing breadcrumb...");
                  [self bc_internal_start_session:completion];
              }
              else
@@ -1020,7 +1085,7 @@ NSTimer *breadcrumbTimer;
 {
     if( [self sessionID] == Nil )
     {
-        ECSLogVerbose(@"bc_internal_send_one_ex::Bailing. Fetching session or failed to get a session.");
+        ECSLogVerbose(self.logger,@"bc_internal_send_one_ex::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
@@ -1028,8 +1093,8 @@ NSTimer *breadcrumbTimer;
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     if([self clientID])theBreadcrumb.tenantId = [self clientID];
-    theBreadcrumb.journeyId = self.journeyID;
-    theBreadcrumb.sessionId = [self sessionID];
+    if(self.journeyID)theBreadcrumb.journeyId = self.journeyID;
+    if([self sessionID])theBreadcrumb.sessionId = [self sessionID];
     theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
     theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
     if([self pushNotificationID])theBreadcrumb.pushNotificationId = self.pushNotificationID;
@@ -1037,6 +1102,9 @@ NSTimer *breadcrumbTimer;
     [sessionManager breadcrumbActionSingle:[theBreadcrumb getProperties]
                                 completion:^(ECSBreadcrumbResponse *json, NSError *error)
     {
+        // MAS - If the response returned a breadcrumb session, store it.
+        if(json.sessionId) self.sessionID = json.sessionId;
+
         if(theCompletion) theCompletion(json, error);
     }];
 }
@@ -1045,37 +1113,37 @@ NSTimer *breadcrumbTimer;
 {
     if( [self sessionID] == Nil )
     {
-        ECSLogVerbose(@"breadcrumbsAction::Bailing. Fetching session or failed to get a session.");
+        ECSLogVerbose(self.logger,@"breadcrumbsAction::Bailing. Fetching session or failed to get a session.");
         return;
     }
     
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     if([self clientID])theBreadcrumb.tenantId = [self clientID];
-    theBreadcrumb.journeyId = self.journeyID;
-    theBreadcrumb.sessionId = [self sessionID];
+    if(self.journeyID)theBreadcrumb.journeyId = self.journeyID;
+    if(self.sessionID)theBreadcrumb.sessionId = [self sessionID];
     theBreadcrumb.userId = (userManager.userToken ? userManager.userToken : userManager.deviceID);
     theBreadcrumb.creationTime = [NSString stringWithFormat:@"%lld",[@(floor(NSDate.date.timeIntervalSince1970 * 1000)) longLongValue]];
     if([self pushNotificationID])theBreadcrumb.pushNotificationId = self.pushNotificationID;
     
-    ECSLogVerbose(@"breadcrumbsAction:: calling with actionType : %@", theBreadcrumb.actionType);
+    ECSLogVerbose(self.logger,@"breadcrumbsAction:: calling with actionType : %@", theBreadcrumb.actionType);
 
     if (!storedBreadcrumbs) storedBreadcrumbs = [[NSMutableArray alloc] init];
     [storedBreadcrumbs addObject:[theBreadcrumb getProperties]];
     
-    ECSLogVerbose(@"breadcrumb Properties: %@", [theBreadcrumb getProperties]);
+    ECSLogVerbose(self.logger,@"breadcrumb Properties: %@", [theBreadcrumb getProperties]);
     
     ECSConfiguration *config = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     int breadcrumbCacheCount = (int)( config.breadcrumbCacheCount ? config.breadcrumbCacheCount : 1 );
-    ECSLogVerbose(@"breadcrumbWithAction::Cache time=%lu, count=%d.", (unsigned long)config.breadcrumbCacheTime, breadcrumbCacheCount);
+    ECSLogVerbose(self.logger,@"breadcrumbWithAction::Cache time=%lu, count=%d.", (unsigned long)config.breadcrumbCacheTime, breadcrumbCacheCount);
     
     if (storedBreadcrumbs.count >= breadcrumbCacheCount )
     {
-        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb will be dispatched for sending.");
+        ECSLogVerbose(self.logger,@"breadcrumbWithAction::Breadcrumb will be dispatched for sending.");
         [self breadcrumbDispatchWithCompletion:nil]; // Dispatch all breadcrumbs
     }
     else if(storedBreadcrumbs.count > 0 && !breadcrumbTimer && config.breadcrumbCacheTime > 0 )
     {
-        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent. Starting timer to send.");
+        ECSLogVerbose(self.logger,@"breadcrumbWithAction::Breadcrumb cached but not sent. Starting timer to send.");
         // Start a timer that fires after X time to send off the breadcrumbs.
         
         //NSDate *fireTime = [NSDate dateWithTimeIntervalSinceNow:config.breadcrumbCacheTime];
@@ -1087,22 +1155,22 @@ NSTimer *breadcrumbTimer;
     }
     else
     {
-        ECSLogVerbose(@"breadcrumbWithAction::Breadcrumb cached but not sent.");
+        ECSLogVerbose(self.logger,@"breadcrumbWithAction::Breadcrumb cached but not sent.");
     }
 }
 
 - (void) bc_internal_start_session:(void(^)(NSString *, NSError *))completion
 {
-    if( self.journeyID == Nil )
-    {
-        NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
-                                             code:1001
-                                         userInfo:nil];
-        completion(nil, error);
-        return;
-    }
+//    if( self.journeyID == Nil )
+//    {
+//        NSError *error = [NSError errorWithDomain:@"Breadcrumb New Session - Missing JourneyID."
+//                                             code:1001
+//                                         userInfo:nil];
+//        completion(nil, error);
+//        return;
+//    }
     
-    ECSLogVerbose(@"breadcrumbNewSession - calling with journeyId : %@", self.journeyID);
+    ECSLogVerbose(self.logger,@"breadcrumbNewSession - calling with journeyId : %@", self.journeyID);
     
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     ECSBreadcrumbsSession *journeySession = [[ECSBreadcrumbsSession alloc] init];
@@ -1110,14 +1178,14 @@ NSTimer *breadcrumbTimer;
     ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
     
     if([self clientID])[journeySession setTenantId:[self clientID]];
-    [journeySession setJourneyId:self.journeyID];
+    if([self journeyID])[journeySession setJourneyId:self.journeyID];
     [journeySession setDeviceId:userManager.deviceID];
     [journeySession setPlatform:@"iOS"];
     [journeySession setOSVersion:[[UIDevice currentDevice] systemVersion]];
     [journeySession setBrowserType:@"NA"];
     [journeySession setBrowserVersion:@"NA"];
 
-    NSMutableDictionary *properties = [journeySession getProperties];
+    NSDictionary *properties = [journeySession getProperties];
     
     [sessionManager breadcrumbsSession:properties
                             completion:^(NSDictionary *decisionResponse, NSError *error)
@@ -1125,7 +1193,7 @@ NSTimer *breadcrumbTimer;
         
         if( error )
         {
-            ECSLogError(@"breadcrumbNewSession - Error: %@", error.description);
+            ECSLogError(self.logger,@"breadcrumbNewSession - Error: %@", error.description);
             if(completion) completion(nil, error);
         }
         else
@@ -1133,7 +1201,7 @@ NSTimer *breadcrumbTimer;
             ECSBreadcrumbsSession *journeySessionRes = [[ECSBreadcrumbsSession alloc]
                                                         initWithDic:decisionResponse];
             
-            ECSLogVerbose(@"breadcrumbNewSession - Value of sessionID is: %@", [journeySessionRes getSessionId]);
+            ECSLogVerbose(self.logger,@"breadcrumbNewSession - Value of sessionID is: %@", [journeySessionRes getSessionId]);
             
             // Set the global sessionId
             self.sessionID = [journeySessionRes getSessionId];

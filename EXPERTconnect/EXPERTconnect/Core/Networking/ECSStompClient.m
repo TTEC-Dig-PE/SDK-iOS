@@ -115,7 +115,7 @@ int         _clientHeartbeatsMissed;
         url = [NSURL URLWithString:URLString];
     }
     
-    ECSLogVerbose(@"StompClient::connectToHost: Connecting to %@...", self.hostURL);
+    ECSLogVerbose(self.logger,@"StompClient::connectToHost: Connecting to %@...", self.hostURL);
     
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
@@ -126,7 +126,7 @@ int         _clientHeartbeatsMissed;
 {
     if (self.hostURL)
     {
-        ECSLogVerbose(@"StompClient: reconnecting to host %@", self.hostURL);
+        ECSLogVerbose(self.logger,@"StompClient: reconnecting to host %@", self.hostURL);
         [self connectToHost:[self.hostURL absoluteString]];
     }
 }
@@ -134,7 +134,7 @@ int         _clientHeartbeatsMissed;
 - (void)sendConnectToHost:(NSString*)host
 {
     NSAssert(host, @"Host must not be nil");
-    ECSLogVerbose(@"StompClient: connecting to host %@", host);
+    ECSLogVerbose(self.logger,@"StompClient: connecting to host %@", host);
     
     NSDictionary *headers = @{
                               @"accept-version": kStompVersion,
@@ -147,7 +147,7 @@ int         _clientHeartbeatsMissed;
 
 - (void)disconnect
 {
-    ECSLogVerbose(@"StompClient::disconnect called.");
+    ECSLogVerbose(self.logger,@"StompClient::disconnect called.");
     
     [self.heartbeatTimer invalidate];
     
@@ -164,7 +164,7 @@ int         _clientHeartbeatsMissed;
             withSubscriptionID:(NSString*)subscriptionID
                     subscriber:(__weak id<ECSStompDelegate>)subscriber
 {
-    ECSLogVerbose(@"StompClient::subscribing to ID: %@", subscriptionID);
+    ECSLogVerbose(self.logger,@"StompClient::subscribing to ID: %@", subscriptionID);
     
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
     headers[@"id"] = subscriptionID;
@@ -182,7 +182,7 @@ int         _clientHeartbeatsMissed;
 
 - (void)unsubscribe:(NSString*)subscriptionID
 {
-    ECSLogVerbose(@"StompClient::unsubscribing from ID: %@", subscriptionID);
+    ECSLogVerbose(self.logger,@"StompClient::unsubscribing from ID: %@", subscriptionID);
     
     NSDictionary *headers = @{
                               @"id": subscriptionID,
@@ -289,7 +289,7 @@ int         _clientHeartbeatsMissed;
     
     [frame appendString:@"\x00"];
     
-    ECSLogVerbose(@"STOMP:\n\n%@\n\n", frame);
+    ECSLogVerbose(self.logger,@"STOMP:\n\n%@\n\n", frame);
     [self.webSocket send:frame];
 }
 
@@ -297,16 +297,16 @@ int         _clientHeartbeatsMissed;
 
 - (void)webSocketDidOpen:(ECSWebSocket *)webSocket
 {
-    ECSLogVerbose(@"Web socket did open");
+    ECSLogVerbose(self.logger,@"Web socket did open");
     [self sendConnectToHost:self.hostURL.host];
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    ECSLogError(@"Chat connection failed with error %@", error);
+    ECSLogError(self.logger,@"Chat connection failed with error %@", error);
     
     if (error.code == 57) { // "Socket is not connected."
-        ECSLogError(@"Attempting to reconnect STOMP connection...");
+        ECSLogError(self.logger,@"Attempting to reconnect STOMP connection...");
         [self reconnect];
     }
     else
@@ -318,10 +318,10 @@ int         _clientHeartbeatsMissed;
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    ECSLogVerbose(@"WS Message: %@", message);
+    ECSLogVerbose(self.logger,@"WS Message: %@", message);
     ECSStompFrame *frame = [self decodeFrame:message];
     
-    ECSLogVerbose(@"Frame is: %@", frame);
+    ECSLogVerbose(self.logger,@"Frame is: %@", frame);
     
     // Check for, and update heart-beat if applicable
     if (frame.headers && frame.headers[@"heart-beat"]) {
@@ -357,14 +357,14 @@ int         _clientHeartbeatsMissed;
     else if (frame.command.length == 0 && frame.headers.count == 0)
     {
         // Pong
-        ECSLogVerbose(@"Stomp PONG arrived from server. Resetting miss count.");
+        ECSLogVerbose(self.logger,@"Stomp PONG arrived from server. Resetting miss count.");
         _clientHeartbeatsMissed = 0;
     }
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
 {
-    ECSLogVerbose(@"WS Pong: %@", pongPayload);
+    ECSLogVerbose(self.logger,@"WS Pong: %@", pongPayload);
 }
 
 - (void)processMessageFrame:(ECSStompFrame*)frame
@@ -436,7 +436,7 @@ int         _clientHeartbeatsMissed;
             }
             else
             {
-                ECSLogWarn(@"Frame is missing header components.");
+                ECSLogWarn(self.logger,@"Frame is missing header components.");
             }
             
         }
@@ -515,11 +515,11 @@ int         _clientHeartbeatsMissed;
 
 -(void)doStompHeartbeat:(NSTimer *)timer
 {
-    ECSLogVerbose(@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
+    ECSLogVerbose(self.logger,@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
     
     if( _clientHeartbeatsMissed >= 3 )
     {
-        ECSLogVerbose(@"doStompHeartbeat: server missed 3 heartbeats. Considering connection dead.");
+        ECSLogVerbose(self.logger,@"doStompHeartbeat: server missed 3 heartbeats. Considering connection dead.");
         self.connected = NO;
         if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
         {
@@ -529,7 +529,7 @@ int         _clientHeartbeatsMissed;
     else if (self.webSocket.readyState == ECS_OPEN && self.connected && self.heartbeatTimer != nil)
     {
         _clientHeartbeatsMissed++;
-        ECSLogVerbose(@"doStompHeartbeat: Connection good. Sending. (Pinging again in %d)", _clientHeartbeatInterval);
+        ECSLogVerbose(self.logger,@"doStompHeartbeat: Connection good. Sending. (Pinging again in %d)", _clientHeartbeatInterval);
         NSData *pingData = [[NSData alloc] initWithBytes:(unsigned char[]){0x0A} length:1];
         [self.webSocket sendPing:pingData];
         
@@ -548,7 +548,7 @@ int         _clientHeartbeatsMissed;
         {
             [self.delegate stompClientDidDisconnect:self];
         }
-        ECSLogVerbose(@"doStompHeartbeat: No heartbeat because Stomp not connected.");
+        ECSLogVerbose(self.logger,@"doStompHeartbeat: No heartbeat because Stomp not connected.");
     }
 }
 

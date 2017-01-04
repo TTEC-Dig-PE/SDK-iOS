@@ -18,14 +18,22 @@
 #import <EXPERTconnect/ECSCallbackActionType.h>
 #import <EXPERTconnect/ECSChatActionType.h>
 #import <EXPERTconnect/ECSVideoChatActionType.h>
-#import <EXPERTconnect/ECSFormActionType.h>
-#import <EXPERTconnect/ECSForm.h>
-#import <EXPERTconnect/ECSFormItem.h>
-#import <EXPERTconnect/ECSFormSubmitResponse.h>
 #import <EXPERTconnect/ECSMessageActionType.h>
 #import <EXPERTconnect/ECSSMSActionType.h>
 #import <EXPERTconnect/ECSWebActionType.h>
 #import <EXPERTconnect/ECSStartJourneyResponse.h>
+
+// Form Imports
+#import <EXPERTconnect/ECSFormActionType.h>
+#import <EXPERTconnect/ECSForm.h>
+#import <EXPERTconnect/ECSFormItem.h>
+#import <EXPERTconnect/ECSFormSubmitResponse.h>
+#import <EXPERTconnect/ECSFormItemTextArea.h>
+#import <EXPERTconnect/ECSFormItemRating.h>
+#import <EXPERTconnect/ECSFormItemText.h>
+#import <EXPERTconnect/ECSFormItemCheckbox.h>
+#import <EXPERTconnect/ECSFormItemRadio.h>
+#import <EXPERTconnect/ECSFormItemSlider.h>
 
 #import <EXPERTconnect/ECSSkillDetail.h>
 #import <EXPERTconnect/ECSExpertDetail.h>
@@ -94,6 +102,7 @@
 #import <EXPERTconnect/ECSJSONSerializing.h>
 #import <EXPERTconnect/ECSNotifications.h>
 #import <EXPERTconnect/ECSConfiguration.h>
+#import <EXPERTconnect/ECSLog.h>
 
 #import <EXPERTconnect/ECSLocalization.h>
 #import <EXPERTconnect/ECSURLSessionManager.h>
@@ -131,8 +140,8 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *treatmentType;
 @property (copy, nonatomic) NSString *lastSurveyScore;
 @property (copy, nonatomic) NSString *surveyFormName;
-@property (copy, nonatomic) NSString *lastTimeStamp;
-@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
+//@property (copy, nonatomic) NSString *lastTimeStamp;
+//@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
 @property (readonly, nonatomic) ECSURLSessionManager *urlSession;
 @property (weak) id <ExpertConnectDelegate> externalDelegate;
 @property (copy, nonatomic) NSString *journeyID;
@@ -164,7 +173,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @param chatSkill the Agent Chat Skill for the Chat
  @param displayName for the View Controller
- @param shouldTakeSurvey, determains
+ @param shouldTakeSurvey defunct - no longer used.
  @return the view controller for the Chat
  */
 - (UIViewController*)startChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName withSurvey:(BOOL)shouldTakeSurvey;
@@ -220,7 +229,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  Returns a view controller for an EXPERTconnect Survey
  
- @param form the Name of the Form to launch
+ @param formName the Name of the Form to launch
  
  @return the view controller for the Survey
  */
@@ -307,12 +316,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 /**
  Login support
- 
  @param username the Name of the user attempting to login
- 
- @return the Form returned from the login attempt
  */
-- (void) login:(NSString *) username withCompletion:(void (^)(ECSForm *, NSError *))completion;
+- (void) login:(NSString *)username withCompletion:(void (^)(ECSForm *, NSError *))completion;
 
 /**
  Returns a view controller for a specified EXPERTconnect action. If no view controller is
@@ -363,16 +369,13 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
            viewController:(UIViewController *)viewController;
 
 
-/**
- Get details for a skill - such as agent availability, etc.
- */
-- (void) agentAvailabilityWithSkill:(NSString *)skill
-                         completion:(void(^)(NSDictionary *status, NSError *error))completion
-__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
-
-- (void) getDetailsForSkill:(NSString *)skill
-                 completion:(void(^)(NSDictionary *details, NSError *error))completion
-__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
+//- (void) agentAvailabilityWithSkill:(NSString *)skill
+//                         completion:(void(^)(NSDictionary *status, NSError *error))completion
+//__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
+//
+//- (void) getDetailsForSkill:(NSString *)skill
+//                 completion:(void(^)(NSDictionary *details, NSError *error))completion
+//__attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 
 /**
  Get details for a skill - such as agent availability, etc.
@@ -396,13 +399,11 @@ __attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion;
 
 /**
- Start a journey
- Params:
- Name:               Name of the journey (for reporting, not visible to user) (optional)
- PushNotificationID: An identifier for push notifications (optional)
- context:            Journey context (optional - default used if missing)
- Returns:
- (In completion block...)
+@desc Start a journey
+@param theName Name of the journey (for reporting, not visible to user) (optional)
+@param thePushId An identifier for push notifications (optional)
+@param theContext Journey context (optional - default used if missing)
+@note (In completion block...)
  NSString journeyID: Identifier of the journey that was just created or fetched
  NSError error:      Error if one occurred. Nil otherwise.
  */
@@ -418,9 +419,10 @@ __attribute__((deprecated("Use getDetailsForExpertSkill() instead.")));
 // Send user profile to server.
 - (void)setUserProfile:(ECSUserProfile *)userProfile withCompletion:(void (^)(NSDictionary *, NSError *))completion;
 
-/**
- Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers
- outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+
+/*!
+ * @discussion  Directly set the authToken. This method is used if the host app is fetching an authToken from Humanify servers outside of the framework. That token is then plugged into this function call to authenticate any future SDK functions.
+ * @param token the identity delegate token
  */
 - (void)setUserIdentityToken:(NSString *)token;
 
@@ -490,8 +492,15 @@ __attribute__((deprecated("See documentation on the Identity Delegate authentica
  */
 - (void)setDebugLevel:(int)logLevel;
 
+
+
 //Get TimeStamp Meassage
 -(NSString *)getTimeStampMessage;
+
+/*
+@param callback Block executed when the framework produces a log message.
+*/
+- (void)setLoggingCallback:(void(^ _Nullable)(ECSLogLevel level, NSString * _Nonnull message))callback;
 
 @end
 

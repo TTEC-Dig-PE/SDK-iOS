@@ -49,7 +49,7 @@
                                      @"ChannelState": [ECSChannelStateMessage class],
                                      @"RenderURLCommand": [ECSChatURLMessage class],
                                      @"ChatMessage": [ECSChatTextMessage class],
-                                     @"ChatState": [ECSChatStateMessage class],
+//                                     @"ChatState": [ECSChatStateMessage class],
                                      @"AssociateInfoCommand": [ECSChatAssociateInfoMessage class],
                                      @"CoBrowseMessage": [ECSChatCoBrowseMessage class],
                                      @"CafeXMessage": [ECSCafeXMessage class],
@@ -112,7 +112,7 @@
                     if ([stateMessage.state isEqualToString:@"disconnected"])
                     {
                         ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-                        disconnectedMessage.fromAgent = YES;
+//                        disconnectedMessage.fromAgent = YES;
                         disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
                         [chatMessages addObject:disconnectedMessage];
                     }

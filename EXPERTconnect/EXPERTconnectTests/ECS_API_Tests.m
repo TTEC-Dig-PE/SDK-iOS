@@ -15,6 +15,7 @@
 #import <EXPERTconnect/ECSMediaInfoHelpers.h>
 #import <EXPERTconnect/ECSInjector.h>
 #import <EXPERTconnect/ECSTheme.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImage+ECSBundle.h"
 #import "ECSHistoryList.h"
 #import "ECSChatHistoryResponse.h"
@@ -22,17 +23,17 @@
 #import "ECSConversationCreateResponse.h"
 #import "ECSCafeXController.h"
 
-@interface ECS_API_Tests : XCTestCase <ECSAuthenticationTokenDelegate>
+@interface ECS_API_Tests : XCTestCase <ECSAuthenticationTokenDelegate> {
+    NSURL *_testAuthURL;
+    NSString *_testTenant;
+    NSString *_username;
+    NSString *_fullname;
+    NSString *_firstname;
+}
 
 @end
 
 @implementation ECS_API_Tests
-
-NSURL *_testAuthURL;
-NSString *_testTenant;
-NSString *_username;
-NSString *_fullname;
-NSString *_firstname;
 
 - (void)initSDK {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -43,7 +44,7 @@ NSString *_firstname;
     configuration.appVersion    = @"1.0";
     configuration.appId         = @"12345";
     
-    configuration.host          = @"https://api.dce1.humanify.com";
+    configuration.host          = @"https://api.tce1.humanify.com";
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     //[[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
@@ -51,10 +52,10 @@ NSString *_firstname;
     _fullname = @"yasar yasar";
     _firstname = @"yasar";
 	 
-    if(!_testTenant) _testTenant = @"mktwebextc";
+    if(!_testTenant) _testTenant = @"mktwebextc_test";
     // A GOOD auth URL
     _testAuthURL = [[NSURL alloc] initWithString:
-                    [NSString stringWithFormat:@"https://api.dce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                    [NSString stringWithFormat:@"https://api.tce1.humanify.com/authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                      @"yasar.arafath@agiliztech.com",
                      _testTenant]];
     [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
@@ -62,6 +63,10 @@ NSString *_firstname;
     [[EXPERTconnect shared] setDebugLevel:5];
     [[EXPERTconnect shared] overrideDeviceLocale:@"en-US"];
 }
+
+
+
+
 
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
     // add /ust for new method
@@ -111,6 +116,7 @@ NSString *_firstname;
     ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
     XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
 	 
+    // TODO: Change to "validateDE"
 	 NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                 @"henry",@"name",
                                                 @"henryRule",@"projectServiceName",
@@ -199,6 +205,7 @@ NSString *_firstname;
     
     NSString *skillName = @"CE_Mobile_Chat";
     
+    // TEST #1 - Testing a valid skill
     [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                           completion:^(ECSSkillDetail *details, NSError *error)
      {
@@ -211,7 +218,20 @@ NSString *_firstname;
          XCTAssert([details.skillName containsString:skillName], @"Missing skill name");
          XCTAssertGreaterThanOrEqual(details.estWait, -1, @"Bad estimated wait value");
          
-         [expectation fulfill];
+         // TEST #2 - NULL input value
+         [[EXPERTconnect shared] getDetailsForExpertSkill:nil
+                                               completion:^(ECSSkillDetail *details, NSError *error)
+          {
+              NSLog(@"Details: %@", details);
+              
+              XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"experts.error.failedRetrievingExpertSkill"],
+                        @"Expected failed retrieving expert skill error");
+              XCTAssert([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"404 Not Found"],
+                        @"Expected 404 not found.");
+              XCTAssert(error, @"Expected an error");
+              
+              [expectation fulfill];
+          }];
      }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -221,6 +241,7 @@ NSString *_firstname;
     }];
 }
 
+// TODO: IS this obsolete?
 - (void)testGetNavigationContextWithName
 {
     [self setUp];
@@ -260,11 +281,20 @@ NSString *_firstname;
                                  withCompletion:^(NSArray *answers, NSError *error)
     {
          if(error) XCTFail(@"Error: %@", error.description);
-      
-         //Specific tests
          XCTAssert(answers.count == 2, @"Expected 2 answers in ALL context.");
-         
-        [expectation fulfill];
+        
+        // Test 2: Failure case - input of 0.
+        [sessionManager getAnswerEngineTopQuestions:0
+                                     withCompletion:^(NSArray *answers, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Bad Request"],
+                       @"Expected bad request.");
+             XCTAssert([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Required int parameter 'num' is not present"],
+                       @"Expected required param num missing error.");
+             XCTAssert(error, @"Expected an error");
+             [expectation fulfill];
+         }];
+
     }];
 
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -296,7 +326,18 @@ NSString *_firstname;
         // Specific tests here.
         XCTAssert(answers.count==2,@"Expecting 2 results.");
 
-        [expectation fulfill];
+        // Test 2: Missing context case.
+        [sessionManager getAnswerEngineTopQuestions:2
+                                         forContext:nil
+                                     withCompletion:^(NSArray *answers, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Input parameter 'context' required."],
+                       @"Expected bad request.");
+             XCTAssert(error.code==1003,@"Expected SDK error 1003");
+             XCTAssert(error, @"Expected an error");
+             
+             [expectation fulfill];
+         }];
     }];
 
     [self waitForExpectationsWithTimeout:60.0 handler:^(NSError *error) {
@@ -324,7 +365,16 @@ NSString *_firstname;
         // Specific tests here.
         XCTAssert(answers.count==2,@"Expecting 2 results.");
 
-        [expectation fulfill];
+        [sessionManager startAnswerEngineWithTopQuestions:2
+                                               forContext:nil
+                                           withCompletion:^(NSArray *answers, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Input parameter 'context' required."],
+                       @"Expected bad request.");
+             XCTAssert(error.code==1003,@"Expected SDK error 1003");
+             XCTAssert(error, @"Expected an error");
+             [expectation fulfill];
+         }];
     }];
 
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -362,17 +412,28 @@ NSString *_firstname;
              if(error) XCTFail(@"Error: %@", error.description);
              
              //Specific Tests
-             XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"], "Expected invalid question");
+             XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_ANSWER"], "Expected invalid question");
              XCTAssert(!response.answerContent,@"Expected empty content.");
              XCTAssert(response.inquiryId.length==0,@"Expected missing inquiryID");
              XCTAssert([response.answersQuestion intValue] != 1, @"Expected to not answer question.");
              XCTAssert(response.suggestedQuestions.count == 0, @"Expected no suggested content.");
              
-             [expectation fulfill];
+             // Test 3: NULL Values
+             [sessionManager getAnswerEngineTopQuestionsForKeyword:nil
+                                               withOptionalContext:nil
+                                                        completion:^(ECSAnswerEngineResponse *response, NSError *error)
+              {
+                  XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Keyword parameter must be 3 or more characters."],
+                            @"Expected 3 or more keyword length error.");
+                  XCTAssert(error.code==1002, @"Expected SDK error 1002");
+                  XCTAssert(error, @"Expected an error");
+                  
+                  [expectation fulfill];
+              }];
          }];
     }];
     
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
@@ -402,7 +463,19 @@ NSString *_firstname;
         XCTAssert([response.answersQuestion intValue] == 1, @"Expected answersQuestion=1.");
         // answerContent, suggestedQuestions, and actions could be Nil or populated
 
-        [expectation fulfill];
+        // Test 2: Nil values.     
+        [sessionManager getAnswerForQuestion:nil
+                                   inContext:nil
+                                  customData:nil
+                                  completion:^(ECSAnswerEngineResponse *response, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing or null parameter 'question'."],
+                       @"Expected 3 or more keyword length error.");
+             XCTAssert(error.code==1004, @"Expected SDK error 1004");
+             XCTAssert(error, @"Expected an error");
+             
+             [expectation fulfill];
+         }];
     }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -533,14 +606,29 @@ NSString *_firstname;
                     {
                         XCTAssert(response.constrainedRating==1, @"Rating was not set to min value due to out of bound.");
                         
-                        [expectation fulfill];
+                        // A bogus rating value (15 is higher than the max)
+                        [sm rateAnswerWithAnswerID:@"146012322420964"
+                                         inquiryID:@"146012322420964"
+                                            rating:15
+                                               min:1
+                                               max:5
+                                     questionCount:3
+                                        completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
+                         {
+                             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing or null parameter 'question'."],
+                                       @"Expected 3 or more keyword length error.");
+                             XCTAssert(error.code==1004, @"Expected SDK error 1004");
+                             XCTAssert(error, @"Expected an error");
+                             
+                             [expectation fulfill];
+                         }];
                     }];
                }];
           }];
      }];
     
     // Wait for the above code to finish (15 second timeout)...
-    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
@@ -664,7 +752,14 @@ NSString *_firstname;
                 XCTAssert(response[@"profile_was_updated"],@"Missing profile was updated field.");
                 XCTAssert(response[@"customData"]!= nil && response[@"customData"] != 0, @"Missing customdata fields");
            }
-		   [expectation fulfill];
+         [sessionManager submitUserProfile:nil withCompletion:^(NSDictionary *response, NSError *error)
+          {
+              XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'profile'."],
+                        @"Expected error not thrown.");
+              XCTAssert(error.code==1007, @"Expected error code not thrown.");
+              XCTAssert(error, @"Expected an error");
+              [expectation fulfill];
+          }];
 	  }];
 	 
 	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -704,7 +799,6 @@ NSString *_firstname;
 {
     [self setUp];
     [self initSDK];
-    __block int expectedResponses = 1;
     __block NSString *inputFormName = @"agentperformance";
     XCTestExpectation *expectation = [self expectationWithDescription:@"testGetFormNames"];
 
@@ -726,8 +820,17 @@ NSString *_firstname;
         XCTAssert(form.submitCompleteHeaderText.length>0,@"Expected submitCompleteHeaderText");
         XCTAssert(form.submitText.length>0,@"Expected submitText");
         
-        expectedResponses--;
-        if(expectedResponses <= 0)[expectation fulfill];
+        // Test 2 - NULL value
+        [sessionManager getFormByName:nil
+                       withCompletion:^(ECSForm *form, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'formName'."],
+                       @"Expected error not thrown.");
+             XCTAssert(error.code==1008, @"Expected error code not thrown.");
+             XCTAssert(error, @"Expected an error");
+             
+             [expectation fulfill];
+         }];
     }];
 
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
@@ -772,59 +875,120 @@ NSString *_firstname;
 
 - (void)testSubmitForm
 {
-	 [self setUp];   // Test setup
-	 [self initSDK]; // SDK setup
-	 
-	 NSMutableArray *formData = [NSMutableArray new];
-	 
-	 ECSForm *form = [ECSForm new];
-	 ECSFormItem *fI1 = [ECSFormItem new];
-	 ECSFormItem *fI2 = [ECSFormItem new];
-	 ECSFormItem *fI3 = [ECSFormItem new];
-	 
-	 [formData addObject:fI1];
-	 [formData addObject:fI2];
-	 [formData addObject:fI3];
-	 
-	 form.name = @"adhoc_sdk_demo";     // matches name in Forms Designer!!!
-	 form.formData = formData;
-	 
-	 fI1.label = @"Email Address";
-	 fI2.label = @"Agent Rating";
-	 fI3.label = @"Comments";
-	 
-	 fI1.formValue = @"yasar.arafath@agiliztech.com";
-	 fI2.formValue = @"8";
-	 fI3.formValue = @"No comments";
-
-	 
-	 XCTestExpectation *expectation = [self expectationWithDescription:@"testSubmitForm"];
-	 
-	 ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-	 
-	 [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error) {
-		  
-		  NSLog(@"Details: %@", response);
-		  
-		  if(error)
-		  {
-			   XCTFail(@"Error reported: %@", error.description);
-		  }
-		  else
-		  {
-			   XCTAssert(response.identityToken, @"Missing identityToken field");
-			   //XCTAssert(response.action,@"Missing action field");
-			   XCTAssert(response.profileUpdated, @"Missing profileUpdated field");
-			   XCTAssert(response.submitted, @"Missing submitted field");
-		  }
-		  [expectation fulfill];
-	 }];
-	 
-	 [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
-		  if (error) {
-			   XCTFail(@"Timeout error (15 seconds). Error=%@", error);
-		  }
-	 }];
+    [self setUp];   // Test setup
+    [self initSDK]; // SDK setup
+    
+    ECSForm *form = [ECSForm new];
+    NSMutableArray *formData = [NSMutableArray new];
+    
+    // The "text" form field.
+    ECSFormItemText *text1 = [ECSFormItemText new];
+    XCTAssert(!text1.answered,@"Empty form value. Answered should be false.");
+    text1.formValue = @"John Smith";
+    XCTAssert(text1.answered,@"Form value populated. Answered shold be true.");
+    ECSFormItemText *text2 = [text1 copy]; // Test copy mechanism
+    XCTAssert(text2.formValue==text1.formValue&&text2.answered==text1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:text1];
+    
+    // The "textarea" form field.
+    ECSFormItemTextArea *textArea1 = [ECSFormItemTextArea new];
+    textArea1.hint = @"This is a name field.";
+    XCTAssert(!textArea1.answered,@"Empty form value. Answered should be false.");
+    textArea1.formValue = @"John Smith";
+    XCTAssert(textArea1.answered,@"Form value populated. Answered shold be true.");
+    ECSFormItemTextArea *textArea2 = [textArea1 copy]; // Test copy mechanism
+    XCTAssert(textArea2.formValue==textArea1.formValue&&textArea2.answered==textArea1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:textArea1];
+    
+    // The "rating" form field.
+    ECSFormItemRating *rating1 = [ECSFormItemRating new];
+    XCTAssert(!rating1.answered,@"Empty form value. Answered should be false.");
+    rating1.maxValue = [NSNumber numberWithInt:5];
+    XCTAssert(rating1.maxValue==[NSNumber numberWithInt:5],@"MaxValue setter not working.");
+    rating1.formValue = @"6";
+    XCTAssert(!rating1.answered,@"Form value populated outside of max. Value is false.");
+    rating1.formValue = @"2";
+    XCTAssert(rating1.answered,@"Form value is a good value inside of max. Should be true.");
+    ECSFormItemRating *rating2 = [rating1 copy]; // Test copy mechanism
+    XCTAssert(rating2.formValue==rating1.formValue&&rating2.answered==rating1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:rating1];
+    
+    // The "Checkbox" form field.
+    ECSFormItemCheckbox *checkbox1 = [ECSFormItemCheckbox new];
+    XCTAssert(!checkbox1.answered,@"Empty form value. Answered should be false.");
+    checkbox1.formValue = @"Option 3";
+    XCTAssert(checkbox1.answered,@"Form value populated. Answered shold be true.");
+    checkbox1.options = @[@"Option1", @"Option2", @"Option3"];
+    XCTAssert(checkbox1.options.count==3&&[[checkbox1.options objectAtIndex:2] isEqualToString:@"Option3"],@"Options array not populated properly.");
+    ECSFormItemCheckbox *checkbox2 = [checkbox1 copy]; // Test copy mechanism
+    XCTAssert(checkbox2.formValue==checkbox1.formValue&&checkbox2.answered==checkbox1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:checkbox1];
+    
+    // The "Radio" form field.
+    ECSFormItemRadio *radio1 = [ECSFormItemRadio new];
+    XCTAssert(!radio1.answered,@"Empty form value. Answered should be false.");
+    radio1.formValue = @"Option2";
+    XCTAssert(radio1.answered,@"Form value populated. Answered shold be true.");
+    radio1.options = @[@"Option1", @"Option2", @"Option3"];
+    XCTAssert(radio1.options.count==3&&[[radio1.options objectAtIndex:2] isEqualToString:@"Option3"],@"Options array not populated properly.");
+    ECSFormItemRadio *radio2 = [radio1 copy]; // Test copy mechanism
+    XCTAssert(radio2.formValue==radio1.formValue&&radio2.answered==radio1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:radio1];
+    
+    // The "Slider" form field.
+    ECSFormItemSlider *slider1 = [ECSFormItemSlider new];
+    slider1.minLabel = @"Smallest";
+    slider1.maxLabel = @"Largest";
+    slider1.minValue = [NSNumber numberWithDouble:-20.5];
+    slider1.maxValue = [NSNumber numberWithDouble:500.5];
+    XCTAssert(!slider1.answered,@"Empty form value. Answered should be false.");
+    slider1.formValue = @"John Smith";
+    XCTAssert(!slider1.answered,@"Form value is not valid number. Should be false.");
+    slider1.formValue = @"120.234";
+    XCTAssert(slider1.answered,@"Form value is valid number within range. Should be true.");
+    ECSFormItemSlider *slider2 = [slider1 copy]; // Test copy mechanism
+    XCTAssert(slider2.formValue==slider1.formValue&&slider2.answered==slider1.answered,@"Copy should have copied all fields/values.");
+    [formData addObject:slider1];
+    
+    form.name = @"adhoc_sdk_demo";     // matches name in Forms Designer!!!
+    form.formData = formData;
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testSubmitForm"];
+    
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error) {
+        
+        NSLog(@"Details: %@", response);
+        
+        if(error)
+        {
+            XCTFail(@"Error reported: %@", error.description);
+        }
+        else
+        {
+            XCTAssert(response.identityToken, @"Missing identityToken field");
+            //XCTAssert(response.action,@"Missing action field");
+            XCTAssert(response.profileUpdated, @"Missing profileUpdated field");
+            XCTAssert(response.submitted, @"Missing submitted field");
+        }
+        
+        // Test 2 - NULL value
+        [sessionManager submitForm:nil completion:^(ECSFormSubmitResponse *response, NSError *error)
+         {
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'form'"],
+                       @"Expected error not thrown.");
+             XCTAssert(error.code==1009, @"Expected error code not thrown.");
+             XCTAssert(error, @"Expected an error");
+             [expectation fulfill];
+         }];
+    }];
+    
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
 }
 
 - (void)testUploadDownloadMediaFile
@@ -856,6 +1020,7 @@ NSString *_firstname;
          */
         NSMutableDictionary *mediaInfo = [[NSMutableDictionary alloc] init];
         mediaInfo[UIImagePickerControllerOriginalImage] = theme.chatBubbleTailsImage;
+        mediaInfo[UIImagePickerControllerMediaType] = (NSString *)kUTTypeImage;
         
         [sessionManager uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
                               withName:fileName
@@ -889,7 +1054,18 @@ NSString *_firstname;
                  NSLog(@"Image is: %@", image);
              }
              
-             [expectation fulfill];
+             [sessionManager uploadFileData:nil
+                                   withName:nil
+                            fileContentType:@"image/jpg"
+                                 completion:^(__autoreleasing id *response, NSError *error)
+              {
+                  XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter (data or name)."],
+                            @"Expected error not thrown.");
+                  XCTAssert(error.code==1010, @"Expected error code not thrown.");
+                  XCTAssert(error, @"Expected an error");
+                  
+                  [expectation fulfill];
+              }];
          }];
     }];
     
@@ -986,6 +1162,7 @@ NSString *_firstname;
 	 }];
 }
 
+// TODO - Solve crash when there is zero chat history in the response (duplicated on TCE1)
 - (void)testGetChatHistory
 {
     [self setUp];   // Test setup
@@ -1057,7 +1234,7 @@ NSString *_firstname;
 // Test the select experts endpoint.
 - (void)testGetExpertsWithInteractionItems {
     
-    _testTenant = @"mktwebextc";
+    //_testTenant = @"mktwebextc";
     [self initSDK];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"getExperts"];
@@ -1102,7 +1279,7 @@ NSString *_firstname;
      chatAction.agentSkill = @"CE_Mobile_Chat";
      chatAction.displayName = @"Test screen";
      chatAction.shouldTakeSurvey = NO;
-     chatAction.journeybegin = [NSNumber numberWithInt:1];
+     //chatAction.journeybegin = [NSNumber numberWithInt:1];
      
      
      ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
@@ -1126,11 +1303,22 @@ NSString *_firstname;
                                andAlwaysCreate:YES
                                 withCompletion:^(ECSConversationCreateResponse *response, NSError *error)
             {
+                // MAS - This may fail if your test device is iOS10. Requires the workaround to include a "capability".
                  XCTAssert(response.journeyID.length>0,@"Response contains a journeyID");
                  XCTAssert(response.conversationID.length>0,@"Response has a conversationID");
                  XCTAssert(response.channelLink.length>0,@"Response has a channelLink");
                  XCTAssert(!error, @"Response does not contain an error");
-                 [expectation fulfill];
+                
+                [session startConversationForAction:nil
+                                    andAlwaysCreate:YES
+                                     withCompletion:^(ECSConversationCreateResponse *response, NSError *error)
+                 {
+                     XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'actionType'"],
+                                @"Expected error not thrown.");
+                     XCTAssert(error.code==1011, @"Expected error code not thrown.");
+                     XCTAssert(error, @"Expected an error");
+                     [expectation fulfill];
+                 }];
             }];
       }];
      
@@ -1185,7 +1373,16 @@ NSString *_firstname;
                   
                   NSLog(@"Response=%@", response);
                   
-                  [expectation fulfill];
+                  // Test 3: nil context.
+                  [session setJourneyContext:nil
+                                  completion:^(ECSJourneyAttachResponse *response, NSError *error)
+                   {
+                       XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing required parameter 'context'"],
+                                 @"Expected error not thrown.");
+                       XCTAssert(error.code==1012, @"Expected error code not thrown.");
+                       XCTAssert(error, @"Expected an error");
+                       [expectation fulfill];
+                   }];
               }];
          }];
     }];

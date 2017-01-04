@@ -7,6 +7,9 @@
 
 #import "ECSLog.h"
 
+@implementation ECSLog
+@end
+
 #ifdef DEBUG
 ECSLogLevel ECSCurrentLogLevel = ECSLogLevelVerbose;
 #else
@@ -25,13 +28,15 @@ void ECSLogSetLogLevel(ECSLogLevel logLevel) {
     ECSCurrentLogLevel = logLevel;
 }
 
-void ECSLog(ECSLogLevel logLevel, NSString *format, ...)
+void ECSLogging(ECSLog * _Nonnull logger,ECSLogLevel logLevel, NSString * _Nonnull format, ...)
 {
-    if (currentLogLevel() >= logLevel)
+    if(logger && logger.handler)
     {
         va_list args;
         va_start(args, format);
-        NSLogv(format, args);
+        NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
+        logger.handler(logLevel, message);
+        
     }
 }

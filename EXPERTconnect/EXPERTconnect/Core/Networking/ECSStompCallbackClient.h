@@ -21,6 +21,7 @@
 @class ECSConversationCreateResponse;
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
+@class ECSLog;
 
 /**
  Defines callback messages used by a chat client
@@ -70,7 +71,7 @@
  Called when the chat client receives an add channel message.
  
  @param stompClient the chat client that received the state change
- @param state the updated state
+ @param message the updated state
  */
 - (void)chatClient:(ECSStompCallbackClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage*)message;
 
@@ -94,6 +95,8 @@
 @property (strong, nonatomic) ECSConversationCreateResponse *currentConversation;
 
 @property (strong, nonatomic) NSString *fromUsername;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through
@@ -131,7 +134,7 @@
  Subscribes to the specified chat destination
  
  @param destination the chat destination to subscribe to
- @param subscriptionID the subscription ID to use for the subscription
+ @param subscriptionId the subscription ID to use for the subscription
  */
 - (void)subscribeToDestination:(NSString*)destination withSubscriptionID:(NSString*)subscriptionId;
 

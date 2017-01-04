@@ -91,7 +91,9 @@
              if ([orgDictionary objectForKey:@"environment_config"]) {
                  
                  NSDictionary *envConfig = [orgDictionary objectForKey:@"environment_config"];
+                 
                  [[NSUserDefaults standardUserDefaults] setObject:envConfig forKey:@"environmentConfig"];
+                 [[NSUserDefaults standardUserDefaults] synchronize];
                  
                  //NSLog(@"Saving environment config from JSON successful.");
                  
@@ -121,8 +123,8 @@
         url = @"https://api.dce1.humanify.com";
     }
     
-    //return [url stringByAppendingString:@"/"];
-    return url;
+    return [url stringByAppendingString:@"/"];
+    //return url;
 }
 
 // Attempt to grab organization (clientid) from user defaults. Defaults otherwise.
@@ -153,7 +155,7 @@
     // add /ust for new method
     NSString *hostURL = [self getHostURL];
     if( ![hostURL hasSuffix:@"/"] ) hostURL = [hostURL stringByAppendingString:@"/"];
-    
+
     NSString *urlString = [NSString stringWithFormat:@"%@authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                            hostURL,
                            [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],

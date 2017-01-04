@@ -13,6 +13,7 @@
 @implementation ECSChatTextTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib]; 
     // Initialization code
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;

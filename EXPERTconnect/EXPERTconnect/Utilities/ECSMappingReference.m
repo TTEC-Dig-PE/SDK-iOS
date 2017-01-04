@@ -159,7 +159,7 @@
     ECSAnswerEngineActionType *answerEngineAction = [ECSAnswerEngineActionType new];
     
     answerEngineAction.defaultQuestion = @"How do I get wireless internet?";  // just an example, does nothing
-    answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
+    //answerEngineAction.journeybegin = [NSNumber numberWithBool:YES];
     answerEngineAction.actionId = @"";
     answerEngineAction.answerEngineContext = aeContext;
     answerEngineAction.navigationContext = @"";

@@ -65,6 +65,7 @@
 #import "ECSEndChatSurveyView.h"
 #import "ECSRootViewController+Navigation.h"
 #import "ECSCafeXController.h"
+#import "UIImage+ECSBundle.h"
 
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -136,6 +137,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 // Incremented each time an agent sends a message.
 @property (assign, nonatomic) NSUInteger agentInteractionCount;
+     
+@property (strong, nonatomic) ECSCachingImageView *tempImageView;
 
 @end
 
@@ -555,7 +558,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)showNoSurveyDisconnectMessage
 {
     ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-    disconnectedMessage.fromAgent = YES;
+//    disconnectedMessage.fromAgent = YES;
     disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
     [self.messages addObject:disconnectedMessage];
     [self.tableView reloadData];
@@ -686,8 +689,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
              
              if(error)
              {
-                 [self showAlertForError:error fromFunction:@"sendChatState"];
-                 [self showReconnectInChat];
+                  NSLog(@"Error sending chat state message: %@", error);
+                  //  12-oct-2016 - Chat state error will affect SDK.
+//                 [self showAlertForError:error fromFunction:@"sendChatState"];
+//                 [self showReconnectInChat];
              }
          }];
     }
@@ -709,21 +714,21 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     if(theme.showChatTimeStamp  == YES)
     {
-        if(![timeStamp isEqualToString:[[EXPERTconnect shared] lastTimeStamp]])
+        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp])
         {
             message.timeStamp = timeStamp;
         }
         else{
-            if ([EXPERTconnect shared].lastChatMessageFromAgent == YES) {
+            if (self.chatClient.lastChatMessageFromAgent == YES) {
                 message.timeStamp = timeStamp;
             }
         }
-        [EXPERTconnect shared].lastTimeStamp = timeStamp;
+        self.chatClient.lastTimeStamp = timeStamp;
     }
 	 	 
     [self.messages addObject:message];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
+    self.chatClient.lastChatMessageFromAgent = NO;
     // [self sendChatState:@"paused"];
     
     //[self.chatClient sendChatMessage:message];
@@ -736,8 +741,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if(error)
          {
-             [self showAlertForError:error fromFunction:@"sendText"];
-             [self showReconnectInChat];
+             NSLog(@"Error sending chat message: %@", error);
+//             [self showAlertForError:error fromFunction:@"sendText"];
+//             [self showReconnectInChat];
          }
      }];
     
@@ -769,8 +775,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if(error)
          {
-             [self showAlertForError:error fromFunction:@"sendSystemText"];
-             [self showReconnectInChat];
+            NSLog(@"Error sending chat system message: %@", error);
+//             [self showAlertForError:error fromFunction:@"sendSystemText"];
+//             [self showReconnectInChat];
          }
      }];
     
@@ -808,7 +815,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     [self.messages addObject:message];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = NO;
+    self.chatClient.lastChatMessageFromAgent = NO;
     
     NSIndexPath *insertIndexPath = [NSIndexPath indexPathForItem:self.messages.count - 1 inSection:0];
     
@@ -830,11 +837,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      {
          if (error)
          {
-             ECSLogError(@"Failed to send media %@", error);
+             ECSLogError(self.logger,@"Failed to send media %@", error);
          }
          else
          {
-             ECSLogVerbose(@"Media uploaded successfully");
+             ECSLogVerbose(self.logger,@"Media uploaded successfully");
              /*ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
               notification.from = self.chatClient.fromUsername;
               notification.channelId = self.chatClient.currentChannelId;
@@ -854,8 +861,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
               {
                   if(error)
                   {
-                      [self showReconnectInChat];
-                      [self showAlertForError:error fromFunction:@"sendMedia"];
+                       NSLog(@"Error sending chat media message: %@", error);
+//                      [self showReconnectInChat];
+//                      [self showAlertForError:error fromFunction:@"sendMedia"];
                   }
               }];
          }
@@ -890,7 +898,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     
     ECSChatInfoMessage *message = [ECSChatInfoMessage new];
-    message.fromAgent = YES;
+//    message.fromAgent = YES;
     
     NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
     message.infoMessage = [NSString stringWithFormat:warningString, seconds];
@@ -937,7 +945,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         self.agentInteractionCount += 1;
         [self pollForPostSurvey];
-        [EXPERTconnect shared].lastChatMessageFromAgent = YES;
+        self.chatClient.lastChatMessageFromAgent = YES;
     }
     
     // Replace the typing (...) with the message if it is still at the end of the array of messages.
@@ -1026,7 +1034,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     [self.messages addObject:notificationMessage];
     
-    [EXPERTconnect shared].lastChatMessageFromAgent = YES;
+    self.chatClient.lastChatMessageFromAgent = YES;
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -1129,6 +1137,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStartedNotification
+                                                         object:self];
     [self hideWaitView];
 }
 
@@ -1146,7 +1156,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     if( graceful )
     {
-        ECSLogVerbose(@"Chat client was disconnected.");
+        ECSLogVerbose(self.logger,@"Chat client was disconnected.");
         
         ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
         if ([cafeXController hasCafeXSession])
@@ -1163,8 +1173,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     else
     {
         
-        [self showAlertForError:nil fromFunction:@"chatClientDisconnected"];
-        [self showReconnectInChat];
+//        [self showAlertForError:nil fromFunction:@"chatClientDisconnected"];
+//        [self showReconnectInChat];
     }
 }
 
@@ -1182,7 +1192,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)attemptReconnect
 {
-    ECSLogVerbose(@"Chat::attemptReconnect - Attempt #%d to reconnect Stomp...", _reconnectCount);
+    ECSLogVerbose(self.logger,@"Chat::attemptReconnect - Attempt #%d to reconnect Stomp...", _reconnectCount);
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     // Attempt to get a new authToken.
@@ -1306,7 +1316,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
     else
     {
-        ECSLogError(@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
+        ECSLogError(self.logger,@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
         return; // no UI
     }
     
@@ -1362,7 +1372,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
                                                               // No
-                                                              ECSLogVerbose(@"User rejected %@ request.", channelType);
+                                                              ECSLogVerbose(self.logger,@"User rejected %@ request.", channelType);
                                                               [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
                                                           }]];
         
@@ -1392,7 +1402,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // Show an alert popup to the user with the generic "an error has occurred" style message.
 - (void)showAlertForError:(NSError *)theError fromFunction:(NSString *)theFunction
 {
-    ECSLogError(@"Chat::%@ - %@", theFunction, theError.description);
+    ECSLogError(self.logger,@"Chat::%@ - %@", theFunction, theError.description);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
                                                                              message:ECSLocalizedString(ECSLocalizeErrorText,nil)
@@ -1436,7 +1446,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)sendFormNotification
 {
-    ECSLogVerbose(@"Form complete notification");
+    ECSLogVerbose(self.logger,@"Form complete notification");
     ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
     notification.from = self.chatClient.fromUsername;
     notification.channelId = self.chatClient.currentChannelId;
@@ -1456,8 +1466,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
          if(error)
          {
              NSLog(@"Error sending chat notification message: %@", error);
-             [self showReconnectInChat];
-             [self showAlertForError:error fromFunction:@"sendFormNotification"];
+//             [self showReconnectInChat];
+//             [self showAlertForError:error fromFunction:@"sendFormNotification"];
          }
      }];
     
@@ -1470,7 +1480,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     // backend. So, we must obfuscate it:
     meetID = [meetID stringByAppendingString:@"0000"];
     
-    ECSLogVerbose(@"Co Browse Meet Started notification");
+    ECSLogVerbose(self.logger,@"Co Browse Meet Started notification");
     ECSChatCoBrowseMessage *notification = [ECSChatCoBrowseMessage new];
     notification.from = self.chatClient.fromUsername;
     notification.channelId = self.chatClient.currentChannelId;
@@ -1620,20 +1630,34 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     ECSChatMessage *message = (ECSChatMessage*)self.messages[indexPath.row];
     //showAvatar = message.fromAgent;
-    
-    if (showAvatar)
-    {
-        if (indexPath.row > 1 || (indexPath.row > 0 && message.fromAgent))
-        {
-            ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
-            
-            if (previousMessage.fromAgent == message.fromAgent)
-            {
-                showAvatar = NO;
-            }
-        }
-    }
-    
+     if (showAvatar)
+     {
+          if (indexPath.row > 1 || (indexPath.row > 0 && message.fromAgent))
+          {
+               ECSChatMessage *previousMessage = (ECSChatMessage*)self.messages[indexPath.row - 1];
+               
+               if (previousMessage.fromAgent == message.fromAgent && ![previousMessage isKindOfClass:[ECSChatInfoMessage class]] && ![previousMessage isKindOfClass:[ECSChatAddParticipantMessage class]])
+               {
+                    showAvatar = NO;
+               }
+               
+               //Avatar does match when conference.
+               NSString *currentMessageClassNameString = NSStringFromClass([self.messages[indexPath.row] class]);
+               NSString *previousMessageClassNameString = NSStringFromClass([self.messages[indexPath.row - 1] class]);
+               Class currentMessageClassName = NSClassFromString(currentMessageClassNameString);
+               Class previousMessageClassName = NSClassFromString(previousMessageClassNameString);
+               id currrentChatMessage = [currentMessageClassName new];
+               currrentChatMessage = self.messages[indexPath.row];
+               id previousChatMessage = [previousMessageClassName new];
+               previousChatMessage = self.messages[indexPath.row -1];
+               if(previousMessage.fromAgent)
+               {
+                    if (![[currrentChatMessage from] isEqualToString:[previousChatMessage from]]) {
+                         showAvatar = YES;
+                    }
+               }
+          }
+     }
     return showAvatar;
 }
 
@@ -1641,7 +1665,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     _callbackViewController = [ECSCallbackViewController ecs_loadFromNib];
     ECSCallbackActionType *callbackAction = [ECSCallbackActionType new];
-    [_callbackViewController setChatClient:_chatClient];
+//    [_callbackViewController setChatClient:_chatClient];
     
     // Set the parent agent skill and id for callback.
     ECSChatActionType *chatAction = (ECSChatActionType*)self.actionType;
@@ -1801,7 +1825,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         ECSChatActionTableViewCell *actionCell = [self.tableView dequeueReusableCellWithIdentifier:ActionCellID
                                                                                       forIndexPath:indexPath];
-        [self configureCallbackCell:actionCell withMessage:message];
+         
+        [self configureCallbackCell:actionCell withMessage:message atIndexPath:(NSIndexPath*)indexPath];
+
         cell = actionCell;
     }
     
@@ -2027,27 +2053,28 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         }
         else
         {
-            UIImage *thumbnail = nil;
-            
-            if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
-            {
-                thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
-            }
-            
-            CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
-            if (thumbnail)
-            {
-                height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
-            }
-            else
-            {
-                height = (CGRectGetWidth(self.tableView.frame) * 0.5);
-            }
+             //              UIImage *thumbnail = nil;
+             //
+             //              if ([chatMessage isKindOfClass:[ECSChatMediaMessage class]])
+             //              {
+             //                   thumbnail = ((ECSChatMediaMessage*)chatMessage).imageThumbnail;
+             //              }
+             
+             //
+             //              CGFloat maxWidth = (CGRectGetWidth(self.tableView.frame) * 0.5f);
+             //              if (thumbnail)
+             //              {
+             //                   height = (thumbnail.size.height / thumbnail.size.width) * maxWidth;
+             //              }
+             //              else
+             //              {
+             height = 160.0f;
+             //              }
         }
     }
     else if ([chatMessage isKindOfClass:[ECSChatAddChannelMessage class]])
     {
-        [self configureCallbackCell:actionCell withMessage:(ECSChatAddChannelMessage*)chatMessage];
+        [self configureCallbackCell:actionCell withMessage:(ECSChatAddChannelMessage*)chatMessage atIndexPath:indexPath];
         height = [self calculateHeightForConfiguredSizingCell:actionCell];
     }
     
@@ -2078,15 +2105,23 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     cell.background.showAvatar = [self showAvatarAtIndexPath:indexPath];
     if (cell.background.showAvatar)
     {
-        if (!theFromAgent)
-        {
-            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if(userManager.userAvatar) [cell.background.avatarImageView setImage:userManager.userAvatar];
-            ECSLogVerbose(@"Setting (user) avatar image for participant %@.", theFrom);
+         if (!theFromAgent)
+         {
+              ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+              if(userManager.userAvatar)
+              {
+                   [cell.background.avatarImageView setImage:userManager.userAvatar];
+              }
+              else
+              {
+                   ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+                   [cell.background.avatarImageView setImage:[imageCache imageForPath:@"ecs_img_avatar"]];
+              }
+            ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
         } else {
             ECSChatAddParticipantMessage *participant = [self participantInfoForID:theFrom];
             [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
-            ECSLogVerbose(@"Setting (agent) avatar image for participant %@.", theFrom);
+            ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
         }
     }
 }
@@ -2235,6 +2270,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
         ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         NSURLRequest *request = [sessionManager urlRequestForMediaWithName:fileName];
+         cell.messageImageView.image = [UIImage ecs_bundledImageNamed:@"expertconnect_chat_loading"];
         [cell.messageImageView setImageWithRequest:request];
         
         cell.showPlayIcon = NO;
@@ -2305,6 +2341,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)configureCallbackCell:(ECSChatActionTableViewCell*)cell
                   withMessage:(ECSChatAddChannelMessage*)message
+                  atIndexPath:(NSIndexPath*)indexPath
 {
     if ([message.mediaType isEqualToString:@"voice"])
     {
@@ -2316,6 +2353,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         cell.messageLabel.text = ECSLocalizedString(ECSLocalizeRequestASMS, nil);
         cell.actionCellType = ECSChatActionCellTypeTextback;
     }
+    [self configureCellAvatarImage:cell from:message.from fromAgent:message.fromAgent atIndexPath:indexPath];
     [cell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 

@@ -10,6 +10,7 @@
 #import "ECSRootViewController.h"
 #import "ECSStompChatClient.h"
 #import "ECSStompCallbackClient.h"
+@class ECSLog;
 
 @interface ECSCallbackViewController : ECSRootViewController <ECSStompCallbackDelegate>
 
@@ -17,5 +18,7 @@
 @property (assign, nonatomic) BOOL skipConfirmationView;
 
 - (void)setChatClient: (ECSStompChatClient *)client;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 @end

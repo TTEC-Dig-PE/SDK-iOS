@@ -53,6 +53,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [super awakeFromNib]; 
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     

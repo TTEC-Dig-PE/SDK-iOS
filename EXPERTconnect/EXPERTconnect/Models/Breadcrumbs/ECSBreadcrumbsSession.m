@@ -55,7 +55,7 @@ static NSString* PROPERTY_RESOLUTION     = @"resolution";
 
 
 
-- (NSMutableDictionary *)getProperties {
+- (NSDictionary *)getProperties {
     
     return self.properties;
 }

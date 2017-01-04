@@ -10,7 +10,14 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface ECDChatConfigVC : UIViewController
+@interface ECDChatConfigVC : UIViewController {
+    NSMutableArray *chatSkillsArray;
+    NSString *currentEnvironment;
+    NSString *currentChatSkill;
+    int selectedRow;
+    int rowToSelect;
+    bool _chatActive;
+}
 
 @property (strong, nonatomic) UIViewController *chatController;
 
@@ -34,6 +41,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *customNavBarButtonsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *useImageForSendButtonLabel;
 @property (weak, nonatomic) IBOutlet UILabel *showImageUploadButtonLabel;
+
+// Bubble Configuration
+@property (weak, nonatomic) IBOutlet UITextField *txtHMargin;
+@property (weak, nonatomic) IBOutlet UITextField *txtVMargin;
+@property (weak, nonatomic) IBOutlet UITextField *txtCornerRadius;
 
 - (IBAction)btnStartChat_Touch:(id)sender;
 - (IBAction)btnEndChat_Touch:(id)sender;

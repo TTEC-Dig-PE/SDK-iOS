@@ -54,8 +54,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.messageLabel.preferredMaxLayoutWidth = (self.frame.size.width * 0.5f) - 20.0f;
-    ;
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    
+    // Max frame of a message is (up to) half the width of the window. Then, we subtract the margins. 
+    self.messageLabel.preferredMaxLayoutWidth = (self.frame.size.width * 0.5f) - (2 * (long)theme.chatBubbleHorizMargins);
     [super layoutSubviews];
 }
 

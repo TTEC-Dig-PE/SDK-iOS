@@ -56,6 +56,8 @@
 		46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FA1B6055A500E5C270 /* ECDRunModePicker.m */; };
 		46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */; };
 		9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */; };
+		C13A61561DC093F100A28CA9 /* ECDDecisionConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */; };
+		C13A61571DC093F100A28CA9 /* ECDDecisionConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */; };
 		C1D2E5021C185BC400678FB5 /* ECDCustomizeThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */; };
 		C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */; };
 		C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */; };
@@ -247,6 +249,9 @@
 		46BA32FC1B60563C00E5C270 /* ECDUIPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDUIPicker.h; sourceTree = "<group>"; };
 		46BA32FD1B60564C00E5C270 /* ECDUIPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDUIPicker.m; sourceTree = "<group>"; };
 		9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDDecisionConfigVC.h; sourceTree = "<group>"; };
+		C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDDecisionConfigVC.m; sourceTree = "<group>"; };
+		C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDDecisionConfigVC.xib; sourceTree = "<group>"; };
 		C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDCustomizeThemeViewController.h; sourceTree = "<group>"; };
 		C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDCustomizeThemeViewController.m; sourceTree = "<group>"; };
 		C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCustomizeThemeViewController.xib; sourceTree = "<group>"; };
@@ -280,6 +285,7 @@
 		C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDJourneyConfigVC.h; path = "Configuration Views/ECDJourneyConfigVC.h"; sourceTree = "<group>"; };
 		C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDJourneyConfigVC.m; path = "Configuration Views/ECDJourneyConfigVC.m"; sourceTree = "<group>"; };
 		C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDJourneyConfigVC.xib; path = "Configuration Views/ECDJourneyConfigVC.xib"; sourceTree = "<group>"; };
+		C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EXPERTconnectDemo.entitlements; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		C4D0E51D1C723A630032925F /* iBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iBeaconViewController.h; sourceTree = "<group>"; };
@@ -580,6 +586,7 @@
 		03978F091A602B2D007793D6 /* EXPERTconnectDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */,
 				4695C3781B5D7B8600C95878 /* UI */,
 				033ACB3E1A602CC00024F48F /* MainMenuConfig.json */,
 				462C19261B7BC3CF00E230B7 /* UserProfile.json */,
@@ -654,6 +661,9 @@
 				C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */,
 				C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */,
 				C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */,
+				C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */,
+				C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */,
+				C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -751,7 +761,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECD;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978F061A602B2D007793D6 = {
@@ -762,6 +772,9 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -835,6 +848,7 @@
 				033ACB581A602CC00024F48F /* ECDZoomViewController.xib in Resources */,
 				9F5B9BAB1AF2C3FE002770C0 /* Settings.bundle in Resources */,
 				C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */,
+				C13A61571DC093F100A28CA9 /* ECDDecisionConfigVC.xib in Resources */,
 				03978F181A602B2D007793D6 /* Images.xcassets in Resources */,
 				C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
@@ -881,6 +895,7 @@
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,
+				C13A61561DC093F100A28CA9 /* ECDDecisionConfigVC.m in Sources */,
 				03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */,
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
@@ -968,6 +983,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -977,8 +993,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -988,6 +1006,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1014,6 +1033,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1023,8 +1043,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1033,6 +1055,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1054,8 +1077,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
+				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4F2XQ7R275;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1087,8 +1112,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Hu-Logo";
 				BUNDLEID = com.humanify.EXPERTconnectDemo;
+				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4F2XQ7R275;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

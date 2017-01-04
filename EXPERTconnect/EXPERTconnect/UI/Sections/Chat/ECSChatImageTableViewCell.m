@@ -39,9 +39,9 @@
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.messageImageView = [[ECSCachingImageView alloc] init];
+    self.messageImageView = [[ECSCachingImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
     self.messageImageView.clipsToBounds = YES;
-    self.messageImageView.translatesAutoresizingMaskIntoConstraints = NO;
+//    self.messageImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.messageImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     [self.background.messageContainerView addSubview:self.messageImageView];

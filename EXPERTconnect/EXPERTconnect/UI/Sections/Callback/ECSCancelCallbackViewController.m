@@ -93,7 +93,7 @@
 
 - (void)appBecameActive:(id)sender
 {
-    [self dismissviewAndNotify:YES reason:@"CallCompleted"];
+//    [self dismissviewAndNotify:YES reason:@"CallCompleted"];
 }
 
 - (IBAction)cancelCallbackTapped:(id)sender
@@ -160,6 +160,7 @@
     self.navigationItem.title = ECSLocalizedString(ECSLocalizeCallNavigationTitle, @"Phone Call");
     self.titleLabel.text = ECSLocalizedString(ECSLocalizeCallInProgressTitle, @"Call in Progress.");
     self.descriptionLabel.text = ECSLocalizedString(ECSLocalizeCallInProgressDescription, @"When finished, please hang up or use the End button below.");
+    self.waitTimeLabel.text = nil;
     [self.cancelCallRequestButton setTitle:ECSLocalizedString(ECSLocalizeCallEndButton, @"End Call")
                                   forState:UIControlStateNormal];
     [self.cancelCallRequestButton sizeToFit];

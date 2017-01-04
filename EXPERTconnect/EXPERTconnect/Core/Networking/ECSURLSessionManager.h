@@ -34,7 +34,7 @@
 @class ECSHistoryList;
 @class ECSNavigationContext;
 @class ECSUserProfile;
-
+@class ECSLog;
 
 typedef void (^ECSCodeBlock)(NSString *response, NSError *error);
 
@@ -73,6 +73,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 @property (nonatomic, strong) NSString *journeyManagerContext;
 
 @property (nonatomic, strong) NSString *localLocale;
+
+@property (nonatomic, strong) ECSLog *logger;
 
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
@@ -126,7 +128,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  Start answer engine journey (0 questions answered) and returns the top questions for given context
  
  @param num the max number of Top Questions to retrieve
- @param answer engine context
+ @param context answer engine context
  @param completion block (returns array of questions)
  
  @return the data task for the answer engine call
@@ -150,7 +152,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  Returns the top questions for given context
  
  @param num the max number of Top Questions to retrieve
- @param answer engine context
+ @param context answer engine context
  @param completion block (returns array of questions)
  
  @return the data task for the answer engine call
@@ -211,9 +213,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  
  @param answerID the identifier of the answer to rate
  @param inquiryID the identifier of the inquiry that returned the answer
- @param parentNavigator the parent navigation context
- @param actionId the action ID that defined this answer engine context.
  @param rating the rating to send
+ @param theMin minimum rating value
+ @param theMax maximum rating value
  @param questionCount the current number of asked questions
  @param completion completion block called when the request is complete
  
@@ -238,8 +240,8 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 
 /**
  Get list of experts
- @param Dictionary of values that may be used to more accurately select experts
- @param Completion block (returns object)
+ @param theInteractionItems Dictionary of values that may be used to more accurately select experts
+ @param completion Completion block (returns object)
  @return the data task for the select experts call
  */
 - (NSURLSessionDataTask *)getExpertsWithInteractionItems:(NSDictionary *)theInteractionItems
@@ -252,7 +254,7 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 /**
  Submits the specified form.
  
- @param the form to submit
+ @param form the form to submit
  @param completion completion block called when the request is complete
  
  @return the data task for the rate answer call
@@ -271,7 +273,7 @@ __attribute__((deprecated("This function will be removed in a later release.")))
  
  @param username The username to log in as
  @param password The password for the user
- @param completetion The block to call with the authenticated user information, or an NSError indicating that the
+ @param completion The block to call with the authenticated user information, or an NSError indicating that the
         call has failed.
  @return the data task corresponding to this API call
  */
@@ -305,7 +307,7 @@ __attribute__((deprecated("This function will be removed in a later release.")))
  @param actionType the action type to use when starting the conversation
  @param alwaysCreate create a conversation if necessary and there is not currently a conversation
                      with a journey.
- @param complete the completion block called after the setup is complete.
+ @param completion the completion block called after the setup is complete.
  
  @return the data task associated with the conversation
  */
@@ -342,7 +344,7 @@ __attribute__((deprecated("This function will be removed in a later release.")))
  
  @param closeChannelURL the URL to utilize when closing the channel
  @param reason the reason why the channel may have closed
- @param agentInteractionCount the number of agent interactions that have occured
+ @param interactionCount the number of agent interactions that have occured
  @param completion the completion block called when setup is complete.
  
  @return the data task corresponding to the API call.
@@ -364,12 +366,10 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 
 /**
  Send a chat message from the client (REST POST)
- 
- @param The message body
- @param The FROM address
- @param The channelID string to identify which channel to send to.
- @param Completion block
- 
+ @param messageString The message body
+ @param fromString The FROM address
+ @param channelString The channelID string to identify which channel to send to.
+ @param completion Completion block
  @return (completion block) Response text (not currently used)
  */
 - (NSURLSessionDataTask*)sendChatMessage:(NSString *)messageString
@@ -381,10 +381,10 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 /**
  Send a chat state update from the client (REST POST)
  
- @param The chat state update message body
- @param Duration of the particular state
- @param The channelID string to identify which channel to send to.
- @param Completion block
+ @param theChatState The chat state update message body
+ @param theDuration Duration of the particular state
+ @param theChannel The channelID string to identify which channel to send to.
+ @param completion Completion block
  
  @return (completion block) Response text (not currently used)
  */
@@ -396,12 +396,12 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 /**
  Send a chat notification update from the client (REST POST)
  
- @param The FROM address
- @param The TYPE of notification message
- @param ???
- @param The conversationID string to send to.
- @param The channelID string to identify which channel to send to.
- @param Completion block
+ @param fromString The FROM address
+ @param typeString The TYPE of notification message
+ @param objectDataString ???
+ @param convoIdString The conversationID string to send to.
+ @param theChannel The channelID string to identify which channel to send to.
+ @param completion Completion block
  
  @return (completion block) Response text (not currently used)
  */
@@ -415,8 +415,8 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 /**
  Get details on a chat or voice callback channel (such as state=pending)
  
- @param ChannelID string used to identify which channel to return
- @param Completion block
+ @param channelString ChannelID string used to identify which channel to return
+ @param completion Completion block
  
  @return (completion block) ECSChannelConfiguration object
  */
@@ -425,30 +425,31 @@ __attribute__((deprecated("This function will be removed in a later release.")))
 
 #pragma mark Agent Availability
 
-/**
- Get details for a set of call or chat skills
- 
- @param Array of skill values to return data for
- @param Completion block
- 
- @return (completion block) ECSAgentAvailableResponse object
- */
-- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills
-                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
+// MAS - Old deprecated functions. 
+//- (NSURLSessionDataTask*)getDetailsForSkills:(NSArray *)skills completion:(void(^)(NSDictionary *response, NSError *error))completion;
+//- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 /**
  Get details for a particular call or chat skill
  
- @param Skill name to return data for (ex. "calls_for_mike")
- @param Completion block
+ @param skill Skill name to return data for (ex. "calls_for_mike")
+ @param completion Completion block
  
  @return (completion block) ECSAgentAvailableResponse object
  */
-- (NSURLSessionDataTask*)getDetailsForSkill:(NSString *)skill
-                                 completion:(void(^)(NSDictionary *response, NSError *error))completion;
-
 - (NSURLSessionDataTask*)getDetailsForExpertSkill:(NSString *)skill
                                  completion:(void(^)(NSDictionary *response, NSError *error))completion;
+
+/**
+ Get details for a particular call or chat skill
+ 
+ @param skills Skill name to return data for (ex. "calls_for_mike")
+ @param completion Completion block
+ 
+ @return (completion block) ECSAgentAvailableResponse object
+ */
+- (NSURLSessionDataTask*)getDetailsForExpertSkills:(NSArray *)skills
+                                       completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
 #pragma mark Journey Management
 
