@@ -91,7 +91,9 @@
              if ([orgDictionary objectForKey:@"environment_config"]) {
                  
                  NSDictionary *envConfig = [orgDictionary objectForKey:@"environment_config"];
+                 
                  [[NSUserDefaults standardUserDefaults] setObject:envConfig forKey:@"environmentConfig"];
+                 [[NSUserDefaults standardUserDefaults] synchronize];
                  
                  //NSLog(@"Saving environment config from JSON successful.");
                  
