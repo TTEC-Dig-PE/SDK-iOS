@@ -41,6 +41,9 @@
 /* Test Decision Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestDecisionLabel" = "Décision de test";
 
+/* View SDK Debug Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDebugLabel" = "Afficher SDK Debug";
+
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Commencer un chat Vidéo";
 

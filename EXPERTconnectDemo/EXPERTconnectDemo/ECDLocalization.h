@@ -67,6 +67,7 @@ static NSString* const ECDLocalizedTestChatLabel = @"ECDLocalizedTestChatLabel";
 static NSString* const ECDLocalizedTestBreadcrumbsLabel = @"ECDLocalizedTestBreadcrumbsLabel";
 static NSString* const ECDLocalizedTestJourneyLabel = @"ECDLocalizedTestJourneyLabel";
 static NSString* const ECDLocalizedTestDecisionLabel = @"ECDLocalizedTestDecisionLabel";
+static NSString* const ECDLocalizedTestDebugLabel = @"ECDLocalizedTestDebugLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedUtilityFunctionLabel = @"ECDLocalizedUtilityFunctionLabel"; 

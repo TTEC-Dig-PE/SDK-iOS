@@ -109,6 +109,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          }];
     }
     
+    _logMessages = [NSMutableString string];
     [[EXPERTconnect shared] setLoggingCallback:^(ECSLogLevel level, NSString *message) {
         NSString *levelString = ^NSString *() {
             switch (level)
@@ -127,6 +128,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         }();
         
         NSLog(@"[iOS SDK]: (%@): %@", levelString, message);
+//        if([levelString isEqualToString:@"Info"]) {
+            NSString *logMessage = [NSString stringWithFormat:@"[iOS SDK]: (%@): ,%@", levelString, message];
+            [_logMessages appendString:[NSString stringWithFormat:@"%@\n", logMessage]];
+//        }
     }];
     
     [self setThemeFromSettings];
@@ -269,6 +274,13 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         _bugReportEmailer = [[ECDBugReportEmailer alloc] init];
     }
     [_bugReportEmailer reportBug];
+}
+
+- (void)reportBug:(NSMutableString *)message {
+    if (_bugReportEmailer == nil) {
+        _bugReportEmailer = [[ECDBugReportEmailer alloc] init];
+    }
+    [_bugReportEmailer reportBug:message];
 }
 
 - (void)logout:(NSNotification*)notification

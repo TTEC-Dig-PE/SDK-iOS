@@ -27,6 +27,7 @@
 #import "ECDCalendarViewController.h"
 #import "ECDTextEditorViewController.h"
 #import "ECDBeaconViewController.h"
+#import "ECDReportBugViewController.h"
 
 #import "ECDChatConfigVC.h"
 #import "ECDBreadcrumbConfigVC.h"
@@ -124,6 +125,7 @@ typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
      AdHocChatSectionRowBreadcrumb,
      AdHocChatSectionRowJourney,
      AdHocChatSectionRowDecision,
+     AdHocChatSectionRowDebug,
 	 AdHocChatSectionRowCount
 };
 
@@ -515,7 +517,12 @@ bool _chatActive;
                     
                    case AdHocChatSectionRowDecision:
                          cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestDecisionLabel, @"Test Decision");
-                         
+                       break;
+
+                   case AdHocChatSectionRowDebug:
+                       cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestDebugLabel, @"View SDK Debug");
+                       break;
+
 					default:
 						 break;
 			   }
@@ -776,6 +783,11 @@ bool _chatActive;
      {
           [self handleDecisionConfig];
      }
+    
+    if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowDebug)
+    {
+        [self handleSDKDebugConfig];
+    }
 	 
 	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
 	 {
@@ -1231,6 +1243,12 @@ bool _chatActive;
 {
      ECDDecisionConfigVC *decisionConfig = [ECDDecisionConfigVC new];
      [self.navigationController pushViewController:decisionConfig animated:YES];
+}
+
+-(void)handleSDKDebugConfig
+{
+    ECDReportBugViewController *decisionConfig = [ECDReportBugViewController new];
+    [self.navigationController pushViewController:decisionConfig animated:YES];
 }
 
 -(void)handleAdHocVoiceCallback

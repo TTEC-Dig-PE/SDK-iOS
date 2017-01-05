@@ -14,6 +14,8 @@
 @interface ECDBugReportEmailer: NSObject <MFMailComposeViewControllerDelegate>
 
 - (void)reportBug;
+- (void)reportBug:(NSMutableString *)message;
+
 + (void)setUpLogging;
 + (void)resetLogging;
 
