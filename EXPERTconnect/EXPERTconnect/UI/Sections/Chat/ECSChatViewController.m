@@ -150,6 +150,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     _showingMoxtra = FALSE;
     
+    self.logger = [[EXPERTconnect shared] logger];
+    
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     [cafeXController setDefaultParent:self];
     

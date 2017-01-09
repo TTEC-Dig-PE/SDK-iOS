@@ -148,6 +148,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *pushNotificationID;
 @property (copy, nonatomic) NSString *journeyManagerContext;
 @property (copy, nonatomic) NSString *sessionID;
+@property (nonatomic, strong) ECSLog *logger;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 @property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;

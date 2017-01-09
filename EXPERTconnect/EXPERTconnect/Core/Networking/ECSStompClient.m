@@ -8,7 +8,7 @@
 #import "ECSStompClient.h"
 
 #import "ECSChatMessage.h"
-
+#import "EXPERTconnect.h"
 #import "ECSJSONSerializing.h"
 #import "ECSJSONSerializer.h"
 #import "ECSLog.h"
@@ -87,6 +87,7 @@ int         _clientHeartbeatsMissed;
         _clientHeartbeatInterval = 0;
         _clientHeartbeatsMissed = 0;
         self.connected = NO;
+        self.logger = [[EXPERTconnect shared] logger];
     }
     
     return self;
