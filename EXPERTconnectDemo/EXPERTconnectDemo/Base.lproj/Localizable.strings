@@ -350,4 +350,8 @@
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "Post Consumer Data";
 
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "Email Debug";
+
+
 /* End Test Decision Page Labels Section */

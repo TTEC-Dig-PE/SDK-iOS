@@ -136,6 +136,8 @@ static NSString* const ECDLocalizedRequestDecisionLabel = @"ECDLocalizedRequestD
 static NSString* const ECDLocalizedResponseDecisionLabel = @"ECDLocalizedResponseDecisionLabel";
 static NSString* const ECDLocalizedPostConsumerButtonLabel = @"ECDLocalizedPostConsumerButtonLabel";
 
+static NSString* const ECDLocalizedEmailDebugButtonLabel = @"ECDLocalizedEmailDebugButtonLabel";
+
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized
  string in the application bundle.

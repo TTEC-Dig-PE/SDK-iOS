@@ -194,4 +194,7 @@
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "Los datos de los consumidores tras";
 
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "Depuración de correo electrónico";
+
 /* End Test Decision Page Labels Section */

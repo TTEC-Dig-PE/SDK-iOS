@@ -7,6 +7,7 @@
 //
 
 #import "ECDReportBugViewController.h"
+#import "ECDLocalization.h"
 
 @interface ECDReportBugViewController ()<UITextViewDelegate> {
     AppDelegate *app;
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.reportBug setTitle:ECDLocalizedString(ECDLocalizedEmailDebugButtonLabel, @"Email Debug") forState:UIControlStateNormal];
     self.navigationItem.title = @"Report Bug";
     ECSTheme *theme = [[EXPERTconnect shared] theme];
     self.view.backgroundColor = theme.primaryBackgroundColor;

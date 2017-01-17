@@ -34,7 +34,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiv-Wg-coM" customClass="ECSButton">
                     <rect key="frame" x="20" y="613" width="335" height="34"/>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Button"/>
+                    <state key="normal" title="Email Debug"/>
                     <connections>
                         <action selector="reportBug_Touch:" destination="-1" eventType="touchUpInside" id="oW0-3S-ccz"/>
                     </connections>
@@ -50,7 +50,7 @@
                 <constraint firstItem="tiv-Wg-coM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="m1W-JY-no1"/>
                 <constraint firstItem="8ep-gB-ujY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="vK0-XN-gOn"/>
             </constraints>
-            <point key="canvasLocation" x="-15" y="57"/>
+            <point key="canvasLocation" x="-143" y="46"/>
         </view>
     </objects>
 </document>

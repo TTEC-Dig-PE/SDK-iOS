@@ -350,4 +350,7 @@
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "消费者数据";
 
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "电子邮件调试";
+
 /* End Test Decision Page Labels Section */
