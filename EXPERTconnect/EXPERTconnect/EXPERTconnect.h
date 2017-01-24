@@ -122,6 +122,9 @@ FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 //! Project version string for EXPERTconnect.
 FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
+//TODO - This is a temporary flag to stop nullability warnings until we do the work.
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+
 #pragma mark -
 //Delegate for the Host App to handle events.
 @protocol ExpertConnectDelegate <NSObject>

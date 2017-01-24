@@ -9,7 +9,7 @@
 #import "ECDChatConfigVC.h"
 #import "ECDLocalization.h"
 
-@interface ECDChatConfigVC () <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface ECDChatConfigVC () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 @end
 
@@ -17,7 +17,18 @@
 
 static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return true;
+}
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField selectAll:self];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES]; 
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,6 +53,10 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     
     self.pickerChatSkill.delegate = self;
     self.pickerChatSkill.dataSource = self;
+    
+    self.txtHMargin.delegate = self;
+    self.txtVMargin.delegate = self;
+    self.txtCornerRadius.delegate = self;
     
     // Attempt to load the selected skill for the selected environment
     currentChatSkill = [[NSUserDefaults standardUserDefaults]

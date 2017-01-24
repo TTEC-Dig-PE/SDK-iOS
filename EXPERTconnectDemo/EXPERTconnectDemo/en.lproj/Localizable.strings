@@ -5,12 +5,6 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Log in button text */
-// "ECSLocalizeLogInButton" = "Log Me In!!!";
-
-// Testing
-/* Welcome with user name */
-"ECSLocalizeWelcomeWithUsername" = "Welcome!";
 /* Wait time message */
 "ECSLocalizeGenericWaitTime" = "You'll be connected to a FordGuide shortly.";
 "ECSLocalizeWaitTimeShort" = "Your wait time is expected to be less than a minute.";

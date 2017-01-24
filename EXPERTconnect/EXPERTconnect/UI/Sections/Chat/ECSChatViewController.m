@@ -190,27 +190,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self addChatToolbarView];                  // Add the bottom toolbar to view.
     [self addChatWaitView];                     // Add the "waiting for agent" view.
     
-#ifdef DEBUG
-    //    ECSChatTextMessage *textMessage = [ECSChatTextMessage new];
-    //    textMessage.from = @"Agent";
-    //    textMessage.fromAgent = YES;
-    //    textMessage.body = @"This is an example message from the agent";
-    //
-    //    [self.messages addObject:textMessage];
-    //    [self.messages addObject:[textMessage copy]];
-    //
-    //    ECSChatTextMessage *userTextMessage = [ECSChatTextMessage new];
-    //    userTextMessage.from = @"User";
-    //    userTextMessage.fromAgent = NO;
-    //    userTextMessage.body = @"This is an example message from the user. This is an example message from the user. This is an example message from the user. This is an example message from the user. ";
-    //
-    //    [self.messages addObject:userTextMessage];
-    //    [self.messages addObject:[userTextMessage copy]];
-    //
-    //    [self.messages addObject:[ECSChatNetworkMessage new]];
-    //    [self.messages addObject:[ECSChatIdleMessage new]];
-    
-#endif
 }
 
 - (void)configureNavigationBar
@@ -1060,11 +1039,20 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self networkConnectionChanged:nil];
         _reconnectCount = 0; // Reset.
     }
-    else if(([error.domain isEqualToString:@"ECSWebSocketErrorDomain"] || error.code == 1049) && _reconnectCount < 3)
+    else if([error.domain isEqualToString:@"ECSWebSocketErrorDomain"] && _reconnectCount < 3)
     {
+        // mas - jan-24-2017 - Separated out the error in the following else-if case. It did not need an error thrown to the user.
         // Let's attempt to get a new token.
         _reconnectCount++;
-        [self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
+        
+        // mas - jan-24-2017 - Can cause threading & other issues to delay a reconnect.
+        //[self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
+        [self attemptReconnect];
+    }
+    else if([error.domain isEqualToString:@"com.humanify"] && error.code == 1049)
+    {
+        // mas - jan-24-2017 - Ignore this error. User does not need to see it.
+        ECSLogVerbose(self.logger, @"Got connection closed error from STOMP - high level chat ignoring.");
     }
     else
     {
@@ -2119,11 +2107,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
                    [cell.background.avatarImageView setImage:[imageCache imageForPath:@"ecs_img_avatar"]];
               }
-            ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
+            //ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
         } else {
             ECSChatAddParticipantMessage *participant = [self participantInfoForID:theFrom];
             [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
-            ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
+            //ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
         }
     }
 }
