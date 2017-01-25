@@ -284,6 +284,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     
     [self.pickerChatSkill reloadAllComponents];
     [self.pickerChatSkill selectRow:rowToSelect inComponent:0 animated:NO];
+    selectedRow = rowToSelect; // mas - fixed issue if user did not touch the slider would load skill at index 0. 
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
