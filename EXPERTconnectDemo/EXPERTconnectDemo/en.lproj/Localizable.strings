@@ -6,10 +6,10 @@
 */
 
 /* Wait time message */
-"ECSLocalizeGenericWaitTime" = "You'll be connected to a FordGuide shortly.";
-"ECSLocalizeWaitTimeShort" = "Your wait time is expected to be less than a minute.";
-"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
-"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+"ECSLocalizeGenericWaitTime" = "Calculating wait time...";
+"ECSLocalizeWaitTimeShort" = "Chat volume is low. Your wait time is expected to be %1d minutes(s). Please remain on this screen and you will be connected with a HumanifyGuide.";
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen and you will be connected with a HumanifyGuide.";
+"ECSLocalizeWaitTimeLong" = "Chat volume is heavy. Your wait time is expected to be %1d minutes(s). Please remain on this screen and you will be connected with a HumanifyGuide.";
 // End testing
 
 /* Unknown User text */

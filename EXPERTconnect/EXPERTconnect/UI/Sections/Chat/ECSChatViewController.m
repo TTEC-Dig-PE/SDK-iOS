@@ -1111,18 +1111,32 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     //waitTime = 180; // TESTING ONLY. (in seconds)
     //waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
     int waitMinutes = waitTime / 60.0f;
+
+    NSString *waitStringKey = ECSLocalizeWaitTimeShort;
+    
     if (waitTime <= 60)
     {
-        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeShort, @"Wait time");
+        waitStringKey = ECSLocalizeWaitTimeShort;
     }
     else if (waitTime > 60 && waitTime < 300)
     {
-        self.waitView.subtitleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitMinutes];
+        waitStringKey = ECSLocalizeWaitTime;
     }
     else if (waitTime >= 300)
     {
-        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeLong, @"Wait time");
+        waitStringKey = ECSLocalizeWaitTimeLong;
     }
+    
+    // Grab the localized string value based on the key provided above.
+    NSString *waitString = ECSLocalizedString(waitStringKey, @"Wait time");
+    
+    // If the string has a place to put the wait minutes (%1d) then replace it with actual minutes.
+    if( [waitString containsString:@"%1d"])
+    {
+        waitString = [NSString stringWithFormat:waitString, waitMinutes];
+    }
+    
+    self.waitView.subtitleLabel.text = waitString;
 }
 
 - (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
