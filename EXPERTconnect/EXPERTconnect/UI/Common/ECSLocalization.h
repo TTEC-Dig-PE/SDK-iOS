@@ -89,6 +89,12 @@ static NSString *const ECSLocalizeChatDisconnectPrompt = @"ECSLocalizeChatDiscon
 static NSString *const ECSLocalizeChatDisconnectPromptSurvey = @"ECSLocalizeChatDisconnectPromptSurvey";
 static NSString *const ECSLocalizeYes = @"ECSLocalizeYes";
 static NSString *const ECSLocalizeNo = @"ECSLocalizeNo";
+
+static NSString *const ECSLocalizedLeaveQueueTitle = @"ECSLocalizedLeaveQueueTitle";
+static NSString *const ECSLocalizedLeaveQueueMessage = @"ECSLocalizedLeaveQueueMessage";
+static NSString *const ECSLocalizedLeaveQueueYes = @"ECSLocalizedLeaveQueueYes";
+static NSString *const ECSLocalizedLeaveQueueNo = @"ECSLocalizedLeaveQueueNo";
+
 static NSString *const ECSLocalizeTapToRespond = @"ECSLocalizeTapToRespond";
 static NSString *const ECSLocalizeRequestAPhoneCall = @"ECSLocalizeRequestAPhoneCall";
 static NSString *const ECSLocalizeRequestASMS = @"ECSLocalizeRequestASMS";

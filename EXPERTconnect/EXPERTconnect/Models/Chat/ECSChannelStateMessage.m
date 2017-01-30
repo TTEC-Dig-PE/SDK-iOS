@@ -25,12 +25,27 @@
 
 - (ECSChannelState)channelState
 {
+    ECSChannelState returnState = ECSChannelStateUnknown;
+    
     if ([self.state isEqualToString:@"answered"])
     {
-        return ECSChannelStateConnected;
+        returnState = ECSChannelStateConnected;
+    }
+    else if([self.state isEqualToString:@"notify"])
+    {
+        returnState = ECSChannelStateNotify;
+    }
+    else if([self.state isEqualToString:@"disconnected"])
+    {
+        returnState = ECSChannelStateDisconnected;
+    }
+    else
+    {
+        returnState = ECSChannelStateUnknown;
     }
     
-    return ECSChannelStateDisconnected;
+    NSLog(@"ChannelStateMessage::ChannelState = %lu. Source = %@.", (unsigned long)returnState, self.state);
+    return returnState;
 }
 
 

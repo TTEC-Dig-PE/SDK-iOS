@@ -387,11 +387,42 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             [self.navigationController popViewControllerAnimated:YES];
         }else
         {
-            [self.workflowDelegate endVideoChat];
-            [self.chatClient disconnect];
-            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+//            [self.workflowDelegate endVideoChat];
+//            [self.chatClient disconnect];
+//            [self.navigationController popViewControllerAnimated:YES];
+            [self dialogLeaveQueue];
         }
     }
+}
+
+// Show a dialog asking the user if they are sure they want to leave the queue (they could lose their place...)
+- (void)dialogLeaveQueue
+{
+    NSString *alertTitle = ECSLocalizedString(ECSLocalizedLeaveQueueTitle, @"Warning");
+    NSString *alertMessage = ECSLocalizedString(ECSLocalizedLeaveQueueMessage, @"Chat Disconnect Prompt");
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                             message:alertMessage
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedLeaveQueueNo, @"NO")
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedLeaveQueueYes, @"YES")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action)
+                                {
+                                    // Remove the user from the queue and deconstruct the chat.
+                                    [self.workflowDelegate endVideoChat];
+                                    [self.chatClient disconnect];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)minimizeButtonPressed:(id)sender
