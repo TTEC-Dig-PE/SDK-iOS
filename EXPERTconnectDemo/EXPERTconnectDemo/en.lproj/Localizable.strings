@@ -7,7 +7,7 @@
 
 /* Wait time message */
 "ECSLocalizeGenericWaitTime" = "Calculating wait time...";
-"ECSLocalizeWaitTimeShort" = "Chat volume is low. Your wait time is expected to be %1d minutes(s). Please remain on this screen and you will be connected with a HumanifyGuide.";
+"ECSLocalizeWaitTimeShort" = "Chat volume is low. Your wait time is expected to be less than a minute. Please remain on this screen and you will be connected with a HumanifyGuide.";
 "ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen and you will be connected with a HumanifyGuide.";
 "ECSLocalizeWaitTimeLong" = "Chat volume is heavy. Your wait time is expected to be %1d minutes(s). Please remain on this screen and you will be connected with a HumanifyGuide.";
 // End testing

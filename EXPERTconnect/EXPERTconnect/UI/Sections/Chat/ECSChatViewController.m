@@ -369,6 +369,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)backButtonPressed:(id)sender
 {
+    NSLog(@"Chat state = %lu", (unsigned long)self.chatClient.channelState);
     if (self.chatClient.channelState == ECSChannelStateConnected)
     {
         //- (void)exitChatButtonTapped:(id)sender
@@ -388,11 +389,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         }else
         {
             
-            
-//            [self.workflowDelegate endVideoChat];
-//            [self.chatClient disconnect];
-//            [self.navigationController popViewControllerAnimated:YES];
-            [self dialogLeaveQueue];
+            if( self.waitView ) {
+                [self dialogLeaveQueue];
+            } else {
+                [self.workflowDelegate endVideoChat];
+                [self.chatClient disconnect];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
 }
@@ -1141,19 +1144,19 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     //waitTime = 180; // TESTING ONLY. (in seconds)
     //waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
-    int waitMinutes = waitTime / 60.0f;
+    int waitMinutes = round(waitTime / 60.0f);
 
     NSString *waitStringKey = ECSLocalizeWaitTimeShort;
     
-    if (waitTime <= 60)
+    if (waitTime <= 1)
     {
         waitStringKey = ECSLocalizeWaitTimeShort;
     }
-    else if (waitTime > 60 && waitTime < 300)
+    else if (waitTime > 1 && waitTime < 5)
     {
         waitStringKey = ECSLocalizeWaitTime;
     }
-    else if (waitTime >= 300)
+    else if (waitTime >= 5)
     {
         waitStringKey = ECSLocalizeWaitTimeLong;
     }

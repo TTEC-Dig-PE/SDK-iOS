@@ -391,7 +391,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  Overwrite the device locale. The format is a locale string (ex: fr_CA)
  */
-- (void) overrideDeviceLocale:(NSString *)localeString;
+    ;
 - (NSString *) overrideDeviceLocale;
 
 #pragma mark Journey Functions
