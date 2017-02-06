@@ -41,6 +41,9 @@
 /* Test Decision Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestDecisionLabel" = "测试决策";
 
+/* View SDK Debug Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDebugLabel" = "查看SDK调试";
+
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "开始视频聊天";
 
@@ -346,5 +349,8 @@
 
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "消费者数据";
+
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "电子邮件调试";
 
 /* End Test Decision Page Labels Section */

@@ -100,6 +100,7 @@
                                                                      constant:0.0f];
     
     [self.view addConstraints:@[leftContent, rightContent]];
+    self.logger = [[EXPERTconnect shared] logger];
 }
 
 - (void)setChatClient:(ECSStompChatClient *)client {

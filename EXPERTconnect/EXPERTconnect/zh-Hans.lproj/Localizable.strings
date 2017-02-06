@@ -184,6 +184,18 @@
 /* Localize NO */
 "ECSLocalizeNo" = "否";
 
+/* Dialog - User attempted to exit the chat queue (dialog title) */
+"ECSLocalizedLeaveQueueTitle" = "离开聊天队列";
+
+/* Dialog - User attempted to exit the chat queue (dialog message text) */
+"ECSLocalizedLeaveQueueMessage" = "现在离开，你将失去你在聊天队列中的位置。";
+
+/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
+"ECSLocalizedLeaveQueueYes" = "是的，离开";
+
+/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
+"ECSLocalizedLeaveQueueNo" = "不，留";
+
 /* Tap to respond */
 "ECSLocalizeTapToRespond" = "轻点以回复";
 

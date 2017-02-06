@@ -67,6 +67,7 @@ static NSString* const ECDLocalizedTestChatLabel = @"ECDLocalizedTestChatLabel";
 static NSString* const ECDLocalizedTestBreadcrumbsLabel = @"ECDLocalizedTestBreadcrumbsLabel";
 static NSString* const ECDLocalizedTestJourneyLabel = @"ECDLocalizedTestJourneyLabel";
 static NSString* const ECDLocalizedTestDecisionLabel = @"ECDLocalizedTestDecisionLabel";
+static NSString* const ECDLocalizedTestDebugLabel = @"ECDLocalizedTestDebugLabel";
 static NSString* const ECDLocalizedStartVideoChatLabel = @"ECDLocalizedStartVideoChatLabel";
 static NSString* const ECDLocalizedStartAnswerEngineLabel = @"ECDLocalizedStartAnswerEngineLabel";
 static NSString* const ECDLocalizedUtilityFunctionLabel = @"ECDLocalizedUtilityFunctionLabel"; 
@@ -134,6 +135,8 @@ static NSString* const ECDLocalizedQueueBulkButtonLabel = @"ECDLocalizedQueueBul
 static NSString* const ECDLocalizedRequestDecisionLabel = @"ECDLocalizedRequestDecisionLabel";
 static NSString* const ECDLocalizedResponseDecisionLabel = @"ECDLocalizedResponseDecisionLabel";
 static NSString* const ECDLocalizedPostConsumerButtonLabel = @"ECDLocalizedPostConsumerButtonLabel";
+
+static NSString* const ECDLocalizedEmailDebugButtonLabel = @"ECDLocalizedEmailDebugButtonLabel";
 
 /**
  Loads a localized string first from the main bundle and if not found, then defaults to the localized

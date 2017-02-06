@@ -184,6 +184,18 @@
 /* Localizar NO */
 "ECSLocalizeNo" = "NO";
 
+/* Dialog - User attempted to exit the chat queue (dialog title) */
+"ECSLocalizedLeaveQueueTitle" = "¿Dejar la cola de chat?";
+
+/* Dialog - User attempted to exit the chat queue (dialog message text) */
+"ECSLocalizedLeaveQueueMessage" = "Al salir ahora, perderás tu lugar en la cola de chat.";
+
+/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
+"ECSLocalizedLeaveQueueYes" = "Si deja";
+
+/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
+"ECSLocalizedLeaveQueueNo" = "No quedarse";
+
 /* Toque para responder */
 "ECSLocalizeTapToRespond" = "Toque para responder";
 

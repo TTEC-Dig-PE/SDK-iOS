@@ -8,7 +8,7 @@
 #import "ECSStompClient.h"
 
 #import "ECSChatMessage.h"
-
+#import "EXPERTconnect.h"
 #import "ECSJSONSerializing.h"
 #import "ECSJSONSerializer.h"
 #import "ECSLog.h"
@@ -74,6 +74,7 @@ static NSString * const kStompError = @"ERROR";
 
 int         _clientHeartbeatInterval;
 int         _clientHeartbeatsMissed;
+bool        _wasConnected;
 
 @synthesize authToken;
 
@@ -87,6 +88,7 @@ int         _clientHeartbeatsMissed;
         _clientHeartbeatInterval = 0;
         _clientHeartbeatsMissed = 0;
         self.connected = NO;
+        self.logger = [[EXPERTconnect shared] logger];
     }
     
     return self;
@@ -120,6 +122,27 @@ int         _clientHeartbeatsMissed;
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+-(void)appDidBecomeActive:(NSNotification*)note
+{
+    if( _wasConnected && !self.connected )
+    {
+        ECSLogVerbose(self.logger,@"App became active - reconnecting STOMP.");
+        _wasConnected = NO;
+        [self reconnect];
+    }
+}
+-(void)appWillResignActive:(NSNotification*)note
+{
+    if( self.connected ) {
+        ECSLogVerbose(self.logger,@"App will resign active - disconnecting STOMP.");
+        _wasConnected = YES;
+        [self _internal_disconnect];
+    }
 }
 
 - (void)reconnect
@@ -147,8 +170,14 @@ int         _clientHeartbeatsMissed;
 
 - (void)disconnect
 {
-    ECSLogVerbose(self.logger,@"StompClient::disconnect called.");
+    [self _internal_disconnect];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+- (void)_internal_disconnect {
+    
+    ECSLogVerbose(self.logger,@"StompClient::disconnect called.");
     [self.heartbeatTimer invalidate];
     
     self.connected = NO;
@@ -171,6 +200,7 @@ int         _clientHeartbeatsMissed;
     headers[@"destination"] = destination;
     headers[@"ack"] = @"client";
     headers[@"persistent"] = @"true";
+    headers[@"prefetch-count"] = @"1"; // mas - an attempt to solve the barrage of messages after reconnecting to a STOMP channel
     if(authToken)
     {
         headers[@"x-humanify-auth"] = authToken;
@@ -297,7 +327,7 @@ int         _clientHeartbeatsMissed;
 
 - (void)webSocketDidOpen:(ECSWebSocket *)webSocket
 {
-    ECSLogVerbose(self.logger,@"Web socket did open");
+    ECSLogVerbose(self.logger,@"ECSStompClient::webSocketDidOpen - sending connect command.");
     [self sendConnectToHost:self.hostURL.host];
 }
 

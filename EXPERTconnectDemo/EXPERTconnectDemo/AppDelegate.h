@@ -13,8 +13,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) ECDBugReportEmailer *bugReportEmailer;
+@property (strong, nonatomic) NSMutableString *logMessages;
 
 - (void)reportBug;
+- (void)reportBug:(NSMutableString *)message;
 
 @end
 

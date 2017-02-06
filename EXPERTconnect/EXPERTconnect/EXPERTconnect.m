@@ -26,7 +26,6 @@
 
 @interface EXPERTconnect ()
 @property (nonatomic, strong) ECSWorkflow *workflow;
-@property (nonatomic, strong) ECSLog *logger;
 
 @end
 

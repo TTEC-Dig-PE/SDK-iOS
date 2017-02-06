@@ -35,6 +35,8 @@
 		03CF885F1AD5B45E0064085E /* ECDSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CF885D1AD5B45E0064085E /* ECDSettingsViewController.m */; };
 		03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CF885E1AD5B45E0064085E /* ECDSettingsViewController.xib */; };
 		03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D452181AC1DB4C003607C4 /* AirshipConfig.plist */; };
+		0F199F951E1BA85F00DFEE9F /* ECDReportBugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F199F931E1BA85F00DFEE9F /* ECDReportBugViewController.m */; };
+		0F199F961E1BA85F00DFEE9F /* ECDReportBugViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F199F941E1BA85F00DFEE9F /* ECDReportBugViewController.xib */; };
 		22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */; };
 		22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */; };
 		46222EFD1B72BF390096F2CB /* ECDAdHocFormsPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */; };
@@ -212,6 +214,9 @@
 		03CF885E1AD5B45E0064085E /* ECDSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSettingsViewController.xib; sourceTree = "<group>"; };
 		03CF88611AD5C7220064085E /* ECDUserDefaultKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDUserDefaultKeys.h; sourceTree = "<group>"; };
 		03D452181AC1DB4C003607C4 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
+		0F199F921E1BA85F00DFEE9F /* ECDReportBugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDReportBugViewController.h; sourceTree = "<group>"; };
+		0F199F931E1BA85F00DFEE9F /* ECDReportBugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDReportBugViewController.m; sourceTree = "<group>"; };
+		0F199F941E1BA85F00DFEE9F /* ECDReportBugViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDReportBugViewController.xib; sourceTree = "<group>"; };
 		22CD2EEC1A840142003ED9E4 /* ECDSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDSplashViewController.h; sourceTree = "<group>"; };
 		22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDSplashViewController.m; sourceTree = "<group>"; };
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
@@ -645,6 +650,9 @@
 				4695C37E1B5D805200C95878 /* ECDLocalization.h */,
 				D8EF94061BC32DED0068CAA0 /* ECDBugReportEmailer.m */,
 				D8EF94051BC32DC70068CAA0 /* ECDBugReportEmailer.h */,
+				0F199F921E1BA85F00DFEE9F /* ECDReportBugViewController.h */,
+				0F199F931E1BA85F00DFEE9F /* ECDReportBugViewController.m */,
+				0F199F941E1BA85F00DFEE9F /* ECDReportBugViewController.xib */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -842,6 +850,7 @@
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
+				0F199F961E1BA85F00DFEE9F /* ECDReportBugViewController.xib in Resources */,
 				462C19271B7BC3CF00E230B7 /* UserProfile.json in Resources */,
 				C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */,
 				C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */,
@@ -892,6 +901,7 @@
 				C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */,
 				C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */,
 				03243FDC1A656FB300A4CE6D /* ECDNavigationController.m in Sources */,
+				0F199F951E1BA85F00DFEE9F /* ECDReportBugViewController.m in Sources */,
 				03978F101A602B2D007793D6 /* AppDelegate.m in Sources */,
 				C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */,
 				033ACB571A602CC00024F48F /* ECDZoomViewController.m in Sources */,

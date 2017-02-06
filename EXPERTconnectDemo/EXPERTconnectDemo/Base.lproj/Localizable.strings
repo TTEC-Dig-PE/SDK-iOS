@@ -44,6 +44,9 @@
 /* Test Decision Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestDecisionLabel" = "Test Decision";
 
+/* View SDK Debug Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDebugLabel" = "View SDK Debug";
+
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Start Video Chat";
 
@@ -346,5 +349,9 @@
 
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "Post Consumer Data";
+
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "Email Debug";
+
 
 /* End Test Decision Page Labels Section */

@@ -5,17 +5,11 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Log in button text */
-// "ECSLocalizeLogInButton" = "Log Me In!!!";
-
-// Testing
-/* Welcome with user name */
-"ECSLocalizeWelcomeWithUsername" = "Welcome!";
 /* Wait time message */
-"ECSLocalizeGenericWaitTime" = "You'll be connected to a FordGuide shortly.";
-"ECSLocalizeWaitTimeShort" = "Your wait time is expected to be less than a minute.";
-"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
-"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+"ECSLocalizeGenericWaitTime" = "Calculating wait time...";
+"ECSLocalizeWaitTimeShort" = "Chat volume is low. Your wait time is expected to be less than a minute. Please remain on this screen and you will be connected with a HumanifyGuide.";
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen and you will be connected with a HumanifyGuide.";
+"ECSLocalizeWaitTimeLong" = "Chat volume is heavy. Your wait time is expected to be %1d minutes(s). Please remain on this screen and you will be connected with a HumanifyGuide.";
 // End testing
 
 /* Unknown User text */
@@ -50,6 +44,9 @@
 
 /* Test Decision Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestDecisionLabel" = "Test Decision";
+
+/* View SDK Debug Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDebugLabel" = "View SDK Debug";
 
 /* Start Video Chat Label for AdHoc SDK Usage Page   */
 "ECDLocalizedStartVideoChatLabel" = "Start Video Chat";
@@ -357,5 +354,8 @@
 
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "Post Consumer Data";
+
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "Email Debug";
 
 /* End Test Decision Page Labels Section */

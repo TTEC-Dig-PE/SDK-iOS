@@ -45,6 +45,9 @@
 /* Test Decision Label for AdHoc SDK Usage Page   */
 "ECDLocalizedTestDecisionLabel" = "Decisión de prueba";
 
+/* View SDK Debug Label for AdHoc SDK Usage Page   */
+"ECDLocalizedTestDebugLabel" = "Ver SDK Debug";
+
 /* Localized displayName for Personas in MainMenuConfig.json */
 "ECDLocalizedPersonasLabel" = "Personas";
 
@@ -190,5 +193,8 @@
 
 /* Response Decision Label */
 "ECDLocalizedPostConsumerButtonLabel" = "Los datos de los consumidores tras";
+
+/* Response Email Debug Label */
+"ECDLocalizedEmailDebugButtonLabel" = "Depuración de correo electrónico";
 
 /* End Test Decision Page Labels Section */

@@ -107,7 +107,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         
         //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
-
+        self.logger = [[EXPERTconnect shared] logger];
     }
     return self;
 }

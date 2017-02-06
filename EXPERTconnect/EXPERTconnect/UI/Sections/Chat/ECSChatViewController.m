@@ -150,6 +150,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     _showingMoxtra = FALSE;
     
+    self.logger = [[EXPERTconnect shared] logger];
+    
     ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
     [cafeXController setDefaultParent:self];
     
@@ -188,27 +190,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self addChatToolbarView];                  // Add the bottom toolbar to view.
     [self addChatWaitView];                     // Add the "waiting for agent" view.
     
-#ifdef DEBUG
-    //    ECSChatTextMessage *textMessage = [ECSChatTextMessage new];
-    //    textMessage.from = @"Agent";
-    //    textMessage.fromAgent = YES;
-    //    textMessage.body = @"This is an example message from the agent";
-    //
-    //    [self.messages addObject:textMessage];
-    //    [self.messages addObject:[textMessage copy]];
-    //
-    //    ECSChatTextMessage *userTextMessage = [ECSChatTextMessage new];
-    //    userTextMessage.from = @"User";
-    //    userTextMessage.fromAgent = NO;
-    //    userTextMessage.body = @"This is an example message from the user. This is an example message from the user. This is an example message from the user. This is an example message from the user. ";
-    //
-    //    [self.messages addObject:userTextMessage];
-    //    [self.messages addObject:[userTextMessage copy]];
-    //
-    //    [self.messages addObject:[ECSChatNetworkMessage new]];
-    //    [self.messages addObject:[ECSChatIdleMessage new]];
-    
-#endif
 }
 
 - (void)configureNavigationBar
@@ -388,6 +369,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)backButtonPressed:(id)sender
 {
+    NSLog(@"Chat state = %lu", (unsigned long)self.chatClient.channelState);
     if (self.chatClient.channelState == ECSChannelStateConnected)
     {
         //- (void)exitChatButtonTapped:(id)sender
@@ -406,11 +388,44 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             [self.navigationController popViewControllerAnimated:YES];
         }else
         {
-            [self.workflowDelegate endVideoChat];
-            [self.chatClient disconnect];
-            [self.navigationController popViewControllerAnimated:YES];
+            
+            if( self.waitView ) {
+                [self dialogLeaveQueue];
+            } else {
+                [self.workflowDelegate endVideoChat];
+                [self.chatClient disconnect];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
+}
+
+// Show a dialog asking the user if they are sure they want to leave the queue (they could lose their place...)
+- (void)dialogLeaveQueue
+{
+    NSString *alertTitle = ECSLocalizedString(ECSLocalizedLeaveQueueTitle, @"Warning");
+    NSString *alertMessage = ECSLocalizedString(ECSLocalizedLeaveQueueMessage, @"Chat Disconnect Prompt");
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+                                                                             message:alertMessage
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedLeaveQueueNo, @"NO")
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedLeaveQueueYes, @"YES")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action)
+                                {
+                                    // Remove the user from the queue and deconstruct the chat.
+                                    [self.workflowDelegate endVideoChat];
+                                    [self.chatClient disconnect];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (void)minimizeButtonPressed:(id)sender
@@ -1058,11 +1073,20 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self networkConnectionChanged:nil];
         _reconnectCount = 0; // Reset.
     }
-    else if(([error.domain isEqualToString:@"ECSWebSocketErrorDomain"] || error.code == 1049) && _reconnectCount < 3)
+    else if([error.domain isEqualToString:@"ECSWebSocketErrorDomain"] && _reconnectCount < 3)
     {
+        // mas - jan-24-2017 - Separated out the error in the following else-if case. It did not need an error thrown to the user.
         // Let's attempt to get a new token.
         _reconnectCount++;
-        [self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
+        
+        // mas - jan-24-2017 - Can cause threading & other issues to delay a reconnect.
+        //[self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
+        [self attemptReconnect];
+    }
+    else if([error.domain isEqualToString:@"com.humanify"] && error.code == 1049)
+    {
+        // mas - jan-24-2017 - Ignore this error. User does not need to see it.
+        ECSLogVerbose(self.logger, @"Got connection closed error from STOMP - high level chat ignoring.");
     }
     else
     {
@@ -1120,19 +1144,33 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     //waitTime = 180; // TESTING ONLY. (in seconds)
     //waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
-    int waitMinutes = waitTime / 60.0f;
-    if (waitTime <= 60)
+    int waitMinutes = round(waitTime / 60.0f);
+
+    NSString *waitStringKey = ECSLocalizeWaitTimeShort;
+    
+    if (waitTime <= 1)
     {
-        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeShort, @"Wait time");
+        waitStringKey = ECSLocalizeWaitTimeShort;
     }
-    else if (waitTime > 60 && waitTime < 300)
+    else if (waitTime > 1 && waitTime < 5)
     {
-        self.waitView.subtitleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWaitTime, @"Wait time"), waitMinutes];
+        waitStringKey = ECSLocalizeWaitTime;
     }
-    else if (waitTime >= 300)
+    else if (waitTime >= 5)
     {
-        self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeWaitTimeLong, @"Wait time");
+        waitStringKey = ECSLocalizeWaitTimeLong;
     }
+    
+    // Grab the localized string value based on the key provided above.
+    NSString *waitString = ECSLocalizedString(waitStringKey, @"Wait time");
+    
+    // If the string has a place to put the wait minutes (%1d) then replace it with actual minutes.
+    if( [waitString containsString:@"%1d"])
+    {
+        waitString = [NSString stringWithFormat:waitString, waitMinutes];
+    }
+    
+    self.waitView.subtitleLabel.text = waitString;
 }
 
 - (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
@@ -2117,11 +2155,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                    ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
                    [cell.background.avatarImageView setImage:[imageCache imageForPath:@"ecs_img_avatar"]];
               }
-            ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
+            //ECSLogVerbose(self.logger,@"Setting (user) avatar image for participant %@.", theFrom);
         } else {
             ECSChatAddParticipantMessage *participant = [self participantInfoForID:theFrom];
             [cell.background.avatarImageView setImageWithPath:participant.avatarURL];
-            ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
+            //ECSLogVerbose(self.logger,@"Setting (agent) avatar image for participant %@.", theFrom);
         }
     }
 }

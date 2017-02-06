@@ -122,6 +122,9 @@ FOUNDATION_EXPORT double EXPERTconnectVersionNumber;
 //! Project version string for EXPERTconnect.
 FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
+//TODO - This is a temporary flag to stop nullability warnings until we do the work.
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+
 #pragma mark -
 //Delegate for the Host App to handle events.
 @protocol ExpertConnectDelegate <NSObject>
@@ -148,6 +151,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (copy, nonatomic) NSString *pushNotificationID;
 @property (copy, nonatomic) NSString *journeyManagerContext;
 @property (copy, nonatomic) NSString *sessionID;
+@property (nonatomic, strong) ECSLog *logger;
 
 @property (readonly, nonatomic) NSString *EXPERTconnectVersion;
 @property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;

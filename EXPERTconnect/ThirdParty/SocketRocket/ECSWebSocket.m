@@ -466,14 +466,16 @@ static __strong NSData *CRLFCRLF;
         _protocol = negotiatedProtocol;
     }
     
-    self.readyState = ECS_OPEN;
+    if( self.readyState != ECS_OPEN) self.readyState = ECS_OPEN;
     
     if (!_didFail) {
         [self _readFrameNew];
     }
 
     [self _performDelegateBlock:^{
+        if( self.readyState != ECS_OPEN) self.readyState = ECS_OPEN; // MAS - 24-jan-2017 - An extra call here to make sure it's set before connecting.
         if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
+            NSLog(@"ECSWebSocket::HTTPHeadersDidFinish - calling WebSocketDidOpen delegate function");
             [self.delegate webSocketDidOpen:self];
         };
     }];

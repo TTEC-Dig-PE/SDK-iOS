@@ -15,6 +15,7 @@
 #import "ECDWorkflowViewController.h"
 #import "ECDLocalization.h"
 #import "ECDPersonasViewController.h"
+#import "ECDReportBugViewController.h"
 #import "AppConfig.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
@@ -206,6 +207,10 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
                 [app reportBug];
 #endif
             }
+//            else
+//            {
+//                actionViewController = [[ECDReportBugViewController alloc] initWithNibName:nil bundle:nil];
+//            }
         else
         if ([item.type isEqualToString:@"adhoc"])
         {

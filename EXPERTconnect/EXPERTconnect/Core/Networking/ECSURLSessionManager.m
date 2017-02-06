@@ -101,6 +101,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                 delegateQueue:[NSOperationQueue new]];
 
         [self startReachability];
+        self.logger = [[EXPERTconnect shared] logger];
     }
     
     return self;
