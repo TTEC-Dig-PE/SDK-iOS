@@ -1142,21 +1142,21 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
 {
-    //waitTime = 180; // TESTING ONLY. (in seconds)
-    //waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
+//    waitTime = -3; // TESTING ONLY. (in seconds)
+//    waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
     int waitMinutes = round(waitTime / 60.0f);
 
     NSString *waitStringKey = ECSLocalizeWaitTimeShort;
     
-    if (waitTime <= 1)
+    if (waitMinutes <= 1)
     {
         waitStringKey = ECSLocalizeWaitTimeShort;
     }
-    else if (waitTime > 1 && waitTime < 5)
+    else if (waitMinutes > 1 && waitMinutes < 5)
     {
         waitStringKey = ECSLocalizeWaitTime;
     }
-    else if (waitTime >= 5)
+    else if (waitMinutes >= 5)
     {
         waitStringKey = ECSLocalizeWaitTimeLong;
     }
