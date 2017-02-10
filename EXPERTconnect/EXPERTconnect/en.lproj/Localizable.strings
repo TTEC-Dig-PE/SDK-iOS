@@ -5,7 +5,8 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Name of the company */
+/* Name of the company (not in use) */
+/* Translators: SKIP */
 "ECSLocalizedCompanyNameKey" = "Humanify";
 
 /* Close */
@@ -18,10 +19,12 @@
 
 /* Logout */
 /* Usage: Only used in ECDemo. The text in a confirmation dialog to make sure the user really wants to logout now. */
+/* Translators: SKIP */
 "ECSLocalizeLogoutTitle" = "Logout?";
 
 /* Logout text */
 /* Usage: Only used in ECDemo. Popup dialog to double-check user does want to log out */
+/* Translators: SKIP */
 "ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
@@ -42,44 +45,59 @@
 
 /* Email Address Placeholder */
 /* Usage: Only used in ECDemo. Appears in a label letting the user know this is where they type in an email address. */
+/* Translators: SKIP */
 "ECSLocalizeEmailFieldPlaceholder" = "Email Address";
 
 /* Mobile Number Placeholder */
 /* Usage: NOT IN USE */
+/* Translators: SKIP */
 "ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
 
 /* Log in prompt text */
 /* Usage: Only used in ECDemo. Label directing user to login. */
+/* Translators: SKIP */
 "ECSLogInPromptText" = "Log in to your Humanify Account";
 
 /* All Fields Required Text */
+/* Usage: Warning text that the user did not fill out all required fields on a form input. */
 "ECSLocalizeAllFieldsRequired" = "All Fields Required";
 
 /* Error missing required fields */
+/* Usage: The user has not input a required email address field. */
 "ECSLocalizeLoginErrorMissingRequiredFields" = "The Email Address field is required.";
 
 /* All registration fields are requried */
+/* Usage: Warning text if the user does not fill out all required fields for the registration form. */
 "ECSLocalizeRegisterErrorMissingRequiredFields" = "All fields are required.";
 
 /* Log in button text */
+/* Usage: A login button */
 "ECSLocalizeLogInButton" = "Log In";
 
 /* Log out button text */
+/* Usage: A logout button */
 "ECSLocalizedLogoutButton" = "Logout";
 
 /* Request to create an account */
+/* Usage: NOT IN USE */
+/* Translators: SKIP */
 "ECSCreateAccountPromptKey" = "Create a Humanify Account";
 
 /* Full Name text field placeholder */
+/* Usage: NOT IN USE */
+/* Translators: SKIP */
 "ECSLocalizeFullNameFieldPlaceholderKey" = "Full Name";
 
 /* Create Account button text */
+/* Usage: Button text for creating a new account. ECDemo only. */
 "ECSLocalizeCreateAccountKey" = "Create Account";
 
 /* Next Question */
+/* Usage: Button text when user wants to move on to the next question/form input */
 "ECSLocalizeNextQuestionKey" = "Next";
 
 /* Previous Question */
+/* Usage: Button text when user wants to move to the previous question/form input */
 "ECSLocalizePreviousQuestionKey" = "Previous";
 
 /* Optional Question */
@@ -89,18 +107,22 @@
 "ECSLocalizeRequiredKey" = "Required";
 
 /* Select all that apply */
+/* Usage: A checkbox form control where the user can select multiple choices. */
 "ECSLocalizeSelectAllThatApplyKey" = "Select all that apply";
 
 /* Submit */
 "ECSLocalizeSubmitKey" = "Submit";
 
 /* Possible Answer */
+/* Usage: The FAQ results can return a list of "possible answers" related to the user's search query */
 "ECSLocalizePossibleAnswer" = "POSSIBLE ANSWER";
 
 /* Others also asked */
+/* Usage: A FAQ result can show a list of related topics at the bottoms that other users have also asked about. */
 "ECSLocalizeOthersAlsoAsked" = "OTHERS ALSO ASKED...";
 
 /* Was this response helpful? */
+/* Usage: A FAQ result can ask with a thumbs up/thumbs down whether or not this article was helpful. */
 "ECSLocalizeWasThisResponseHelpful" = "Was this response helpful?";
 
 /* View Previous Answer */
@@ -113,6 +135,7 @@
 "ECSLocalizedAnswerNotFoundTitle" = "No Answer Found";
 
 /* Answer not found message */
+/* Usage: The FAQ has returned no results based on the query the user typed in */
 "ECSLocalizedAnswerNotFoundMessage" = "We were unable to find an answer to your query, please try again.";
 
 /* OK Button Text */
@@ -122,45 +145,68 @@
 "ECSLocalizeReachabilityErrorKey" = "We are unable to connect to the Humanify Network. Please check your internet connection.";
 
 /* Push Notifications */
+/* Usage: ECDemo Only. The title to the Push Notification settings view. */
+/* Translators: SKIP */
 "ECSLocalizedPushNotificationsHeader" = "Push Notifications";
 
 /* Start new journey */
+/* Usage: ECDemo Only. The title to the Start New Journey settings view. */
+/* Translators: SKIP */
 "ECSLocalizedStartJourneyHeader" = "Start new journey";
 
 /* iBeacons */
+/* Translators: SKIP */
 "ECSLocalizedBeaconsHeader" = "iBeacons";
 
 /* Version */
+/* Translators: SKIP */
 "ECSLocalizedVersionHeader" = "Version %@";
 
 /* Receive Notifications */
+/* Translators: SKIP */
 "ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
 
 /* Start new journey */
+/* Translators: SKIP */
 "ECSLocalizedStartJourneyRow" = "Start New Journey";
 
 /* Enable iBeacon Feature */
+/* Translators: SKIP */
 "ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
 
 /* Open Source Licenses */
+/* Translators: SKIP */
 "ECSLocalizedLicensesRow" = "Open Source Licenses";
 
 /* Chat view placeholder text */
 "ECSLocalizedChatViewPlaceholder" = "Type a Message";
 
 /* Welcome */
+/* Usage: When a user starts a chat, it says "Welcome" at the top */
 "ECSLocalizeWelcome" = "Welcome";
 
 /* Welcome with user name */
+/* Usage: When a user starts a chat, it can say "Welcome, [username]" at the top. */
+/* Note: The variable %1@ is the username, such as "John Smith" */
 "ECSLocalizeWelcomeWithUsername" = "Welcome, %1@";
 
 /* Generic wait time message */
+/* Usage: Displayed when a user is queued for chat before accurate data arrives. */
 "ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
 
-/* Wait time message */
+/* Wait time messages */
+/* These messages are displayed on the queue screen while a user is waiting for a chat to connect */
+/* Note: The %1d is an (optional) integer for the estimated number of minutes the user will be in queue */
+
+/* Usage: Displayed when the wait time is between 0-1 minutes long */
 "ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute.";
+
+/* Usage: Displayed when the wait time is greater than 1 and less than 5 minutes long. */
 "ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
+
+/* Usage: Displayed when the wait time is greater than 5 minutes. */
 "ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";
@@ -172,9 +218,12 @@
 "ECSLocalizeChatReachabilityReconnectButtonKey" = "Try Reconnecting";
 
 /* Idle Message */
+/* Usage: Displayed when the user has been idle in chat for some time. */
+/* Note: The %1d is an integer holding the number of idle minutes. */
 "ECSLocalizeIdleMessageKey" = "You've been idle for %1d minutes";
 
 /* Continue Chatting */
+/* Usage: A dialog message body for when the user has been idle, asking if they would like to continue the chat. */
 "ECSLocalizeContinueChattingKey" = "Would you like to continue chatting?";
 
 /* Info */
