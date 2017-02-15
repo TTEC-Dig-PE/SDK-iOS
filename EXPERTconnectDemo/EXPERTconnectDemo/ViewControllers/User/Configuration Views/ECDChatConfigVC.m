@@ -150,7 +150,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     // Create the chat view
     if( !self.chatController || !_chatActive )
     {
-        self.chatController = [[EXPERTconnect shared] startChat:chatSkill
+        self.chatController = (ECSChatViewController *)[[EXPERTconnect shared] startChat:chatSkill
                                                 withDisplayName:@"AdHoc Chat"
                                                      withSurvey:NO];
         
@@ -179,6 +179,11 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 // User pressed our custom back button
 -(void)backPushed:(id)sender
 {
+    if( self.chatController.userInQueue ) {
+        NSLog(@"Back pushed while in queue...");
+    } else {
+        NSLog(@"Back pushed while in chat...");
+    }
     NSLog(@"Test Harness::Chat Nav Bar - Back button pushed.");
     [self.navigationController popViewControllerAnimated:YES];
 }
