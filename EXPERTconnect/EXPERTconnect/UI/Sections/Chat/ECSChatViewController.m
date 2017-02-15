@@ -384,12 +384,16 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         }else
         {
             
-            if( self.waitView ) {
+            if( self.waitView )
+            {
                 [self dialogLeaveQueue];
-            } else {
-                [self.workflowDelegate endVideoChat];
-                [self.chatClient disconnect];
-                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+//                [self.workflowDelegate endVideoChat];
+//                [self.chatClient disconnect];
+//                [self.navigationController popViewControllerAnimated:YES];
+                [self endChatByUser];
             }
         }
     }
@@ -414,9 +418,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                       handler:^(UIAlertAction *action)
                                 {
                                     // Remove the user from the queue and deconstruct the chat.
-                                    [self.workflowDelegate endVideoChat];
-                                    [self.chatClient disconnect];
-                                    [self.navigationController popViewControllerAnimated:YES];
+//                                    [self.workflowDelegate endVideoChat];
+//                                    [self.chatClient disconnect];
+//                                    [self.navigationController popViewControllerAnimated:YES];
+                                    [self endChatByUser];
                                 }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -558,10 +563,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         // No post-action. Close the window and send the notification so host app can act.
         [self.navigationController popViewControllerAnimated:YES];
         
-        if (self.chatClient.channelState != ECSChannelStateDisconnected) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-                                                                object:self];
-        }
+//        if (self.chatClient.channelState != ECSChannelStateDisconnected) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
+                                                            object:self];
+//        }
     }
 }
 

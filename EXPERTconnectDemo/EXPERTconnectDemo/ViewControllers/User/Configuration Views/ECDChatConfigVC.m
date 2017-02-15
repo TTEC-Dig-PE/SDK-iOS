@@ -172,6 +172,9 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
                //[self.tableView reloadData]; // make it show continue chat
     }
     
+    [self.btnStartChat setTitle:@"Return to Queue" forState:UIControlStateNormal];
+    _chatActive = YES;
+    
     // Push it onto our navigation stack (so back buttons will work)
     [self.navigationController pushViewController:self.chatController animated:YES];
 }
@@ -192,12 +195,53 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 {
     NSLog(@"Test Harness::Chat Nav Bar - End Chat button pushed.");
     
-    // New notification that does exactly what our built-in "end chat" button does (shows "are you sure?" dialog)
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
-    _chatActive = NO;
-    [self.btnEndChat setEnabled:NO];
+    UIAlertController *alert;
+    UIAlertAction *defaultAction;
     
-    [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
+    if( _chatController.userInQueue )
+    {
+        alert = [UIAlertController alertControllerWithTitle:@"Exit Queue"
+                                                    message:@"Are you sure you want to exit the queue? You will lose your place in line."
+                                             preferredStyle:UIAlertControllerStyleAlert];
+        
+        defaultAction = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action)
+                         {
+                             // We left the queue, so let's shut down chat (no "continue chat")
+                             _chatActive = NO;
+                             [_chatController endChatByUser];
+                             [self.btnEndChat setEnabled:NO];
+                             [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
+                             
+                         }];
+    }
+    else
+    {
+        alert = [UIAlertController alertControllerWithTitle:@"End Chat"
+                                                    message:@"Are you sure you want to end the chat?"
+                                             preferredStyle:UIAlertControllerStyleAlert];
+        
+        defaultAction = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action)
+                         {
+                             // This notification will inform the SDK to gracefully shut down the chat.
+                             //[[NSNotificationCenter defaultCenter] postNotificationName:@"ECSEndChatNotification" object:nil];
+                             
+                             // This will directly inform the chatView to end the chat by user input.
+                             [_chatController endChatByUser];
+                             [self.btnEndChat setEnabled:NO];
+                             [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedStartChatLabel, @"Start Chat") forState:UIControlStateNormal];
+                         }];
+    }
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)optTimestamp_Change:(id)sender {
