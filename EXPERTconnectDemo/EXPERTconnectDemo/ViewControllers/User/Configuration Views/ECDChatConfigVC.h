@@ -19,7 +19,7 @@
     bool _chatActive;
 }
 
-@property (strong, nonatomic) UIViewController *chatController;
+@property (strong, nonatomic) ECSChatViewController *chatController;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerChatSkill;
 @property (weak, nonatomic) IBOutlet UIButton *btnEndChat;

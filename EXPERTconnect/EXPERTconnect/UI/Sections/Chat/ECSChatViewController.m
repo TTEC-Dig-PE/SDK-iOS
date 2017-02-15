@@ -55,7 +55,6 @@
 #import "ECSLog.h"
 #import "ECSMediaInfoHelpers.h"
 #import "ECSPhotoViewController.h"
-#import "ECSStompChatClient.h"
 #import "ECSWebViewController.h"
 //#import "ECSQuickRatingForm.h"
 //#import "ECSQuickRatingViewController.h"
@@ -117,12 +116,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 @property (strong, nonatomic) NSIndexPath *currentFormCellIndexPath;
 @property (strong, nonatomic) NSLayoutConstraint *inlineFormBottomConstraint;
 
-// Current list of messages in this chat
-@property (strong, nonatomic) NSMutableArray *messages;
-
-// Current chat participants (name, avatar image, etc). Array key is UserID of agent
-@property (strong, nonatomic) NSMutableDictionary *participants;
-
 // Chat Stomp Client object
 @property (strong, nonatomic) ECSStompChatClient *chatClient;
 
@@ -144,11 +137,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 @implementation ECSChatViewController
 
+@synthesize chatClient, messages, participants;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _showingMoxtra = FALSE;
+//    _showingMoxtra = FALSE;
     
     self.logger = [[EXPERTconnect shared] logger];
     
@@ -179,7 +174,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     // If host app sends this notification, we will end the chat (no dialog).
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(doGracefulEndChat)
+                                             selector:@selector(endChatByUser)
                                                  name:ECSEndChatNotification
                                                object:nil];
     
@@ -623,7 +618,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                                handler:^(UIAlertAction *action)
                                         {
                                              
-                                            [self doGracefulEndChat];
+                                            [self endChatByUser];
                                         }]];
              
             [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
@@ -637,13 +632,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             NSLog(@"exitChatButtonTapped - Error checking for post actions: %@", error.description);
             if(weakSelf)
             {
-                [self doGracefulEndChat];
+                [self endChatByUser];
             }
         }
     }];
 }
 
-- (void)doGracefulEndChat
+- (void)endChatByUser
 {
     [self.workflowDelegate endVideoChat];
     [self.chatClient disconnect];
@@ -925,7 +920,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     if ([notification.name isEqualToString:@"NotificationScreenShareEnded"])
     {
-        _showingMoxtra = FALSE;
+//        _showingMoxtra = FALSE;
         
         [self updateEdgeInsets];
     }
@@ -1452,7 +1447,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                           // Make alert go away.
                                                           if(self.waitView)
                                                           {
-                                                              [self doGracefulEndChat];
+                                                              [self endChatByUser];
                                                           }
                                                       }]];
     
@@ -2473,6 +2468,16 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [UIView setAnimationCurve:[animationCurve intValue]];
         [self updateEdgeInsets];
     }];
+}
+
+#pragma mark Functions For when using the View Object to fetch data
+
+- (BOOL) userInQueue {
+    return (self.waitView);
+}
+
+- (ECSStompChatClient *)getChatClient {
+    return self.chatClient;
 }
 
 @end

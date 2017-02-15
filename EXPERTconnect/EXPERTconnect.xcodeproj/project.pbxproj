@@ -98,7 +98,7 @@
 		0342AFDE1A9B60950009959E /* ECSChatToolbarController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFCC1A9B60950009959E /* ECSChatToolbarController.h */; };
 		0342AFDF1A9B60950009959E /* ECSChatToolbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342AFCD1A9B60950009959E /* ECSChatToolbarController.m */; };
 		0342AFE01A9B60950009959E /* ECSChatToolbarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0342AFCE1A9B60950009959E /* ECSChatToolbarController.xib */; };
-		0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFCF1A9B60950009959E /* ECSChatViewController.h */; };
+		0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFCF1A9B60950009959E /* ECSChatViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0342AFE21A9B60950009959E /* ECSChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342AFD01A9B60950009959E /* ECSChatViewController.m */; };
 		0342AFE31A9B60950009959E /* ECSChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0342AFD11A9B60950009959E /* ECSChatViewController.xib */; };
 		0342B0091A9B60AE0009959E /* ECSFormQuestionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFE41A9B60AE0009959E /* ECSFormQuestionView.h */; };
@@ -1955,6 +1955,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
 				2252C6AF1A7BE9E200B99912 /* ECSFormItemRating.h in Headers */,
 				2252C6B51A7BE9E200B99912 /* ECSFormItemTextArea.h in Headers */,
@@ -2046,7 +2047,6 @@
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
 				0342AFAE1A9B60700009959E /* ECSAnswerEngineViewController.h in Headers */,
-				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				C444EFD31BD5AF3600E94AF3 /* ECSStartJourneyResponse.h in Headers */,
 				C1E99D231BC7CBE7000EC129 /* ECSColorPickerView.h in Headers */,
 				D83F78C01B7D526C00F307D4 /* ECSCafeXMessage.h in Headers */,
