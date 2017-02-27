@@ -144,12 +144,16 @@
 "ECSLocalizeWelcomeWithUsername" = "Welcome, %1@";
 
 /* Generic wait time message */
-"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
+"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly. Please remain on this screen to keep your spot in queue.";
 
-/* Wait time message */
-"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute.";
-"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
-"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+/* Usage: Displayed when the wait time is between 0-1 minutes long */
+"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.";
+
+/* Usage: Displayed when the wait time is greater than 1 and less than 5 minutes long. */
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.";
+
+/* Usage: Displayed when the wait time is greater than 5 minutes. */
+"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";
