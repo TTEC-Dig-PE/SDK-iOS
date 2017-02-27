@@ -192,20 +192,20 @@
 
 /* Generic wait time message */
 /* Usage: Displayed when a user is queued for chat before accurate data arrives. */
-"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly.";
+"ECSLocalizeGenericWaitTime" = "You'll be connected to an agent shortly. Please remain on this screen to keep your spot in queue.";
 
 /* Wait time messages */
 /* These messages are displayed on the queue screen while a user is waiting for a chat to connect */
 /* Note: The %1d is an (optional) integer for the estimated number of minutes the user will be in queue */
 
 /* Usage: Displayed when the wait time is between 0-1 minutes long */
-"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute.";
+"ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.";
 
 /* Usage: Displayed when the wait time is greater than 1 and less than 5 minutes long. */
-"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes.";
+"ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.";
 
 /* Usage: Displayed when the wait time is greater than 5 minutes. */
-"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes.";
+"ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
 
 
 /* Temporarily Disconnected */

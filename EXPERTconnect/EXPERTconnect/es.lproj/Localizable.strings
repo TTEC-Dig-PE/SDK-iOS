@@ -144,12 +144,12 @@
 "ECSLocalizeWelcomeWithUsername" = "Bienvenido,% 1 @";
 
 /* Genérico mensaje de tiempo de espera */
-"ECSLocalizeGenericWaitTime" = "Usted va a estar conectado a un agente en breve.";
+"ECSLocalizeGenericWaitTime" = "Usted va a estar conectado a un agente en breve. Por favor, permanezcan en esta pantalla para mantener su lugar en la cola.";
 
 /* Mensaje de tiempo de espera */
-"ECSLocalizeWaitTimeShort" = "Usted será conectado con un agente en menos de 1 minuto.";
-"ECSLocalizeWaitTime" = "Su tiempo de espera es de %1d aproximadamente minuto.";
-"ECSLocalizeWaitTimeLong" = "Se espera que su tiempo de espera sea superior a 5 minutos.";
+"ECSLocalizeWaitTimeShort" = "Usted será conectado con un agente en menos de 1 minuto. Por favor, permanezcan en esta pantalla para mantener su lugar en la cola.";
+"ECSLocalizeWaitTime" = "Su tiempo de espera es de %1d aproximadamente minuto. Por favor, permanezcan en esta pantalla para mantener su lugar en la cola.";
+"ECSLocalizeWaitTimeLong" = "Se espera que su tiempo de espera sea superior a 5 minutos. Por favor, permanezcan en esta pantalla para mantener su lugar en la cola.";
 
 /* Desconectado temporalmente */
 "ECSLocalizeChatReachabilityErrorKey" = "desconectado temporalmente";

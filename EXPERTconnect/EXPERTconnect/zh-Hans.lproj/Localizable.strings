@@ -144,12 +144,12 @@
 "ECSLocalizeWelcomeWithUsername" = "欢迎您，%1@";
 
 /* Generic wait time message */
-"ECSLocalizeGenericWaitTime" = "将很快为您接通一位代理。";
+"ECSLocalizeGenericWaitTime" = "将很快为您接通一位代理。请保留在此屏幕上以保持您的位置在队列中。";
 
 /* Wait time message */
-"ECSLocalizeWaitTimeShort" = "将在1 分钟内为您接通一位代理。";
-"ECSLocalizeWaitTime" = "您的等待时间大约为 %1d 分钟。";
-"ECSLocalizeWaitTimeLong" = "您的预期等待时间将大于 5 分钟。";
+"ECSLocalizeWaitTimeShort" = "将在1 分钟内为您接通一位代理。请保留在此屏幕上以保持您的位置在队列中。";
+"ECSLocalizeWaitTime" = "您的等待时间大约为 %1d 分钟。请保留在此屏幕上以保持您的位置在队列中。";
+"ECSLocalizeWaitTimeLong" = "您的预期等待时间将大于 5 分钟。请保留在此屏幕上以保持您的位置在队列中。";
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "连接暂时中断";

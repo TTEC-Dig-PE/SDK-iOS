@@ -144,12 +144,12 @@
 "ECSLocalizeWelcomeWithUsername" = "Willkommen, %1@.";
 
 /* Generic wait time message */
-"ECSLocalizeGenericWaitTime" = "Sie werden schon bald mit einem Bearbeiter verbunden.";
+"ECSLocalizeGenericWaitTime" = "Sie werden schon bald mit einem Bearbeiter verbunden. Bitte bleiben Sie auf diesem Bildschirm Ihren Platz in der Warteschlange zu halten.";
 
 /* Wait time message */
-"ECSLocalizeWaitTimeShort" = "Sie werden in unter einer Minute mit einem Bearbeiter verbunden.";
-"ECSLocalizeWaitTime" = "Ihre Wartezeit beträgt etwa %1d Minuten.";
-"ECSLocalizeWaitTimeLong" = "Ihre voraussichtliche Wartezeit beträgt über fünf Minuten.";
+"ECSLocalizeWaitTimeShort" = "Sie werden in unter einer Minute mit einem Bearbeiter verbunden. Bitte bleiben Sie auf diesem Bildschirm Ihren Platz in der Warteschlange zu halten.";
+"ECSLocalizeWaitTime" = "Ihre Wartezeit beträgt etwa %1d Minuten. Bitte bleiben Sie auf diesem Bildschirm Ihren Platz in der Warteschlange zu halten.";
+"ECSLocalizeWaitTimeLong" = "Ihre voraussichtliche Wartezeit beträgt über fünf Minuten. Bitte bleiben Sie auf diesem Bildschirm Ihren Platz in der Warteschlange zu halten.";
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "Vorübergehend unterbrochen";
