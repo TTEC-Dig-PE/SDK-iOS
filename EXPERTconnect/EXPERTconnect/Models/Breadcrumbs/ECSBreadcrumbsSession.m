@@ -1,6 +1,6 @@
 
 //
-//  ECSBreadcrumbsDevice.m
+//  ECSBreadcrumbsSession.m
 //  EXPERTconnect
 //
 //  Created by Ran on 10/14/15.

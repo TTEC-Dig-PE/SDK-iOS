@@ -100,4 +100,23 @@ static CGFloat defaultFontIndex;
     self.preferredMaxLayoutWidth = self.bounds.size.width;
     [super layoutSubviews];
 }
+
+- (void) setHtml: (NSString*) html
+{
+    NSError *err = nil;
+    NSMutableAttributedString *attribString =
+    [[NSMutableAttributedString alloc]
+     initWithData: [html dataUsingEncoding:NSUTF8StringEncoding]
+     options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+     documentAttributes: nil
+     error: &err];
+    
+//    [attribString addAttribute:NSFontAttribute value:self.font range: NSMakeRange(0, attribString.length)];
+    
+    self.attributedText = attribString;
+    
+    if(err)
+        NSLog(@"Unable to parse label text: %@", err);
+}
+
 @end

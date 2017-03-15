@@ -184,18 +184,6 @@
 /* Localize NO */
 "ECSLocalizeNo" = "NEIN";
 
-/* Dialog - User attempted to exit the chat queue (dialog title) */
-"ECSLocalizedLeaveQueueTitle" = "Chat-Warteschlange hinterlassen?";
-
-/* Dialog - User attempted to exit the chat queue (dialog message text) */
-"ECSLocalizedLeaveQueueMessage" = "Wenn du jetzt verlässt, verlierst du deinen Platz in der Chat-Warteschlange.";
-
-/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
-"ECSLocalizedLeaveQueueYes" = "Ja, verlassen";
-
-/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "Nein, bleiben";
-
 /* Tap to respond */
 "ECSLocalizeTapToRespond" = "Drücken, um zu reagieren";
 
@@ -355,3 +343,26 @@
 /* Channel Timeout Warning */
 "ECSChannelTimeoutWarning" = "Ihr Chat wird wegen fehlender Eingaben in %d Sekunden abgebrochen.";
 
+
+/* 5.7.0 Strings */
+
+/* Dialog - User attempted to exit the chat queue (dialog title) */
+"ECSLocalizedLeaveQueueTitle" = "Chat-Warteschlange hinterlassen?";
+
+/* Dialog - User attempted to exit the chat queue (dialog message text) */
+"ECSLocalizedLeaveQueueMessage" = "Wenn du jetzt verlässt, verlierst du deinen Platz in der Chat-Warteschlange.";
+
+/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
+"ECSLocalizedLeaveQueueYes" = "Ja, verlassen";
+
+/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
+"ECSLocalizedLeaveQueueNo" = "Nein, bleiben";
+
+/* 5.8.0 Strings */
+
+/* Usage: Displayed in a red bar at the top of the chat window when the network connection is lost. */
+"ECSLocalizedChatQueueNetworkError" = "Keine Internetverbindung.";
+
+/* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
+/* Dialog Title will be "Error" */
+"ECSLocalizedChatQueueDisconnectMessage" = "Ihre Chat-Anfrage ist abgelaufen. Bitte versuche es erneut.";

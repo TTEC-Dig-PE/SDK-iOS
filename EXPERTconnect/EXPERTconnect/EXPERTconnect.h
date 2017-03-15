@@ -102,6 +102,7 @@
 
 #import <EXPERTconnect/ECSJSONSerializing.h>
 #import <EXPERTconnect/ECSNotifications.h>
+#import <EXPERTconnect/ECSErrorDefinitions.h>
 #import <EXPERTconnect/ECSConfiguration.h>
 #import <EXPERTconnect/ECSLog.h>
 

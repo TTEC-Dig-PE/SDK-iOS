@@ -184,7 +184,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     //NSAssert(clientID.length > 0, @"Client ID must be provided");
     //NSAssert(clientSecret.length > 0, @"Client secret must be provided");
     if (clientID.length == 0 || clientSecret.length == 0) {
-        completion(nil, [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:-2000]);
+        completion(nil, [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
     }
     
     NSURL *url = [self URLByAppendingPathComponent:@"authserver/oauth/token"];
@@ -256,9 +256,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 else
                 {
                     // wait 500ms and try again (up to 3 times)
-                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
+//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
                     [NSThread sleepForTimeInterval:0.5f];
-                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
+//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
                     [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
                 }
             }
@@ -266,7 +266,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     else
     {
-        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:1001]);
+        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:ECS_ERROR_NO_AUTH_TOKEN]);
     }
     
     return nil;
@@ -344,7 +344,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     if( !context )
     {
-        completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:1003]);
+        completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     NSDictionary *parameters = nil;
@@ -369,7 +369,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     // Do not allow empty keyword or search string less than 3 characters. 
     if (!theKeyword || [theKeyword length] < 3)
     {
-        completion(nil, [self errorWithReason:@"Keyword parameter must be 3 or more characters." code:1002]);
+        completion(nil, [self errorWithReason:@"Keyword parameter must be 3 or more characters." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -390,7 +390,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
 {
     if (!question) {
-        completion(nil, [self errorWithReason:@"Missing or null parameter 'question'" code:1004]);
+        completion(nil, [self errorWithReason:@"Missing or null parameter 'question'" code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -468,7 +468,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     
     if(!answerID || !rating || !theMin || !theMax || !questionCount) {
-        completion( nil, [self errorWithReason:@"Missing parameter (answerID, rating, min, max, questionCount required)." code:1005]);
+        completion( nil, [self errorWithReason:@"Missing parameter (answerID, rating, min, max, questionCount required)." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -527,7 +527,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
     if(!profile) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'profile'." code:1007]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'profile'." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     
@@ -589,7 +589,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     if(!formName) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'formName'." code:1008]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'formName'." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     return [self GET:[NSString stringWithFormat:@"forms/v1/%@", formName]
@@ -604,7 +604,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     ECSLogVerbose(self.logger,@"Submit form %@", [form inlineFormResponse]);
     if(!form) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:1009]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
@@ -685,7 +685,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
     if(!actionType) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:1011]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     //if ([actionType.journeybegin boolValue] || alwaysCreate)
@@ -847,9 +847,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                               completion(ecsActionArray, nil);
                               return;
                           }
+                          
+                      } else {
+                          completion(nil, [self errorWithReason:@"End chat action did not return JSON." code:ECS_ERROR_MALFORMED_RESPONSE]);
                       }
-                      
-                      completion(nil, [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:nil]);
                   }
               } failure:[self failureWithCompletion:completion]];
 }
@@ -990,7 +991,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                 completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion
 {
     if(!theContext) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'context'" code:1012]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'context'" code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -1013,7 +1014,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                              completion:(void (^)(id *response, NSError* error))completion
 {
     if( !data || !name) {
-        completion(nil, [self errorWithReason:@"Missing required parameter (data or name)." code:1010]);
+        completion(nil, [self errorWithReason:@"Missing required parameter (data or name)." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     NSString *path = @"utils/v1/media";
@@ -1344,7 +1345,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:userInfo];
+            retError = [NSError errorWithDomain:ECSErrorDomain
+                                           code:ECS_ERROR_API_ERROR
+                                       userInfo:userInfo];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1443,10 +1446,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     
     if (configuration.clientID.length == 0) {
-        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
-                                                  code:-2000
-                                              userInfo:nil];
-        ECSLogError(self.logger,@"Error: %@", err);
+        
+        ECSLogError(self.logger,@"Error: %@", [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
         return nil;
     }
     
@@ -1500,22 +1501,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                       failure:(ECSSessionManagerFailure)failure
 {
     __weak typeof(self) weakSelf = self;
-
+    
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *retError = error;
-        
         id result = nil;
         BOOL retryingWithAuthorization = NO;
         
         if (error == nil)
         {
-            result = [[self responseSerializer] responseObjectForResponse:response data:data error:&retError];
+            NSError *jsonParsingError;
+            result = [[self responseSerializer] responseObjectForResponse:response
+                                                                     data:data
+                                                                    error:&jsonParsingError];
             
             // Allow for an empty reponse if the response code was 200.
-            if ((((NSHTTPURLResponse*)response).statusCode == 200) && retError.code == 3840)
-            {
+            if ((((NSHTTPURLResponse*)response).statusCode == 200) && retError.code == 3840) {
                 retError = nil;
+            } else {
+                retError = jsonParsingError;
             }
         }
         
@@ -1538,11 +1542,12 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                  (((NSHTTPURLResponse*)response).statusCode != 200) &&
                  (((NSHTTPURLResponse*)response).statusCode != 201))
         {
+            
+            NSMutableDictionary *userInfo = [NSMutableDictionary new];
+            
             if (error) {
                 ECSLogVerbose(self.logger,@"API Error: %@", error);
             }
-            
-            NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
             if ([result isKindOfClass:[NSDictionary class]])
             {
@@ -1557,7 +1562,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify"
+            retError = [NSError errorWithDomain:ECSErrorDomain
                                            code:((NSHTTPURLResponse*)response).statusCode
                                        userInfo:userInfo];
         }
@@ -1616,7 +1621,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:((NSHTTPURLResponse*)response).statusCode userInfo:userInfo];
+            retError = [NSError errorWithDomain:ECSErrorDomain
+                                           code:((NSHTTPURLResponse*)response).statusCode
+                                       userInfo:userInfo];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1782,7 +1789,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                          code:(NSInteger)theCode
 {
     NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: theReason };
-    NSError *error = [NSError errorWithDomain:@"com.humanify.error"
+    NSError *error = [NSError errorWithDomain:ECSErrorDomain
                                          code:theCode
                                      userInfo:userInfo];
     ECSLogError(self.logger,@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);

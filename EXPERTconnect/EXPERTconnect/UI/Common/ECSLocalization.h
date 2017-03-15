@@ -104,6 +104,9 @@ static NSString *const ECSLocalizedChatSessionEndedSubtitle = @"ECSLocalizedChat
 static NSString *const ECSLocalizedChatSessionEndedDirections = @"ECSLocalizedChatSessionEndedDirections";
 static NSString *const ECSLocalizedExitChatButton = @"ECSLocalizedExitChatButton";
 
+static NSString *const ECSLocalizedChatQueueNetworkError = @"ECSLocalizedChatQueueNetworkError";
+static NSString *const ECSLocalizedChatQueueDisconnectMessage = @"ECSLocalizedChatQueueDisconnectMessage";
+
 // Call View
 static NSString *const ECSLocalizeCallNavigationTitle = @"ECSLocalizeCallNavigationTitle";
 static NSString *const ECSLocalizeRequestCallButton = @"ECSLocalizeRequestCallButton";

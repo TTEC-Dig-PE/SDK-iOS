@@ -60,9 +60,6 @@
                   Identifier = "ECS_API_Tests/testSetJourneyContext">
                </Test>
                <Test
-                  Identifier = "ECS_API_Tests/testStartConversation">
-               </Test>
-               <Test
                   Identifier = "ECS_DceDev_Henry_Tests/testAstute">
                </Test>
                <Test
@@ -109,6 +106,13 @@
             ReferencedContainer = "container:EXPERTconnect.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "ENTITLEMENTS_REQUIRED"
+            value = "YES"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

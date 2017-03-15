@@ -231,8 +231,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 // Deprecated Jun-23-2016
 - (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint
-                                   withCompletion:(void (^)(NSString *, NSError *))completion
-__attribute__((deprecated("This function will be removed in a later release.")));
+                                   withCompletion:(void (^)(NSString *, NSError *))completion;
+//__attribute__((deprecated("This function will be removed in a later release.")));
 
 - (NSURLSessionDataTask *)getUserProfileWithCompletion:(void (^)(ECSUserProfile *, NSError *))completion;
 

@@ -96,7 +96,7 @@ bool        _wasConnected;
 
 - (void)dealloc
 {
-    [self.heartbeatTimer invalidate];
+    [self invalidateHeartbeatTimer];
 
     [self.subscribers removeAllObjects];
 }
@@ -178,7 +178,7 @@ bool        _wasConnected;
 - (void)_internal_disconnect {
     
     ECSLogVerbose(self.logger,@"StompClient::disconnect called.");
-    [self.heartbeatTimer invalidate];
+    [self invalidateHeartbeatTimer];
     
     self.connected = NO;
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
@@ -375,7 +375,7 @@ bool        _wasConnected;
         if(frame.headers.count>0 && frame.headers[@"message"])
         {
             NSError *newError = [NSError errorWithDomain:@"com.humanify"
-                                                    code:1049
+                                                    code:ECS_ERROR_STOMP
                                                 userInfo:@{@"description": frame.headers[@"message"]}];
             
             if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)])
@@ -387,7 +387,7 @@ bool        _wasConnected;
     else if (frame.command.length == 0 && frame.headers.count == 0)
     {
         // Pong
-        ECSLogVerbose(self.logger,@"Stomp PONG arrived from server. Resetting miss count.");
+//        ECSLogVerbose(self.logger,@"Stomp PONG arrived from server. Resetting miss count.");
         _clientHeartbeatsMissed = 0;
     }
 }
@@ -527,25 +527,39 @@ bool        _wasConnected;
     // If server indicates it wants a heartbeat. Fire up the timer!
     if (_clientHeartbeatInterval > 0)
     {
-        if( self.heartbeatTimer )
-        {
-            [self.heartbeatTimer invalidate];
-            self.heartbeatTimer = nil;
-        }
+        [self startHeartbeatTimer];
+    }
+}
 
+-(void) startHeartbeatTimer {
+    
+    [self invalidateHeartbeatTimer];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
         HeartBeatTimerTarget *timerTarget = [[HeartBeatTimerTarget alloc] init];
         timerTarget.realTarget = self;
         self.heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
-                                                                 target:timerTarget
-                                                               selector:@selector(doStompHeartbeat:)
-                                                               userInfo:nil
-                                                                repeats:NO];
+                                                               target:timerTarget
+                                                             selector:@selector(doStompHeartbeat:)
+                                                             userInfo:nil
+                                                              repeats:NO];
+    });
+}
+-(void)invalidateHeartbeatTimer {
+    
+    if( self.heartbeatTimer ) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.heartbeatTimer invalidate];
+            self.heartbeatTimer = nil;
+        });
     }
 }
 
 -(void)doStompHeartbeat:(NSTimer *)timer
 {
-    ECSLogVerbose(self.logger,@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
+//    ECSLogVerbose(self.logger,@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
     
     if( _clientHeartbeatsMissed >= 3 )
     {
@@ -563,21 +577,15 @@ bool        _wasConnected;
         NSData *pingData = [[NSData alloc] initWithBytes:(unsigned char[]){0x0A} length:1];
         [self.webSocket sendPing:pingData];
         
-        HeartBeatTimerTarget *timerTarget = [[HeartBeatTimerTarget alloc] init];
-        timerTarget.realTarget = self;
-        self.heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:(_clientHeartbeatInterval/1000)
-                                                                 target:timerTarget
-                                                               selector:@selector(doStompHeartbeat:)
-                                                               userInfo:nil
-                                                                repeats:NO];
+        [self startHeartbeatTimer];
     }
     else
     {
-        // Let delegates know that we disconnected.
-        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
-        {
-            [self.delegate stompClientDidDisconnect:self];
-        }
+//        // Let delegates know that we disconnected.
+//        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
+//        {
+//            [self.delegate stompClientDidDisconnect:self];
+//        }
         ECSLogVerbose(self.logger,@"doStompHeartbeat: No heartbeat because Stomp not connected.");
     }
 }

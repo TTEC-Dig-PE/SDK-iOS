@@ -90,6 +90,13 @@
 //Font for timestamp label
 @property (strong, nonatomic) UIFont *chatTimestampFont;
 
+// Background color for the network error bar (default: red)
+@property (strong, nonatomic) UIColor *chatNetworkErrorBackgroundColor;
+
+@property (strong, nonatomic) UIFont *chatNetworkErrorFont;
+
+@property (strong, nonatomic) UIColor *chatNetworkErrorTextColor;
+
 #pragma mark - Font
 
 // Font for headlines

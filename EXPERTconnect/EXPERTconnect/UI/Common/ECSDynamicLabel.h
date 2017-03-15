@@ -9,4 +9,6 @@
 
 @interface ECSDynamicLabel : UILabel
 
+- (void) setHtml: (NSString*) html;
+
 @end

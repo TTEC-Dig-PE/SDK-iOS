@@ -17,19 +17,6 @@
 
 static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return true;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [textField selectAll:self];
-}
-
-- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES]; 
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -365,6 +352,11 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 -(void)getAgentsAvailableForExpertSkill:(int)index
 {
+    if( chatSkillsArray.count == 0 || chatSkillsArray.count < index) {
+        NSLog(@"ChatConfigView - Attempted to load skill in array out of bounds.");
+        return;
+    }
+    
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)
      {
@@ -420,6 +412,21 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     }
     
     return YES;
+}
+
+#pragma mark - Keyboard Delegate Functions
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return true;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField selectAll:self];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 @end

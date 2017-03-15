@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 
-@interface ECDJourneyConfigVC : UIViewController
+@interface ECDJourneyConfigVC : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *lblJourneyInfo;
 @property (weak, nonatomic) IBOutlet UITextField *txtJourneyName;

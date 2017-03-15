@@ -136,7 +136,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                               {
                                                                   if (!error)
                                                                   {
-                                                                      error = [NSError errorWithDomain:@"com.humanify" code:-1
+                                                                      error = [NSError errorWithDomain:ECSErrorDomain
+                                                                                                  code:ECS_ERROR_API_ERROR
                                                                                               userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
                                                                   }
                                                                   [self.delegate chatClient:self didFailWithError:error];
@@ -244,7 +245,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                 {
                     if (!error)
                     {
-                        error = [NSError errorWithDomain:@"com.humanify" code:-1
+                        error = [NSError errorWithDomain:ECSErrorDomain
+                                                    code:ECS_ERROR_API_ERROR
                                                 userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
                     }
                     [self.delegate chatClient:self didFailWithError:error];
@@ -277,6 +279,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     NSString *stompHostName = [NSString stringWithFormat:@"%@://%@/conversationengine/async", stompProtocol, hostName];
     self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient connectToHost:stompHostName];
+}
+
+-(bool) isConnected {
+    return self.stompClient.connected;
 }
 
 - (void)reconnect
