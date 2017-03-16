@@ -1411,7 +1411,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             
             
         }
-        completion:^(bool success){
+        completion:^(BOOL success){
             ECSLogVerbose(self.logger, @"Displaying network error bar to the user.");
         }];
         
@@ -1423,6 +1423,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     if( self.networkErrorView ) {
         
         // Send the network error bar back to above the top of the view.
+        
         [UIView transitionWithView:self.view
                           duration:0.7
                            options:UIViewAnimationOptionCurveEaseIn
@@ -1434,7 +1435,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                        self.networkErrorView.bounds.size.height)];
             
         }
-        completion:^(bool success) {
+        completion:^(BOOL success) {
             
             [self.networkErrorView removeFromSuperview];
             self.networkErrorView = nil;
@@ -2636,7 +2637,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 #pragma mark - Functions Accessible to the ECSChatViewController object
 
 - (BOOL) userInQueue {
-    return (self.waitView);
+    return (self.waitView ? YES : NO);
 }
 
 - (ECSStompChatClient *)getChatClient {
