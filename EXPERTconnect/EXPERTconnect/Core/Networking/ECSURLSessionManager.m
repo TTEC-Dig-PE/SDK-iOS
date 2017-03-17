@@ -1498,16 +1498,21 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                            allowAuthorization:(BOOL)allowAuthorization
                                       success:(ECSSessionManagerSuccess)success
-                                      failure:(ECSSessionManagerFailure)failure
-{
+                                      failure:(ECSSessionManagerFailure)failure {
+    
     __weak typeof(self) weakSelf = self;
     
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        NSError *retError = error;
-        id result = nil;
-        BOOL retryingWithAuthorization = NO;
+        NSError     *retError                   = error;
+        id          result                      = nil;
+        BOOL        retryingWithAuthorization   = NO;
+        NSInteger   statusCode                  = ((NSHTTPURLResponse*)response).statusCode;
+                                               
+        ECSLogVerbose(self.logger,@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
         
+        // Attempt to do JSON parsing if error is empty
         if (error == nil)
         {
             NSError *jsonParsingError;
@@ -1516,32 +1521,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                                     error:&jsonParsingError];
             
             // Allow for an empty reponse if the response code was 200.
-            if ((((NSHTTPURLResponse*)response).statusCode == 200) && retError.code == 3840) {
+            if (statusCode == 200 && retError.code == 3840) {
                 retError = nil;
             } else {
                 retError = jsonParsingError;
             }
         }
         
-        ECSLogVerbose(self.logger,@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
-        
-        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
-        {
-            ECSLogWarn(self.logger,@"SessionManager::dataTaskWithRequest - Authentication error (http 401).");
-            ECSLogVerbose(self.logger,@"Packet: %@", response);
-            //if(weakSelf.authTokenDelegate) {
-                // Use the new method if an identity delegate is found.
-                [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
-            //} else {
-                // Backwards compatibility (or non-identity delegate methods)
-            //    [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
-            //}
+        if (allowAuthorization && statusCode == 401) {
+            
+            ECSLogWarn(self.logger, @"Authentication error (http 401).");
+            ECSLogVerbose(self.logger, @"Packet: %@", response);
+
+            [weakSelf authenticateAPIAndContinueCallWithRequest2:request
+                                                         success:success
+                                                         failure:failure];
+
             retryingWithAuthorization = YES;
-        }
-        else if ((error.code != NSURLErrorCancelled) &&
-                 (((NSHTTPURLResponse*)response).statusCode != 200) &&
-                 (((NSHTTPURLResponse*)response).statusCode != 201))
-        {
+            
+        } else if (error.code != NSURLErrorCancelled && statusCode != 200 && statusCode != 201) {
             
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
@@ -1549,29 +1547,27 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 ECSLogVerbose(self.logger,@"API Error: %@", error);
             }
             
-            if ([result isKindOfClass:[NSDictionary class]])
-            {
-                if (result[@"error"])
-                {
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                if (result[@"error"]) {
                     userInfo[NSLocalizedFailureReasonErrorKey] = result[@"error"];
                 }
-                
-                if (result[@"message"])
-                {
+                if (result[@"message"]) {
                     userInfo[NSLocalizedDescriptionKey] = result[@"message"];
                 }
+                retError = [NSError errorWithDomain:ECSErrorDomain
+                                               code:statusCode
+                                           userInfo:userInfo];
+            } else {
+                retError = error;
             }
-            
-            retError = [NSError errorWithDomain:ECSErrorDomain
-                                           code:((NSHTTPURLResponse*)response).statusCode
-                                       userInfo:userInfo];
         }
         
         // Only return if we are not trying to reauthenticate with the API.
         if (!retryingWithAuthorization)
         {
+            // TODO: This should be removed. However, host apps may be relying on it.
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+            
                 if (retError == nil)
                 {
                     success(result, response);

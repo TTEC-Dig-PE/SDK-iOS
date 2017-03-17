@@ -989,6 +989,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self scheduleAutomaticReconnect];
     
     } else {
+        /* Example Errors:
+                NSURLErrorDomain, -1004, "Could not connect to the server"
+         */
         
         // Any unknown errors
         NSString *errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
@@ -1009,8 +1012,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                 // Let's localize this.
                 errorMessage = ECSLocalizedString(ECSLocalizeNoAgents, @"No Agents Available.");
             }
-            [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeError,@"Error") message:errorMessage];
+            
         }
+        [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeError,@"Error") message:errorMessage];
         
         //    if([error.domain isEqualToString:@"kCFErrorDomainCFNetwork"])
         //    {
