@@ -1459,7 +1459,7 @@ static const size_t ECSFrameHeaderOverhead = 32;
                     [self _failWithError:aStream.streamError];
                 } else {
                     if (self.readyState != ECS_CLOSED) {
-                        self.readyState = ECS_CLOSED;
+                        self.readyState = ECS_CLOSED; // This line is called when server is down and stomp closes.
                         _selfRetain = nil;
                     }
 

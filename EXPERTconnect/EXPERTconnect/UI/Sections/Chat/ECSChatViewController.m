@@ -977,7 +977,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     ECSLogError(self.logger, @"Stomp error: %@", error);
     
-    if([error.domain isEqualToString:@"com.humanify"] && error.code == ECS_ERROR_STOMP) {
+    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
         
         // mas - jan-24-2017 - Ignore this error. User does not need to see it.
         ECSLogVerbose(self.logger, @"Got redundant connection closed error from STOMP - ignoring.");

@@ -13,4 +13,6 @@
  */
 @interface ECSFormViewController : ECSRootViewController
 
+@property (nonatomic, strong) ECSLog *logger;
+
 @end

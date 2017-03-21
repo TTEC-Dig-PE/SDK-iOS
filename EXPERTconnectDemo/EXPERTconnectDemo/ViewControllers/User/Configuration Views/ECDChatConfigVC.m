@@ -357,12 +357,14 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
         return;
     }
     
+    NSLog(@"Getting details for skill: %@", [chatSkillsArray objectAtIndex:index]);
+    
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)
      {
          NSMutableString *labelText = [[NSMutableString alloc] initWithString:@""];
          
-         if(!error)
+         if( !error && [data isKindOfClass:[ECSSkillDetail class]] )
          {
              if(data.active && data.queueOpen && data.chatReady > 0)
              {
@@ -383,7 +385,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
                                                  data.inQueue,
                                                  data.active]];
          } else {
-             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
+             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@", error]];
          }
      }];
 }

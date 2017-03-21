@@ -397,6 +397,24 @@ bool        _wasConnected;
     ECSLogVerbose(self.logger,@"WS Pong: %@", pongPayload);
 }
 
+- (void)webSocket:(ECSWebSocket *)webSocket didCloseWithCode:(NSInteger)code
+                                                      reason:(NSString *)reason
+                                                    wasClean:(BOOL)wasClean {
+    
+    if( code == ECSStatusCodeGoingAway ) {
+        
+        NSError *newError = [NSError errorWithDomain:ECSErrorDomainStomp
+                                                code:ECSStatusCodeGoingAway
+                                            userInfo:@{@"description": reason}]; // @"Stream end encountered"
+        
+        if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)])
+        {
+            [self.delegate stompClient:self didFailWithError:newError];
+        }
+    }
+    
+}
+
 - (void)processMessageFrame:(ECSStompFrame*)frame
 {
     if (!frame.headers) {

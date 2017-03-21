@@ -29,12 +29,15 @@ static NSDateFormatter *sectionTitleDateFormatter;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *historyList;
 @property (strong, nonatomic) NSMutableArray *historyDayList;
+@property (strong, nonatomic) ECSLog *logger;
 @end
 
 @implementation ECSChatLogsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.logger = [[EXPERTconnect shared] logger];
     
     sectionTitleDateFormatter = [[NSDateFormatter alloc] init];
     //sectionTitleDateFormatter.dateFormat = @"MMMM dd, yyyy";
@@ -60,47 +63,62 @@ static NSDateFormatter *sectionTitleDateFormatter;
         __weak typeof(self) weakSelf = self;
         
         [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (response.journeys)
-                {
-                    weakSelf.historyList = response.journeys;
-                    weakSelf.historyDayList = [NSMutableArray new];
-                    ECSHistoryListItem *previousListItem = nil;
-                    NSMutableArray *currentDayGroup = nil;
+            
+            if( !error && [response isKindOfClass:[ECSHistoryList class]] ) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    NSArray *sortedHistory = response.journeys;
-                    sortedHistory = [sortedHistory sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2) {
-                        
-                        if ([obj1.date compare:obj2.date] == NSOrderedAscending)
-                        {
-                            return NSOrderedDescending;
-                        }
-                        else
-                        {
-                            return NSOrderedAscending;
-                        }
-                    }];
-                    
-                    for (ECSHistoryListItem *listItem in sortedHistory)
+                    if (response.journeys)
                     {
-                        if (previousListItem &&
-                            currentDayGroup &&
-                            [[NSCalendar currentCalendar] isDate:listItem.date inSameDayAsDate:previousListItem.date])
-                        {
-                            [currentDayGroup addObject:listItem];
-                        }
-                        else
-                        {
-                            currentDayGroup = [[NSMutableArray alloc] initWithArray:@[listItem]];
-                            [weakSelf.historyDayList addObject:currentDayGroup];
-                        }
+                        weakSelf.historyList    = response.journeys;
+                        weakSelf.historyDayList = [NSMutableArray new];
                         
-                        previousListItem = listItem;
+                        ECSHistoryListItem  *previousListItem   = nil;
+                        NSMutableArray      *currentDayGroup    = nil;
+                        NSArray             *sortedHistory      = response.journeys;
+                        
+                        sortedHistory = [sortedHistory sortedArrayWithOptions:0
+                                                              usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2)
+                        {
+                            
+                            if ([obj1.date compare:obj2.date] == NSOrderedAscending)
+                            {
+                                return NSOrderedDescending;
+                            }
+                            else
+                            {
+                                return NSOrderedAscending;
+                            }
+                        }];
+                        
+                        for (ECSHistoryListItem *listItem in sortedHistory)
+                        {
+                            if (previousListItem &&
+                                currentDayGroup &&
+                                [[NSCalendar currentCalendar] isDate:listItem.date inSameDayAsDate:previousListItem.date])
+                            {
+                                [currentDayGroup addObject:listItem];
+                            }
+                            else
+                            {
+                                currentDayGroup = [[NSMutableArray alloc] initWithArray:@[listItem]];
+                                [weakSelf.historyDayList addObject:currentDayGroup];
+                            }
+                            
+                            previousListItem = listItem;
+                        }
+                        [weakSelf.tableView reloadData];
                     }
-                    [weakSelf.tableView reloadData];
-                }
-                [weakSelf setLoadingIndicatorVisible:NO];
-            });
+                    
+                });
+                
+            } else {
+                
+                ECSLogError(self.logger, @"Error loading chat history. Error=%@", error);
+                
+            }
+            
+            [weakSelf setLoadingIndicatorVisible:NO];
         }];
     }
 }

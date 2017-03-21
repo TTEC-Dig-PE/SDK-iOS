@@ -648,30 +648,9 @@ NSTimer *breadcrumbTimer;
  */
 - (void) startJourneyWithCompletion:(void (^)(NSString *, NSError *))completion
 {
-    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
+//    ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager setupJourneyWithCompletion:^(ECSStartJourneyResponse *response, NSError* error)
-     {
-         if (response && !error && response.journeyID && response.journeyID.length > 0)
-         {
-             // Set the global journeyID
-             //self.journeyID = response.journeyID;
-             sessionManager.journeyID = response.journeyID;
-             
-             if( completion )
-             {
-                 completion(response.journeyID, error);
-             }
-             
-         }
-         else
-         {
-             if(completion)
-             {
-                 completion(nil, error);
-             }
-         }
-     }];
+    [self startJourneyWithName:nil pushNotificationId:nil context:nil completion:completion];
 }
 
 /**
@@ -693,15 +672,31 @@ NSTimer *breadcrumbTimer;
                                  context:theContext
                               completion:^(ECSStartJourneyResponse *response, NSError* error)
      {
-         if (response && !error && response.journeyID && response.journeyID.length > 0)
-         {
-             sessionManager.journeyID = response.journeyID;
+         if ( error || ![response isKindOfClass:[ECSStartJourneyResponse class]]) {
              
-             if( completion ) completion(response.journeyID, error);
-         }
-         else
-         {
-             if(completion) completion(nil, error);
+             if( completion ) {
+                 completion(nil, error);
+             }
+             
+         } else {
+             
+             if( response.journeyID && response.journeyID.length > 0 ) {
+                 
+                 // Set the global journeyID
+                 //self.journeyID = response.journeyID;
+                 sessionManager.journeyID = response.journeyID;
+                 
+                 if( completion )
+                 {
+                     completion(response.journeyID, error);
+                 }
+                 
+             } else {
+                 
+                 if( completion ) {
+                     completion(nil, error);
+                 }
+             }
          }
      }];
 }
@@ -792,16 +787,18 @@ NSTimer *breadcrumbTimer;
     [sessionManager getDetailsForExpertSkill:skill
                                   completion:^(NSDictionary *response, NSError *error)
     {
-        if(!error) {
+        if(!error && [response isKindOfClass:[NSDictionary class]] ) {
+            
             NSArray *dataArray = [response objectForKey:@"data"];
             NSArray *skillsArray = [ECSJSONSerializer arrayFromJSONArray:dataArray withClass:[ECSSkillDetail class]];
             ECSSkillDetail *skillDetails = skillsArray[0];
-
-            //NSLog(@"Result = %@", skillDetails);
             
             completion( skillDetails, error );
+            
         } else {
-            completion( nil, error ); 
+            
+            completion( nil, error );
+            
         }
     }];
 }

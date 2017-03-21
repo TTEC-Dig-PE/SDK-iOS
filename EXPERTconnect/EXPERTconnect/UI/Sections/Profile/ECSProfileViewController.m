@@ -44,7 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIView *rightFeaturedView;
 @property (weak, nonatomic) IBOutlet UIButton *updateProfileButton;
 
-
+@property (strong, nonatomic) ECSLog *logger;
 @property (strong, nonatomic) ECSForm *form;
 @property (strong, nonatomic) NSMutableArray *textFields;
 @end
@@ -53,6 +53,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.logger = [[EXPERTconnect shared] logger];
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
                                                                       attribute:NSLayoutAttributeLeft
@@ -120,13 +122,26 @@
     [super viewWillAppear:animated];
     
     [self setLoadingIndicatorVisible:YES];
+    
     __weak typeof(self) weakSelf = self;
-    ECSURLSessionManager* sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error) {
-        weakSelf.form = [form copy];
-        [weakSelf buildFieldsForForm:form];
+
+    // Get the user's profile data.
+    [[[EXPERTconnect shared] urlSession] getFormByName:@"userprofile"
+                   withCompletion:^(ECSForm *form, NSError *error)
+    {
+        if( !error && [form isKindOfClass:[ECSForm class]] ) {
+            
+            weakSelf.form = [form copy];
+            [weakSelf buildFieldsForForm:form];
+            
+        } else {
+            
+            ECSLogError(self.logger, @"Error getting user profile. Error=%@", error);
+        }
+        
         [weakSelf setLoadingIndicatorVisible:NO];
     }];
+    
 }
 
 - (void)buildFieldsForForm:(ECSForm*)form

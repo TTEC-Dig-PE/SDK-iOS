@@ -711,54 +711,70 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
     if(!actionType) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:ECS_ERROR_MISSING_PARAM]);
-        return nil; 
+        
+        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'"
+                                         code:ECS_ERROR_MISSING_PARAM]);
+        return nil;
+        
     }
+    
     //if ([actionType.journeybegin boolValue] || alwaysCreate)
-    if( alwaysCreate ) 
-    {
+    if( alwaysCreate ) {
+        
         //if ([actionType.journeybegin boolValue] && self.conversation)
-        if( self.conversation )
-        {
+        if( self.conversation ) {
             self.conversation = nil;
         }
         
-        if (!self.conversation)
-        {
+        if (!self.conversation) {
+            
             __weak typeof(self) weakSelf = self;
             
             return [self setupConversationWithLocation:@"home"
-                                            completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
-            {
-                if (createResponse.conversationID && createResponse.conversationID.length > 0)
-                {
-                    weakSelf.conversation = createResponse;
-                    ECSLogVerbose(self.logger,@"New conversation started with ID=%@", createResponse.conversationID);
-                }
-                
-                if (completion)
-                {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(weakSelf.conversation, error);
-                    });
+                                            completion:^(ECSConversationCreateResponse *createResponse, NSError *error) {
+                                                
+                if( error || ![createResponse isKindOfClass:[ECSConversationCreateResponse class]]) {
+                    // Catastrophic Error
+                    if( completion ) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(nil, error);
+                        });
+                    }
+                } else {
+                    
+                    if (createResponse.conversationID && createResponse.conversationID.length > 0) {
+                        
+                        weakSelf.conversation = createResponse;
+                        ECSLogVerbose(self.logger,@"New conversation started with ID=%@", createResponse.conversationID);
+                        
+                    }
+                    
+                    if (completion) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(weakSelf.conversation, error);
+                        });
+                        
+                    }
                 }
                 
             }];
-        }
-        else if (completion)
-        {
+            
+        } else if (completion) {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(self.conversation, nil);
             });
         }
-    }
-    else
-    {
-        if (completion)
-        {
+        
+    } else {
+        
+        if (completion) {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(self.conversation, nil);
             });
+            
         }
     }
     
@@ -1000,9 +1016,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(pushNotificationID)self.pushNotificationID = pushNotificationID;
     if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
     
-    if(theName)parameters[@"name"] = theName;
-    
-    if(theContext)self.journeyManagerContext = theContext;
+    if(theName) parameters[@"name"] = theName;
+    if(theContext) self.journeyManagerContext = theContext;
     if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
     
     return [self POST:@"journeymanager/v1"

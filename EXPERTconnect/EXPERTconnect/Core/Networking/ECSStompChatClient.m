@@ -125,33 +125,40 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     if ([self.actionType isKindOfClass:[ECSChatActionType class]]) {
+        
         self.currentNetworkTask = [urlSession startConversationForAction:actionType
                                                      andAlwaysCreate:YES
-                                                      withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                                          
-                                                          if ((error || !conversation || conversation.conversationID.length == 0) &&
-                                                              (error.code != NSURLErrorCancelled))
-                                                          {
-                                                              if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
-                                                              {
-                                                                  if (!error)
-                                                                  {
-                                                                      error = [NSError errorWithDomain:ECSErrorDomain
-                                                                                                  code:ECS_ERROR_API_ERROR
-                                                                                              userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
-                                                                  }
-                                                                  [self.delegate chatClient:self didFailWithError:error];
-                                                              }
-                                                              return;
-                                                          }
-                                                          
-                                                          weakSelf.currentConversation = conversation;
-                                                          [weakSelf connectToHost:urlSession.hostName];
-                                                      }];
+                                                      withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+           {
+               
+               if ((error || !conversation || ![conversation isKindOfClass:[ECSConversationCreateResponse class]]) &&
+                   (error.code != NSURLErrorCancelled)) {
+                   
+                   if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)]) {
+                       
+                       if (!error) {
+                           
+                           error = [NSError errorWithDomain:ECSErrorDomain
+                                                       code:ECS_ERROR_API_ERROR
+                                                   userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
+                       }
+                       
+                       [self.delegate chatClient:self didFailWithError:error];
+                   }
+                   
+                   return;
+               }
+               
+               weakSelf.currentConversation = conversation;
+               [weakSelf connectToHost:urlSession.hostName];
+           }];
+        
     } else {
+        
         // Setup without a Conversation
         NSLog(@"Setting up StompChatClient with non-chat Action Type");
         [self connectToHost:urlSession.hostName];
+        
     }
 }
 

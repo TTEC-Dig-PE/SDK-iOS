@@ -8,4 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *const ECSErrorDomain = @"com.humanify";
+NSString *const ECSErrorDomain      = @"com.humanify";
+NSString *const ECSErrorDomainStomp = @"com.humanify.stomp";

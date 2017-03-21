@@ -1535,37 +1535,31 @@
     
     NSString *service = @"My Wallet"; // Or "applet"
     
-    // For Ford: Where will this intendID come from?
-//    [[EXPERTconnect shared] setJourneyManagerContext:@"1004791351"]; // Sets answer engine context. (IntentID)
-    
-    // Caveat -- only does a HTTP GET (not capable of doing a POST)
     [[[EXPERTconnect shared] urlSession] makeDecision:@{@"eventId"      : @"determineRule",
                                                         @"userLanguage" : @"EN",
                                                         @"userCountry"  : @"US",
                                                         @"service"      : service}
                                            completion:^(NSDictionary *dr, NSError *error)
      {
-         
-         // Note: the response is a dictionary. Not raw json...
-         NSLog(@"Response = %@", dr);
+
+         // This rule is used by Ford. All we are concerned with is the intentId it returns.
+         XCTAssert(dr[@"responseData"] || dr[@"responseData"][@"intentId"], @"Intended directory structure was not intact.");
          
          NSString *intentId = dr[@"responseData"][@"intentId"];
          
          XCTAssert(intentId.length > 7, @"We did get an intentId and it is a long number.");
          
-         NSLog(@"IntentId = %@", intentId);
-         
-         [[EXPERTconnect shared] setJourneyManagerContext:intentId]; // This will set the intentID
+         // Now we take that intentId and set it in the JM context.
+         [[EXPERTconnect shared] setJourneyManagerContext:intentId];
      
+         // We are making a custom call to an undocumented answerengine top10 endpoint.
          NSString *endpointPathComponent = [NSString stringWithFormat:@"answerengine/v1/top10?num=5&service=%@", service];
      
-         // Caveat -- only does a HTTP GET (not capable of doing a POST)
+         // Make our call.
          [[[EXPERTconnect shared] urlSession] getResponseFromEndpoint:endpointPathComponent
                                                        withCompletion:^(id response, NSError *error)
           {
-              if(error) {
-                  XCTFail(@"Error occurred. Error=%@", error);
-              }
+              if(error) XCTFail(@"Error occurred. Error=%@", error);
               
               XCTAssert([response isKindOfClass:[NSDictionary class]], @"Expecting a dictionary of topics.");
 
@@ -1582,6 +1576,7 @@
                       XCTAssert(item[@"intentId"], @"Expecting an intentID");
                       XCTAssert(item[@"topic"], @"Expecting a topic");
                       
+                      // An intentId and a topic are the two values we need an array of. These will be used to display the top10.
                       NSLog(@"Intent=%@, Topic=%@", item[@"intentId"], item[@"topic"]);
                   }
               }

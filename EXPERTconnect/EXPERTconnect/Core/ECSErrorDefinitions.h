@@ -10,6 +10,7 @@
 #define ECSErrorDefinitions_h
 
 extern NSString *const ECSErrorDomain;
+extern NSString *const ECSErrorDomainStomp;
 
 #define	ECS_ERROR_STOMP                 1049		/* A stomp error */
 
