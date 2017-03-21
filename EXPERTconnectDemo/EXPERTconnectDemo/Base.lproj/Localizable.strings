@@ -14,11 +14,38 @@
 /* Splash Page Login Button   */
 "ECDLocalizedLoginButton" = "Login";
 
+/* Log in prompt text */
+/* Usage: Only used in ECDemo. Label directing user to login. */
+/* Translators: SKIP */
+"ECDLogInPromptText" = "Log in to your Humanify Account";
+
+/* Logout */
+"ECDLocalizeLogoutTitle" = "Logout?";
+
+/* Logout */
+/* Usage: Only used in ECDemo. The text in a confirmation dialog to make sure the user really wants to logout now. */
+/* Translators: SKIP */
+"ECDLocalizeLogoutTitle" = "Logout?";
+
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Register";
 
+/* Email Address Placeholder */
+/* Usage: Only used in ECDemo. Appears in a label letting the user know this is where they type in an email address. */
+/* Translators: SKIP */
+"ECDLocalizeEmailFieldPlaceholder" = "Email Address";
+
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Profile was updated";
+
+/* Request to create an account */
+/* Usage: NOT IN USE */
+/* Translators: SKIP */
+"ECDLocalizeCreateAccountPromptKey" = "Create a Humanify Account";
+
+/* Create Account button text */
+/* Usage: Button text for creating a new account. ECDemo only. */
+"ECDLocalizeCreateAccountKey" = "Create Account";
 
 /* Application Config Value was updated  */
 "ECDLocalizeConfigWasUpdatedKey" = "Application Configuration Value was updated";
@@ -96,6 +123,40 @@
 "ECDLocalizedStartWYSIWYGEditorLabel" = "AdHoc WYSIWYG Editor";
 
 /* ----------------------------------------------------- */
+
+/* Push Notifications */
+/* Usage: ECDemo Only. The title to the Push Notification settings view. */
+/* Translators: SKIP */
+"ECSLocalizedPushNotificationsHeader" = "Push Notifications";
+
+/* Start new journey */
+/* Usage: ECDemo Only. The title to the Start New Journey settings view. */
+/* Translators: SKIP */
+"ECSLocalizedStartJourneyHeader" = "Start new journey";
+
+/* iBeacons */
+/* Translators: SKIP */
+"ECSLocalizedBeaconsHeader" = "iBeacons";
+
+/* Version */
+/* Translators: SKIP */
+"ECSLocalizedVersionHeader" = "Version %@";
+
+/* Receive Notifications */
+/* Translators: SKIP */
+"ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
+
+/* Start new journey */
+/* Translators: SKIP */
+"ECSLocalizedStartJourneyRow" = "Start New Journey";
+
+/* Enable iBeacon Feature */
+/* Translators: SKIP */
+"ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
+
+/* Open Source Licenses */
+/* Translators: SKIP */
+"ECSLocalizedLicensesRow" = "Open Source Licenses";
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Test SDK Functions";
@@ -352,6 +413,5 @@
 
 /* Response Email Debug Label */
 "ECDLocalizedEmailDebugButtonLabel" = "Email Debug";
-
 
 /* End Test Decision Page Labels Section */

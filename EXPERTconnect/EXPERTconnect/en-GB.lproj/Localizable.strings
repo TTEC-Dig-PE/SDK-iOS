@@ -5,20 +5,13 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Name of the company */
-"ECSLocalizedCompanyNameKey" = "Humanify";
-
 /* Close */
+/* Usage: A close button that closes the current window or screen. */
 "ECSLocalizedCloseKey" = "Close";
 
 /* Error */
+/* Usage: The title header for an error popup alert box */
 "ECSLocalizeErrorKey" = "Error";
-
-/* Logout */
-"ECSLocalizeLogoutTitle" = "Logout?";
-
-/* Logout text */
-"ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
 "ECSLocalizedAskAQuestionKey" = "Ask a Question";
@@ -31,15 +24,6 @@
 
 /* Hide FAQ */
 "ECSLocalizeShortHideFAQKey" = "Hide FAQ";
-
-/* Email Address Placeholder */
-"ECSLocalizeEmailFieldPlaceholder" = "Email Address";
-
-/* Mobile Number Placeholder */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
-
-/* Log in prompt text */
-"ECSLogInPromptText" = "Log in to your Humanify Account";
 
 /* All Fields Required Text */
 "ECSLocalizeAllFieldsRequired" = "All Fields Required";
@@ -55,15 +39,6 @@
 
 /* Log out button text */
 "ECSLocalizedLogoutButton" = "Logout";
-
-/* Request to create an account */
-"ECSCreateAccountPromptKey" = "Create a Humanify Account";
-
-/* Full Name text field placeholder */
-"ECSLocalizeFullNameFieldPlaceholderKey" = "Full Name";
-
-/* Create Account button text */
-"ECSLocalizeCreateAccountKey" = "Create Account";
 
 /* Next Question */
 "ECSLocalizeNextQuestionKey" = "Next";
@@ -110,29 +85,7 @@
 /* Reachability error connecting to the website */
 "ECSLocalizeReachabilityErrorKey" = "We are unable to connect to the Humanify Network. Please check your internet connection.";
 
-/* Push Notifications */
-"ECSLocalizedPushNotificationsHeader" = "Push Notifications";
 
-/* Start new journey */
-"ECSLocalizedStartJourneyHeader" = "Start new journey";
-
-/* iBeacons */
-"ECSLocalizedBeaconsHeader" = "iBeacons";
-
-/* Version */
-"ECSLocalizedVersionHeader" = "Version %@";
-
-/* Receive Notifications */
-"ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
-
-/* Start new journey */
-"ECSLocalizedStartJourneyRow" = "Start New Journey";
-
-/* Enable iBeacon Feature */
-"ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
-
-/* Open Source Licenses */
-"ECSLocalizedLicensesRow" = "Open Source Licenses";
 
 /* Chat view placeholder text */
 "ECSLocalizedChatViewPlaceholder" = "Type a Message";

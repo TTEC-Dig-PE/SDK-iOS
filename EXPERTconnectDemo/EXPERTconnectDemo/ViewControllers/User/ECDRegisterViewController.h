@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import <EXPERTconnect/ECSRootViewController.h>
+#import "ECDLocalization.h"
 
 @class ECDRegisterViewController;
 

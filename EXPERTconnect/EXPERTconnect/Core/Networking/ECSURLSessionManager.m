@@ -325,7 +325,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                  forContext:(NSString*)context
                                              withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
-    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/start" completion:completion];
+    return [self internalGetAnswerEngineQuestions:num
+                                          context:context
+                                              url:@"answerengine/v1/start"
+                                       completion:completion];
 }
 
 // Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsWithContext
@@ -333,7 +336,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
-    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/questions" completion:completion];
+    return [self internalGetAnswerEngineQuestions:num
+                                          context:context
+                                              url:@"answerengine/v1/questions"
+                                       completion:completion];
 }
 
 // Internal only. Used to combine the code base of the above two functions.
@@ -347,8 +353,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
+    
+    if (!num) num = 10; // Just default to 10.
+    
     NSDictionary *parameters = nil;
-    if (!num) num = 10;
     parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
     
     return [self GET:theURL
@@ -491,14 +499,32 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 // Unit Test: ECS_API_Tests::testGetResponseFromEndpoint
-- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
+- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint
+                                   withCompletion:(void (^)(id, NSError *))completion
 {
-    ECSLogVerbose(self.logger,@"Get Results from a known endpoint");
+    if(!self.baseURL) {
+        completion( nil, [self errorWithReason:@"Humanify SDK configuration incomplete. Missing hostURL." code:ECS_ERROR_MISSING_CONFIG]);
+        return nil;
+    }
+    if(!endpoint) {
+        completion( nil, [self errorWithReason:@"Parameter endpoint required." code:ECS_ERROR_MISSING_PARAM]);
+        return nil;
+    }
     
-    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:[self.baseURL.path stringByAppendingString:endpoint]];
+    ECSLogVerbose(self.logger, @"Get Results from a known endpoint");
     
+    // Append the endpoint parameter to the base URL (factoring for slashes on either side)
+    NSURL *fullURL = [NSURL URLWithString:[endpoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                            relativeToURL:self.baseURL];
+    
+    // Now break it apart into it's components.
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithURL:fullURL
+                                                  resolvingAgainstBaseURL:YES];
+    
+    // We want the path and the query items.
     endpoint = urlComponents.path;
     NSArray *query = urlComponents.queryItems;
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     for(NSURLQueryItem *item in query)
@@ -1186,8 +1212,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                         
                         [self replaceJourneyIfFound:result]; // If a journeyID was found, update our stored value. 
                         completion(resultObject, nil);
-                    }
-                    else {
+                                               
+                    } else {
+                        
                         // Simple JSON NSDictionary
                         //
                         id resultObject = result;
@@ -1414,25 +1441,31 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                               path:(NSString *)path
                                         parameters:(id)parameters
                                            success:(ECSSessionManagerSuccess)success
-                                           failure:(ECSSessionManagerFailure)failure
-{
+                                           failure:(ECSSessionManagerFailure)failure {
     
     
     NSURL *url = nil;
     
-    if ([path hasPrefix:@"http"])
-    {
+    if ([path hasPrefix:@"http"]) {
+        
         url = [NSURL URLWithString:path];
-    }
-    else
-    {
+        
+    } else {
+        
         url = [self URLByAppendingPathComponent:path];
+        
     }
-    NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
+    
+    NSURLRequest *request = [self requestWithMethod:method
+                                                URL:url
+                                         parameters:parameters
+                                              error:nil];
     
     ECSLogVerbose(self.logger,@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    
     NSURLSessionDataTask *task = [self dataTaskWithRequest:request
-                                                   success:success failure:failure];
+                                                   success:success
+                                                   failure:failure];
     [task resume];
     
     return task;

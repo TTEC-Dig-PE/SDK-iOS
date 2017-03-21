@@ -1528,22 +1528,66 @@
 
 -(void)testDynamicTopTenForFord {
     
+    [self setUp];
+    [self initSDKwithEnvironment:@"dce1" organization:@"henry"];
+    
     XCTestExpectation *expectation = [self expectationWithDescription:@"gettopten"];
     
-    [self setUp];
-    [self initSDKwithEnvironment:@"dce1" organization:@"mktwebextc"];
+    NSString *service = @"My Wallet"; // Or "applet"
     
     // For Ford: Where will this intendID come from?
 //    [[EXPERTconnect shared] setJourneyManagerContext:@"1004791351"]; // Sets answer engine context. (IntentID)
     
     // Caveat -- only does a HTTP GET (not capable of doing a POST)
-    [[[EXPERTconnect shared] urlSession] makeDecision:@{@"eventId": @"contextTop10", @"aecontext": @"Perks"}
+    [[[EXPERTconnect shared] urlSession] makeDecision:@{@"eventId"      : @"determineRule",
+                                                        @"userLanguage" : @"EN",
+                                                        @"userCountry"  : @"US",
+                                                        @"service"      : service}
                                            completion:^(NSDictionary *dr, NSError *error)
      {
          
          // Note: the response is a dictionary. Not raw json...
          NSLog(@"Response = %@", dr);
-         [expectation fulfill];
+         
+         NSString *intentId = dr[@"responseData"][@"intentId"];
+         
+         XCTAssert(intentId.length > 7, @"We did get an intentId and it is a long number.");
+         
+         NSLog(@"IntentId = %@", intentId);
+         
+         [[EXPERTconnect shared] setJourneyManagerContext:intentId]; // This will set the intentID
+     
+         NSString *endpointPathComponent = [NSString stringWithFormat:@"answerengine/v1/top10?num=5&service=%@", service];
+     
+         // Caveat -- only does a HTTP GET (not capable of doing a POST)
+         [[[EXPERTconnect shared] urlSession] getResponseFromEndpoint:endpointPathComponent
+                                                       withCompletion:^(id response, NSError *error)
+          {
+              if(error) {
+                  XCTFail(@"Error occurred. Error=%@", error);
+              }
+              
+              XCTAssert([response isKindOfClass:[NSDictionary class]], @"Expecting a dictionary of topics.");
+
+              if( [response isKindOfClass:[NSDictionary class]] ) {
+                  
+                  NSDictionary *responseDic = (NSDictionary *)response;
+                  
+                  XCTAssert([responseDic[@"topics"] isKindOfClass:[NSArray class]], @"Expected a dictionary of topics");
+                  
+                  NSArray *responseTopics = responseDic[@"topics"];
+                  
+                  for (NSDictionary *item in responseTopics) {
+                      
+                      XCTAssert(item[@"intentId"], @"Expecting an intentID");
+                      XCTAssert(item[@"topic"], @"Expecting a topic");
+                      
+                      NSLog(@"Intent=%@, Topic=%@", item[@"intentId"], item[@"topic"]);
+                  }
+              }
+     
+              [expectation fulfill];
+          }];
      }];
     
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {

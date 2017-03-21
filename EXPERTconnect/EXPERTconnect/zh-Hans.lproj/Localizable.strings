@@ -5,20 +5,11 @@
  Copyright (c) 2015 Humanify, Inc. All rights reserved.
  */
 
-/* Name of the company */
-"ECSLocalizedCompanyNameKey" = "Humanify";
-
 /* Close */
 "ECSLocalizedCloseKey" = "关闭";
 
 /* Error */
 "ECSLocalizeErrorKey" = "错误";
-
-/* Logout */
-"ECSLocalizeLogoutTitle" = "退出登录？";
-
-/* Logout text */
-"ECSLocalizeLogoutText" = "您确定要退出登录吗？";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
 "ECSLocalizedAskAQuestionKey" = "询问问题";
@@ -31,15 +22,6 @@
 
 /* Hide FAQ */
 "ECSLocalizeShortHideFAQKey" = "隐藏常见问题";
-
-/* Email Address Placeholder */
-"ECSLocalizeEmailFieldPlaceholder" = "电子邮件地址";
-
-/* Mobile Number Placeholder */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "手机号码";
-
-/* Log in prompt text */
-"ECSLogInPromptText" = "登录到您的 Humanify 帐户";
 
 /* All Fields Required Text */
 "ECSLocalizeAllFieldsRequired" = "请提供所有信息";
@@ -55,15 +37,6 @@
 
 /* Log out button text */
 "ECSLocalizedLogoutButton" = "退出登录";
-
-/* Request to create an account */
-"ECSCreateAccountPromptKey" = "注册 Humanify 帐户";
-
-/* Full Name text field placeholder */
-"ECSLocalizeFullNameFieldPlaceholderKey" = "姓名";
-
-/* Create Account button text */
-"ECSLocalizeCreateAccountKey" = "注册帐户";
 
 /* Next Question */
 "ECSLocalizeNextQuestionKey" = "下个问题";
@@ -110,29 +83,6 @@
 /* Reachability error connecting to the website */
 "ECSLocalizeReachabilityErrorKey" = "目前无法连接到 Humanify 网络。请检查您的互联网连接。";
 
-/* Push Notifications */
-"ECSLocalizedPushNotificationsHeader" = "推送通知";
-
-/* Start new journey */
-"ECSLocalizedStartJourneyHeader" = "开始新的旅程";
-
-/* iBeacons */
-"ECSLocalizedBeaconsHeader" = "iBeacons";
-
-/* Version */
-"ECSLocalizedVersionHeader" = "版本 %@";
-
-/* Receive Notifications */
-"ECSLocalizedReceiveNotificationsRow" = "允许通知";
-
-/* Start new journey */
-"ECSLocalizedStartJourneyRow" = "开始新的旅程";
-
-/* Enable iBeacon Feature */
-"ECSLocalizedEnableBeaconsRow" = "启用 iBeacon 功能";
-
-/* Open Source Licenses */
-"ECSLocalizedLicensesRow" = "查看源码许可证";
 
 /* Chat view placeholder text */
 "ECSLocalizedChatViewPlaceholder" = "输入信息";

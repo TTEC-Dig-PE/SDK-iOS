@@ -20,5 +20,7 @@ extern NSString *const ECSErrorDomain;
 #define ECS_ERROR_MALFORMED_RESPONSE    1003
 
 
+#define ECS_ERROR_MISSING_CONFIG        1006
+
 
 #endif /* ECSErrorDefinitions_h */

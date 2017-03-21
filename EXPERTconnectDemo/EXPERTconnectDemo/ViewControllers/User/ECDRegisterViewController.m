@@ -85,9 +85,9 @@
 
 - (void)localizeElements
 {
-    self.createAccountLabel.text = ECSLocalizedString(ECSLocalizeCreateAccountPromptKey, @"Create a Humanify account");
+    self.createAccountLabel.text = ECDLocalizedString(ECDLocalizeCreateAccountPromptKey, @"Create a Humanify account");
     self.allFieldsRequiredLabel.text = ECSLocalizedString(ECSLocalizeAllFieldsRequired, @"All fields required");
-    [self.registerButton setTitle:ECSLocalizedString(ECSLocalizeCreateAccountKey, @"Create Account"
+    [self.registerButton setTitle:ECDLocalizedString(ECDLocalizeCreateAccountKey, @"Create Account"
                                                   ) forState:UIControlStateNormal];
 }
 

@@ -65,8 +65,8 @@
 
 - (void)localizeElements
 {
-    self.logInLabel.text = ECSLocalizedString(ECSLogInPromptText, @"Log in prompt text");
-    self.emailAddressField.placeholder = ECSLocalizedString(ECSLocalizeEmailFieldPlaceholder, @"Email Address");
+    self.logInLabel.text = ECSLocalizedString(ECDLogInPromptText, @"Log in prompt text");
+    self.emailAddressField.placeholder = ECSLocalizedString(ECDLocalizeEmailFieldPlaceholder, @"Email Address");
     self.fieldsRequiredLabel.text = ECSLocalizedString(ECSLocalizeAllFieldsRequired, @"All fields required");
     [self.logInButton setTitle:ECSLocalizedString(ECSLocalizeLogInButton, @"Log In"
                                                   ) forState:UIControlStateNormal];
