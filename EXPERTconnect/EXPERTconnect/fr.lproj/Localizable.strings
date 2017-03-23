@@ -303,10 +303,10 @@
 "ECSLocalizedLeaveQueueMessage" = "En partant maintenant, vous perdrez votre place dans la file d'attente du chat.";
 
 /* Dialog - User attempted to exit the chat queue (dialog YES button text) */
-"ECSLocalizedLeaveQueueYes" = "Oui laisser";
+"ECSLocalizedLeaveQueueYes" = "Oui, laisser";
 
 /* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "Non reste";
+"ECSLocalizedLeaveQueueNo" = "Non, reste";
 
 /* 5.8.0 Strings */
 

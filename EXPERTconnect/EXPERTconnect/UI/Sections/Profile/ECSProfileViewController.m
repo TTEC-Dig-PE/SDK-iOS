@@ -174,6 +174,7 @@
             else if ([item.treatment isEqualToString:ECSFormTreatmentEmail])
             {
                 textField.keyboardType = UIKeyboardTypeEmailAddress;
+                textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             }
             else if ([item.treatment isEqualToString:ECSFormTreatmentPhoneNumber])
             {

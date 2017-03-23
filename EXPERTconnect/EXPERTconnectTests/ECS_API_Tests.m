@@ -222,7 +222,7 @@
 - (void)testGetDetailsForExpertSkill {
     
     [self setUp];
-    [self initSDKwithEnvironment:@"tce1" organization:@"mktwebextc_test"];
+    [self initSDKwithEnvironment:@"dce1" organization:@"mktwebextc"];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"getDetailsForSkill"];
     
@@ -1585,6 +1585,52 @@
           }];
      }];
     
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
+}
+
+/**
+ NOTE: This test is failing in v5.4. Config required on server. @kenwashington is contact for information.
+ */
+- (void)testFordDecisionRule {
+    
+    [self setUp];
+    
+    _testTenant = @"henry";
+    [self initSDKwithEnvironment:@"tce1" organization:@"mktwebextc_test"];
+    
+    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
+    
+    // TODO: Change to "validateDE"
+    NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               @"henry",@"name",
+                                               @"henryRule",@"projectServiceName",
+                                               @"determineRule",@"eventId",
+                                               @"henry",@"ceTenant",
+                                               @"EN",@"userLanguage",
+                                               @"US",@"userCountry",
+                                               @"My Vehicles",@"service",
+                                               @"mktwebextc",@"clientRequestId",
+                                               @"current local page",@"function",
+                                               nil];
+    
+    [session makeDecision:decisionDictionary
+               completion:^(NSDictionary *response, NSError *error)
+     {
+         XCTAssert(!error,@"API call had an error.");
+         
+         NSLog(@"Response JSON = %@", response);
+         
+         XCTAssert([response[@"eventId"] isEqualToString:@"determineRule"], @"Expected eventId matching input.");
+         
+         [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
+     }];
+    
+    // Goes at bottom of test function
     [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
         if (error) {
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
