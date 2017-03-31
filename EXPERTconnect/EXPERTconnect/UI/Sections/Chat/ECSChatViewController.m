@@ -270,8 +270,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                            constant:0.0f]];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+    
+    ECSLogVerbose(self.logger, @"Deallocating ECSChatViewController.");
+    
     [self.chatClient disconnect]; // Disconnect Stomp
     self.tableView.delegate = nil;
     self.workflowDelegate = nil;
@@ -288,6 +290,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     [super viewWillAppear:animated];
 
+    ECSLogVerbose(self.logger, @"viewWillAppear. InQueue? %d.", [self userInQueue]);
     
     if (self.waitView)
     {
@@ -340,46 +343,48 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+    
     [super viewDidAppear:animated];
 
-    if (_showingPostChatSurvey)
-    {
+    if (_showingPostChatSurvey) {
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
     
-    if (self.presentedForm)
-    {
+    if (self.presentedForm) {
+        
         self.presentedForm = NO;
         [self sendFormNotification];
     }
     
     if( self.waitView ) {
+        
         [self.waitView startLoadingAnimation];
     }
     
 }
-- (void)viewDidLayoutSubviews
-{
+- (void)viewDidLayoutSubviews {
+    
     [super viewDidLayoutSubviews];
     [self updateEdgeInsets];
 }
 
 #pragma mark - View Navigation Functions
 
-- (void)backButtonPressed:(id)sender
-{
+- (void)backButtonPressed:(id)sender {
+    
     NSLog(@"Chat state = %lu", (unsigned long)self.chatClient.channelState);
-    if (self.chatClient.channelState == ECSChannelStateConnected)
-    {
+    
+    if (self.chatClient.channelState == ECSChannelStateConnected) {
+        
         //- (void)exitChatButtonTapped:(id)sender
         [self exitChatButtonTapped:nil];
-    }
-    else
-    {
-        if(self.workflowDelegate)
-        {
+        
+    } else {
+        
+        if(self.workflowDelegate) {
+            
             //if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
             //{
             [self.workflowDelegate chatEndedWithTotalInteractionCount:self.messages.count
@@ -387,15 +392,14 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                      userInteractions:self.messages.count-self.agentInteractionCount];
             //}
             [self.navigationController popViewControllerAnimated:YES];
-        }else
-        {
             
-            if( self.waitView )
-            {
+        } else {
+            
+            if( self.waitView ) {
+                
                 [self dialogLeaveQueue];
-            }
-            else
-            {
+                
+            } else {
 //                [self.workflowDelegate endVideoChat];
 //                [self.chatClient disconnect];
 //                [self.navigationController popViewControllerAnimated:YES];
@@ -524,15 +528,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 
-- (void)closeButtonTapped:(id)sender
-{
+- (void)closeButtonTapped:(id)sender {
+    
+    ECSLogVerbose(self.logger, @"User pressed navigation close button.");
+    
     [super closeButtonTapped:sender];
     [self.workflowDelegate endVideoChat];
     [self.chatClient disconnect];
     [self.navigationController popViewControllerAnimated:NO];
     
-    if (self.chatClient.channelState != ECSChannelStateDisconnected)
-    {
+    if (self.chatClient.channelState != ECSChannelStateDisconnected) {
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
                                                             object:self];
     }
@@ -606,22 +612,25 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                    self.tableView.bounds.size.height) animated:YES];
 }
 
-- (void)exitChatButtonTapped:(id)sender
-{
+- (void)exitChatButtonTapped:(id)sender {
+    
+    ECSLogVerbose(self.logger, @"User pressed navigation exit chat button.");
+    
     // Check for actions one more time. This should return
     __weak typeof(self) weakSelf = self;
-    [weakSelf checkForPostActions:^(NSArray *results, NSError *error)
-    {
-        if (results && !error)
-        {
+    
+    [weakSelf checkForPostActions:^(NSArray *results, NSError *error) {
+        
+        if (results && !error) {
+            
             weakSelf.postChatActions = results;
              
             NSString *alertTitle = ECSLocalizedString(ECSLocalizeWarningKey, @"Warning");
             NSString *alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPrompt, @"Chat Disconnect Prompt");
              
             // If we have something to do after, display a different message.
-            if (self.postChatActions.count > 0)
-            {
+            if (self.postChatActions.count > 0) {
+                
                 alertMessage = ECSLocalizedString(ECSLocalizeChatDisconnectPromptSurvey, @"Chat Disconnect Prompt");
             }
              
@@ -642,20 +651,21 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                                handler:nil]];
              
             [weakSelf presentViewController:alertController animated:YES completion:nil];
-        }
-        else
-        {
+            
+        } else {
+            
             NSLog(@"exitChatButtonTapped - Error checking for post actions: %@", error.description);
-            if(weakSelf)
-            {
+            
+            if(weakSelf) {
+                
                 [self endChatByUser];
             }
         }
     }];
 }
 
-- (void)endChatByUser
-{
+- (void)endChatByUser {
+    
     [self.workflowDelegate endVideoChat];
     [self.chatClient disconnect];
     [self showSurveyOrPopView];
@@ -893,8 +903,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark - StompClient
 
-- (void)chatClientDidConnect:(ECSStompChatClient *)stompClient
-{
+- (void)chatClientDidConnect:(ECSStompChatClient *)stompClient {
+    
+    ECSLogVerbose(self.logger, @"Stomp connect notification.");
+                  
     // Delete the "Reconnect" button if it is still displayed in the chat
     [self hideNetworkErrorBar];
     
@@ -905,7 +917,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
 {
-    ECSLogVerbose(self.logger,@"ECSChatViewController - Received a stomp disconnect. Graceful? %d", graceful);
+    ECSLogVerbose(self.logger, @"Stomp disconnect notification. Graceful? %d", graceful);
     
     self.chatToolbar.sendEnabled = NO;
     
@@ -975,16 +987,24 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
-    ECSLogError(self.logger, @"Stomp error: %@", error);
+    ECSLogError(self.logger, @"Stomp error notification: %@", error);
     
-    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
+    // Now handled in the StompClient code.
+//    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
+//        
+//        // mas - jan-24-2017 - Ignore this error. User does not need to see it.
+//        ECSLogVerbose(self.logger, @"Got redundant connection closed error from STOMP - ignoring.");
+//    
+//    } else
+    
+    if( [error.domain isEqualToString:@"ECSWebSocketErrorDomain"] ||
+        [error.domain isEqualToString:@"kCFErrorDomainCFNetwork"] ||
+        ( [error.domain isEqualToString:NSPOSIXErrorDomain] && (error.code >= ENETDOWN && error.code <= ENOTCONN) ) ) {
         
-        // mas - jan-24-2017 - Ignore this error. User does not need to see it.
-        ECSLogVerbose(self.logger, @"Got redundant connection closed error from STOMP - ignoring.");
-    
-    } else if( [error.domain isEqualToString:@"ECSWebSocketErrorDomain"] ||
-             [error.domain isEqualToString:@"kCFErrorDomainCFNetwork"] ||
-             ( [error.domain isEqualToString:NSPOSIXErrorDomain] && (error.code >= ENETDOWN && error.code <= ENOTCONN) ) ) {
+        if( [error.userInfo[ECSHTTPResponseErrorKey] intValue] == 401 ) {
+            // Let's immediately try to refresh the auth token.
+            [self refreshAuthenticationToken];
+        }
         
         [self scheduleAutomaticReconnect];
     
@@ -1033,35 +1053,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         //        //[self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
         //        [self attemptReconnect];
         //    }
-        
-        
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, nil)
-//                                                                                 message:errorMessage
-//                                                                          preferredStyle:UIAlertControllerStyleAlert];
-//        __weak typeof(self) weakSelf = self;
-//        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, nil)
-//                                                            style:UIAlertActionStyleDefault
-//                                                          handler:^(UIAlertAction *action)
-//                                    {
-//                                        [self.chatClient disconnect];
-//                                        if( weakSelf.waitView)
-//                                        {
-//                                            //[self.chatClient disconnect]; // Close Stomp
-//                                            if (weakSelf.isBeingPresented)
-//                                            {
-//                                                [weakSelf dismissViewControllerAnimated:YES completion:nil];
-//                                            }
-//                                            else if (weakSelf.navigationController.viewControllers.count > 1)
-//                                            {
-//                                                [weakSelf.navigationController popViewControllerAnimated:YES];
-//                                            }
-//                                        }
-//                                        // Post chat ended notification
-//                                        [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification
-//                                                                                            object:self
-//                                                                                          userInfo:@{@"reason": @"error", @"error": errorMessage}];
-//                                    }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -1083,8 +1074,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
--(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds
-{
+-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds {
     
     ECSChatInfoMessage *message = [ECSChatInfoMessage new];
 //    message.fromAgent = YES;
@@ -1227,15 +1217,15 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     NSString *waitStringKey = ECSLocalizeWaitTimeShort;
     
-    if (waitMinutes <= 1)
+    if ( waitTime <= 60 ) // seconds
     {
         waitStringKey = ECSLocalizeWaitTimeShort;
     }
-    else if (waitMinutes > 1 && waitMinutes < 5)
+    else if ( waitTime > 60 && waitMinutes < 300 ) // 1 to 5 minutes
     {
         waitStringKey = ECSLocalizeWaitTime;
     }
-    else if (waitMinutes >= 5)
+    else if ( waitMinutes >= 300 ) // Greater than 5 minutes
     {
         waitStringKey = ECSLocalizeWaitTimeLong;
     }
@@ -1252,8 +1242,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     self.waitView.subtitleLabel.text = waitString;
 }
 
-- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
-{
+- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient {
+    
+    ECSLogVerbose(self.logger, @"Stomp chat answered notification.");
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStartedNotification
                                                          object:self];
     [self hideWaitView];
@@ -1269,8 +1261,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message
-{
+- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
+    
+    ECSLogVerbose(self.logger, @"Stomp add channel notification.");
+    
     [self.messages addObject:message];
     
     [self.tableView beginUpdates];
@@ -1603,7 +1597,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //- (void)showAlertForError:(NSError *)theError fromFunction:(NSString *)theFunction {
 - (void)showAlertForErrorTitle:(NSString *)theTitle message:(NSString *)theMessage {
     
-    ECSLogError(self.logger,@"Chat::%@ - %@", theTitle, theMessage);
+    ECSLogError(self.logger,@"%@ - %@", theTitle, theMessage);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:theTitle
                                                                              message:theMessage

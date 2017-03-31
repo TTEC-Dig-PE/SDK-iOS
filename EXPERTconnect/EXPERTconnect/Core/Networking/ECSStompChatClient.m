@@ -122,6 +122,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     __weak typeof(self) weakSelf = self;
     self.actionType = actionType;
     
+    ECSLogVerbose(self.logger, @"Initiating a new chat client...");
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     if ([self.actionType isKindOfClass:[ECSChatActionType class]]) {
@@ -319,6 +321,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                completion:^(id result, NSError* error)
             {
                 // Do nothing.
+                
+                if( error ) {
+                    ECSLogError(self.logger, @"Error closing channel - %@", error);
+                }
             }];
         }
     }
