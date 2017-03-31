@@ -20,6 +20,6 @@ static NSString *const ECSChatStateMessageReceivedNotification          = @"ECSC
 static NSString *const ECSChatNotificationMessageReceivedNotification   = @"ECSChatNotificationMessageReceivedNotification";
 
 // Host app can send this notification to simulate pressing an "End Chat" button.
-static NSString *const ECSEndChatNotification               = @"ECSEndChatNotification";
+static NSString *const ECSEndChatNotification                           = @"ECSEndChatNotification";
 
 #endif

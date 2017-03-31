@@ -15,11 +15,30 @@
 /* Splash Page Login Button   */
 "ECDLocalizedLoginButton" = "Iniciar Sesión";
 
+/* Entre texto del mensaje */
+"ECDLogInPromptText" = "Ingrese a su cuenta humanizar";
+
+/* Logout */
+"ECDLocalizeLogoutTitle" = "Salir?";
+
+/* Salir de texto */
+"ECDLocalizeLogoutText" = "¿Seguro que desea salir?";
+
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Registrarse";
 
+/* Email Dirección de marcador de posición */
+"ECDLocalizeEmailFieldPlaceholder" = "Dirección de correo electrónico";
+
+
 /* Splash Page Skip Registration Button   */
 "ECDLocalizedSkipRegistrationButton" = "Saltar registro";
+
+/* Solicitud para crear una cuenta */
+"ECDLocalizeCreateAccountPromptKey" = "Crear una cuenta de Humanify";
+
+/* Crear Cuenta texto del botón */
+"ECDLocalizeCreateAccountKey" = "Crear Cuenta";
 
 /* Localized Title for Personas Navigation View */
 "ECDLocalizedLandingViewTitle" = "Personas Navegación Ver";
@@ -97,6 +116,28 @@
 "ECDLocalizedBreadcrumbLabel" = "El Pan crumb";
 
 /* Test Chat Page Labels */
+
+/* Start new journey */
+"ECSLocalizedStartJourneyHeader" = "Start new journey";
+
+/* IBeacons */
+"ECSLocalizedBeaconsHeader" = "iBeacons";
+
+/* Version */
+"ECSLocalizedVersionHeader" = "La versión% @";
+
+/* Recibir Notificaciones */
+"ECSLocalizedReceiveNotificationsRow" = "Recibir Notificaciones";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyRow" = "Start New Journey";
+
+/* Habilitar ibeacon Función */
+"ECSLocalizedEnableBeaconsRow" = "Habilitar ibeacon Feature";
+
+/* Licencias de código abierto */
+"ECSLocalizedLicensesRow" = "Licencias de código abierto";
+
 
 /* Chat Skill Label */
 "ECDLocalizedChatSkillLabel" = "Habilidad de chat:";

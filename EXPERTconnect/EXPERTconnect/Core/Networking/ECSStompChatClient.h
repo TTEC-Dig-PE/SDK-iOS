@@ -162,6 +162,11 @@
 - (void)reconnect;
 
 /**
+ Is the stomp currently connected? 
+ */
+-(bool) isConnected;
+
+/**
  Sets the channel information for sending messages
  
  @param configuration the configuration for channel create response

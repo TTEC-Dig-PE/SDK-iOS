@@ -20,6 +20,15 @@
 static NSString* const ECDLocalizedLandingViewTitle = @"ECDLocalizedLandingViewTitle";
 static NSString* const ECDLocalizedUnknownUser = @"ECDLocalizedUnknownUser";
 static NSString* const ECDLocalizedLoginButton = @"ECDLocalizedLoginButton";
+static NSString* const ECDLogInPromptText = @"ECDLogInPromptText";
+static NSString* const ECDLocalizeLogoutTitle = @"ECDLocalizeLogoutTitle";
+static NSString* const ECDLocalizeLogoutText = @"ECDLocalizeLogoutText";
+
+static NSString* const ECDLocalizeEmailFieldPlaceholder = @"ECDLocalizeEmailFieldPlaceholder";
+
+static NSString* const ECDLocalizeCreateAccountKey = @"ECDLocalizeCreateAccountKey";
+static NSString* const ECDLocalizeCreateAccountPromptKey = @"ECDLocalizeCreateAccountPromptKey";
+
 static NSString* const ECDLocalizedRegisterButton = @"ECDLocalizedRegisterButton";
 static NSString* const ECDLocalizedSkipRegistrationButton = @"ECDLocalizedSkipRegistrationButton";
 static NSString* const ECDLocalizedEnvironmentsHeader = @"ECDLocalizedEnvironmentsHeader";
@@ -31,6 +40,16 @@ static NSString* const ECDLocalizeProfileWasUpdatedKey = @"ECDLocalizeProfileWas
 static NSString* const ECDLocalizeConfigWasUpdatedKey = @"ECDLocalizeConfigWasUpdatedKey";
 static NSString* const ECDLocalizedCustomizeThemeHeader = @"ECDLocalizedCustomizeThemeHeader";
 
+// Settings View
+static NSString *const ECSLocalizedPushNotificationsHeader = @"ECSLocalizedPushNotificationsHeader";
+static NSString *const ECSLocalizedStartJourneyHeader = @"ECSLocalizedStartJourneyHeader";
+static NSString *const ECSLocalizedBeaconsHeader = @"ECSLocalizedBeaconsHeader";
+static NSString *const ECSLocalizedVersionHeader = @"ECSLocalizedVersionHeader";
+
+static NSString *const ECSLocalizedReceiveNotificationsRow = @"ECSLocalizedReceiveNotificationsRow";
+static NSString *const ECSLocalizedStartJourneyRow = @"ECSLocalizedStartJourneyRow";
+static NSString *const ECSLocalizedEnableBeaconsRow = @"ECSLocalizedEnableBeaconsRow";
+static NSString *const ECSLocalizedLicensesRow = @"ECSLocalizedLicensesRow";
 
 static NSString* const ECDLocalizedStartChatHeader = @"ECDLocalizedStartChatHeader";
 static NSString* const ECDLocalizedStartVideoChatHeader = @"ECDLocalizedStartVideoChatHeader";

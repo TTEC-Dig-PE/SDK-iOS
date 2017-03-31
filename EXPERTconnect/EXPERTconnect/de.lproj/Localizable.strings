@@ -5,20 +5,11 @@
  Copyright (c) 2015 Humanify, Inc. Alle Rechte vorbehalten.
  */
 
-/* Name of the company */
-"ECSLocalizedCompanyNameKey" = "Humanify";
-
 /* Close */
 "ECSLocalizedCloseKey" = "Schließen";
 
 /* Error */
 "ECSLocalizeErrorKey" = "Fehler";
-
-/* Logout */
-"ECSLocalizeLogoutTitle" = "Abmelden?";
-
-/* Logout text */
-"ECSLocalizeLogoutText" = "Sind Sie sicher, dass Sie sich abmelden möchten?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
 "ECSLocalizedAskAQuestionKey" = "Stellen Sie eine Frage.";
@@ -31,15 +22,6 @@
 
 /* Hide FAQ */
 "ECSLocalizeShortHideFAQKey" = "FAQ verbergen";
-
-/* Email Address Placeholder */
-"ECSLocalizeEmailFieldPlaceholder" = "E-Mail-Adresse";
-
-/* Mobile Number Placeholder */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "Mobilnummer";
-
-/* Log in prompt text */
-"ECSLogInPromptText" = "Melden Sie sich bei Ihrem Humanify-Konto an.";
 
 /* All Fields Required Text */
 "ECSLocalizeAllFieldsRequired" = "Alle Felder müssen ausgefüllt werden.";
@@ -55,15 +37,6 @@
 
 /* Log out button text */
 "ECSLocalizedLogoutButton" = "Abmelden";
-
-/* Request to create an account */
-"ECSCreateAccountPromptKey" = "Legen Sie ein Humanify-Konto an.";
-
-/* Full Name text field placeholder */
-"ECSLocalizeFullNameFieldPlaceholderKey" = "Vollständiger Name";
-
-/* Create Account button text */
-"ECSLocalizeCreateAccountKey" = "Konto anlegen";
 
 /* Next Question */
 "ECSLocalizeNextQuestionKey" = "Weiter";
@@ -110,29 +83,6 @@
 /* Reachability error connecting to the website */
 "ECSLocalizeReachabilityErrorKey" = "Wir konnten keine Verbindung zum Humanify-Netz herstellen. Bitte überprüfen Sie Ihre Internetverbindung.";
 
-/* Push Notifications */
-"ECSLocalizedPushNotificationsHeader" = "Push-Benachrichtigungen";
-
-/* Start new journey */
-"ECSLocalizedStartJourneyHeader" = "Neues Vorhaben beginnen";
-
-/* iBeacons */
-"ECSLocalizedBeaconsHeader" = "iBeacons";
-
-/* Version */
-"ECSLocalizedVersionHeader" = "Version %@";
-
-/* Receive Notifications */
-"ECSLocalizedReceiveNotificationsRow" = "Benachrichtigungen erhalten";
-
-/* Start new journey */
-"ECSLocalizedStartJourneyRow" = "Neues Vorhaben beginnen";
-
-/* Enable iBeacon Feature */
-"ECSLocalizedEnableBeaconsRow" = "iBeacon-Merkmal aktivieren";
-
-/* Open Source Licenses */
-"ECSLocalizedLicensesRow" = "Open-Source-Lizenzen";
 
 /* Chat view placeholder text */
 "ECSLocalizedChatViewPlaceholder" = "Tippen Sie eine Nachricht ein.";
@@ -183,18 +133,6 @@
 
 /* Localize NO */
 "ECSLocalizeNo" = "NEIN";
-
-/* Dialog - User attempted to exit the chat queue (dialog title) */
-"ECSLocalizedLeaveQueueTitle" = "Chat-Warteschlange hinterlassen?";
-
-/* Dialog - User attempted to exit the chat queue (dialog message text) */
-"ECSLocalizedLeaveQueueMessage" = "Wenn du jetzt verlässt, verlierst du deinen Platz in der Chat-Warteschlange.";
-
-/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
-"ECSLocalizedLeaveQueueYes" = "Ja, verlassen";
-
-/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "Nein, bleiben";
 
 /* Tap to respond */
 "ECSLocalizeTapToRespond" = "Drücken, um zu reagieren";
@@ -355,3 +293,26 @@
 /* Channel Timeout Warning */
 "ECSChannelTimeoutWarning" = "Ihr Chat wird wegen fehlender Eingaben in %d Sekunden abgebrochen.";
 
+
+/* 5.7.0 Strings */
+
+/* Dialog - User attempted to exit the chat queue (dialog title) */
+"ECSLocalizedLeaveQueueTitle" = "Chat-Warteschlange hinterlassen?";
+
+/* Dialog - User attempted to exit the chat queue (dialog message text) */
+"ECSLocalizedLeaveQueueMessage" = "Wenn du jetzt verlässt, verlierst du deinen Platz in der Chat-Warteschlange.";
+
+/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
+"ECSLocalizedLeaveQueueYes" = "Ja, verlassen";
+
+/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
+"ECSLocalizedLeaveQueueNo" = "Nein, bleiben";
+
+/* 5.8.0 Strings */
+
+/* Usage: Displayed in a red bar at the top of the chat window when the network connection is lost. */
+"ECSLocalizedChatQueueNetworkError" = "Keine Internetverbindung.";
+
+/* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
+/* Dialog Title will be "Error" */
+"ECSLocalizedChatQueueDisconnectMessage" = "Ihre Chat-Anfrage ist abgelaufen. Bitte versuche es erneut.";

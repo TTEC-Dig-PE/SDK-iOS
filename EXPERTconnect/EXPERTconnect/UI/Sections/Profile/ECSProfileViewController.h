@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <EXPERTconnect/EXPERTconnect.h>
 #import "ECSRootViewController.h"
 
 @interface ECSProfileViewController : ECSRootViewController

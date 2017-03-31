@@ -5,10 +5,6 @@
   Copyright (c) 2015 Humanify, Inc. All rights reserved.
 */
 
-/* Name of the company (not in use) */
-/* Translators: SKIP */
-"ECSLocalizedCompanyNameKey" = "Humanify";
-
 /* Close */
 /* Usage: A close button that closes the current window or screen. */
 "ECSLocalizedCloseKey" = "Close";
@@ -16,16 +12,6 @@
 /* Error */
 /* Usage: The title header for an error popup alert box */
 "ECSLocalizeErrorKey" = "Error";
-
-/* Logout */
-/* Usage: Only used in ECDemo. The text in a confirmation dialog to make sure the user really wants to logout now. */
-/* Translators: SKIP */
-"ECSLocalizeLogoutTitle" = "Logout?";
-
-/* Logout text */
-/* Usage: Only used in ECDemo. Popup dialog to double-check user does want to log out */
-/* Translators: SKIP */
-"ECSLocalizeLogoutText" = "Are you sure that you wish to log out?";
 
 /* ECSLocalizedFrequentlyAskedQuestionsKey */
 /* Usage: Statement. Placeholder text in a text box where user can query our FAQ database. Lets user know they can click into this box and start typing a query. */
@@ -42,21 +28,6 @@
 /* Hide FAQ */
 /* Usage: A nav bar button title. Returns the user to the answer they were looking at */
 "ECSLocalizeShortHideFAQKey" = "Hide FAQ";
-
-/* Email Address Placeholder */
-/* Usage: Only used in ECDemo. Appears in a label letting the user know this is where they type in an email address. */
-/* Translators: SKIP */
-"ECSLocalizeEmailFieldPlaceholder" = "Email Address";
-
-/* Mobile Number Placeholder */
-/* Usage: NOT IN USE */
-/* Translators: SKIP */
-"ECSLocalizeMobileNumberFieldPlaceholder" = "Mobile Number";
-
-/* Log in prompt text */
-/* Usage: Only used in ECDemo. Label directing user to login. */
-/* Translators: SKIP */
-"ECSLogInPromptText" = "Log in to your Humanify Account";
 
 /* All Fields Required Text */
 /* Usage: Warning text that the user did not fill out all required fields on a form input. */
@@ -77,20 +48,6 @@
 /* Log out button text */
 /* Usage: A logout button */
 "ECSLocalizedLogoutButton" = "Logout";
-
-/* Request to create an account */
-/* Usage: NOT IN USE */
-/* Translators: SKIP */
-"ECSCreateAccountPromptKey" = "Create a Humanify Account";
-
-/* Full Name text field placeholder */
-/* Usage: NOT IN USE */
-/* Translators: SKIP */
-"ECSLocalizeFullNameFieldPlaceholderKey" = "Full Name";
-
-/* Create Account button text */
-/* Usage: Button text for creating a new account. ECDemo only. */
-"ECSLocalizeCreateAccountKey" = "Create Account";
 
 /* Next Question */
 /* Usage: Button text when user wants to move on to the next question/form input */
@@ -144,39 +101,7 @@
 /* Reachability error connecting to the website */
 "ECSLocalizeReachabilityErrorKey" = "We are unable to connect to the Humanify Network. Please check your internet connection.";
 
-/* Push Notifications */
-/* Usage: ECDemo Only. The title to the Push Notification settings view. */
-/* Translators: SKIP */
-"ECSLocalizedPushNotificationsHeader" = "Push Notifications";
 
-/* Start new journey */
-/* Usage: ECDemo Only. The title to the Start New Journey settings view. */
-/* Translators: SKIP */
-"ECSLocalizedStartJourneyHeader" = "Start new journey";
-
-/* iBeacons */
-/* Translators: SKIP */
-"ECSLocalizedBeaconsHeader" = "iBeacons";
-
-/* Version */
-/* Translators: SKIP */
-"ECSLocalizedVersionHeader" = "Version %@";
-
-/* Receive Notifications */
-/* Translators: SKIP */
-"ECSLocalizedReceiveNotificationsRow" = "Receive Notifications";
-
-/* Start new journey */
-/* Translators: SKIP */
-"ECSLocalizedStartJourneyRow" = "Start New Journey";
-
-/* Enable iBeacon Feature */
-/* Translators: SKIP */
-"ECSLocalizedEnableBeaconsRow" = "Enable iBeacon Feature";
-
-/* Open Source Licenses */
-/* Translators: SKIP */
-"ECSLocalizedLicensesRow" = "Open Source Licenses";
 
 /* Chat view placeholder text */
 "ECSLocalizedChatViewPlaceholder" = "Type a Message";
@@ -206,7 +131,6 @@
 
 /* Usage: Displayed when the wait time is greater than 5 minutes. */
 "ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
-
 
 /* Temporarily Disconnected */
 "ECSLocalizeChatReachabilityErrorKey" = "Temporarily Disconnected";
@@ -243,18 +167,6 @@
 
 /* Localize NO */
 "ECSLocalizeNo" = "NO";
-
-/* Dialog - User attempted to exit the chat queue (dialog title) */
-"ECSLocalizedLeaveQueueTitle" = "Leave Chat Queue?";
-
-/* Dialog - User attempted to exit the chat queue (dialog message text) */
-"ECSLocalizedLeaveQueueMessage" = "By leaving now, you will lose your place in the chat queue.";
-
-/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
-"ECSLocalizedLeaveQueueYes" = "Yes, Leave";
-
-/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "No, stay";
 
 /* Tap to respond */
 "ECSLocalizeTapToRespond" = "Tap to respond";
@@ -414,4 +326,28 @@
 
 /* Channel Timeout Warning */
 "ECSChannelTimeoutWarning" = "Your chat will timeout in %d seconds due to inactivity.";
+
+
+/* 5.7.0 Strings */
+
+/* Dialog - User attempted to exit the chat queue (dialog title) */
+"ECSLocalizedLeaveQueueTitle" = "Leave Chat Queue?";
+
+/* Dialog - User attempted to exit the chat queue (dialog message text) */
+"ECSLocalizedLeaveQueueMessage" = "By leaving now, you will lose your place in the chat queue.";
+
+/* Dialog - User attempted to exit the chat queue (dialog YES button text) */
+"ECSLocalizedLeaveQueueYes" = "Yes, leave";
+
+/* Dialog - User attempted to exit the chat queue (dialog NO button text) */
+"ECSLocalizedLeaveQueueNo" = "No, stay";
+
+/* 5.8.0 Strings */
+
+/* Usage: Displayed in a red bar at the top of the chat window when the network connection is lost. */
+"ECSLocalizedChatQueueNetworkError" = "No internet connection.";
+
+/* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
+/* Dialog Title will be "Error" */
+"ECSLocalizedChatQueueDisconnectMessage" = "Your chat request has timed out. Please try again.";
 

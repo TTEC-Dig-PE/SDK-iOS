@@ -49,7 +49,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
     [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
     
-    [self getAgentsAvailableForSkill:rowToSelect];
+//    [self getAgentsAvailableForSkill:rowToSelect];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -58,24 +58,24 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [[NSUserDefaults standardUserDefaults] setObject:[chatSkillsArray objectAtIndex:row]
                                               forKey:[NSString stringWithFormat:@"%@_%@", currentEnvironment, lastChatSkillKey]];
     
-    [self getAgentsAvailableForSkill:(int)row];
+//    [self getAgentsAvailableForSkill:(int)row];
 }
 
--(void)getAgentsAvailableForSkill:(int)index
-{
-    [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
-                                    completion:^(ECSSkillDetail *data, NSError *error)
-    {
-        if(!error)
-        {
-            //NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
-            //[skillDic setObject:data forKey:@"skillDetail"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
-                                                                object:data
-                                                              userInfo:nil];
-        }
-    }];
-}
+//-(void)getAgentsAvailableForSkill:(int)index
+//{
+//    [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
+//                                    completion:^(ECSSkillDetail *data, NSError *error)
+//    {
+//        if(!error)
+//        {
+//            //NSMutableDictionary *skillDic = [[NSMutableDictionary alloc] init];
+//            //[skillDic setObject:data forKey:@"skillDetail"];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"ChatSkillAgentInfoUpdated"
+//                                                                object:data
+//                                                              userInfo:nil];
+//        }
+//    }];
+//}
 
 -(BOOL)addChatSkillsFromServer {
     

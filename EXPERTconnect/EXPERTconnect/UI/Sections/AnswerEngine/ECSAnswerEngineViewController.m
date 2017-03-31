@@ -89,7 +89,11 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
 @implementation ECSAnswerEngineViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    self.logger = [[EXPERTconnect shared] logger];
+    
     self.navigationItem.title = self.actionType.displayName;
     
     self.didAskInitialQuestion = NO;
@@ -144,9 +148,13 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
                                            withCompletion:^(NSArray *context, NSError *error)
          {
              // Got our top questions...
-             self.answerEngineAction.topQuestions = context;
-             _savedTopQuestions = self.answerEngineAction.topQuestions; // Save off the top questionsk
-             [self displayTopQuestions];
+             if( !error && [context isKindOfClass:[NSArray class]]) {
+                 self.answerEngineAction.topQuestions = context;
+                 _savedTopQuestions = self.answerEngineAction.topQuestions; // Save off the top questionsk
+                 [self displayTopQuestions];
+             } else {
+                 ECSLogError(self.logger, @"Error fetching top questions. Error=%@", error);
+             }
          }];
         
     }
@@ -329,7 +337,7 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
     
     if (error) {
         // Error processing request.
-        NSLog(@"Answer Engine Error - %@", error);
+        ECSLogError(self.logger, @"Answer Engine Error - %@", error);
         
         NSString *title;
         NSString *message;

@@ -303,16 +303,6 @@ bool _chatActive;
 	 [self.selectAdHocWebPagePicker setup];
 	 
 	 [[NSNotificationCenter defaultCenter] addObserver:self
-											  selector:@selector(chatEnded:)
-												  name:ECSChatEndedNotification
-												object:nil];
-	 
-	 [[NSNotificationCenter defaultCenter] addObserver:self
-											  selector:@selector(chatMessageReceived:)
-												  name:ECSChatMessageReceivedNotification
-												object:nil];
-	 
-	 [[NSNotificationCenter defaultCenter] addObserver:self
 											  selector:@selector(callbackEnded:)
 												  name:ECSCallbackEndedNotification
 												object:nil];
@@ -1135,34 +1125,6 @@ bool _chatActive;
 		  NSLog(@"Callback ended. Reason? %@", notification.userInfo[@"reason"]);
 	 }
 	 
-}
-
-- (void)chatEnded:(NSNotification *)notification {
-	 
-	 // If uncommented, this will hide chat when agent ends it.
-	 //[self.navigationController popToViewController:self animated:YES];
-    _chatActive = NO;
-    NSLog(@"Chat ended!");
-    [self.tableView reloadData]; // show the start chat title
-}
-
-- (void)chatMessageReceived:(NSNotification *)notification {
-	 
-	 // A chat text message.
-	 if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
-		  ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
-		  NSLog(@"Chat - incoming chat message: %@", message.body);
-		  
-		  AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-	 }
-	 
-	 // Add participant message.
-	 if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
-		  ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
-		  NSLog(@"Chat - Adding participant: %@ %@", message.firstName, message.lastName);
-		  
-		  AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-	 }
 }
 
 #pragma mark - Ad-Hoc SDK Functions

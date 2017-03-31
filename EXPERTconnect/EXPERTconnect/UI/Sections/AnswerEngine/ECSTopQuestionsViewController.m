@@ -53,6 +53,8 @@ static NSString *const ECSListCellId = @"ECSListCellId";
     
     cell.titleLabel.text = answerEngineType.topQuestions[indexPath.row];
     
+    // Enabling this version will parse HTML (but will lose theme'ed font)
+//    [cell.titleLabel setHtml:answerEngineType.topQuestions[indexPath.row]];
     return cell;
 }
 

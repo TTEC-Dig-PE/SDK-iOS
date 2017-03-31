@@ -24,4 +24,6 @@
 // If set, the initialQuery will be used for an initial API call.
 @property (strong, nonatomic) NSString *initialQuery;
 
+@property (nonatomic, strong) ECSLog *logger;
+
 @end

@@ -67,13 +67,14 @@
 		C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */; };
 		C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */; };
 		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
+		C44B72701E7ADBD800DF1FEA /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */; };
+		C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
 		C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; };
 		C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C47F52E41CAEBF140098A0BC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52E31CAEBF140098A0BC /* StoreKit.framework */; };
 		C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */; };
 		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
 		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
@@ -268,6 +269,8 @@
 		C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCalendarViewController.xib; sourceTree = "<group>"; };
 		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
 		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
@@ -276,7 +279,6 @@
 		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
 		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
-		C47F52E31CAEBF140098A0BC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
@@ -376,7 +378,6 @@
 				D87F2F691B6835A400B7B9D5 /* CoreMedia.framework in Frameworks */,
 				D87F2F6A1B6835A400B7B9D5 /* CoreTelephony.framework in Frameworks */,
 				D87F2F6C1B6835A400B7B9D5 /* CoreVideo.framework in Frameworks */,
-				C47F52E41CAEBF140098A0BC /* StoreKit.framework in Frameworks */,
 				D87F2F6D1B6835A400B7B9D5 /* EventKit.framework in Frameworks */,
 				D87F2F6E1B6835A400B7B9D5 /* Foundation.framework in Frameworks */,
 				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
@@ -390,6 +391,7 @@
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
 				D87F2F591B68353500B7B9D5 /* libc++.dylib in Frameworks */,
+				C44B72701E7ADBD800DF1FEA /* HockeySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +408,7 @@
 		03243FD01A65570300A4CE6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C47F52E31CAEBF140098A0BC /* StoreKit.framework */,
+				C44B726D1E7ADBD800DF1FEA /* HockeySDK.embeddedframework */,
 				D81614FB1B792B3A005BD20E /* ACBClientSDK.framework */,
 				D81614EB1B7916D7005BD20E /* libxml2.dylib */,
 				D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */,
@@ -676,6 +678,16 @@
 			name = "Configuration Views";
 			sourceTree = "<group>";
 		};
+		C44B726D1E7ADBD800DF1FEA /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */,
+				C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */,
+			);
+			name = HockeySDK.embeddedframework;
+			path = ThirdParty/HockeySDK.embeddedframework;
+			sourceTree = SOURCE_ROOT;
+		};
 		C45AC03E1C206E2800625004 /* Proof_of_Concept */ = {
 			isa = PBXGroup;
 			children = (
@@ -774,13 +786,16 @@
 				TargetAttributes = {
 					03978F061A602B2D007793D6 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 4F2XQ7R275;
+						DevelopmentTeam = 3L437AY8G9;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -870,6 +885,7 @@
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */,
+				C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,
 				466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */,
 			);
@@ -1090,11 +1106,12 @@
 				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4F2XQ7R275;
+				DEVELOPMENT_TEAM = 3L437AY8G9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
+					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
 				LD_NO_PIE = YES;
@@ -1109,7 +1126,7 @@
 					"\"QuartzCore\"",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLEID)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.humanify.harness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1125,11 +1142,12 @@
 				CODE_SIGN_ENTITLEMENTS = EXPERTconnectDemo/EXPERTconnectDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4F2XQ7R275;
+				DEVELOPMENT_TEAM = 3L437AY8G9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../artifacts",
+					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
 				LD_NO_PIE = YES;
@@ -1144,7 +1162,7 @@
 					"\"QuartzCore\"",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLEID)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.humanify.harness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

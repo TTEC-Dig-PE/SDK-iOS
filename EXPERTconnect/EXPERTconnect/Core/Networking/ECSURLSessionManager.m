@@ -184,7 +184,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     //NSAssert(clientID.length > 0, @"Client ID must be provided");
     //NSAssert(clientSecret.length > 0, @"Client secret must be provided");
     if (clientID.length == 0 || clientSecret.length == 0) {
-        completion(nil, [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:-2000]);
+        completion(nil, [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
     }
     
     NSURL *url = [self URLByAppendingPathComponent:@"authserver/oauth/token"];
@@ -256,9 +256,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 else
                 {
                     // wait 500ms and try again (up to 3 times)
-                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
+//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
                     [NSThread sleepForTimeInterval:0.5f];
-                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
+//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
                     [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
                 }
             }
@@ -266,7 +266,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     }
     else
     {
-        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:1001]);
+        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:ECS_ERROR_NO_AUTH_TOKEN]);
     }
     
     return nil;
@@ -325,7 +325,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                                  forContext:(NSString*)context
                                              withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
-    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/start" completion:completion];
+    return [self internalGetAnswerEngineQuestions:num
+                                          context:context
+                                              url:@"answerengine/v1/start"
+                                       completion:completion];
 }
 
 // Unit Test: ECS_API_Tests::testGetAnswerEngineTopQuestionsWithContext
@@ -333,7 +336,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                            forContext:(NSString*)context
                                        withCompletion:(void (^)(NSArray *questions, NSError *error))completion
 {
-    return [self internalGetAnswerEngineQuestions:num context:context url:@"answerengine/v1/questions" completion:completion];
+    return [self internalGetAnswerEngineQuestions:num
+                                          context:context
+                                              url:@"answerengine/v1/questions"
+                                       completion:completion];
 }
 
 // Internal only. Used to combine the code base of the above two functions.
@@ -344,11 +350,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     if( !context )
     {
-        completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:1003]);
+        completion(nil, [self errorWithReason:@"Input parameter 'context' required." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
+    
+    if (!num) num = 10; // Just default to 10.
+    
     NSDictionary *parameters = nil;
-    if (!num) num = 10;
     parameters = @{@"num": [NSNumber numberWithInt:num], @"context": context};
     
     return [self GET:theURL
@@ -369,7 +377,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     // Do not allow empty keyword or search string less than 3 characters. 
     if (!theKeyword || [theKeyword length] < 3)
     {
-        completion(nil, [self errorWithReason:@"Keyword parameter must be 3 or more characters." code:1002]);
+        completion(nil, [self errorWithReason:@"Keyword parameter must be 3 or more characters." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -390,7 +398,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                     completion:(void (^)(ECSAnswerEngineResponse *response, NSError *error))completion
 {
     if (!question) {
-        completion(nil, [self errorWithReason:@"Missing or null parameter 'question'" code:1004]);
+        completion(nil, [self errorWithReason:@"Missing or null parameter 'question'" code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -468,7 +476,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     
     if(!answerID || !rating || !theMin || !theMax || !questionCount) {
-        completion( nil, [self errorWithReason:@"Missing parameter (answerID, rating, min, max, questionCount required)." code:1005]);
+        completion( nil, [self errorWithReason:@"Missing parameter (answerID, rating, min, max, questionCount required)." code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -491,14 +499,32 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 }
 
 // Unit Test: ECS_API_Tests::testGetResponseFromEndpoint
-- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint withCompletion:(void (^)(NSString *, NSError *))completion
+- (NSURLSessionDataTask *)getResponseFromEndpoint:(NSString *)endpoint
+                                   withCompletion:(void (^)(id, NSError *))completion
 {
-    ECSLogVerbose(self.logger,@"Get Results from a known endpoint");
+    if(!self.baseURL) {
+        completion( nil, [self errorWithReason:@"Humanify SDK configuration incomplete. Missing hostURL." code:ECS_ERROR_MISSING_CONFIG]);
+        return nil;
+    }
+    if(!endpoint) {
+        completion( nil, [self errorWithReason:@"Parameter endpoint required." code:ECS_ERROR_MISSING_PARAM]);
+        return nil;
+    }
     
-    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithString:[self.baseURL.path stringByAppendingString:endpoint]];
+    ECSLogVerbose(self.logger, @"Get Results from a known endpoint");
     
+    // Append the endpoint parameter to the base URL (factoring for slashes on either side)
+    NSURL *fullURL = [NSURL URLWithString:[endpoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                            relativeToURL:self.baseURL];
+    
+    // Now break it apart into it's components.
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] initWithURL:fullURL
+                                                  resolvingAgainstBaseURL:YES];
+    
+    // We want the path and the query items.
     endpoint = urlComponents.path;
     NSArray *query = urlComponents.queryItems;
+    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
     for(NSURLQueryItem *item in query)
@@ -527,7 +553,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)submitUserProfile:(ECSUserProfile *)profile withCompletion:(void (^)(NSDictionary *, NSError *))completion
 {
     if(!profile) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'profile'." code:1007]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'profile'." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     
@@ -589,7 +615,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)getFormByName:(NSString*)formName withCompletion:(void (^)(ECSForm *, NSError *))completion
 {
     if(!formName) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'formName'." code:1008]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'formName'." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     return [self GET:[NSString stringWithFormat:@"forms/v1/%@", formName]
@@ -604,7 +630,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     ECSLogVerbose(self.logger,@"Submit form %@", [form inlineFormResponse]);
     if(!form) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:1009]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
@@ -685,54 +711,70 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                      withCompletion:(void (^)(ECSConversationCreateResponse *conversation, NSError *error))completion
 {
     if(!actionType) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'" code:1011]);
-        return nil; 
+        
+        completion(nil, [self errorWithReason:@"Missing required parameter 'actionType'"
+                                         code:ECS_ERROR_MISSING_PARAM]);
+        return nil;
+        
     }
+    
     //if ([actionType.journeybegin boolValue] || alwaysCreate)
-    if( alwaysCreate ) 
-    {
+    if( alwaysCreate ) {
+        
         //if ([actionType.journeybegin boolValue] && self.conversation)
-        if( self.conversation )
-        {
+        if( self.conversation ) {
             self.conversation = nil;
         }
         
-        if (!self.conversation)
-        {
+        if (!self.conversation) {
+            
             __weak typeof(self) weakSelf = self;
             
             return [self setupConversationWithLocation:@"home"
-                                            completion:^(ECSConversationCreateResponse *createResponse, NSError *error)
-            {
-                if (createResponse.conversationID && createResponse.conversationID.length > 0)
-                {
-                    weakSelf.conversation = createResponse;
-                    ECSLogVerbose(self.logger,@"New conversation started with ID=%@", createResponse.conversationID);
-                }
-                
-                if (completion)
-                {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(weakSelf.conversation, error);
-                    });
+                                            completion:^(ECSConversationCreateResponse *createResponse, NSError *error) {
+                                                
+                if( error || ![createResponse isKindOfClass:[ECSConversationCreateResponse class]]) {
+                    // Catastrophic Error
+                    if( completion ) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(nil, error);
+                        });
+                    }
+                } else {
+                    
+                    if (createResponse.conversationID && createResponse.conversationID.length > 0) {
+                        
+                        weakSelf.conversation = createResponse;
+                        ECSLogVerbose(self.logger,@"New conversation started with ID=%@", createResponse.conversationID);
+                        
+                    }
+                    
+                    if (completion) {
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(weakSelf.conversation, error);
+                        });
+                        
+                    }
                 }
                 
             }];
-        }
-        else if (completion)
-        {
+            
+        } else if (completion) {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(self.conversation, nil);
             });
         }
-    }
-    else
-    {
-        if (completion)
-        {
+        
+    } else {
+        
+        if (completion) {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(self.conversation, nil);
             });
+            
         }
     }
     
@@ -847,9 +889,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                               completion(ecsActionArray, nil);
                               return;
                           }
+                          
+                      } else {
+                          completion(nil, [self errorWithReason:@"End chat action did not return JSON." code:ECS_ERROR_MALFORMED_RESPONSE]);
                       }
-                      
-                      completion(nil, [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:nil]);
                   }
               } failure:[self failureWithCompletion:completion]];
 }
@@ -973,9 +1016,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(pushNotificationID)self.pushNotificationID = pushNotificationID;
     if(self.pushNotificationID) parameters[@"pushNotificationID"] = self.pushNotificationID;
     
-    if(theName)parameters[@"name"] = theName;
-    
-    if(theContext)self.journeyManagerContext = theContext;
+    if(theName) parameters[@"name"] = theName;
+    if(theContext) self.journeyManagerContext = theContext;
     if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
     
     return [self POST:@"journeymanager/v1"
@@ -990,7 +1032,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                 completion:(void (^)(ECSJourneyAttachResponse *response, NSError* error))completion
 {
     if(!theContext) {
-        completion(nil, [self errorWithReason:@"Missing required parameter 'context'" code:1012]);
+        completion(nil, [self errorWithReason:@"Missing required parameter 'context'" code:ECS_ERROR_MISSING_PARAM]);
         return nil;
     }
     
@@ -1013,7 +1055,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                              completion:(void (^)(id *response, NSError* error))completion
 {
     if( !data || !name) {
-        completion(nil, [self errorWithReason:@"Missing required parameter (data or name)." code:1010]);
+        completion(nil, [self errorWithReason:@"Missing required parameter (data or name)." code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
     NSString *path = @"utils/v1/media";
@@ -1185,8 +1227,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                         
                         [self replaceJourneyIfFound:result]; // If a journeyID was found, update our stored value. 
                         completion(resultObject, nil);
-                    }
-                    else {
+                                               
+                    } else {
+                        
                         // Simple JSON NSDictionary
                         //
                         id resultObject = result;
@@ -1344,7 +1387,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:-1 userInfo:userInfo];
+            retError = [NSError errorWithDomain:ECSErrorDomain
+                                           code:ECS_ERROR_API_ERROR
+                                       userInfo:userInfo];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1411,25 +1456,31 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                               path:(NSString *)path
                                         parameters:(id)parameters
                                            success:(ECSSessionManagerSuccess)success
-                                           failure:(ECSSessionManagerFailure)failure
-{
+                                           failure:(ECSSessionManagerFailure)failure {
     
     
     NSURL *url = nil;
     
-    if ([path hasPrefix:@"http"])
-    {
+    if ([path hasPrefix:@"http"]) {
+        
         url = [NSURL URLWithString:path];
-    }
-    else
-    {
+        
+    } else {
+        
         url = [self URLByAppendingPathComponent:path];
+        
     }
-    NSURLRequest *request = [self requestWithMethod:method URL:url parameters:parameters error:nil];
+    
+    NSURLRequest *request = [self requestWithMethod:method
+                                                URL:url
+                                         parameters:parameters
+                                              error:nil];
     
     ECSLogVerbose(self.logger,@"%@: %@ \n headers %@\n parameters %@", method, path, request.allHTTPHeaderFields, parameters);
+    
     NSURLSessionDataTask *task = [self dataTaskWithRequest:request
-                                                   success:success failure:failure];
+                                                   success:success
+                                                   failure:failure];
     [task resume];
     
     return task;
@@ -1443,10 +1494,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
     
     if (configuration.clientID.length == 0) {
-        NSError *err = [[NSError alloc] initWithDomain:@"ClientID/Secret or userIdentityToken must be provided."
-                                                  code:-2000
-                                              userInfo:nil];
-        ECSLogError(self.logger,@"Error: %@", err);
+        
+        ECSLogError(self.logger,@"Error: %@", [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
         return nil;
     }
     
@@ -1497,76 +1546,76 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                            allowAuthorization:(BOOL)allowAuthorization
                                       success:(ECSSessionManagerSuccess)success
-                                      failure:(ECSSessionManagerFailure)failure
-{
+                                      failure:(ECSSessionManagerFailure)failure {
+    
     __weak typeof(self) weakSelf = self;
-
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        NSError *retError = error;
+        NSError     *retError                   = error;
+        id          result                      = nil;
+        BOOL        retryingWithAuthorization   = NO;
+        NSInteger   statusCode                  = ((NSHTTPURLResponse*)response).statusCode;
+                                               
+        ECSLogVerbose(self.logger,@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
         
-        id result = nil;
-        BOOL retryingWithAuthorization = NO;
-        
+        // Attempt to do JSON parsing if error is empty
         if (error == nil)
         {
-            result = [[self responseSerializer] responseObjectForResponse:response data:data error:&retError];
+            NSError *jsonParsingError;
+            result = [[self responseSerializer] responseObjectForResponse:response
+                                                                     data:data
+                                                                    error:&jsonParsingError];
             
             // Allow for an empty reponse if the response code was 200.
-            if ((((NSHTTPURLResponse*)response).statusCode == 200) && retError.code == 3840)
-            {
+            if (statusCode == 200 && retError.code == 3840) {
                 retError = nil;
+            } else {
+                retError = jsonParsingError;
             }
         }
         
-        ECSLogVerbose(self.logger,@"HTTP %ld for URL:%@", (long)((NSHTTPURLResponse*)response).statusCode, response.URL);
-        
-        if (allowAuthorization && (((NSHTTPURLResponse*)response).statusCode == 401) )
-        {
-            ECSLogWarn(self.logger,@"SessionManager::dataTaskWithRequest - Authentication error (http 401).");
-            ECSLogVerbose(self.logger,@"Packet: %@", response);
-            //if(weakSelf.authTokenDelegate) {
-                // Use the new method if an identity delegate is found.
-                [weakSelf authenticateAPIAndContinueCallWithRequest2:request success:success failure:failure];
-            //} else {
-                // Backwards compatibility (or non-identity delegate methods)
-            //    [weakSelf authenticateAPIAndContinueCallWithRequest:request success:success failure:failure];
-            //}
+        if (allowAuthorization && statusCode == 401) {
+            
+            ECSLogWarn(self.logger, @"Authentication error (http 401).");
+            ECSLogVerbose(self.logger, @"Packet: %@", response);
+
+            [weakSelf authenticateAPIAndContinueCallWithRequest2:request
+                                                         success:success
+                                                         failure:failure];
+
             retryingWithAuthorization = YES;
-        }
-        else if ((error.code != NSURLErrorCancelled) &&
-                 (((NSHTTPURLResponse*)response).statusCode != 200) &&
-                 (((NSHTTPURLResponse*)response).statusCode != 201))
-        {
+            
+        } else if (error.code != NSURLErrorCancelled && statusCode != 200 && statusCode != 201) {
+            
+            NSMutableDictionary *userInfo = [NSMutableDictionary new];
+            
             if (error) {
                 ECSLogVerbose(self.logger,@"API Error: %@", error);
             }
             
-            NSMutableDictionary *userInfo = [NSMutableDictionary new];
-            
-            if ([result isKindOfClass:[NSDictionary class]])
-            {
-                if (result[@"error"])
-                {
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                if (result[@"error"]) {
                     userInfo[NSLocalizedFailureReasonErrorKey] = result[@"error"];
                 }
-                
-                if (result[@"message"])
-                {
+                if (result[@"message"]) {
                     userInfo[NSLocalizedDescriptionKey] = result[@"message"];
                 }
+                retError = [NSError errorWithDomain:ECSErrorDomain
+                                               code:statusCode
+                                           userInfo:userInfo];
+            } else {
+                retError = error;
             }
-            
-            retError = [NSError errorWithDomain:@"com.humanify"
-                                           code:((NSHTTPURLResponse*)response).statusCode
-                                       userInfo:userInfo];
         }
         
         // Only return if we are not trying to reauthenticate with the API.
         if (!retryingWithAuthorization)
         {
+            // TODO: This should be removed. However, host apps may be relying on it.
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+            
                 if (retError == nil)
                 {
                     success(result, response);
@@ -1616,7 +1665,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                 }
             }
             
-            retError = [NSError errorWithDomain:@"com.humanify" code:((NSHTTPURLResponse*)response).statusCode userInfo:userInfo];
+            retError = [NSError errorWithDomain:ECSErrorDomain
+                                           code:((NSHTTPURLResponse*)response).statusCode
+                                       userInfo:userInfo];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1782,7 +1833,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                          code:(NSInteger)theCode
 {
     NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: theReason };
-    NSError *error = [NSError errorWithDomain:@"com.humanify.error"
+    NSError *error = [NSError errorWithDomain:ECSErrorDomain
                                          code:theCode
                                      userInfo:userInfo];
     ECSLogError(self.logger,@"%s - %@", __PRETTY_FUNCTION__, error.userInfo[NSLocalizedFailureReasonErrorKey]);

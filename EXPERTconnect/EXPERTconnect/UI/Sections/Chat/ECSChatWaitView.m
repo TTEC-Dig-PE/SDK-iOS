@@ -27,4 +27,8 @@
 
 }
 
+- (void) startLoadingAnimation {
+    [self.loadingView startAnimating];
+}
+
 @end

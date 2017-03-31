@@ -12,23 +12,16 @@
  */
 
 // Keys used in localization files
-static NSString* const ECSLocalizeCompanyNameKey = @"ECSLocalizedCompanyNameKey";
 static NSString* const ECSLocalizedCloseKey = @"ECSLocalizedCloseKey";
 static NSString* const ECSLocalizeErrorKey = @"ECSLocalizeErrorKey";
-
-static NSString* const ECSLocalizeLogoutTitle = @"ECSLocalizeLogoutTitle";
-static NSString* const ECSLocalizeLogoutText = @"ECSLocalizeLogoutText";
 
 static NSString* const ECSLocalizeAskAQuestionKey = @"ECSLocalizedAskAQuestionKey";
 static NSString* const ECSLocalizeFrequentlyAskedQuestionsKey = @"ECSLocalizedFrequentlyAskedQuestionsKey";
 static NSString* const ECSLocalizeShortFAQKey = @"ECSLocalizeShortFAQKey";
 static NSString* const ECSLocalizeShortHideFAQKey = @"ECSLocalizeShortHideFAQKey";
-static NSString* const ECSLocalizeEmailFieldPlaceholder = @"ECSLocalizeEmailFieldPlaceholder";
-static NSString* const ECSLocalizeMobileNumberFieldPlaceholder = @"ECSLocalizeMobileNumberFieldPlaceholder";
-static NSString* const ECSLogInPromptText = @"ECSLogInPromptText";
-static NSString* const ECSLocalizeCreateAccountPromptKey = @"ECSCreateAccountPromptKey";
-static NSString* const ECSLocalizeFullNameFieldPlaceholderKey = @"ECSLocalizeFullNameFieldPlaceholderKey";
-static NSString* const ECSLocalizeCreateAccountKey = @"ECSLocalizeCreateAccountKey";
+
+
+
 static NSString* const ECSLocalizeAllFieldsRequired = @"ECSLocalizeAllFieldsRequired";
 static NSString* const ECSLocalizeRegisterErrorMissingRequiredFields = @"ECSLocalizeRegisterErrorMissingRequiredFields";
 static NSString* const ECSLocalizeLoginErrorMissingRequiredFields = @"ECSLocalizeLoginErrorMissingRequiredFields";
@@ -104,6 +97,9 @@ static NSString *const ECSLocalizedChatSessionEndedSubtitle = @"ECSLocalizedChat
 static NSString *const ECSLocalizedChatSessionEndedDirections = @"ECSLocalizedChatSessionEndedDirections";
 static NSString *const ECSLocalizedExitChatButton = @"ECSLocalizedExitChatButton";
 
+static NSString *const ECSLocalizedChatQueueNetworkError = @"ECSLocalizedChatQueueNetworkError";
+static NSString *const ECSLocalizedChatQueueDisconnectMessage = @"ECSLocalizedChatQueueDisconnectMessage";
+
 // Call View
 static NSString *const ECSLocalizeCallNavigationTitle = @"ECSLocalizeCallNavigationTitle";
 static NSString *const ECSLocalizeRequestCallButton = @"ECSLocalizeRequestCallButton";
@@ -135,16 +131,7 @@ static NSString *const ECSLocalizeMinutes = @"ECSLocalizeMinutes";
 static NSString *const ECSLocalizeMinute = @"ECSLocalizeMinute";
 
 
-// Settings View
-static NSString *const ECSLocalizedPushNotificationsHeader = @"ECSLocalizedPushNotificationsHeader";
-static NSString *const ECSLocalizedStartJourneyHeader = @"ECSLocalizedStartJourneyHeader"; 
-static NSString *const ECSLocalizedBeaconsHeader = @"ECSLocalizedBeaconsHeader";
-static NSString *const ECSLocalizedVersionHeader = @"ECSLocalizedVersionHeader";
 
-static NSString *const ECSLocalizedReceiveNotificationsRow = @"ECSLocalizedReceiveNotificationsRow";
-static NSString *const ECSLocalizedStartJourneyRow = @"ECSLocalizedStartJourneyRow";
-static NSString *const ECSLocalizedEnableBeaconsRow = @"ECSLocalizedEnableBeaconsRow";
-static NSString *const ECSLocalizedLicensesRow = @"ECSLocalizedLicensesRow";
 
 static NSString *const ECSLocalizeError = @"ECSLocalizeError";
 static NSString *const ECSLocalizeErrorText = @"ECSLocalizeErrorText";

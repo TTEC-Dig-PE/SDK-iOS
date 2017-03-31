@@ -17,19 +17,6 @@
 
 static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return true;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [textField selectAll:self];
-}
-
-- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES]; 
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -151,7 +138,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     if( !self.chatController || !_chatActive )
     {
         self.chatController = (ECSChatViewController *)[[EXPERTconnect shared] startChat:chatSkill
-                                                withDisplayName:@"AdHoc Chat"
+                                                withDisplayName:@"Live Chat with a Guide"
                                                      withSurvey:NO];
         
         // Add our custom left bar button
@@ -365,12 +352,19 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 -(void)getAgentsAvailableForExpertSkill:(int)index
 {
+    if( chatSkillsArray.count == 0 || chatSkillsArray.count < index) {
+        NSLog(@"ChatConfigView - Attempted to load skill in array out of bounds.");
+        return;
+    }
+    
+    NSLog(@"Getting details for skill: %@", [chatSkillsArray objectAtIndex:index]);
+    
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)
      {
          NSMutableString *labelText = [[NSMutableString alloc] initWithString:@""];
          
-         if(!error)
+         if( !error && [data isKindOfClass:[ECSSkillDetail class]] )
          {
              if(data.active && data.queueOpen && data.chatReady > 0)
              {
@@ -391,7 +385,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
                                                  data.inQueue,
                                                  data.active]];
          } else {
-             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@",error.description]];
+             [labelText appendString:[NSString stringWithFormat:@"/experts/v1/skills ERROR: %@", error]];
          }
      }];
 }
@@ -420,6 +414,21 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     }
     
     return YES;
+}
+
+#pragma mark - Keyboard Delegate Functions
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return true;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField selectAll:self];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 @end

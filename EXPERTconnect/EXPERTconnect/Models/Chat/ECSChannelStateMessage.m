@@ -44,7 +44,6 @@
         returnState = ECSChannelStateUnknown;
     }
     
-    NSLog(@"ChannelStateMessage::ChannelState = %lu. Source = %@.", (unsigned long)returnState, self.state);
     return returnState;
 }
 

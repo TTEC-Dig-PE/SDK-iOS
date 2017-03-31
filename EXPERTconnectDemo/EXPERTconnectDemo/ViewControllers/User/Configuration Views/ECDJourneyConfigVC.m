@@ -99,4 +99,19 @@
     }];
 }
 
+#pragma mark - TextField Delegates
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return true;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [textField selectAll:self];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
+
 @end

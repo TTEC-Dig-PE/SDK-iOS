@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet ECSLoadingView *loadingView;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *subtitleLabel;
+
+- (void) startLoadingAnimation;
+
 @end

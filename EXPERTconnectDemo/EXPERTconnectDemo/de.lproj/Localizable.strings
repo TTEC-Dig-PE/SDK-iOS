@@ -14,11 +14,30 @@
 /* Splash Page Login Button   */
 "ECDLocalizedLoginButton" = "Anmelden";
 
+/* Log in prompt text */
+"ECDLogInPromptText" = "Melden Sie sich bei Ihrem Humanify-Konto an.";
+
+/* Logout */
+"ECDLocalizeLogoutTitle" = "Abmelden?";
+
+/* Logout text */
+"ECDLocalizeLogoutText" = "Sind Sie sicher, dass Sie sich abmelden möchten?";
+
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "Registrieren";
 
+/* Email Address Placeholder */
+"ECDLocalizeEmailFieldPlaceholder" = "E-Mail-Adresse";
+
+
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "Das Profil wurde aktualisiert.";
+
+/* Request to create an account */
+"ECDLocalizeCreateAccountPromptKey" = "Legen Sie ein Humanify-Konto an.";
+
+/* Create Account button text */
+"ECDLocalizeCreateAccountKey" = "Konto anlegen";
 
 /* Application Config Value was updated  */
 "ECDLocalizeConfigWasUpdatedKey" = "Der Konfigurationswert der Anwendung wurde aktualisiert.";
@@ -93,6 +112,31 @@
 "ECDLocalizedStartWYSIWYGEditorLabel" = "AdHoc: WYSIWYG-Editor";
 
 /* ----------------------------------------------------- */
+
+/* Push Notifications */
+"ECSLocalizedPushNotificationsHeader" = "Push-Benachrichtigungen";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyHeader" = "Neues Vorhaben beginnen";
+
+/* iBeacons */
+"ECSLocalizedBeaconsHeader" = "iBeacons";
+
+/* Version */
+"ECSLocalizedVersionHeader" = "Version %@";
+
+/* Receive Notifications */
+"ECSLocalizedReceiveNotificationsRow" = "Benachrichtigungen erhalten";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyRow" = "Neues Vorhaben beginnen";
+
+/* Enable iBeacon Feature */
+"ECSLocalizedEnableBeaconsRow" = "iBeacon-Merkmal aktivieren";
+
+/* Open Source Licenses */
+"ECSLocalizedLicensesRow" = "Open-Source-Lizenzen";
+
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "Chat";

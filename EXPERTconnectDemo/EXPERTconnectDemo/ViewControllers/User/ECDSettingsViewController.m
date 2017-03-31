@@ -508,8 +508,8 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     }
     else
     {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeLogoutTitle, nil)
-                                                                                 message:ECSLocalizedString(ECSLocalizeLogoutText, nil) preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECDLocalizeLogoutTitle, nil)
+                                                                                 message:ECSLocalizedString(ECDLocalizeLogoutText, nil) preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];

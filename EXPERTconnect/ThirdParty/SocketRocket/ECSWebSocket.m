@@ -1453,22 +1453,35 @@ static const size_t ECSFrameHeaderOverhead = 32;
             }
                 
             case NSStreamEventEndEncountered: {
+                
                 [self _pumpScanner];
                 ECSFastLog(@"NSStreamEventEndEncountered %@", aStream);
+                
                 if (aStream.streamError) {
+                    
                     [self _failWithError:aStream.streamError];
+                    
                 } else {
+                    
                     if (self.readyState != ECS_CLOSED) {
-                        self.readyState = ECS_CLOSED;
+                        
+                        self.readyState = ECS_CLOSED; // This line is called when server is down and stomp closes.
                         _selfRetain = nil;
                     }
 
                     if (!_sentClose && !_failed) {
+                        
                         _sentClose = YES;
+                        
                         // If we get closed in this state it's probably not clean because we should be sending this when we send messages
                         [self _performDelegateBlock:^{
+                            
                             if ([self.delegate respondsToSelector:@selector(webSocket:didCloseWithCode:reason:wasClean:)]) {
-                                [self.delegate webSocket:self didCloseWithCode:ECSStatusCodeGoingAway reason:@"Stream end encountered" wasClean:NO];
+                                
+                                [self.delegate webSocket:self
+                                        didCloseWithCode:ECSStatusCodeGoingAway
+                                                  reason:@"Stream end encountered"
+                                                wasClean:YES];
                             }
                         }];
                     }

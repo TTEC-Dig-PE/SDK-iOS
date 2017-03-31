@@ -128,7 +128,7 @@ static char ECSUserActionCompletionBlockKey;
                                                                    action:@selector(closeUserActionController:)];
     closeButton.tintColor = [UIColor whiteColor];
     login.navigationItem.leftBarButtonItem = closeButton;
-    login.navigationItem.title = ECSLocalizedString(ECSLocalizeCompanyNameKey, @"Humanify");
+    login.navigationItem.title = @"Humanify";
     login.delegate = self;
     
     ECSTheme* theme = [[EXPERTconnect shared] theme];
@@ -151,7 +151,7 @@ static char ECSUserActionCompletionBlockKey;
                                                                    action:@selector(closeUserActionController:)];
     closeButton.tintColor = [UIColor whiteColor];
     registerVc.navigationItem.leftBarButtonItem = closeButton;
-    registerVc.navigationItem.title = ECSLocalizedString(ECSLocalizeCompanyNameKey, @"Humanify");
+    registerVc.navigationItem.title = @"Humanify";
     registerVc.delegate = self;
     
     ECSTheme* theme = [[EXPERTconnect shared] theme];

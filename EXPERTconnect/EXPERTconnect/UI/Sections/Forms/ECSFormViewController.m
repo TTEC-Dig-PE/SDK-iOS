@@ -46,6 +46,8 @@
 {
     [super viewDidLoad];
     
+    self.logger = [[EXPERTconnect shared] logger];
+    
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
     self.view.backgroundColor = theme.primaryBackgroundColor;
@@ -75,31 +77,39 @@
     
     __weak typeof(self) weakSelf = self;
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     [urlSession startConversationForAction:self.actionType
                            andAlwaysCreate:NO
-                             withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                 
-                                 ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
-                                 if(!formAction.form)
-                                 {
-                                     [urlSession getFormByName:formAction.actionId withCompletion:^(ECSForm *form, NSError *error)
-                                     {
-                                         if (!error) {
-                                             formAction.form = [form copy];
-                                             [weakSelf setLoadingIndicatorVisible:NO];
-                                             
-                                             [self transitionToCurrentQuestionForwards:YES];
-                                             
-                                         } else {
-                                             [weakSelf showMessageForError:error];
-                                             [weakSelf dismissViewControllerAnimated:YES completion:nil]; 
-                                         }
-                                     }];
-                                 } else {
-                                    [weakSelf setLoadingIndicatorVisible:NO];
-                                    [self transitionToCurrentQuestionForwards:YES];
-                                 }
-                             }];
+                             withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+    {
+        ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+        
+        if(!formAction.form) {
+            
+            [urlSession getFormByName:formAction.actionId
+                       withCompletion:^(ECSForm *form, NSError *error)
+             {
+                 if (!error && [form isKindOfClass:[ECSForm class]] ) {
+                     
+                     formAction.form = [form copy];
+                     [weakSelf setLoadingIndicatorVisible:NO];
+                     
+                     [self transitionToCurrentQuestionForwards:YES];
+                     
+                 } else {
+                     
+                     ECSLogError(self.logger, @"Error fetching form data. Error=%@", error); 
+                     [weakSelf showMessageForError:error];
+                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                 }
+             }];
+            
+        } else {
+            
+            [weakSelf setLoadingIndicatorVisible:NO];
+            [self transitionToCurrentQuestionForwards:YES];
+        }
+    }];
 }
 
 - (void)viewWillLayoutSubviews
@@ -383,6 +393,7 @@
                     }
                     else
                     {
+                        ECSLogError(self.logger, @"Error submitting form. Error=%@", error);
                         [weakSelf showMessageForError:error];
                     }
                 }];

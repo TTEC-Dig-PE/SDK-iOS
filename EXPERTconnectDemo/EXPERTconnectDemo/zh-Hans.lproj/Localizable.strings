@@ -11,14 +11,33 @@
 /* Unknown User text */
 "ECDLocalizedUnknownUser" = "未知用户；请注册，以创建一个帐户。";
 
+/* Log in prompt text */
+"ECDLogInPromptText" = "登录到您的 Humanify 帐户";
+
 /* Splash Page Login Button   */
 "ECDLocalizedLoginButton" = "登录";
+
+/* Logout */
+"ECDLocalizeLogoutTitle" = "退出登录？";
+
+/* Logout text */
+"ECDLocalizeLogoutText" = "您确定要退出登录吗？";
 
 /* Splash Page Register Button   */
 "ECDLocalizedRegisterButton" = "注册";
 
+/* Email Address Placeholder */
+"ECDLocalizeEmailFieldPlaceholder" = "电子邮件地址";
+
+
 /* Profile was updated  */
 "ECDLocalizeProfileWasUpdatedKey" = "简介已更新";
+
+/* Request to create an account */
+"ECDLocalizeCreateAccountPromptKey" = "注册 Humanify 帐户";
+
+/* Create Account button text */
+"ECDLocalizeCreateAccountKey" = "注册帐户";
 
 /* Application Config Value was updated  */
 "ECDLocalizeConfigWasUpdatedKey" = "应用程序配置值已更新";
@@ -93,6 +112,31 @@
 "ECDLocalizedStartWYSIWYGEditorLabel" = "特设所见即所得编辑器";
 
 /* ----------------------------------------------------- */
+
+/* Push Notifications */
+"ECSLocalizedPushNotificationsHeader" = "推送通知";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyHeader" = "开始新的旅程";
+
+/* iBeacons */
+"ECSLocalizedBeaconsHeader" = "iBeacons";
+
+/* Version */
+"ECSLocalizedVersionHeader" = "版本 %@";
+
+/* Receive Notifications */
+"ECSLocalizedReceiveNotificationsRow" = "允许通知";
+
+/* Start new journey */
+"ECSLocalizedStartJourneyRow" = "开始新的旅程";
+
+/* Enable iBeacon Feature */
+"ECSLocalizedEnableBeaconsRow" = "启用 iBeacon 功能";
+
+/* Open Source Licenses */
+"ECSLocalizedLicensesRow" = "查看源码许可证";
+
 
 /* Start Chat Header for AdHoc SDK Usage Page   */
 "ECDLocalizedStartChatHeader" = "聊天";

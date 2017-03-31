@@ -19,6 +19,8 @@
 #import "ECDUserDefaultKeys.h"
 #import "ECDLocalization.h"
 
+@import HockeySDK;
+
 static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 
 @interface AppDelegate () {
@@ -39,6 +41,10 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 #endif
     
     [self setupUrbanAirship];
+    
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"6546eeca52a9e1f83c7fa37a62191693"]; // Do some additional configuration if needed here
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation]; // This line is obsolete in the crash only builds
     
     // [Bugsnag startBugsnagWithApiKey:@"e752129652005fc3911fce42873a1573"];
     
@@ -103,6 +109,8 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
          {
              if (!error) {
                  [[EXPERTconnect shared] setUserIdentityToken:authToken];
+             } else {
+                 NSLog(@"ECDemo - Error fetching authentication token! No API calls will work.");
              }
             
              [myAppConfig startBreadcrumbSession];

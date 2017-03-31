@@ -19,6 +19,7 @@ static NSString *const lastFormSelected = @"lastFormSelected";
     ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
 
     [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error) {
+        
         if (error == nil) {
             for(NSString *formName in formNames)  {
                 [formsArray addObject:formName];
@@ -31,11 +32,13 @@ static NSString *const lastFormSelected = @"lastFormSelected";
             {
                 rowToSelect = (int)formsArray.count-1;
             }
-            [super setup:formsArray withSelection:rowToSelect];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [super setup:formsArray withSelection:rowToSelect];
+                
+                double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
+                [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
+            });
             
-            
-            double width = (UIScreen.mainScreen.traitCollection.horizontalSizeClass == 1 ? 200.0f : 320.0f);
-            [self setFrame: CGRectMake(0.0f, 0.0f, width, 180.0f)];
         } else {
             NSLog(@"Error fetching forms.");
         }

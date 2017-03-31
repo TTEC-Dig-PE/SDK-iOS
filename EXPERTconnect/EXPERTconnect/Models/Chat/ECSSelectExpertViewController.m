@@ -71,7 +71,7 @@ static NSString *const ECSExpertCellId = @"ECSSelectExpertTableViewCell";
                      
             [weakSelf setLoadingIndicatorVisible:NO];
                                             
-            if (!error) {
+            if (!error && [responseArray isKindOfClass:[NSArray class]] ) {
                 
                 [self populateTable:responseArray];
                 

@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *answers;
+@property (strong, nonatomic) ECSLog *logger;
+
 @end
 
 @implementation ECSAnswerEngineHistoryViewController
@@ -40,6 +42,7 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.logger = [[EXPERTconnect shared] logger];
     self.navigationItem.title = ECSLocalizedString(ECSLocalizeHistory, @"History");
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
@@ -60,40 +63,49 @@ typedef NS_ENUM(NSUInteger, ECSAnswerEngineHistorySections)
         __weak typeof(self) weakSelf = self;
         
         [sessionManager getAnswerEngineHistoryWithCompletion:^(ECSHistoryList *response, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                NSArray *sortedHistory = response.journeys;
-                /*sortedHistory = [sortedHistory sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2) {
+            
+            if( !error && [response isKindOfClass:[ECSHistoryList class]] ) {
+            
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    if ([obj1.date compare:obj2.date] == NSOrderedAscending)
-                    {
-                        return NSOrderedDescending;
-                    }
-                    else
-                    {
-                        return NSOrderedAscending;
-                    }
-                }];*/
-
-                NSMutableArray *answersArray = [NSMutableArray arrayWithCapacity:sortedHistory.count];
-                
-                for (ECSHistoryListItem *historyListItem in sortedHistory)
-                {
-                    if ([historyListItem.details isKindOfClass:[NSArray class]])
-                    {
-                        for (NSDictionary *answerItem in historyListItem.details)
+                    NSArray *sortedHistory = response.journeys;
+                    /*sortedHistory = [sortedHistory sortedArrayWithOptions:0 usingComparator:^NSComparisonResult(ECSHistoryListItem* obj1, ECSHistoryListItem* obj2) {
+                        
+                        if ([obj1.date compare:obj2.date] == NSOrderedAscending)
                         {
-                            [answersArray addObject:[ECSJSONSerializer objectFromJSONDictionary:answerItem                                                                                      withClass:[ECSAnswerHistoryResponse class]]];
+                            return NSOrderedDescending;
+                        }
+                        else
+                        {
+                            return NSOrderedAscending;
+                        }
+                    }];*/
+
+                    NSMutableArray *answersArray = [NSMutableArray arrayWithCapacity:sortedHistory.count];
+                    
+                    for (ECSHistoryListItem *historyListItem in sortedHistory)
+                    {
+                        if ([historyListItem.details isKindOfClass:[NSArray class]])
+                        {
+                            for (NSDictionary *answerItem in historyListItem.details)
+                            {
+                                [answersArray addObject:[ECSJSONSerializer objectFromJSONDictionary:answerItem                                                                                      withClass:[ECSAnswerHistoryResponse class]]];
+                            }
                         }
                     }
-                }
-                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-                [answersArray sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-                    
-                weakSelf.answers = answersArray;
-                [weakSelf.tableView reloadData];
-                [weakSelf setLoadingIndicatorVisible:NO];
-            });
+                    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+                    [answersArray sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+                        
+                    weakSelf.answers = answersArray;
+                    [weakSelf.tableView reloadData];
+                });
+                
+            } else {
+                
+                ECSLogError(self.logger, @"Error loading chat history. Error=%@", error);
+                
+            }
+            [weakSelf setLoadingIndicatorVisible:NO];
         }];
     }
 }
