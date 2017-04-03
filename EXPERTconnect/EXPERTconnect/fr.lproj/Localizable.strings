@@ -306,7 +306,7 @@
 "ECSLocalizedLeaveQueueYes" = "Oui, laisser";
 
 /* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "Non, reste";
+"ECSLocalizedLeaveQueueNo" = "Non, rester";
 
 /* 5.8.0 Strings */
 
