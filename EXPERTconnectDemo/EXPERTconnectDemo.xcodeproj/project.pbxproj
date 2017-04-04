@@ -273,6 +273,8 @@
 		C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
 		C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleChatViewController.m; path = Proof_of_Concept/ECDSimpleChatViewController.m; sourceTree = "<group>"; };
+		C47A15261E944984005E19DB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C47A15271E944992005E19DB /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleAnswerEngineController.h; path = Proof_of_Concept/ECDSimpleAnswerEngineController.h; sourceTree = "<group>"; };
 		C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleAnswerEngineController.m; path = Proof_of_Concept/ECDSimpleAnswerEngineController.m; sourceTree = "<group>"; };
 		C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDPersonasViewController.h; sourceTree = "<group>"; };
@@ -821,6 +823,8 @@
 				de,
 				"en-GB",
 				"zh-Hans",
+				it,
+				"es-ES",
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -986,6 +990,8 @@
 				C492B60E1D148790008BE187 /* de */,
 				C492B60F1D14879D008BE187 /* en-GB */,
 				C49206121D4FB66200B38C97 /* zh-Hans */,
+				C47A15261E944984005E19DB /* it */,
+				C47A15271E944992005E19DB /* es-ES */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
