@@ -75,6 +75,7 @@ static NSString * const kStompError = @"ERROR";
 int         _clientHeartbeatInterval;
 int         _clientHeartbeatsMissed;
 bool        _wasConnected;
+bool        _isConnecting;
 
 @synthesize authToken;
 
@@ -87,6 +88,8 @@ bool        _wasConnected;
         authToken = @"";
         _clientHeartbeatInterval = 0;
         _clientHeartbeatsMissed = 0;
+        _wasConnected = NO;
+        _isConnecting = NO;
         self.connected = NO;
         self.logger = [[EXPERTconnect shared] logger];
     }
@@ -95,14 +98,16 @@ bool        _wasConnected;
 }
 
 - (void)dealloc {
-    
-    ECSLogVerbose(self.logger, @"Deallocating ECSStompClient" );
-    
     [self.subscribers removeAllObjects];
 }
 
-- (void)connectToHost:(NSString*)host
-{
+- (void)connectToHost:(NSString*)host {
+    
+    if( _isConnecting ) {
+        ECSLogError(self.logger, @"Connection in progress. Blocking additional attempt.");
+        return;
+    }
+    
     self.hostURL = [NSURL URLWithString:host];
     NSURL *url = self.hostURL;
     
@@ -122,6 +127,8 @@ bool        _wasConnected;
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
+    
+    _isConnecting = YES;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     
@@ -200,6 +207,7 @@ bool        _wasConnected;
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
+    _isConnecting = NO; 
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
@@ -233,7 +241,7 @@ bool        _wasConnected;
 
 - (void)unsubscribe:(NSString*)subscriptionID {
     
-    ECSLogVerbose(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
+//    ECSLogVerbose(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
     
     NSDictionary *headers = @{ @"id": subscriptionID };
     
@@ -376,6 +384,7 @@ bool        _wasConnected;
 - (void)webSocket:(ECSWebSocket *)webSocket didFailWithError:(NSError *)error {
     
     ECSLogError(self.logger, @"WebSocket error=%@", error);
+    _isConnecting = NO;
     
     if (error.code == 57) { // "Socket is not connected."
         
@@ -394,7 +403,7 @@ bool        _wasConnected;
     ECSStompFrame *frame = [self decodeFrame:message];
     
     ECSLogVerbose(self.logger, @"\nMessage=%@\n\nFrame=%@\n", message, frame);
-    
+
     // Check for, and update heart-beat if applicable
     if (frame.headers && frame.headers[@"heart-beat"]) {
         [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
@@ -403,6 +412,7 @@ bool        _wasConnected;
     if ([frame.command isEqualToString:kStompConnected]) {
         
         self.connected = YES;
+        _isConnecting = NO;
         
         if ([self.delegate respondsToSelector:@selector(stompClientDidConnect:)]) {
             
@@ -411,6 +421,7 @@ bool        _wasConnected;
         
     } else if ([frame.command isEqualToString:kStompMessage]) {
         
+        _isConnecting = NO;
         [self processMessageFrame:frame];
         
     } else if ([frame.command isEqualToString:kStompError]) {
@@ -441,6 +452,7 @@ bool        _wasConnected;
     {
         // Pong
 //        ECSLogVerbose(self.logger,@"Stomp PONG arrived from server. Resetting miss count.");
+        _isConnecting = NO;
         _clientHeartbeatsMissed = 0;
     }
 }
@@ -455,6 +467,8 @@ bool        _wasConnected;
                                                     wasClean:(BOOL)wasClean {
     
     ECSLogVerbose(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
+    
+    _isConnecting = NO;
     
     if( !wasClean ) {
         

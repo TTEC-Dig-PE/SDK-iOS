@@ -272,8 +272,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)dealloc {
     
-    ECSLogVerbose(self.logger, @"Deallocating ECSChatViewController.");
-    
     [self.chatClient disconnect]; // Disconnect Stomp
     self.tableView.delegate = nil;
     self.workflowDelegate = nil;
@@ -587,29 +585,40 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)showNoSurveyDisconnectMessage
-{
-    ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-//    disconnectedMessage.fromAgent = YES;
-    disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
-    [self.messages addObject:disconnectedMessage];
-    [self.tableView reloadData];
+- (void)showNoSurveyDisconnectMessage {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
+        disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
+        
+        [self.messages addObject:disconnectedMessage];
+        
+        [self.tableView reloadData];
+        
+    });
 }
 
-- (void)showSurveyDisconnectMessage
-{
-    ECSEndChatSurveyView *endChatView = [ECSEndChatSurveyView ecs_loadInstanceFromNib];
-    [endChatView.exitChatButton addTarget:self
-                                   action:@selector(exitChatButtonTapped:)
-                         forControlEvents:UIControlEventTouchUpInside];
+- (void)showSurveyDisconnectMessage {
     
-    self.tableView.tableFooterView = endChatView;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
     
-    [self.tableView scrollRectToVisible:CGRectMake(0,
-                                                   self.tableView.contentSize.height - self.tableView.bounds.size.height,
-                                                   self.tableView.bounds.size.width,
-                                                   self.tableView.bounds.size.height) animated:YES];
+        ECSEndChatSurveyView *endChatView = [ECSEndChatSurveyView ecs_loadInstanceFromNib];
+        
+        [endChatView.exitChatButton addTarget:self
+                                       action:@selector(exitChatButtonTapped:)
+                             forControlEvents:UIControlEventTouchUpInside];
+        
+        self.tableView.tableFooterView = endChatView;
+        
+        [self.tableView reloadData];
+        
+        [self.tableView scrollRectToVisible:CGRectMake(0,
+                                                       self.tableView.contentSize.height - self.tableView.bounds.size.height,
+                                                       self.tableView.bounds.size.width,
+                                                       self.tableView.bounds.size.height) animated:YES];
+        
+    });
 }
 
 - (void)exitChatButtonTapped:(id)sender {
@@ -1001,6 +1010,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [error.domain isEqualToString:@"kCFErrorDomainCFNetwork"] ||
         ( [error.domain isEqualToString:NSPOSIXErrorDomain] && (error.code >= ENETDOWN && error.code <= ENOTCONN) ) ) {
         
+        [self showNetworkErrorBar];
+        
         if( [error.userInfo[ECSHTTPResponseErrorKey] intValue] == 401 ) {
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
@@ -1302,6 +1313,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 // delegate method called when the status of the network on the device changes.
 - (void)networkConnectionChanged:(id)sender {
+    
+    if( [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive ) {
+        ECSLogVerbose(self.logger, @"Network changed, but view is not active. Ignoring.");
+        return;
+    }
     
     bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
     
