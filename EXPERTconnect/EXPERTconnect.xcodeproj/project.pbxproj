@@ -984,6 +984,8 @@
 		C472545C1CC04C36003C0D4E /* ECSBreadcrumbResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBreadcrumbResponse.h; path = Breadcrumbs/ECSBreadcrumbResponse.h; sourceTree = "<group>"; };
 		C472545D1CC04C36003C0D4E /* ECSBreadcrumbsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBreadcrumbsSession.m; path = Breadcrumbs/ECSBreadcrumbsSession.m; sourceTree = "<group>"; };
 		C472545E1CC04C36003C0D4E /* ECSBreadcrumbsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBreadcrumbsSession.h; path = Breadcrumbs/ECSBreadcrumbsSession.h; sourceTree = "<group>"; };
+		C47A15241E9441CC005E19DB /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C47A15251E94437D005E19DB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
@@ -2252,6 +2254,8 @@
 				de,
 				"en-GB",
 				"zh-Hans",
+				"es-ES",
+				it,
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2611,6 +2615,8 @@
 				C4450B871D02371800486215 /* de */,
 				C492B5FD1D10B98D008BE187 /* en-GB */,
 				C49206131D4FB68800B38C97 /* zh-Hans */,
+				C47A15241E9441CC005E19DB /* es-ES */,
+				C47A15251E94437D005E19DB /* it */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect;
