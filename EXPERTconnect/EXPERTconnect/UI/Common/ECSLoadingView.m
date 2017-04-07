@@ -90,11 +90,11 @@
                                           [self.activityIndicator.layer setTransform:CATransform3DMakeRotation(M_PI, 0, 0, 1)];
                                       }];
         
-        [UIView addKeyframeWithRelativeStartTime:0.25f relativeDuration:0.5f
+        [UIView addKeyframeWithRelativeStartTime:0.5f relativeDuration:0.25f
                                       animations:^{
                                           [self.activityIndicator.layer setTransform:CATransform3DMakeRotation(M_PI_2 * 3, 0, 0, 1)];
                                       }];
-        [UIView addKeyframeWithRelativeStartTime:0.25f relativeDuration:0.75f
+        [UIView addKeyframeWithRelativeStartTime:0.75f relativeDuration:0.25f
                                       animations:^{
                                           [self.activityIndicator.layer setTransform:CATransform3DMakeRotation(0, 0, 0, 1)];
                                       }];
