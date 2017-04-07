@@ -104,6 +104,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     int         _reconnectCount;            // Number of reconnect attempts made so far
     
     NSTimer*    _reconnectTimer;
+    
+    BOOL        _previousReachableStatus;
 }
 
 // Form controls
@@ -160,6 +162,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     _agentTypingIndex       = -1;
     _reconnectCount         = 0;
+    _previousReachableStatus = YES;
     
     self.participants = [NSMutableDictionary new];  // Create the new arrays for messages / participants
     self.messages = [NSMutableArray new];
@@ -1314,7 +1317,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // delegate method called when the status of the network on the device changes.
 - (void)networkConnectionChanged:(id)sender {
     
-    if( [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive ) {
+    if( [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground ) {
         ECSLogVerbose(self.logger, @"Network changed, but view is not active. Ignoring.");
         return;
     }
@@ -1323,20 +1326,22 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     ECSLogVerbose(self.logger, @"Network changed. Reachable? %d", reachable);
     
-    if ( reachable ) {
+    if ( reachable && _previousReachableStatus == NO ) {
         
         // Network is now GOOD
         self.chatToolbar.sendEnabled = YES;
         [self hideNetworkErrorBar];
         [self reconnectWebsocket:nil];
 
-    } else {
+    } else if ( !reachable ) {
         
         // Network is now BAD
         self.chatToolbar.sendEnabled = NO;
         [self showNetworkErrorBar];
         _reconnectCount = 0;
     }
+    
+    _previousReachableStatus = reachable;
 }
 
 #pragma mark - Network Error Handling

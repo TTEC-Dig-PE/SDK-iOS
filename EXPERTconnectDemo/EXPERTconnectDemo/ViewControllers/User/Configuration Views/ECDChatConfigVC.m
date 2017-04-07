@@ -161,6 +161,8 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     
     [self.btnStartChat setTitle:@"Return to Queue" forState:UIControlStateNormal];
     _chatActive = YES;
+    [_btnEndChat setTitle:@"Exit Queue" forState:UIControlStateNormal];
+    [_btnEndChat setEnabled:YES];
     
     // Push it onto our navigation stack (so back buttons will work)
     [self.navigationController pushViewController:self.chatController animated:YES];
@@ -261,7 +263,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (void)chatStarted:(NSNotification *)notification {
      _chatActive = YES;
-     [self.btnEndChat setEnabled:YES];
+     [_btnEndChat setTitle:@"End Chat" forState:UIControlStateNormal];
      
      [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
      

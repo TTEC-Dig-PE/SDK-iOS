@@ -133,17 +133,17 @@ bool        _isConnecting;
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appDidBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
+                                             selector:@selector(appForegrounded:)
+                                                 name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appWillResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification
+                                             selector:@selector(appBackgrounded:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
 }
 
--(void)appDidBecomeActive:(NSNotification*)note {
+-(void)appForegrounded:(NSNotification*)note {
     
     ECSLogVerbose(self.logger, @"App became active. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
     
@@ -153,7 +153,7 @@ bool        _isConnecting;
         [self reconnect];           // STOMP CONNECT
     }
 }
--(void)appWillResignActive:(NSNotification*)note {
+-(void)appBackgrounded:(NSNotification*)note {
     
     ECSLogVerbose(self.logger, @"App resigning active. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
     
