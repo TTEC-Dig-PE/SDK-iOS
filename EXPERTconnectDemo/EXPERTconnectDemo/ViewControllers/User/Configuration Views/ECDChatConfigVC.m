@@ -190,7 +190,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     if( _chatController.userInQueue )
     {
         alert = [UIAlertController alertControllerWithTitle:@"Exit Queue"
-                                                    message:@"Are you sure you want to exit the queue? You will lose your place in line."
+                                                    message:@"Test Harness - Are you sure you want to exit the queue? You will lose your place in line."
                                              preferredStyle:UIAlertControllerStyleAlert];
         
         defaultAction = [UIAlertAction actionWithTitle:@"OK"
@@ -208,7 +208,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     else
     {
         alert = [UIAlertController alertControllerWithTitle:@"End Chat"
-                                                    message:@"Are you sure you want to end the chat?"
+                                                    message:@"Test Harness - Are you sure you want to end the chat?"
                                              preferredStyle:UIAlertControllerStyleAlert];
         
         defaultAction = [UIAlertAction actionWithTitle:@"OK"

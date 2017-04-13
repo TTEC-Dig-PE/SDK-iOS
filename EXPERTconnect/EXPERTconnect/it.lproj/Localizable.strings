@@ -29,8 +29,8 @@
 "ECSLocalizedOkButton" = "OK";
 "ECSLocalizeReachabilityErrorKey" = "Impossibile collegarsi alla rete Humanify. Verificare la connessione Internet.";
 "ECSLocalizedChatViewPlaceholder" = "Scrivi un messaggio";
-"ECSLocalizeWelcome" = "Benvenuto/a";
-"ECSLocalizeWelcomeWithUsername" = "Benvenuto/a %1@";
+"ECSLocalizeWelcome" = "Benvenuto";
+"ECSLocalizeWelcomeWithUsername" = "Benvenuto %1@";
 "ECSLocalizeGenericWaitTime" = "A breve sarai in linea con un agente. Non uscire dalla schermata per mantenere il tuo posto in coda.";
 "ECSLocalizeWaitTimeShort" = "Sarai in linea con un agente in meno di un minuto. Non uscire dalla schermata per mantenere il tuo posto in coda.";
 "ECSLocalizeWaitTime" = "Tempo di attesa di circa %1d minuti. Non uscire dalla schermata per mantenere il tuo posto in coda.";
