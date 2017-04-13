@@ -294,26 +294,28 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     return self.stompClient.connected;
 }
 
-- (void)reconnect
-{
+- (void)reconnect {
+    
     self.isReconnecting = YES;
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     self.stompClient.authToken = sessionManager.authToken;
     [self.stompClient reconnect];
 }
 
-- (void)disconnect
-{
+- (void)disconnect {
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [self.currentNetworkTask cancel];
     
-    if (self.channel)
-    {
+    if (self.channel && ![self.channel.state isEqualToString:@"disconnected"] && ![self.channel.state isEqualToString:@"disconnecting"]) {
+        
         NSString *closeURL = self.channel.closeLink;
 
-        if (closeURL)
-        {
+        if (closeURL) {
+            
+            self.channel.state = @"disconnecting";
+            
             [urlSession closeChannelAtURL:closeURL
                                withReason:@"Disconnected"
                     agentInteractionCount:self.agentInteractionCount
@@ -321,17 +323,17 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                completion:^(id result, NSError* error)
             {
                 // Do nothing.
-                
-                if( error ) {
-                    ECSLogError(self.logger, @"Error closing channel - %@", error);
-                }
+                self.channel.state = @"disconnected";
             }];
         }
     }
-    if (self.stompClient && self.stompClient.connected)
-    {
+    
+    if (self.stompClient && self.stompClient.connected) {
+        
         self.stompClient.delegate = nil;
+        
         [self unsubscribeWithSubscriptionID:@"ios-1"];
+        
         [self.stompClient disconnect];
     }
 }
@@ -396,7 +398,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     else
     {
-        ECSLogError(self.logger,@"Attempting to send message when destination is not set.");
+        ECSLogError(self.logger, @"Attempting to send message when destination is not set.");
     }
 }
 

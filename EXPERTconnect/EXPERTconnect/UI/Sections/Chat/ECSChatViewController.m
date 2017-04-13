@@ -104,6 +104,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     int         _reconnectCount;            // Number of reconnect attempts made so far
     
     NSTimer*    _reconnectTimer;
+    
+    BOOL        _previousReachableStatus;
 }
 
 // Form controls
@@ -160,6 +162,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     _agentTypingIndex       = -1;
     _reconnectCount         = 0;
+    _previousReachableStatus = YES;
     
     self.participants = [NSMutableDictionary new];  // Create the new arrays for messages / participants
     self.messages = [NSMutableArray new];
@@ -271,8 +274,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 - (void)dealloc {
-    
-    ECSLogVerbose(self.logger, @"Deallocating ECSChatViewController.");
     
     [self.chatClient disconnect]; // Disconnect Stomp
     self.tableView.delegate = nil;
@@ -587,29 +588,40 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)showNoSurveyDisconnectMessage
-{
-    ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-//    disconnectedMessage.fromAgent = YES;
-    disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
-    [self.messages addObject:disconnectedMessage];
-    [self.tableView reloadData];
+- (void)showNoSurveyDisconnectMessage {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
+        disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
+        
+        [self.messages addObject:disconnectedMessage];
+        
+        [self.tableView reloadData];
+        
+    });
 }
 
-- (void)showSurveyDisconnectMessage
-{
-    ECSEndChatSurveyView *endChatView = [ECSEndChatSurveyView ecs_loadInstanceFromNib];
-    [endChatView.exitChatButton addTarget:self
-                                   action:@selector(exitChatButtonTapped:)
-                         forControlEvents:UIControlEventTouchUpInside];
+- (void)showSurveyDisconnectMessage {
     
-    self.tableView.tableFooterView = endChatView;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
     
-    [self.tableView scrollRectToVisible:CGRectMake(0,
-                                                   self.tableView.contentSize.height - self.tableView.bounds.size.height,
-                                                   self.tableView.bounds.size.width,
-                                                   self.tableView.bounds.size.height) animated:YES];
+        ECSEndChatSurveyView *endChatView = [ECSEndChatSurveyView ecs_loadInstanceFromNib];
+        
+        [endChatView.exitChatButton addTarget:self
+                                       action:@selector(exitChatButtonTapped:)
+                             forControlEvents:UIControlEventTouchUpInside];
+        
+        self.tableView.tableFooterView = endChatView;
+        
+        [self.tableView reloadData];
+        
+        [self.tableView scrollRectToVisible:CGRectMake(0,
+                                                       self.tableView.contentSize.height - self.tableView.bounds.size.height,
+                                                       self.tableView.bounds.size.width,
+                                                       self.tableView.bounds.size.height) animated:YES];
+        
+    });
 }
 
 - (void)exitChatButtonTapped:(id)sender {
@@ -1001,6 +1013,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [error.domain isEqualToString:@"kCFErrorDomainCFNetwork"] ||
         ( [error.domain isEqualToString:NSPOSIXErrorDomain] && (error.code >= ENETDOWN && error.code <= ENOTCONN) ) ) {
         
+        [self showNetworkErrorBar];
+        
         if( [error.userInfo[ECSHTTPResponseErrorKey] intValue] == 401 ) {
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
@@ -1303,24 +1317,31 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // delegate method called when the status of the network on the device changes.
 - (void)networkConnectionChanged:(id)sender {
     
+    if( [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground ) {
+        ECSLogVerbose(self.logger, @"Network changed, but view is not active. Ignoring.");
+        return;
+    }
+    
     bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
     
     ECSLogVerbose(self.logger, @"Network changed. Reachable? %d", reachable);
     
-    if ( reachable ) {
+    if ( reachable && _previousReachableStatus == NO ) {
         
         // Network is now GOOD
         self.chatToolbar.sendEnabled = YES;
         [self hideNetworkErrorBar];
         [self reconnectWebsocket:nil];
 
-    } else {
+    } else if ( !reachable ) {
         
         // Network is now BAD
         self.chatToolbar.sendEnabled = NO;
         [self showNetworkErrorBar];
         _reconnectCount = 0;
     }
+    
+    _previousReachableStatus = reachable;
 }
 
 #pragma mark - Network Error Handling

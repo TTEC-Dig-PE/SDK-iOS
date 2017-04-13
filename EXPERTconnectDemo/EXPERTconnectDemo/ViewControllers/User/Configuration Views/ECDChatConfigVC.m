@@ -161,6 +161,8 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     
     [self.btnStartChat setTitle:@"Return to Queue" forState:UIControlStateNormal];
     _chatActive = YES;
+    [_btnEndChat setTitle:@"Exit Queue" forState:UIControlStateNormal];
+    [_btnEndChat setEnabled:YES];
     
     // Push it onto our navigation stack (so back buttons will work)
     [self.navigationController pushViewController:self.chatController animated:YES];
@@ -188,7 +190,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     if( _chatController.userInQueue )
     {
         alert = [UIAlertController alertControllerWithTitle:@"Exit Queue"
-                                                    message:@"Are you sure you want to exit the queue? You will lose your place in line."
+                                                    message:@"Test Harness - Are you sure you want to exit the queue? You will lose your place in line."
                                              preferredStyle:UIAlertControllerStyleAlert];
         
         defaultAction = [UIAlertAction actionWithTitle:@"OK"
@@ -206,7 +208,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     else
     {
         alert = [UIAlertController alertControllerWithTitle:@"End Chat"
-                                                    message:@"Are you sure you want to end the chat?"
+                                                    message:@"Test Harness - Are you sure you want to end the chat?"
                                              preferredStyle:UIAlertControllerStyleAlert];
         
         defaultAction = [UIAlertAction actionWithTitle:@"OK"
@@ -261,7 +263,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (void)chatStarted:(NSNotification *)notification {
      _chatActive = YES;
-     [self.btnEndChat setEnabled:YES];
+     [_btnEndChat setTitle:@"End Chat" forState:UIControlStateNormal];
      
      [self.btnStartChat setTitle:ECDLocalizedString(ECDLocalizedContinueChatLabel, @"Continue Chat")  forState:UIControlStateNormal];
      

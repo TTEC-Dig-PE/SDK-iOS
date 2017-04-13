@@ -133,6 +133,9 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-AppleLanguages (fr)"
             isEnabled = "NO">
          </CommandLineArgument>

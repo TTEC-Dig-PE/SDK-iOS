@@ -24,11 +24,25 @@
     self.subtitleLabel.textColor = theme.primaryTextColor;
     
     [self.loadingView startAnimating];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startLoadingAnimation)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(startLoadingAnimation)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 
 }
 
 - (void) startLoadingAnimation {
     [self.loadingView startAnimating];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; 
 }
 
 @end
