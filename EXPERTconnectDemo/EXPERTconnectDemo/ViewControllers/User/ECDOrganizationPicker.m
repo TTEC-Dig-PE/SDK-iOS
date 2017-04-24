@@ -55,7 +55,9 @@ static NSString *const organizationKey = @"organization";
     }
     
     // This will set clientID and blow away authToken so that we will reauthenticate with the new clientId.
-    [[EXPERTconnect shared] setClientID:currentOrganization];
+    //[[EXPERTconnect shared] setClientID:currentOrganization];
+    [[EXPERTconnect shared] setUserIdentityToken:nil];
+    
     [self setOrganization:currentOrganization];
     
     NSLog(@"Test Harness::Org Picker - Setup with item %@ selected.", self.organizationArray[rowToSelect]);
