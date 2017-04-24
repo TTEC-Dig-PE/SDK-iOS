@@ -153,7 +153,8 @@
                  
                  NSLog(@"Test Harness::Login - Login succeeded. Blowing away authToken...");
                  
-                 [[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
+                 //[[EXPERTconnect shared] setClientID:[myAppConfig getClientID]];
+                 [[EXPERTconnect shared] setUserIdentityToken:nil];
                  
                  NSString *savedContext = [[NSUserDefaults standardUserDefaults] valueForKey:@"ECDJourneyManagerContextKey"];
                  if( savedContext) {
