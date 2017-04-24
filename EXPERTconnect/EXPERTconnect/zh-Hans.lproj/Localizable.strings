@@ -315,4 +315,4 @@
 
 /* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
 /* Dialog Title will be "Error" */
-"ECSLocalizedChatQueueDisconnectMessage" = "Your chat request has timed out. Please try again.";
+"ECSLocalizedChatQueueDisconnectMessage" = "您的聊天请求已超时。 请再试一次。";
