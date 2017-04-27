@@ -1748,12 +1748,20 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         [mutableRequest setValue:self.conversation.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
     }
     
-    // iOS/9.3 (ExpertConnect SDK 5.3)
-    NSString *userAgent = [NSString stringWithFormat:@"iOS/%ld.%ld.%ld (EXPERTconnect SDK %@)",
+    NSDictionary *infoDictionary = [[NSBundle bundleForClass: [EXPERTconnect class]] infoDictionary];
+    
+    NSString *bundleName = [infoDictionary valueForKey:(__bridge NSString*)kCFBundleNameKey];
+    NSString *bundleVersion = [infoDictionary valueForKey:@"CFBundleShortVersionString"];
+    
+    // MyApp/1.0 EXPERTconnect/5.9 (iOS/10.3)
+    NSString *userAgent = [NSString stringWithFormat:@"%@/%@ %@/%@ (iOS/%ld.%ld.%ld)",
+                           [[[NSBundle mainBundle] infoDictionary] objectForKey:(__bridge NSString*)kCFBundleNameKey],
+                           [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],
+                           bundleName,
+                           bundleVersion,
                            (long)[[NSProcessInfo processInfo] operatingSystemVersion].majorVersion,
                            (long)[[NSProcessInfo processInfo] operatingSystemVersion].minorVersion,
-                           (long)[[NSProcessInfo processInfo] operatingSystemVersion].patchVersion,
-                           [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+                           (long)[[NSProcessInfo processInfo] operatingSystemVersion].patchVersion];
 
     [mutableRequest setValue:userAgent forHTTPHeaderField:@"x-ia-user-agent"];
     
