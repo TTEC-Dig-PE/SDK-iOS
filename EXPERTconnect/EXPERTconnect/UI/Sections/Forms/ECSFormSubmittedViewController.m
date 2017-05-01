@@ -18,6 +18,7 @@
 @implementation ECSFormSubmittedViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:ECSLocalizedString(ECSLocalizedCloseKey, @"Close")
@@ -40,22 +41,16 @@
 }
 
 - (IBAction)closeButtonTapped:(id)sender {
-	 
-	 // mas - 11-oct-2015 - Added condition for workflowDelegate
-	 if (self.workflowDelegate) {
-		  [self.workflowDelegate endWorkFlow];
-	 } else {
-		  if (self.navigationController)
-		  {
-			   if([self presentingViewController])
-			   {
-					[self dismissViewControllerAnimated:YES completion:nil];
-			   }
-			   else{
-				 [self.navigationController popToRootViewControllerAnimated:YES];
-			   }
-		  }
-	 }
+    
+    if( self.delegate && [self.delegate respondsToSelector:@selector(closeTappedInSubmittedView:)]) {
+        
+        [self.delegate closeTappedInSubmittedView:self];
+        
+    } else {
+    
+        NSLog(@"Error! This should never occur - ECSFormViewController should always implement this delegate.");
+        
+    }
 }
 
 @end

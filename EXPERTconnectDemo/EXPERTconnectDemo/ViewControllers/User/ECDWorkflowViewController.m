@@ -385,25 +385,11 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 			 if(self.preChatSurvey == YES)
 			 {
 				  if ([params valueForKey:@"formValue"]) {
-					   NSString *formValue = [params valueForKey:@"formValue"];
-					   if ([formValue isEqualToString:@"low"] ) {
-							return @{@"ActionType":ECSRequestChatAction};
-					   }
+//					   NSString *formValue = [params valueForKey:@"formValue"];
+//					   if ([formValue isEqualToString:@"low"] ) {
+//							return @{@"ActionType":ECSRequestChatAction};
+//					   }
 					   return @{@"ActionType":ECSRequestChatAction};
-				  }
-			 }
-			 else
-			 {
-				  if ([formName isEqualToString:@"simple form"]) {
-					   if ([params valueForKey:@"formValue"]) {
-							NSString *formValue = [params valueForKey:@"formValue"];
-							if ([formValue isEqualToString:@"low"] ) {
-								 return @{@"ActionType":ECSRequestChatAction};
-							}
-							else{
-								 return @{@"ActionType":ECSRequestAnswerEngineAction};
-							}
-					   }
 				  }
 			 }
         }

@@ -24,6 +24,7 @@
 #import <EXPERTconnect/ECSStartJourneyResponse.h>
 
 // Form Imports
+#import <EXPERTconnect/ECSFormViewController.h>
 #import <EXPERTconnect/ECSFormActionType.h>
 #import <EXPERTconnect/ECSForm.h>
 #import <EXPERTconnect/ECSFormItem.h>
