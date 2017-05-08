@@ -1426,13 +1426,14 @@ ECSFormViewController *_formsController;
     
 }
 
-- (void) ECSFormViewController:(ECSFormViewController *)formVC
+- (bool) ECSFormViewController:(ECSFormViewController *)formVC
                 closedWithForm:(ECSForm *)form {
     
     NSLog(@"AdHoc View: User pushed close button. Closing manually from AdHoc (no animation)");
     
     [formVC.navigationController popToRootViewControllerAnimated:NO];
     
+    return NO; // We override SDK behavior so we do not want it to perform it's own.
 }
 
 @end

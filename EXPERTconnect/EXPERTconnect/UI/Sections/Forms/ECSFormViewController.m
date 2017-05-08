@@ -12,7 +12,7 @@
 
 #import "UIViewController+ECSNibLoading.h"
 
-@interface ECSFormViewController () <ECSFormItemViewControllerDelegate, ECSFormSubmittedViewDelegate>
+@interface ECSFormViewController () <ECSFormItemViewControllerDelegate, ECSFormSubmittedViewDelegate, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet ECSButton *previousButton;
 @property (weak, nonatomic) IBOutlet ECSButton *nextButton;
@@ -463,34 +463,39 @@
 
 #pragma mark - ECSFormSubmittedViewDelegate
 
+// This allows control of the navigation all to be contained within this view controller. This is important so that the integrator can have delegate functions that override our default behavior.
 - (void) closeTappedInSubmittedView:(id)sender {
     
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+    bool proceedWithTransition = YES;
     
     if( self.delegate && [self.delegate respondsToSelector:@selector(ECSFormViewController:closedWithForm:)]) {
         
-        [self.delegate ECSFormViewController:self closedWithForm:formAction.form];
+        proceedWithTransition = [self.delegate ECSFormViewController:self closedWithForm:formAction.form];
         
     }
     
-    // mas - 11-oct-2015 - Added condition for workflowDelegate
-    if (self.workflowDelegate) {
+    if( proceedWithTransition ) {
         
-        [self.workflowDelegate endWorkFlow];
-        
-    } else {
-        
-        ECSFormSubmittedViewController *submittedView = (ECSFormSubmittedViewController *)sender;
-        
-        if (submittedView.navigationController) {
+        // mas - 11-oct-2015 - Added condition for workflowDelegate
+        if (self.workflowDelegate) {
             
-            if([submittedView presentingViewController]) {
+            [self.workflowDelegate endWorkFlow];
+            
+        } else {
+            
+            ECSFormSubmittedViewController *submittedView = (ECSFormSubmittedViewController *)sender;
+            
+            if (submittedView.navigationController) {
                 
-                [submittedView dismissViewControllerAnimated:YES completion:nil];
-                
-            } else {
-                
-                [submittedView.navigationController popToRootViewControllerAnimated:YES];
+                if([submittedView presentingViewController]) {
+                    
+                    [submittedView dismissViewControllerAnimated:YES completion:nil];
+                    
+                } else {
+                    
+                    [submittedView.navigationController popToRootViewControllerAnimated:YES];
+                }
             }
         }
     }
