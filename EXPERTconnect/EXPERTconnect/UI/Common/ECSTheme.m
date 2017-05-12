@@ -59,6 +59,8 @@
         self.chatInfoTitleFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
         self.chatInfoSubtitleFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
         self.chatSendButtonFont = [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+        self.chatSendButtonBackgroundColor = nil;
+        self.chatSendButtonTintColor = nil; 
         
         self.chatBubbleCornerRadius = 5;
         self.chatBubbleHorizMargins = 10;
