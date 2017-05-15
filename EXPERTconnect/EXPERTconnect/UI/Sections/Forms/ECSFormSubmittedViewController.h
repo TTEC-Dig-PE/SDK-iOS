@@ -11,8 +11,15 @@
 #import "ECSDynamicLabel.h"
 #import "ECSRootViewController.h"
 
+@protocol ECSFormSubmittedViewDelegate <NSObject>
+
+- (void) closeTappedInSubmittedView:(id)sender;
+
+@end
 
 @interface ECSFormSubmittedViewController : ECSRootViewController
+
+@property(nonatomic, weak) id<ECSFormSubmittedViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *headerLabel;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *descriptionLabel;

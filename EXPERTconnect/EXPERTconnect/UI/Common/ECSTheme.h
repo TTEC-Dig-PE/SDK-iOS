@@ -138,6 +138,10 @@
 // Font used for the send button
 @property (strong, nonatomic) UIFont *chatSendButtonFont;
 
+@property (strong, nonatomic) UIColor *chatSendButtonBackgroundColor;
+
+@property (strong, nonatomic) UIColor *chatSendButtonTintColor;
+
 @property (nonatomic) NSInteger chatBubbleCornerRadius;
 
 @property (nonatomic) NSInteger chatBubbleHorizMargins;
@@ -149,5 +153,7 @@
 
 // Style string for CSS
 @property (strong, nonatomic) NSString *cssStyle;
+
+
 
 @end

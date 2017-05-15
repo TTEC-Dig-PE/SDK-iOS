@@ -128,7 +128,11 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [EXPERTconnect shared].theme.showAvatarImages = self.optAvatarImages.on;
     [EXPERTconnect shared].theme.showChatTimeStamp = self.optTimestamp.on;
     [EXPERTconnect shared].theme.showChatImageUploadButton = self.optImageUploadButton.on;
+    
     [EXPERTconnect shared].theme.chatSendButtonUseImage = self.optSendButtonImage.on;
+    [EXPERTconnect shared].theme.chatSendButtonImage = [UIImage imageNamed:@"blue_chat_button"];
+    [EXPERTconnect shared].theme.chatSendButtonBackgroundColor = [UIColor clearColor];
+    //[EXPERTconnect shared].theme.chatSendButtonTintColor = [UIColor redColor];
     
     [EXPERTconnect shared].theme.chatBubbleHorizMargins = [self.txtHMargin.text intValue];
     [EXPERTconnect shared].theme.chatBubbleVertMargins = [self.txtVMargin.text intValue];

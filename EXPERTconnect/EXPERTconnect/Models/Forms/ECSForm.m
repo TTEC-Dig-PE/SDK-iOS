@@ -61,12 +61,18 @@
     
     for (ECSFormItem *formDataItem in self.formData)
     {
-        ECSFormItem *formItem = [ECSFormItem new];
-        formItem.itemId = formDataItem.itemId;
+//        ECSFormItem *formItem = [ECSFormItem new];
+//        
+//        formItem.itemId = formDataItem.itemId;
+//        formItem.formValue = formDataItem.formValue;
+//        formItem.metadata = formDataItem.metadata;
+//        
+//        [formItems addObject:formItem];
         
-        formItem.formValue = formDataItem.formValue;
-        formItem.metadata = formDataItem.metadata;
-        [formItems addObject:formItem];
+        // MAS - to preserve as little change as possible, I modified this code. Formerly, it was cherry-picking
+        // only the "changed" data fields to return to the API. We've now seen that the server expects all the data
+        // fields to be populated.
+        [formItems addObject:formDataItem];
     }
     
     form.formData = formItems;

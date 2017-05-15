@@ -7,22 +7,12 @@
 
 #import "ECSFormViewController.h"
 
-#import "ECSInjector.h"
-#import "ECSTheme.h"
-#import "ECSButton.h"
-#import "ECSLocalization.h"
-#import "ECSURLSessionManager.h"
-
 #import "ECSFormItemViewController.h"
-#import "ECSFormActionType.h"
-#import "ECSForm.h"
-#import "ECSFormItem.h"
-
 #import "ECSFormSubmittedViewController.h"
 
 #import "UIViewController+ECSNibLoading.h"
 
-@interface ECSFormViewController () <ECSFormItemViewControllerDelegate>
+@interface ECSFormViewController () <ECSFormItemViewControllerDelegate, ECSFormSubmittedViewDelegate, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet ECSButton *previousButton;
 @property (weak, nonatomic) IBOutlet ECSButton *nextButton;
@@ -33,17 +23,21 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonViewBottomConstraint;
 
+@property (nonatomic, strong) ECSLog *logger;
+
 @end
 
 @implementation ECSFormViewController
 
-- (void)dealloc
-{
-    
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if( self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.showFormSubmittedView = YES; // Default value (backwards compatible with 5.8 and earlier)
+    }
+    return self; 
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.logger = [[EXPERTconnect shared] logger];
@@ -52,12 +46,16 @@
     
     self.view.backgroundColor = theme.primaryBackgroundColor;
 
+    // Previous button customizations
     self.previousButton.ecsBackgroundColor = theme.secondaryButtonColor;
     [self.previousButton setTitle:ECSLocalizedString(ECSLocalizePreviousQuestionKey, @"Previous") forState:UIControlStateNormal];
+    
+    // Next button customizations
     self.nextButton.ecsBackgroundColor = theme.primaryColor;
     [self.nextButton setTitle:ECSLocalizedString(ECSLocalizeNextQuestionKey, @"Next") forState:UIControlStateNormal];
     
     [self updateTitle];
+    
     [self updateButtonState];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -75,41 +73,44 @@
 
     [self setLoadingIndicatorVisible:YES];
     
-    __weak typeof(self) weakSelf = self;
-    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    [self initializeConversationForForm];
+}
+
+- (IBAction)previousTapped:(id)sender
+{
+    self.questionIndex--;
     
-    [urlSession startConversationForAction:self.actionType
-                           andAlwaysCreate:NO
-                             withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+    if(self.questionIndex >= 0)
     {
-        ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+        [self transitionToCurrentQuestionForwards:NO];
+    }
+    else
+    {
+        self.questionIndex = 0;
+    }
+}
+
+- (IBAction)nextTapped:(id)sender
+{
+    ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+    
+    // If configured, invoke the delegate to inform them a question was answered.
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ECSFormViewController:answeredFormItem:atIndex:)]) {
         
-        if(!formAction.form) {
-            
-            [urlSession getFormByName:formAction.actionId
-                       withCompletion:^(ECSForm *form, NSError *error)
-             {
-                 if (!error && [form isKindOfClass:[ECSForm class]] ) {
-                     
-                     formAction.form = [form copy];
-                     [weakSelf setLoadingIndicatorVisible:NO];
-                     
-                     [self transitionToCurrentQuestionForwards:YES];
-                     
-                 } else {
-                     
-                     ECSLogError(self.logger, @"Error fetching form data. Error=%@", error); 
-                     [weakSelf showMessageForError:error];
-                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                 }
-             }];
-            
-        } else {
-            
-            [weakSelf setLoadingIndicatorVisible:NO];
-            [self transitionToCurrentQuestionForwards:YES];
-        }
-    }];
+        [self.delegate ECSFormViewController:self
+                            answeredFormItem:formAction.form.formData[self.questionIndex]
+                                     atIndex:(int)self.questionIndex];
+    }
+    
+    if (self.questionIndex < formAction.form.formData.count - 1)
+    {
+        self.questionIndex++;
+        [self transitionToCurrentQuestionForwards:YES];
+    }
+    else
+    {
+        [self submitForm];
+    }
 }
 
 - (void)viewWillLayoutSubviews
@@ -128,44 +129,6 @@
         scrollView.scrollIndicatorInsets = newInsets;
         scrollView.contentOffset = CGPointMake(0, -topLayoutLength);
     }
-}
-
-- (void)keyboardWillShow:(NSNotification*)notification
-{
-    NSDictionary* info = [notification userInfo];
-    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    
-    [UIView animateWithDuration:[number doubleValue]
-                     animations:^{
-                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
-                         [self.view layoutIfNeeded];
-                     }];
-}
-
-- (void)keyboardWillHide:(NSNotification*)notification
-{
-    NSDictionary* info = [notification userInfo];
-    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    
-    [UIView animateWithDuration:[number doubleValue]
-                     animations:^{
-                         self.buttonViewBottomConstraint.constant = 0;
-                         [self.view layoutIfNeeded];
-                     }];
-}
-
-- (void)keyboardWillChangeFrame:(NSNotification*)notification
-{
-    NSDictionary* info = [notification userInfo];
-    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    
-    [UIView animateWithDuration:[number doubleValue]
-                     animations:^{
-                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
-                         [self.view layoutIfNeeded];
-                     }];
 }
 
 - (void)updateTitle
@@ -304,38 +267,110 @@
                                                                         views:@{ @"view": view}]];
 }
 
+#pragma mark Keyboard Delegate
 
-- (IBAction)previousTapped:(id)sender
+- (void)keyboardWillShow:(NSNotification*)notification
 {
-    self.questionIndex--;
+    NSDictionary* info = [notification userInfo];
+    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     
-    if(self.questionIndex >= 0)
-    {
-        [self transitionToCurrentQuestionForwards:NO];
-    }
-    else
-    {
-        self.questionIndex = 0;
-    }
+    [UIView animateWithDuration:[number doubleValue]
+                     animations:^{
+                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+                         [self.view layoutIfNeeded];
+                     }];
 }
 
-- (IBAction)nextTapped:(id)sender
+- (void)keyboardWillHide:(NSNotification*)notification
 {
+    NSDictionary* info = [notification userInfo];
+    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    [UIView animateWithDuration:[number doubleValue]
+                     animations:^{
+                         self.buttonViewBottomConstraint.constant = 0;
+                         [self.view layoutIfNeeded];
+                     }];
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification*)notification
+{
+    NSDictionary* info = [notification userInfo];
+    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    [UIView animateWithDuration:[number doubleValue]
+                     animations:^{
+                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+                         [self.view layoutIfNeeded];
+                     }];
+}
+
+#pragma mark Public Getters & Setters
+
+// Set public variables so integrators can pull form data from the viewController object.
+- (NSString *) getFormName {
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
-    
-    if (self.questionIndex < formAction.form.formData.count - 1)
-    {
-        self.questionIndex++;
-        [self transitionToCurrentQuestionForwards:YES];
-    }
-    else
-    {
-        [self submitForm];
-    }
+    return formAction.actionId;
 }
 
-- (void)submitForm
-{
+- (ECSForm *) getForm {
+    ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+    return formAction.form;
+}
+
+#pragma mark Internal Humanify API Code
+
+- (void) initializeConversationForForm {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [[EXPERTconnect shared].urlSession startConversationForAction:self.actionType
+                                                  andAlwaysCreate:NO
+                                                   withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+     {
+         
+         ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+         
+         if(!formAction.form) {
+             
+             [self fetchFormNamed:formAction.actionId];
+             
+         } else {
+             
+             [weakSelf setLoadingIndicatorVisible:NO];
+             [self transitionToCurrentQuestionForwards:YES];
+         }
+     }];
+}
+
+- (void) fetchFormNamed:(NSString *)formName {
+    
+    __weak typeof(self) weakSelf = self;
+    [[EXPERTconnect shared].urlSession getFormByName:formName
+                                      withCompletion:^(ECSForm *form, NSError *error)
+     {
+         
+         if (!error && [form isKindOfClass:[ECSForm class]] ) {
+             
+             ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+             formAction.form = [form copy];
+             [weakSelf setLoadingIndicatorVisible:NO];
+             
+             [self transitionToCurrentQuestionForwards:YES];
+             
+         } else {
+             
+             ECSLogError(self.logger, @"Error fetching form data. Error=%@", error);
+             [weakSelf showMessageForError:error];
+             [weakSelf dismissViewControllerAnimated:YES completion:nil];
+         }
+     }];
+}
+
+- (void)submitForm {
+    
     [self setLoadingIndicatorVisible:YES];
     
     ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
@@ -355,54 +390,116 @@
 
     NSString *userIntent = [[EXPERTconnect shared] userIntent];
     formAction.intent = userIntent;
-    
+
     __weak typeof(self) weakSelf = self;
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     [urlSession submitForm:[formAction.form formResponseValue]
                     intent:userIntent
          navigationContext:formAction.navigationContext
-                withCompletion:^(ECSFormSubmitResponse *response, NSError *error) {
-                    [weakSelf setLoadingIndicatorVisible:NO];
-                    if (!error)
-                    {
-                        formAction.form.submitted = YES;
-                        //TODO : Navigation is being handled by the Host App, don't need this.
-                        
-                        // mas - 11-oct-2015 - Do old method if workflowDelegate is nil.
-                        if (!weakSelf.workflowDelegate) {
-                            if (response.action) {
-                                [weakSelf ecs_navigateToViewControllerForActionType:response.action];
-                            } else {
-                            
+                withCompletion:^(ECSFormSubmitResponse *response, NSError *error)
+    {
+                    
+        [weakSelf setLoadingIndicatorVisible:NO];
+        
+        if ( !error ) {
+            
+            formAction.form.submitted = YES;
+            
+            if( self.delegate && [self.delegate respondsToSelector:@selector(ECSFormViewController:submittedForm:withName:error:)]) {
                 
-                                ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
-                                submitController.workflowDelegate = self.workflowDelegate;
-                                submitController.headerLabel.text = formAction.form.submitCompleteHeaderText;
-                                submitController.descriptionLabel.text = formAction.form.submitCompleteText;
-                                
-                                if (weakSelf.navigationController)
-                                {
-                                    //[weakSelf.navigationController setViewControllers:@[submitController] animated:YES];
-                                    //[weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                                    [weakSelf.navigationController pushViewController:submitController animated:YES];
-                                }
-                            }
-                        } else {
-                            [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
+                [self.delegate ECSFormViewController:self submittedForm:formAction.form withName:formAction.actionId error:error];
+                
+            }
+            
+            if (!weakSelf.workflowDelegate) {
+                
+                if (response.action) {
+                    
+                    [weakSelf ecs_navigateToViewControllerForActionType:response.action];
+                    
+                } else {
+                    
+                    if( self.showFormSubmittedView == YES ) {
+                        
+                        ECSFormSubmittedViewController *submitController = [ECSFormSubmittedViewController ecs_loadFromNib];
+                        submitController.workflowDelegate       = self.workflowDelegate;
+                        submitController.headerLabel.text       = formAction.form.submitCompleteHeaderText;
+                        submitController.descriptionLabel.text  = formAction.form.submitCompleteText;
+                        submitController.delegate               = self;
+                        
+                        if (weakSelf.navigationController) {
+                            
+                            [weakSelf.navigationController pushViewController:submitController animated:YES];
                         }
                     }
-                    else
-                    {
-                        ECSLogError(self.logger, @"Error submitting form. Error=%@", error);
-                        [weakSelf showMessageForError:error];
-                    }
-                }];
+                }
+                
+            } else {
+                
+                [weakSelf.workflowDelegate form:weakSelf.actionType.actionId submittedWithValue:lastSurveyScore];
+            }
+            
+        } else {
+            
+            // Show error in form view
+            [weakSelf showMessageForError:error];
+        }
+        
+        // Always log the error.
+        if( error ) {
+            ECSLogError(self.logger, @"Error submitting form. Error=%@", error);
+        }
+    }];
 }
+
 #pragma mark - ECSFormItemViewControllerDelegate
 
 - (void)formItemViewController:(ECSFormItemViewController *)vc answerDidChange:(NSString *)answer forFormItem:(ECSFormItem *)formItem
 {
     [self updateNextButtonForFormItem:formItem];
+}
+
+#pragma mark - ECSFormSubmittedViewDelegate
+
+// This allows control of the navigation all to be contained within this view controller. This is important so that the integrator can have delegate functions that override our default behavior.
+- (void) closeTappedInSubmittedView:(id)sender {
+    
+    ECSFormActionType* formAction = (ECSFormActionType*)self.actionType;
+    bool proceedWithTransition = YES;
+    
+    if( self.delegate && [self.delegate respondsToSelector:@selector(ECSFormViewController:closedWithForm:)]) {
+        
+        proceedWithTransition = [self.delegate ECSFormViewController:self closedWithForm:formAction.form];
+        
+    }
+    
+    if( proceedWithTransition ) {
+        
+        // mas - 11-oct-2015 - Added condition for workflowDelegate
+        if (self.workflowDelegate) {
+            
+            [self.workflowDelegate endWorkFlow];
+            
+        } else {
+            
+            ECSFormSubmittedViewController *submittedView = (ECSFormSubmittedViewController *)sender;
+            
+            if (submittedView.navigationController) {
+                
+                if([submittedView presentingViewController]) {
+                    
+                    [submittedView dismissViewControllerAnimated:YES completion:nil];
+                    
+                } else {
+                    
+                    [submittedView.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }
+        }
+    }
+    
 }
 
 @end

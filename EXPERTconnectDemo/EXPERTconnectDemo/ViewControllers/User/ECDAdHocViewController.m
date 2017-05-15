@@ -232,7 +232,7 @@ typedef NS_ENUM(NSInteger, SettingsSectionRowSeventeenRows)
 	 SettingsSectionSeventeenRowCount
 };
 
-@interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate> {
+@interface ECDAdHocViewController () <UITableViewDataSource, UITableViewDelegate, ECSFormViewDelegate> {
 	 CLLocation *currentLocation;
 }
 
@@ -250,6 +250,8 @@ bool chatAgentAvailable,videoChatAgentAvailable,callbackAgentAvailable;
 int chatEstimatedWait,videoChatEstimatedWait,callbackEstimatedWait;
 
 bool _chatActive;
+
+ECSFormViewController *_formsController;
 
 @implementation ECDAdHocViewController
 
@@ -1263,15 +1265,17 @@ bool _chatActive;
 
 -(void)handleAdHocRenderForm
 {
-	 NSLog(@"Rendering an ad-hoc Form");
-	 
-	 NSString *formName = [self.selectAdHocFormsPicker currentSelection];
-	 
-	 [self localBreadCrumb:@"Survey started"
-			   description:[NSString stringWithFormat:@"Survey with name=%@", formName]];
-	 
-	 UIViewController *formsController = [[EXPERTconnect shared] startSurvey:formName];
-	 [self.navigationController pushViewController:formsController animated:YES];
+    NSLog(@"Rendering an ad-hoc Form");
+    
+    NSString *formName = [self.selectAdHocFormsPicker currentSelection];
+    
+    [self localBreadCrumb:@"Survey started"
+              description:[NSString stringWithFormat:@"Survey with name=%@", formName]];
+    
+    _formsController = (ECSFormViewController *)[[EXPERTconnect shared] startSurvey:formName];
+    _formsController.delegate = self;
+    //_formsController.showFormSubmittedView = NO;
+    [self.navigationController pushViewController:_formsController animated:YES];
 }
 
 -(void)handleAdHocEditUserProfile
@@ -1401,6 +1405,35 @@ bool _chatActive;
     {
         [[EXPERTconnect shared] overrideDeviceLocale:localeOverride];
     }
+}
+
+#pragma mark ECSFormViewDelegate functions
+
+- (void)ECSFormViewController:(ECSFormViewController *)formVC
+                submittedForm:(ECSForm *)form
+                     withName:(NSString *)name
+                        error:(NSError *)error {
+    
+    NSLog(@"AdHoc View: User submitted form %@. Error? %@", name, error);
+    
+}
+
+- (void) ECSFormViewController:(ECSFormViewController *)formVC
+              answeredFormItem:(ECSFormItem *)item
+                       atIndex:(int)index {
+
+    NSLog(@"AdHoc View: User answered question %d with answer: %@", index, item.formValue);
+    
+}
+
+- (bool) ECSFormViewController:(ECSFormViewController *)formVC
+                closedWithForm:(ECSForm *)form {
+    
+    NSLog(@"AdHoc View: User pushed close button. Closing manually from AdHoc (no animation)");
+    
+    [formVC.navigationController popToRootViewControllerAnimated:NO];
+    
+    return NO; // We override SDK behavior so we do not want it to perform it's own.
 }
 
 @end

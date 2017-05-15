@@ -1120,7 +1120,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
-				LD_NO_PIE = YES;
+				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1156,7 +1156,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
-				LD_NO_PIE = YES;
+				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

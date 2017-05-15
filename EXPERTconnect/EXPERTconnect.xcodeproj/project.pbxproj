@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = C6492F371B7C775200CC977E /* Build configuration list for PBXAggregateTarget "ECSUniversal" */;
 			buildPhases = (
-				C6492F381B7C775B00CC977E /* ShellScript */,
+				C6492F381B7C775B00CC977E /* Run Script */,
 			);
 			dependencies = (
 			);
@@ -127,7 +127,7 @@
 		0342B0201A9B60AE0009959E /* ECSCheckboxFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFFB1A9B60AE0009959E /* ECSCheckboxFormItemViewController.h */; };
 		0342B0211A9B60AE0009959E /* ECSFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFFC1A9B60AE0009959E /* ECSFormItemViewController.h */; };
 		0342B0221A9B60AE0009959E /* ECSFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342AFFD1A9B60AE0009959E /* ECSFormItemViewController.m */; };
-		0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFFE1A9B60AE0009959E /* ECSFormViewController.h */; };
+		0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFFE1A9B60AE0009959E /* ECSFormViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0342B0241A9B60AE0009959E /* ECSRadioFormItemViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0342AFFF1A9B60AE0009959E /* ECSRadioFormItemViewController.h */; };
 		0342B0251A9B60AE0009959E /* ECSRatingFormItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0342B0001A9B60AE0009959E /* ECSRatingFormItemViewController.m */; };
 		0342B0261A9B60AE0009959E /* ECSSliderFormItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0342B0011A9B60AE0009959E /* ECSSliderFormItemViewController.xib */; };
@@ -1741,19 +1741,9 @@
 		2205EF6A1A797ABD007AAF86 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
-				916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */,
-				916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */,
-				916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */,
-				0342AFFB1A9B60AE0009959E /* ECSCheckboxFormItemViewController.h */,
-				0342AFF41A9B60AE0009959E /* ECSCheckboxFormItemViewController.m */,
-				0342B0071A9B60AE0009959E /* ECSCheckboxFormItemViewController.xib */,
-				0342AFE61A9B60AE0009959E /* ECSCheckboxTableViewCell.h */,
-				0342AFE71A9B60AE0009959E /* ECSCheckboxTableViewCell.m */,
-				0342AFE81A9B60AE0009959E /* ECSCheckboxTableViewCell.xib */,
-				0342AFFC1A9B60AE0009959E /* ECSFormItemViewController.h */,
-				0342AFFD1A9B60AE0009959E /* ECSFormItemViewController.m */,
-				0342AFE41A9B60AE0009959E /* ECSFormQuestionView.h */,
-				0342AFE51A9B60AE0009959E /* ECSFormQuestionView.m */,
+				C430CC5E1EB39BEF003E83E5 /* Form Items */,
+				C4A6D6A51EB39CCA003020B9 /* Inline Form Table Cells */,
+				C4A6D6A61EB39D38003020B9 /* Profile View Items */,
 				0342AFFE1A9B60AE0009959E /* ECSFormViewController.h */,
 				0342AFF51A9B60AE0009959E /* ECSFormViewController.m */,
 				0342AFF21A9B60AE0009959E /* ECSFormViewController.xib */,
@@ -1763,34 +1753,13 @@
 				0342AFEF1A9B60AE0009959E /* ECSQuickRatingViewController.h */,
 				0342AFF01A9B60AE0009959E /* ECSQuickRatingViewController.m */,
 				0342AFF11A9B60AE0009959E /* ECSQuickRatingViewController.xib */,
-				0342AFFF1A9B60AE0009959E /* ECSRadioFormItemViewController.h */,
-				0342AFF61A9B60AE0009959E /* ECSRadioFormItemViewController.m */,
-				0342B0081A9B60AE0009959E /* ECSRadioFormItemViewController.xib */,
-				0342AFE91A9B60AE0009959E /* ECSRadioTableViewCell.h */,
-				0342AFEA1A9B60AE0009959E /* ECSRadioTableViewCell.m */,
-				0342AFEB1A9B60AE0009959E /* ECSRadioTableViewCell.xib */,
-				C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */,
-				C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */,
-				C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */,
-				0342B0041A9B60AE0009959E /* ECSRatingFormItemViewController.h */,
-				0342B0001A9B60AE0009959E /* ECSRatingFormItemViewController.m */,
-				0342AFF31A9B60AE0009959E /* ECSRatingFormItemViewController.xib */,
-				0342B0051A9B60AE0009959E /* ECSSliderFormItemViewController.h */,
-				0342B0061A9B60AE0009959E /* ECSSliderFormItemViewController.m */,
-				0342B0011A9B60AE0009959E /* ECSSliderFormItemViewController.xib */,
-				0342B0021A9B60AE0009959E /* ECSTextAreaFormItemViewController.h */,
-				0342AFF71A9B60AE0009959E /* ECSTextAreaFormItemViewController.m */,
-				0342AFF81A9B60AE0009959E /* ECSTextAreaFormItemViewController.xib */,
-				0342B0031A9B60AE0009959E /* ECSTextFormItemViewController.h */,
-				0342AFF91A9B60AE0009959E /* ECSTextFormItemViewController.m */,
-				0342AFFA1A9B60AE0009959E /* ECSTextFormItemViewController.xib */,
 				035C4C071A9B7E900016BCE8 /* ECSFormSubmittedViewController.h */,
 				035C4C081A9B7E900016BCE8 /* ECSFormSubmittedViewController.m */,
 				035C4C091A9B7E900016BCE8 /* ECSFormSubmittedViewController.xib */,
-				03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */,
-				03A7D2971ABC67C0000A21AE /* ECSFormTextField.m */,
-				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
-				468EBC611B83710F008A0826 /* ECSRatingView.h */,
+				0342AFFC1A9B60AE0009959E /* ECSFormItemViewController.h */,
+				0342AFFD1A9B60AE0009959E /* ECSFormItemViewController.m */,
+				0342AFE41A9B60AE0009959E /* ECSFormQuestionView.h */,
+				0342AFE51A9B60AE0009959E /* ECSFormQuestionView.m */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -1944,6 +1913,35 @@
 			name = ECSTextView;
 			sourceTree = "<group>";
 		};
+		C430CC5E1EB39BEF003E83E5 /* Form Items */ = {
+			isa = PBXGroup;
+			children = (
+				0342AFFF1A9B60AE0009959E /* ECSRadioFormItemViewController.h */,
+				0342AFF61A9B60AE0009959E /* ECSRadioFormItemViewController.m */,
+				0342B0081A9B60AE0009959E /* ECSRadioFormItemViewController.xib */,
+				0342AFFB1A9B60AE0009959E /* ECSCheckboxFormItemViewController.h */,
+				0342AFF41A9B60AE0009959E /* ECSCheckboxFormItemViewController.m */,
+				0342B0071A9B60AE0009959E /* ECSCheckboxFormItemViewController.xib */,
+				C4A6D6A71EB39D81003020B9 /* AXRatingViewFormItem */,
+				0342B0041A9B60AE0009959E /* ECSRatingFormItemViewController.h */,
+				0342B0001A9B60AE0009959E /* ECSRatingFormItemViewController.m */,
+				0342AFF31A9B60AE0009959E /* ECSRatingFormItemViewController.xib */,
+				0342B0051A9B60AE0009959E /* ECSSliderFormItemViewController.h */,
+				0342B0061A9B60AE0009959E /* ECSSliderFormItemViewController.m */,
+				0342B0011A9B60AE0009959E /* ECSSliderFormItemViewController.xib */,
+				0342B0021A9B60AE0009959E /* ECSTextAreaFormItemViewController.h */,
+				0342AFF71A9B60AE0009959E /* ECSTextAreaFormItemViewController.m */,
+				0342AFF81A9B60AE0009959E /* ECSTextAreaFormItemViewController.xib */,
+				0342B0031A9B60AE0009959E /* ECSTextFormItemViewController.h */,
+				0342AFF91A9B60AE0009959E /* ECSTextFormItemViewController.m */,
+				0342AFFA1A9B60AE0009959E /* ECSTextFormItemViewController.xib */,
+				C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */,
+				C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */,
+				C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */,
+			);
+			name = "Form Items";
+			sourceTree = "<group>";
+		};
 		C495EA9A1CA4BE0000BC4057 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1953,6 +1951,40 @@
 				C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */,
 			);
 			name = "Data Models";
+			sourceTree = "<group>";
+		};
+		C4A6D6A51EB39CCA003020B9 /* Inline Form Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0342AFE61A9B60AE0009959E /* ECSCheckboxTableViewCell.h */,
+				0342AFE71A9B60AE0009959E /* ECSCheckboxTableViewCell.m */,
+				0342AFE81A9B60AE0009959E /* ECSCheckboxTableViewCell.xib */,
+				0342AFE91A9B60AE0009959E /* ECSRadioTableViewCell.h */,
+				0342AFEA1A9B60AE0009959E /* ECSRadioTableViewCell.m */,
+				0342AFEB1A9B60AE0009959E /* ECSRadioTableViewCell.xib */,
+			);
+			name = "Inline Form Table Cells";
+			sourceTree = "<group>";
+		};
+		C4A6D6A61EB39D38003020B9 /* Profile View Items */ = {
+			isa = PBXGroup;
+			children = (
+				03A7D2961ABC67C0000A21AE /* ECSFormTextField.h */,
+				03A7D2971ABC67C0000A21AE /* ECSFormTextField.m */,
+			);
+			name = "Profile View Items";
+			sourceTree = "<group>";
+		};
+		C4A6D6A71EB39D81003020B9 /* AXRatingViewFormItem */ = {
+			isa = PBXGroup;
+			children = (
+				916F6AD71BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.h */,
+				916F6AD81BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.m */,
+				916F6AD91BA1F7D000DA7755 /* ECSAxRatingFormItemViewController.xib */,
+				468EBC5F1B8370E7008A0826 /* ECSRatingView.m */,
+				468EBC611B83710F008A0826 /* ECSRatingView.h */,
+			);
+			name = AXRatingViewFormItem;
 			sourceTree = "<group>";
 		};
 		D83F78A71B7BE25000F307D4 /* Video */ = {
@@ -1972,6 +2004,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
 				C44B72211E770A3900DF1FEA /* ECSErrorDefinitions.h in Headers */,
 				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
 				0390623E1AC9A11E00E006BE /* ECSChatURLMessage.h in Headers */,
@@ -2060,7 +2093,6 @@
 				0342B0111A9B60AE0009959E /* ECSPreSurveyViewController.h in Headers */,
 				03272A0E1AE7E36F009C6EDF /* ECSChatFormMessage.h in Headers */,
 				C1E99D271BC7CBE7000EC129 /* ECSColorUtil.h in Headers */,
-				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
 				C1E99D431BC7CC4B000EC129 /* TextEditorTextView.h in Headers */,
 				0342B0271A9B60AE0009959E /* ECSTextAreaFormItemViewController.h in Headers */,
 				0342B0731A9B60EF0009959E /* ECSPhotoViewController.h in Headers */,
@@ -2360,18 +2392,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\n\nFRAMEWORK_ARTIFACTS=\"${SRCROOT}/../artifacts\"\nmkdir -p \"${FRAMEWORK_ARTIFACTS}\"\ncp -R \"${TARGET_BUILD_DIR}/EXPERTconnect.framework\" \"${FRAMEWORK_ARTIFACTS}\"";
 		};
-		C6492F381B7C775B00CC977E /* ShellScript */ = {
+		C6492F381B7C775B00CC977E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\nWORKSPACE_FILE=\"../${PROJECT_NAME}.xcworkspace\"\n\n######################\n# Build Frameworks\n######################\n\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
+			shellScript = "######################\n# Options\n######################\n\n# workaround for bitcode generation problem with Xcode 7.3\nunset TOOLCHAINS\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\nWORKSPACE_FILE=\"../${PROJECT_NAME}.xcworkspace\"\n\n######################\n# Build Frameworks\n######################\n\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator BITCODE_ENABLED=YES 2>&1\n\nxcodebuild -workspace ${WORKSPACE_FILE} -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos BITCODE_ENABLED=YES 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${BUILD_DIR}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2723,6 +2756,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -2734,7 +2768,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1.0.0;
 				DYLIB_CURRENT_VERSION = 1.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
@@ -2751,7 +2785,7 @@
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_NO_PIE = YES;
+				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/",
@@ -2775,6 +2809,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
 				BUNDLEID = com.humanify.EXPERTconnect;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -2786,7 +2821,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1.0.0;
 				DYLIB_CURRENT_VERSION = 1.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/",
 					"$(PROJECT_DIR)/ThirdParty/**",
@@ -2803,7 +2838,7 @@
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_NO_PIE = YES;
+				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/",
@@ -2865,8 +2900,10 @@
 		C6492F351B7C775200CC977E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_BITCODE = NO;
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -2874,9 +2911,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
+				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};
