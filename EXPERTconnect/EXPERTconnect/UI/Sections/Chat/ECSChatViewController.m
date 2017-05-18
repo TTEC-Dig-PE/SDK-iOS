@@ -1662,13 +1662,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)sendFormNotification
 {
-    ECSLogVerbose(self.logger,@"Form complete notification");
-    ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
-    notification.from = self.chatClient.fromUsername;
-    notification.channelId = self.chatClient.currentChannelId;
-    notification.conversationId = self.chatClient.currentConversation.conversationID;
-    notification.type = @"interview";
-    notification.objectData = nil;
+    ECSLogVerbose(self.logger, @"Form complete notification");
+//    ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
+//    notification.from = self.chatClient.fromUsername;
+//    notification.channelId = self.chatClient.currentChannelId;
+//    notification.conversationId = self.chatClient.currentConversation.conversationID;
+//    notification.type = @"interview";
+//    notification.objectData = nil;
     
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
@@ -1787,14 +1787,19 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.inlineFormController willMoveToParentViewController:nil];
     
     [self sendFormNotification];
+    
     [UIView animateWithDuration:0.3f animations:^{
         self.inlineFormBottomConstraint.constant = CGRectGetHeight(self.inlineFormController.view.frame);
+        
     } completion:^(BOOL finished) {
+        
         [self.inlineFormController.view removeFromSuperview];
         [self.inlineFormController removeFromParentViewController];
         
-        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        [urlSession submitForm:self.inlineFormController.form completion:nil];
+        // MAS - may-18-2017 - don't submit the form if user was not finished with it. Close button at end of survey does not hit this function. PAAS-1929
+//        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+//        [urlSession submitForm:self.inlineFormController.form completion:nil];
+        
         [self.tableView reloadRowsAtIndexPaths:@[self.currentFormCellIndexPath]
                               withRowAnimation:UITableViewRowAnimationAutomatic];
         self.currentFormCellIndexPath = nil;
@@ -2400,9 +2405,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     {
         cell.actionCellType = ECSChatActionCellTypeForm;
         
-        BOOL submitted = ((ECSChatFormMessage*)message).formContents.submitted;
+        ECSChatFormMessage *formMessage = (ECSChatFormMessage *)message;
         
-        NSString *title = ((ECSChatFormMessage*)message).formContents.formTitle;
+        BOOL submitted = formMessage.formContents.submitted;
+        
+        NSString *title = formMessage.formContents.name;
         
         if (submitted)
         {
@@ -2415,7 +2422,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                 title = ECSLocalizedString(ECSLocalizeTapToRespond, nil);
             }
             cell.messageLabel.text = title;
-            participant = [self participantInfoForID:((ECSChatFormMessage*)message).from];
+            participant = [self participantInfoForID:formMessage.from];
         }
     }
     

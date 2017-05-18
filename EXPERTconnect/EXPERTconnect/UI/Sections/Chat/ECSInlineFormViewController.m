@@ -57,6 +57,7 @@
 - (IBAction)doneButtonTapped:(id)sender {
 
     NSMutableArray *responses = [NSMutableArray new];
+    
     for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows])
     {
         NSString *responseString = nil;
