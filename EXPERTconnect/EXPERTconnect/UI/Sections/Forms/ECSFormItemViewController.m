@@ -38,7 +38,7 @@
 
 - (NSString*)defaultCaptionText
 {
-    if(self.formItem.required)
+    if(self.formItem.required && [self.formItem.required intValue] > 0)
     {
         return ECSLocalizedString(ECSLocalizeRequiredKey, @"Required");
     }
