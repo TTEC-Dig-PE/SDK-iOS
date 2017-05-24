@@ -37,6 +37,7 @@
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
     ECSFormQuestionView* questionView = [ECSFormQuestionView new];
+    
     questionView.questionText = self.formItem.label;
     self.choicesTable.tableHeaderView = questionView;
     // Provide an initial size to avoid a constraint warning from Autolayout
@@ -68,6 +69,25 @@
     self.choicesTable.tableFooterView = captionView;
     self.choicesTable.estimatedRowHeight = 44;
     self.choicesTable.rowHeight = UITableViewAutomaticDimension;
+    
+    ECSFormItemRadio *radioFormItem = (ECSFormItemRadio *)self.formItem;
+    
+    // mas - 24-May-2017 - This should re-select the user's answer if they move past this question, and click "previous" to come back to it. PAAS-1988
+    if( self.formItem.formValue ) {
+        
+        int tempIndex = 0;
+        for (NSString *optionText in radioFormItem.options) {
+            if( optionText == self.formItem.formValue) {
+                break;
+            }
+            tempIndex++;
+        }
+        
+        [self.choicesTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:tempIndex inSection:0]
+                                       animated:NO
+                                 scrollPosition:UITableViewScrollPositionNone];
+    }
+    
 }
 
 - (void)viewDidLayoutSubviews

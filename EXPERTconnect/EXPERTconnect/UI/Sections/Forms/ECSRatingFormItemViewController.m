@@ -153,7 +153,7 @@
     for(NSInteger i = 0; i < self.answerButtons.count; ++i)
     {
         UIButton* button = self.answerButtons[i];
-        [button setSelected:i < rating];
+        [button setSelected:i < rating]; 
     }
            
     ratingItem.formValue = [@(rating) stringValue];

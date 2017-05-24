@@ -40,8 +40,12 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *value = [f numberFromString:self.formValue];
+    
     //return value  >= self.minValue  && value <= self.maxValue;
-    return ([value compare:self.minValue] == NSOrderedDescending && [value compare:self.maxValue] == NSOrderedAscending);
+    
+    // mas - 24-may-2017 - Made the min and max values to return true.
+    return (([value compare:self.minValue] == NSOrderedDescending && [value compare:self.maxValue] == NSOrderedAscending) ||
+    ([value compare:self.minValue] == NSOrderedSame) || ([value compare:self.maxValue] == NSOrderedSame));
 }
 
 @end
