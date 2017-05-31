@@ -91,19 +91,31 @@
 }
 
 - (IBAction)leftButtonPressed:(id)sender {
+    
     // The positive button (thumbs up)
     ECSFormItemRadio *myForm = (ECSFormItemRadio *)self.formItem;
-    myForm.formValue = myForm.options[0]; // Index 0 = thumbs up ("good")
+    
+    if( myForm.options && myForm.options.count > 0) {
+        myForm.formValue = myForm.options[0]; // Index 0 = thumbs up ("good")
+    } else {
+        myForm.formValue = @"1";
+    }
     
     [self.delegate formItemViewController:self answerDidChange:nil forFormItem:self.formItem];
     [self.leftButton setEnabled:NO];
     [self.rightButton setEnabled:YES];
 }
+
 - (IBAction)rightButtonPressed:(id)sender {
+    
     // The negative button (thumbs down)
     ECSFormItemRadio *myForm = (ECSFormItemRadio *)self.formItem;
-    myForm.formValue = myForm.options[1]; // Index 1 = thumbs down ("bad")
     
+    if( myForm.options && myForm.options.count > 1) {
+        myForm.formValue = myForm.options[1]; // Index 1 = thumbs down ("bad")
+    } else {
+        myForm.formValue = @"0";
+    }
     [self.delegate formItemViewController:self answerDidChange:nil forFormItem:self.formItem];
     [self.leftButton setEnabled:YES];
     [self.rightButton setEnabled:NO]; 
