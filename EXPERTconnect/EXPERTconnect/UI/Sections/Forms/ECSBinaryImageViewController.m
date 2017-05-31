@@ -82,6 +82,18 @@
     */
     //[self refresh];
     
+    // mas - 24-May-2017 - This should re-select the user's answer if they move past this question, and click "previous" to come back to it. PAAS-1988
+    ECSFormItemRadio *binaryFormItem = (ECSFormItemRadio *)self.formItem;
+    
+    if( self.formItem.formValue && binaryFormItem.options.count > 1 ) {
+        
+        if( [self.formItem.formValue isEqualToString:binaryFormItem.options[0]] ) {
+            [self leftButtonPressed:self];
+        } else if ( [self.formItem.formValue isEqualToString:binaryFormItem.options[1]]) {
+            [self rightButtonPressed:self]; 
+        }
+    }
+    
 }
 
 - (void)viewDidLayoutSubviews
