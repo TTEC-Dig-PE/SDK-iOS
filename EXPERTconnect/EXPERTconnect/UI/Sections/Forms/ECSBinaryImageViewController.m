@@ -82,6 +82,18 @@
     */
     //[self refresh];
     
+    // mas - 24-May-2017 - This should re-select the user's answer if they move past this question, and click "previous" to come back to it. PAAS-1988
+    ECSFormItemRadio *binaryFormItem = (ECSFormItemRadio *)self.formItem;
+    
+    if( self.formItem.formValue && binaryFormItem.options.count > 1 ) {
+        
+        if( [self.formItem.formValue isEqualToString:binaryFormItem.options[0]] ) {
+            [self leftButtonPressed:self];
+        } else if ( [self.formItem.formValue isEqualToString:binaryFormItem.options[1]]) {
+            [self rightButtonPressed:self]; 
+        }
+    }
+    
 }
 
 - (void)viewDidLayoutSubviews
@@ -91,19 +103,31 @@
 }
 
 - (IBAction)leftButtonPressed:(id)sender {
+    
     // The positive button (thumbs up)
     ECSFormItemRadio *myForm = (ECSFormItemRadio *)self.formItem;
-    myForm.formValue = myForm.options[0]; // Index 0 = thumbs up ("good")
+    
+    if( myForm.options && myForm.options.count > 0) {
+        myForm.formValue = myForm.options[0]; // Index 0 = thumbs up ("good")
+    } else {
+        myForm.formValue = @"1";
+    }
     
     [self.delegate formItemViewController:self answerDidChange:nil forFormItem:self.formItem];
     [self.leftButton setEnabled:NO];
     [self.rightButton setEnabled:YES];
 }
+
 - (IBAction)rightButtonPressed:(id)sender {
+    
     // The negative button (thumbs down)
     ECSFormItemRadio *myForm = (ECSFormItemRadio *)self.formItem;
-    myForm.formValue = myForm.options[1]; // Index 1 = thumbs down ("bad")
     
+    if( myForm.options && myForm.options.count > 1) {
+        myForm.formValue = myForm.options[1]; // Index 1 = thumbs down ("bad")
+    } else {
+        myForm.formValue = @"0";
+    }
     [self.delegate formItemViewController:self answerDidChange:nil forFormItem:self.formItem];
     [self.leftButton setEnabled:YES];
     [self.rightButton setEnabled:NO]; 
