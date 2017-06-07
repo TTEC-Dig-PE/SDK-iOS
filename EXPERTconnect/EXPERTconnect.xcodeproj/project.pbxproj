@@ -186,7 +186,6 @@
 		0380DEAF1A9F6513003D9248 /* ECSWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEAB1A9F6513003D9248 /* ECSWebSocket.m */; };
 		0380DEB01A9F6513003D9248 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0380DEAC1A9F6513003D9248 /* LICENSE */; };
 		0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0380DEB21A9F6587003D9248 /* libicucore.dylib */; };
-		0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0380DEB41A9F6595003D9248 /* CFNetwork.framework */; };
 		0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0380DEB61A9F659E003D9248 /* Security.framework */; };
 		0380DEBB1AA09EBB003D9248 /* ECSSendConfirmationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0380DEB81AA09EBB003D9248 /* ECSSendConfirmationViewController.h */; };
 		0380DEBC1AA09EBB003D9248 /* ECSSendConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0380DEB91AA09EBB003D9248 /* ECSSendConfirmationViewController.m */; };
@@ -474,13 +473,8 @@
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
-		D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F91B6BC3F7005BD20E /* libxml2.dylib */; };
-		D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FB1B6BC412005BD20E /* CoreImage.framework */; };
 		D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FC1B6BC412005BD20E /* CoreText.framework */; };
-		D81613001B6BC420005BD20E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FF1B6BC420005BD20E /* ImageIO.framework */; };
-		D81613021B6BC42D005BD20E /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613011B6BC42D005BD20E /* libstdc++.6.dylib */; };
 		D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613031B6BC43C005BD20E /* SystemConfiguration.framework */; };
-		D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81613051B6BC44D005BD20E /* CoreAudio.framework */; };
 		D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81614F11B791971005BD20E /* MediaPlayer.framework */; };
 		D83F78A21B7BAF9F00F307D4 /* ECSCafeXController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */; };
 		D83F78A91B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */; };
@@ -497,21 +491,12 @@
 		D87F2F051B66C01700B7B9D5 /* ECSSelectExpertViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */; };
 		D87F2F061B66C01700B7B9D5 /* ECSSelectExpertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */; };
 		D87F2F071B66C01700B7B9D5 /* ECSSelectExpertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */; };
-		D87F2F871B697FA500B7B9D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */; };
 		D87F2F881B697FA500B7B9D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */; };
-		D87F2F891B697FA500B7B9D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */; };
-		D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */; };
-		D87F2F8B1B697FA500B7B9D5 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */; };
 		D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F831B697FA500B7B9D5 /* Foundation.framework */; };
-		D87F2F8D1B697FA500B7B9D5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */; };
-		D87F2F8E1B697FA500B7B9D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */; };
 		D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F861B697FA500B7B9D5 /* UIKit.framework */; };
-		D87F2F911B697FB700B7B9D5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F901B697FB700B7B9D5 /* GLKit.framework */; };
-		D87F2F931B697FBD00B7B9D5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */; };
 		D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F941B697FC800B7B9D5 /* libc++.dylib */; };
 		D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F7481B95032A00B75692 /* ECSVoiceItManager.m */; };
 		D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */; };
-		D8B3EC391C6A9EB60031B7C5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8B3EC381C6A9EB60031B7C5 /* WebKit.framework */; };
 		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -710,7 +695,6 @@
 		0380DEAB1A9F6513003D9248 /* ECSWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSWebSocket.m; sourceTree = "<group>"; };
 		0380DEAC1A9F6513003D9248 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0380DEB21A9F6587003D9248 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		0380DEB41A9F6595003D9248 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0380DEB61A9F659E003D9248 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0380DEB81AA09EBB003D9248 /* ECSSendConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSendConfirmationViewController.h; path = EXPERTconnect/UI/Sections/Chat/ECSSendConfirmationViewController.h; sourceTree = SOURCE_ROOT; };
 		0380DEB91AA09EBB003D9248 /* ECSSendConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSendConfirmationViewController.m; path = EXPERTconnect/UI/Sections/Chat/ECSSendConfirmationViewController.m; sourceTree = SOURCE_ROOT; };
@@ -887,7 +871,6 @@
 		2252C6A21A7BE9E100B99912 /* ECSFormItemText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemText.m; sourceTree = "<group>"; };
 		2252C6A31A7BE9E100B99912 /* ECSFormItemTextArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSFormItemTextArea.h; sourceTree = "<group>"; };
 		2252C6A41A7BE9E200B99912 /* ECSFormItemTextArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSFormItemTextArea.m; sourceTree = "<group>"; };
-		275899F9AE2B3E67C2AF6AFE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		462C19201B7B88B000E230B7 /* ECSCustomDataClassTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSCustomDataClassTransformer.m; sourceTree = "<group>"; };
 		462C19221B7B88BB00E230B7 /* ECSCustomDataClassTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSCustomDataClassTransformer.h; sourceTree = "<group>"; };
 		462C19231B7B9EEE00E230B7 /* ECSUserProfileSubmitResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECSUserProfileSubmitResponse.h; sourceTree = "<group>"; };
@@ -1009,16 +992,9 @@
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
-		D81612F91B6BC3F7005BD20E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		D81612FB1B6BC412005BD20E /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D81612FC1B6BC412005BD20E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		D81612FF1B6BC420005BD20E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		D81613011B6BC42D005BD20E /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		D81613031B6BC43C005BD20E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		D81613051B6BC44D005BD20E /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		D81614F11B791971005BD20E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		D81614F21B791971005BD20E /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
-		D81614F51B7919A7005BD20E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXController.m; path = Core/Networking/ECSCafeXController.m; sourceTree = "<group>"; };
 		D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXController.h; path = Core/Networking/ECSCafeXController.h; sourceTree = "<group>"; };
 		D83F78A81B7BE2BD00F307D4 /* ECSCafeXVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSCafeXVideoViewController.xib; path = EXPERTconnect/UI/Sections/Video/ECSCafeXVideoViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -1028,7 +1004,6 @@
 		D83F78BA1B7D2D0B00F307D4 /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReachabilityManager.m; path = Core/Networking/ReachabilityManager.m; sourceTree = "<group>"; };
 		D83F78BD1B7D516100F307D4 /* ECSCafeXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSCafeXMessage.m; path = Chat/ECSCafeXMessage.m; sourceTree = "<group>"; };
 		D83F78BF1B7D519F00F307D4 /* ECSCafeXMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSCafeXMessage.h; path = Chat/ECSCafeXMessage.h; sourceTree = "<group>"; };
-		D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ACBClientSDK.framework; path = ThirdParty/ACBClientSDK.framework; sourceTree = "<group>"; };
 		D86BC4BF1B8E318C005B9629 /* ECSVideoChatActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVideoChatActionType.m; path = ActionTypes/ECSVideoChatActionType.m; sourceTree = "<group>"; };
 		D86BC4C11B8E3199005B9629 /* ECSVideoChatActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSVideoChatActionType.h; path = ActionTypes/ECSVideoChatActionType.h; sourceTree = "<group>"; };
 		D87F2EFC1B66C01700B7B9D5 /* ECSSelectExpertTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertTableViewCell.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -1037,28 +1012,18 @@
 		D87F2EFF1B66C01700B7B9D5 /* ECSSelectExpertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSelectExpertViewController.h; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.h; sourceTree = SOURCE_ROOT; };
 		D87F2F001B66C01700B7B9D5 /* ECSSelectExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSelectExpertViewController.m; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.m; sourceTree = SOURCE_ROOT; };
 		D87F2F011B66C01700B7B9D5 /* ECSSelectExpertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSSelectExpertViewController.xib; path = EXPERTconnect/Models/Chat/ECSSelectExpertViewController.xib; sourceTree = SOURCE_ROOT; };
-		D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		D87F2F831B697FA500B7B9D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D87F2F861B697FA500B7B9D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D87F2F901B697FB700B7B9D5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D87F2F941B697FC800B7B9D5 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		D890F7471B95031100B75692 /* ECSVoiceItManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItManager.h; path = Core/Networking/ECSVoiceItManager.h; sourceTree = "<group>"; };
 		D890F7481B95032A00B75692 /* ECSVoiceItManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItManager.m; path = Core/Networking/ECSVoiceItManager.m; sourceTree = "<group>"; };
 		D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItNetHelper.h; path = Core/Networking/ECSVoiceItNetHelper.h; sourceTree = "<group>"; };
 		D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItNetHelper.m; path = Core/Networking/ECSVoiceItNetHelper.m; sourceTree = "<group>"; };
-		D8B3EC381C6A9EB60031B7C5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatCoBrowseMessage.h; path = Chat/ECSChatCoBrowseMessage.h; sourceTree = "<group>"; };
 		D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatCoBrowseMessage.m; path = Chat/ECSChatCoBrowseMessage.m; sourceTree = "<group>"; };
 		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
 		D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatVoiceAuthenticationMessage.m; path = Chat/ECSChatVoiceAuthenticationMessage.m; sourceTree = "<group>"; };
-		D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAssistSDK.a; path = ThirdParty/libAssistSDK.a; sourceTree = "<group>"; };
 		D8E1BBA41B9FF6FF00BE2A15 /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
 		D8E1BBA51B9FF6FF00BE2A15 /* beforeenrollment.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beforeenrollment.wav; sourceTree = "<group>"; };
 		D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSStompCallbackClient.h; path = Core/Networking/ECSStompCallbackClient.h; sourceTree = "<group>"; };
@@ -1070,32 +1035,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8B3EC391C6A9EB60031B7C5 /* WebKit.framework in Frameworks */,
-				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
-				D87F2F8A1B697FA500B7B9D5 /* CoreMedia.framework in Frameworks */,
-				D81613061B6BC44D005BD20E /* CoreAudio.framework in Frameworks */,
 				D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */,
-				D81613021B6BC42D005BD20E /* libstdc++.6.dylib in Frameworks */,
-				D81613001B6BC420005BD20E /* ImageIO.framework in Frameworks */,
-				D81612FD1B6BC412005BD20E /* CoreImage.framework in Frameworks */,
 				D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */,
-				D81612FA1B6BC3F7005BD20E /* libxml2.dylib in Frameworks */,
 				D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */,
-				D87F2F931B697FBD00B7B9D5 /* libsqlite3.dylib in Frameworks */,
-				D87F2F911B697FB700B7B9D5 /* GLKit.framework in Frameworks */,
-				D87F2F871B697FA500B7B9D5 /* AudioToolbox.framework in Frameworks */,
+				0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */,
 				D87F2F881B697FA500B7B9D5 /* AVFoundation.framework in Frameworks */,
-				D87F2F891B697FA500B7B9D5 /* CoreGraphics.framework in Frameworks */,
-				D87F2F8B1B697FA500B7B9D5 /* CoreVideo.framework in Frameworks */,
 				D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */,
-				D87F2F8D1B697FA500B7B9D5 /* OpenGLES.framework in Frameworks */,
-				D87F2F8E1B697FA500B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */,
 				03CDD3FF1AB0BBE600E0C328 /* MapKit.framework in Frameworks */,
+				035C4C141A9CB9440016BCE8 /* MobileCoreServices.framework in Frameworks */,
 				0380DEB71A9F659E003D9248 /* Security.framework in Frameworks */,
-				0380DEB51A9F6595003D9248 /* CFNetwork.framework in Frameworks */,
-				0380DEB31A9F6587003D9248 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,37 +1579,17 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8B3EC381C6A9EB60031B7C5 /* WebKit.framework */,
-				D8E1BB9D1B9A20DA00BE2A15 /* libAssistSDK.a */,
-				D8695A851B7A6243008FCE75 /* ACBClientSDK.framework */,
-				D81614F51B7919A7005BD20E /* VideoToolbox.framework */,
 				D81614F11B791971005BD20E /* MediaPlayer.framework */,
-				D81614F21B791971005BD20E /* MediaToolbox.framework */,
-				D81613051B6BC44D005BD20E /* CoreAudio.framework */,
 				D81613031B6BC43C005BD20E /* SystemConfiguration.framework */,
-				D81612FF1B6BC420005BD20E /* ImageIO.framework */,
-				D81612FB1B6BC412005BD20E /* CoreImage.framework */,
 				D81612FC1B6BC412005BD20E /* CoreText.framework */,
-				D81613011B6BC42D005BD20E /* libstdc++.6.dylib */,
-				D81612F91B6BC3F7005BD20E /* libxml2.dylib */,
 				D87F2F941B697FC800B7B9D5 /* libc++.dylib */,
-				D87F2F921B697FBD00B7B9D5 /* libsqlite3.dylib */,
 				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
-				D87F2F901B697FB700B7B9D5 /* GLKit.framework */,
-				D87F2F7E1B697FA500B7B9D5 /* AudioToolbox.framework */,
 				D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */,
-				D87F2F801B697FA500B7B9D5 /* CoreGraphics.framework */,
-				D87F2F811B697FA500B7B9D5 /* CoreMedia.framework */,
-				D87F2F821B697FA500B7B9D5 /* CoreVideo.framework */,
 				D87F2F831B697FA500B7B9D5 /* Foundation.framework */,
-				D87F2F841B697FA500B7B9D5 /* OpenGLES.framework */,
-				D87F2F851B697FA500B7B9D5 /* QuartzCore.framework */,
 				D87F2F861B697FA500B7B9D5 /* UIKit.framework */,
 				03CDD3FE1AB0BBE600E0C328 /* MapKit.framework */,
-				0380DEB41A9F6595003D9248 /* CFNetwork.framework */,
 				035C4C131A9CB9440016BCE8 /* MobileCoreServices.framework */,
 				0380DEB61A9F659E003D9248 /* Security.framework */,
-				275899F9AE2B3E67C2AF6AFE /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

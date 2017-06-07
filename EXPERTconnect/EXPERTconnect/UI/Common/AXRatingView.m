@@ -3,7 +3,7 @@
 //
 
 #import "AXRatingView.h"
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
 
 @implementation AXRatingView
 

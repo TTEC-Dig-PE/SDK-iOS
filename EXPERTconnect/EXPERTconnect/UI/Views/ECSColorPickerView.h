@@ -26,7 +26,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
 #import <sys/time.h>
 #import "ECSColorUtil.h"
 #import "ECSColorPickerMacros.h"

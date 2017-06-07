@@ -54,6 +54,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "ECS_API_Tests/testGetChatHistory">
+               </Test>
+               <Test
                   Identifier = "ECS_API_Tests/testGetResponseFromEndpoint">
                </Test>
                <Test
