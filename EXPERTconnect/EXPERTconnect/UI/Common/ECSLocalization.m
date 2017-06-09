@@ -16,7 +16,11 @@ NSString* ECSLocalizedString(NSString *key, NSString *comment)
         string = [[NSBundle bundleWithIdentifier:@"com.humanify.EXPERTconnect"] localizedStringForKey:key
                                                                                                 value:nil
                                                                                                 table:nil];
-
+    }
+    if( !string )
+    {
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"com.humanify.EXPERTconnect" ofType:@"bundle"];
+        string = [[NSBundle bundleWithPath:bundlePath] localizedStringForKey:key value:nil table:nil];
     }
     
     return string;
