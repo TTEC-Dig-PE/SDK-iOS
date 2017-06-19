@@ -30,7 +30,7 @@
 "ECSLocalizeReachabilityErrorKey" = "No podemos conectarnos con la red de Humanify. Revise su conexión a Internet.";
 "ECSLocalizedChatViewPlaceholder" = "Escriba un mensaje";
 "ECSLocalizeWelcome" = "Bienvenidos";
-"ECSLocalizeWelcomeWithUsername" = "Bienvenido/a, %1@";
+"ECSLocalizeWelcomeWithUsername" = "Bienvenido, %1@";
 "ECSLocalizeGenericWaitTime" = "Se conectará con un agente en un momento. Permanezca en esta pantalla para conservar su lugar en la fila.";
 "ECSLocalizeWaitTimeShort" = "Se conectará con un agente en menos de 1 minuto. Permanezca en esta pantalla para conservar su lugar en la fila.";
 "ECSLocalizeWaitTime" = "Su tiempo de espera es de %1d minutos, aproximadamente. Permanezca en esta pantalla para conservar su lugar en la fila.";
