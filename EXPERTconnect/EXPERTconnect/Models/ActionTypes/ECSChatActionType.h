@@ -16,6 +16,19 @@
 // Agent Skill for chat
 @property (strong, nonatomic) NSString *agentSkill;
 
+// Subject content that will be visible to an associate (and reports)
+@property (strong, nonatomic) NSString *subject;
+
+// The source of the chat. Valid values: Web, Mobile, XMPP, SMS, Twitter, Facebook, Callback
+@property (strong, nonatomic) NSString *sourceType;
+
+// ‘chat’ or ‘voice’
+@property (strong, nonatomic) NSString *mediaType;
+
+// Location
+@property (strong, nonatomic) NSString *location;
+
+
 // Agent Survey after chat
 @property (assign, nonatomic) BOOL shouldTakeSurvey;
 
