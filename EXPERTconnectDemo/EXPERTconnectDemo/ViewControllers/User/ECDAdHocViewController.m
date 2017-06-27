@@ -24,8 +24,8 @@
 #import "ECDEnvironmentPicker.h"
 #import "ECDRunModePicker.h"
 #import "ECDLocalization.h"
-#import "ECDCalendarViewController.h"
-#import "ECDTextEditorViewController.h"
+//#import "ECDCalendarViewController.h"
+//#import "ECDTextEditorViewController.h"
 #import "ECDBeaconViewController.h"
 #import "ECDReportBugViewController.h"
 
@@ -1371,21 +1371,21 @@ ECSFormViewController *_formsController;
 	 [self.navigationController pushViewController:formsController animated:YES];
 }
 
--(void)handleAdHocShowCalendar
-{
-	 NSLog(@"Showing the ad-hoc Calendar");
-	 
-	 ECDCalendarViewController *calendar = [[ECDCalendarViewController alloc] initWithNibName:nil bundle:nil];
-	 [self.navigationController pushViewController:calendar animated:YES];
-}
-
--(void)handleAdHocShowTextEditor
-{
-	 NSLog(@"Showing the ad-hoc TextEditor");
-	 
-	 ECDTextEditorViewController *textEditor = [[ECDTextEditorViewController alloc] initWithNibName:nil bundle:nil];
-	 [self.navigationController pushViewController:textEditor animated:YES];
-}
+//-(void)handleAdHocShowCalendar
+//{
+//	 NSLog(@"Showing the ad-hoc Calendar");
+//	 
+//	 ECDCalendarViewController *calendar = [[ECDCalendarViewController alloc] initWithNibName:nil bundle:nil];
+//	 [self.navigationController pushViewController:calendar animated:YES];
+//}
+//
+//-(void)handleAdHocShowTextEditor
+//{
+//	 NSLog(@"Showing the ad-hoc TextEditor");
+//	 
+//	 ECDTextEditorViewController *textEditor = [[ECDTextEditorViewController alloc] initWithNibName:nil bundle:nil];
+//	 [self.navigationController pushViewController:textEditor animated:YES];
+//}
 
 -(void)handleAdHocShowLicense
 {
