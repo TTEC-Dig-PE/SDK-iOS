@@ -33,13 +33,13 @@
         self.typingIndicator.contentMode = UIViewContentModeScaleAspectFit;
         
         ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-        NSMutableArray *images = [[NSMutableArray alloc] initWithCapacity:12];
-        for (int i = 0; i < 12; i++)
+        NSMutableArray *images = [[NSMutableArray alloc] initWithCapacity:11];
+        for (int i = 0; i < 11; i++)
         {
             NSString *imageName = [NSString stringWithFormat:@"ecs_typingindicator_sequence_%04d", (i*10)];
             
             UIImage *image = [imageCache imageForPath:imageName];
-            [images addObject:image];
+            if(image) [images addObject:image];
         }
         self.typingIndicator.animationImages = images;
         self.typingIndicator.animationDuration = 1.5;   // With less images, this keeps the animation the same duration
