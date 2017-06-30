@@ -95,7 +95,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark Chat View Controller
 
-@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate>
+@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate, ECSFormViewDelegate>
 {
     BOOL        _userDragging;              // Used to hide the keyboard if user starts scrolling
     NSInteger   _agentTypingIndex;          // Index in the array of messages of where the (...) item is.
@@ -356,7 +356,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     if (self.presentedForm) {
         
         self.presentedForm = NO;
-        [self sendFormNotification];
+        //[self sendFormNotification];  // mas 7-jun-2017 This notification is type=interview which currently says "form completed" in ExD. This is regardless of whether user completed form. Disabling notification until ExD reports the right text, or another notification can be sent (such as "user started survey but cancelled").
     }
     
     if( self.waitView ) {
@@ -2129,6 +2129,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             ECSFormViewController *formController = [ECSFormViewController ecs_loadFromNib];
             
             formController.actionType = [message formActionType];
+            formController.delegate = self;
             
             self.presentedForm = YES;
             [self presentModal:formController withParentNavigationController:self.navigationController];
@@ -2680,6 +2681,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (ECSStompChatClient *)getChatClient {
     return self.chatClient;
+}
+
+#pragma mark ECSFormViewDelegate Functions
+
+- (void) ECSFormViewController:(ECSFormViewController *)formVC
+                 submittedForm:(ECSForm *)form
+                      withName:(NSString *)name
+                         error:(NSError *)error {
+    
+    [self sendFormNotification];
+    
 }
 
 @end

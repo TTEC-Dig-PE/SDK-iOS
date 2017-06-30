@@ -215,11 +215,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
     
     configuration.from = ( userManager.userToken ? userManager.userToken : @"Guest" );
-    configuration.subject = @"help";
-    configuration.sourceType = @"Mobile";
-    configuration.mediaType = @"Chat";
+    configuration.subject = chatAction.subject; 
+    configuration.sourceType = chatAction.sourceType;
+    configuration.mediaType = chatAction.mediaType;
     configuration.deviceId = userManager.deviceID;
-    configuration.location = @"Mobile";
+    configuration.location = chatAction.location; 
     configuration.priority = @1;
     
     NSString *url = nil;

@@ -17,6 +17,12 @@
     {
         self.type = ECSActionTypeChatString;
         _shouldTakeSurvey = YES;
+        
+        // The old default values.
+        self.subject = @"help";
+        self.location = @"mobile";
+        self.sourceType = @"Mobile";
+        self.mediaType = @"Chat";
     }
     
     return self;
@@ -28,6 +34,11 @@
     
     actionType.agentId = [self.agentId copyWithZone:zone];
     actionType.agentSkill = [self.agentSkill copyWithZone:zone];
+    actionType.subject = [self.subject copyWithZone:zone];
+    actionType.location = [self.location copyWithZone:zone];
+    actionType.sourceType = [self.sourceType copyWithZone:zone];
+    actionType.mediaType = [self.mediaType copyWithZone:zone];
+    
     actionType.shouldTakeSurvey = self.shouldTakeSurvey;
     
     return actionType;
@@ -39,7 +50,11 @@
     
     [mapping addEntriesFromDictionary:@{
                                         @"configuration.agentId": @"agentId",
-                                        @"configuration.agentSkill": @"agentSkill"
+                                        @"configuration.agentSkill": @"agentSkill",
+                                        @"configuration.subject": @"subject",
+                                        @"configuration.location": @"location",
+                                        @"configuration.sourceType": @"sourceType",
+                                        @"configuration.mediaType": @"mediaType"
                                         }];
     
     

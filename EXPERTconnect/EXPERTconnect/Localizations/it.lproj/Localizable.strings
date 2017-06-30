@@ -41,7 +41,7 @@
 "ECSLocalizeIdleMessageKey" = "Sei stato inattivo per %1d minuti";
 "ECSLocalizeContinueChattingKey" = "Vuoi continuare a chattare?";
 "ECSLocalizeInfoKey" = "Informazioni";
-"ECSLocalizeWarningKey" = "Avvertenza";
+"ECSLocalizeWarningKey" = "Avviso";
 "ECSLocalizeChatDisconnectPrompt" = "Uscire dalla chat?";
 "ECSLocalizeChatDisconnectPromptSurvey" = "Uscire dalla chat e continuare il sondaggio?";
 "ECSLocalizeYes" = "SÌ";
