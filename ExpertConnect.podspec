@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@humanify.com' }
   s.source = { :git => 'https://github.com/humanifydev/SDK-iOS.git', :tag => s.version }
 
-  s.platform         = :ios, '9.0'
+  s.platform         = :ios, '8.0'
   s.requires_arc = true
   s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS[config=Debug]' => '-D DEBUG' }
 
