@@ -12,12 +12,12 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS[config=Debug]' => '-D DEBUG' }
 
-  s.source_files = 'ExpertConnect/ExpertConnect/**/*.{m,h,mm,hpp,cpp,c}'
+  s.source_files = 'ExpertConnect/ExpertConnect/**/*.{m,h,mm,hpp,cpp,c,xib}'
 
   #s.resources = 'ExpertConnect/ExpertConnect/**/*.{xib,xcassets,json,imageset,png,lproj}'
 
   s.resource_bundles = {
-	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{xib,xcassets,json,imageset,png,lproj}']
+	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{xcassets,json,imageset,png,lproj}']
   }
 
   # Dependencies
