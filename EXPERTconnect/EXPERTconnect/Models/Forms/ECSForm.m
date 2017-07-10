@@ -22,7 +22,7 @@
              @"formData": @"formData",
              @"submitText": @"submitText",
              @"submitCompleteText": @"submitCompleteText",
-             @"submitCompleteHeaderText": @"submitCompleteHeaderText",
+             @"submitCompleteHeaderText": @"submitCompleteHeaderText"
              };
 }
 
@@ -43,7 +43,7 @@
     form.submitText = [self.submitText copyWithZone:zone];
     form.submitCompleteText = [self.submitCompleteText copyWithZone:zone];
     form.submitCompleteHeaderText = [self.submitCompleteHeaderText copyWithZone:zone];
-
+    
     return form;
 }
 

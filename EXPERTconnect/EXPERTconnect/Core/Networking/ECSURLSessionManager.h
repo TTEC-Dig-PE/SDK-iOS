@@ -76,6 +76,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (nonatomic, strong) ECSLog *logger;
 
+@property (nonatomic, strong) NSString *lastChannelId;
+
 // Current conversation
 @property (nonatomic, strong) ECSConversationCreateResponse *conversation;
 
