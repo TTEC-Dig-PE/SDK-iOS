@@ -841,6 +841,8 @@
 		C423524C1E70A8C2005F5BD9 /* ECSErrorBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSErrorBarView.h; path = EXPERTconnect/UI/Sections/Util/ECSErrorBarView.h; sourceTree = SOURCE_ROOT; };
 		C423524D1E70A8C2005F5BD9 /* ECSErrorBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSErrorBarView.m; path = EXPERTconnect/UI/Sections/Util/ECSErrorBarView.m; sourceTree = SOURCE_ROOT; };
 		C42352501E70A8DE005F5BD9 /* ECSErrorBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSErrorBarView.xib; path = EXPERTconnect/UI/Sections/Util/ECSErrorBarView.xib; sourceTree = SOURCE_ROOT; };
+		C42B043E1F13C6390072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C42B043F1F13C63E0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C444EFD11BD5AF3600E94AF3 /* ECSStartJourneyResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSStartJourneyResponse.h; path = Responses/ECSStartJourneyResponse.h; sourceTree = "<group>"; };
 		C444EFD21BD5AF3600E94AF3 /* ECSStartJourneyResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStartJourneyResponse.m; path = Responses/ECSStartJourneyResponse.m; sourceTree = "<group>"; };
 		C4450B851CFF07F600486215 /* ECS_API_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECS_API_Tests.m; sourceTree = "<group>"; };
@@ -1968,6 +1970,8 @@
 				"zh-Hans",
 				"es-ES",
 				it,
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2301,6 +2305,8 @@
 				C49206131D4FB68800B38C97 /* zh-Hans */,
 				C47A15241E9441CC005E19DB /* es-ES */,
 				C47A15251E94437D005E19DB /* it */,
+				C42B043E1F13C6390072DE92 /* pt-BR */,
+				C42B043F1F13C63E0072DE92 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect/Localizations;
