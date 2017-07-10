@@ -261,6 +261,10 @@
 		C1DBB4FA1BE88F8F00A61B61 /* ECDWorkflowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowViewController.h; sourceTree = "<group>"; };
 		C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowViewController.m; sourceTree = "<group>"; };
 		C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowViewController.xib; sourceTree = "<group>"; };
+		C42B04401F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C42B04411F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C42B04421F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C42B04431F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
@@ -812,6 +816,8 @@
 				"zh-Hans",
 				it,
 				"es-ES",
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -976,6 +982,8 @@
 				C49206121D4FB66200B38C97 /* zh-Hans */,
 				C47A15261E944984005E19DB /* it */,
 				C47A15271E944992005E19DB /* es-ES */,
+				C42B04411F13C7350072DE92 /* pt-BR */,
+				C42B04431F13C73A0072DE92 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -988,6 +996,8 @@
 				0368D7771B3AEACF00985673 /* fr */,
 				46004D521B5D60F900E78A83 /* es */,
 				C49206111D4FB66200B38C97 /* zh-Hans */,
+				C42B04401F13C7350072DE92 /* pt-BR */,
+				C42B04421F13C73A0072DE92 /* pt-PT */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
