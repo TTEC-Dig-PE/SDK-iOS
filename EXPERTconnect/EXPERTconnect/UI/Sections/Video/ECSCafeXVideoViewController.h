@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ECSRootViewController.h"
 #if !(TARGET_IPHONE_SIMULATOR)
-#import <ACBClientSDK/ACBUC.h>
+//#import <ACBClientSDK/ACBUC.h>
 #endif
 
 @protocol CafeXVideoViewDelegate <NSObject>
