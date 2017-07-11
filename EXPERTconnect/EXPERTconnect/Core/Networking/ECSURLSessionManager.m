@@ -85,6 +85,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @synthesize pushNotificationID;
 @synthesize localLocale;
 @synthesize journeyManagerContext;
+@synthesize lastChannelId;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -633,8 +634,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         completion(nil, [self errorWithReason:@"Missing required parameter 'form'" code:ECS_ERROR_MISSING_PARAM]);
         return nil; 
     }
+    
+    NSMutableDictionary *formParameters = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
+    
+    if( self.lastChannelId ) {
+        [formParameters setObject:self.lastChannelId forKey:@"channelId"];
+    }
+    
+    ECSLogVerbose(self.logger,@"Submit form1 %@", formParameters);
+    
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
-           parameters:[ECSJSONSerializer jsonDictionaryFromObject:form]
+           parameters:formParameters
               success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }
@@ -645,7 +655,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                    navigationContext:(NSString*)navigationContext
                       withCompletion:(void (^)(ECSFormSubmitResponse *response, NSError *error))completion
 {
-    NSMutableDictionary *formWithIntentAndNavContext = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
+    NSMutableDictionary *formParameters = [[ECSJSONSerializer jsonDictionaryFromObject:form] mutableCopy];
     
     // kwashington: Moving away from Navigation and navigationContext, so check for null
     //
@@ -653,13 +663,17 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         return [self submitForm:form completion:completion];
     }
     
-    [formWithIntentAndNavContext setObject:@"intent" forKey:intent];
-    [formWithIntentAndNavContext setObject:@"navigationContext" forKey:navigationContext];
+    [formParameters setObject:@"intent" forKey:intent];
+    [formParameters setObject:@"navigationContext" forKey:navigationContext];
 
-    ECSLogVerbose(self.logger,@"Submit form %@", formWithIntentAndNavContext);
+    if( self.lastChannelId ) {
+        [formParameters setObject:self.lastChannelId forKey:@"channelId"];
+    }
+    
+    ECSLogVerbose(self.logger,@"Submit form2 %@", formParameters);
     
     return [self POST:[NSString stringWithFormat:@"forms/v1/%@", form.name]
-           parameters:formWithIntentAndNavContext
+           parameters:formParameters
               success:[self successWithExpectedType:[ECSFormSubmitResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
 }

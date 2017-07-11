@@ -246,6 +246,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                 
                 weakSelf.currentChannelId = [response.channelId copy];
                 weakSelf.channel = response;
+                
+                // Copy the channelID into the URLSession
+                ECSURLSessionManager *urlSession2 = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+                urlSession2.lastChannelId = weakSelf.currentChannelId;
+                
                 [weakSelf setMessagingChannelConfiguration:response];
             }
             else if (!(error.code == NSURLErrorCancelled))
