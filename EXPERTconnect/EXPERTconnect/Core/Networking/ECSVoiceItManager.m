@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ECSVoiceItManager.h"
 
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
 #import "ECSVoiceItNetHelper.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "NSBundle+ECSBundle.h"

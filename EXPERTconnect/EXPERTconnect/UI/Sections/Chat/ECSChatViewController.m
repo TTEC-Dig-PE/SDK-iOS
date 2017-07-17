@@ -2516,7 +2516,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
     if(!displayName) displayName = @"";
     
-    cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join"), displayName];
+    NSString *chatJoin = ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join");
+    if( chatJoin ) {
+        chatJoin = [NSString stringWithFormat:chatJoin, displayName];
+    } else {
+        chatJoin = @"Chat Join"; // Default text in case of critical failure to find localizations.
+    }
+    cell.chatTextLabel.text = chatJoin;
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
@@ -2530,7 +2536,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
     if(!displayName) displayName = @"";
     
-    cell.chatTextLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeChatLeave, @"Chat Leave"), displayName];
+    NSString *chatLeave = ECSLocalizedString(ECSLocalizeChatLeave, @"Chat Leave");
+    if( chatLeave ) {
+        chatLeave = [NSString stringWithFormat:chatLeave, displayName];
+    } else {
+        chatLeave = @"Chat Leave"; // Default text in case of critical failure to find localizations.
+    }
+    cell.chatTextLabel.text = chatLeave;
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell

@@ -64,9 +64,6 @@
 		C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */; };
 		C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */; };
 		C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */; };
-		C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */; };
-		C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */; };
-		C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */; };
 		C44B72701E7ADBD800DF1FEA /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */; };
 		C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */; };
 		C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */; };
@@ -264,11 +261,10 @@
 		C1DBB4FA1BE88F8F00A61B61 /* ECDWorkflowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowViewController.h; sourceTree = "<group>"; };
 		C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowViewController.m; sourceTree = "<group>"; };
 		C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowViewController.xib; sourceTree = "<group>"; };
-		C1E0E6321BC409ED0089C7E6 /* ECDCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDCalendarViewController.h; sourceTree = "<group>"; };
-		C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDCalendarViewController.m; sourceTree = "<group>"; };
-		C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDCalendarViewController.xib; sourceTree = "<group>"; };
-		C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDTextEditorViewController.h; sourceTree = "<group>"; };
-		C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDTextEditorViewController.m; sourceTree = "<group>"; };
+		C42B04401F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C42B04411F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C42B04421F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C42B04431F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDSimpleChatViewController.h; path = Proof_of_Concept/ECDSimpleChatViewController.h; sourceTree = "<group>"; };
@@ -490,11 +486,6 @@
 				462E1DF41B7BD52B00AFC62D /* ECDAPIConfigViewController.h */,
 				462E1DF21B7BD52000AFC62D /* ECDAPIConfigViewController.m */,
 				462E1DF01B7BD50800AFC62D /* ECDAPIConfigViewController.xib */,
-				C1E0E6321BC409ED0089C7E6 /* ECDCalendarViewController.h */,
-				C1E0E6331BC409ED0089C7E6 /* ECDCalendarViewController.m */,
-				C1E0E6341BC409ED0089C7E6 /* ECDCalendarViewController.xib */,
-				C1E99D051BC7C7A6000EC129 /* ECDTextEditorViewController.h */,
-				C1E99D061BC7C7A6000EC129 /* ECDTextEditorViewController.m */,
 				C1D2E4FF1C185BC300678FB5 /* ECDCustomizeThemeViewController.h */,
 				C1D2E5001C185BC300678FB5 /* ECDCustomizeThemeViewController.m */,
 				C1D2E5011C185BC300678FB5 /* ECDCustomizeThemeViewController.xib */,
@@ -825,6 +816,8 @@
 				"zh-Hans",
 				it,
 				"es-ES",
+				"pt-BR",
+				"pt-PT",
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -888,7 +881,6 @@
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
-				C1E0E6361BC409ED0089C7E6 /* ECDCalendarViewController.xib in Resources */,
 				C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,
 				466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */,
@@ -931,12 +923,10 @@
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
 				D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
-				C1E0E6351BC409ED0089C7E6 /* ECDCalendarViewController.m in Sources */,
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
 				033ACB591A602CC00024F48F /* ECDMainMenuTableViewCell.m in Sources */,
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
-				C1E99D071BC7C7A6000EC129 /* ECDTextEditorViewController.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
@@ -992,6 +982,8 @@
 				C49206121D4FB66200B38C97 /* zh-Hans */,
 				C47A15261E944984005E19DB /* it */,
 				C47A15271E944992005E19DB /* es-ES */,
+				C42B04411F13C7350072DE92 /* pt-BR */,
+				C42B04431F13C73A0072DE92 /* pt-PT */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -1004,6 +996,8 @@
 				0368D7771B3AEACF00985673 /* fr */,
 				46004D521B5D60F900E78A83 /* es */,
 				C49206111D4FB66200B38C97 /* zh-Hans */,
+				C42B04401F13C7350072DE92 /* pt-BR */,
+				C42B04421F13C73A0072DE92 /* pt-PT */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
