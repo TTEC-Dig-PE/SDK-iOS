@@ -9,7 +9,9 @@
 
 #import "ECSChannelStateMessage.h"
 #import "ECSChatStateMessage.h"
+#import "ECSChannelStateMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
+#import "ECSStompClient.h"
 
 @class ECSActionType;
 @class ECSChatAddChannelMessage;
@@ -21,6 +23,7 @@
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
 @class ECSLog;
+
 /**
  Defines callback messages used by a chat client
  */
@@ -61,6 +64,9 @@
  @param stompClient the chat client that had an agent disconnect
  */
 - (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful;
+//__attribute__((deprecated("Use chatClientDisconnected:withReason:")));
+
+- (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message;
 
 /**
  Called when the estimated wait time is updated.

@@ -363,12 +363,17 @@
     [_cancelCallback displayInProgressCallBack];
 }
 
-- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient wasGraceful:(bool)graceful
-{
+//- (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient wasGraceful:(bool)graceful
+- (void)chatClient:(ECSStompCallbackClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
+    
+    ECSLogVerbose(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
+                  message.disconnectReasonString,
+                  message.terminatedByString);
+    
     if (_callbackClient != nil) {
         [_callbackClient disconnect];
     }
-    NSLog(@"Chat client was disconnected.");
+    
     [_cancelCallback dismissviewAndNotify:YES reason:@"CallCompleted"];
 }
 
