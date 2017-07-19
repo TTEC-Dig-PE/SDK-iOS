@@ -6,7 +6,7 @@
 //
 
 #import "ECSImageCache.h"
-
+#import "EXPERTconnect.h"
 #import "ECSUtilities.h"
 
 NSString *const ECSImageCacheImageDownloadedNotification = @"ECSImageCacheImageDownloadedNotification";
@@ -39,6 +39,15 @@ NSString *const ECSImageDownloadFailedMessageKey = @"ECSImageDownloadFailedMessa
             if (!image)
             {
                 image = [UIImage imageNamed:path inBundle:[NSBundle bundleForClass:[ECSImageCache class]] compatibleWithTraitCollection:nil];
+            }
+            
+            // Cocoapods
+            if (!image) {
+                NSBundle *bundle = [NSBundle bundleForClass:[EXPERTconnect class]];
+                NSURL *bundleURL = [[bundle resourceURL] URLByAppendingPathComponent:@"EXPERTconnect.bundle"];
+                NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+                
+                image = [UIImage imageNamed:path inBundle:resourceBundle compatibleWithTraitCollection:nil];
             }
         }
     }
