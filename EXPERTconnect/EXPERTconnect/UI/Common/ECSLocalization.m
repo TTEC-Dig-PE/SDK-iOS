@@ -23,8 +23,13 @@ NSString* ECSLocalizedString(NSString *key, NSString *comment) {
     if( !string || [string isEqualToString:key]) {
         
         //NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"EXPERTconnect" ofType:@"bundle"];
-        NSBundle *ecBundle = [NSBundle bundleForClass:[EXPERTconnect class]];
-        string = [ecBundle localizedStringForKey:key value:nil table:nil];
+//        NSBundle *ecBundle = [NSBundle bundleForClass:[EXPERTconnect class]];
+//        string = [ecBundle localizedStringForKey:key value:nil table:nil];
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[EXPERTconnect class]];
+        NSURL *bundleURL = [[bundle resourceURL] URLByAppendingPathComponent:@"EXPERTconnect.bundle"];
+        NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+        string = [resourceBundle localizedStringForKey:key value:nil table:nil];
     }
     
     
