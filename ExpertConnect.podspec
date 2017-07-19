@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version = '6.1.0'
   s.license = 'MIT'
   s.summary = 'Humanify customer service native SDK'
-  s.homepage = 'https://github.com/humanifydev/SDK-iOS'
+  s.homepage = 'http://www.teletech.com/'
   s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@humanify.com' }
   s.source = { :git => 'https://github.com/humanifydev/SDK-iOS.git', :tag => s.version }
 
