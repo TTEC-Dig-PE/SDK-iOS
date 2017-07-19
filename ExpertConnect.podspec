@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = 'ExpertConnect'
   s.version = '6.1.0'
-  s.license = 'MIT'
+  s.license = { :type => 'MIT', :file => 'license' }
   s.summary = 'Humanify customer service native SDK'
   s.homepage = 'http://www.teletech.com/'
   s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@humanify.com' }
