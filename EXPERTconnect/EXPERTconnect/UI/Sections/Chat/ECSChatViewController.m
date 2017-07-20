@@ -927,9 +927,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.chatToolbar initializeSendState];
 }
 
-- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
-{
-    ECSLogVerbose(self.logger, @"Stomp disconnect notification. Graceful? %d", graceful);
+//- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
+- (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
+    
+    ECSLogVerbose(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
+                  message.disconnectReasonString,
+                  message.terminatedByString);
     
     self.chatToolbar.sendEnabled = NO;
     
@@ -937,7 +940,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
         // Network was down, so this disconnect message came locally. The red network error bar is shown. Do nothing.
         
-    } else if ( !graceful ) {
+    } else if ( message.disconnectReason == ECSDisconnectReasonError ) {
         
         // Some kind of Stomp error or the heartbeat has failed enough that we think we lost connection to the server.
         self.chatToolbar.sendEnabled = NO;
@@ -955,10 +958,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             
         } else {
             
-            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-            if ([cafeXController hasCafeXSession]) {
-                [cafeXController endCoBrowse];
-            }
+//            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//            if ([cafeXController hasCafeXSession]) {
+//                [cafeXController endCoBrowse];
+//            }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification object:self];
             

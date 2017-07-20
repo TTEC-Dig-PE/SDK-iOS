@@ -50,6 +50,9 @@
  @param stompClient the chat client that had an agent disconnect
  */
 - (void)chatClientDisconnected:(ECSStompCallbackClient *)stompClient wasGraceful:(bool)graceful;
+//__attribute__((deprecated("Use chatClientDisconnected:withReason:")));
+
+- (void)chatClient:(ECSStompCallbackClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message;
 
 /**
  Called when a chat client fails to connect to the chat server.

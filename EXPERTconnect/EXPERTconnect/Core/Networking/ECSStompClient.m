@@ -668,11 +668,6 @@ bool        _isConnecting;
     }
     else
     {
-//        // Let delegates know that we disconnected.
-//        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
-//        {
-//            [self.delegate stompClientDidDisconnect:self];
-//        }
         ECSLogVerbose(self.logger, @"No more heartbeats because Stomp found disconnected.");
     }
 }
