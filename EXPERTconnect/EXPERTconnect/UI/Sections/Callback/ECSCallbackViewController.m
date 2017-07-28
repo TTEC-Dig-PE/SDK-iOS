@@ -141,8 +141,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)requestCallTapped:(id)sender
-{
+- (IBAction)requestCallTapped:(id)sender {
+    
+    NSString *channelType;
+    __weak typeof(self) weakSelf = self;
+    
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [self.requestCallButton setTitle:ECSLocalizedString(ECSLocalizeProcessingButton, @"Processing...")
@@ -151,41 +154,49 @@
     self.requestCallButton.enabled = NO;
     self.callbackTextField.enabled = NO;
     
-    __weak typeof(self) weakSelf = self;
-    
-    if ([self.actionType isKindOfClass:[ECSCallbackActionType class]])
-    {
-        [sessionManager startConversationForAction:self.actionType
-                                    andAlwaysCreate:YES
-                                     withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                         if(!conversation || error) {
-                                             [self handleGenericError:error];
-                                         } else {
-                                             [weakSelf setupChannelOfType:@"Callback"
-                                                         withConversation:conversation
-                                                               completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
-                                                                   [weakSelf handleCallbackRepsonse:setupResponse withError:error];
-                                                               }];
-                                         }
-                                     }];
+    if ([self.actionType isKindOfClass:[ECSCallbackActionType class]]) {
+        
+        channelType = @"Callback";
+        
+    } else if ([self.actionType isKindOfClass:[ECSSMSActionType class]]) {
+        
+        channelType = @"SMS";
+        
     }
-    else if ([self.actionType isKindOfClass:[ECSSMSActionType class]])
-    {
-        [sessionManager startConversationForAction:self.actionType
+    
+    // Start a conversation (either callback or SMS)
+    [sessionManager startConversationForAction:self.actionType
                                 andAlwaysCreate:YES
-                                     withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error) {
-                                         if(!conversation || error) {
-                                             [self handleGenericError:error];
-                                         } else {
-                                             [weakSelf setupChannelOfType:@"SMS"
-                                                         withConversation:conversation
-                                                               completion:^(ECSChannelCreateResponse *setupResponse, NSError *error) {
-                                                                   [weakSelf handleCallbackRepsonse:setupResponse withError:error];
-                                                               }];
-                                         }
-                                     }];
+                                 withCompletion:^(ECSConversationCreateResponse *conversation, NSError *error)
+    {
+        
+         if(conversation || !error) {
+             
+             // Setup the channel.
+             [weakSelf setupChannelOfType:channelType
+                         withConversation:conversation
+                               completion:^(ECSChannelCreateResponse *setupResponse, NSError *error)
+             {
+                 
+                 if (weakSelf.callbackClient && setupResponse) {
+                     weakSelf.callbackClient.currentChannelId = setupResponse.channelId;
+                     weakSelf.callbackClient.channel = setupResponse;
+                     [weakSelf.callbackClient setMessagingChannelConfiguration:setupResponse];
+                     
+                     // Populate the channelID for "post-callback survey" use. 
+                     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+                     sessionManager.lastChannelId = setupResponse.channelId;
+                    
+                     [weakSelf handleCallbackRepsonse:setupResponse withError:error];
+                 }
+              }];
+             
+         } else {
+             
+             [self handleGenericError:error];
+         }
+     }];
 
-      }
 }
 
 - (void)setupChannelOfType:(NSString*)channelType
@@ -254,13 +265,13 @@
     }
 }
 
-- (void)handleCallbackRepsonse:(ECSChannelCreateResponse*)response withError:(NSError*)error
-{
-    if (_callbackClient != nil) {
-        _callbackClient.currentChannelId = [response.channelId copy];
-        _callbackClient.channel = response;
-        [_callbackClient setMessagingChannelConfiguration:response];
-    }
+- (void)handleCallbackRepsonse:(ECSChannelCreateResponse*)response withError:(NSError*)error {
+    
+//    if (_callbackClient != nil) {
+//        _callbackClient.currentChannelId = [response.channelId copy];
+//        _callbackClient.channel = response;
+//        [_callbackClient setMessagingChannelConfiguration:response];
+//    }
     
     if (self.skipConfirmationView)
     {

@@ -1127,18 +1127,23 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSString *path = [NSString stringWithFormat:@"utils/v1/media/files"];
     
-    ECSLogVerbose(self.logger,@"Upload file named %@", name);
+    ECSLogVerbose(self.logger,@"Requesting media file: %@", name);
     
     NSURL *url = [self URLByAppendingPathComponent:path];
-    NSURLRequest *request = [self requestWithMethod:@"GET" URL:url parameters:@{@"name": name} error:nil];
+    
+    NSURLRequest *request = [self requestWithMethod:@"GET"
+                                                URL:url
+                                         parameters:@{@"name": name}
+                                              error:nil];
    
     return request;
 }
 
 // Unit Test: ECS_API_Tests::testGetMediaFileNames
-- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
-{
-    ECSLogVerbose(self.logger,@"Get Media File names");
+- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion {
+    
+    ECSLogVerbose(self.logger, @"Get Media File names");
+    
     return [self GET:@"utils/v1/media"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
