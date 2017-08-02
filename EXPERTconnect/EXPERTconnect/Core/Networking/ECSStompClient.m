@@ -98,6 +98,7 @@ bool        _isConnecting;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     [self.subscribers removeAllObjects];
 }
 
