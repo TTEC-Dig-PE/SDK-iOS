@@ -474,8 +474,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
 }
 
-- (void)stompClientDidConnect:(ECSStompClient *)stompClient
-{
+- (void)stompClientDidConnect:(ECSStompClient *)stompClient {
+    
+    ECSLogVerbose(self.logger, @"connection detected.");
+    
     if (self.isReconnecting)
     {
         // kwashington 09/25/2015 - With the new MQ Server in place, this unsubscribe was unsubscribing on

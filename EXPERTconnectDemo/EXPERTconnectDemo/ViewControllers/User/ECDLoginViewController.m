@@ -101,7 +101,7 @@
 
 /*
         ECSURLSessionManager* sessionManager = [[EXPERTconnect shared] urlSession];
-        [[EXPERTconnect shared] setUserName:self.emailAddressField.text];
+        //[[EXPERTconnect shared] setUserName:self.emailAddressField.text];
         
         [sessionManager getFormByName:@"userprofile" withCompletion:^(ECSForm *form, NSError *error) {
             if (form && form.formData)
@@ -131,7 +131,7 @@
         AppConfig *myAppConfig = [AppConfig sharedAppConfig];
         
         //myAppConfig.userName = weakSelf.emailAddressField.text;
-        [[EXPERTconnect shared] setUserName:weakSelf.emailAddressField.text];
+        //[[EXPERTconnect shared] setUserName:weakSelf.emailAddressField.text];
         
         [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
          {
@@ -190,7 +190,7 @@
                                                                      preferredStyle:UIAlertControllerStyleAlert];
         [loginAlert addAction:[UIAlertAction actionWithTitle:ok_label
                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                           [[EXPERTconnect shared] setUserName:nil];
+                                                           //[[EXPERTconnect shared] setUserName:nil];
                                                        }]];
         [self presentViewController:loginAlert animated:YES completion:nil];
     }];

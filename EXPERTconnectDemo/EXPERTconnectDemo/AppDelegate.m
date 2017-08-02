@@ -65,7 +65,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
                                                   forKey:ECDFirstRunComplete];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [[EXPERTconnect shared] setUserName:nil];
+        //[[EXPERTconnect shared] setUserName:nil];
     }
     
     [self setApplicationDefaults]; 
