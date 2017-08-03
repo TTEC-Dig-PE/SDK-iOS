@@ -190,7 +190,7 @@
                                                                      preferredStyle:UIAlertControllerStyleAlert];
         [loginAlert addAction:[UIAlertAction actionWithTitle:ok_label
                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                           //[[EXPERTconnect shared] setUserName:nil];
+                                                           [[EXPERTconnect shared] setUserName:nil];
                                                        }]];
         [self presentViewController:loginAlert animated:YES completion:nil];
     }];

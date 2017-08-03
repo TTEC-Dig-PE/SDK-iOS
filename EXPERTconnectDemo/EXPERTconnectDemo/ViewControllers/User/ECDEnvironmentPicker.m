@@ -67,8 +67,6 @@ static NSString *const environmentNameKey = @"environmentName";
     NSString *env = [self.environmentsArray objectAtIndex:row];
     [[NSUserDefaults standardUserDefaults] setObject:env forKey:environmentNameKey];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EnvironmentPickerChanged" object:nil];
-    
     NSLog(@"Test Harness::Env Picker - User selected %@ (URL=%@)", self.environmentsArray[row], self.serverUrlsArray[row]);
     
     // This will set host and reconfigure the session.

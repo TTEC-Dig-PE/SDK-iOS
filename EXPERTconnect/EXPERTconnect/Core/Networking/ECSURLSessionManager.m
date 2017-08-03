@@ -1538,25 +1538,31 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // This version of the function uses the new identity delegate method.
 - (void)authenticateAPIAndContinueCallWithRequest2:(NSURLRequest *)request
                                                          success:(ECSSessionManagerSuccess)success
-                                                         failure:(ECSSessionManagerFailure)failure
-{
+                                                         failure:(ECSSessionManagerFailure)failure {
+    
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Attempting to re-authenticate...");
+    ECSLogVerbose(self.logger, @"Attempting to re-authenticate...");
     
-    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
-    {
-        if (!error && authToken)
-        {
-            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication successful.");
+    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error) {
+        
+        if (!error && authToken) {
+        
+            ECSLogVerbose(self.logger, @"Re-Authentication successful.");
+            
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
+            
             [self setCommonHTTPHeadersForRequest:mutableRequest];
-            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
+            
+            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest
+                                                allowAuthorization:NO
+                                                           success:success
+                                                           failure:failure];
             [task resume];
-        }
-        else
-        {
-            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication failed.");
+            
+        } else {
+            
+            ECSLogVerbose(self.logger, @"Re-Authentication failed.");
             failure(nil, nil, error);
         }
     }];
