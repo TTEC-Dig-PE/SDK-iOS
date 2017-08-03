@@ -36,7 +36,7 @@ static NSString* const ECSUserAvatarKey = @"com.humanify.userAvatar";
         }
         
         _deviceID = self.keychain.deviceId;
-        _userToken = self.keychain.userToken;
+        if( self.keychain.userToken) _userToken = self.keychain.userToken;
     }
     
     return self;
@@ -53,7 +53,7 @@ static NSString* const ECSUserAvatarKey = @"com.humanify.userAvatar";
 
 - (NSString *)userToken
 {
-    if (!_userToken)
+    if (!_userToken && self.keychain.userToken)
     {
         _userToken = self.keychain.userToken;
     }

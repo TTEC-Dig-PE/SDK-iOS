@@ -474,8 +474,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
 }
 
-- (void)stompClientDidConnect:(ECSStompClient *)stompClient
-{
+- (void)stompClientDidConnect:(ECSStompClient *)stompClient {
+    
+    ECSLogVerbose(self.logger, @"connection detected.");
+    
     if (self.isReconnecting)
     {
         // kwashington 09/25/2015 - With the new MQ Server in place, this unsubscribe was unsubscribing on
@@ -502,9 +504,18 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 // Something bad happened...
 -(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
 
-    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+        
         [self.delegate chatClientDisconnected:self wasGraceful:NO];
+    }
+    
+    if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
+        
+        ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
+        message.state = @"disconnected";
+        message.terminatedByString = @"error";
+        message.disconnectReasonString = @"error";
+        [self.delegate chatClient:self disconnectedWithMessage:message];
     }
 }
 
@@ -704,19 +715,22 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         
         // NK 6/24 check for a voice callback channel
         if ((message.channelState == ECSChannelStateConnected) &&
-            ![message.channelId isEqualToString:self.currentChannelId] &&
-            [self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)])
-        {
-            [self.delegate voiceCallbackDidAnswer:self];
-        }
-        
-        // Check to make sure that the disconnect is based on the chat channel and not another channel
-        // before calling disconnect.
-        else if ((message.channelState == ECSChannelStateDisconnected) &&
-                 [message.channelId isEqualToString:self.currentChannelId] &&
-                 [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)])
-        {
-            [self.delegate chatClientDisconnected:self wasGraceful:YES];
+            ![message.channelId isEqualToString:self.currentChannelId] ) {
+            
+            if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
+                [self.delegate voiceCallbackDidAnswer:self];
+            }
+        } else if ((message.channelState == ECSChannelStateDisconnected) &&
+                 [message.channelId isEqualToString:self.currentChannelId]) {
+            
+            // First check for the older, deprecated function
+            if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+                [self.delegate chatClientDisconnected:self wasGraceful:YES];
+            }
+            
+            if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
+                [self.delegate chatClient:self disconnectedWithMessage:message]; 
+            }
         }
     }
     else

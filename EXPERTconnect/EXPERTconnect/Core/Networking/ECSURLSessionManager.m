@@ -1127,18 +1127,23 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     NSString *path = [NSString stringWithFormat:@"utils/v1/media/files"];
     
-    ECSLogVerbose(self.logger,@"Upload file named %@", name);
+    ECSLogVerbose(self.logger,@"Requesting media file: %@", name);
     
     NSURL *url = [self URLByAppendingPathComponent:path];
-    NSURLRequest *request = [self requestWithMethod:@"GET" URL:url parameters:@{@"name": name} error:nil];
+    
+    NSURLRequest *request = [self requestWithMethod:@"GET"
+                                                URL:url
+                                         parameters:@{@"name": name}
+                                              error:nil];
    
     return request;
 }
 
 // Unit Test: ECS_API_Tests::testGetMediaFileNames
-- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion;
-{
-    ECSLogVerbose(self.logger,@"Get Media File names");
+- (NSURLSessionDataTask *)getMediaFileNamesWithCompletion:(void (^)(NSArray *, NSError *))completion {
+    
+    ECSLogVerbose(self.logger, @"Get Media File names");
+    
     return [self GET:@"utils/v1/media"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
@@ -1533,25 +1538,31 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // This version of the function uses the new identity delegate method.
 - (void)authenticateAPIAndContinueCallWithRequest2:(NSURLRequest *)request
                                                          success:(ECSSessionManagerSuccess)success
-                                                         failure:(ECSSessionManagerFailure)failure
-{
+                                                         failure:(ECSSessionManagerFailure)failure {
+    
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Attempting to re-authenticate...");
+    ECSLogVerbose(self.logger, @"Attempting to re-authenticate...");
     
-    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error)
-    {
-        if (!error && authToken)
-        {
-            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication successful.");
+    [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error) {
+        
+        if (!error && authToken) {
+        
+            ECSLogVerbose(self.logger, @"Re-Authentication successful.");
+            
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
+            
             [self setCommonHTTPHeadersForRequest:mutableRequest];
-            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
+            
+            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest
+                                                allowAuthorization:NO
+                                                           success:success
+                                                           failure:failure];
             [task resume];
-        }
-        else
-        {
-            ECSLogVerbose(self.logger,@"SessionManager::Reauthenticate - Authentication failed.");
+            
+        } else {
+            
+            ECSLogVerbose(self.logger, @"Re-Authentication failed.");
             failure(nil, nil, error);
         }
     }];

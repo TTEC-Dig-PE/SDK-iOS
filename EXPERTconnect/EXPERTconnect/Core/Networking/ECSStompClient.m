@@ -98,15 +98,17 @@ bool        _isConnecting;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     [self.subscribers removeAllObjects];
 }
 
 - (void)connectToHost:(NSString*)host {
     
-    if( _isConnecting ) {
-        ECSLogError(self.logger, @"Connection in progress. Blocking additional attempt.");
+    if( _isConnecting && !self.connected ) {
+        ECSLogError(self.logger, @"Connection in progress or already successful. Blocking additional attempt.");
         return;
     }
+    _isConnecting = YES;
     
     self.hostURL = [NSURL URLWithString:host];
     NSURL *url = self.hostURL;
@@ -128,7 +130,6 @@ bool        _isConnecting;
     self.webSocket.delegate = self;
     [self.webSocket open];
     
-    _isConnecting = YES;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     
@@ -164,10 +165,10 @@ bool        _isConnecting;
     }
 }
 
-- (void)reconnect
-{
-    if (self.hostURL)
-    {
+- (void)reconnect {
+    
+    if ( self.hostURL ) {
+        
         ECSLogVerbose(self.logger, @"Reconnecting STOMP WebSocket. Host=%@", self.hostURL);
         [self connectToHost:[self.hostURL absoluteString]];
     }
@@ -384,11 +385,12 @@ bool        _isConnecting;
 - (void)webSocket:(ECSWebSocket *)webSocket didFailWithError:(NSError *)error {
     
     ECSLogError(self.logger, @"WebSocket error=%@", error);
-    _isConnecting = NO;
+//    _isConnecting = NO;
     
     if (error.code == 57) { // "Socket is not connected."
         
-        [self reconnect];
+        // Attempt a reconnect after 5 seconds.
+        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
         
     } else {
         
@@ -668,11 +670,6 @@ bool        _isConnecting;
     }
     else
     {
-//        // Let delegates know that we disconnected.
-//        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
-//        {
-//            [self.delegate stompClientDidDisconnect:self];
-//        }
         ECSLogVerbose(self.logger, @"No more heartbeats because Stomp found disconnected.");
     }
 }
