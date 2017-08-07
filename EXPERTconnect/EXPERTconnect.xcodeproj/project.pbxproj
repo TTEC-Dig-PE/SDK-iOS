@@ -415,6 +415,8 @@
 		C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */; };
 		C49ABBA31CF8A587008D3401 /* AXRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABBA11CF8A587008D3401 /* AXRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49ABBA41CF8A587008D3401 /* AXRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABBA21CF8A587008D3401 /* AXRatingView.m */; };
+		C4BE82011F38BBA800ED290B /* SessionTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BE81FF1F38BBA800ED290B /* SessionTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4BE82021F38BBA800ED290B /* SessionTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -880,6 +882,8 @@
 		C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChannelTimeoutWarningMessage.m; path = Chat/ECSChannelTimeoutWarningMessage.m; sourceTree = "<group>"; };
 		C49ABBA11CF8A587008D3401 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Common/AXRatingView.h; sourceTree = "<group>"; };
 		C49ABBA21CF8A587008D3401 /* AXRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXRatingView.m; path = Common/AXRatingView.m; sourceTree = "<group>"; };
+		C4BE81FF1F38BBA800ED290B /* SessionTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionTaskQueue.h; path = Core/Networking/SessionTaskQueue.h; sourceTree = "<group>"; };
+		C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionTaskQueue.m; path = Core/Networking/SessionTaskQueue.m; sourceTree = "<group>"; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
@@ -1170,6 +1174,8 @@
 				D890F7481B95032A00B75692 /* ECSVoiceItManager.m */,
 				D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */,
 				D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */,
+				C4BE81FF1F38BBA800ED290B /* SessionTaskQueue.h */,
+				C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -1713,6 +1719,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BE82011F38BBA800ED290B /* SessionTaskQueue.h in Headers */,
 				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
 				C44B72211E770A3900DF1FEA /* ECSErrorDefinitions.h in Headers */,
 				0342AFE11A9B60950009959E /* ECSChatViewController.h in Headers */,
@@ -2243,6 +2250,7 @@
 				0342AFBB1A9B60840009959E /* ECSCallbackViewController.m in Sources */,
 				0342B0251A9B60AE0009959E /* ECSRatingFormItemViewController.m in Sources */,
 				03F0BD211A6F622200E90E7F /* ECSLog.m in Sources */,
+				C4BE82021F38BBA800ED290B /* SessionTaskQueue.m in Sources */,
 				030F77C01A77F62B006BD8B1 /* ECSUserManager.m in Sources */,
 				0342B0501A9B60C10009959E /* ECSDynamicViewController.m in Sources */,
 				033ACB2D1A602C9C0024F48F /* ECSJSONSerializer.m in Sources */,

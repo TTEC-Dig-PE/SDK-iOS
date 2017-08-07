@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ECSAuthenticationToken.h"
 #import "ECSBreadcrumb.h"
+#import "SessionTaskQueue.h"
 
 @class ECSActionType;
 
@@ -53,6 +54,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  */
 
 @interface ECSURLSessionManager : NSObject
+
+@property (nonatomic, strong) SessionTaskQueue *sessionTaskQueue;
 
 // Current host name the API accesses.
 @property (nonatomic, strong) NSString *hostName;

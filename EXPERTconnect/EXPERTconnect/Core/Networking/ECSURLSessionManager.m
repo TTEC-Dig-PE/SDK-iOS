@@ -103,6 +103,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
         [self startReachability];
         self.logger = [[EXPERTconnect shared] logger];
+        
+        self.sessionTaskQueue = [[SessionTaskQueue alloc] init]; 
     }
     
     return self;
@@ -596,6 +598,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self GET:@"forms/v1/"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
+                 
+                 [self.sessionTaskQueue sessionTaskFinished];
+                 
                  if (completion)
                  {
                      if ([result isKindOfClass:[NSArray class]])
@@ -864,6 +869,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self POST:closeChannelURL
             parameters:parameters
               success:^(id result, NSURLResponse *response) {
+                  
+                  [self.sessionTaskQueue sessionTaskFinished];
+                  
                   if (completion)
                   {
                       completion(result, nil);
@@ -891,6 +899,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self POST:endChatActionsURL
            parameters:parameters
               success:^(id result, NSURLResponse *response) {
+                  
+                  [self.sessionTaskQueue sessionTaskFinished];
+                  
                   if (completion)
                   {
                       if ([result isKindOfClass:[NSDictionary class]])
@@ -1147,6 +1158,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return [self GET:@"utils/v1/media"
           parameters:nil
              success:^(id result, NSURLResponse *response) {
+                 
+                 [self.sessionTaskQueue sessionTaskFinished];
+                 
                  if (completion)
                  {
                      if ([result isKindOfClass:[NSArray class]])
@@ -1231,6 +1245,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     {
         ECSLogVerbose(self.logger,@"API: Success with response %@ and object %@", response, result);
         
+        [self.sessionTaskQueue sessionTaskFinished]; // Let the next queued message go.
+        
         if (completion)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1303,6 +1319,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return ^(id result, NSURLResponse *response, NSError *error) {
         
         ECSLogVerbose(self.logger,@"API: Request failure %@ with error %@ and object %@", response, error, result);
+        
+        [self.sessionTaskQueue sessionTaskFinished];
+        
         if (completion)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1500,7 +1519,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     NSURLSessionDataTask *task = [self dataTaskWithRequest:request
                                                    success:success
                                                    failure:failure];
-    [task resume];
+    
+    [self.sessionTaskQueue addSessionTask:task]; 
+//    [task resume];
     
     return task;
 }
