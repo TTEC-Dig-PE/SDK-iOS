@@ -398,6 +398,8 @@
 		C478E5C31F02B8FB00382657 /* ECSWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C478E5C01F02B8FB00382657 /* ECSWebSocket.h */; };
 		C478E5C41F02B8FB00382657 /* ECSWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C478E5C11F02B8FB00382657 /* ECSWebSocket.m */; };
 		C478E5C51F02B8FB00382657 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C478E5C21F02B8FB00382657 /* LICENSE */; };
+		C47ADBB81F39276D00B85AB9 /* ECSMessageTask.h in Headers */ = {isa = PBXBuildFile; fileRef = C47ADBB61F39276D00B85AB9 /* ECSMessageTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C47ADBB91F39276D00B85AB9 /* ECSMessageTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C47ADBB71F39276D00B85AB9 /* ECSMessageTask.m */; };
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
 		C47E67411C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */; };
 		C47E67421C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */; };
@@ -863,6 +865,8 @@
 		C478E5C21F02B8FB00382657 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C47A15241E9441CC005E19DB /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C47A15251E94437D005E19DB /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C47ADBB61F39276D00B85AB9 /* ECSMessageTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSMessageTask.h; path = Core/Networking/ECSMessageTask.h; sourceTree = "<group>"; };
+		C47ADBB71F39276D00B85AB9 /* ECSMessageTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSMessageTask.m; path = Core/Networking/ECSMessageTask.m; sourceTree = "<group>"; };
 		C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECSBinaryImageViewController.xib; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.xib; sourceTree = SOURCE_ROOT; };
 		C47E673F1C3ACD5800E7CEF3 /* ECSBinaryImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSBinaryImageViewController.h; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.h; sourceTree = SOURCE_ROOT; };
 		C47E67401C3ACD5800E7CEF3 /* ECSBinaryImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSBinaryImageViewController.m; path = EXPERTconnect/UI/Sections/Forms/ECSBinaryImageViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1176,6 +1180,8 @@
 				D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */,
 				C4BE81FF1F38BBA800ED290B /* SessionTaskQueue.h */,
 				C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */,
+				C47ADBB61F39276D00B85AB9 /* ECSMessageTask.h */,
+				C47ADBB71F39276D00B85AB9 /* ECSMessageTask.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -1719,6 +1725,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47ADBB81F39276D00B85AB9 /* ECSMessageTask.h in Headers */,
 				C4BE82011F38BBA800ED290B /* SessionTaskQueue.h in Headers */,
 				0342B0231A9B60AE0009959E /* ECSFormViewController.h in Headers */,
 				C44B72211E770A3900DF1FEA /* ECSErrorDefinitions.h in Headers */,
@@ -2113,6 +2120,7 @@
 				C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */,
 				03C310671A9B5B56006B3557 /* ECSWebActionType.m in Sources */,
 				030AF25C1AF9533E0056BFB0 /* ECSHistoryList.m in Sources */,
+				C47ADBB91F39276D00B85AB9 /* ECSMessageTask.m in Sources */,
 				0342AFA91A9B60700009959E /* ECSTopQuestionsViewController.m in Sources */,
 				035D7DE01AE12D930021DF75 /* ECSMediaInfoHelpers.m in Sources */,
 				03AF24B21A9B601E00407BE5 /* ECSCircleImageView.m in Sources */,

@@ -10,6 +10,7 @@
 #import "ECSAuthenticationToken.h"
 #import "ECSBreadcrumb.h"
 #import "SessionTaskQueue.h"
+#import "ECSMessageTask.h"
 
 @class ECSActionType;
 
@@ -49,11 +50,15 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
     ECSHistoryTypeChat
 };
 
+
 /**
  ECSURLSessionManager provides interfaces for performing API calls to the EXPERTconnect servers.
  */
 
 @interface ECSURLSessionManager : NSObject
+
+@property (nonatomic, strong) NSMutableArray * messageTasks;
+@property (nonatomic, strong) ECSMessageTask * currentMessageTask;
 
 @property (nonatomic, strong) SessionTaskQueue *sessionTaskQueue;
 
