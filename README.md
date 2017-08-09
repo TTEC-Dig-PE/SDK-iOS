@@ -29,3 +29,11 @@ Some commonly used features of the SDK:
 * Answer Engine
 * Breadcrumbs
 * Decisioning
+
+## CocoaPods
+New version release process: 
+1. Make sure that a new tag is created in GitHub for each release that is only the release number. AKA a tag named "6.1.2". This is so CocoaPods knows there is a new version. 
+2. Run lint on the build. From the base SDK-iOS folder, Run the following command: 
+pod lib lint EXPERTconnect.podspec --swift-version=3.0
+3. Push the new build: 
+pod repo push Humanify EXPERTconnect.podspec
