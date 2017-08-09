@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ExpertConnect'
-  s.version = '6.1.1'
+  s.version = '6.1.2'
   s.license = 'MIT'
   s.summary = 'Humanify customer service native SDK'
   s.homepage = 'http://www.teletech.com/'
