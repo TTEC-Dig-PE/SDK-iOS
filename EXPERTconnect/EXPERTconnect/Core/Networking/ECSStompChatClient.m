@@ -236,7 +236,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                 completion:^(ECSChannelCreateResponse *response, NSError *error)
         {
                                                     
-            if (!error && response)
+            if (!error && response && response.estimatedWait)
             {
                 if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
                 {

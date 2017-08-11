@@ -1112,80 +1112,98 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message
-{
-    if ([message isKindOfClass:[ECSCafeXMessage class]])
-    {
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+    
+    if ([message isKindOfClass:[ECSCafeXMessage class]]) {
+        
         [self handleCafeXMessage:((ECSCafeXMessage*)message)];
         return; // no UI
-    }
-    
-    if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]]) {
+        
         [self handleVoiceItMessage:message];
         return; // no UI
-    }
-    
-    if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+        
         [self.participants setObject:message forKey:((ECSChatAddParticipantMessage*)message).userId];
-    }
-    
-    if ([message isKindOfClass:[ECSSendQuestionMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSSendQuestionMessage class]]) {
+        
         [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
         return; // When Response is received, handler will send through an ECSReceiveAnswerMessage
-    }
-    
-    if (message.fromAgent)
-    {
-        self.agentInteractionCount += 1;
-        [self pollForPostSurvey];
-        self.chatClient.lastChatMessageFromAgent = YES;
-    }
-    
-    // Replace the typing (...) with the message if it is still at the end of the array of messages.
-    if (_agentTypingIndex != -1 && (_agentTypingIndex == self.messages.count - 1))
-    {
-        [self.messages replaceObjectAtIndex:_agentTypingIndex withObject:message];
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
         
-        _agentTypingIndex = -1;
+    } else {
         
-    }
-    else
-    {
-        // Remove the agent typing (...) from the chat history and append this new message.
-        if (_agentTypingIndex != -1)
-        {
-            [self.messages removeObjectAtIndex:_agentTypingIndex];
+        if( [self isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message] ) {
+            return; // no UI
+        }
+        
+        if (message.fromAgent) {
+            
+            self.agentInteractionCount += 1;
+            [self pollForPostSurvey];
+            self.chatClient.lastChatMessageFromAgent = YES;
+        }
+        
+        // Replace the typing (...) with the message if it is still at the end of the array of messages.
+        if (_agentTypingIndex != -1 && (_agentTypingIndex == self.messages.count - 1)) {
+            
+            [self.messages replaceObjectAtIndex:_agentTypingIndex withObject:message];
             [self.tableView beginUpdates];
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
             
             _agentTypingIndex = -1;
+            
+        } else {
+            
+            // Remove the agent typing (...) from the chat history and append this new message.
+            if (_agentTypingIndex != -1) {
+                
+                [self.messages removeObjectAtIndex:_agentTypingIndex];
+                [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
+                                      withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+                
+                _agentTypingIndex = -1;
+            }
+            
+            [self.messages addObject:message];
+            [self.tableView beginUpdates];
+            
+            /* NK 7/27/2015 Note that this change (indexPathsToUpdate) was made to fix a crash with scrolling to the
+             bottom of the chat list under certain circumstances. Change made by Mutual Mobile. */
+            [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            [self.tableView endUpdates];
         }
         
-        [self.messages addObject:message];
-        [self.tableView beginUpdates];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop animated:YES];
         
-        /* NK 7/27/2015 Note that this change (indexPathsToUpdate) was made to fix a crash with scrolling to the
-         bottom of the chat list under certain circumstances. Change made by Mutual Mobile. */
-        [self.tableView insertRowsAtIndexPaths:[self indexPathsToUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
         
-        [self.tableView endUpdates];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification
+                                                            object:message];
     }
+}
+
+- (bool)isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message {
     
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    // Note: We want to filter out these in-band non-localized "system" messages from the old legacy system.
+    // They usually say: "Mike (mike_mktwebextc) has joined the chat.", "Mike (mike_mktwebextc) has left the chat."
     
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification
-                                                        object:message];
+    if( [message.from isEqualToString:@"System"] &&
+       ([message.body containsString:@") has joined the chat."] || [message.body containsString:@") has left the chat."]) ) {
+        // NOTE: Except for the first agent, any agent that joins or leaves the chat will trigger a
+        // 'System' message informing the user of the change. The 'joins' are redundant because of the
+        // AddParticipant message. So, we'll squelch them here.
+        
+        return YES;
+    }
+    return NO;
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
