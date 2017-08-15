@@ -105,7 +105,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         self.logger = [[EXPERTconnect shared] logger];
         
 //        self.sessionTaskQueue = [[SessionTaskQueue alloc] init];
-        self.messageTasks = [[NSMutableArray alloc] initWithCapacity:15];
+        self.messageTasks = [[NSMutableArray alloc] initWithCapacity:50];
     }
     
     return self;
