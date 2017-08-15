@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
 
   s.source_files = 'ExpertConnect/ExpertConnect/**/*.{m,h,mm,hpp,cpp,c}'
 
-  s.resources = 'ExpertConnect/ExpertConnect/**/*.{xib,nib}'
+  s.resources = 'ExpertConnect/ExpertConnect/**/*.{xcassets,xib,nib}'
 
   s.resource_bundles = {
-	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{xcassets,json,imageset,png,lproj}']
+	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{json,imageset,png,lproj}']
   }
 
   # Dependencies
