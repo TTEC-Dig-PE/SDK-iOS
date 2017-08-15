@@ -449,14 +449,16 @@ bool        _isConnecting;
             }
             
         }
+        
+    } else if (frame.command.length == 0 && frame.headers.count == 0) {
+        
+        ECSLogVerbose(self.logger, @"Stomp heart-beat arrived from server.");
+        
     }
-    else if (frame.command.length == 0 && frame.headers.count == 0)
-    {
-        // Pong
-//        ECSLogVerbose(self.logger,@"Stomp PONG arrived from server. Resetting miss count.");
-        _isConnecting = NO;
-        _clientHeartbeatsMissed = 0;
-    }
+    
+    // Any message from server indicates it is "good" reset server heartbeat miss count.
+    _isConnecting = NO;
+    _clientHeartbeatsMissed = 0;
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
@@ -648,7 +650,7 @@ bool        _isConnecting;
 
 -(void)doStompHeartbeat:(NSTimer *)timer {
     
-//    ECSLogVerbose(self.logger,@"doStompHeartbeat: beating. Skipped %d beats.", _clientHeartbeatsMissed);
+    ECSLogVerbose(self.logger,@"Timer tick. Missed heartbeat count: %d", _clientHeartbeatsMissed);
     
     if( _clientHeartbeatsMissed >= 3 )
     {
