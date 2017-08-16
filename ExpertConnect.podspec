@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary = 'Humanify customer service native SDK'
   s.homepage = 'http://www.teletech.com/'
   s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@humanify.com' }
-  s.source = { :git => 'https://github.com/humanifydev/SDK-iOS.git', :tag => s.version }
+  s.source = { :git => 'https://github.com/WW-Digital/SDK-iOS.git', :tag => s.version }
 
   s.platform         = :ios, '8.1'
   s.requires_arc = true
@@ -13,10 +13,10 @@ Pod::Spec.new do |s|
 
   s.source_files = 'ExpertConnect/ExpertConnect/**/*.{m,h,mm,hpp,cpp,c}'
 
-  s.resources = 'ExpertConnect/ExpertConnect/**/*.{xib,nib}'
+  s.resources = 'ExpertConnect/ExpertConnect/**/*.{xcassets,xib,nib}'
 
   s.resource_bundles = {
-	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{xcassets,json,imageset,png,lproj}']
+	  'EXPERTconnect' => ['ExpertConnect/ExpertConnect/**/*.{json,imageset,png,lproj}']
   }
 
   # Dependencies
