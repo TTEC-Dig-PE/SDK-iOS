@@ -790,6 +790,20 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
          }
      }];
     
+//    // TODO: Testing only
+//    [urlSession sendChatMessage:[NSString stringWithFormat:@"2 - %@", message.body]
+//                           from:message.from
+//                        channel:message.channelId
+//                     completion:^(NSString *response, NSError *error){}];
+//    [urlSession sendChatMessage:[NSString stringWithFormat:@"3 - %@", message.body]
+//                           from:message.from
+//                        channel:message.channelId
+//                     completion:^(NSString *response, NSError *error){}];
+//    [urlSession sendChatMessage:[NSString stringWithFormat:@"4 - %@", message.body]
+//                           from:message.from
+//                        channel:message.channelId
+//                     completion:^(NSString *response, NSError *error){}];
+    
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
