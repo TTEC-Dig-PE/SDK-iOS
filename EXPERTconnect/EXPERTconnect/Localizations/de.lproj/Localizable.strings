@@ -316,3 +316,8 @@
 /* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
 /* Dialog Title will be "Error" */
 "ECSLocalizedChatQueueDisconnectMessage" = "Ihre Chat-Anfrage ist abgelaufen. Bitte versuche es erneut.";
+
+/* 6.2.0 Strings */
+
+/* Chat Transfer */
+"ECSLocalizeChatTransfer" = "Der Chat wird übertragen ...";

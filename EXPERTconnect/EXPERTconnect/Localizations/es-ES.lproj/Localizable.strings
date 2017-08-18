@@ -104,3 +104,8 @@
 "ECSLocalizedLeaveQueueNo" = "No, permanecer";
 "ECSLocalizedChatQueueNetworkError" = "No hay conexión a Internet.";
 "ECSLocalizedChatQueueDisconnectMessage" = "Se ha agotado el tiempo de espera de su solicitud de chat. Vuelva a intentarlo.";
+
+/* 6.2.0 Strings */
+
+/* Chat Transfer */
+"ECSLocalizeChatTransfer" = "El chat está siendo transferido ...";
