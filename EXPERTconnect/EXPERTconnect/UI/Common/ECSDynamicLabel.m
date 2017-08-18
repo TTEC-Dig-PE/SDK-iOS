@@ -4,6 +4,7 @@
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
+// ZSWTappableLabel details: https://github.com/zacwest/ZSWTappableLabel
 
 #import "ECSDynamicLabel.h"
 

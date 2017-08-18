@@ -70,6 +70,8 @@
 #import "UIViewController+ECSNibLoading.h"
 #import "ECSErrorBarView.h"
 
+#import "ZSWTappableLabel.h"
+
 static NSString *const MessageCellID        = @"AgentMessageCellID";
 static NSString *const HtmlMessageCellID    = @"HtmlMessageCellID";
 static NSString *const ImageCellID          = @"AgentImageCellID";
@@ -95,7 +97,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark Chat View Controller
 
-@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate, ECSFormViewDelegate>
+@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate, ECSFormViewDelegate, ZSWTappableLabelTapDelegate>
 {
     BOOL        _userDragging;              // Used to hide the keyboard if user starts scrolling
     NSInteger   _agentTypingIndex;          // Index in the array of messages of where the (...) item is.
@@ -2387,8 +2389,67 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     [self configureCellAvatarImage:cell from:chatMessage.from fromAgent:chatMessage.fromAgent atIndexPath:indexPath];
     
-    messageCell.messageLabel.text = chatMessage.body;
+    
+    // the next line throws an exception if string is nil - make sure you check
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllSystemTypes error:NULL];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:chatMessage.body attributes:nil];
+    // the next line throws an exception if string is nil - make sure you check
+    [detector enumerateMatchesInString:chatMessage.body options:0 range:NSMakeRange(0, chatMessage.body.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+        attributes[ZSWTappableLabelTappableRegionAttributeName] = @YES;
+        attributes[ZSWTappableLabelHighlightedBackgroundAttributeName] = [UIColor lightGrayColor];
+        attributes[ZSWTappableLabelHighlightedForegroundAttributeName] = [UIColor whiteColor];
+        attributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
+        attributes[@"NSTextCheckingResult"] = result;
+        [attributedString addAttributes:attributes range:result.range];
+    }];
+    messageCell.messageLabel.attributedText = attributedString;
+    messageCell.messageLabel.tapDelegate = self;
+    
+    //messageCell.messageLabel.text = chatMessage.body;
+    
     [messageCell.background.timestampLabel setText:chatMessage.timeStamp];
+}
+
+// This occurs if the user clicks a link within the message bubble.
+// Details here: https://github.com/zacwest/ZSWTappableLabel
+
+- (void)tappableLabel:(ZSWTappableLabel *)tappableLabel
+        tappedAtIndex:(NSInteger)idx
+       withAttributes:(NSDictionary<NSString *,id> *)attributes {
+    
+    NSTextCheckingResult *result = attributes[@"NSTextCheckingResult"];
+    
+    if(result) {
+        
+        switch(result.resultType) {
+                
+            case NSTextCheckingTypeLink: {
+                
+                ECSLogVerbose(self.logger, @"User clicked URL: %@. Launching...", result.URL.absoluteString);
+                
+                [UIApplication.sharedApplication openURL:result.URL];
+                
+                break;
+            }
+//            case NSTextCheckingTypePhoneNumber: {
+//                ECSLogVerbose(self.logger, @"User clicked Phone Number: %@. Dialing...", result.phoneNumber);
+//                [UIApplication.sharedApplication openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", result.phoneNumber]]];
+//                break;
+//            }
+//            case NSTextCheckingTypeAddress: {
+//                ECSLogVerbose(self.logger, @"User clicked Address: %@. Showing map...", result.addressComponents);
+//                NSString *addrStr = [NSString stringWithFormat:@"https://maps.apple.com/?q=address.%@",
+//                                     result.addressComponents.descriptionInStringsFileFormat];
+//                [UIApplication.sharedApplication openURL:[NSURL URLWithString:addrStr]];
+//                break;
+//            }
+            default: {
+                break;
+            }
+        }
+    }
+    
 }
 
 - (void)configureCellAvatarImage:(ECSChatTableViewCell*)cell
