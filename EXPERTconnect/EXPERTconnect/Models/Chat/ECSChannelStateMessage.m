@@ -126,6 +126,9 @@
     } else if([self.state isEqualToString:@"disconnected"]) {
         return ECSChannelStateDisconnected;
         
+    } else if([self.state isEqualToString:@"queued"]) {
+        return ECSChannelStateQueued;
+        
     } else {
         return ECSChannelStateUnknown;
     }
