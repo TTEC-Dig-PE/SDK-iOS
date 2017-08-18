@@ -415,13 +415,3 @@
 "ECDLocalizedEmailDebugButtonLabel" = "Email Debug";
 
 /* End Test Decision Page Labels Section */
-
-
-
-
-
-/* Chat Join User */
-"ECSLocalizeChatJoin" = "You are connected with [firstname] [lastname] ([userid]).";
-
-/* Chat User Left */
-"ECSLocalizeChatLeave" = "%1@ has left the chat.";
