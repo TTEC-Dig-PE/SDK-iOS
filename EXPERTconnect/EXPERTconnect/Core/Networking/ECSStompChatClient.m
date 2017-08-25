@@ -594,7 +594,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 	 {
 		  NSError *serializationError = nil;
 		  id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-													  options:0 error:&serializationError];
+													  options:0
+                                                        error:&serializationError];
 		  if (!serializationError)
 		  {
 			   ECSChatTextMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
@@ -620,6 +621,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 						 self.lastTimeStamp = timeStamp;
 					}
 			   }
+              
+              ECSLogDebug(self.logger, @"Received chat message from %@, body=%@", message.from, message.body);
+              
 			   [self.delegate chatClient:self didReceiveMessage:message];
 		  }
 		  else
@@ -642,6 +646,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                         withClass:[ECSChatStateMessage class]];
             _chatState = message.chatState;
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Chat state change to %@", message.state);
+            
             [self.delegate chatClient:self didReceiveChatStateMessage:message];
         }
         else
@@ -675,10 +682,14 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 					message.urlType = @"PDF Document";
 					message.fromAgent = YES;
 					
+                   ECSLogDebug(self.logger, @"Received PDF from %@. Filename=%@, URL=%@", message.from, message.comment, message.url);
+                   
 					[self.delegate chatClient:self didReceiveMessage:message];
 			   }
 			   else
 			   {
+                   ECSLogDebug(self.logger, @"Chat notification. From=%@, ObjectData=%@", message.from, message.objectData);
+                   
 					[self.delegate chatClient:self didReceiveChatNotificationMessage:message];
 			   }
 		  }
@@ -702,6 +713,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                             withClass:[ECSChannelStateMessage class]];
         _channelState = message.channelState;
         
+        ECSLogDebug(self.logger, @"Received channel state update to %@", message.state);
+
         // Make sure this message is for our current channelId.
         if( [message.channelId isEqualToString:self.currentChannelId] ) {
         
@@ -709,7 +722,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
                 
                 [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
-                
+
             }
         
             if (message.channelState == ECSChannelStateConnected) {
@@ -758,6 +771,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                              withClass:[ECSChatURLMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received URL message from %@. URL=%@", message.from, message.url);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -779,6 +795,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatFormMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                            withClass:[ECSChatFormMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received Form message from %@. Form name=%@", message.from, message.formName);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -803,7 +822,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                            withClass:[ECSChatAddParticipantMessage class]];
             
             message.fromAgent = NO;
+            
+            ECSLogDebug(self.logger, @"Received add participant. Participant=%@ %@ (%@)", message.firstName, message.lastName, message.userId);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
+            
         }
         else
         {
@@ -826,6 +849,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                                          withClass:[ECSChatRemoveParticipantMessage class]];
             
             message.fromAgent = NO;
+            
+            ECSLogDebug(self.logger, @"Received remove participant. Participant=%@ %@ (%@). Reason=%@",
+                        message.firstName, message.lastName, message.userId, message.reason);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -848,6 +875,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatAddChannelMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                                       withClass:[ECSChatAddChannelMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received add channel. ChannelID=%@", message.channelId);
+            
             [self.delegate chatClient:self didAddChannelWithMessage:message];
         }
         else
@@ -871,6 +901,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatAssociateInfoMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSChatAssociateInfoMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received associate info from %@. Body=%@", message.from, message.message);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -962,6 +995,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             
             message.fromAgent = YES;
             
+            ECSLogDebug(self.logger, @"Received send question from %@. QuestionText=%@", message.from, message.questionText);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -985,6 +1020,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChannelTimeoutWarningMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                       withClass:[ECSChannelTimeoutWarningMessage class]];
 
+            ECSLogDebug(self.logger, @"Received channel timeout warning. Timeout Seconds=%@", message.timeoutSeconds);
+            
             [self.delegate chatClientTimeoutWarning:self timeoutSeconds:[message.timeoutSeconds intValue]];
 
         }

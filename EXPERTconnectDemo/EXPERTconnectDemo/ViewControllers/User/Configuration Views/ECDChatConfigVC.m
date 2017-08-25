@@ -274,21 +274,21 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 }
 - (void)chatMessageReceived:(NSNotification *)notification {
     
-    // A chat text message.
-    if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
-        ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
-        NSLog(@"Chat - incoming chat message: %@", message.body);
-        
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-    }
-    
-    // Add participant message.
-    if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
-        ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
-        NSLog(@"Chat - Adding participant: %@ %@", message.firstName, message.lastName);
-        
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-    }
+//    // A chat text message.
+//    if ([notification.object isKindOfClass:[ECSChatTextMessage class]]) {
+//        ECSChatTextMessage *message = (ECSChatTextMessage *)notification.object;
+//        NSLog(@"Test Harness::ChatConfigVC - incoming chat message: %@", message.body);
+//        
+//        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+//    }
+//    
+//    // Add participant message.
+//    if ([notification.object isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+//        ECSChatAddParticipantMessage *message = (ECSChatAddParticipantMessage *)notification.object;
+//        NSLog(@"Test Harness::ChatConfigVC - Adding participant: %@ %@", message.firstName, message.lastName);
+//        
+//        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+//    }
 }
 
 #pragma mark Picker View
@@ -363,7 +363,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
         return;
     }
     
-    NSLog(@"Getting details for skill: %@", [chatSkillsArray objectAtIndex:index]);
+    NSLog(@"Test Harness::AdHoc - Getting details for skill: %@", [chatSkillsArray objectAtIndex:index]);
     
     [[EXPERTconnect shared] getDetailsForExpertSkill:[chatSkillsArray objectAtIndex:index]
                                           completion:^(ECSSkillDetail *data, NSError *error)

@@ -949,7 +949,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
 - (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
     
-    ECSLogVerbose(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
+    ECSLogDebug(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
                   message.disconnectReasonString,
                   message.terminatedByString);
     
@@ -1008,7 +1008,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void) scheduleAutomaticReconnect {
     
-    ECSLogVerbose(self.logger, @"Reconnect Timer - Scheduling a reconnect 30 seconds from now...");
+    ECSLogDebug(self.logger, @"Scheduling a reconnect 30 seconds from now...");
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _reconnectTimer = [NSTimer scheduledTimerWithTimeInterval:30
@@ -1021,7 +1021,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
-    ECSLogError(self.logger, @"Stomp error notification: %@", error);
+    ECSLogDebug(self.logger, @"Error: %@", error);
     
     // Now handled in the StompClient code.
 //    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
@@ -1096,7 +1096,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     if ([EXPERTconnect shared].urlSession.networkReachable && [self.chatClient isConnected]) {
         
-        ECSLogVerbose(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
+        ECSLogDebug(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
         dispatch_async(dispatch_get_main_queue(), ^{
             [_reconnectTimer invalidate];
             _reconnectTimer = nil;
@@ -1104,13 +1104,14 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
     } else {
         
-        ECSLogVerbose(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
+        ECSLogDebug(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
         [self refreshAuthenticationToken];
         
     }
 }
 
--(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds {
+-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient
+                  timeoutSeconds:(int)seconds {
     
     ECSChatInfoMessage *message = [ECSChatInfoMessage new];
 //    message.fromAgent = YES;
@@ -1351,7 +1352,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
     
-    ECSLogVerbose(self.logger, @"Stomp add channel notification.");
+    ECSLogDebug(self.logger, @"Add Channel Messages from: %@, channelID=%@", message.from, message.channelId);
     
     [self.messages addObject:message];
     
@@ -1363,9 +1364,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark - Connect / Reconnect / Disconnect
 
-- (void)refreshAuthenticationToken
-{
-    ECSLogVerbose(self.logger,@"Refreshing auth token (forcing reconnect attempt). Retry #%d", _reconnectCount);
+- (void)refreshAuthenticationToken {
+    
+    ECSLogDebug(self.logger,@"Refreshing auth token (forcing reconnect attempt). Retry #%d", _reconnectCount);
 
     // Attempt to get a new authToken.
     int retryCount = 0;
@@ -1380,11 +1381,15 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // The action when the user presses the "reconnect" button in the Network Action cell
 - (void)reconnectWebsocket:(id)sender {
     
-    if (self.chatClient) {
+    if ( !self.chatClient.isConnected ) {
+        
         ECSLogVerbose(self.logger, @"Attempting to reconnect to Stomp channel.");
         [self.chatClient reconnect];
+        
     } else {
+        
         ECSLogVerbose(self.logger, @"Stomp channel already connected.");
+        
     }
 }
 
@@ -1398,7 +1403,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
     
-    ECSLogVerbose(self.logger, @"Network changed. Reachable? %d", reachable);
+    ECSLogDebug(self.logger, @"Network changed. Reachable? %d", reachable);
     
     if ( reachable && _previousReachableStatus == NO ) {
         
@@ -1734,8 +1739,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      }];
 }
 
-- (void)sendFormNotification
-{
+- (void)sendFormNotification {
+    
     ECSLogVerbose(self.logger, @"Form complete notification");
 //    ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
 //    notification.from = self.chatClient.fromUsername;

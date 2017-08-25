@@ -163,7 +163,7 @@
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     
-    NSLog(@"fetchAuthenticationToken - AuthToken URL: %@", url);
+    NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - AuthToken URL: %@", url);
     
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
                                        queue:[[NSOperationQueue alloc] init]
@@ -178,13 +178,13 @@
              NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
                                       [returnToken substringToIndex:4],
                                       [returnToken substringFromIndex:returnToken.length-4]];
-             NSLog(@"fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
+             NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
              completion([NSString stringWithFormat:@"%@", returnToken], nil);
          }
          else
          {
              // If the new way didn't work, try the old way once.
-             NSLog(@"fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+             NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
              //[self fetchOldAuthenticationToken:completion];
              NSError *myError = [NSError errorWithDomain:@"com.humanify"
                                                     code:statusCode

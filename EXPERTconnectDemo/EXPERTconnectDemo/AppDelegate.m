@@ -96,7 +96,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    [[EXPERTconnect shared] setDebugLevel:5]; // High debug.
+    [[EXPERTconnect shared] setDebugLevel:ECSLogLevelDebug]; // High debug.
     
     NSLog(@"Test Harness - Init with org:%@, url:%@",[myAppConfig getHostURL], [myAppConfig getClientID]);
     
