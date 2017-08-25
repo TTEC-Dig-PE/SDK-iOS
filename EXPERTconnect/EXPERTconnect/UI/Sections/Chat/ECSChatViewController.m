@@ -2396,7 +2396,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     
     // the next line throws an exception if string is nil - make sure you check
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingAllSystemTypes error:NULL];
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeAddress | NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber error:NULL];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:chatMessage.body attributes:nil];
     // the next line throws an exception if string is nil - make sure you check
     [detector enumerateMatchesInString:chatMessage.body options:0 range:NSMakeRange(0, chatMessage.body.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
@@ -2423,38 +2423,53 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         tappedAtIndex:(NSInteger)idx
        withAttributes:(NSDictionary<NSString *,id> *)attributes {
     
+    NSURL *URL;
+    
     NSTextCheckingResult *result = attributes[@"NSTextCheckingResult"];
     
-    if(result) {
+    if ([result isKindOfClass:[NSTextCheckingResult class]]) {
         
-        switch(result.resultType) {
+        switch (result.resultType) {
+            case NSTextCheckingTypeAddress: {
+                NSLog(@"Address components: %@", result.addressComponents);
                 
-            case NSTextCheckingTypeLink: {
+                NSMutableString *resultString = [NSMutableString string];
+                for (NSString* value in [result.addressComponents allValues]){
+                    if ([resultString length]>0) {
+                        [resultString appendString:@","];
+                    }
+                    [resultString appendFormat:@"%@", value];
+                }
                 
-                ECSLogVerbose(self.logger, @"User clicked URL: %@. Launching...", result.URL.absoluteString);
+                URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%@", resultString]];
+                break;
                 
-                [UIApplication.sharedApplication openURL:result.URL];
-                
+            } case NSTextCheckingTypePhoneNumber: {
+                NSURLComponents *components = [[NSURLComponents alloc] init];
+                components.scheme = @"tel";
+                components.host = result.phoneNumber;
+                URL = components.URL;
                 break;
             }
-//            case NSTextCheckingTypePhoneNumber: {
-//                ECSLogVerbose(self.logger, @"User clicked Phone Number: %@. Dialing...", result.phoneNumber);
-//                [UIApplication.sharedApplication openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", result.phoneNumber]]];
-//                break;
-//            }
-//            case NSTextCheckingTypeAddress: {
-//                ECSLogVerbose(self.logger, @"User clicked Address: %@. Showing map...", result.addressComponents);
-//                NSString *addrStr = [NSString stringWithFormat:@"https://maps.apple.com/?q=address.%@",
-//                                     result.addressComponents.descriptionInStringsFileFormat];
-//                [UIApplication.sharedApplication openURL:[NSURL URLWithString:addrStr]];
-//                break;
-//            }
-            default: {
+                
+            case NSTextCheckingTypeDate:
+                NSLog(@"Date: %@", result.date);
                 break;
-            }
+                
+            case NSTextCheckingTypeLink:
+                URL = result.URL;
+                break;
+                
+            default:
+                break;
         }
     }
     
+    ECSLogVerbose(self.logger, @"Data detector found tappable item. Opening URL: %@", URL.absoluteString);
+    
+    if ([URL isKindOfClass:[NSURL class]]) {
+        [[UIApplication sharedApplication] openURL:URL];
+    }
 }
 
 - (void)configureCellAvatarImage:(ECSChatTableViewCell*)cell

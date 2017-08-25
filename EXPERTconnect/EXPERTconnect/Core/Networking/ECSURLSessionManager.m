@@ -1926,7 +1926,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)addMessageTask:(ECSMessageTask *)messageTask {
     
     [self.messageTasks addObject:messageTask];
-    NSLog(@"MTQ: Queuing task. %lu tasks in queue.", self.messageTasks.count);
+//    NSLog(@"MTQ: Queuing task. %lu tasks in queue.", self.messageTasks.count);
     [self resume];
     
 }
@@ -1938,7 +1938,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if( [response.URL.absoluteString containsString:@"conversationengine/v1/channels"]) {
     
         self.currentMessageTask = nil;
-        NSLog(@"MTQ: Task finished. %lu tasks in queue.", self.messageTasks.count);
+//        NSLog(@"MTQ: Task finished. %lu tasks in queue.", self.messageTasks.count);
         [self resume];
     }
     
@@ -1947,14 +1947,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)resume {
     
     if (self.currentMessageTask) {
-        NSLog(@"MTQ: Task already in progress. Waiting.... %lu tasks in queue.", self.messageTasks.count);
+//        NSLog(@"MTQ: Task already in progress. Waiting.... %lu tasks in queue.", self.messageTasks.count);
         return;
     }
     
     self.currentMessageTask = [self.messageTasks firstObject];
     if (self.currentMessageTask) {
         [self.messageTasks removeObjectAtIndex:0];
-        NSLog(@"MTQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", self.messageTasks.count);
+//        NSLog(@"MTQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", self.messageTasks.count);
         
         [self POST:self.currentMessageTask.path
         parameters:self.currentMessageTask.parameters

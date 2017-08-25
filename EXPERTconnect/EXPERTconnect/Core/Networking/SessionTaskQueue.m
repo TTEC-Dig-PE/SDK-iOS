@@ -25,7 +25,7 @@
 - (void)addSessionTask:(NSURLSessionTask *)sessionTask {
     
     [self.sessionTasks addObject:sessionTask];
-    NSLog(@"STQ: Queuing task. %lu tasks in queue.", self.sessionTasks.count);
+//    NSLog(@"STQ: Queuing task. %lu tasks in queue.", self.sessionTasks.count);
     [self resume];
     
 }
@@ -34,7 +34,7 @@
 - (void)sessionTaskFinished {
     
     self.currentTask = nil;
-    NSLog(@"STQ: Task finished. %lu tasks in queue.", self.sessionTasks.count);
+//    NSLog(@"STQ: Task finished. %lu tasks in queue.", self.sessionTasks.count);
     [self resume];
     
 }
@@ -42,14 +42,14 @@
 - (void)resume {
     
     if (self.currentTask) {
-        NSLog(@"STQ: Task already in progress. Waiting.... %lu tasks in queue.", self.sessionTasks.count);
+//        NSLog(@"STQ: Task already in progress. Waiting.... %lu tasks in queue.", self.sessionTasks.count);
         return;
     }
     
     self.currentTask = [self.sessionTasks firstObject];
     if (self.currentTask) {
         [self.sessionTasks removeObjectAtIndex:0];
-        NSLog(@"STQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", self.sessionTasks.count);
+//        NSLog(@"STQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", self.sessionTasks.count);
         [self.currentTask resume];
     }
     
