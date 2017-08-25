@@ -236,7 +236,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                 completion:^(ECSChannelCreateResponse *response, NSError *error)
         {
                                                     
-            if (!error && response)
+            if (!error && response && response.estimatedWait)
             {
                 if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
                 {
@@ -701,55 +701,60 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 }
 
 
-- (void)handleChannelStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
+- (void)handleChannelStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
 
     NSError *serializationError = nil;
     id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
                                                 options:0 error:&serializationError];
-    if (!serializationError)
-    {
+    
+    if (!serializationError) {
+        
         ECSChannelStateMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSChannelStateMessage class]];
         _channelState = message.channelState;
         
         ECSLogDebug(self.logger, @"Received channel state update to %@", message.state);
+
+        // Make sure this message is for our current channelId.
+        if( [message.channelId isEqualToString:self.currentChannelId] ) {
         
-        if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
-        {
-            [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
-        }
+            // Estimated wait data included
+            if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
+                
+                [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
+
+            }
         
-        if ((message.channelState == ECSChannelStateConnected) &&
-            [self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)])
-        {
-            [self.delegate chatClientAgentDidAnswer:self];
+            if (message.channelState == ECSChannelStateConnected) {
+                
+                // Connected means an agent has answered the chat.
+                if([self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)]) {
+                    [self.delegate chatClientAgentDidAnswer:self];
+                }
+                
+                if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
+                    [self.delegate voiceCallbackDidAnswer:self];
+                }
+                
+            } else if (message.channelState == ECSChannelStateDisconnected) {
+            
+                // First check for the older, deprecated function
+                if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+                    [self.delegate chatClientDisconnected:self wasGraceful:YES];
+                }
+                
+                if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
+                    [self.delegate chatClient:self disconnectedWithMessage:message]; 
+                }
+            } else if (message.channelState == ECSChannelStateQueued) {
+                
+                if( [self.delegate respondsToSelector:@selector(chatClient:didReceiveChannelStateMessage:)]) {
+                    [self.delegate chatClient:self didReceiveChannelStateMessage:message];
+                }
+                
+            }
         }
-        
-        // NK 6/24 check for a voice callback channel
-        if ((message.channelState == ECSChannelStateConnected) &&
-            ![message.channelId isEqualToString:self.currentChannelId] ) {
-            
-            if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
-                [self.delegate voiceCallbackDidAnswer:self];
-            }
-        } else if ((message.channelState == ECSChannelStateDisconnected) &&
-                 [message.channelId isEqualToString:self.currentChannelId]) {
-            
-            
-            
-            // First check for the older, deprecated function
-            if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-                [self.delegate chatClientDisconnected:self wasGraceful:YES];
-            }
-            
-            if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
-                [self.delegate chatClient:self disconnectedWithMessage:message]; 
-            }
-        }
-    }
-    else
-    {
+    } else {
         ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
     }
 }

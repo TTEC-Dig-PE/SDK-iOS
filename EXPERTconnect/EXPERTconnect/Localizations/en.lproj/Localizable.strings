@@ -351,3 +351,7 @@
 /* Dialog Title will be "Error" */
 "ECSLocalizedChatQueueDisconnectMessage" = "Your chat request has timed out. Please try again.";
 
+/* 6.2.0 Strings */
+
+/* Chat Transfer */
+"ECSLocalizeChatTransfer" = "The chat is being transferred...";
