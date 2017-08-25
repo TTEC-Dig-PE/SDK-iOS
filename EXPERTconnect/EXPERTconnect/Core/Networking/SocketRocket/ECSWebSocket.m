@@ -475,7 +475,7 @@ static __strong NSData *CRLFCRLF;
     [self _performDelegateBlock:^{
         if( self.readyState != ECS_OPEN) self.readyState = ECS_OPEN; // MAS - 24-jan-2017 - An extra call here to make sure it's set before connecting.
         if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
-            NSLog(@"ECSWebSocket::HTTPHeadersDidFinish - calling WebSocketDidOpen delegate function");
+//            NSLog(@"ECSWebSocket::HTTPHeadersDidFinish - calling WebSocketDidOpen delegate function");
             [self.delegate webSocketDidOpen:self];
         };
     }];
@@ -579,7 +579,7 @@ static __strong NSData *CRLFCRLF;
         
 #if DEBUG
         [SSLOptions setValue:[NSNumber numberWithBool:NO] forKey:(__bridge id)kCFStreamSSLValidatesCertificateChain];
-        NSLog(@"SocketRocket: In debug mode.  Allowing connection to any root cert");
+//        NSLog(@"SocketRocket: In debug mode.  Allowing connection to any root cert");
 #endif
         
         [_outputStream setProperty:SSLOptions

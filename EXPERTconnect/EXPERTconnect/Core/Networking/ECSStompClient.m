@@ -105,7 +105,8 @@ bool        _isConnecting;
 - (void)connectToHost:(NSString*)host {
     
     if( _isConnecting && !self.connected ) {
-        ECSLogError(self.logger, @"Connection in progress or already successful. Blocking additional attempt.");
+        ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
+                    self.connected, _isConnecting);
         return;
     }
     _isConnecting = YES;
@@ -124,7 +125,7 @@ bool        _isConnecting;
         url = [NSURL URLWithString:URLString];
     }
     
-    ECSLogVerbose(self.logger, @"Connecting to %@...", self.hostURL);
+    ECSLogDebug(self.logger, @"Connecting to %@...", self.hostURL);
     
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
@@ -146,7 +147,7 @@ bool        _isConnecting;
 
 -(void)appForegrounded:(NSNotification*)note {
     
-    ECSLogVerbose(self.logger, @"App became active. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
+    ECSLogDebug(self.logger, @"STOMP app active notification. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
     
     if( _wasConnected ) {
         
@@ -156,7 +157,7 @@ bool        _isConnecting;
 }
 -(void)appBackgrounded:(NSNotification*)note {
     
-    ECSLogVerbose(self.logger, @"App resigning active. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
+    ECSLogDebug(self.logger, @"STOMP app inactive notification. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
     
     if( self.connected ) {
         
@@ -169,7 +170,7 @@ bool        _isConnecting;
     
     if ( self.hostURL ) {
         
-        ECSLogVerbose(self.logger, @"Reconnecting STOMP WebSocket. Host=%@", self.hostURL);
+        ECSLogVerbose(self.logger, @"STOMP reconnect. Host=%@", self.hostURL);
         [self connectToHost:[self.hostURL absoluteString]];
     }
 }
@@ -177,7 +178,7 @@ bool        _isConnecting;
 - (void)sendConnectToHost:(NSString*)host
 {
     NSAssert(host, @"Host must not be nil");
-    ECSLogVerbose(self.logger, @"Connecting STOMP WebSocket. Host %@", host);
+    ECSLogDebug(self.logger, @"STOMP connect. Host %@", host);
     
     NSDictionary *headers = @{
                               @"accept-version": kStompVersion,
@@ -204,7 +205,7 @@ bool        _isConnecting;
 
 - (void)_internal_disconnect {
     
-    ECSLogVerbose(self.logger, @"Disconnecting STOMP WebSocket.");
+    ECSLogVerbose(self.logger, @"Issuing STOMP disconnect.");
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
@@ -220,7 +221,7 @@ bool        _isConnecting;
             withSubscriptionID:(NSString*)subscriptionID
                     subscriber:(__weak id<ECSStompDelegate>)subscriber
 {
-    ECSLogVerbose(self.logger, @"Subscribing. Dest=%@, SubID=%@", destination, subscriptionID);
+    ECSLogDebug(self.logger, @"Subscribing. Dest=%@, SubID=%@", destination, subscriptionID);
     
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
     headers[@"id"] = subscriptionID;
@@ -317,7 +318,7 @@ bool        _isConnecting;
         contentType:(NSString*)contentType
   additionalHeaders:(NSDictionary *)additionalHeaders {
     
-    ECSLogVerbose(self.logger, @"Sending Msg. Msg=%@, Dest=%@, ContentType=%@, Headers=%@",
+    ECSLogVerbose(self.logger, @"Sending STOMP message=%@, Dest=%@, ContentType=%@, Headers=%@",
                   message, destination, contentType, additionalHeaders);
     
     NSAssert(destination, @"destination must exist");
@@ -377,14 +378,14 @@ bool        _isConnecting;
 
 - (void)webSocketDidOpen:(ECSWebSocket *)webSocket {
     
-    ECSLogVerbose(self.logger, @"WebSocket opened. Connecting to %@", self.hostURL.host );
+    ECSLogDebug(self.logger, @"Issuing CONNECT to %@", self.hostURL.host );
     
     [self sendConnectToHost:self.hostURL.host];
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didFailWithError:(NSError *)error {
     
-    ECSLogError(self.logger, @"WebSocket error=%@", error);
+    ECSLogError(self.logger, @"ERROR - %@", error);
 //    _isConnecting = NO;
     
     if (error.code == 57) { // "Socket is not connected."
@@ -395,6 +396,7 @@ bool        _isConnecting;
     } else {
         
         self.connected = NO;
+        _isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
         
         [self.delegate stompClient:self didFailWithError:error];
     }
@@ -406,6 +408,10 @@ bool        _isConnecting;
     
     ECSLogVerbose(self.logger, @"\nMessage=%@\n\nFrame=%@\n", message, frame);
 
+    // Any message from server indicates it is "good" reset server heartbeat miss count and "connecting" status.
+    _isConnecting = NO;
+    _clientHeartbeatsMissed = 0;
+    
     // Check for, and update heart-beat if applicable
     if (frame.headers && frame.headers[@"heart-beat"]) {
         [self updateHeartbeatFromHeader:frame.headers[@"heart-beat"]];
@@ -414,7 +420,6 @@ bool        _isConnecting;
     if ([frame.command isEqualToString:kStompConnected]) {
         
         self.connected = YES;
-        _isConnecting = NO;
         
         if ([self.delegate respondsToSelector:@selector(stompClientDidConnect:)]) {
             
@@ -423,7 +428,6 @@ bool        _isConnecting;
         
     } else if ([frame.command isEqualToString:kStompMessage]) {
         
-        _isConnecting = NO;
         [self processMessageFrame:frame];
         
     } else if ([frame.command isEqualToString:kStompError]) {
@@ -455,10 +459,6 @@ bool        _isConnecting;
         ECSLogVerbose(self.logger, @"Stomp heart-beat arrived from server.");
         
     }
-    
-    // Any message from server indicates it is "good" reset server heartbeat miss count.
-    _isConnecting = NO;
-    _clientHeartbeatsMissed = 0;
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
@@ -470,7 +470,7 @@ bool        _isConnecting;
                                                       reason:(NSString *)reason
                                                     wasClean:(BOOL)wasClean {
     
-    ECSLogVerbose(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
+    ECSLogDebug(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
     
     _isConnecting = NO;
     
@@ -654,7 +654,7 @@ bool        _isConnecting;
     
     if( _clientHeartbeatsMissed >= 3 )
     {
-        ECSLogVerbose(self.logger, @"Server missed 3 heartbeats. Issuing a disconnect.");
+        ECSLogDebug(self.logger, @"Server missed 3 heartbeats. Issuing a disconnect.");
         self.connected = NO;
         if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
         {
@@ -672,7 +672,7 @@ bool        _isConnecting;
     }
     else
     {
-        ECSLogVerbose(self.logger, @"No more heartbeats because Stomp found disconnected.");
+        ECSLogDebug(self.logger, @"No more heartbeats because Stomp found disconnected.");
     }
 }
 

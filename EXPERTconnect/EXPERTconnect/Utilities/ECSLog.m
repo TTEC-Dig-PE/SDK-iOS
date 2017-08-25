@@ -30,7 +30,7 @@ void ECSLogSetLogLevel(ECSLogLevel logLevel) {
 
 void ECSLogging(ECSLog * _Nonnull logger,ECSLogLevel logLevel, NSString * _Nonnull format, ...)
 {
-    if(logger && logger.handler)
+    if( logger && logger.handler && ECSCurrentLogLevel >= logLevel )
     {
         va_list args;
         va_start(args, format);
