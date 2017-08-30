@@ -139,6 +139,7 @@
 @property (readonly) ECSChannelState channelState;
 
 @property (strong, nonatomic) NSString *currentChannelId;
+@property (strong, nonatomic) NSString *subscriptionId;
 
 @property (strong, nonatomic) ECSChannelCreateResponse *channel;
 @property (strong, nonatomic) ECSConversationCreateResponse *currentConversation;
@@ -194,6 +195,15 @@
  @param subscriptionId the subscription ID to use for the subscription
  */
 - (void)subscribeToDestination:(NSString*)destination withSubscriptionID:(NSString*)subscriptionId;
+
+/**
+ Unsubscribe from the channel
+ 
+  @param subscriptionId the subscription ID to use for the subscription
+ */
+//- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId;
+
+- (void)unsubscribe;
 
 /**
  Sends a chat message on the STOMP websocket connection

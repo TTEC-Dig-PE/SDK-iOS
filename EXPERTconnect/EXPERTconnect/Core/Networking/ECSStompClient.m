@@ -243,7 +243,7 @@ bool        _isConnecting;
 
 - (void)unsubscribe:(NSString*)subscriptionID {
     
-//    ECSLogVerbose(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
+    ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
     
     NSDictionary *headers = @{ @"id": subscriptionID };
     
