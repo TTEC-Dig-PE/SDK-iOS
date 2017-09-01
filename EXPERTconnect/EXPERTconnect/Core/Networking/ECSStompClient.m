@@ -31,6 +31,8 @@ static NSString * const kStompMessage = @"MESSAGE";
 static NSString * const kStompReceipt = @"RECEIPT";
 static NSString * const kStompError = @"ERROR";
 
+static NSString * const kStompReceiptID = @"ios-1-subscribe";
+
 @implementation ECSStompFrame
 
 - (instancetype)init
@@ -230,6 +232,8 @@ bool        _isConnecting;
     headers[@"persistent"] = @"true";
     headers[@"prefetch-count"] = @"1"; // mas - an attempt to solve the barrage of messages after reconnecting to a STOMP channel
     
+    headers[@"receipt"] = kStompReceiptID;
+    
     if(authToken) {
         headers[@"x-humanify-auth"] = authToken;
     }
@@ -251,6 +255,8 @@ bool        _isConnecting;
         [self.subscribers removeObjectForKey:subscriptionID];
     }
     
+    self.subscribed = NO;
+    
     [self sendCommand:kStompUnsubscribe
           withHeaders:headers
               andBody:nil];
@@ -260,6 +266,12 @@ bool        _isConnecting;
            andTransaction:(NSString*)transactionId {
     
     ECSLogVerbose(self.logger, @"Sending ACK. MsgID=%@, TranID=%@", messageId, transactionId);
+    
+    if( !self.subscribed ) {
+        // An errant ACK issued after an unsubscribe. Ignoring.
+        ECSLogVerbose(self.logger, @"Cancelling ACK. Stomp channel is no longer subscribed.");
+        return;
+    }
     
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] initWithDictionary:@{@"id": messageId}];
     
@@ -424,6 +436,15 @@ bool        _isConnecting;
         if ([self.delegate respondsToSelector:@selector(stompClientDidConnect:)]) {
             
             [self.delegate stompClientDidConnect:self];
+        }
+        
+    } else if ([frame.command isEqualToString:kStompReceipt]) {
+    
+        if( [frame.headers[@"receipt-id"] isEqualToString:kStompReceiptID]) {
+            // This is the receiept for a Subscribe command.
+            
+            self.subscribed = YES;
+            
         }
         
     } else if ([frame.command isEqualToString:kStompMessage]) {
