@@ -337,7 +337,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         
         self.stompClient.delegate = nil;
         
-        [self unsubscribeWithSubscriptionID:@"ios-1"];
+        //[self unsubscribeWithSubscriptionID:@"ios-1"];
+        [self unsubscribe];
         
         [self.stompClient disconnect];
     }
@@ -365,17 +366,26 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
 }
 
-- (void)subscribeToDestination:(NSString *)destination withSubscriptionID:(NSString *)subscriptionId
-{
+- (void)subscribeToDestination:(NSString *)destination
+            withSubscriptionID:(NSString *)subscriptionId {
+    
     NSString *fullDestination = [NSString stringWithFormat:@"/topic/conversations.%@", destination];
+    
+    self.subscriptionId = subscriptionId;
     
     [self.stompClient subscribeToDestination:fullDestination
                           withSubscriptionID:subscriptionId
                                   subscriber:self];
 }
 
-- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId;
-{
+- (void)unsubscribe {
+    
+    [self.stompClient unsubscribe:self.subscriptionId];
+    
+}
+
+- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId {
+    
     [self.stompClient unsubscribe:subscriptionId];
 }
 

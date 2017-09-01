@@ -73,6 +73,9 @@
 // Indicates if the client is currently connected.
 @property (assign, nonatomic) BOOL connected;
 
+// Indicates if the client is currently subscribed.
+@property (assign, nonatomic) BOOL subscribed;
+
 // The delegate for receiving asynchronous messages.
 @property (weak, nonatomic) id<ECSStompDelegate> delegate;
 

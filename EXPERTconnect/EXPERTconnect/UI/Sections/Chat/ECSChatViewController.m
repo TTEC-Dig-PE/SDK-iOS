@@ -970,6 +970,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
     } else {
         
+        if( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant && message.terminatedBy == ECSTerminatedByAssociate ) {
+            // The agent ended the chat.
+            
+            ECSLogDebug(self.logger, @"Issuing an UNSUBSCRIBE because agent ended chat. We have nothing else to listen for"); 
+            [self.chatClient unsubscribe];
+        }
+        
         if( self.waitView ) {
             
             [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeErrorKey,@"Error")
@@ -2441,7 +2448,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                     [resultString appendFormat:@"%@", value];
                 }
                 
-                URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%@", resultString]];
+                NSString *encodedString = [resultString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; 
+                
+                URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%@", encodedString]];
                 break;
                 
             } case NSTextCheckingTypePhoneNumber: {
