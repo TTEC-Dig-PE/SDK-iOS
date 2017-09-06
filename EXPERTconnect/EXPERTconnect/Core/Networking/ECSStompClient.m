@@ -247,19 +247,26 @@ bool        _isConnecting;
 
 - (void)unsubscribe:(NSString*)subscriptionID {
     
-    ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
-    
-    NSDictionary *headers = @{ @"id": subscriptionID };
-    
-    if (self.subscribers[subscriptionID]) {
-        [self.subscribers removeObjectForKey:subscriptionID];
+    if( !self.subscribed ) {
+        
+        ECSLogDebug(self.logger,@"Unsubscribe issued when no subscription active. Ignorring. SubID=%@", subscriptionID);
+        
+    } else {
+        
+        ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
+        
+        NSDictionary *headers = @{ @"id": subscriptionID };
+        
+        if (self.subscribers[subscriptionID]) {
+            [self.subscribers removeObjectForKey:subscriptionID];
+        }
+        
+        self.subscribed = NO;
+        
+        [self sendCommand:kStompUnsubscribe
+              withHeaders:headers
+                  andBody:nil];
     }
-    
-    self.subscribed = NO;
-    
-    [self sendCommand:kStompUnsubscribe
-          withHeaders:headers
-              andBody:nil];
 }
 
 - (void)sendAckForMessage:(NSString*)messageId
