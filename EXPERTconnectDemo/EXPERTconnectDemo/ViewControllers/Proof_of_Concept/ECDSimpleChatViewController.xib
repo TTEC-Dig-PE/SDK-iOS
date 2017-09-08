@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDSimpleChatViewController">
+            <connections>
+                <outlet property="chatTextBox" destination="u79-yC-7SW" id="BmI-nW-0hW"/>
+                <outlet property="chatTextLog" destination="8jk-Y5-4Ar" id="xgh-Bh-bJc"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Bn5-Lg-L67"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="ECDSimpleChatView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8jk-Y5-4Ar">
+                    <rect key="frame" x="12" y="20" width="351" height="587.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u79-yC-7SW">
+                    <rect key="frame" x="12" y="615.5" width="275.5" height="31.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWY-4s-0gT">
+                    <rect key="frame" x="297.5" y="615.5" width="65.5" height="31.5"/>
+                    <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                    <state key="normal" title="Send">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="sendButton_Touch:" destination="-1" eventType="touchUpInside" id="Zx6-jk-OHh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="u79-yC-7SW" firstAttribute="leading" secondItem="8jk-Y5-4Ar" secondAttribute="leading" id="4nQ-Ed-IpW"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="top" secondItem="8jk-Y5-4Ar" secondAttribute="bottom" constant="8" id="7wJ-PR-Cyj"/>
+                <constraint firstItem="u79-yC-7SW" firstAttribute="top" secondItem="8jk-Y5-4Ar" secondAttribute="bottom" constant="8" id="8zZ-Rr-LYt"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="width" secondItem="u79-yC-7SW" secondAttribute="height" multiplier="31:15" id="IBt-qt-1NI"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="leading" secondItem="u79-yC-7SW" secondAttribute="trailing" constant="10" id="KrT-0B-gy2"/>
+                <constraint firstItem="u79-yC-7SW" firstAttribute="top" secondItem="MWY-4s-0gT" secondAttribute="top" id="Mwo-Ba-4XE"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="trailing" secondItem="8jk-Y5-4Ar" secondAttribute="trailing" id="d0V-g8-caV"/>
+                <constraint firstItem="8jk-Y5-4Ar" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="fIC-Um-gYy"/>
+                <constraint firstItem="u79-yC-7SW" firstAttribute="width" secondItem="MWY-4s-0gT" secondAttribute="height" multiplier="269:31" id="foW-pY-Qg7"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="top" secondItem="u79-yC-7SW" secondAttribute="top" id="ggP-5V-BFC"/>
+                <constraint firstItem="u79-yC-7SW" firstAttribute="bottom" secondItem="MWY-4s-0gT" secondAttribute="bottom" id="iLm-8K-2n3"/>
+                <constraint firstItem="MWY-4s-0gT" firstAttribute="bottom" secondItem="u79-yC-7SW" secondAttribute="bottom" id="k2i-mM-fHT"/>
+                <constraint firstAttribute="bottom" secondItem="MWY-4s-0gT" secondAttribute="bottom" constant="20" id="nCK-WC-PMh"/>
+                <constraint firstItem="8jk-Y5-4Ar" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="wDg-Nk-YIc"/>
+                <constraint firstAttribute="trailing" secondItem="8jk-Y5-4Ar" secondAttribute="trailing" constant="12" id="y9N-Jl-5Ip"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

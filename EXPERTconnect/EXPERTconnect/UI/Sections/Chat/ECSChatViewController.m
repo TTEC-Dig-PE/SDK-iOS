@@ -720,19 +720,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)sendChatState:(NSString *)chatState
 {
     NSString *sendState = nil;
-    if ([chatState isEqualToString:@"composing"])
-    {
+    if ([chatState isEqualToString:@"composing"]) {
         //        _userTyping = YES;
         sendState = chatState;
     }
-    else if ([chatState isEqualToString:@"paused"])
-    {
+    else if ([chatState isEqualToString:@"paused"]) {
         //        _userTyping = NO;
         sendState = chatState;
     }
     
-    if(sendState)
-    {
+    if(sendState) {
+        
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         [urlSession sendChatState:chatState
                          duration:10000
@@ -760,33 +758,40 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     message.body = text;
     
-    if(theme.showChatTimeStamp  == YES)
-    {
-        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp])
-        {
+    if(theme.showChatTimeStamp  == YES) {
+        
+        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp]) {
+            
             message.timeStamp = timeStamp;
-        }
-        else{
+            
+        } else {
+            
             if (self.chatClient.lastChatMessageFromAgent == YES) {
                 message.timeStamp = timeStamp;
             }
         }
+        
         self.chatClient.lastTimeStamp = timeStamp;
     }
 	 	 
     [self.messages addObject:message];
     
     self.chatClient.lastChatMessageFromAgent = NO;
-    // [self sendChatState:@"paused"];
     
-    //[self.chatClient sendChatMessage:message];
+//    [self sendChatState:@"paused"];
+    
+    // This is the STOMP method of sending
+//    [self.chatClient sendChatMessage:message];
+    
+    ECSLogVerbose(self.logger, @"User clicked Send. Sending chat message: %@", message.body);
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [urlSession sendChatMessage:message.body
                            from:message.from
                         channel:message.channelId
-                     completion:^(NSString *response, NSError *error)
-     {
+                     completion:^(NSString *response, NSError *error) {
+                         
          if(error) {
              ECSLogError(self.logger, @"Error sending chat message: %@", error);
              
@@ -794,20 +799,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                   message:ECSLocalizedString(ECSLocalizeErrorText, nil)];
          }
      }];
-    
-//    // TODO: Testing only
-//    [urlSession sendChatMessage:[NSString stringWithFormat:@"2 - %@", message.body]
-//                           from:message.from
-//                        channel:message.channelId
-//                     completion:^(NSString *response, NSError *error){}];
-//    [urlSession sendChatMessage:[NSString stringWithFormat:@"3 - %@", message.body]
-//                           from:message.from
-//                        channel:message.channelId
-//                     completion:^(NSString *response, NSError *error){}];
-//    [urlSession sendChatMessage:[NSString stringWithFormat:@"4 - %@", message.body]
-//                           from:message.from
-//                        channel:message.channelId
-//                     completion:^(NSString *response, NSError *error){}];
     
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -827,7 +818,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    //[self.chatClient sendChatMessage:message];
+    
+    //This is the STOMP method of sending
+//    [self.chatClient sendChatMessage:message];
+    
+    ECSLogVerbose(self.logger, @"Sending system message: %@", message.body);
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [urlSession sendChatMessage:message.body
@@ -966,7 +962,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self showNetworkErrorBar];
         _reconnectCount = 0;
         
-        [self scheduleAutomaticReconnect];
+//        [self scheduleAutomaticReconnect];
         
     } else {
         
@@ -1045,11 +1041,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self showNetworkErrorBar];
         
         if( [error.userInfo[ECSHTTPResponseErrorKey] intValue] == 401 ) {
+            
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
         }
         
-        [self scheduleAutomaticReconnect];
+//        [self scheduleAutomaticReconnect];
     
     } else {
         /* Example Errors:
@@ -1120,13 +1117,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 -(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient
                   timeoutSeconds:(int)seconds {
     
-    ECSChatInfoMessage *message = [ECSChatInfoMessage new];
-//    message.fromAgent = YES;
-    
-    NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
-    message.infoMessage = [NSString stringWithFormat:warningString, seconds];
-    [self.messages addObject:message];
-    [self.tableView reloadData];
+    // We no longer want to append this message if the user is still sitting in queue when the idle timeout warning arrives.
+    if( _agentAnswered ) {
+        
+        ECSChatInfoMessage *message = [ECSChatInfoMessage new];
+        
+        NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
+        message.infoMessage = [NSString stringWithFormat:warningString, seconds];
+        
+        [self.messages addObject:message];
+        [self.tableView reloadData];
+    }
 }
 
 -(void) screenShareEnded:(NSNotification*)notification

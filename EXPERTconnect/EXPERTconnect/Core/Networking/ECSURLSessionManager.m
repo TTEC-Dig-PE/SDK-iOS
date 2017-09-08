@@ -55,9 +55,13 @@ NSString *const ECSReachabilityChangedNotification = @"ECSNetworkReachabilityCha
 typedef void (^ECSSessionManagerSuccess)(id result, NSURLResponse *response);
 typedef void (^ECSSessionManagerFailure)(id result, NSURLResponse *response, NSError *error);
 
-@interface ECSURLSessionManager() <NSURLSessionDelegate, NSURLSessionTaskDelegate>
-{
+@interface ECSURLSessionManager() <NSURLSessionDelegate, NSURLSessionTaskDelegate> {
     SCNetworkReachabilityRef _reachabilityRef;
+    
+    NSTimer *           _messageTaskTimer;
+    NSMutableArray *    _messageTasks;
+    ECSMessageTask *    _currentMessageTask;
+    ECSMessageTask *    _lastMessageTask;
 }
 
 @property (strong, nonatomic) NSURL *baseURL;
@@ -105,7 +109,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         self.logger = [[EXPERTconnect shared] logger];
         
 //        self.sessionTaskQueue = [[SessionTaskQueue alloc] init];
-        self.messageTasks = [[NSMutableArray alloc] initWithCapacity:50];
+        _messageTasks = [[NSMutableArray alloc] initWithCapacity:50];
     }
     
     return self;
@@ -935,7 +939,9 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     newTask.parameters = parameters;
     newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
     newTask.failure = [self failureWithCompletion:completion];
+    
     [self addMessageTask:newTask];
+    
     return nil;
     
 //    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString]
@@ -1925,43 +1931,72 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 - (void)addMessageTask:(ECSMessageTask *)messageTask {
     
-    [self.messageTasks addObject:messageTask];
-//    NSLog(@"MTQ: Queuing task. %lu tasks in queue.", self.messageTasks.count);
-    [self resume];
+    [_messageTasks addObject:messageTask];
+    NSLog(@"MTQ: Queuing task. %lu tasks in queue.", (unsigned long)_messageTasks.count);
+    [self messageTaskResume];
     
 }
 
 // call in the completion block of the sessionTask
 - (void)messageTaskFinished:(NSURLResponse *)response {
     
+    [_messageTaskTimer invalidate];
+    _messageTaskTimer = nil;
+    
     // Only dequeue if it was a channel message.
     if( [response.URL.absoluteString containsString:@"conversationengine/v1/channels"]) {
     
-        self.currentMessageTask = nil;
-//        NSLog(@"MTQ: Task finished. %lu tasks in queue.", self.messageTasks.count);
-        [self resume];
+        _currentMessageTask = nil;
+        NSLog(@"MTQ: Task finished. %lu tasks in queue.", (unsigned long)_messageTasks.count);
+        [self messageTaskResume];
     }
-    
 }
 
-- (void)resume {
+- (void)retryLastMessageTask {
     
-    if (self.currentMessageTask) {
-//        NSLog(@"MTQ: Task already in progress. Waiting.... %lu tasks in queue.", self.messageTasks.count);
+    NSLog(@"MTQ: Last message got stuck. Retrying.");
+    
+    [_messageTaskTimer invalidate];
+    _messageTaskTimer = nil;
+    [_messageTasks insertObject:_lastMessageTask atIndex:0];
+    _currentMessageTask = nil;
+    [self messageTaskResume];
+}
+
+- (void)messageTaskResume {
+    
+    if (_currentMessageTask) {
+        
+        NSLog(@"MTQ: Task already in progress. Waiting.... %lu tasks in queue. Timer started.", (unsigned long)_messageTasks.count);
+        
+        if( !_messageTaskTimer ) {
+            [_messageTaskTimer invalidate];
+            _messageTaskTimer = nil;
+            _messageTaskTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                                target:self
+                                                                selector:@selector(retryLastMessageTask)
+                                                                userInfo:nil
+                                                                repeats:NO];
+        }
+        
         return;
     }
     
-    self.currentMessageTask = [self.messageTasks firstObject];
-    if (self.currentMessageTask) {
-        [self.messageTasks removeObjectAtIndex:0];
-//        NSLog(@"MTQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", self.messageTasks.count);
-        
-        [self POST:self.currentMessageTask.path
-        parameters:self.currentMessageTask.parameters
-           success:self.currentMessageTask.success
-           failure:self.currentMessageTask.failure];
-    }
+    _currentMessageTask = [_messageTasks firstObject];
     
+    if (_currentMessageTask) {
+        
+        _lastMessageTask = [_messageTasks objectAtIndex:0];
+        [_messageTasks removeObjectAtIndex:0];
+        NSLog(@"MTQ: Nothing in progress. Starting first task in queue. %lu tasks in queue", (unsigned long)_messageTasks.count);
+        
+        [self POST:_currentMessageTask.path
+        parameters:_currentMessageTask.parameters
+           success:_currentMessageTask.success
+           failure:_currentMessageTask.failure];
+    }
 }
+
+
 
 @end

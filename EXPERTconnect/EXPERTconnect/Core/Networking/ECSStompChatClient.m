@@ -504,10 +504,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     {
         [self setupChatChannel];
     }
-    
-    if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)])
-    {
+      
+    if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)]) {
+        
         [self.delegate chatClientDidConnect:self];
+        
     }
 }
 

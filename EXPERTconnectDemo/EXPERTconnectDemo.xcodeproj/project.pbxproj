@@ -86,6 +86,7 @@
 		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
 		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
+		C4DBE3491F63076800D35101 /* ECDSimpleChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
 		D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
 		D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */; };
@@ -302,6 +303,7 @@
 		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
+		C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDSimpleChatViewController.xib; path = Proof_of_Concept/ECDSimpleChatViewController.xib; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		D81612F61B6AB6BE005BD20E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -688,6 +690,7 @@
 				C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */,
 				C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */,
 				C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */,
+				C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */,
 			);
 			name = Proof_of_Concept;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
 				03CF88601AD5B45E0064085E /* ECDSettingsViewController.xib in Resources */,
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
+				C4DBE3491F63076800D35101 /* ECDSimpleChatViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
 				C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,

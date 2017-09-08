@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *optNavButtons;
 @property (weak, nonatomic) IBOutlet UISwitch *optSendButtonImage;
 @property (weak, nonatomic) IBOutlet UISwitch *optImageUploadButton;
+@property (weak, nonatomic) IBOutlet UISwitch *optLowLevelChat;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *lblAgentAvailability;

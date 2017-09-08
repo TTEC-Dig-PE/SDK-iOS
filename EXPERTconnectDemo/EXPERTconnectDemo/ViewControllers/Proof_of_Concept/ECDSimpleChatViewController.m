@@ -10,14 +10,16 @@
 
 @interface ECDSimpleChatViewController () <ECSStompChatDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *chatTextBox;
+@property (weak, nonatomic) IBOutlet UITextView *chatTextLog;
 @property (strong, nonatomic) ECSStompChatClient *chatClient;
-//@property (nonatomic, strong) ECSActionType *actionType;
-
+@property (strong, nonatomic) ECSChatActionType *action;
 @end
 
 @implementation ECDSimpleChatViewController
 
 bool _userTyping;
+CGPoint _originalCenter;
 
 #pragma mark - Base UIViewController Loading / Init
 - (void)viewDidLoad {
@@ -25,45 +27,58 @@ bool _userTyping;
     // Do any additional setup after loading the view.
     
     _userTyping = NO;
+    _originalCenter = self.view.center;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    if (self.chatClient)
+    [self appendToChatLog:@"This view demonstrates a chat client using low-level API calls (limited UI)."];
+    
+    if (!self.chatClient)
     {
-        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+        self.chatClient = [ECSStompChatClient new];
+        self.chatClient.delegate = self;
         
-        [urlSession getDetailsForChannelId:self.chatClient.channel.channelId
-                                completion:^(ECSChannelConfiguration *response, NSError *error) {
-                                    
-            if ([response channelState] == ECSChannelStatePending ||
-                [response channelState] == ECSChannelStateQueued ||
-                [response channelState] == ECSChannelStateConnected) {
-                NSLog(@"Still connected to chat.");
-                return;
-            }
-        }];
+        self.action = [ECSChatActionType new];
+        self.action.actionId = @"";
+        
+        self.action.agentSkill = @"CE_Mobile_Chat";
+        
+        self.action.displayName = @"SimpleChatter";
+        self.action.shouldTakeSurvey = NO;
+        
+        self.action.subject = @"My Chat";
+        
+        self.action.channelOptions = @{@"subID": @"abc123", @"memberType": @"coach"};
+        
+        self.action.journeybegin = [NSNumber numberWithInt:1];
+        
+        [self.chatClient setupChatClientWithActionType:self.action];
     }
-    
-    // We are fresh window, or the previous chat has expired somehow. Let's start a new one.
-    
-    self.chatClient = [ECSStompChatClient new];
-    self.chatClient.delegate = self;
-    
-    ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
-    chatAction.actionId = @"";
-    chatAction.agentSkill = @"CE_Mobile_Chat";
-    chatAction.displayName = @"SimpleChatMike";
-    chatAction.shouldTakeSurvey = YES;
-    chatAction.journeybegin = [NSNumber numberWithInt:1];
-    
-    [self.chatClient setupChatClientWithActionType:chatAction];
+    [super viewWillAppear:animated];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.chatClient disconnect];
+}
+
+#pragma mark - View Interactive Objects
+
+- (IBAction)sendButton_Touch:(id)sender {
+    if (self.chatTextBox.text.length > 0) {
+        [self sendText:self.chatTextBox.text];
+        
+        [self appendToChatLog:[NSString stringWithFormat:@"Me: %@", self.chatTextBox.text]];
+        self.chatTextBox.text = @"";
+        [self hideKeyboard];
+    }
 }
 
 #pragma mark - StompClient Callbacks
 - (void)chatClientDidConnect:(ECSStompChatClient *)stompClient {
     // We are now connected to an agent.
-    NSLog(@"Chat session initiated (waiting for agent to answer...)");
+    //NSLog(@"Chat session initiated (waiting for agent to answer...)");
+    [self appendToChatLog:@"Chat session initiated. Waiting for agent to answer..."];
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
@@ -71,51 +86,124 @@ bool _userTyping;
     
     if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
     {
-        NSLog(@"A new participant has joined the chat!");
+        // An agent has joined the chat.
+        ECSChatAddParticipantMessage *addMsg = (ECSChatAddParticipantMessage*)message;
+        [self appendToChatLog:[NSString stringWithFormat:@"%@ has joined the chat.", addMsg.fullName]];
+    }
+    else if ([message isKindOfClass:[ECSChatRemoveParticipantMessage class]])
+    {
+        // An agent has left the chat.
+        ECSChatRemoveParticipantMessage *removeMsg = (ECSChatRemoveParticipantMessage*)message;
+        [self appendToChatLog:[NSString stringWithFormat:@"%@ has left the chat.", removeMsg.fullName]];
+    }
+    else if ([message isKindOfClass:[ECSSendQuestionMessage class]])
+    {
+        // An agent has left the chat.
+        ECSSendQuestionMessage *aeMsg = (ECSSendQuestionMessage *)message;
+        [self appendToChatLog:[NSString stringWithFormat:@"Agent sent answer engine article: %@", aeMsg.questionText]];
         
-    } else {
-    
+        // Send user to the answer engine view.
+        // [self showAnswerEngineWithQuestion:aeMsg.questionText];
+    }
+    else if ([message isKindOfClass:[ECSChatAssociateInfoMessage class]])
+    {
+        // An "associate info" message. A configured greeting message an agent can send via a button on the agent client.
+        ECSChatAssociateInfoMessage *associateMsg = (ECSChatAssociateInfoMessage *)message;
+        [self appendToChatLog:[NSString stringWithFormat:@"Associate Info: %@", associateMsg.message]];
+    }
+    else if( [message isKindOfClass:[ECSChatURLMessage class]] )
+    {
+        // The agent has sent a URL to the user.
+        ECSChatURLMessage *urlMsg = (ECSChatURLMessage *)message;
+        [self appendToChatLog:[NSString stringWithFormat:@"URL Sent: %@", urlMsg.url]];
+    }
+    else if( [message isKindOfClass:[ECSChatMessage class]])
+    {
+        // Standard text chat message.
+        ECSChatTextMessage *chatMessage = (ECSChatTextMessage *)message;
         if (message.fromAgent) {
             // This is a message from the agent.
-        } else {
-            // This is a message from the client (user).
+            [self appendToChatLog:[NSString stringWithFormat:@"Agent: %@", chatMessage.body]];
         }
+    }
+    else
+    {
+        [self appendToChatLog:@"Unknown message type received."];
     }
 }
 
-- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient {
+- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient
+{
     NSLog(@"Agent answered!");
+    [self appendToChatLog:@"An agent is connecting..."];
 }
 
-- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient {
-    NSLog(@"An agent is calling you back.");
+// Dev Note: Older method. Does not contain disconnectReason or terminatedBy. Recommend using the method below.
+//- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
+//{
+//    //NSLog(@"Chat client was disconnected.");
+//    if( graceful )
+//    {
+//        [self appendToChatLog:@"Chat has disconnected."];
+//    }
+//    else
+//    {
+//        [self appendToChatLog:@"Chat disconnected (error!)"];
+//    }
+//}
+
+- (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
+    
+    if ( message.disconnectReason == ECSDisconnectReasonIdleTimeout ) {
+        [self appendToChatLog:@"Chat has timed out."];
+        
+    } else if ( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant ) {
+        [self appendToChatLog:[NSString stringWithFormat:@"Chat was ended by: %@", message.terminatedByString]];
+        
+    } else {
+        [self appendToChatLog:@"Chat was ended for an unknown reason"];
+    }
+    
 }
 
-- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient {
-    NSLog(@"Chat client was disconnected.");
+// A channel was added (e.g. escalate to voice)
+- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message
+{
+    NSString *msg = [NSString stringWithFormat:@"Adding %@ channel with address: %@", message.mediaType, message.suggestedAddress];
+    NSLog(@"%@", msg);
+    [self appendToChatLog:msg];
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
-    NSLog(@"Channel added with message: %@", message);
-}
-
-- (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime {
+- (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime
+{
     NSLog(@"Updated estimated wait time is %ld", (long)waitTime);
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state {
-    
-    if(state.object && [state.type isEqualToString:@"artifact"]) {
-        // We have an incoming document from the server.
+// A chat state message received.
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
+{
+    if (state.chatState == ECSChatStateComposing)
+    {
+        NSLog(@"Agent is typing...");
     }
-    
-    if (state.chatState == ECSChatStateComposing) {
-        NSLog(@"Agent is composing a message...");
+    else if (state.chatState == ECSChatStateTypingPaused)
+    {
+        NSLog(@"Agent has stopped typing.");
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error {
-    NSLog(@"Chat failure. Error: %@", error);
+// A notification message received.
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
+{
+    // A media upload.
+    NSLog(@"Received file with filename: %@", notificationMessage.objectData);
+}
+
+// An error has occurred on the STOMP channel
+- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
+{
+    //NSLog(@"Chat failure. Error: %@", error);
+    [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
 }
 
 #pragma mark - Chat Client Functions
@@ -132,46 +220,58 @@ bool _userTyping;
         sendState = chatState;
     }
     
-    if(sendState) {
-        ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-        [urlSession sendChatState:chatState
-                         duration:10000
-                          channel:self.chatClient.currentChannelId
-                       completion:^(NSString *response, NSError *error)
-        {
-            if(error) {
-                NSLog(@"Sending chat state error: %@", error);
-            }
-        }];
+    if(sendState)
+    {
+        [[[EXPERTconnect shared] urlSession] sendChatState:chatState
+                                                  duration:10000
+                                                   channel:self.chatClient.currentChannelId
+                                                completion:^(NSString *response, NSError *error)
+         {
+             if(error)
+             {
+                 NSLog(@"Sending chat state error: %@", error);
+             }
+         }];
     }
 }
 
 - (void)sendText:(NSString *)text
 {
-    ECSChatTextMessage *message = [ECSChatTextMessage new];
     
-    message.from = self.chatClient.fromUsername;
-    message.fromAgent = NO;
-    message.channelId = self.chatClient.currentChannelId;
-    message.conversationId = self.chatClient.currentConversation.conversationID;
-    
-    message.body = text;
-    
-    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    [urlSession sendChatMessage:message.body
-                           from:message.from
-                        channel:message.channelId
-                     completion:^(NSString *response, NSError *error)
-    {
-        if(!error) {
-            NSLog(@"Message sent to server!");
-        } else {
-            NSLog(@"Error sending chat message: %@", error);
-        }
-    }];
+    [[[EXPERTconnect shared] urlSession] sendChatMessage:text
+                                                    from:self.chatClient.fromUsername
+                                                 channel:self.chatClient.currentChannelId
+                                              completion:^(NSString *response, NSError *error)
+     {
+         if(!error) {
+             NSLog(@"Message sent to server!");
+         } else {
+             NSLog(@"Error sending chat message: %@", error);
+         }
+     }];
 }
 
+#pragma mark - Helper Functions
+
+- (void) appendToChatLog:(NSString *)text {
+    self.chatTextLog.text = [NSString stringWithFormat:@"%@\n%@", self.chatTextLog.text, text];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    self.view.center = CGPointMake(_originalCenter.x, _originalCenter.y-255);
+    [UIView commitAnimations];
+}
+
+- (void)hideKeyboard {
+    [self.chatTextBox resignFirstResponder];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    self.view.center = CGPointMake(_originalCenter.x, _originalCenter.y);
+    [UIView commitAnimations];
+}
 
 #pragma mark - Base UIViewController Functions
 - (void)didReceiveMemoryWarning {
@@ -180,13 +280,14 @@ bool _userTyping;
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

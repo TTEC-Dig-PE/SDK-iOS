@@ -8,6 +8,7 @@
 
 #import "ECDChatConfigVC.h"
 #import "ECDLocalization.h"
+#import "ECDSimpleChatViewController.h"
 
 @interface ECDChatConfigVC () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
@@ -108,6 +109,24 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (IBAction)btnStartChat_Touch:(id)sender {
     
+    if( self.optLowLevelChat.on == YES ) {
+        [self startLowLevelChat];
+    } else {
+        [self startHighLevelChat];
+    }
+    
+}
+
+- (void)startLowLevelChat {
+    
+    ECDSimpleChatViewController *newVC = [[ECDSimpleChatViewController alloc] init];
+    
+    [self.navigationController pushViewController:newVC animated:YES];
+    
+}
+
+- (void)startHighLevelChat {
+
     NSString *chatSkill = chatSkillsArray[selectedRow];
     
     NSLog(@"Test Harness::Chat Config - Starting Ad-Hoc Chat with Skill: %@", chatSkill);

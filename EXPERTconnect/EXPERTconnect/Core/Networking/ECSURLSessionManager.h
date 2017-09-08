@@ -55,10 +55,7 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
  ECSURLSessionManager provides interfaces for performing API calls to the EXPERTconnect servers.
  */
 
-@interface ECSURLSessionManager : NSObject
-
-@property (nonatomic, strong) NSMutableArray * messageTasks;
-@property (nonatomic, strong) ECSMessageTask * currentMessageTask;
+@interface ECSURLSessionManager : NSObject 
 
 @property (nonatomic, strong) SessionTaskQueue *sessionTaskQueue;
 
