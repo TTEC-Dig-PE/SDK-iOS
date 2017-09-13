@@ -23,6 +23,7 @@
         self.location = @"mobile";
         self.sourceType = @"Mobile";
         self.mediaType = @"Chat";
+        self.priority = kECSChatPriorityUseServerDefault;
     }
     
     return self;
@@ -40,6 +41,7 @@
     actionType.mediaType = [self.mediaType copyWithZone:zone];
     
     actionType.shouldTakeSurvey = self.shouldTakeSurvey;
+    actionType.priority = self.priority;
     
     return actionType;
 }

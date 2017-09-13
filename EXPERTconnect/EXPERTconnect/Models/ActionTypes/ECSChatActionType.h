@@ -8,6 +8,11 @@
 // #import <EXPERTconnect/EXPERTconnect.h> // creates a circular reference with subclasses
 #import "ECSActionType.h"
 
+static int const kECSChatPriorityUseServerDefault   = -1;
+static int const kECSChatPriorityLow                = 1;
+static int const kECSChatPriorityNormal             = 5;
+static int const kECSChatPriorityHigh               = 10;
+
 @interface ECSChatActionType : ECSActionType <NSCopying>
 
 // Agent ID for chat
@@ -28,8 +33,10 @@
 // Location
 @property (strong, nonatomic) NSString *location;
 
-
 // Agent Survey after chat
 @property (assign, nonatomic) BOOL shouldTakeSurvey;
+
+// The chat priority
+@property (assign, nonatomic) int priority;
 
 @end

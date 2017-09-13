@@ -22,6 +22,7 @@
 @class ECSConversationCreateResponse;
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
+@class ECSChatRemoveParticipantMessage;
 @class ECSLog;
 
 /**
@@ -124,6 +125,28 @@
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChannelStateMessage:(ECSChannelStateMessage *)channelStateMessage;
 
+
+// New delegate functions
+
+- (void) chatDidConnect;
+
+- (void) chatAgentDidAnswer;
+
+- (void) chatTimeoutWarning:(int)seconds;
+
+- (void) chatDidFailWithError:(NSError *)error;
+
+- (void) chatDisconnectedWithMessage:(ECSChannelStateMessage *)message; // TODO
+
+- (void) chatReceivedTextMessage:(ECSChatTextMessage *)message;
+
+- (void) chatAddedParticipant:(ECSChatAddParticipantMessage *)participant;
+
+- (void) chatRemovedParticipant:(ECSChatRemoveParticipantMessage *)participant;
+
+- (void) chatStateUpdatedTo:(ECSChatState)state;
+
+
 @end
 
 /**
@@ -150,6 +173,26 @@
 @property (assign, nonatomic) BOOL lastChatMessageFromAgent;
 
 @property (nonatomic, strong) ECSLog *logger;
+
+/**
+ @discussion Starts a new low-level chat session.
+ @param skill The chat skill to connect with. Often a string provided by Humanify, such as "CustomerServiceReps" that contains a group of associates who recieve the chats.
+ @param theSubject This is displayed on the associate desktop client as text at the start of a chat.
+ */
+- (void) startChatWithSkill:(NSString *)skill
+                    subject:(NSString *)theSubject;
+
+/**
+ @discussion Starts a new low-level chat session.
+ @param skill The chat skill to connect with. Often a string provided by Humanify, such as "CustomerServiceReps" that contains a group of associates who recieve the chats.
+ @param theSubject This is displayed on the associate desktop client as text at the start of a chat.
+ @param priority Higher priority values will be fed to associates faster than lower ones.
+ @param fields These data fields can be used to provide extra information to the associate. Eg: { "userType": "student" }
+ */
+- (void) startChatWithSkill:(NSString *)skill
+                    subject:(NSString *)theSubject
+                   priority:(int)priority
+                 dataFields:(NSDictionary *)fields;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through
@@ -221,5 +264,23 @@
  Sends a notification that cobrowse is set up and ready to connect
  */
 - (void)sendCoBrowseMessage:(ECSChatCoBrowseMessage *)message;
+
+/**
+ @discussion Sends a chat message on the STOMP websocket connection
+ 
+ @param messageBody The chat text to send. It will be sent from the user.
+ @param completion Called after the HTTP POST completes. Response will typically echo or ACK.
+ */
+- (void)sendChatText:(NSString *)messageBody
+          completion:(void(^)(NSString *response, NSError *error))completion;
+
+/**
+ @discussion Sends a chat message on the STOMP websocket connection
+ 
+ @param theChatState The chat state to send. An enum with values for "composing" and "paused". 
+ @param completion Called after the HTTP POST completes. Response will typically echo or ACK.
+ */
+- (void) sendChatState:(ECSChatState)theChatState
+            completion:(void(^)(NSString *response, NSError *error))completion;
 
 @end
