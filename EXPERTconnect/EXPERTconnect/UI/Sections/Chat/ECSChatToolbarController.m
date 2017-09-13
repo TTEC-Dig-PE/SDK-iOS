@@ -320,7 +320,7 @@
 {
     [self.myTimer invalidate];
     self.myTimer = nil;
-    [self sendChatState:@"paused"];
+//    [self sendChatState:@"paused"];
 }
 
 - (void)timeFired:(NSTimer *)timer
