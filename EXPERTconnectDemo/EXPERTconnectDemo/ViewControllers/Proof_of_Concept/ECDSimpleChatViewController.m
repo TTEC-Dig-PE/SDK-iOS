@@ -34,24 +34,23 @@ CGPoint _originalCenter;
     
     [self appendToChatLog:@"This view demonstrates a chat client using low-level API calls (limited UI)."];
     
-    if (!self.chatClient)
-    {
+    if (!self.chatClient) {
+        
         self.chatClient = [ECSStompChatClient new];
         self.chatClient.delegate = self;
         
         self.action = [ECSChatActionType new];
-        self.action.actionId = @"";
         
-        self.action.agentSkill = @"CE_Mobile_Chat";
+        self.action.actionId =          @"";
+        self.action.agentSkill =        @"CE_Mobile_Chat";
+        self.action.displayName =       @"SimpleChatter";
+        self.action.shouldTakeSurvey =  NO;
+        self.action.subject =           @"My Chat";
+        self.action.channelOptions =    @{@"subID": @"abc123", @"memberType": @"coach"};
+        self.action.journeybegin =      [NSNumber numberWithInt:1];
         
-        self.action.displayName = @"SimpleChatter";
-        self.action.shouldTakeSurvey = NO;
-        
-        self.action.subject = @"My Chat";
-        
-        self.action.channelOptions = @{@"subID": @"abc123", @"memberType": @"coach"};
-        
-        self.action.journeybegin = [NSNumber numberWithInt:1];
+        // New parameter for 6.2.0: Set the chat priority. Default is 1 already (Low). Uncommenting this will raise the chat priority.
+//        self.action.priority =        kECSChatPriorityHigh;
         
         [self.chatClient setupChatClientWithActionType:self.action];
     }
