@@ -157,6 +157,8 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [EXPERTconnect shared].theme.chatBubbleVertMargins = [self.txtVMargin.text intValue];
     [EXPERTconnect shared].theme.chatBubbleCornerRadius = [self.txtCornerRadius.text intValue];
     
+//    [EXPERTconnect shared].urlSession.useMessageQueuing = YES; 
+    
     // Create the chat view
     if( !self.chatController || !_chatActive )
     {

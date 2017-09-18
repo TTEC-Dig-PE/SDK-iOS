@@ -219,8 +219,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     configuration.sourceType = chatAction.sourceType;
     configuration.mediaType = chatAction.mediaType;
     configuration.deviceId = userManager.deviceID;
-    configuration.location = chatAction.location; 
-    configuration.priority = @1;
+    configuration.location = chatAction.location;
+    
+    // Only send if value is 1-10, otherwise send a nil/null.
+    configuration.priority = (chatAction.priority > 0 && chatAction.priority < 11 ? [NSNumber numberWithInt:chatAction.priority] : nil);
     
     NSString *url = nil;
     

@@ -90,6 +90,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @synthesize localLocale;
 @synthesize journeyManagerContext;
 @synthesize lastChannelId;
+@synthesize useMessageQueuing;
 
 - (instancetype)initWithHost:(NSString*)host
 {
@@ -107,6 +108,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
         [self startReachability];
         self.logger = [[EXPERTconnect shared] logger];
+        
+        useMessageQueuing = YES;
         
 //        self.sessionTaskQueue = [[SessionTaskQueue alloc] init];
         _messageTasks = [[NSMutableArray alloc] initWithCapacity:50];
@@ -934,20 +937,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"from": fromString, @"body": messageString };
     
-    ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
-    newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString];
-    newTask.parameters = parameters;
-    newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
-    newTask.failure = [self failureWithCompletion:completion];
-    
-    [self addMessageTask:newTask];
-    
-    return nil;
-    
-//    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString]
-//          parameters:parameters
-//             success:[self successWithExpectedType:[NSString class] completion:completion]
-//             failure:[self failureWithCompletion:completion]];
+    if( self.useMessageQueuing ) {
+        
+        ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
+        newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString];
+        newTask.parameters = parameters;
+        newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
+        newTask.failure = [self failureWithCompletion:completion];
+        
+        [self addMessageTask:newTask];
+        
+        return nil;
+        
+    } else {
+        
+        return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/messages", channelString]
+              parameters:parameters
+                 success:[self successWithExpectedType:[NSString class] completion:completion]
+                 failure:[self failureWithCompletion:completion]];
+    }
 }
 
 - (NSURLSessionDataTask*)sendChatState:(NSString *)theChatState
@@ -957,18 +965,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSDictionary *parameters = @{ @"state": theChatState, @"duration": [NSString stringWithFormat:@"%d", theDuration] };
     
-    ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
-    newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel];
-    newTask.parameters = parameters;
-    newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
-    newTask.failure = [self failureWithCompletion:completion];
-    [self addMessageTask:newTask];
-    return nil;
-    
-//    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel]
-//           parameters:parameters
-//              success:[self successWithExpectedType:[NSString class] completion:completion]
-//              failure:[self failureWithCompletion:completion]];
+    if( self.useMessageQueuing ) {
+        
+        ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
+        newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel];
+        newTask.parameters = parameters;
+        newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
+        newTask.failure = [self failureWithCompletion:completion];
+        
+        [self addMessageTask:newTask];
+        
+        return nil;
+        
+    } else {
+        
+        return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/chatState", theChannel]
+               parameters:parameters
+                  success:[self successWithExpectedType:[NSString class] completion:completion]
+                  failure:[self failureWithCompletion:completion]];
+    }
 }
 
 - (NSURLSessionDataTask*)sendChatNotificationFrom:(NSString *)fromString
@@ -984,18 +999,25 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                   @"channelId": theChannel,
                                   @"conversationId": convoIdString};
     
-    ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
-    newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel];
-    newTask.parameters = parameters;
-    newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
-    newTask.failure = [self failureWithCompletion:completion];
-    [self addMessageTask:newTask];
-    return nil;
+    if( self.useMessageQueuing ) {
+        
+        ECSMessageTask *newTask = [[ECSMessageTask alloc] init];
+        newTask.path = [NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel];
+        newTask.parameters = parameters;
+        newTask.success = [self successWithExpectedType:[NSString class] completion:completion];
+        newTask.failure = [self failureWithCompletion:completion];
+        
+        [self addMessageTask:newTask];
+        
+        return nil;
     
-//    return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel]
-//           parameters:parameters
-//              success:[self successWithExpectedType:[NSString class] completion:completion]
-//              failure:[self failureWithCompletion:completion]];
+    } else {
+        
+        return [self POST:[NSString stringWithFormat:@"conversationengine/v1/channels/%@/notifications", theChannel]
+               parameters:parameters
+                  success:[self successWithExpectedType:[NSString class] completion:completion]
+                  failure:[self failureWithCompletion:completion]];
+    }
 }
 
 /*
@@ -1277,7 +1299,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         ECSLogVerbose(self.logger,@"API: Success with response %@ and object %@", response, result);
         
 //        [self.sessionTaskQueue sessionTaskFinished]; // Let the next queued message go.
-        [self messageTaskFinished:response];
+        if( self.useMessageQueuing ) [self messageTaskFinished:response];
         
         if (completion)
         {
@@ -1353,7 +1375,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         ECSLogVerbose(self.logger,@"API: Request failure %@ with error %@ and object %@", response, error, result);
         
 //        [self.sessionTaskQueue sessionTaskFinished];
-        [self messageTaskFinished:response];
+        if( self.useMessageQueuing ) [self messageTaskFinished:response];
         
         if (completion)
         {
