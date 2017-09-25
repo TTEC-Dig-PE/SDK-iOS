@@ -101,6 +101,8 @@
 {
     self.horizontalSeparatorVisible = YES;
     self.enabled = YES;
+    
+    [super prepareForReuse];
 }
 
 - (void)setEnabled:(BOOL)enabled

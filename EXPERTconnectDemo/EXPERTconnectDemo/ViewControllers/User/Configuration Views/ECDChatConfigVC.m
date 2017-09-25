@@ -163,9 +163,11 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     if( !self.chatController || !_chatActive )
     {
         self.chatController = (ECSChatViewController *)[[EXPERTconnect shared] startChat:chatSkill
-                                                withDisplayName:@"Live Chat with a Guide"
-                                                     withSurvey:NO];
+                                                                         withDisplayName:@"Live Chat with a Guide"
+                                                                              withSurvey:NO
+                                                                      withChannelOptions:@{@"userType":@"student"}];
         
+       
         // Add our custom left bar button
         
         if(self.optNavButtons.on)

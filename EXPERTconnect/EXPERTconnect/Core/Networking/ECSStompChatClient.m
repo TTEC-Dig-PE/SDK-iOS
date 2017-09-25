@@ -304,9 +304,13 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 - (void)reconnect {
     
     self.isReconnecting = YES;
+    
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     self.stompClient.authToken = sessionManager.authToken;
+    
     [self.stompClient reconnect];
+    
 }
 
 - (void)disconnect {
@@ -751,6 +755,14 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                 
             } else if (message.channelState == ECSChannelStateDisconnected) {
             
+                // The associate or system has disconnected. We have nothing left to listen for. Let's unsubscribe.
+                if( message.disconnectReason != ECSDisconnectReasonError ) {
+                    
+                    ECSLogDebug(self.logger, @"Issuing an UNSUBSCRIBE. We will have nothing else to listen for.");
+                    
+                    [self unsubscribe];
+                }
+                
                 // First check for the older, deprecated function
                 if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
                     [self.delegate chatClientDisconnected:self wasGraceful:YES];
