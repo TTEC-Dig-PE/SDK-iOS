@@ -77,7 +77,7 @@ static NSString * const kStompReceiptID = @"ios-1-subscribe";
 int         _clientHeartbeatInterval;
 int         _clientHeartbeatsMissed;
 bool        _wasConnected;
-//bool        _isConnecting;
+bool        _isConnecting;
 
 @synthesize authToken;
 
@@ -91,7 +91,7 @@ bool        _wasConnected;
         _clientHeartbeatInterval = 0;
         _clientHeartbeatsMissed = 0;
         _wasConnected = NO;
-//        _isConnecting = NO;
+        _isConnecting = NO;
         self.connected = NO;
         self.logger = [[EXPERTconnect shared] logger];
     }
@@ -100,37 +100,24 @@ bool        _wasConnected;
 }
 
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
-    
     [self.subscribers removeAllObjects];
-    
-}
-
-- (void)reconnect {
-    
-    if ( self.hostURL ) {
-        
-        ECSLogVerbose(self.logger, @"STOMP reconnect. Host=%@", self.hostURL);
-        
-        [self connectToHost:[self.hostURL absoluteString]];
-    }
 }
 
 - (void)connectToHost:(NSString*)host {
     
-//    _isConnecting = YES;
-    if( self.webSocket.readyState == ECS_OPEN ) {
-        ECSLogVerbose(self.logger, @"Stomp connection issued when already connected. Ignoring.");
+    if( self.connected || (_isConnecting && !self.connected) ) {
+        ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
+                    self.connected, _isConnecting);
         return;
     }
+    _isConnecting = YES;
     
     self.hostURL = [NSURL URLWithString:host];
-    
     NSURL *url = self.hostURL;
     
-    if(self.authToken) {
-        
+    if(self.authToken)
+    {
         NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
         NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
                                [self.hostURL query] ? @"&" : @"?", queryString];
@@ -145,6 +132,7 @@ bool        _wasConnected;
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self;
     [self.webSocket open];
+    
     
     [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
     
@@ -180,14 +168,18 @@ bool        _wasConnected;
     }
 }
 
-- (BOOL)connected {
-    return _webSocket.readyState == ECS_OPEN;
+- (void)reconnect {
+    
+    if ( self.hostURL ) {
+        
+        ECSLogVerbose(self.logger, @"STOMP reconnect. Host=%@", self.hostURL);
+        [self connectToHost:[self.hostURL absoluteString]];
+    }
 }
 
-- (void)sendConnectToHost:(NSString*)host {
-    
+- (void)sendConnectToHost:(NSString*)host
+{
     NSAssert(host, @"Host must not be nil");
-    
     ECSLogDebug(self.logger, @"STOMP connect. Host %@", host);
     
     NSDictionary *headers = @{
@@ -219,7 +211,7 @@ bool        _wasConnected;
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
-//    _isConnecting = NO;
+    _isConnecting = NO; 
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
@@ -263,8 +255,7 @@ bool        _wasConnected;
         
         ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
         
-        NSDictionary *headers = @{ @"id": subscriptionID,
-                                   @"persistent": @"true" };
+        NSDictionary *headers = @{ @"id": subscriptionID };
         
         if (self.subscribers[subscriptionID]) {
             [self.subscribers removeObjectForKey:subscriptionID];
@@ -419,12 +410,12 @@ bool        _wasConnected;
     if (error.code == 57) { // "Socket is not connected."
         
         // Attempt a reconnect after 5 seconds.
-        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
+//        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
         
     } else {
         
         self.connected = NO;
-//        _isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working.
+        _isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
         
         [self.delegate stompClient:self didFailWithError:error];
     }
@@ -437,7 +428,7 @@ bool        _wasConnected;
     ECSLogVerbose(self.logger, @"\nMessage=%@\n\nFrame=%@\n", message, frame);
 
     // Any message from server indicates it is "good" reset server heartbeat miss count and "connecting" status.
-//    _isConnecting = NO;
+    _isConnecting = NO;
     _clientHeartbeatsMissed = 0;
     
     // Check for, and update heart-beat if applicable
@@ -471,7 +462,7 @@ bool        _wasConnected;
         
         if( frame.headers.count > 0 && frame.headers[@"message"] ) {
             
-            if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] && self.connected == NO ) {
+            if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] ) {
                 
                 // This is the error seen after a proper DISCONNECT is issued. Supressing.
                 ECSLogVerbose(self.logger, @"Supressing connection to broker closed error (we have already disconnected)."); 
@@ -509,7 +500,7 @@ bool        _wasConnected;
     
     ECSLogDebug(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
     
-//    _isConnecting = NO;
+    _isConnecting = NO;
     
     if( !wasClean ) {
         
