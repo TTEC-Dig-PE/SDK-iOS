@@ -199,10 +199,32 @@ CGPoint _originalCenter;
 }
 
 // An error has occurred on the STOMP channel
-- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
-{
-    //NSLog(@"Chat failure. Error: %@", error);
-    [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
+- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error {
+    
+    if( [error.domain isEqualToString:@"ECSWebSocketErrorDomain"] &&
+           [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401 ) {
+            
+        // Fetch a new auth token and retry the stomp connect.
+        int retryCount = 0;
+        [[EXPERTconnect shared].urlSession refreshIdentityDelegate:retryCount
+                                                    withCompletion:^(NSString *authToken, NSError *error)
+         {
+             // AuthToken updated. Try to reconnect.
+             if( !error ) {
+                 
+                 [self.chatClient connectToHost:[EXPERTconnect shared].urlSession.hostName];
+                 
+             } else {
+                 
+                 [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
+             }
+         }];
+        
+    } else {
+
+        [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
+        
+    }
 }
 
 #pragma mark - Chat Client Functions

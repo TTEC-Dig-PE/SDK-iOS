@@ -16,6 +16,7 @@
 
 
 #import "ECSWebSocket.h"
+#import "ECSErrorDefinitions.h"
 
 #if TARGET_OS_IPHONE
 #define HAS_ICU
@@ -445,8 +446,14 @@ static __strong NSData *CRLFCRLF;
     NSInteger responseCode = CFHTTPMessageGetResponseStatusCode(_receivedHTTPHeaders);
     
     if (responseCode >= 400) {
-        ECSFastLog(@"Request failed with response code %d", responseCode);
-        [self _failWithError:[NSError errorWithDomain:ECSWebSocketErrorDomain code:2132 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"received bad response code from server %ld", (long)responseCode], ECSHTTPResponseErrorKey:@(responseCode)}]];
+        
+        NSString *badMessage = [NSString stringWithFormat:@"received bad response code from server %ld", (long)responseCode];
+        
+        ECSFastLog(badMessage);
+        
+        [self _failWithError:[NSError errorWithDomain:ECSWebSocketErrorDomain
+                                                 code:ECS_ERROR_STOMP_OPEN
+                                             userInfo:@{NSLocalizedDescriptionKey:badMessage, ECSHTTPResponseErrorKey:@(responseCode)}]];
         return;
     }
     

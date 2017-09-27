@@ -106,7 +106,8 @@ bool        _isConnecting;
 
 - (void)connectToHost:(NSString*)host {
     
-    if( self.connected || (_isConnecting && !self.connected) ) {
+    if( self.webSocket.readyState == ECS_OPEN ) {
+    //if( self.connected || (_isConnecting && !self.connected) ) {
         ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
                     self.connected, _isConnecting);
         return;

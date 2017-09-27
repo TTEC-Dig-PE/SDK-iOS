@@ -103,19 +103,19 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     // Fetch the authToken from our webApp
     [myAppConfig setupAuthenticationDelegate]; // Sets the auth retry delegate
     
-    if(myAppConfig.organization && [EXPERTconnect shared].userName)
-    {
-        [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
-         {
-             if (!error) {
-                 [[EXPERTconnect shared] setUserIdentityToken:authToken];
-             } else {
-                 NSLog(@"ECDemo - Error fetching authentication token! No API calls will work.");
-             }
-            
-             [myAppConfig startBreadcrumbSession];
-         }];
-    }
+//    if(myAppConfig.organization && [EXPERTconnect shared].userName)
+//    {
+//        [myAppConfig fetchAuthenticationToken:^(NSString *authToken, NSError *error)
+//         {
+//             if (!error) {
+//                 [[EXPERTconnect shared] setUserIdentityToken:authToken];
+//             } else {
+//                 NSLog(@"ECDemo - Error fetching authentication token! No API calls will work.");
+//             }
+//
+//             [myAppConfig startBreadcrumbSession];
+//         }];
+//    }
     
     _logMessages = [NSMutableString string];
     [[EXPERTconnect shared] setLoggingCallback:^(ECSLogLevel level, NSString *message) {

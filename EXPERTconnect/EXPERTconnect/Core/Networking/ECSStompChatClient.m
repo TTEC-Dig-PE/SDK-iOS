@@ -482,11 +482,43 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 #pragma mark - ECSStompClient
 
-- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
-    {
-        [self.delegate chatClient:self didFailWithError:error];
+- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error {
+    
+    // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
+    
+    if( error.code == ECS_ERROR_STOMP_OPEN && [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401 ) {
+        
+        // Let's immediately try to refresh the auth token.
+        ECSLogDebug(self.logger, @"Error opening stomp connection (401). Fetching a new auth token.");
+        
+        // Attempt to get a new authToken.
+        int retryCount = 0;
+        [[EXPERTconnect shared].urlSession refreshIdentityDelegate:retryCount
+                                                    withCompletion:^(NSString *authToken, NSError *error)
+         {
+             // AuthToken updated. Try to reconnect.
+             if( !error ) {
+                 
+                 [self connectToHost:[EXPERTconnect shared].urlSession.hostName];
+                 
+             } else {
+                 
+                 // We failed to get a token. Report it to the host app.
+                 if ( [self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)] ) {
+                     
+                     [self.delegate chatClient:self didFailWithError:error];
+                 }
+             }
+         }];
+        
+    } else {
+    
+        // Any other error we simply pass on to the host implementation.
+        
+        if ( [self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)] ) {
+            
+            [self.delegate chatClient:self didFailWithError:error];
+        }
     }
 }
 
