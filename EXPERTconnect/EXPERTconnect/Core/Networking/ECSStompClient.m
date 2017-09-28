@@ -108,10 +108,11 @@ bool        _isConnecting;
     
     if( self.webSocket.readyState == ECS_OPEN ) {
     //if( self.connected || (_isConnecting && !self.connected) ) {
-        ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
+        ECSLogError(self.logger, @"Connection in progress -or- already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
                     self.connected, _isConnecting);
         return;
     }
+    
     _isConnecting = YES;
     
     self.hostURL = [NSURL URLWithString:host];
@@ -155,6 +156,7 @@ bool        _isConnecting;
     if( _wasConnected ) {
         
         _wasConnected = NO;
+        
         [self reconnect];           // STOMP CONNECT
     }
 }
@@ -165,7 +167,11 @@ bool        _isConnecting;
     if( self.connected ) {
         
         _wasConnected = YES;
+        
         [self _internal_disconnect]; // STOMP DISCONNECT
+        
+        [self.webSocket close];
+        
     }
 }
 
@@ -212,7 +218,8 @@ bool        _isConnecting;
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
-    _isConnecting = NO; 
+    _isConnecting = NO;
+    
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
 }
 
