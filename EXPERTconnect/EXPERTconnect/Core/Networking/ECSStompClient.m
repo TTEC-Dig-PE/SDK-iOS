@@ -238,7 +238,7 @@ bool        _isConnecting;
     headers[@"destination"] = destination;
     headers[@"ack"] = @"client";
     headers[@"persistent"] = @"true";
-    headers[@"prefetch-count"] = @"1"; // mas - an attempt to solve the barrage of messages after reconnecting to a STOMP channel
+    headers[@"prefetch-count"] = @"0"; // mas - Set to 0 as per Russ to avoid a barrage of agent messages out of order.
     
     headers[@"receipt"] = kStompReceiptID;
     
@@ -263,7 +263,7 @@ bool        _isConnecting;
         
         ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
         
-        NSDictionary *headers = @{ @"id": subscriptionID };
+        NSDictionary *headers = @{ @"id": subscriptionID, @"persistent": @"true" };
         
         if (self.subscribers[subscriptionID]) {
             [self.subscribers removeObjectForKey:subscriptionID];
