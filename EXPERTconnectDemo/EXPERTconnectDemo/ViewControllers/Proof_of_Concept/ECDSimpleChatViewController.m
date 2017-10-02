@@ -52,6 +52,22 @@ CGPoint _originalCenter;
                                     subject:[NSString stringWithFormat:@"%@ %@ %@ (low level)", appName, version, build]
                                    priority:kECSChatPriorityUseServerDefault
                                  dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
+
+//        self.action = [ECSChatActionType new];
+//
+//        self.action.actionId =          @"";
+//        self.action.agentSkill =        @"CE_Mobile_Chat";
+//        self.action.displayName =       @"SimpleChatter";
+//        self.action.shouldTakeSurvey =  NO;
+//        self.action.subject =           @"My Chat";
+//        self.action.channelOptions =    @{@"subID": @"abc123", @"memberType": @"coach"};
+//        self.action.journeybegin =      [NSNumber numberWithInt:1];
+//
+//        // New parameter for 6.2.0: Set the chat priority. Default is 1 already (Low). Uncommenting this will raise the chat priority.
+////        self.action.priority =        kECSChatPriorityHigh;
+//
+//        [self.chatClient setupChatClientWithActionType:self.action];
+
     }
     
     [super viewWillAppear:animated];

@@ -40,3 +40,4 @@ static int const kECSChatPriorityHigh               = 10;
 @property (assign, nonatomic) int priority;
 
 @end
+

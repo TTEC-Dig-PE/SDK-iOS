@@ -157,13 +157,17 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [EXPERTconnect shared].theme.chatBubbleVertMargins = [self.txtVMargin.text intValue];
     [EXPERTconnect shared].theme.chatBubbleCornerRadius = [self.txtCornerRadius.text intValue];
     
+//    [EXPERTconnect shared].urlSession.useMessageQueuing = YES; 
+    
     // Create the chat view
     if( !self.chatController || !_chatActive )
     {
         self.chatController = (ECSChatViewController *)[[EXPERTconnect shared] startChat:chatSkill
-                                                withDisplayName:@"Live Chat with a Guide"
-                                                     withSurvey:NO];
+                                                                         withDisplayName:@"Live Chat with a Guide"
+                                                                              withSurvey:NO
+                                                                      withChannelOptions:@{@"userType":@"student"}];
         
+       
         // Add our custom left bar button
         
         if(self.optNavButtons.on)

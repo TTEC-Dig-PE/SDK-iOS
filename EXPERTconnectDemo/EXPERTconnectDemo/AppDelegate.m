@@ -112,7 +112,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
              } else {
                  NSLog(@"ECDemo - Error fetching authentication token! No API calls will work.");
              }
-            
+
              [myAppConfig startBreadcrumbSession];
          }];
     }

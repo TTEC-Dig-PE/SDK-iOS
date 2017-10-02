@@ -127,12 +127,13 @@ bool        _isConnecting;
 
 - (void)connectToHost:(NSString*)host {
     
-    if( self.connected || (_isConnecting && !self.connected) ) {
-        
-        ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
+    if( self.webSocket.readyState == ECS_OPEN ) {
+
+        ECSLogError(self.logger, @"Connection in progress -or- already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
                     self.connected, _isConnecting);
         return;
     }
+    
     _isConnecting = YES;
     
     self.hostURL = [NSURL URLWithString:host];
@@ -182,6 +183,7 @@ bool        _isConnecting;
         _wasConnected = NO;
         
         [self reconnect]; // STOMP CONNECT
+        
     }
 }
 
@@ -194,6 +196,9 @@ bool        _isConnecting;
         _wasConnected = YES;
         
         [self _internal_disconnect]; // STOMP DISCONNECT
+        
+        [self.webSocket close];
+        
     }
 }
 
@@ -245,7 +250,7 @@ bool        _isConnecting;
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
-    
+
     _isConnecting = NO;
     
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
@@ -266,7 +271,7 @@ bool        _isConnecting;
     headers[@"destination"] = destination;
     headers[@"ack"] = @"client";
     headers[@"persistent"] = @"true";
-    headers[@"prefetch-count"] = @"1"; // mas - an attempt to solve the barrage of messages after reconnecting to a STOMP channel
+    headers[@"prefetch-count"] = @"0"; // mas - Set to 0 as per Russ to avoid a barrage of agent messages out of order.
     
     headers[@"receipt"] = kStompReceiptID;
     
@@ -291,7 +296,7 @@ bool        _isConnecting;
         
         ECSLogDebug(self.logger,@"Unsubscribing. SubID=%@", subscriptionID);
         
-        NSDictionary *headers = @{ @"id": subscriptionID };
+        NSDictionary *headers = @{ @"id": subscriptionID, @"persistent": @"true" };
         
         if (self.subscribers[subscriptionID]) {
             [self.subscribers removeObjectForKey:subscriptionID];
@@ -447,7 +452,7 @@ bool        _isConnecting;
     if (error.code == 57) { // "Socket is not connected."
         
         // Attempt a reconnect after 5 seconds.
-        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
+//        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
         
     } else {
         
@@ -499,7 +504,7 @@ bool        _isConnecting;
         
         if( frame.headers.count > 0 && frame.headers[@"message"] ) {
             
-            if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] && self.connected == NO ) {
+            if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] ) {
                 
                 // This is the error seen after a proper DISCONNECT is issued. Supressing.
                 ECSLogVerbose(self.logger, @"Supressing connection to broker closed error (we have already disconnected)."); 

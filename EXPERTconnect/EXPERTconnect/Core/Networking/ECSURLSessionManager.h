@@ -64,6 +64,8 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 
 @property (nonatomic, readonly) BOOL networkReachable;
 
+@property (nonatomic, assign) BOOL useMessageQueuing;
+
 // Authorization token
 @property (nonatomic, strong) NSString *authToken;
 

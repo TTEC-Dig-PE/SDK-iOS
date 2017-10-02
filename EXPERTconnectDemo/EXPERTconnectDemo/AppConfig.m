@@ -154,44 +154,61 @@
     
     // add /ust for new method
     NSString *hostURL = [self getHostURL];
+    
     if( ![hostURL hasSuffix:@"/"] ) hostURL = [hostURL stringByAppendingString:@"/"];
 
-    NSString *urlString = [NSString stringWithFormat:@"%@authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
-                           hostURL,
-                           [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                           organization];
+    // Return a hardcoded token for servers that don't have an authServerProxy.
     
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    if( [hostURL containsString:@"ce03"] ) {
+        
+        // expires 2020-09-28, user=devtest@humanify.com
+        NSString *ce03_token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodW1hbmlmeS5jb20iLCJpYXQiOjE1MDY2MzE5ODYsImV4cCI6MTYwMTMyNjQxMSwiYXVkIjoid3cxLmh1bWFuaWZ5LmNvbSIsInN1YiI6ImRldnRlc3RAaHVtYW5pZnkuY29tIiwiYXBpS2V5IjoiMTEyODhmMDFlODc1NGM1Njk3N2M0MDhjZmEwNjQ2OTEiLCJjbGllbnRfaWQiOiJ3dzEifQ.ofRWHn2mW0SWbapP3K_S0kH1VHOrsH7q5fuCHUqp1wo";
+        
+        completion(ce03_token, nil);
+        
+        return;
+        
+    } else {
+        
+        // Fetch the token from authServerProxy on the selected host.
     
-    NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - AuthToken URL: %@", url);
-    
-    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         
-         long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
-         NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         
-         if(!error && (statusCode == 200 || statusCode == 201))
+        NSString *urlString = [NSString stringWithFormat:@"%@authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
+                               hostURL,
+                               [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                               organization];
+        
+        NSURL *url = [[NSURL alloc] initWithString:urlString];
+        
+        NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - AuthToken URL: %@", url);
+        
+        [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+                                           queue:[[NSOperationQueue alloc] init]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
          {
-             NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
-                                      [returnToken substringToIndex:4],
-                                      [returnToken substringFromIndex:returnToken.length-4]];
-             NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
-             completion([NSString stringWithFormat:@"%@", returnToken], nil);
-         }
-         else
-         {
-             // If the new way didn't work, try the old way once.
-             NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
-             //[self fetchOldAuthenticationToken:completion];
-             NSError *myError = [NSError errorWithDomain:@"com.humanify"
-                                                    code:statusCode
-                                                userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
-             completion(nil, myError);
-         }
-     }];
+             
+             long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             
+             if(!error && (statusCode == 200 || statusCode == 201))
+             {
+                 NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
+                                          [returnToken substringToIndex:4],
+                                          [returnToken substringFromIndex:returnToken.length-4]];
+                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
+                 completion([NSString stringWithFormat:@"%@", returnToken], nil);
+             }
+             else
+             {
+                 // If the new way didn't work, try the old way once.
+                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+                 //[self fetchOldAuthenticationToken:completion];
+                 NSError *myError = [NSError errorWithDomain:@"com.humanify"
+                                                        code:statusCode
+                                                    userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+                 completion(nil, myError);
+             }
+         }];
+    }
 }
 
 // This function is called by both this app (host app) and the SDK as the official auth token fetch function.

@@ -965,25 +965,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //        [self scheduleAutomaticReconnect];
         
     } else {
-        
-        if( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant && message.terminatedBy == ECSTerminatedByAssociate ) {
-            // The agent ended the chat.
-            
-            ECSLogDebug(self.logger, @"Issuing an UNSUBSCRIBE because agent ended chat. We have nothing else to listen for"); 
-            [self.chatClient unsubscribe];
-        }
-        
+
         if( self.waitView ) {
             
             [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeErrorKey,@"Error")
                                  message:ECSLocalizedString(ECSLocalizedChatQueueDisconnectMessage, @"Your chat request has timed out.")];
             
         } else {
-            
-//            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-//            if ([cafeXController hasCafeXSession]) {
-//                [cafeXController endCoBrowse];
-//            }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification object:self];
             
@@ -1389,14 +1377,15 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // The action when the user presses the "reconnect" button in the Network Action cell
 - (void)reconnectWebsocket:(id)sender {
     
-    if ( !self.chatClient.isConnected ) {
+    if ( self.chatClient ) {
         
         ECSLogVerbose(self.logger, @"Attempting to reconnect to Stomp channel.");
+        
         [self.chatClient reconnect];
         
     } else {
         
-        ECSLogVerbose(self.logger, @"Stomp channel already connected.");
+        ECSLogVerbose(self.logger, @"No chat client to reconnect.");
         
     }
 }
@@ -1405,7 +1394,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)networkConnectionChanged:(id)sender {
     
     if( [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground ) {
+        
         ECSLogVerbose(self.logger, @"Network changed, but view is not active. Ignoring.");
+        
         return;
     }
     
@@ -1413,7 +1404,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     ECSLogDebug(self.logger, @"Network changed. Reachable? %d", reachable);
     
-    if ( reachable && _previousReachableStatus == NO ) {
+    if ( reachable ) {
         
         // Network is now GOOD
         self.chatToolbar.sendEnabled = YES;

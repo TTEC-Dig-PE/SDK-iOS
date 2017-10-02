@@ -346,7 +346,7 @@
     
     [self.myTimer invalidate];
     self.myTimer = nil;
-    
+
     // mas - Server should know what to do when app is going inactive (a new state)
 //    [self sendChatState:@"paused"];
 }

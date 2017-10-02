@@ -78,7 +78,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 @property (strong, nonatomic) NSString          *sendCoBrowseDestination;
 @property (assign, nonatomic) NSInteger         agentInteractionCount;
 @property (weak, nonatomic)   NSURLSessionTask  *currentNetworkTask;
-@property (assign, nonatomic) BOOL              isReconnecting;
+@property (assign, nonatomic) BOOL              initialConnectionMade;
 
 @end
 
@@ -348,9 +348,9 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 }
 
 - (void)reconnect {
-    
+
     self.isReconnecting = YES;
-    
+
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     self.stompClient.authToken = sessionManager.authToken;
@@ -560,13 +560,48 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
 - (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error {
     
-    [self handleStompError:error]; 
+    // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
+    
+    if( error.code == ECS_ERROR_STOMP_OPEN && [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401 ) {
+        
+        // Let's immediately try to refresh the auth token.
+        ECSLogDebug(self.logger, @"Error opening stomp connection (401). Fetching a new auth token.");
+        
+        // Attempt to get a new authToken.
+        int retryCount = 0;
+        [[EXPERTconnect shared].urlSession refreshIdentityDelegate:retryCount
+                                                    withCompletion:^(NSString *authToken, NSError *error)
+         {
+             // AuthToken updated. Try to reconnect.
+             if( !error ) {
+                 
+                 [self connectToHost:[EXPERTconnect shared].urlSession.hostName];
+                 
+             } else {
+                 
+                 [self handleStompError:error];
+             }
+         }];
+        
+    } else {
+    
+        // Any other error we simply pass on to the host implementation.
+        
+        [self handleStompError:error];
+    }
 }
 
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient {
     
     ECSLogVerbose(self.logger, @"connection detected.");
-    
+
+    if (!self.initialConnectionMade) {
+        self.initialConnectionMade = YES;
+    } else {
+        //[self checkChatState];
+        [self performSelector:@selector(checkChatState) withObject:nil afterDelay:5];
+    }
+
     [self subscribeToDestination:self.currentConversation.conversationID
               withSubscriptionID:@"ios-1"];
     
@@ -586,6 +621,34 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         [self.delegate chatDidConnect];
     }
+}
+
+- (void)checkChatState {
+    
+    ECSLogVerbose(self.logger, @"Checking chat state via API. Usually called after a long period of idleness.");
+    
+    [[EXPERTconnect shared].urlSession getDetailsForChannelId:self.currentChannelId
+                                                   completion:^(ECSChannelConfiguration *channelConfig, NSError *error)
+    {
+        
+        if( channelConfig.channelState == ECSChannelStateDisconnected && self.channelState != ECSChannelStateDisconnected ) {
+            
+            // The channel has disconnected. Send a disconnect so the low level delegate knows to act upon it.
+            
+            ECSLogDebug(self.logger, @"API check of chat state revealed it was disconnected. Sending disconnect callback.");
+            
+            NSLog(@"channelConfig=%@", channelConfig);
+            
+            ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
+            message.state = @"disconnected";
+            message.terminatedByString = @"system";
+            message.disconnectReasonString = @"idleTimeout";
+            
+            [self.delegate chatClient:self disconnectedWithMessage:message];
+            
+        }
+    }];
+    
 }
 
 // Something bad happened...
@@ -883,7 +946,15 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 }
                 
             } else if (message.channelState == ECSChannelStateDisconnected) {
-            
+                
+                // The associate or system has disconnected. We have nothing left to listen for. Let's unsubscribe.
+                if( message.disconnectReason != ECSDisconnectReasonError ) {
+                    
+                    ECSLogDebug(self.logger, @"Issuing an UNSUBSCRIBE. We will have nothing else to listen for.");
+                    
+                    [self unsubscribe];
+                }
+                
                 // First check for the older, deprecated function
                 if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
                     [self.delegate chatClientDisconnected:self wasGraceful:YES];

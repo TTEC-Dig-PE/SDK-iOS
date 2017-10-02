@@ -37,3 +37,60 @@ New version release process:
 pod lib lint EXPERTconnect.podspec --swift-version=3.0
 3. Push the new build: 
 pod repo push Humanify EXPERTconnect.podspec
+
+
+# Using the EXPERTconnect SDK
+
+## Low-levelChat
+A term used for the API wrapper layer of chat code (no UI). 
+
+### Starting a chat session
+Starting a chat consists of constructing an ECSStompChatClient object, setting a delegate (usually your chat view controller), and invoking the startChatWithSkill function. 
+
+    ECSStompChatClient *chatClient = [ECSStompChatClient new]; 
+    chatClient.delegate = self; // to receive callback events. 
+    
+    [chatClient startChatWithSkill:@"MyAgentSkill" subject:"Warranty Chat" dataFields:nil]; 
+
+The three parameters required are: 
+* skill - The chat skill to connect with. Often a string provided by Humanify, such as "CustomerServiceReps" that contains a group of associates who recieve the chats.
+* subject - This is displayed on the associate desktop client as text at the start of a chat.
+* dataFields - These data fields can be used to provide extra information to the associate. Eg: { "userType": "student" }
+
+### Sending Chat Messages
+Assuming you have setup your ECSStompChatClient, connected, and subscribed to a Stomp channel...
+
+    ECSStompChatClient *chatClient;
+    
+    [chatClient sendChatText:@"hello, world!" completion:^(NSString *response, NSString *error) {
+
+        NSLog(@"Chat sent. Response=%@, Error=%@", response, error); 
+    
+    }];
+
+### Sending Chat State Updates
+Chat state updates can tell the associate if the user is typing a message or has stopped. Both messages are manually sent by the host app. We recommend sending ECSChatStateComoposing when the user begins typing a message, starting a timer, and sending an ECSChatStateTypingPaused after a certain length of time, or when the user has deleted all of the text in the text box. The completion block on this call is not often needed. 
+
+    ECSStompChatClient *chatClient; 
+    
+    [chatClient sendChatState:ECSChatStateComposing completion:nil]; 
+
+### Receiving Messages from the Associate
+Messages will arrive via the ECSStompChatDelegate callbacks. 
+
+    - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+    
+        if( [message isKindOfClass:[ECSChatTextMessage class]] ) {
+        
+            NSLog(@"This is a regular chat text message from an associate."); 
+        
+        }
+    
+    }
+Message Types: 
+* ECSChatTextMessage
+* ECSChatAddParticipantMessage
+* ECSChatRemoveParticipationMessage
+* ECSChatURLMessage
+* ECSSendQuestionMessage
+* ECSChatAssociateInfoMessage
