@@ -87,7 +87,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 @property (weak, nonatomic) NSURLSessionTask *currentNetworkTask;
 
-@property (assign, nonatomic) BOOL isReconnecting;
+@property (assign, nonatomic) BOOL initialConnectionMade;
 
 @end
 
@@ -302,8 +302,6 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 }
 
 - (void)reconnect {
-    
-    self.isReconnecting = YES;
     
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
@@ -526,13 +524,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     
     ECSLogVerbose(self.logger, @"connection detected.");
     
-    if (self.isReconnecting)
-    {
-        // kwashington 09/25/2015 - With the new MQ Server in place, this unsubscribe was unsubscribing on
-        //                          the new Stomp connection, which is an Error, which caused the subsequent
-        //                          Subscribe to fail (as best we can tell anyway).
-        //
-        // [self unsubscribeWithSubscriptionID:@"ios-1"];
+    if (!self.initialConnectionMade) {
+        self.initialConnectionMade = YES;
+    } else {
+        //[self checkChatState];
+        [self performSelector:@selector(checkChatState) withObject:nil afterDelay:5];
     }
 
     [self subscribeToDestination:self.currentConversation.conversationID
@@ -548,6 +544,34 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         [self.delegate chatClientDidConnect:self];
         
     }
+}
+
+- (void)checkChatState {
+    
+    ECSLogVerbose(self.logger, @"Checking chat state via API. Usually called after a long period of idleness.");
+    
+    [[EXPERTconnect shared].urlSession getDetailsForChannelId:self.currentChannelId
+                                                   completion:^(ECSChannelConfiguration *channelConfig, NSError *error)
+    {
+        
+        if( channelConfig.channelState == ECSChannelStateDisconnected && self.channelState != ECSChannelStateDisconnected ) {
+            
+            // The channel has disconnected. Send a disconnect so the low level delegate knows to act upon it.
+            
+            ECSLogDebug(self.logger, @"API check of chat state revealed it was disconnected. Sending disconnect callback.");
+            
+            NSLog(@"channelConfig=%@", channelConfig);
+            
+            ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
+            message.state = @"disconnected";
+            message.terminatedByString = @"system";
+            message.disconnectReasonString = @"idleTimeout";
+            
+            [self.delegate chatClient:self disconnectedWithMessage:message];
+            
+        }
+    }];
+    
 }
 
 // Something bad happened...
@@ -786,7 +810,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                 }
                 
             } else if (message.channelState == ECSChannelStateDisconnected) {
-            
+                
                 // The associate or system has disconnected. We have nothing left to listen for. Let's unsubscribe.
                 if( message.disconnectReason != ECSDisconnectReasonError ) {
                     
