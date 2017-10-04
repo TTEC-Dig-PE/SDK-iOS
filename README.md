@@ -38,6 +38,22 @@ pod lib lint EXPERTconnect.podspec --swift-version=3.0
 3. Push the new build: 
 pod repo push Humanify EXPERTconnect.podspec
 
+Note: If you get an issue or "pod already up to date", try adding --verbose to the push command to see what is wrong. 
+If you see "The repo `humanify` at `../../.cocoapods/repos/Humanify` is not clean try: 
+
+    cd ~/.cocoapods/repos/Humanify
+    git status (will probably say untracked files present)
+    git add .
+    git commit "Adding podspec file for SDK x.x.x"
+    git push
+
+To use the pod in a project, in your Podfile: 
+
+    source 'https://github.com/Humanifydev/SDK-iOS-specs.git'
+    
+In the target: 
+
+    pod 'EXPERTconnect', '~> 6.2.0'
 
 # Using the EXPERTconnect SDK
 
