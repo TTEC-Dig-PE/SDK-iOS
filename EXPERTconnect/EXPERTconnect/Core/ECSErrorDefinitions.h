@@ -24,4 +24,6 @@ extern NSString *const ECSErrorDomainStomp;
 #define ECS_ERROR_MISSING_CONFIG        1006
 
 
+#define ECS_ERROR_STOMP_OPEN           2132
+
 #endif /* ECSErrorDefinitions_h */

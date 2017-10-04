@@ -96,7 +96,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
     [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
-    [[EXPERTconnect shared] setDebugLevel:5]; // High debug.
+    [[EXPERTconnect shared] setDebugLevel:ECSLogLevelVerbose]; // High debug.
     
     NSLog(@"Test Harness - Init with org:%@, url:%@",[myAppConfig getHostURL], [myAppConfig getClientID]);
     
@@ -112,7 +112,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
              } else {
                  NSLog(@"ECDemo - Error fetching authentication token! No API calls will work.");
              }
-            
+
              [myAppConfig startBreadcrumbSession];
          }];
     }

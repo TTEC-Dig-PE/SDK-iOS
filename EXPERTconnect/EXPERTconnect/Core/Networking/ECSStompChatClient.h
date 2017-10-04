@@ -116,6 +116,14 @@
  */
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage;
 
+/**
+ Called when a chat client receives a channel state message from the chat server
+ 
+ @param stompClient the chat client that received notification message
+ @param channelStateMessage the channel message received from the server
+ */
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChannelStateMessage:(ECSChannelStateMessage *)channelStateMessage;
+
 @end
 
 /**
@@ -131,6 +139,7 @@
 @property (readonly) ECSChannelState channelState;
 
 @property (strong, nonatomic) NSString *currentChannelId;
+@property (strong, nonatomic) NSString *subscriptionId;
 
 @property (strong, nonatomic) ECSChannelCreateResponse *channel;
 @property (strong, nonatomic) ECSConversationCreateResponse *currentConversation;
@@ -186,6 +195,15 @@
  @param subscriptionId the subscription ID to use for the subscription
  */
 - (void)subscribeToDestination:(NSString*)destination withSubscriptionID:(NSString*)subscriptionId;
+
+/**
+ Unsubscribe from the channel
+ 
+  @param subscriptionId the subscription ID to use for the subscription
+ */
+//- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId;
+
+- (void)unsubscribe;
 
 /**
  Sends a chat message on the STOMP websocket connection

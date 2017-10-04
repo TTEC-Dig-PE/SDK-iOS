@@ -107,3 +107,8 @@
 "ECSLocalizedLeaveQueueNo" = "Não, permanecer";
 "ECSLocalizedChatQueueNetworkError" = "Sem conexão com a Internet.";
 "ECSLocalizedChatQueueDisconnectMessage" = "O tempo limite da solicitação de bate-papo se esgotou. Tente novamente.";
+
+/* 6.2.0 Strings */
+
+/* Chat Transfer */
+"ECSLocalizeChatTransfer" = "O bate-papo está sendo transferido ...";

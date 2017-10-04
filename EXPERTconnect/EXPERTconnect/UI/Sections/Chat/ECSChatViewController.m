@@ -70,6 +70,8 @@
 #import "UIViewController+ECSNibLoading.h"
 #import "ECSErrorBarView.h"
 
+#import "ZSWTappableLabel.h"
+
 static NSString *const MessageCellID        = @"AgentMessageCellID";
 static NSString *const HtmlMessageCellID    = @"HtmlMessageCellID";
 static NSString *const ImageCellID          = @"AgentImageCellID";
@@ -95,7 +97,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark Chat View Controller
 
-@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate, ECSFormViewDelegate>
+@interface ECSChatViewController () <UITableViewDataSource, UITableViewDelegate, ECSChatToolbarDelegate, ECSStompChatDelegate, ECSInlineFormViewControllerDelegate, ECSFormViewDelegate, ZSWTappableLabelTapDelegate>
 {
     BOOL        _userDragging;              // Used to hide the keyboard if user starts scrolling
     NSInteger   _agentTypingIndex;          // Index in the array of messages of where the (...) item is.
@@ -106,6 +108,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     NSTimer*    _reconnectTimer;
     
     BOOL        _previousReachableStatus;
+    
+    BOOL        _agentAnswered;
 }
 
 // Form controls
@@ -163,6 +167,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     _agentTypingIndex       = -1;
     _reconnectCount         = 0;
     _previousReachableStatus = YES;
+    _agentAnswered          = NO;
     
     self.participants = [NSMutableDictionary new];  // Create the new arrays for messages / participants
     self.messages = [NSMutableArray new];
@@ -715,19 +720,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)sendChatState:(NSString *)chatState
 {
     NSString *sendState = nil;
-    if ([chatState isEqualToString:@"composing"])
-    {
+    if ([chatState isEqualToString:@"composing"]) {
         //        _userTyping = YES;
         sendState = chatState;
     }
-    else if ([chatState isEqualToString:@"paused"])
-    {
+    else if ([chatState isEqualToString:@"paused"]) {
         //        _userTyping = NO;
         sendState = chatState;
     }
     
-    if(sendState)
-    {
+    if(sendState) {
+        
         ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
         [urlSession sendChatState:chatState
                          duration:10000
@@ -755,33 +758,40 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     message.body = text;
     
-    if(theme.showChatTimeStamp  == YES)
-    {
-        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp])
-        {
+    if(theme.showChatTimeStamp  == YES) {
+        
+        if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp]) {
+            
             message.timeStamp = timeStamp;
-        }
-        else{
+            
+        } else {
+            
             if (self.chatClient.lastChatMessageFromAgent == YES) {
                 message.timeStamp = timeStamp;
             }
         }
+        
         self.chatClient.lastTimeStamp = timeStamp;
     }
 	 	 
     [self.messages addObject:message];
     
     self.chatClient.lastChatMessageFromAgent = NO;
-    // [self sendChatState:@"paused"];
     
-    //[self.chatClient sendChatMessage:message];
+//    [self sendChatState:@"paused"];
+    
+    // This is the STOMP method of sending
+//    [self.chatClient sendChatMessage:message];
+    
+    ECSLogVerbose(self.logger, @"User clicked Send. Sending chat message: %@", message.body);
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [urlSession sendChatMessage:message.body
                            from:message.from
                         channel:message.channelId
-                     completion:^(NSString *response, NSError *error)
-     {
+                     completion:^(NSString *response, NSError *error) {
+                         
          if(error) {
              ECSLogError(self.logger, @"Error sending chat message: %@", error);
              
@@ -808,7 +818,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     message.body = text;
     [self.messages addObject:message];
-    //[self.chatClient sendChatMessage:message];
+    
+    //This is the STOMP method of sending
+//    [self.chatClient sendChatMessage:message];
+    
+    ECSLogVerbose(self.logger, @"Sending system message: %@", message.body);
+    
     ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     
     [urlSession sendChatMessage:message.body
@@ -930,7 +945,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
 - (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
     
-    ECSLogVerbose(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
+    ECSLogDebug(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
                   message.disconnectReasonString,
                   message.terminatedByString);
     
@@ -947,21 +962,16 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self showNetworkErrorBar];
         _reconnectCount = 0;
         
-        [self scheduleAutomaticReconnect];
+//        [self scheduleAutomaticReconnect];
         
     } else {
-        
+
         if( self.waitView ) {
             
             [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeErrorKey,@"Error")
                                  message:ECSLocalizedString(ECSLocalizedChatQueueDisconnectMessage, @"Your chat request has timed out.")];
             
         } else {
-            
-//            ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-//            if ([cafeXController hasCafeXSession]) {
-//                [cafeXController endCoBrowse];
-//            }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatEndedNotification object:self];
             
@@ -989,7 +999,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void) scheduleAutomaticReconnect {
     
-    ECSLogVerbose(self.logger, @"Reconnect Timer - Scheduling a reconnect 30 seconds from now...");
+    ECSLogDebug(self.logger, @"Scheduling a reconnect 30 seconds from now...");
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _reconnectTimer = [NSTimer scheduledTimerWithTimeInterval:30
@@ -1002,7 +1012,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
 {
-    ECSLogError(self.logger, @"Stomp error notification: %@", error);
+    ECSLogDebug(self.logger, @"Error: %@", error);
     
     // Now handled in the StompClient code.
 //    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
@@ -1019,11 +1029,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self showNetworkErrorBar];
         
         if( [error.userInfo[ECSHTTPResponseErrorKey] intValue] == 401 ) {
+            
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
         }
         
-        [self scheduleAutomaticReconnect];
+//        [self scheduleAutomaticReconnect];
     
     } else {
         /* Example Errors:
@@ -1077,7 +1088,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     if ([EXPERTconnect shared].urlSession.networkReachable && [self.chatClient isConnected]) {
         
-        ECSLogVerbose(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
+        ECSLogDebug(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
         dispatch_async(dispatch_get_main_queue(), ^{
             [_reconnectTimer invalidate];
             _reconnectTimer = nil;
@@ -1085,21 +1096,26 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
     } else {
         
-        ECSLogVerbose(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
+        ECSLogDebug(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
         [self refreshAuthenticationToken];
         
     }
 }
 
--(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds {
+-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient
+                  timeoutSeconds:(int)seconds {
     
-    ECSChatInfoMessage *message = [ECSChatInfoMessage new];
-//    message.fromAgent = YES;
-    
-    NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
-    message.infoMessage = [NSString stringWithFormat:warningString, seconds];
-    [self.messages addObject:message];
-    [self.tableView reloadData];
+    // We no longer want to append this message if the user is still sitting in queue when the idle timeout warning arrives.
+    if( _agentAnswered ) {
+        
+        ECSChatInfoMessage *message = [ECSChatInfoMessage new];
+        
+        NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
+        message.infoMessage = [NSString stringWithFormat:warningString, seconds];
+        
+        [self.messages addObject:message];
+        [self.tableView reloadData];
+    }
 }
 
 -(void) screenShareEnded:(NSNotification*)notification
@@ -1112,41 +1128,49 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message
-{
-    if ([message isKindOfClass:[ECSCafeXMessage class]])
-    {
+- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+    
+    // This section is for special handling of a few types of messages.
+    
+    if ([message isKindOfClass:[ECSCafeXMessage class]]) {
+        
         [self handleCafeXMessage:((ECSCafeXMessage*)message)];
         return; // no UI
-    }
-    
-    if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]]) {
+        
         [self handleVoiceItMessage:message];
         return; // no UI
-    }
-    
-    if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+        
         [self.participants setObject:message forKey:((ECSChatAddParticipantMessage*)message).userId];
-    }
-    
-    if ([message isKindOfClass:[ECSSendQuestionMessage class]])
-    {
+        
+    } else if ([message isKindOfClass:[ECSSendQuestionMessage class]]) {
+        
         [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
         return; // When Response is received, handler will send through an ECSReceiveAnswerMessage
+        
+    }
+        
+    if( [message isKindOfClass:[ECSChatTextMessage class]] ) {
+        if( [self isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message] ) {
+            return; // no UI
+        }
     }
     
-    if (message.fromAgent)
-    {
+    // This is the meat & potatoes of displaying messages.
+    
+    if (message.fromAgent) {
+        
         self.agentInteractionCount += 1;
         [self pollForPostSurvey];
         self.chatClient.lastChatMessageFromAgent = YES;
     }
     
     // Replace the typing (...) with the message if it is still at the end of the array of messages.
-    if (_agentTypingIndex != -1 && (_agentTypingIndex == self.messages.count - 1))
-    {
+    if (_agentTypingIndex != -1 && (_agentTypingIndex == self.messages.count - 1)) {
+        
         [self.messages replaceObjectAtIndex:_agentTypingIndex withObject:message];
         [self.tableView beginUpdates];
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
@@ -1155,12 +1179,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
         _agentTypingIndex = -1;
         
-    }
-    else
-    {
+    } else {
+        
         // Remove the agent typing (...) from the chat history and append this new message.
-        if (_agentTypingIndex != -1)
-        {
+        if (_agentTypingIndex != -1) {
+            
             [self.messages removeObjectAtIndex:_agentTypingIndex];
             [self.tableView beginUpdates];
             [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]]
@@ -1186,6 +1209,25 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification
                                                         object:message];
+    
+}
+
+- (bool)isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message {
+    
+    // Note: We want to filter out these in-band non-localized "system" messages from the old legacy system.
+    // They usually say: "Mike (mike_mktwebextc) has joined the chat.", "Mike (mike_mktwebextc) has left the chat."
+    
+    if( [message.from isEqualToString:@"System"] &&
+       ([message.body containsString:@") has joined the chat."] ||
+        [message.body containsString:@") has left the chat."] ||
+        [message.body containsString:@"This chat is being transferred..."]) ) {
+        // NOTE: Except for the first agent, any agent that joins or leaves the chat will trigger a
+        // 'System' message informing the user of the change. The 'joins' are redundant because of the
+        // AddParticipant message. So, we'll squelch them here.
+        
+        return YES;
+    }
+    return NO;
 }
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
@@ -1196,8 +1238,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     //(NSURLSessionDataTask *)getMediaFileNamesWithCompletion
     //}
     
-    if (state.chatState == ECSChatStateComposing)
-    {
+    if (state.chatState == ECSChatStateComposing) {
+        
         // If display had no (...), then add one.
         if (_agentTypingIndex == -1)
         {
@@ -1208,9 +1250,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             [self.tableView endUpdates];
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
-    }
-    else if(state.chatState == ECSChatStateTypingPaused)
-    {
+        
+    } else if(state.chatState == ECSChatStateTypingPaused) {
+        
         // If display has a (...), remove it.
         if (_agentTypingIndex != -1)
         {
@@ -1220,11 +1262,35 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             [self.tableView endUpdates];
         }
         _agentTypingIndex = -1;
+        
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStateMessageReceivedNotification
                                                         object:state];
 }
+
+- (void) chatClient:(ECSStompChatClient *)stompClient didReceiveChannelStateMessage:(ECSChannelStateMessage *)channelStateMessage {
+    
+    if( channelStateMessage.channelState == ECSChannelStateQueued ) {
+    
+        // If already connected, then we're being transferred...
+    
+        if( _agentAnswered ) {
+    
+            ECSChatInfoMessage *newInfoMessage = [[ECSChatInfoMessage alloc]
+                                         initWithInfoMessage:ECSLocalizedString(ECSLocalizeChatTransfer, @"The chat is being transferred...")
+                                                  biggerFont:YES];
+
+            [self.messages addObject:newInfoMessage];
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    }
+}
+
+
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
 {
@@ -1263,6 +1329,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     ECSLogVerbose(self.logger, @"Stomp chat answered notification.");
     
+    _agentAnswered = YES;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStartedNotification
                                                          object:self];
     [self hideWaitView];
@@ -1280,7 +1348,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
     
-    ECSLogVerbose(self.logger, @"Stomp add channel notification.");
+    ECSLogDebug(self.logger, @"Add Channel Messages from: %@, channelID=%@", message.from, message.channelId);
     
     [self.messages addObject:message];
     
@@ -1292,9 +1360,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark - Connect / Reconnect / Disconnect
 
-- (void)refreshAuthenticationToken
-{
-    ECSLogVerbose(self.logger,@"Refreshing auth token (forcing reconnect attempt). Retry #%d", _reconnectCount);
+- (void)refreshAuthenticationToken {
+    
+    ECSLogDebug(self.logger,@"Refreshing auth token (forcing reconnect attempt). Retry #%d", _reconnectCount);
 
     // Attempt to get a new authToken.
     int retryCount = 0;
@@ -1309,11 +1377,16 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // The action when the user presses the "reconnect" button in the Network Action cell
 - (void)reconnectWebsocket:(id)sender {
     
-    if (self.chatClient) {
+    if ( self.chatClient ) {
+        
         ECSLogVerbose(self.logger, @"Attempting to reconnect to Stomp channel.");
+        
         [self.chatClient reconnect];
+        
     } else {
-        ECSLogVerbose(self.logger, @"Stomp channel already connected.");
+        
+        ECSLogVerbose(self.logger, @"No chat client to reconnect.");
+        
     }
 }
 
@@ -1321,15 +1394,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 - (void)networkConnectionChanged:(id)sender {
     
     if( [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground ) {
+        
         ECSLogVerbose(self.logger, @"Network changed, but view is not active. Ignoring.");
+        
         return;
     }
     
     bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
     
-    ECSLogVerbose(self.logger, @"Network changed. Reachable? %d", reachable);
+    ECSLogDebug(self.logger, @"Network changed. Reachable? %d", reachable);
     
-    if ( reachable && _previousReachableStatus == NO ) {
+    if ( reachable ) {
         
         // Network is now GOOD
         self.chatToolbar.sendEnabled = YES;
@@ -1663,8 +1738,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      }];
 }
 
-- (void)sendFormNotification
-{
+- (void)sendFormNotification {
+    
     ECSLogVerbose(self.logger, @"Form complete notification");
 //    ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
 //    notification.from = self.chatClient.fromUsername;
@@ -2318,8 +2393,84 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     [self configureCellAvatarImage:cell from:chatMessage.from fromAgent:chatMessage.fromAgent atIndexPath:indexPath];
     
-    messageCell.messageLabel.text = chatMessage.body;
+    
+    // the next line throws an exception if string is nil - make sure you check
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeAddress | NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber error:NULL];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:chatMessage.body attributes:nil];
+    // the next line throws an exception if string is nil - make sure you check
+    [detector enumerateMatchesInString:chatMessage.body options:0 range:NSMakeRange(0, chatMessage.body.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+        attributes[ZSWTappableLabelTappableRegionAttributeName] = @YES;
+        attributes[ZSWTappableLabelHighlightedBackgroundAttributeName] = [UIColor lightGrayColor];
+        attributes[ZSWTappableLabelHighlightedForegroundAttributeName] = [UIColor whiteColor];
+        attributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
+        attributes[@"NSTextCheckingResult"] = result;
+        [attributedString addAttributes:attributes range:result.range];
+    }];
+    messageCell.messageLabel.attributedText = attributedString;
+    messageCell.messageLabel.tapDelegate = self;
+    
+    //messageCell.messageLabel.text = chatMessage.body;
+    
     [messageCell.background.timestampLabel setText:chatMessage.timeStamp];
+}
+
+// This occurs if the user clicks a link within the message bubble.
+// Details here: https://github.com/zacwest/ZSWTappableLabel
+
+- (void)tappableLabel:(ZSWTappableLabel *)tappableLabel
+        tappedAtIndex:(NSInteger)idx
+       withAttributes:(NSDictionary<NSString *,id> *)attributes {
+    
+    NSURL *URL;
+    
+    NSTextCheckingResult *result = attributes[@"NSTextCheckingResult"];
+    
+    if ([result isKindOfClass:[NSTextCheckingResult class]]) {
+        
+        switch (result.resultType) {
+            case NSTextCheckingTypeAddress: {
+                NSLog(@"Address components: %@", result.addressComponents);
+                
+                NSMutableString *resultString = [NSMutableString string];
+                for (NSString* value in [result.addressComponents allValues]){
+                    if ([resultString length]>0) {
+                        [resultString appendString:@","];
+                    }
+                    [resultString appendFormat:@"%@", value];
+                }
+                
+                NSString *encodedString = [resultString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; 
+                
+                URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%@", encodedString]];
+                break;
+                
+            } case NSTextCheckingTypePhoneNumber: {
+                NSURLComponents *components = [[NSURLComponents alloc] init];
+                components.scheme = @"tel";
+                components.host = result.phoneNumber;
+                URL = components.URL;
+                break;
+            }
+                
+            case NSTextCheckingTypeDate:
+                NSLog(@"Date: %@", result.date);
+                break;
+                
+            case NSTextCheckingTypeLink:
+                URL = result.URL;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    ECSLogVerbose(self.logger, @"Data detector found tappable item. Opening URL: %@", URL.absoluteString);
+    
+    if ([URL isKindOfClass:[NSURL class]]) {
+        [[UIApplication sharedApplication] openURL:URL];
+    }
 }
 
 - (void)configureCellAvatarImage:(ECSChatTableViewCell*)cell
@@ -2509,8 +2660,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
-    withAddParticipantMessage:(ECSChatAddParticipantMessage*)message
-{
+    withAddParticipantMessage:(ECSChatAddParticipantMessage*)message {
+    
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     cell.chatTextLabel.font = theme.chatInfoTitleFont;
     cell.chatTextLabel.textColor = theme.primaryTextColor;
@@ -2519,18 +2670,23 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
     if(!displayName) displayName = @"";
     
+    // By default (backwards compatibility), %1 is replaced with displayname
     NSString *chatJoin = ECSLocalizedString(ECSLocalizeChatJoin, @"Chat Join");
-    if( chatJoin ) {
-        chatJoin = [NSString stringWithFormat:chatJoin, displayName];
-    } else {
-        chatJoin = @"Chat Join"; // Default text in case of critical failure to find localizations.
-    }
+    
+    // Replace any of the three tokens with real data: [firstname], [lastname], [userid]
+    chatJoin = [chatJoin stringByReplacingOccurrencesOfString:@"[firstname]" withString:message.firstName];
+    chatJoin = [chatJoin stringByReplacingOccurrencesOfString:@"[lastname]" withString:message.lastName];
+    chatJoin = [chatJoin stringByReplacingOccurrencesOfString:@"[userid]" withString:message.userId];
+    
+    // Backwards compatibility
+    chatJoin = [chatJoin stringByReplacingOccurrencesOfString:@"%1@" withString:displayName];
+    
     cell.chatTextLabel.text = chatJoin;
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
- withRemoveParticipantMessage:(ECSChatRemoveParticipantMessage*)message
-{
+ withRemoveParticipantMessage:(ECSChatRemoveParticipantMessage*)message {
+    
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     cell.chatTextLabel.font = theme.chatInfoTitleFont;
     cell.chatTextLabel.textColor = theme.primaryTextColor;
@@ -2539,21 +2695,42 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     NSString *displayName = (message.firstName && message.firstName.length > 0 ? message.firstName : message.fullName);
     if(!displayName) displayName = @"";
     
+    // By default (backwards compatibility), %1 is replaced with displayname
     NSString *chatLeave = ECSLocalizedString(ECSLocalizeChatLeave, @"Chat Leave");
-    if( chatLeave ) {
-        chatLeave = [NSString stringWithFormat:chatLeave, displayName];
-    } else {
-        chatLeave = @"Chat Leave"; // Default text in case of critical failure to find localizations.
-    }
+    
+    // Replace any of the three tokens with real data: [firstname], [lastname], [userid]
+    chatLeave = [chatLeave stringByReplacingOccurrencesOfString:@"[firstname]" withString:message.firstName];
+    chatLeave = [chatLeave stringByReplacingOccurrencesOfString:@"[lastname]" withString:message.lastName];
+    chatLeave = [chatLeave stringByReplacingOccurrencesOfString:@"[userid]" withString:message.userId];
+    
+    // Backwards compatibility
+    chatLeave = [chatLeave stringByReplacingOccurrencesOfString:@"%1@" withString:displayName];
+    
     cell.chatTextLabel.text = chatLeave;
+}
+
+- (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell withText:(NSString *)message {
+    
+    ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
+    cell.chatTextLabel.font = theme.chatInfoTitleFont;
+    cell.chatTextLabel.textColor = theme.primaryTextColor;
+    
+    cell.chatTextLabel.text = message;
 }
 
 - (void)configureChatTextCell:(ECSChatTextTableViewCell*)cell
               withInfoMessage:(ECSChatInfoMessage*)message
 {
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
-    cell.chatTextLabel.font = theme.captionFont;
-    cell.chatTextLabel.textColor = theme.secondaryTextColor;
+    
+    if(message.useBiggerFont) {
+        cell.chatTextLabel.font = theme.chatInfoTitleFont;
+        cell.chatTextLabel.textColor = theme.primaryTextColor;
+    } else {
+        cell.chatTextLabel.font = theme.captionFont;
+        cell.chatTextLabel.textColor = theme.secondaryTextColor;
+    }
+    
     cell.chatTextLabel.text = message.infoMessage;
 }
 

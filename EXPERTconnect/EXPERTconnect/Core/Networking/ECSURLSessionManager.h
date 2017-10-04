@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ECSAuthenticationToken.h"
 #import "ECSBreadcrumb.h"
+#import "SessionTaskQueue.h"
+#import "ECSMessageTask.h"
 
 @class ECSActionType;
 
@@ -48,16 +50,21 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
     ECSHistoryTypeChat
 };
 
+
 /**
  ECSURLSessionManager provides interfaces for performing API calls to the EXPERTconnect servers.
  */
 
-@interface ECSURLSessionManager : NSObject
+@interface ECSURLSessionManager : NSObject 
+
+@property (nonatomic, strong) SessionTaskQueue *sessionTaskQueue;
 
 // Current host name the API accesses.
 @property (nonatomic, strong) NSString *hostName;
 
 @property (nonatomic, readonly) BOOL networkReachable;
+
+@property (nonatomic, assign) BOOL useMessageQueuing;
 
 // Authorization token
 @property (nonatomic, strong) NSString *authToken;

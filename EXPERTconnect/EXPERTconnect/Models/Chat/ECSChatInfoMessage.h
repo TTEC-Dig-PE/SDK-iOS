@@ -10,5 +10,9 @@
 @interface ECSChatInfoMessage : ECSChatMessage
 
 @property (strong, nonatomic) NSString *infoMessage;
+@property (nonatomic) bool useBiggerFont;
+
+-(id)init;
+-(id)initWithInfoMessage:(NSString *)message biggerFont:(BOOL)bigger ;
 
 @end

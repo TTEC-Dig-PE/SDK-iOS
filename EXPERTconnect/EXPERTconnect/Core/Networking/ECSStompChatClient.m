@@ -87,7 +87,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 @property (weak, nonatomic) NSURLSessionTask *currentNetworkTask;
 
-@property (assign, nonatomic) BOOL isReconnecting;
+@property (assign, nonatomic) BOOL initialConnectionMade;
 
 @end
 
@@ -219,8 +219,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     configuration.sourceType = chatAction.sourceType;
     configuration.mediaType = chatAction.mediaType;
     configuration.deviceId = userManager.deviceID;
-    configuration.location = chatAction.location; 
-    configuration.priority = @1;
+    configuration.location = chatAction.location;
+    
+    // Only send if value is 1-10, otherwise send a nil/null.
+    configuration.priority = (chatAction.priority > 0 && chatAction.priority < 11 ? [NSNumber numberWithInt:chatAction.priority] : nil);
     
     NSString *url = nil;
     
@@ -236,7 +238,7 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                 completion:^(ECSChannelCreateResponse *response, NSError *error)
         {
                                                     
-            if (!error && response)
+            if (!error && response && response.estimatedWait)
             {
                 if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
                 {
@@ -301,10 +303,12 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 - (void)reconnect {
     
-    self.isReconnecting = YES;
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
     self.stompClient.authToken = sessionManager.authToken;
+    
     [self.stompClient reconnect];
+    
 }
 
 - (void)disconnect {
@@ -337,7 +341,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
         
         self.stompClient.delegate = nil;
         
-        [self unsubscribeWithSubscriptionID:@"ios-1"];
+        //[self unsubscribeWithSubscriptionID:@"ios-1"];
+        [self unsubscribe];
         
         [self.stompClient disconnect];
     }
@@ -365,17 +370,26 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     }
 }
 
-- (void)subscribeToDestination:(NSString *)destination withSubscriptionID:(NSString *)subscriptionId
-{
+- (void)subscribeToDestination:(NSString *)destination
+            withSubscriptionID:(NSString *)subscriptionId {
+    
     NSString *fullDestination = [NSString stringWithFormat:@"/topic/conversations.%@", destination];
+    
+    self.subscriptionId = subscriptionId;
     
     [self.stompClient subscribeToDestination:fullDestination
                           withSubscriptionID:subscriptionId
                                   subscriber:self];
 }
 
-- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId;
-{
+- (void)unsubscribe {
+    
+    [self.stompClient unsubscribe:self.subscriptionId];
+    
+}
+
+- (void)unsubscribeWithSubscriptionID:(NSString*)subscriptionId {
+    
     [self.stompClient unsubscribe:subscriptionId];
 }
 
@@ -466,11 +480,43 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 
 #pragma mark - ECSStompClient
 
-- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)])
-    {
-        [self.delegate chatClient:self didFailWithError:error];
+- (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error {
+    
+    // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
+    
+    if( error.code == ECS_ERROR_STOMP_OPEN && [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401 ) {
+        
+        // Let's immediately try to refresh the auth token.
+        ECSLogDebug(self.logger, @"Error opening stomp connection (401). Fetching a new auth token.");
+        
+        // Attempt to get a new authToken.
+        int retryCount = 0;
+        [[EXPERTconnect shared].urlSession refreshIdentityDelegate:retryCount
+                                                    withCompletion:^(NSString *authToken, NSError *error)
+         {
+             // AuthToken updated. Try to reconnect.
+             if( !error ) {
+                 
+                 [self connectToHost:[EXPERTconnect shared].urlSession.hostName];
+                 
+             } else {
+                 
+                 // We failed to get a token. Report it to the host app.
+                 if ( [self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)] ) {
+                     
+                     [self.delegate chatClient:self didFailWithError:error];
+                 }
+             }
+         }];
+        
+    } else {
+    
+        // Any other error we simply pass on to the host implementation.
+        
+        if ( [self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)] ) {
+            
+            [self.delegate chatClient:self didFailWithError:error];
+        }
     }
 }
 
@@ -478,13 +524,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     
     ECSLogVerbose(self.logger, @"connection detected.");
     
-    if (self.isReconnecting)
-    {
-        // kwashington 09/25/2015 - With the new MQ Server in place, this unsubscribe was unsubscribing on
-        //                          the new Stomp connection, which is an Error, which caused the subsequent
-        //                          Subscribe to fail (as best we can tell anyway).
-        //
-        // [self unsubscribeWithSubscriptionID:@"ios-1"];
+    if (!self.initialConnectionMade) {
+        self.initialConnectionMade = YES;
+    } else {
+        //[self checkChatState];
+        [self performSelector:@selector(checkChatState) withObject:nil afterDelay:5];
     }
 
     [self subscribeToDestination:self.currentConversation.conversationID
@@ -494,11 +538,40 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
     {
         [self setupChatChannel];
     }
-    
-    if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)])
-    {
+      
+    if ([self.delegate respondsToSelector:@selector(chatClientDidConnect:)]) {
+        
         [self.delegate chatClientDidConnect:self];
+        
     }
+}
+
+- (void)checkChatState {
+    
+    ECSLogVerbose(self.logger, @"Checking chat state via API. Usually called after a long period of idleness.");
+    
+    [[EXPERTconnect shared].urlSession getDetailsForChannelId:self.currentChannelId
+                                                   completion:^(ECSChannelConfiguration *channelConfig, NSError *error)
+    {
+        
+        if( channelConfig.channelState == ECSChannelStateDisconnected && self.channelState != ECSChannelStateDisconnected ) {
+            
+            // The channel has disconnected. Send a disconnect so the low level delegate knows to act upon it.
+            
+            ECSLogDebug(self.logger, @"API check of chat state revealed it was disconnected. Sending disconnect callback.");
+            
+            NSLog(@"channelConfig=%@", channelConfig);
+            
+            ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
+            message.state = @"disconnected";
+            message.terminatedByString = @"system";
+            message.disconnectReasonString = @"idleTimeout";
+            
+            [self.delegate chatClient:self disconnectedWithMessage:message];
+            
+        }
+    }];
+    
 }
 
 // Something bad happened...
@@ -594,7 +667,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 	 {
 		  NSError *serializationError = nil;
 		  id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-													  options:0 error:&serializationError];
+													  options:0
+                                                        error:&serializationError];
 		  if (!serializationError)
 		  {
 			   ECSChatTextMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
@@ -620,6 +694,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 						 self.lastTimeStamp = timeStamp;
 					}
 			   }
+              
+              ECSLogDebug(self.logger, @"Received chat message from %@, body=%@", message.from, message.body);
+              
 			   [self.delegate chatClient:self didReceiveMessage:message];
 		  }
 		  else
@@ -642,6 +719,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                         withClass:[ECSChatStateMessage class]];
             _chatState = message.chatState;
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Chat state change to %@", message.state);
+            
             [self.delegate chatClient:self didReceiveChatStateMessage:message];
         }
         else
@@ -675,10 +755,14 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 					message.urlType = @"PDF Document";
 					message.fromAgent = YES;
 					
+                   ECSLogDebug(self.logger, @"Received PDF from %@. Filename=%@, URL=%@", message.from, message.comment, message.url);
+                   
 					[self.delegate chatClient:self didReceiveMessage:message];
 			   }
 			   else
 			   {
+                   ECSLogDebug(self.logger, @"Chat notification. From=%@, ObjectData=%@", message.from, message.objectData);
+                   
 					[self.delegate chatClient:self didReceiveChatNotificationMessage:message];
 			   }
 		  }
@@ -690,51 +774,68 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
 }
 
 
-- (void)handleChannelStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
+- (void)handleChannelStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
 
     NSError *serializationError = nil;
     id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
                                                 options:0 error:&serializationError];
-    if (!serializationError)
-    {
+    
+    if (!serializationError) {
+        
         ECSChannelStateMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSChannelStateMessage class]];
         _channelState = message.channelState;
         
-        if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)])
-        {
-            [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
-        }
+        ECSLogDebug(self.logger, @"Received channel state update to %@", message.state);
+
+        // Make sure this message is for our current channelId.
+        if( [message.channelId isEqualToString:self.currentChannelId] ) {
         
-        if ((message.channelState == ECSChannelStateConnected) &&
-            [self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)])
-        {
-            [self.delegate chatClientAgentDidAnswer:self];
-        }
+            // Estimated wait data included
+            if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
+                
+                [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
+
+            }
         
-        // NK 6/24 check for a voice callback channel
-        if ((message.channelState == ECSChannelStateConnected) &&
-            ![message.channelId isEqualToString:self.currentChannelId] ) {
-            
-            if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
-                [self.delegate voiceCallbackDidAnswer:self];
-            }
-        } else if ((message.channelState == ECSChannelStateDisconnected) &&
-                 [message.channelId isEqualToString:self.currentChannelId]) {
-            
-            // First check for the older, deprecated function
-            if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-                [self.delegate chatClientDisconnected:self wasGraceful:YES];
-            }
-            
-            if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
-                [self.delegate chatClient:self disconnectedWithMessage:message]; 
+            if (message.channelState == ECSChannelStateConnected) {
+                
+                // Connected means an agent has answered the chat.
+                if([self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)]) {
+                    [self.delegate chatClientAgentDidAnswer:self];
+                }
+                
+                if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
+                    [self.delegate voiceCallbackDidAnswer:self];
+                }
+                
+            } else if (message.channelState == ECSChannelStateDisconnected) {
+                
+                // The associate or system has disconnected. We have nothing left to listen for. Let's unsubscribe.
+                if( message.disconnectReason != ECSDisconnectReasonError ) {
+                    
+                    ECSLogDebug(self.logger, @"Issuing an UNSUBSCRIBE. We will have nothing else to listen for.");
+                    
+                    [self unsubscribe];
+                }
+                
+                // First check for the older, deprecated function
+                if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+                    [self.delegate chatClientDisconnected:self wasGraceful:YES];
+                }
+                
+                if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
+                    [self.delegate chatClient:self disconnectedWithMessage:message]; 
+                }
+            } else if (message.channelState == ECSChannelStateQueued) {
+                
+                if( [self.delegate respondsToSelector:@selector(chatClient:didReceiveChannelStateMessage:)]) {
+                    [self.delegate chatClient:self didReceiveChannelStateMessage:message];
+                }
+                
             }
         }
-    }
-    else
-    {
+    } else {
         ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
     }
 }
@@ -751,6 +852,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                              withClass:[ECSChatURLMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received URL message from %@. URL=%@", message.from, message.url);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -772,6 +876,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatFormMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                            withClass:[ECSChatFormMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received Form message from %@. Form name=%@", message.from, message.formName);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -796,7 +903,11 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                            withClass:[ECSChatAddParticipantMessage class]];
             
             message.fromAgent = NO;
+            
+            ECSLogDebug(self.logger, @"Received add participant. Participant=%@ %@ (%@)", message.firstName, message.lastName, message.userId);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
+            
         }
         else
         {
@@ -819,6 +930,10 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
                                                                                          withClass:[ECSChatRemoveParticipantMessage class]];
             
             message.fromAgent = NO;
+            
+            ECSLogDebug(self.logger, @"Received remove participant. Participant=%@ %@ (%@). Reason=%@",
+                        message.firstName, message.lastName, message.userId, message.reason);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -841,6 +956,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatAddChannelMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                                       withClass:[ECSChatAddChannelMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received add channel. ChannelID=%@", message.channelId);
+            
             [self.delegate chatClient:self didAddChannelWithMessage:message];
         }
         else
@@ -864,6 +982,9 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChatAssociateInfoMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSChatAssociateInfoMessage class]];
             message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received associate info from %@. Body=%@", message.from, message.message);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -955,6 +1076,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             
             message.fromAgent = YES;
             
+            ECSLogDebug(self.logger, @"Received send question from %@. QuestionText=%@", message.from, message.questionText);
+            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         else
@@ -978,6 +1101,8 @@ static NSString * const kECSChannelTimeoutWarning = @"ChannelTimeoutWarning";   
             ECSChannelTimeoutWarningMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                       withClass:[ECSChannelTimeoutWarningMessage class]];
 
+            ECSLogDebug(self.logger, @"Received channel timeout warning. Timeout Seconds=%@", message.timeoutSeconds);
+            
             [self.delegate chatClientTimeoutWarning:self timeoutSeconds:[message.timeoutSeconds intValue]];
 
         }

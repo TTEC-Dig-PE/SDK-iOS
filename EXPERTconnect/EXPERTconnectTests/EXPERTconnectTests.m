@@ -541,7 +541,7 @@
                 case ECSLogLevelDebug:
                     return @"Debug";
                 case ECSLogLevelVerbose:
-                    return @"Info";
+                    return @"Verbose";
                 case ECSLogLevelNone:
                     return @"None";
             }

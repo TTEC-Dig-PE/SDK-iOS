@@ -316,3 +316,8 @@
 /* Usage: Dialog displayed when the user background the app and returns while in-queue for a chat. This is the dialog message. */
 /* Dialog Title will be "Error" */
 "ECSLocalizedChatQueueDisconnectMessage" = "您的聊天请求已超时。 请再试一次。";
+
+/* 6.2.0 Strings */
+
+/* Chat Transfer */
+"ECSLocalizeChatTransfer" = "聊天正在转移...";

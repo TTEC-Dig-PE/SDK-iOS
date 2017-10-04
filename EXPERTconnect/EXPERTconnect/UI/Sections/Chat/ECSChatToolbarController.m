@@ -212,40 +212,46 @@
     [self sendText];
 }
 
-- (void)sendText
-{
-    if (self.sendEnabled && self.delegate && self.textView.text.length > 0)
-    {
+- (void)sendText {
+    
+    if (self.sendEnabled && self.delegate && self.textView.text.length > 0) {
+        
         [self.delegate sendText:self.textView.text];
         self.textView.text = @"";
         [self textViewDidChange:self.textView];
         [self toggleSendButton:NO];
+        
     }
 }
 
-- (void)toggleSendButton:(BOOL)isEnabled
-{
+- (void)toggleSendButton:(BOOL)isEnabled {
+    
     self.sendButton.enabled = isEnabled;
+    
     if (self.sendButton.enabled) {
+        
         [self.sendButton setAlpha:1.0f];
+        
     } else {
+        
         [self.sendButton setAlpha:0.5f];
+        
     }
 }
 
-- (void)sendChatState:(NSString *)chatState
-{
-    if( [chatState isEqualToString:@"paused"])
-    {
+- (void)sendChatState:(NSString *)chatState {
+    
+    if( [chatState isEqualToString:@"paused"]) {
+        
         _chatState = ECSChatStateTypingPaused;
-    }
-    else if( [chatState isEqualToString:@"composing"])
-    {
+        
+    } else if( [chatState isEqualToString:@"composing"]) {
+        
         _chatState = ECSChatStateComposing;
     }
     
-    if (self.delegate)
-    {
+    if (self.delegate) {
+        
         [self.delegate sendChatState:chatState];
     }
 }
@@ -314,7 +320,7 @@
 {
     [self.myTimer invalidate];
     self.myTimer = nil;
-    [self sendChatState:@"paused"];
+//    [self sendChatState:@"paused"];
 }
 
 - (void)timeFired:(NSTimer *)timer

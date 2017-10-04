@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, ECSChatState)
 {
     ECSChatStateUnknown,
     ECSChatStateTypingPaused,
-    ECSChatStateComposing,
+    ECSChatStateComposing
 };
 
 /**
