@@ -292,51 +292,59 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
 
     ECSLogVerbose(self.logger, @"viewWillAppear. InQueue? %d.", [self userInQueue]);
     
-    if (self.waitView)
-    {
+    if (self.waitView) {
+        
         [self.waitView.loadingView startAnimating];
         
-        if (!self.historyJourney)
-        {
+        if (!self.historyJourney) {
+            
             ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if (userManager.userDisplayName.length > 0)
-            {
+            
+            if (userManager.userDisplayName.length > 0) {
+                
                 self.waitView.titleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWelcomeWithUsername, @"Welcome with username"), userManager.userDisplayName];
-            }
-            else
-            {
+            
+            } else {
+                
                 self.waitView.titleLabel.text = ECSLocalizedString(ECSLocalizeWelcome, @"Welcome");
+            
             }
             
             self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeGenericWaitTime, @"Generic wait time");
-        }
-        else
-        {
+        
+        } else {
+        
             self.waitView.titleLabel.text = @"";
             self.waitView.subtitleLabel.text = @"";
+            
         }
     }
     
-    if (self.historyJourney)
-    {
+    if (self.historyJourney) {
+        
         // Server has noted we are reconnecting to a chat with history. Load the history.
-        if (!self.messages || self.messages.count == 0)
-        {
+        
+        if (!self.messages || self.messages.count == 0) {
+            
             [self loadHistoryForJourney:self.historyJourney];
+            
         }
-    }
-    else if (!self.chatClient)
-    {
+        
+    } else if (!self.chatClient) {
+        
         // Initiate a new Chat Stomp client.
         self.chatClient = [ECSStompChatClient new];
         self.chatClient.delegate = self;
-        [self.chatClient setupChatClientWithActionType:self.actionType];
+        
+        [self.chatClient startChatWithChatAction:(ECSChatActionType *)self.actionType];
+        
+//        [self.chatClient setupChatClientWithActionType:self.actionType];
     }
     
     // Reload selected table cell (used to update form cells)
@@ -1370,7 +1378,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                 withCompletion:^(NSString *authToken, NSError *error)
      {
          // AuthToken updated. Try to reconnect. If error, the 30-second timer will continue and try again.
-         if( !error ) [self.chatClient connectToHost:[EXPERTconnect shared].urlSession.hostName];
+         if( !error ) {
+//             [self.chatClient connectToHost:[EXPERTconnect shared].urlSession.hostNam
+             [self.chatClient reconnect];
+         }
      }];
 }
 

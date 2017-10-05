@@ -4,9 +4,9 @@
 //
 //  Copyright (c) 2015 Humanify, Inc. All rights reserved.
 //
+#import "ECSStompChatClient.h"
 
 #import "ECSStompClient.h"
-#import "ECSStompChatClient.h"
 #import "ECSInjector.h"
 #import "ECSLog.h"
 #import "ECSURLSessionManager.h"
@@ -69,6 +69,8 @@ static NSString * const kECSChatRenderFormMessage =         @"RenderFormCommand"
 static NSString * const kECSSendQuestionMessage =           @"SendQuestionCommand";
 static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarning"; // Idle timeout warning (approx. 1 minute remaining)
 
+
+
 @interface ECSStompChatClient() <ECSStompDelegate>
 
 @property (strong, nonatomic) ECSActionType     *actionType;
@@ -81,6 +83,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 @property (assign, nonatomic) BOOL              initialConnectionMade;
 
 @end
+
+
 
 @implementation ECSStompChatClient
 
@@ -99,9 +103,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
         
-        //TODO: This needs userID from somewhere...
         self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
+        
         self.logger = [[EXPERTconnect shared] logger];
+        
     }
     
     return self;
@@ -110,8 +115,12 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 - (void)dealloc {
     
     [self disconnect];
+    
 }
 
+#pragma mark - Starting a chat
+
+// Easy setup.
 - (void) startChatWithSkill:(NSString *)skill
                     subject:(NSString *)theSubject {
     
@@ -122,6 +131,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
 }
 
+// For advanced use (priority and dataFields)
 - (void) startChatWithSkill:(NSString *)skill
                     subject:(NSString *)theSubject
                    priority:(int)priority
@@ -129,19 +139,102 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
     ECSChatActionType *action = [ECSChatActionType new];
     
-    action.actionId =           @"";
     action.agentSkill =         skill;
-    action.displayName =        @"low_level_chat"; // not used
-    action.shouldTakeSurvey =   NO;
     action.subject =            theSubject;
     action.channelOptions =     fields;
-    action.journeybegin =       [NSNumber numberWithInt:1];
     action.priority =           priority;
+    
+    action.actionId =           @"";                        // not used?
+    action.displayName =        @"low_level_chat";          // not used?
+    action.shouldTakeSurvey =   NO;                         // not used?
+    action.journeybegin =       [NSNumber numberWithInt:1]; // not used?
+    
+    [self startChatWithChatAction:action];
+    
+}
+
+// The core function (most customizable)
+- (void) startChatWithChatAction:(ECSChatActionType *) action {
     
     [self setupChatClientWithActionType:action];
     
 }
 
+#pragma mark - Externally accessible functions
+
+- (bool)isConnected {
+    
+    return self.stompClient.connected;
+}
+
+- (void)reconnect {
+    
+    // Grab the latest auth token from the EXPERTconnect object.
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    self.stompClient.authToken = sessionManager.authToken;
+    
+    [self.stompClient reconnect];
+    
+}
+
+- (void)disconnect {
+    
+    [self.currentNetworkTask cancel];
+    
+    if (self.channel &&
+        ![self.channel.state isEqualToString:@"disconnected"] &&
+        ![self.channel.state isEqualToString:@"disconnecting"]) {
+        
+        NSString *closeURL = self.channel.closeLink;
+        
+        if (closeURL) {
+            
+            self.channel.state = @"disconnecting";
+            
+            ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+            
+            [urlSession closeChannelAtURL:closeURL
+                               withReason:@"Disconnected"
+                    agentInteractionCount:self.agentInteractionCount
+                                 actionId:self.actionType.actionId
+                               completion:^(id result, NSError* error)
+             {
+                 // Do nothing.
+                 self.channel.state = @"disconnected";
+             }];
+        }
+    }
+    
+    if (self.stompClient && self.stompClient.connected) {
+        
+        self.stompClient.delegate = nil;
+        
+        [self unsubscribe];
+        
+        [self.stompClient disconnect];
+        
+    }
+}
+
+#pragma mark - Internal Convienence Functions
+
+// Unit Test: EXPERTconnectTests::testProperties
+-(NSString *)getTimeStampMessage {
+    
+    // get current date/time
+    NSDate *today = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    NSString *currentTime = [dateFormatter stringFromDate:today];
+    
+    return currentTime;
+}
+
+// Internal only.
 - (void)setupChatClientWithActionType:(ECSActionType*)actionType {
     
     __weak typeof(self) weakSelf = self;
@@ -174,6 +267,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 }
                
                weakSelf.currentConversation = conversation;
+                                                              
                [weakSelf connectToHost:urlSession.hostName];
            }];
         
@@ -186,19 +280,23 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
+// Internal only.
 - (void)handleStompError:(NSError *) error {
     
     if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)]) {
         
         [self.delegate chatClient:self didFailWithError:error];
+        
     }
     
     if ([self.delegate respondsToSelector:@selector(chatDidFailWithError:)]) {
         
         [self.delegate chatDidFailWithError:error];
+        
     }
 }
 
+// Internal only.
 - (void)setupChatChannel {
     
     ECSChannelConfiguration *configuration = [ECSChannelConfiguration new];
@@ -279,12 +377,17 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                                                 completion:^(ECSChannelCreateResponse *response, NSError *error)
         {
                                                     
-            if (!error && response && response.estimatedWait) {
+            if ( !error && response ) {
                 
-                if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
-                    
-                    [weakSelf.delegate chatClient:self
-                           didUpdateEstimatedWait:response.estimatedWait.integerValue];
+                if( response.estimatedWait ) {
+                    // Old
+                    if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
+                        [weakSelf.delegate chatClient:self didUpdateEstimatedWait:response.estimatedWait.integerValue];
+                    }
+                    // New
+                    if( [weakSelf.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
+                        [weakSelf.delegate chatUpdatedEstimatedWait:response.estimatedWait.intValue];
+                    }
                 }
                 
                 weakSelf.currentChannelId = [response.channelId copy];
@@ -315,7 +418,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-
+// Internal only as of 6.2.1.
 - (void)connectToHost:(NSString *)host {
     
     self.stompClient = [ECSStompClient new];
@@ -342,59 +445,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     [self.stompClient connectToHost:stompHostName];
 }
 
--(bool) isConnected {
-    
-    return self.stompClient.connected;
-}
-
-- (void)reconnect {
-
-    self.isReconnecting = YES;
-
-    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    self.stompClient.authToken = sessionManager.authToken;
-    
-    [self.stompClient reconnect];
-    
-}
-
-- (void)disconnect {
-    
-    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    [self.currentNetworkTask cancel];
-    
-    if (self.channel && ![self.channel.state isEqualToString:@"disconnected"] && ![self.channel.state isEqualToString:@"disconnecting"]) {
-        
-        NSString *closeURL = self.channel.closeLink;
-
-        if (closeURL) {
-            
-            self.channel.state = @"disconnecting";
-            
-            [urlSession closeChannelAtURL:closeURL
-                               withReason:@"Disconnected"
-                    agentInteractionCount:self.agentInteractionCount
-                                 actionId:self.actionType.actionId
-                               completion:^(id result, NSError* error)
-            {
-                // Do nothing.
-                self.channel.state = @"disconnected";
-            }];
-        }
-    }
-    
-    if (self.stompClient && self.stompClient.connected) {
-        
-        self.stompClient.delegate = nil;
-        
-        [self unsubscribe];
-        
-        [self.stompClient disconnect];
-    }
-}
-
+// Internal only.
 - (void)setMessagingChannelConfiguration:(ECSChannelCreateResponse *)configuration {
     
     self.channel = configuration;
@@ -407,6 +458,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
            Instead, URLByDeletingPathExtension will remove everything after the last dot.
          */
         self.sendMessageDestination = [[NSURL URLWithString:configuration.messagesLink] path];
+        
         NSURL *notificationURL = [[NSURL URLWithString:configuration.messagesLink] URLByDeletingPathExtension];
         notificationURL = [notificationURL URLByAppendingPathExtension:@"notifications"];
         self.sendNotificationDestination = [notificationURL path];
@@ -448,9 +500,13 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                                             kECSHeaderBodyType: kECSChatMessage,
                                             kECSHeaderBodyVersion: kECSMessageBodyVersion
                                             };
+        
         NSDictionary *jsonDictionary = [ECSJSONSerializer jsonDictionaryFromObject:message];
         NSError *serializingError = nil;
-        NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:0 error:&serializingError];
+        
+        NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary
+                                                       options:0
+                                                         error:&serializingError];
         
         if (!serializingError) {
             
@@ -460,11 +516,13 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                             toDestination:destination
                               contentType:@"application/json"
                         additionalHeaders:additionalHeaders];
+            
         }
         
     } else {
         
         ECSLogError(self.logger, @"Attempting to send message when destination is not set.");
+        
     }
 }
 
@@ -770,6 +828,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
+#pragma mark - STOMP Message Handling
+
 - (void)handleChatMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
     
     self.agentInteractionCount++;
@@ -853,8 +913,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         }
         
         // Newer specific method.
-        if ([self.delegate respondsToSelector:@selector(chatStateUpdatedTo:)]) {
-            [self.delegate chatStateUpdatedTo:message.chatState];
+        if ([self.delegate respondsToSelector:@selector(chatReceivedChatStateMessage:)]) {
+            [self.delegate chatReceivedChatStateMessage:message];
         }
         
     } else {
@@ -864,45 +924,62 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
 }
 
-- (void)handleChatNotificationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-	 if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveChatNotificationMessage:)])
-	 {
-		  NSError *serializationError = nil;
-		  id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-													  options:0 error:&serializationError];
-		  if (!serializationError)
-		  {
-			   ECSChatNotificationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-																					   withClass:[ECSChatNotificationMessage class]];
-			   message.fromAgent = YES;
-			   NSString *fileName = message.objectData;
-			   NSString *tempString = [[fileName componentsSeparatedByString:@"."] lastObject];
-			   if([tempString isEqualToString:@"pdf"])
-			   {
-					ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-																				   withClass:[ECSChatURLMessage class]];
-					message.comment = fileName;
-					message.url = fileName;
-					message.urlType = @"PDF Document";
-					message.fromAgent = YES;
-					
-                   ECSLogDebug(self.logger, @"Received PDF from %@. Filename=%@, URL=%@", message.from, message.comment, message.url);
-                   
-					[self.delegate chatClient:self didReceiveMessage:message];
-			   }
-			   else
-			   {
-                   ECSLogDebug(self.logger, @"Chat notification. From=%@, ObjectData=%@", message.from, message.objectData);
-                   
-					[self.delegate chatClient:self didReceiveChatNotificationMessage:message];
-			   }
-		  }
-		  else
-		  {
-			   ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
-		  }
-	 }
+- (void)handleChatNotificationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+    
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0
+                                                  error:&serializationError];
+    
+    if (!serializationError) {
+        
+        ECSChatNotificationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                withClass:[ECSChatNotificationMessage class]];
+        message.fromAgent = YES;
+        NSString *fileName = message.objectData;
+        NSString *tempString = [[fileName componentsSeparatedByString:@"."] lastObject];
+        
+        // TODO: Odd that we handle PDFs as a URL message. Update this?
+        if( [tempString isEqualToString:@"pdf"] ) {
+            
+            ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                           withClass:[ECSChatURLMessage class]];
+            message.comment = fileName;
+            message.url = fileName;
+            message.urlType = @"PDF Document";
+            message.fromAgent = YES;
+            
+            ECSLogDebug(self.logger, @"Received PDF from %@. Filename=%@, URL=%@", message.from, message.comment, message.url);
+            
+            // Old
+            if( [self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)] ) {
+                [self.delegate chatClient:self didReceiveMessage:message];
+            }
+            // New
+            if( [self.delegate respondsToSelector:@selector(chatReceivedTextMessage:)] ) {
+                [self.delegate chatReceivedTextMessage:message];
+            }
+            
+        } else {
+            
+            ECSLogDebug(self.logger, @"Chat notification. From=%@, ObjectData=%@", message.from, message.objectData);
+            
+            // Old
+            if ( [self.delegate respondsToSelector:@selector(chatClient:didReceiveChatNotificationMessage:)] ) {
+                [self.delegate chatClient:self didReceiveChatNotificationMessage:message];
+            }
+            // New
+            if( [self.delegate respondsToSelector:@selector(chatReceivedNotificationMessage:)] ) {
+                [self.delegate chatReceivedNotificationMessage:message];
+            }
+        }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
+        
+    }
 }
 
 
@@ -923,11 +1000,12 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         // Make sure this message is for our current channelId.
         if( [message.channelId isEqualToString:self.currentChannelId] ) {
         
-            // Estimated wait data included
-            if (message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
-                
+            // (old) Estimated wait data included
+            if ( message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)] ) {
                 [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
-
+            }
+            if( [self.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
+                [self.delegate chatUpdatedEstimatedWait:message.estimatedWait.intValue];
             }
         
             if (message.channelState == ECSChannelStateConnected) {
@@ -963,6 +1041,12 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
                     [self.delegate chatClient:self disconnectedWithMessage:message]; 
                 }
+                
+                // Delegate 2.0 method. 
+                if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)] ) {
+                    [self.delegate chatDisconnectedWithMessage:message];
+                }
+                
             } else if (message.channelState == ECSChannelStateQueued) {
                 
                 if( [self.delegate respondsToSelector:@selector(chatClient:didReceiveChannelStateMessage:)]) {
@@ -971,7 +1055,14 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 
             }
         }
+        
+        // In delegate 2.0, always report a channelStateMessage (we might also report a friendly delegate callback as well)
+        if( [self.delegate respondsToSelector:@selector(chatReceivedChannelStateMessage:)] ) {
+            [self.delegate chatReceivedChannelStateMessage:message];
+        }
+        
     } else {
+        
         ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
     }
 }
@@ -1092,29 +1183,34 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-- (void)handleAddChannelMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didAddChannelWithMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatAddChannelMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                                      withClass:[ECSChatAddChannelMessage class]];
-            message.fromAgent = YES;
-            
-            ECSLogDebug(self.logger, @"Received add channel. ChannelID=%@", message.channelId);
-            
+- (void)handleAddChannelMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+    
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0
+                                                  error:&serializationError];
+    if (!serializationError) {
+        
+        ECSChatAddChannelMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                              withClass:[ECSChatAddChannelMessage class]];
+        message.fromAgent = YES;
+        
+        ECSLogDebug(self.logger, @"Received add channel. ChannelID=%@", message.channelId);
+        
+        // Old
+        if ( [self.delegate respondsToSelector:@selector(chatClient:didAddChannelWithMessage:)] ) {
             [self.delegate chatClient:self didAddChannelWithMessage:message];
         }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
+        // New
+        if( [self.delegate respondsToSelector:@selector(chatAddChannelWithMessage:)] ) {
+            [self.delegate chatAddChannelWithMessage:message];
         }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
     }
-    
 }
 
 - (void)handleAssociateInfoMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
@@ -1267,19 +1363,6 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
     }
     
-}
-
-// Unit Test: EXPERTconnectTests::testProperties
--(NSString *)getTimeStampMessage
-{
-    // get current date/time
-    NSDate *today = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    // display in 12HR/24HR (i.e. 11:25PM or 23:25) format according to User Settings
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    NSString *currentTime = [dateFormatter stringFromDate:today];
-    
-    return currentTime;
 }
 
 @end
