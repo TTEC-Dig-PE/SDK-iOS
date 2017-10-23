@@ -38,6 +38,12 @@
 // New delegate 2.0 functions
 
 /*!
+ * @discussion A channel was successfully created (chat, voice callback, etc)
+ * @param response The channel create response
+ */
+- (void) chatChannelCreated:(ECSChannelCreateResponse *)response;
+
+/*!
  * @discussion The Stomp Websocket has successfully connected to the server.
  */
 - (void) chatDidConnect;
@@ -103,9 +109,9 @@
 
 /**
  @discussion Called when the estimated wait time is updated.
- @param minutes the estimated wait time in minutes
+ @param seconds the estimated wait time in seconds
  */
-- (void) chatUpdatedEstimatedWait:(int)minutes;
+- (void) chatUpdatedEstimatedWait:(int)seconds;
 
 /**
  @discussion Called when the chat client receives an add channel message.
@@ -248,7 +254,13 @@ __attribute__((deprecated("Use chatClientDisconnected:withReason:")));
  @discussion Starts a new low-level chat session.
  @param action This object contains a number of chat fields for customizing your low-level chat experience.
  */
-- (void) startChatWithChatAction:(ECSChatActionType *) action;
+- (void) startChannelWithAction:(ECSChatActionType *) action;
+
+- (void) startVoiceCallbackWithSkill:(NSString *)skill
+                             subject:(NSString *)subject
+                         phoneNumber:(NSString *)phone
+                            priority:(int)priority
+                          dataFields:(NSDictionary *)fields;
 
 /**
  Runs the entire chat setup for the current stomp chat client. Errors and status are sent through

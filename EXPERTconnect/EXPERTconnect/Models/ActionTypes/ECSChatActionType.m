@@ -45,6 +45,7 @@
     
     actionType.shouldTakeSurvey = self.shouldTakeSurvey;
     actionType.priority = self.priority;
+    actionType.sourceAddress = [self.sourceAddress copyWithZone:zone];
     
     return actionType;
 }

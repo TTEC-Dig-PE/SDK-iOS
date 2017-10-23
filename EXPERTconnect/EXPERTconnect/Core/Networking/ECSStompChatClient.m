@@ -149,14 +149,41 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     action.shouldTakeSurvey =   NO;                         // not used?
     action.journeybegin =       [NSNumber numberWithInt:1]; // not used?
     
-    [self startChatWithChatAction:action];
+    [self startChannelWithAction:action];
     
 }
 
 // The core function (most customizable)
-- (void) startChatWithChatAction:(ECSChatActionType *) action {
+- (void) startChannelWithAction:(ECSChatActionType *) action {
     
     [self setupChatClientWithActionType:action];
+    
+}
+
+#pragma mark - Start a Voice Callback
+
+- (void) startVoiceCallbackWithSkill:(NSString *)skill
+                             subject:(NSString *)subject
+                         phoneNumber:(NSString *)phone
+                            priority:(int)priority
+                          dataFields:(NSDictionary *)fields {
+    
+    ECSChatActionType *action = [ECSChatActionType new];
+    
+    action.agentSkill =         skill;
+    action.subject =            subject;
+    action.channelOptions =     fields;
+    action.priority =           priority;
+    action.sourceAddress =      phone;
+    action.sourceType =         @"Callback";
+    action.mediaType =          @"Voice";
+    
+    action.actionId =           @"";                        // not used?
+    action.displayName =        @"low_level_voice_callback";// not used?
+    action.shouldTakeSurvey =   NO;                         // not used?
+    action.journeybegin =       [NSNumber numberWithInt:1]; // not used?
+    
+    [self startChannelWithAction:action];
     
 }
 
@@ -263,12 +290,17 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                     
                     [self handleStompError:error];
                   
-                  return;
+                    return;
+                    
+                } else {
+                    // Happy path.
+                    
+                    weakSelf.currentConversation = conversation;
+                    
+                    [weakSelf connectToHost:urlSession.hostName];
+                    
                 }
-               
-               weakSelf.currentConversation = conversation;
                                                               
-               [weakSelf connectToHost:urlSession.hostName];
            }];
         
     } else {
@@ -324,14 +356,14 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     // check for video action type
     NSMutableDictionary *featuresDic = [[NSMutableDictionary alloc] init];
     
-    if ([chatAction isKindOfClass:[ECSVideoChatActionType class]]) {
-        
-        ECSVideoChatActionType *videoChatAction = (ECSVideoChatActionType *)chatAction;
-        
-        featuresDic[@"cafexmode"] = videoChatAction.cafexmode;
-        featuresDic[@"cafextarget"] = videoChatAction.cafextarget;
-        //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
-    }
+//    if ([chatAction isKindOfClass:[ECSVideoChatActionType class]]) {
+//
+//        ECSVideoChatActionType *videoChatAction = (ECSVideoChatActionType *)chatAction;
+//
+//        featuresDic[@"cafexmode"] = videoChatAction.cafexmode;
+//        featuresDic[@"cafextarget"] = videoChatAction.cafextarget;
+//        //configuration.features = @{ @"cafexmode": videoChatAction.cafexmode, @"cafextarget": videoChatAction.cafextarget };
+//    }
     
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSString *locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
@@ -353,12 +385,15 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         configuration.options = [NSDictionary dictionaryWithDictionary:self.actionType.channelOptions];
     }
     
-    configuration.from = ( userManager.userToken ? userManager.userToken : @"Guest" );
-    configuration.subject = chatAction.subject; 
-    configuration.sourceType = chatAction.sourceType;
-    configuration.mediaType = chatAction.mediaType;
-    configuration.deviceId = userManager.deviceID;
-    configuration.location = chatAction.location;
+    configuration.from          = ( userManager.userToken ? userManager.userToken : @"Guest" );
+    configuration.subject       = chatAction.subject;
+    configuration.sourceType    = chatAction.sourceType;
+    
+    configuration.mediaType     = chatAction.mediaType;
+    configuration.sourceAddress = chatAction.sourceAddress;
+    
+    configuration.deviceId      = userManager.deviceID;
+    configuration.location      = chatAction.location;
     
     // Only send if value is 1-10, otherwise send a nil/null.
 
@@ -372,6 +407,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
     if (url) {
         
+        // Setup the channel
         self.currentNetworkTask = [urlSession setupChannel:configuration
                                             inConversation:url
                                                 completion:^(ECSChannelCreateResponse *response, NSError *error)
@@ -399,6 +435,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 urlSession2.lastChannelId = weakSelf.currentChannelId;
                 
                 [weakSelf setMessagingChannelConfiguration:response];
+                
+                if( [weakSelf.delegate respondsToSelector:@selector(chatChannelCreated:)] ) {
+                    [weakSelf.delegate chatChannelCreated:response];
+                }
                 
             } else if (!(error.code == NSURLErrorCancelled)) {
                 
@@ -956,10 +996,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
             if( [self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)] ) {
                 [self.delegate chatClient:self didReceiveMessage:message];
             }
-            // New
-            if( [self.delegate respondsToSelector:@selector(chatReceivedTextMessage:)] ) {
-                [self.delegate chatReceivedTextMessage:message];
-            }
+//            // New
+//            if( [self.delegate respondsToSelector:@selector(chatReceivedTextMessage:)] ) {
+//                [self.delegate chatReceivedTextMessage:message];
+//            }
             
         } else {
             

@@ -208,7 +208,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @return the view controller for the Chat
  */
-- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+//- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Voice Callback session.

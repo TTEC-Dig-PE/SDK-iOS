@@ -9,20 +9,23 @@
 
 @implementation ECSCallbackActionType
 
-- (instancetype)init
-{
+- (instancetype)init {
+    
     self = [super init];
     
-    if (self)
-    {
+    if (self) {
+        
         self.type = ECSActionTypeCallbackString;
+        
+        // The old default values.
+        self.subject = @"help";
     }
     
     return self;
 }
 
-- (NSDictionary *)ECSJSONMapping
-{
+- (NSDictionary *)ECSJSONMapping {
+    
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithDictionary:[super ECSJSONMapping]];
     
     [dictionary addEntriesFromDictionary:@{
@@ -32,12 +35,14 @@
     return dictionary;
 }
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone *)zone {
+    
     ECSCallbackActionType *actionType = [super copyWithZone:zone];
     
     actionType.agentId = [self.agentId copyWithZone:zone];
     actionType.agentSkill = [self.agentSkill copyWithZone:zone];
+    actionType.subject = [self.subject copyWithZone:zone];
+    actionType.priority = self.priority; 
     
     return actionType;
 }
