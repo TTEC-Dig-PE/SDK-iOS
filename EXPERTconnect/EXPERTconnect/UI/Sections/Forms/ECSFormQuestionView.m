@@ -52,7 +52,8 @@ static const CGFloat ViewPadding = 15.0f;
     self.questionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.questionLabel.font = theme.largeBodyFont;
-
+    self.questionLabel.isAccessibilityElement = YES;
+    
     [self addSubview:self.questionLabel];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(padding)-[label]-(padding)-|"
@@ -87,9 +88,12 @@ static const CGFloat ViewPadding = 15.0f;
 - (void)setQuestionText:(NSString *)questionText
 {
     _questionText = questionText;
+    
     self.questionLabel.text = questionText;
+    [self.questionLabel setAccessibilityLabel:questionText];
     
     [self invalidateIntrinsicContentSize];
 }
 
 @end
+

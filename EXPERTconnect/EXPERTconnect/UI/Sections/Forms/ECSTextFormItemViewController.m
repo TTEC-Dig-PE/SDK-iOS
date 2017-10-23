@@ -28,9 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.questionView.questionText = self.formItem.label;
-
+    
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
     ECSFormItemText* textItem = (ECSFormItemText*)self.formItem;
@@ -52,6 +52,9 @@
     self.captionLabel.textColor = theme.secondaryTextColor;
     self.captionLabel.text = [self defaultCaptionText];
     
+    [self.captionLabel setAccessibilityLabel:self.captionLabel.text];
+    self.captionLabel.isAccessibilityElement = YES;
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
@@ -61,11 +64,10 @@
                                                            constant:0.0]];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.textField becomeFirstResponder];
+    [self.view becomeFirstResponder];
 }
 
 - (void)textFieldDidChange:(id)sender
@@ -83,3 +85,4 @@
 
 
 @end
+
