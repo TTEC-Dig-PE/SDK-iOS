@@ -1035,7 +1035,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         }
         
 //        [self scheduleAutomaticReconnect];
-    else if( error.code == 1049 ) {
+    } else if( error.code == 1049 ) {
             
         ECSLogError(self.logger, @"STOMP error. Attempting to resubscribe.");
         [self.chatClient reconnect];
