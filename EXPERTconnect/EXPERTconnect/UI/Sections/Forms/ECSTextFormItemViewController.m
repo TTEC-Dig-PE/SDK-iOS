@@ -15,18 +15,18 @@
 
 @interface ECSTextFormItemViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet ECSFormQuestionView *questionView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet ECSDynamicLabel *captionLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView           *scrollView;
+@property (weak, nonatomic) IBOutlet UIView                 *contentView;
+@property (weak, nonatomic) IBOutlet UITextField            *textField;
+@property (weak, nonatomic) IBOutlet ECSFormQuestionView    *questionView;
+@property (weak, nonatomic) IBOutlet ECSDynamicLabel        *captionLabel;
 
 @end
 
 @implementation ECSTextFormItemViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.questionView.questionText = self.formItem.label;
@@ -37,10 +37,12 @@
     self.textField.tintColor = theme.primaryColor;
     self.textField.textColor = theme.primaryTextColor;
     
-    if (textItem.hint && [textItem.hint isKindOfClass:[NSString class]])
-    {
-        self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textItem.hint attributes:@{NSForegroundColorAttributeName: theme.secondaryTextColor}];
+    if (textItem.hint && [textItem.hint isKindOfClass:[NSString class]]) {
+        
+        self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textItem.hint
+                                                                               attributes:@{NSForegroundColorAttributeName: theme.secondaryTextColor}];
     }
+    
     self.textField.secureTextEntry = [textItem.secure boolValue];
     self.textField.text = textItem.formValue;
     
@@ -53,6 +55,7 @@
     self.captionLabel.text = [self defaultCaptionText];
     
     [self.captionLabel setAccessibilityLabel:self.captionLabel.text];
+    
     self.captionLabel.isAccessibilityElement = YES;
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView
@@ -65,24 +68,27 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    
     [super viewDidAppear:animated];
     
     [self.view becomeFirstResponder];
+    
 }
 
-- (void)textFieldDidChange:(id)sender
-{
+- (void)textFieldDidChange:(id)sender {
+    
     ((ECSFormItemText*)self.formItem).formValue = self.textField.text;
+    
     [self.delegate formItemViewController:self
                           answerDidChange:self.textField.text
                               forFormItem:self.formItem];
 }
 
-- (IBAction)viewTapped:(id)sender
-{
+- (IBAction)viewTapped:(id)sender {
+    
     [self.textField resignFirstResponder];
+    
 }
-
 
 @end
 
