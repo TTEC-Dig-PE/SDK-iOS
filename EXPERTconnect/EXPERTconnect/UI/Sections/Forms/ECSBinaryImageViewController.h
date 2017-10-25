@@ -15,10 +15,10 @@
 @interface ECSBinaryImageViewController : ECSFormItemViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *rightButton;
-- (IBAction)rightButtonPressed:(id)sender;
-
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
+
 - (IBAction)leftButtonPressed:(id)sender;
+- (IBAction)rightButtonPressed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *captionLabel;
 @property (weak, nonatomic) IBOutlet ECSDynamicLabel *questionLabel;

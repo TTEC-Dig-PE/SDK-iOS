@@ -1010,17 +1010,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     });
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
-{
-    ECSLogDebug(self.logger, @"Error: %@", error);
+- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error {
     
-    // Now handled in the StompClient code.
-//    if([error.domain isEqualToString:ECSErrorDomain] && error.code == ECS_ERROR_STOMP) {
-//        
-//        // mas - jan-24-2017 - Ignore this error. User does not need to see it.
-//        ECSLogVerbose(self.logger, @"Got redundant connection closed error from STOMP - ignoring.");
-//    
-//    } else
+    ECSLogDebug(self.logger, @"Error: %@", error);
     
     if( [error.domain isEqualToString:@"ECSWebSocketErrorDomain"] ||
         [error.domain isEqualToString:@"kCFErrorDomainCFNetwork"] ||
@@ -1033,9 +1025,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
         }
-        
-//        [self scheduleAutomaticReconnect];
-    
+
     } else {
         /* Example Errors:
                 NSURLErrorDomain, -1004, "Could not connect to the server"

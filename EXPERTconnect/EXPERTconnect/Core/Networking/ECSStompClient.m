@@ -473,9 +473,22 @@ bool        _isConnecting;
             if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] ) {
                 
                 // This is the error seen after a proper DISCONNECT is issued. Supressing.
+                
                 ECSLogVerbose(self.logger, @"Supressing connection to broker closed error (we have already disconnected)."); 
                 
+                
+            } else if ( [frame.headers[@"message"] isEqualToString:@"Processing error"] ) {
+                
+                // Probably message spam. A reconnect should fix this error.
+                
+                ECSLogError(self.logger, @"STOMP processing error. Attempting STOMP reconnect...");
+                
+                [self reconnect];
+                
+                
             } else {
+                
+                // Anything else send back to the host app / high level...
                 
                 NSError *newError = [NSError errorWithDomain:@"com.humanify"
                                                         code:ECS_ERROR_STOMP
