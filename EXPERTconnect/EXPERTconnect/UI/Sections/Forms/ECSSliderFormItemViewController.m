@@ -31,7 +31,11 @@
 
     [self themeViews];
 
-    self.questionView.questionText = self.formItem.label;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.questionView.questionText = [NSString stringWithFormat:@"%@ (%@)", self.formItem.label, [self defaultCaptionText]];
+//    } else {
+        self.questionView.questionText = self.formItem.label;
+//    }
     
     ECSFormItemSlider* sliderItem = (ECSFormItemSlider*)self.formItem;
     self.slider.minimumValue = [sliderItem.minValue floatValue];
@@ -55,6 +59,10 @@
     }
     
     self.captionLabel.text = [self defaultCaptionText];
+    
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.captionLabel.text = @"";
+//    }
 }
 
 - (void)themeViews {

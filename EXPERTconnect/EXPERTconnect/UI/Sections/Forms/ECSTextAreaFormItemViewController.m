@@ -33,7 +33,11 @@
     
     ECSFormItemTextArea* textItem = (ECSFormItemTextArea*)self.formItem;
     
-    self.questionView.questionText          = textItem.label;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.questionView.questionText = [NSString stringWithFormat:@"%@ (%@)", self.formItem.label, [self defaultCaptionText]];
+//    } else {
+        self.questionView.questionText = self.formItem.label;
+//    }
     
     self.answerTextArea.placeholder         = textItem.hint;
     self.answerTextArea.text                = textItem.formValue;
@@ -43,6 +47,10 @@
     self.captionLabel.font                  = theme.captionFont;
     self.captionLabel.textColor             = theme.secondaryTextColor;
     self.captionLabel.text                  = [self defaultCaptionText];
+    
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.captionLabel.text = @"";
+//    }
     
     self.answerTextArea.delegate            = self;
     self.answerTextArea.tintColor           = theme.primaryColor;

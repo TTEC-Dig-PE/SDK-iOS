@@ -38,25 +38,35 @@
     
     ECSFormQuestionView* questionView = [ECSFormQuestionView new];
     
-    questionView.questionText = self.formItem.label;
-    self.choicesTable.tableHeaderView = questionView;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        questionView.questionText = [NSString stringWithFormat:@"%@ (%@)", self.formItem.label, [self defaultCaptionText]];
+//    } else {
+        questionView.questionText = self.formItem.label;
+//    }
     
+    self.choicesTable.tableHeaderView = questionView;
+
     // Provide an initial size to avoid a constraint warning from Autolayout
     CGSize size = [questionView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
     
     questionView.frame = CGRectMake(0, 0, questionView.frame.size.width, size.height);
     
+    
+        
     UIView* captionView = [UIView new];
     
     ECSDynamicLabel* captionLabel = [ECSDynamicLabel new];
-    
     captionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [captionView addSubview:captionLabel];
-    
     captionLabel.text = [self defaultCaptionText];
+    
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        captionLabel.text = @"";
+//    }
+    
     captionLabel.font = theme.captionFont;
     captionLabel.textColor = theme.secondaryTextColor;
+    
+    [captionView addSubview:captionLabel];
     
     [captionView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15-[label]"
                                                                         options:0
@@ -71,6 +81,8 @@
     // Provide an initial size to avoid a constraint warning from Autolayout
     size = [captionView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
     captionView.frame = CGRectMake(0, 0, questionView.frame.size.width, size.height);
+    
+    
     
     [self updateTableHeaderFooterSize];
     
@@ -97,6 +109,15 @@
                                        animated:NO
                                  scrollPosition:UITableViewScrollPositionNone];
     }
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+//    [self.choicesTable.tableHeaderView becomeFirstResponder]; // Focus on the question text.
+//    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.choicesTable.tableHeaderView);
+    
+    [self.choicesTable.tableHeaderView becomeFirstResponder];
     
 }
 

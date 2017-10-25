@@ -55,9 +55,16 @@
     self.captionLabel.font = theme.captionFont;
     self.captionLabel.textColor = theme.secondaryTextColor;
     
-    [self.questionLabel setText:self.formItem.label];
-    [self.questionLabel setAccessibilityLabel:self.formItem.label];
-    self.questionLabel.isAccessibilityElement = YES;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.captionLabel.text = @"";
+//    }
+    
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.questionLabel.text = [NSString stringWithFormat:@"%@ (%@)", self.formItem.label, [self defaultCaptionText]];
+//    } else {
+        self.questionLabel.text = self.formItem.label;
+//    }
+
     
     if( binaryFormItem && binaryFormItem.options.count > 1 ) {
         
@@ -81,7 +88,9 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.view becomeFirstResponder];
+    
+    [self.questionLabel becomeFirstResponder]; 
+    
 }
 
 - (void)viewDidLayoutSubviews {

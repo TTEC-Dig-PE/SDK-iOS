@@ -29,7 +29,11 @@
     
     [super viewDidLoad];
     
-    self.questionView.questionText = self.formItem.label;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.questionView.questionText = [NSString stringWithFormat:@"%@ (%@)", self.formItem.label, [self defaultCaptionText]];
+//    } else {
+        self.questionView.questionText = self.formItem.label;
+//    }
     
     ECSTheme* theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
@@ -54,9 +58,9 @@
     self.captionLabel.textColor = theme.secondaryTextColor;
     self.captionLabel.text = [self defaultCaptionText];
     
-    [self.captionLabel setAccessibilityLabel:self.captionLabel.text];
-    
-    self.captionLabel.isAccessibilityElement = YES;
+//    if(UIAccessibilityIsVoiceOverRunning()){
+//        self.captionLabel.text = @"";
+//    }
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView
                                                           attribute:NSLayoutAttributeWidth
