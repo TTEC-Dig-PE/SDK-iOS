@@ -1024,7 +1024,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             // Let's immediately try to refresh the auth token.
             [self refreshAuthenticationToken];
         }
-    
+
     } else {
         /* Example Errors:
                 NSURLErrorDomain, -1004, "Could not connect to the server"

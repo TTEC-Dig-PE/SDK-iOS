@@ -54,7 +54,9 @@ NSString *const ECSRadioTableViewCellIdentifier = @"ECSRadioTableViewCellIdentif
 - (void)setChoiceText:(NSString*)choiceText
 {
     _choiceText = choiceText;
+    
     self.choiceLabel.text = choiceText;
+    self.choiceLabel.accessibilityValue = choiceText; 
 }
 
 - (void)setRadioSelected:(BOOL)selected

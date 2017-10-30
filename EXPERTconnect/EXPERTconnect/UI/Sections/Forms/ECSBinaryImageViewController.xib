@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECSBinaryImageViewController">
@@ -16,27 +20,27 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="jPq-uK-rev">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zny-EZ-REI">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJl-ZT-jgJ">
-                            <rect key="frame" x="304" y="79" width="216" height="60"/>
+                            <rect key="frame" x="191.5" y="79" width="103.5" height="60"/>
                             <state key="normal" title="Right Button" image="ecs_ic_thumb_down_active"/>
                             <connections>
                                 <action selector="rightButtonPressed:" destination="-1" eventType="touchUpInside" id="WMl-XS-QwK"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5m-wC-JDq" userLabel="Caption Label" customClass="ECSDynamicLabel">
-                            <rect key="frame" x="10" y="163" width="582" height="40"/>
+                            <rect key="frame" x="10" y="163" width="357" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="GQ2-xE-hIL"/>
                                 <constraint firstAttribute="height" constant="21" id="pka-f8-QZ9"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -44,14 +48,14 @@
                                 </mask>
                             </variation>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dSn-9Q-42O" userLabel="Caption Label" customClass="ECSDynamicLabel">
-                            <rect key="frame" x="10" y="15" width="510" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dSn-9Q-42O" customClass="ECSDynamicLabel">
+                            <rect key="frame" x="10" y="15" width="285" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="VN6-Cl-lMP"/>
                                 <constraint firstAttribute="height" constant="21" id="yR0-aP-5Az"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -60,14 +64,14 @@
                             </variation>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-2I-09R">
-                            <rect key="frame" x="80" y="79" width="216" height="60"/>
+                            <rect key="frame" x="80" y="79" width="103.5" height="60"/>
                             <state key="normal" title="Left Button" image="ecs_ic_thumb_up_active"/>
                             <connections>
                                 <action selector="leftButtonPressed:" destination="-1" eventType="touchUpInside" id="JgW-er-QxC"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="tJl-ZT-jgJ" firstAttribute="top" secondItem="eTa-2I-09R" secondAttribute="top" id="2Y6-Lv-Txs"/>
                         <constraint firstItem="L5m-wC-JDq" firstAttribute="leading" secondItem="dSn-9Q-42O" secondAttribute="leading" id="3Xc-yY-amo"/>
@@ -97,7 +101,7 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Zny-EZ-REI" firstAttribute="leading" secondItem="jPq-uK-rev" secondAttribute="leading" id="XnM-uT-ZAE"/>
                 <constraint firstAttribute="bottom" secondItem="Zny-EZ-REI" secondAttribute="bottom" id="ZEd-X5-BWy"/>
