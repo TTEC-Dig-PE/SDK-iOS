@@ -501,20 +501,28 @@
     }
 }
 
-- (void)userConfirmedSend:(ECSSendConfirmationViewController*)controller
-{
-    if ([self.delegate respondsToSelector:@selector(sendMedia:)])
-    {
+- (void)userConfirmedSend:(ECSSendConfirmationViewController*)controller {
+    
+    if ([self.delegate respondsToSelector:@selector(sendMedia:)]) {
+        
         NSString *mediaType = self.mediaToSend[UIImagePickerControllerMediaType];
+
         if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
+
             // Scale and rotate the image before sending.
-            UIImage *mediaFile = self.mediaToSend[UIImagePickerControllerOriginalImage];
-            [self.mediaToSend setValue:[self scaleAndRotateImage:mediaFile] forKey:UIImagePickerControllerOriginalImage];
+            UIImage *mediaFile = [self scaleAndRotateImage:self.mediaToSend[UIImagePickerControllerOriginalImage]];
+
+            NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:self.mediaToSend];
+            
+            [tempDict setObject:mediaFile forKey:UIImagePickerControllerOriginalImage];
+            
+            self.mediaToSend = tempDict;
         }
         
         [self.delegate sendMedia:self.mediaToSend];
     }
     self.mediaToSend = nil;
+    
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 

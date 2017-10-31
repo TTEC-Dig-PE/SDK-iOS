@@ -234,11 +234,16 @@ bool        _isConnecting;
     ECSLogDebug(self.logger, @"Subscribing. Dest=%@, SubID=%@", destination, subscriptionID);
     
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
-    headers[@"id"] = subscriptionID;
-    headers[@"destination"] = destination;
-    headers[@"ack"] = @"client";
-    headers[@"persistent"] = @"true";
-    headers[@"prefetch-count"] = @"0"; // mas - Set to 0 as per Russ to avoid a barrage of agent messages out of order.
+    
+    headers[@"id"]                  = subscriptionID;
+    headers[@"destination"]         = destination;
+    
+    // mas - Switched for 6.2.2 per meeting w/Russ,Ken. If ACK sends messageID, this should be -induvidual.
+//    headers[@"ack"] = @"client";
+    headers[@"ack"]                 = @"client-individual";
+    
+    headers[@"persistent"]          = @"true";
+    headers[@"prefetch-count"]      = @"0"; // mas - Set to 0 as per Russ to avoid a barrage of agent messages out of order.
     
     headers[@"receipt"] = kStompReceiptID;
     
@@ -473,9 +478,22 @@ bool        _isConnecting;
             if( [frame.headers[@"message"] isEqualToString:@"Connection to broker closed."] ) {
                 
                 // This is the error seen after a proper DISCONNECT is issued. Supressing.
+                
                 ECSLogVerbose(self.logger, @"Supressing connection to broker closed error (we have already disconnected)."); 
                 
+                
+            } else if ( [frame.headers[@"message"] isEqualToString:@"Processing error"] ) {
+                
+                // Probably message spam. A reconnect should fix this error.
+                
+                ECSLogError(self.logger, @"STOMP processing error. Attempting STOMP reconnect...");
+                
+                [self reconnect];
+                
+                
             } else {
+                
+                // Anything else send back to the host app / high level...
                 
                 NSError *newError = [NSError errorWithDomain:@"com.humanify"
                                                         code:ECS_ERROR_STOMP

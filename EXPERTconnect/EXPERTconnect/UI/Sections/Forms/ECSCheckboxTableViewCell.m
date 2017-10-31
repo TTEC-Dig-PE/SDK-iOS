@@ -49,6 +49,7 @@ NSString* const ECSCheckboxTableViewCellIdentifier = @"ECSCheckboxTableViewCellI
 {
     _choiceText = choiceText;
     self.choiceLabel.text = choiceText;
+    self.choiceLabel.accessibilityValue = choiceText;
 }
 
 -(void)setChecked:(BOOL)checked
