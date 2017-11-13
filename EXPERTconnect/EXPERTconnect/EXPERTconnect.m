@@ -98,11 +98,11 @@ NSTimer *breadcrumbTimer;
 #pragma mark Properties
 
 // Unit Test: EXPERTconnectTests::testProperties
-- (BOOL)authenticationRequired
-{
-    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-    return ![userManager isUserAuthenticated];
-}
+//- (BOOL)authenticationRequired
+//{
+//    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+//    return ![userManager isUserAuthenticated];
+//}
 
 - (ECSTheme *)theme
 {
@@ -316,9 +316,9 @@ NSTimer *breadcrumbTimer;
     return [ECSRootViewController ecs_viewControllerForActionType:actionType];
 }
 
-- (void)setDelegate:(id)delegate {
-    _externalDelegate = delegate;
-}
+//- (void)setDelegate:(id)delegate {
+//    _externalDelegate = delegate;
+//}
 
 - (UIViewController*)landingViewController
 {
@@ -846,7 +846,7 @@ NSTimer *breadcrumbTimer;
         initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+        initialViewController = (ECSRootViewController *)[self startSurvey:self.surveyFormName];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] initWithHostViewController:viewController];
@@ -902,7 +902,7 @@ NSTimer *breadcrumbTimer;
         initialViewController = (ECSRootViewController *)[self startAnswerEngine:ecsConfiguration.defaultAnswerEngineContext withDisplayName:action.displayName];
     }
     else if([actionType isEqualToString:ECSActionTypeFormString]) {
-        initialViewController = (ECSRootViewController *)[self startSurvey:[EXPERTconnect shared].surveyFormName];
+        initialViewController = (ECSRootViewController *)[self startSurvey:self.surveyFormName];
     }
     
     ECSWorkflowNavigation *navManager = [[ECSWorkflowNavigation alloc] init];
