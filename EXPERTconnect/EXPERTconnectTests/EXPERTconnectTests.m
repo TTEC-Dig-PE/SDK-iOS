@@ -479,9 +479,9 @@
     [EXPERTconnect shared].userName = @"gwen@email.com";
     
      //Here sdk initialization properties are tested.
-     BOOL authentiacation = [[EXPERTconnect shared] authenticationRequired];
-     XCTAssert(authentiacation == 1 || authentiacation == 0, @"Expected a 1 or 0 for authentiaction");
-     
+//     BOOL authentiacation = [[EXPERTconnect shared] authenticationRequired];
+//     XCTAssert(authentiacation == 1 || authentiacation == 0, @"Expected a 1 or 0 for authentiaction");
+//
      NSString *displayName = [[EXPERTconnect shared] userDisplayName];
      XCTAssert(displayName.length>0,@"Expected display name");
      

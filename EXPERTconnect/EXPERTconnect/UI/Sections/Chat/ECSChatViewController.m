@@ -292,51 +292,59 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
 
     ECSLogVerbose(self.logger, @"viewWillAppear. InQueue? %d.", [self userInQueue]);
     
-    if (self.waitView)
-    {
+    if (self.waitView) {
+        
         [self.waitView.loadingView startAnimating];
         
-        if (!self.historyJourney)
-        {
+        if (!self.historyJourney) {
+            
             ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            if (userManager.userDisplayName.length > 0)
-            {
+            
+            if (userManager.userDisplayName.length > 0) {
+                
                 self.waitView.titleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWelcomeWithUsername, @"Welcome with username"), userManager.userDisplayName];
-            }
-            else
-            {
+            
+            } else {
+                
                 self.waitView.titleLabel.text = ECSLocalizedString(ECSLocalizeWelcome, @"Welcome");
+            
             }
             
             self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeGenericWaitTime, @"Generic wait time");
-        }
-        else
-        {
+        
+        } else {
+        
             self.waitView.titleLabel.text = @"";
             self.waitView.subtitleLabel.text = @"";
+            
         }
     }
     
-    if (self.historyJourney)
-    {
+    if (self.historyJourney) {
+        
         // Server has noted we are reconnecting to a chat with history. Load the history.
-        if (!self.messages || self.messages.count == 0)
-        {
+        
+        if (!self.messages || self.messages.count == 0) {
+            
             [self loadHistoryForJourney:self.historyJourney];
+            
         }
-    }
-    else if (!self.chatClient)
-    {
+        
+    } else if (!self.chatClient) {
+        
         // Initiate a new Chat Stomp client.
         self.chatClient = [ECSStompChatClient new];
         self.chatClient.delegate = self;
-        [self.chatClient setupChatClientWithActionType:self.actionType];
+        
+        [self.chatClient startChannelWithAction:(ECSChatActionType *)self.actionType];
+        
+//        [self.chatClient setupChatClientWithActionType:self.actionType];
     }
     
     // Reload selected table cell (used to update form cells)
@@ -883,55 +891,28 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.tableView endUpdates];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
-    ECSURLSessionManager *session = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    //__weak typeof(self) weakSelf = self;
-    
-    NSString *uploadName = [ECSMediaInfoHelpers uploadNameForMedia:mediaInfo];
-    [session uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
-                   withName:uploadName
-            fileContentType:[ECSMediaInfoHelpers fileTypeForMedia:mediaInfo]
-                 completion:^(__autoreleasing id *response, NSError *error)
-     {
-         if (error)
-         {
-             ECSLogError(self.logger,@"Failed to send media %@", error);
-         }
-         else
-         {
-             ECSLogVerbose(self.logger,@"Media uploaded successfully");
-             /*ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
-              notification.from = self.chatClient.fromUsername;
-              notification.channelId = self.chatClient.currentChannelId;
-              notification.conversationId = self.chatClient.currentConversation.conversationID;
-              notification.type = @"artifact";
-              notification.objectData = uploadName;
-              [weakSelf.chatClient sendNotificationMessage:notification];*/
-             
-             ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-             
-             [urlSession sendChatNotificationFrom:self.chatClient.fromUsername
-                                             type:@"artifact"
-                                       objectData:uploadName
-                                   conversationId:self.chatClient.currentConversation.conversationID
-                                          channel:self.chatClient.currentChannelId
-                                       completion:^(NSString *response, NSError *error)
-              {
-                  if(error)
-                  {
-                       NSLog(@"Error sending chat media message: %@", error);
-//                      [self showReconnectInChat];
-//                      [self showAlertForError:error fromFunction:@"sendMedia"];
-                  }
-              }];
-         }
-     }];
+    [self.chatClient sendMedia:mediaInfo
+                   notifyAgent:YES
+                    completion:^(NSString *response, NSError *error) {
+        
+        if( error ) {
+            
+            ECSLogError(self.logger, @"Failed to send media: %@", error);
+            
+        } else {
+            
+            ECSLogVerbose(self.logger, @"Media sent successfully.");
+            
+        }
+        
+    }];
 }
 
 #pragma mark - StompClient
 
-- (void)chatClientDidConnect:(ECSStompChatClient *)stompClient {
-    
+//- (void)chatClientDidConnect:(ECSStompChatClient *)stompClient {
+- (void) chatDidConnect {
+
     ECSLogVerbose(self.logger, @"Stomp connect notification.");
                   
     // Delete the "Reconnect" button if it is still displayed in the chat
@@ -943,8 +924,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 //- (void)chatClientDisconnected:(ECSStompChatClient *)stompClient wasGraceful:(bool)graceful
-- (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
-    
+//- (void)chatClient:(ECSStompChatClient *)stompClient disconnectedWithMessage:(ECSChannelStateMessage *)message {
+- (void) chatDisconnectedWithMessage:(ECSChannelStateMessage *)message {
+
     ECSLogDebug(self.logger, @"Stomp disconnect notification. DisconnectReason=%@, TerminatedBy=%@",
                   message.disconnectReasonString,
                   message.terminatedByString);
@@ -980,8 +962,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage
-{
+//- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatNotificationMessage:(ECSChatNotificationMessage*)notificationMessage {
+- (void) chatReceivedNotificationMessage:(ECSChatNotificationMessage *)notificationMessage {
+    
     [self.messages addObject:notificationMessage];
     
     self.chatClient.lastChatMessageFromAgent = YES;
@@ -997,20 +980,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                         object:notificationMessage];
 }
 
-- (void) scheduleAutomaticReconnect {
-    
-    ECSLogDebug(self.logger, @"Scheduling a reconnect 30 seconds from now...");
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _reconnectTimer = [NSTimer scheduledTimerWithTimeInterval:30
-                                                           target:self
-                                                         selector:@selector(reconnectTimer_Tick:)
-                                                         userInfo:nil
-                                                          repeats:YES];
-    });
-}
-
-- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error {
+//- (void)chatClient:(ECSStompChatClient *)stompClient didFailWithError:(NSError *)error
+- (void) chatDidFailWithError:(NSError *)error {
     
     ECSLogDebug(self.logger, @"Error: %@", error);
     
@@ -1038,8 +1009,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                            error.userInfo[NSLocalizedDescriptionKey]);
         
         // We have an actual error message to display. We'll replace the generic one with this.
-        if (error && validError)
-        {
+        if (error && validError) {
+            
             // MAS - show generic error message
             //errorMessage = error.userInfo[NSLocalizedDescriptionKey];
             errorMessage = ECSLocalizedString(ECSLocalizeErrorText, nil);
@@ -1053,48 +1024,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
             
         }
         [self showAlertForErrorTitle:ECSLocalizedString(ECSLocalizeError,@"Error") message:errorMessage];
-        
-        //    if([error.domain isEqualToString:@"kCFErrorDomainCFNetwork"])
-        //    {
-        //        // Network error. Don't kill it. Give user a chance to reconnect.
-        //        NSLog(@"chat::didFailWithError - Network error. Show reconnect button.");
-        //        [self networkConnectionChanged:nil];
-        //        _reconnectCount = 0; // Reset.
-        //    }
-        //    else if([error.domain isEqualToString:@"ECSWebSocketErrorDomain"] && _reconnectCount < 3)
-        //    {
-        //        // mas - jan-24-2017 - Separated out the error in the following else-if case. It did not need an error thrown to the user.
-        //        // Let's attempt to get a new token.
-        //        _reconnectCount++;
-        //
-        //        // mas - jan-24-2017 - Can cause threading & other issues to delay a reconnect.
-        //        //[self performSelector:@selector(attemptReconnect) withObject:nil afterDelay:0.5];
-        //        [self attemptReconnect];
-        //    }
     }
 }
 
-- (void) reconnectTimer_Tick:(NSTimer *)timer {
+//-(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient timeoutSeconds:(int)seconds {
+- (void) chatTimeoutWarning:(int)seconds {
 
-    if ([EXPERTconnect shared].urlSession.networkReachable && [self.chatClient isConnected]) {
-        
-        ECSLogDebug(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_reconnectTimer invalidate];
-            _reconnectTimer = nil;
-        });
-        
-    } else {
-        
-        ECSLogDebug(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
-        [self refreshAuthenticationToken];
-        
-    }
-}
-
--(void) chatClientTimeoutWarning:(ECSStompChatClient *)stompClient
-                  timeoutSeconds:(int)seconds {
-    
     // We no longer want to append this message if the user is still sitting in queue when the idle timeout warning arrives.
     if( _agentAnswered ) {
         
@@ -1108,46 +1043,64 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
--(void) screenShareEnded:(NSNotification*)notification
-{
-    if ([notification.name isEqualToString:@"NotificationScreenShareEnded"])
-    {
-//        _showingMoxtra = FALSE;
-        
-        [self updateEdgeInsets];
-    }
+- (void) chatAddedParticipant:(ECSChatAddParticipantMessage *)participant {
+    
+    [self.participants setObject:participant forKey:participant.userId];
+    
+    [self addMessage:participant];
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+- (void) chatRemovedParticipant:(ECSChatRemoveParticipantMessage *)participant {
     
+    [self.participants removeObjectForKey:participant.userId];
+    
+    [self addMessage:participant];
+    
+}
+
+//- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+- (void) chatReceivedTextMessage:(ECSChatTextMessage *)message {
+
     // This section is for special handling of a few types of messages.
     
-    if ([message isKindOfClass:[ECSCafeXMessage class]]) {
-        
-        [self handleCafeXMessage:((ECSCafeXMessage*)message)];
-        return; // no UI
-        
-    } else if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]]) {
-        
-        [self handleVoiceItMessage:message];
-        return; // no UI
-        
-    } else if ([message isKindOfClass:[ECSChatAddParticipantMessage class]]) {
-        
-        [self.participants setObject:message forKey:((ECSChatAddParticipantMessage*)message).userId];
-        
-    } else if ([message isKindOfClass:[ECSSendQuestionMessage class]]) {
+//    if ([message isKindOfClass:[ECSCafeXMessage class]]) {
+//
+//        [self handleCafeXMessage:((ECSCafeXMessage*)message)];
+//        return; // no UI
+//
+//    } else if ([message isKindOfClass:[ECSChatVoiceAuthenticationMessage class]]) {
+//
+//        [self handleVoiceItMessage:message];
+//        return; // no UI
+//
+//    } else
+    
+    if ([message isKindOfClass:[ECSSendQuestionMessage class]]) {
         
         [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
         return; // When Response is received, handler will send through an ECSReceiveAnswerMessage
         
     }
-        
-    if( [message isKindOfClass:[ECSChatTextMessage class]] ) {
-        if( [self isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message] ) {
-            return; // no UI
-        }
+    
+    // Note: We want to filter out these in-band non-localized "system" messages from the old legacy system.
+    // They usually say: "Mike (mike_mktwebextc) has joined the chat.", "Mike (mike_mktwebextc) has left the chat."
+    
+    if( [message.from isEqualToString:@"System"] &&
+       ([message.body containsString:@") has joined the chat."] ||
+        [message.body containsString:@") has left the chat."] ||
+        [message.body containsString:@"This chat is being transferred..."]) ) {
+           // NOTE: Except for the first agent, any agent that joins or leaves the chat will trigger a
+           // 'System' message informing the user of the change. The 'joins' are redundant because of the
+           // AddParticipant message. So, we'll squelch them here.
+           
+       return;
     }
+
+    [self addMessage:message];
+
+}
+
+- (void) addMessage:(ECSChatMessage *)message {
     
     // This is the meat & potatoes of displaying messages.
     
@@ -1196,56 +1149,37 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]
                           atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification
-                                                        object:message];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatMessageReceivedNotification object:message];
 }
 
-- (bool)isNonLocalizedInBandSystemMessage:(ECSChatTextMessage *)message {
-    
-    // Note: We want to filter out these in-band non-localized "system" messages from the old legacy system.
-    // They usually say: "Mike (mike_mktwebextc) has joined the chat.", "Mike (mike_mktwebextc) has left the chat."
-    
-    if( [message.from isEqualToString:@"System"] &&
-       ([message.body containsString:@") has joined the chat."] ||
-        [message.body containsString:@") has left the chat."] ||
-        [message.body containsString:@"This chat is being transferred..."]) ) {
-        // NOTE: Except for the first agent, any agent that joins or leaves the chat will trigger a
-        // 'System' message informing the user of the change. The 'joins' are redundant because of the
-        // AddParticipant message. So, we'll squelch them here.
-        
-        return YES;
-    }
-    return NO;
-}
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
-{
+//- (void)chatClient:(ECSStompChatClient *)stompClient didReceiveChatStateMessage:(ECSChatStateMessage *)state
+- (void) chatReceivedChatStateMessage:(ECSChatStateMessage *)stateMessage {
+    
     //if(state.object && [state.type isEqualToString:@"artifact"])
     //{
     // We have an incoming document from the server.
     //(NSURLSessionDataTask *)getMediaFileNamesWithCompletion
     //}
     
-    if (state.chatState == ECSChatStateComposing) {
+    if (stateMessage.chatState == ECSChatStateComposing) {
         
         // If display had no (...), then add one.
-        if (_agentTypingIndex == -1)
-        {
+        if (_agentTypingIndex == -1) {
+            
             _agentTypingIndex = [self.messages count];
-            [self.messages addObject:state];
+            [self.messages addObject:stateMessage];
             [self.tableView beginUpdates];
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView endUpdates];
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
         
-    } else if(state.chatState == ECSChatStateTypingPaused) {
+    } else if(stateMessage.chatState == ECSChatStateTypingPaused) {
         
         // If display has a (...), remove it.
-        if (_agentTypingIndex != -1)
-        {
+        if (_agentTypingIndex != -1) {
+            
             [self.messages removeObjectAtIndex:_agentTypingIndex];
             [self.tableView beginUpdates];
             [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_agentTypingIndex inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -1256,12 +1190,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ECSChatStateMessageReceivedNotification
-                                                        object:state];
+                                                        object:stateMessage];
 }
 
-- (void) chatClient:(ECSStompChatClient *)stompClient didReceiveChannelStateMessage:(ECSChannelStateMessage *)channelStateMessage {
-    
-    if( channelStateMessage.channelState == ECSChannelStateQueued ) {
+//- (void) chatClient:(ECSStompChatClient *)stompClient didReceiveChannelStateMessage:(ECSChannelStateMessage *)channelStateMessage {
+- (void) chatReceivedChannelStateMessage:(ECSChannelStateMessage *)stateMessage {
+
+    if( stateMessage.channelState == ECSChannelStateQueued ) {
     
         // If already connected, then we're being transferred...
     
@@ -1282,19 +1217,20 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime;
-{
+//- (void)chatClient:(ECSStompChatClient *)stompClient didUpdateEstimatedWait:(NSInteger)waitTime {
+- (void) chatUpdatedEstimatedWait:(int)seconds {
+    
 //    waitTime = -3; // TESTING ONLY. (in seconds)
 //    waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
-    int waitMinutes = round(waitTime / 60.0f);
+    int waitMinutes = round(seconds / 60.0f);
 
     NSString *waitStringKey = ECSLocalizeWaitTimeShort;
     
-    if ( waitTime <= 60 ) // seconds
+    if ( seconds <= 60 ) // seconds
     {
         waitStringKey = ECSLocalizeWaitTimeShort;
     }
-    else if ( waitTime > 60 && waitMinutes < 300 ) // 1 to 5 minutes
+    else if ( seconds > 60 && waitMinutes < 300 ) // 1 to 5 minutes
     {
         waitStringKey = ECSLocalizeWaitTime;
     }
@@ -1315,7 +1251,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     self.waitView.subtitleLabel.text = waitString;
 }
 
-- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient {
+//- (void)chatClientAgentDidAnswer:(ECSStompChatClient *)stompClient {
+- (void) chatAgentDidAnswer {
     
     ECSLogVerbose(self.logger, @"Stomp chat answered notification.");
     
@@ -1326,8 +1263,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self hideWaitView];
 }
 
-- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient
-{
+- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient {
+    
     if (_callbackViewController != nil) {
         //        [self.navigationController popToViewController:self animated:YES];
         //        _callbackViewController = nil;
@@ -1336,7 +1273,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
+//- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
+- (void) chatAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
     
     ECSLogDebug(self.logger, @"Add Channel Messages from: %@, channelID=%@", message.from, message.channelId);
     
@@ -1360,7 +1298,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                 withCompletion:^(NSString *authToken, NSError *error)
      {
          // AuthToken updated. Try to reconnect. If error, the 30-second timer will continue and try again.
-         if( !error ) [self.chatClient connectToHost:[EXPERTconnect shared].urlSession.hostName];
+         if( !error ) {
+//             [self.chatClient connectToHost:[EXPERTconnect shared].urlSession.hostNam
+             [self.chatClient reconnect];
+         }
      }];
 }
 
@@ -1714,10 +1655,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                    withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
      {
          weakSelf.messages = [[NSMutableArray alloc] initWithArray:[response chatMessages]];
-         for (ECSChatMessage *message in weakSelf.messages)
-         {
-             if ([message isKindOfClass:[ECSChatAddParticipantMessage class]])
-             {
+         
+         for (ECSChatMessage *message in weakSelf.messages) {
+         
+             if ([message isKindOfClass:[ECSChatAddParticipantMessage class]]) {
+                 
                  // Add this participant to the array. Key is UserID.
                  [weakSelf.participants setObject:message
                                            forKey:((ECSChatAddParticipantMessage*)message).userId];
@@ -1876,10 +1818,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
 }
 
-- (ECSChatAddParticipantMessage*)participantInfoForID:(NSString*)userID
-{
-    if (userID && userID.length > 0)
-    {
+- (ECSChatAddParticipantMessage*)participantInfoForID:(NSString*)userID {
+    
+    if (userID && userID.length > 0) {
         return [self.participants objectForKey:userID];
     }
     
@@ -1971,6 +1912,46 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
     
     [self presentModal:_callbackViewController withParentNavigationController:self.navigationController];
+}
+
+- (void) scheduleAutomaticReconnect {
+    
+    ECSLogDebug(self.logger, @"Scheduling a reconnect 30 seconds from now...");
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _reconnectTimer = [NSTimer scheduledTimerWithTimeInterval:30
+                                                           target:self
+                                                         selector:@selector(reconnectTimer_Tick:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+    });
+}
+
+- (void) reconnectTimer_Tick:(NSTimer *)timer {
+    
+    if ([EXPERTconnect shared].urlSession.networkReachable && [self.chatClient isConnected]) {
+        
+        ECSLogDebug(self.logger, @"Reconnect Timer - We're already connected. Invalidating.");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_reconnectTimer invalidate];
+            _reconnectTimer = nil;
+        });
+        
+    } else {
+        
+        ECSLogDebug(self.logger, @"Reconnect Timer - Still disconnected. Attempting reconnect...");
+        [self refreshAuthenticationToken];
+        
+    }
+}
+
+-(void) screenShareEnded:(NSNotification*)notification {
+    if ([notification.name isEqualToString:@"NotificationScreenShareEnded"])
+    {
+        //        _showingMoxtra = FALSE;
+        
+        [self updateEdgeInsets];
+    }
 }
 
 #pragma mark - UITableView

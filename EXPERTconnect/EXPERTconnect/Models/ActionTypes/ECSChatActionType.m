@@ -23,7 +23,10 @@
         self.location = @"mobile";
         self.sourceType = @"Mobile";
         self.mediaType = @"Chat";
+
+//        self.priority = kECSChatPriorityUseServerDefault;
         self.priority = kECSChatPriorityLow; // TODO: Change to kECSChatPriorityUseServerDefault when PAAS-2323 is finished.;
+
     }
     
     return self;
@@ -42,6 +45,7 @@
     
     actionType.shouldTakeSurvey = self.shouldTakeSurvey;
     actionType.priority = self.priority;
+    actionType.sourceAddress = [self.sourceAddress copyWithZone:zone];
     
     return actionType;
 }

@@ -9,7 +9,16 @@
 
 @interface ECSCallbackActionType : ECSActionType <NSCopying>
 
-@property (strong, nonatomic) NSString *agentSkill;
+// Agent ID for chat
 @property (strong, nonatomic) NSString *agentId;
+
+// Agent Skill for chat
+@property (strong, nonatomic) NSString *agentSkill;
+
+// Subject content that will be visible to an associate (and reports)
+@property (strong, nonatomic) NSString *subject;
+
+// The chat priority
+@property (assign, nonatomic) int priority;
 
 @end

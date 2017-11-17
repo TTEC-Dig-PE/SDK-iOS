@@ -98,7 +98,7 @@
 typedef NS_ENUM(NSInteger, SettingsSections)
 {
 	 SettingsSectionAdHocChat,
-	 SettingsSectionAdHocVideoChat,
+//     SettingsSectionAdHocVideoChat,
 	 SettingsSectionAdHocAnswerEngine,
 	 SettingsSectionAdHocForms,
 	 SettingsSectionAdHocUserProfile,
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 	 SettingsSectionAdHocWebPage,
 	 SettingsSectionAdHocAnswerEngineHistory,
 	 SettingsSectionAdHocChatHistory,
-	 SettingsSectionAdHocSelectExpert,
+//     SettingsSectionAdHocSelectExpert,
 	 SettingsSectionAdHocExtendedUserProfile,
 	 SettingsSectionAdHocAPIConfig,
 	 SettingsSectionAdHocSubmitForm,
@@ -396,9 +396,9 @@ ECSFormViewController *_formsController;
 			   rowCount = AdHocChatSectionRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocVideoChat:
-			   rowCount = AdHocVideoChatSectionRowCount;
-			   break;
+//          case SettingsSectionAdHocVideoChat:
+//               rowCount = AdHocVideoChatSectionRowCount;
+//               break;
 			   
 		  case SettingsSectionAdHocAnswerEngine:
 			   rowCount = AdHocAnswerEngineSectionRowCount;
@@ -436,9 +436,9 @@ ECSFormViewController *_formsController;
 			   rowCount = AdHocChatHistoryRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocSelectExpert:
-			   rowCount = AdHocSelectExpertRowCount;
-			   break;
+//          case SettingsSectionAdHocSelectExpert:
+//               rowCount = AdHocSelectExpertRowCount;
+//               break;
 			   
 		  case SettingsSectionAdHocExtendedUserProfile:
 			   rowCount = AdHocExtendedUserProfileRowCount;
@@ -448,9 +448,9 @@ ECSFormViewController *_formsController;
 			   rowCount = AdHocAPIConfigRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocSubmitForm:
-			   rowCount = AdHocSubmitFormRowCount;
-			   break;
+//          case SettingsSectionAdHocSubmitForm:
+//               rowCount = AdHocSubmitFormRowCount;
+//               break;
 			   
 //		  case SettingsSectionAdHocDatePicker:
 //			   rowCount = AdHocDatePickerRowCount;
@@ -520,21 +520,21 @@ ECSFormViewController *_formsController;
 			   }
 			   break;
 			   
-		  case SettingsSectionAdHocVideoChat:
-			   switch (indexPath.row) {
-					case AdHocVideoChatRowStart:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVideoChatLabel, @"AdHoc Video Chat");
-						 if (videoChatAgentsLoggedOn) {
-							  cell.textLabel.text = [NSString stringWithFormat:@"%@",
-													 cell.textLabel.text];
-						 }
-						 cell.accessoryView = self.selectAdHocVideoChatPicker;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
+//          case SettingsSectionAdHocVideoChat:
+//               switch (indexPath.row) {
+//                    case AdHocVideoChatRowStart:
+//                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVideoChatLabel, @"AdHoc Video Chat");
+//                         if (videoChatAgentsLoggedOn) {
+//                              cell.textLabel.text = [NSString stringWithFormat:@"%@",
+//                                                     cell.textLabel.text];
+//                         }
+//                         cell.accessoryView = self.selectAdHocVideoChatPicker;
+//                         break;
+//
+//                    default:
+//                         break;
+//               }
+//               break;
 			   
 		  case SettingsSectionAdHocAnswerEngine:
 			   switch (indexPath.row) {
@@ -660,17 +660,17 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocSelectExpert:
-			   switch (indexPath.row) {
-					case 0:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSelectExpertLabel, @"AdHoc Select Expert Dialog");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
+//          case SettingsSectionAdHocSelectExpert:
+//               switch (indexPath.row) {
+//                    case 0:
+//                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSelectExpertLabel, @"AdHoc Select Expert Dialog");
+//                         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                         break;
+//
+//                    default:
+//                         break;
+//               }
+//               break;
 			   
 			   
 		  case SettingsSectionAdHocExtendedUserProfile:
@@ -699,17 +699,17 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocSubmitForm:
-			   switch (indexPath.row) {
-					case 0:
-						 cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSubmitFormLabel, @"AdHoc Submit Form");
-						 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-						 break;
-						 
-					default:
-						 break;
-			   }
-			   break;
+//          case SettingsSectionAdHocSubmitForm:
+//               switch (indexPath.row) {
+//                    case 0:
+//                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartSubmitFormLabel, @"AdHoc Submit Form");
+//                         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                         break;
+//
+//                    default:
+//                         break;
+//               }
+//               break;
 			   
 			   
 //		  case SettingsSectionAdHocDatePicker:
@@ -781,10 +781,10 @@ ECSFormViewController *_formsController;
         [self handleSDKDebugConfig];
     }
 	 
-	 if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
-	 {
-		  [self handleAdHocStartVideoChat];
-	 }
+//     if (indexPath.section == SettingsSectionAdHocVideoChat && indexPath.row == AdHocVideoChatRowStart)
+//     {
+//          [self handleAdHocStartVideoChat];
+//     }
 	 
 	 if (indexPath.section == SettingsSectionAdHocAnswerEngine && indexPath.row == AdHocAnswerEngineRowStart)
 	 {
@@ -841,10 +841,10 @@ ECSFormViewController *_formsController;
 		  [self handleAdHocChatHistory];
 	 }
 	 
-	 if (indexPath.section == SettingsSectionAdHocSelectExpert && indexPath.row == AdHocSelectExpertRowStart)
-	 {
-		  [self handleAdHocSelectExpert];
-	 }
+//     if (indexPath.section == SettingsSectionAdHocSelectExpert && indexPath.row == AdHocSelectExpertRowStart)
+//     {
+//          [self handleAdHocSelectExpert];
+//     }
 	 
 	 if (indexPath.section == SettingsSectionAdHocExtendedUserProfile && indexPath.row == AdHocExtendedUserProfileRowStart)
 	 {
@@ -905,24 +905,24 @@ ECSFormViewController *_formsController;
 			   }*/
 		  }
 			   break;
-		  case SettingsSectionAdHocVideoChat:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
-			   if (videoChatEstimatedWait>-1 && videoChatAgentsLoggedOn > -1) {
-					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
-							 title,
-							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
-							 (videoChatEstimatedWait/60),
-							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
-							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
-							 videoChatAgentsLoggedOn];
-               } else if(videoChatAgentsLoggedOn == -1){
-                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
-			   } else {
-					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
-			   }
-		  }
-			   break;
+//          case SettingsSectionAdHocVideoChat:
+//          {
+//               title = ECDLocalizedString(ECDLocalizedStartVideoChatHeader, @"AdHoc Video Chat");
+//               if (videoChatEstimatedWait>-1 && videoChatAgentsLoggedOn > -1) {
+//                    title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
+//                             title,
+//                             ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
+//                             (videoChatEstimatedWait/60),
+//                             ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
+//                             ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
+//                             videoChatAgentsLoggedOn];
+//               } else if(videoChatAgentsLoggedOn == -1){
+//                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
+//               } else {
+//                    title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
+//               }
+//          }
+//               break;
 			   
 		  case SettingsSectionAdHocAnswerEngine:
 		  {
@@ -999,11 +999,11 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocSelectExpert:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartSelectExpertHeader, @"AdHoc Select Expert Dialog");
-		  }
-			   break;
+//          case SettingsSectionAdHocSelectExpert:
+//          {
+//               title = ECDLocalizedString(ECDLocalizedStartSelectExpertHeader, @"AdHoc Select Expert Dialog");
+//          }
+//               break;
 			   
 			   
 		  case SettingsSectionAdHocExtendedUserProfile:
@@ -1020,11 +1020,11 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocSubmitForm:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartSubmitFormHeader, @"Ad Hoc Submit Form");
-		  }
-			   break;
+//          case SettingsSectionAdHocSubmitForm:
+//          {
+//               title = ECDLocalizedString(ECDLocalizedStartSubmitFormHeader, @"Ad Hoc Submit Form");
+//          }
+//               break;
 			   
 			   
 //		  case SettingsSectionAdHocDatePicker:
@@ -1248,20 +1248,20 @@ ECSFormViewController *_formsController;
 	 [self.navigationController pushViewController:answerEngineController animated:YES];
 }
 
--(void)handleAdHocStartVideoChat
-{
-	 NSLog(@"Starting an ad-hoc Video Chat Session");
-	 
-    [self checkAndUpdateLocaleOverride];
-    
-	 NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
-	 
-	 [self localBreadCrumb:@"Video chat started"
-			   description:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]];
-	 
-	 UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
-	 [self.navigationController pushViewController:chatController animated:YES];
-}
+//-(void)handleAdHocStartVideoChat
+//{
+//     NSLog(@"Starting an ad-hoc Video Chat Session");
+//
+//    [self checkAndUpdateLocaleOverride];
+//
+//     NSString *chatSkill = [self.selectAdHocVideoChatPicker currentSelection];
+//
+//     [self localBreadCrumb:@"Video chat started"
+//               description:[NSString stringWithFormat:@"Video chat with skill=%@", chatSkill]];
+//
+//     UIViewController *chatController = [[EXPERTconnect shared] startVideoChat:chatSkill withDisplayName:@"Video Chat"];
+//     [self.navigationController pushViewController:chatController animated:YES];
+//}
 
 -(void)handleAdHocRenderForm
 {
@@ -1297,21 +1297,21 @@ ECSFormViewController *_formsController;
 	 [self.navigationController pushViewController:beaconController animated:YES];
 }
 
--(void)handleAdHocEmailMessage
-{
-	 NSLog(@"Rendering an ad-hoc Email Form");
-	 
-	 UIViewController *emailController = [[EXPERTconnect shared] startEmailMessage];
-	 [self.navigationController pushViewController:emailController animated:YES];
-}
-
--(void)handleAdHocSMSMessage
-{
-	 NSLog(@"Rendering an ad-hoc SMS Messaging Form");
-	 
-	 UIViewController *smsController = [[EXPERTconnect shared] startSMSMessage];
-	 [self.navigationController pushViewController:smsController animated:YES];
-}
+//-(void)handleAdHocEmailMessage
+//{
+//     NSLog(@"Rendering an ad-hoc Email Form");
+//
+//     UIViewController *emailController = [[EXPERTconnect shared] startEmailMessage];
+//     [self.navigationController pushViewController:emailController animated:YES];
+//}
+//
+//-(void)handleAdHocSMSMessage
+//{
+//     NSLog(@"Rendering an ad-hoc SMS Messaging Form");
+//
+//     UIViewController *smsController = [[EXPERTconnect shared] startSMSMessage];
+//     [self.navigationController pushViewController:smsController animated:YES];
+//}
 
 -(void)handleAdHocWebPage
 {
