@@ -40,7 +40,7 @@
 
 #import "ECDSimpleChatViewController.h"
 
-@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate>
+@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField    *chatTextBox;
 @property (weak, nonatomic) IBOutlet UITextView     *chatTextLog;
@@ -95,11 +95,6 @@ CGPoint     _originalCenter;
     }
     
     [super viewWillAppear:animated];
-}
-
-- (void) viewDidDisappear:(BOOL)animated {
-    
-    [self.chatClient disconnect]; // Disconnect the WebSocket when the view is backgrounded or the phone is put to sleep.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -282,6 +277,65 @@ CGPoint     _originalCenter;
     }
 }
 
+- (IBAction)imageButton_Touch:(id)sender {
+    
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select image from"
+                                                         delegate:self
+                                                cancelButtonTitle:@"Cancel"
+                                           destructiveButtonTitle:nil
+                                                otherButtonTitles:@"From library",@"From camera", nil];
+    
+    [action showInView:self.view];
+}
+
+#pragma mark - ActionSheet delegates
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( buttonIndex == 0 ) {
+        
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *pickerView =[[UIImagePickerController alloc]init];
+            pickerView.allowsEditing = YES;
+            pickerView.delegate = self;
+            pickerView.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:pickerView animated:YES completion:nil];
+        }
+        
+    }else if( buttonIndex == 1 ) {
+        
+        UIImagePickerController *pickerView = [[UIImagePickerController alloc] init];
+        pickerView.allowsEditing = YES;
+        pickerView.delegate = self;
+        [pickerView setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [self presentViewController:pickerView animated:YES completion:nil];
+        
+    }
+}
+
+#pragma mark - PickerDelegates
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.chatClient sendMedia:info
+                   notifyAgent:YES
+                    completion:^(NSString *response, NSError *error)
+     {
+         if( error ) {
+             
+             NSLog(@"Error sending media: %@", error);
+             
+         } else {
+             
+             [self appendToChatLog:@"Media file sent successfully."];
+             
+         }
+         
+     }];
+    
+}
 
 #pragma mark - Helper Functions (not directly SDK related)
 

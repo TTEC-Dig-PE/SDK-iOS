@@ -11,4 +11,6 @@
 
 @interface ECDSimpleChatViewController : UIViewController
 
+- (IBAction)imageButton_Touch:(id)sender;
+
 @end

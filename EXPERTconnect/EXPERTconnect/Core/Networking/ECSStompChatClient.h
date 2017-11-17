@@ -352,4 +352,14 @@ __attribute__((deprecated("Use chatClientDisconnected:withReason:")));
 - (void) sendChatState:(ECSChatState)theChatState
             completion:(void(^)(NSString *response, NSError *error))completion;
 
+/*!
+ * @discussion Sends a media file to Humanify servers. The associate should see this media on his or her display.
+ * @param mediaInfo The NSDictionary media information (comes straight from Apple's didFinishPickingMediaWithInfo callback)
+ * @param notify Recommended to set to YES. This causes the agent display to notify the associate a new media file has arrived.
+ * @param completion Returns the response data and/or error if one is present.
+ */
+- (void)sendMedia:(NSDictionary *)mediaInfo
+      notifyAgent:(bool)notify
+       completion:(void(^)(NSString *response, NSError *error))completion;
+
 @end

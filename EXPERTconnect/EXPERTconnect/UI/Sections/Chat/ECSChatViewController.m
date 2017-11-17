@@ -891,49 +891,21 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.tableView endUpdates];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
-    ECSURLSessionManager *session = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-    
-    //__weak typeof(self) weakSelf = self;
-    
-    NSString *uploadName = [ECSMediaInfoHelpers uploadNameForMedia:mediaInfo];
-    [session uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
-                   withName:uploadName
-            fileContentType:[ECSMediaInfoHelpers fileTypeForMedia:mediaInfo]
-                 completion:^(__autoreleasing id *response, NSError *error)
-     {
-         if (error)
-         {
-             ECSLogError(self.logger,@"Failed to send media %@", error);
-         }
-         else
-         {
-             ECSLogVerbose(self.logger,@"Media uploaded successfully");
-             /*ECSChatNotificationMessage *notification = [ECSChatNotificationMessage new];
-              notification.from = self.chatClient.fromUsername;
-              notification.channelId = self.chatClient.currentChannelId;
-              notification.conversationId = self.chatClient.currentConversation.conversationID;
-              notification.type = @"artifact";
-              notification.objectData = uploadName;
-              [weakSelf.chatClient sendNotificationMessage:notification];*/
-             
-             ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
-             
-             [urlSession sendChatNotificationFrom:self.chatClient.fromUsername
-                                             type:@"artifact"
-                                       objectData:uploadName
-                                   conversationId:self.chatClient.currentConversation.conversationID
-                                          channel:self.chatClient.currentChannelId
-                                       completion:^(NSString *response, NSError *error)
-              {
-                  if(error)
-                  {
-                       NSLog(@"Error sending chat media message: %@", error);
-//                      [self showReconnectInChat];
-//                      [self showAlertForError:error fromFunction:@"sendMedia"];
-                  }
-              }];
-         }
-     }];
+    [self.chatClient sendMedia:mediaInfo
+                   notifyAgent:YES
+                    completion:^(NSString *response, NSError *error) {
+        
+        if( error ) {
+            
+            ECSLogError(self.logger, @"Failed to send media: %@", error);
+            
+        } else {
+            
+            ECSLogVerbose(self.logger, @"Media sent successfully.");
+            
+        }
+        
+    }];
 }
 
 #pragma mark - StompClient

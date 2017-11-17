@@ -653,6 +653,63 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                    completion:completion];
 }
 
+- (void)sendMedia:(NSDictionary *)mediaInfo
+      notifyAgent:(bool)notify
+       completion:(void(^)(NSString *response, NSError *error))completion {
+    
+    NSString *uploadName =              [ECSMediaInfoHelpers uploadNameForMedia:mediaInfo];
+    ECSURLSessionManager *urlSession =  [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    // Upload the media file to Humanify servers.
+    [urlSession uploadFileData:[ECSMediaInfoHelpers uploadDataForMedia:mediaInfo]
+                      withName:uploadName
+               fileContentType:[ECSMediaInfoHelpers fileTypeForMedia:mediaInfo]
+                    completion:^(__autoreleasing id *response, NSError *error)
+     {
+         
+         if (error) {
+             
+             NSLog(@"Error sending media: %@", error);
+             
+             completion(nil, error);
+             
+         } else {
+             
+             if( notify ) {
+                 
+                 ECSURLSessionManager *urlSession2 = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+                 
+                 // Notify the agent client that they just received a media file.
+                 [urlSession2 sendChatNotificationFrom:self.fromUsername
+                                                 type:@"artifact"
+                                           objectData:uploadName
+                                       conversationId:self.currentConversation.conversationID
+                                              channel:self.currentChannelId
+                                           completion:^(NSString *response, NSError *error)
+                  {
+                      
+                      if( error ) {
+                          
+                          NSLog(@"Error sending chat media message: %@", error);
+                          
+                          completion(nil, error);
+                          
+                      } else {
+                          
+                          completion(response, nil);
+                          
+                      }
+                      
+                  }];
+                 
+             } else {
+                 
+                 completion(@"success", nil);
+                 
+             }
+         }
+     }];
+}
 
 #pragma mark - ECSStompClient
 
