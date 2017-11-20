@@ -25,25 +25,29 @@ CLLocation *_currentLocation;
     self.navigationItem.title = @"Breadcrumbs";
     
     [self.btnSendOne setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
-    [self.btnQueueBulk setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnSendOne setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+    
+    [self.btnQueueBulk setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
     [self.btnQueueBulk setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
+    
+    [self.btnNewSession setBackgroundColor:[EXPERTconnect shared].theme.buttonColor];
+    [self.btnNewSession setTitleColor:[EXPERTconnect shared].theme.buttonTextColor forState:UIControlStateNormal];
      
-     self.typeLabel.text = ECDLocalizedString(ECDLocalizedTypeLabel, @"Type Label");
-     self.describtionLabel.text = ECDLocalizedString(ECDLocalizedDescribtionLabel, @"Describtion Label");
-     self.sourceLabel.text = ECDLocalizedString(ECDLocalizedSourceLabel, @"Source Label");
-     self.destinationLabel.text = ECDLocalizedString(ECDLocalizedDestinationLabel, @"Destination Label");
-     self.geolocationDataLabel.text = ECDLocalizedString(ECDLocalizedGeoLocationDataLabel, @"GeoLocation Data Label");
-     self.bulkConfigLabel.text = ECDLocalizedString(ECDLocalizedBulkConfigLabel, @"Bulk Config Label");
-     self.secondsLabel.text = ECDLocalizedString(ECDLocalizedSecondsLabel, @"Seconds Label");
-     self.countLabel.text = ECDLocalizedString(ECDLocalizedCountLabel, @"Count Label");
+     self.typeLabel.text =              ECDLocalizedString(ECDLocalizedTypeLabel, @"Type Label");
+     self.describtionLabel.text =       ECDLocalizedString(ECDLocalizedDescribtionLabel, @"Describtion Label");
+     self.sourceLabel.text =            ECDLocalizedString(ECDLocalizedSourceLabel, @"Source Label");
+     self.destinationLabel.text =       ECDLocalizedString(ECDLocalizedDestinationLabel, @"Destination Label");
+     self.geolocationDataLabel.text =   ECDLocalizedString(ECDLocalizedGeoLocationDataLabel, @"GeoLocation Data Label");
+     self.bulkConfigLabel.text =        ECDLocalizedString(ECDLocalizedBulkConfigLabel, @"Bulk Config Label");
+     self.secondsLabel.text =           ECDLocalizedString(ECDLocalizedSecondsLabel, @"Seconds Label");
+     self.countLabel.text =             ECDLocalizedString(ECDLocalizedCountLabel, @"Count Label");
 
-     self.txtActionType.placeholder = ECDLocalizedString(ECDLocalizedTypePlaceholderLabel, @"Text Field PlaceHolder Label");
-     self.txtActionDescription.placeholder = ECDLocalizedString(ECDLocalizedDescribtionPlaceholderLabel, @"Text Field PlaceHolder Label");
-     self.txtActionSource.placeholder = ECDLocalizedString(ECDLocalizedSourcePlaceholderLabel, @"Text Field PlaceHolder Label");
-     self.txtActionDestination.placeholder = ECDLocalizedString(ECDLocalizedDestinationPlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionType.placeholder =           ECDLocalizedString(ECDLocalizedTypePlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionDescription.placeholder =    ECDLocalizedString(ECDLocalizedDescribtionPlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionSource.placeholder =         ECDLocalizedString(ECDLocalizedSourcePlaceholderLabel, @"Text Field PlaceHolder Label");
+     self.txtActionDestination.placeholder =    ECDLocalizedString(ECDLocalizedDestinationPlaceholderLabel, @"Text Field PlaceHolder Label");
      
-     [self.btnSendOne setTitle:ECDLocalizedString(ECDLocalizedSendOneButtonLabel, @"SendOne") forState:UIControlStateNormal];
+     [self.btnSendOne   setTitle:ECDLocalizedString(ECDLocalizedSendOneButtonLabel, @"SendOne") forState:UIControlStateNormal];
      [self.btnQueueBulk setTitle:ECDLocalizedString(ECDLocalizedQueueBulkButtonLabel, @"QueueBulk") forState:UIControlStateNormal];
 
     _locationManager = [[CLLocationManager alloc] init];
@@ -99,6 +103,16 @@ CLLocation *_currentLocation;
     [[EXPERTconnect shared] breadcrumbQueueBulk:[self buildBreadcrumb]];
     
     self.lblResponse.text = [NSString stringWithFormat:@"Bulk breadcrumb queued. %lu breadcrumb(s) in queue.", (unsigned long)[EXPERTconnect shared].storedBreadcrumbs.count];
+}
+
+- (IBAction)btnNewSession_Touch:(id)sender {
+    
+    [EXPERTconnect shared].userCallbackNumber = @"+15555551234";
+    self.lblResponse.text = @"Starting new session...";
+    [[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:^(NSString *response, NSError *error) {
+        self.lblResponse.text = [NSString stringWithFormat:@"New session created. Response=%@, Error=%@", response, error];
+    }];
+    
 }
 
 #pragma mark Local Functions

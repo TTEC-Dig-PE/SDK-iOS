@@ -26,8 +26,12 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnSendOne;
 @property (weak, nonatomic) IBOutlet UIButton *btnQueueBulk;
+@property (weak, nonatomic) IBOutlet UIButton *btnNewSession;
+
 - (IBAction)btnSendOne_Touch:(id)sender;
 - (IBAction)btnQueueBulk_Touch:(id)sender;
+- (IBAction)btnNewSession_Touch:(id)sender;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *describtionLabel;

@@ -1180,6 +1180,9 @@ NSTimer *breadcrumbTimer;
     [journeySession setOSVersion:[[UIDevice currentDevice] systemVersion]];
     [journeySession setBrowserType:@"NA"];
     [journeySession setBrowserVersion:@"NA"];
+    
+    // Set phone number if one was present.
+    if(_userCallbackNumber)[journeySession setPhonenumber:_userCallbackNumber];
 
     NSDictionary *properties = [journeySession getProperties];
     

@@ -10,8 +10,8 @@
 //#import "Bugsnag.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
-#import <AirshipKit/AirshipKit.h>
-#import <AirshipKit/UAPush.h>
+//#import <AirshipKit/AirshipKit.h>
+//#import <AirshipKit/UAPush.h>
 
 #import "ECDDefaultTheme.h"
 #import "ECDRootViewController.h"
@@ -40,7 +40,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [ECDBugReportEmailer setUpLogging];
 #endif
     
-    [self setupUrbanAirship];
+//    [self setupUrbanAirship];
     
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"6546eeca52a9e1f83c7fa37a62191693"]; // Do some additional configuration if needed here
     [[BITHockeyManager sharedHockeyManager] startManager];
@@ -196,11 +196,11 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    UA_LTRACE(@"APNS device token: %@", deviceToken);
+//    UA_LTRACE(@"APNS device token: %@", deviceToken);
     
     // Updates the device token and registers the token with UA. This won't occur until
     // push is enabled if the outlined process is followed. This call is required.
-    [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
+//    [[UAirship push] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
     
     NSString * deviceTokenString = [[[[deviceToken description]
                                       stringByReplacingOccurrencesOfString: @"<" withString: @""]
@@ -238,44 +238,44 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     [defaults synchronize];
 }
 
-- (void)setupUrbanAirship {
-    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
-    // or set runtime properties here.
-    UAConfig *config = [UAConfig defaultConfig];
-    
-#ifdef DEBUG
-    config.inProduction = NO;
-#else
-    config.inProduction = YES;
-#endif
-    
-    // You can also programmatically override the plist values:
-    // config.developmentAppKey = @"YourKey";
-    // etc.
-    
-    // Call takeOff (which creates the UAirship singleton)
-    [UAirship takeOff:config];
-    
-    NSNumber *pushEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:ECDPushNotificationsEnabledKey];
-    
-    if (!pushEnabled || pushEnabled.boolValue)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:ECDPushNotificationsEnabledKey];
-        
-        [UAirship push].userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                 UIUserNotificationTypeBadge |
-                                                 UIUserNotificationTypeSound);
-        [UAirship push].userPushNotificationsEnabled = YES;
-    }
-    else
-    {
-        [UAirship push].userPushNotificationsEnabled = NO;
-    }
-    
-    [[UAirship push] resetBadge];
-    
-    NSLog(@"Urban Airship Channel ID=%@, DeviceToken=%@",[UAirship push].channelID, [UAirship push].deviceToken);
-}
+//- (void)setupUrbanAirship {
+//    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+//    // or set runtime properties here.
+//    UAConfig *config = [UAConfig defaultConfig];
+//
+//#ifdef DEBUG
+//    config.inProduction = NO;
+//#else
+//    config.inProduction = YES;
+//#endif
+//
+//    // You can also programmatically override the plist values:
+//    // config.developmentAppKey = @"YourKey";
+//    // etc.
+//
+//    // Call takeOff (which creates the UAirship singleton)
+//    [UAirship takeOff:config];
+//
+//    NSNumber *pushEnabled = [[NSUserDefaults standardUserDefaults] objectForKey:ECDPushNotificationsEnabledKey];
+//
+//    if (!pushEnabled || pushEnabled.boolValue)
+//    {
+//        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:ECDPushNotificationsEnabledKey];
+//
+//        [UAirship push].userNotificationTypes = (UIUserNotificationTypeAlert |
+//                                                 UIUserNotificationTypeBadge |
+//                                                 UIUserNotificationTypeSound);
+//        [UAirship push].userPushNotificationsEnabled = YES;
+//    }
+//    else
+//    {
+//        [UAirship push].userPushNotificationsEnabled = NO;
+//    }
+//
+//    [[UAirship push] resetBadge];
+//
+//    NSLog(@"Urban Airship Channel ID=%@, DeviceToken=%@",[UAirship push].channelID, [UAirship push].deviceToken);
+//}
 
 - (void)reportBug {
     if (_bugReportEmailer == nil) {

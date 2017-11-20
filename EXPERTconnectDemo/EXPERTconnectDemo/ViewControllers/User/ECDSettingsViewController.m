@@ -7,7 +7,7 @@
 
 #import "ECDSettingsViewController.h"
 
-#import <AirshipKit/AirshipKit.h>
+//#import <AirshipKit/AirshipKit.h>
 
 #import "ECDLicenseViewController.h"
 #import "ECDUserDefaultKeys.h"
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     self.tableView.sectionFooterHeight = 0.0f;
 
     self.pushNotificationSwitch = [UISwitch new];
-    self.pushNotificationSwitch.on = [[UAirship push] userPushNotificationsEnabled];
+//    self.pushNotificationSwitch.on = [[UAirship push] userPushNotificationsEnabled];
     [self.pushNotificationSwitch addTarget:self
                                     action:@selector(pushNotificationSwitchChanged:)
                           forControlEvents:UIControlEventValueChanged];
@@ -550,7 +550,7 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
 
 - (void)pushNotificationSwitchChanged:(id)sender
 {
-    [[UAirship push] setUserPushNotificationsEnabled:self.pushNotificationSwitch.on];
+//    [[UAirship push] setUserPushNotificationsEnabled:self.pushNotificationSwitch.on];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.pushNotificationSwitch.on) forKey:ECDPushNotificationsEnabledKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
