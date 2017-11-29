@@ -236,7 +236,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     } else {
         
         if( ![self.chatClient isConnected] ) {
+            
+            ECSLogVerbose(self.logger, @"Showing chat view and chatClient is disconnected. Attempting reconnect...");
+            
             [self reconnectWebsocket:nil];
+            
         }
         
     }
@@ -276,19 +280,24 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self unregisterForNotifications];
+    
 }
 
 - (void)dealloc {
     
     [self.chatClient disconnect]; // Disconnect Stomp
+    
     self.tableView.delegate = nil;
     self.workflowDelegate = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self unregisterForNotifications]; 
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -301,15 +310,30 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark - View Setup Functions
 
-- (void)configureNavigationBar
-{
+//-(void)appForegrounded:(NSNotification*)note {
+//
+//    ECSLogVerbose(self.logger, @"Chat view foregrounded.");
+//
+//    bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
+//
+//    if( reachable && ![self.chatClient isConnected] ) {
+//        ECSLogVerbose(self.logger, @"Network is reachable and chat is not connected. Attempting reconnect...");
+//
+//        [self reconnectWebsocket:nil];
+//    }
+//}
+
+- (void)configureNavigationBar {
+    
     self.navigationItem.title = self.actionType.displayName;
     
-    if ([[self.navigationController viewControllers] count] > 1 && !self.navigationItem.leftBarButtonItem)
-    {
+    if ([[self.navigationController viewControllers] count] > 1 && !self.navigationItem.leftBarButtonItem) {
+        
         // Configure the "back" button on the nav bar
         ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+        
         UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
                                                                                  style:UIBarButtonItemStylePlain
                                                                                 target:self
@@ -317,8 +341,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)registerTableViewCells
-{
+- (void)registerTableViewCells {
+    
     [self.tableView registerClass:[ECSChatMessageTableViewCell class] forCellReuseIdentifier:MessageCellID];
     [self.tableView registerClass:[ECSHtmlMessageTableViewCell class] forCellReuseIdentifier:HtmlMessageCellID];
     [self.tableView registerClass:[ECSChatImageTableViewCell class] forCellReuseIdentifier:ImageCellID];
@@ -329,14 +353,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self.tableView registerClass:[ECSInlineFormTableViewCell class] forCellReuseIdentifier:InlineFormCellID];
 }
 
-- (void)addChatToolbarView
-{
-    if (!self.historyJourney)
-    {
+- (void)addChatToolbarView {
+    
+    if (!self.historyJourney) {
+        
         self.chatToolbar = [ECSChatToolbarController ecs_loadFromNib];
         self.chatToolbar.delegate = self;
+        
         [self addChildViewController:self.chatToolbar];
+        
         self.chatToolbar.view.translatesAutoresizingMaskIntoConstraints = NO;
+        
         [self.chatToolbarContainer addSubview:self.chatToolbar.view];
         
         // Fill the contents of it's container view.
@@ -353,11 +380,13 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)addChatWaitView
-{
+- (void)addChatWaitView {
+    
     self.waitView = [ECSChatWaitView ecs_loadInstanceFromNib];
     self.waitView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [self.view addSubview:self.waitView];
+    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[view]|"
                                                                       options:0
                                                                       metrics:nil
@@ -381,8 +410,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                          multiplier:1.0f
                                                            constant:0.0f]];
 }
-
-
 
 #pragma mark - View Navigation Functions
 
@@ -424,8 +451,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 // Show a dialog asking the user if they are sure they want to leave the queue (they could lose their place...)
-- (void)dialogLeaveQueue
-{
+- (void)dialogLeaveQueue {
+    
     NSString *alertTitle = ECSLocalizedString(ECSLocalizedLeaveQueueTitle, @"Warning");
     NSString *alertMessage = ECSLocalizedString(ECSLocalizedLeaveQueueMessage, @"Chat Disconnect Prompt");
     
@@ -452,39 +479,38 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
 }
 
-- (void)minimizeButtonPressed:(id)sender
-{
-    if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)])
-    {
+- (void)minimizeButtonPressed:(id)sender {
+    
+    if ([self.workflowDelegate respondsToSelector:@selector(minimizeButtonTapped:)]) {
+        
         [self.workflowDelegate minimizeButtonTapped:sender];
+    
     }
 }
 
-- (void)pollForPostSurvey
-{
+- (void)pollForPostSurvey {
+    
     static NSUInteger pollInterval = 3;
     
     // Only make the call if the agent interval is met
-    if (self.agentInteractionCount % pollInterval != 0)
-    {
+    if (self.agentInteractionCount % pollInterval != 0) {
         return;
     }
     
     __weak typeof(self) weakSelf = self;
-    [self checkForPostActions:^(NSArray *result, NSError *error)
-    {
-        if (!error && (result.count > 0) && ([result.firstObject isKindOfClass:[ECSFormActionType class]]))
-        {
+    [self checkForPostActions:^(NSArray *result, NSError *error) {
+        if (!error && (result.count > 0) && ([result.firstObject isKindOfClass:[ECSFormActionType class]])) {
             weakSelf.postChatActions = result;
         }
     }];
 }
 
-- (void)handleDisconnectPostSurveyCall
-{
+- (void)handleDisconnectPostSurveyCall {
+    
     __weak typeof(self) weakSelf = self;
-    [self checkForPostActions:^(NSArray *result, NSError *error)
-    {
+    
+    [self checkForPostActions:^(NSArray *result, NSError *error) {
+        
         [self.workflowDelegate endVideoChat];
         //ECSChatActionType *actionType = (ECSChatActionType *)self.actionType;
         
@@ -498,8 +524,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }];
 }
 
--(void)checkForPostActions:(void (^)(NSArray* result, NSError* error))completion
-{
+-(void)checkForPostActions:(void (^)(NSArray* result, NSError* error))completion {
     
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     //__weak typeof(self) weakSelf = self;
@@ -514,8 +539,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 
--(void) handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message
-{
+-(void) handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message {
+    
     NSString *question = message.questionText;
     NSString *context = message.interfaceName;
     
@@ -558,12 +583,12 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)showSurveyOrPopView
-{
+- (void)showSurveyOrPopView {
+    
     [self.chatToolbar resignFirstResponder];
     
-    if(self.workflowDelegate)
-    {
+    if(self.workflowDelegate) {
+        
         //if([self.actionType.displayName isEqualToString:@"Chat Workflow"])
         //{
         [self.workflowDelegate chatEndedWithTotalInteractionCount:self.messages.count
@@ -574,8 +599,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     // Check to see if we have a chat action to act upon.
     if (self.postChatActions && (self.postChatActions.count > 0) &&
-        ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]]))
-    {
+        ([self.postChatActions.firstObject isKindOfClass:[ECSFormActionType class]])) {
+        
         ECSFormActionType *formAction = self.postChatActions.firstObject;
         
         UIViewController *surveyFormController = [ECSRootViewController ecs_viewControllerForActionType:formAction];
@@ -583,9 +608,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         [self presentModal:surveyFormController withParentNavigationController:self.navigationController fromViewController:self.navigationController];
         
         _showingPostChatSurvey = YES;
-    }
-    else
-    {
+        
+    } else {
+        
         // No post-action. Close the window and send the notification so host app can act.
 //        [self.navigationController popViewControllerAnimated:YES];
         
@@ -696,10 +721,10 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self showSurveyOrPopView];
 }
 
-- (void)hideWaitView
-{
-     if (self.waitView)
-     {
+- (void)hideWaitView {
+    
+     if (self.waitView) {
+         
         [UIView animateWithDuration:0.3f
                          animations:^{self.waitView.alpha = 0.0f;}
                          completion:^(BOOL finished)
@@ -725,8 +750,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 #pragma mark - Chat Toolbar callbacks
-- (void)sendChatState:(NSString *)chatState
-{
+- (void)sendChatState:(NSString *)chatState {
+    
     NSString *sendState = nil;
     if ([chatState isEqualToString:@"composing"]) {
         //        _userTyping = YES;
@@ -752,8 +777,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-- (void)sendText:(NSString *)text
-{
+- (void)sendText:(NSString *)text {
+    
     NSString *timeStamp = [[EXPERTconnect shared] getTimeStampMessage];
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
@@ -815,8 +840,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 // NK 6/17
-- (void)sendSystemText:(NSString *)text
-{
+- (void)sendSystemText:(NSString *)text {
+    
     ECSChatTextMessage *message = [ECSChatTextMessage new];
     
     message.from = @"System";
@@ -858,8 +883,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      */
 }
 
-- (void)sendMedia:(NSDictionary *)mediaInfo
-{
+- (void)sendMedia:(NSDictionary *)mediaInfo {
+    
     ECSChatMediaMessage *message = [ECSChatMediaMessage new];
     
     message.from = self.chatClient.fromUsername;
@@ -2790,6 +2815,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)registerForNotifications {
     
+    [self unregisterForNotifications]; // Clear out any old ones.
+    
     // Setup notification observers
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(networkConnectionChanged:)
@@ -2816,7 +2843,20 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(appForegrounded:)
+//                                                 name:UIApplicationWillEnterForegroundNotification
+//                                               object:nil];
     
+}
+
+- (void)unregisterForNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationScreenShareEnded" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSEndChatNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 #pragma mark - Keyboard

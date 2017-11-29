@@ -120,7 +120,7 @@ bool        _wasConnected;
 
 - (void)dealloc {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self unregisterForNotifications];
     
     [self.subscribers removeAllObjects];
 }
@@ -161,17 +161,7 @@ bool        _wasConnected;
     
     [self.webSocket open];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appForegrounded:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appBackgrounded:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
+    [self registerForActiveNotifications];
 }
 
 -(void)appForegrounded:(NSNotification*)note {
@@ -202,6 +192,27 @@ bool        _wasConnected;
         [self.webSocket close];
         
     }
+}
+
+- (void) registerForActiveNotifications {
+    
+    [self unregisterForNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appForegrounded:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appBackgrounded:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+}
+- (void) unregisterForNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
 }
 
 - (void)reconnect {
@@ -242,7 +253,7 @@ bool        _wasConnected;
 
     ECSLogVerbose(self.logger, @"Removing app foreground notifications because Stomp has disconnected.");
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self unregisterForNotifications];
 }
 
 - (void)_internal_disconnect {

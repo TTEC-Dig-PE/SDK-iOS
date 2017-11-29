@@ -94,12 +94,14 @@ CGPoint     _originalCenter;
                                  dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
     }
     
+    [self configureNavigationBar];
+    
     [super viewWillAppear:animated];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     
-    [self.chatClient disconnect]; // Close the chat.
+//    [self.chatClient disconnect]; // Close the chat.
     
 }
 
@@ -107,6 +109,25 @@ CGPoint     _originalCenter;
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)configureNavigationBar {
+    
+    self.navigationItem.title = @"Low Level Chat";
+    
+    if ([[self.navigationController viewControllers] count] > 1) {
+        
+        // Configure the "back" button on the nav bar
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"< Back"
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
+    }
+}
+
+- (void)backButtonPressed:(id)sender {
+    [self.chatClient disconnect];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - ECSStompChatClient delegate callbacks

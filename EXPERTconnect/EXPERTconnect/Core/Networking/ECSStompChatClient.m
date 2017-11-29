@@ -220,9 +220,11 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         if (closeURL) {
             
-            self.channel.state = @"disconnecting";
+            self.channel.state = @"disconnected";
             
             ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+            
+//            __weak typeof(self) weakSelf = self;
             
             [urlSession closeChannelAtURL:closeURL
                                withReason:@"Disconnected"
@@ -231,7 +233,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                                completion:^(id result, NSError* error)
              {
                  // Do nothing.
-                 self.channel.state = @"disconnected";
+//                 if( weakSelf) weakSelf.channel.state = @"disconnected";
              }];
         }
     }
@@ -803,8 +805,12 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
             message.terminatedByString = @"system";
             message.disconnectReasonString = @"idleTimeout";
             
-            if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)] ) {
+            if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)] ) {
                 [self.delegate chatClient:self disconnectedWithMessage:message];
+            }
+            
+            if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)]) {
+                [self.delegate chatDisconnectedWithMessage:message];
             }
             
         }
