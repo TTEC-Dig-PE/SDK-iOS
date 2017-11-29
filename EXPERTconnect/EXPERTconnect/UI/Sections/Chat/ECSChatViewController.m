@@ -148,8 +148,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 @synthesize chatClient, messages, participants;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
 //    _showingMoxtra = FALSE;
@@ -172,30 +172,134 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     self.participants = [NSMutableDictionary new];  // Create the new arrays for messages / participants
     self.messages = [NSMutableArray new];
     
-    // Setup notification observers
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(networkConnectionChanged:)
-                                                 name:ECSReachabilityChangedNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:)
-                                                 name:@"NotificationScreenShareEnded"
-                                               object:nil];
-    
-    // If host app sends this notification, we will end the chat (no dialog).
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(endChatByUser)
-                                                 name:ECSEndChatNotification
-                                               object:nil];
     
     // View Setup Functions
-    [self registerForKeyboardNotifications];    // Keyboard observers
     [self configureNavigationBar];              // Show back button if nav bar present.
     [self registerTableViewCells];              // Register type of table view cells we might see
     [self addChatToolbarView];                  // Add the bottom toolbar to view.
     [self addChatWaitView];                     // Add the "waiting for agent" view.
     
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    ECSLogVerbose(self.logger, @"viewWillAppear. InQueue? %d.", [self userInQueue]);
+    
+    if (self.waitView) {
+        
+        [self.waitView.loadingView startAnimating];
+        
+        if (!self.historyJourney) {
+            
+            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+            
+            if (userManager.userDisplayName.length > 0) {
+                
+                self.waitView.titleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWelcomeWithUsername, @"Welcome with username"), userManager.userDisplayName];
+                
+            } else {
+                
+                self.waitView.titleLabel.text = ECSLocalizedString(ECSLocalizeWelcome, @"Welcome");
+                
+            }
+            
+            self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeGenericWaitTime, @"Generic wait time");
+            
+        } else {
+            
+            self.waitView.titleLabel.text = @"";
+            self.waitView.subtitleLabel.text = @"";
+            
+        }
+    }
+    
+    if (self.historyJourney) {
+        
+        // Server has noted we are reconnecting to a chat with history. Load the history.
+        
+        if (!self.messages || self.messages.count == 0) {
+            
+            [self loadHistoryForJourney:self.historyJourney];
+            
+        }
+        
+    } else if (!self.chatClient) {
+        
+        // Initiate a new Chat Stomp client.
+        self.chatClient = [ECSStompChatClient new];
+        self.chatClient.delegate = self;
+        
+        [self.chatClient startChannelWithAction:(ECSChatActionType *)self.actionType];
+        
+    } else {
+        
+        if( ![self.chatClient isConnected] ) {
+            [self reconnectWebsocket:nil];
+        }
+        
+    }
+    
+    // Reload selected table cell (used to update form cells)
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if (indexPath)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    if (_showingPostChatSurvey) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    if (self.presentedForm) {
+        
+        self.presentedForm = NO;
+        //[self sendFormNotification];  // mas 7-jun-2017 This notification is type=interview which currently says "form completed" in ExD. This is regardless of whether user completed form. Disabling notification until ExD reports the right text, or another notification can be sent (such as "user started survey but cancelled").
+    }
+    
+    if( self.waitView ) {
+        
+        [self.waitView startLoadingAnimation];
+        
+    }
+    
+    [self registerForNotifications];    // Setup observers
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)dealloc {
+    
+    [self.chatClient disconnect]; // Disconnect Stomp
+    self.tableView.delegate = nil;
+    self.workflowDelegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    [self updateEdgeInsets];
+}
+
+#pragma mark - View Setup Functions
 
 - (void)configureNavigationBar
 {
@@ -278,111 +382,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                            constant:0.0f]];
 }
 
-- (void)dealloc {
-    
-    [self.chatClient disconnect]; // Disconnect Stomp
-    self.tableView.delegate = nil;
-    self.workflowDelegate = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-
-    ECSLogVerbose(self.logger, @"viewWillAppear. InQueue? %d.", [self userInQueue]);
-    
-    if (self.waitView) {
-        
-        [self.waitView.loadingView startAnimating];
-        
-        if (!self.historyJourney) {
-            
-            ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
-            
-            if (userManager.userDisplayName.length > 0) {
-                
-                self.waitView.titleLabel.text = [NSString stringWithFormat:ECSLocalizedString(ECSLocalizeWelcomeWithUsername, @"Welcome with username"), userManager.userDisplayName];
-            
-            } else {
-                
-                self.waitView.titleLabel.text = ECSLocalizedString(ECSLocalizeWelcome, @"Welcome");
-            
-            }
-            
-            self.waitView.subtitleLabel.text = ECSLocalizedString(ECSLocalizeGenericWaitTime, @"Generic wait time");
-        
-        } else {
-        
-            self.waitView.titleLabel.text = @"";
-            self.waitView.subtitleLabel.text = @"";
-            
-        }
-    }
-    
-    if (self.historyJourney) {
-        
-        // Server has noted we are reconnecting to a chat with history. Load the history.
-        
-        if (!self.messages || self.messages.count == 0) {
-            
-            [self loadHistoryForJourney:self.historyJourney];
-            
-        }
-        
-    } else if (!self.chatClient) {
-        
-        // Initiate a new Chat Stomp client.
-        self.chatClient = [ECSStompChatClient new];
-        self.chatClient.delegate = self;
-        
-        [self.chatClient startChannelWithAction:(ECSChatActionType *)self.actionType];
-        
-//        [self.chatClient setupChatClientWithActionType:self.actionType];
-    }
-    
-    // Reload selected table cell (used to update form cells)
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    if (indexPath)
-    {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-
-    if (_showingPostChatSurvey) {
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    
-    if (self.presentedForm) {
-        
-        self.presentedForm = NO;
-        //[self sendFormNotification];  // mas 7-jun-2017 This notification is type=interview which currently says "form completed" in ExD. This is regardless of whether user completed form. Disabling notification until ExD reports the right text, or another notification can be sent (such as "user started survey but cancelled").
-    }
-    
-    if( self.waitView ) {
-        
-        [self.waitView startLoadingAnimation];
-    }
-    
-}
-- (void)viewDidLayoutSubviews {
-    
-    [super viewDidLayoutSubviews];
-    [self updateEdgeInsets];
-}
 
 #pragma mark - View Navigation Functions
 
@@ -1075,12 +1075,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //
 //    } else
     
-    if ([message isKindOfClass:[ECSSendQuestionMessage class]]) {
-        
-        [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
-        return; // When Response is received, handler will send through an ECSReceiveAnswerMessage
-        
-    }
+    
     
     // Note: We want to filter out these in-band non-localized "system" messages from the old legacy system.
     // They usually say: "Mike (mike_mktwebextc) has joined the chat.", "Mike (mike_mktwebextc) has left the chat."
@@ -1098,6 +1093,22 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
     [self addMessage:message];
 
+}
+
+- (void) chatReceivedQuestion:(ECSSendQuestionMessage *)message {
+    [self handleReceiveSendQuestionMessage:(ECSSendQuestionMessage *)message];
+}
+
+- (void) chatReceivedInlineForm:(ECSChatFormMessage *)message {
+    [self addMessage:message];
+}
+
+- (void) chatReceivedAssociateInfo:(ECSChatAssociateInfoMessage *)message {
+    [self addMessage:message];
+}
+
+- (void) chatReceivedURL:(ECSChatURLMessage *)message {
+    [self addMessage:message]; 
 }
 
 - (void) addMessage:(ECSChatMessage *)message {
@@ -1312,7 +1323,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         
         ECSLogVerbose(self.logger, @"Attempting to reconnect to Stomp channel.");
         
-        [self.chatClient reconnect];
+        if( ![self.chatClient isConnecting] ) {
+            [self.chatClient reconnect];
+        } else {
+            ECSLogVerbose(self.logger, @"Stomp client is already trying to reconnect.");
+        }
         
     } else {
         
@@ -2773,14 +2788,29 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     }
 }
 
-#pragma mark - Keyboard
-
-- (void)registerForKeyboardNotifications
-{
+- (void)registerForNotifications {
+    
+    // Setup notification observers
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkConnectionChanged:)
+                                                 name:ECSReachabilityChangedNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenShareEnded:)
+                                                 name:@"NotificationScreenShareEnded"
+                                               object:nil];
+    
+    // If host app sends this notification, we will end the chat (no dialog).
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(endChatByUser)
+                                                 name:ECSEndChatNotification
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillChangeFrame:)
                                                  name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
@@ -2788,6 +2818,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     
 }
+
+#pragma mark - Keyboard
 
 - (void)keyboardWillChangeFrame:(NSNotification*)notification
 {

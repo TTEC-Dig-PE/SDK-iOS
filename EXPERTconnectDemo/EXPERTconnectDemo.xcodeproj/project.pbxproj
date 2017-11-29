@@ -70,6 +70,8 @@
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
+		C491C2E41FCC75EC00D88EE3 /* ECDChatHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */; };
+		C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */; };
 		C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */; };
 		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
 		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
@@ -260,6 +262,9 @@
 		C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDPersonasViewController.h; sourceTree = "<group>"; };
 		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
+		C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatHistoryVC.h; path = "Configuration Views/ECDChatHistoryVC.h"; sourceTree = "<group>"; };
+		C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatHistoryVC.m; path = "Configuration Views/ECDChatHistoryVC.m"; sourceTree = "<group>"; };
+		C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatHistoryVC.xib; path = "Configuration Views/ECDChatHistoryVC.xib"; sourceTree = "<group>"; };
 		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
@@ -649,6 +654,9 @@
 				C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */,
 				C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */,
 				C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */,
+				C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */,
+				C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */,
+				C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -817,6 +825,7 @@
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
 				C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */,
+				C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */,
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
@@ -860,6 +869,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C491C2E41FCC75EC00D88EE3 /* ECDChatHistoryVC.m in Sources */,
 				C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */,
 				0301CC001B0634C50068A0E1 /* ECDLicenseViewController.m in Sources */,
 				C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */,
@@ -1080,6 +1090,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1116,6 +1127,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

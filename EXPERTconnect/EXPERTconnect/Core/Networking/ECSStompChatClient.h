@@ -24,6 +24,10 @@
 @class ECSChannelCreateResponse;
 @class ECSChatAddParticipantMessage;
 @class ECSChatRemoveParticipantMessage;
+@class ECSChatFormMessage;
+@class ECSChatAssociateInfoMessage;
+@class ECSSendQuestionMessage;
+@class ECSChatURLMessage; 
 @class ECSLog;
 
 /**
@@ -76,6 +80,30 @@
  * @param message The ECSChatTextMessage object. Important fields: from, body, timestamp.
  */
 - (void) chatReceivedTextMessage:(ECSChatTextMessage *)message;
+
+/*!
+ * @discussion An associate has sent their info message.
+ * @param message The ECSChatAssociateInfoMessage object. Important fields: from, timestamp, message.
+ */
+- (void) chatReceivedAssociateInfo:(ECSChatAssociateInfoMessage *)message;
+
+/*!
+ * @discussion An associate has sent their info message.
+ * @param message The ECSChatAssociateInfoMessage object. Important fields: from, timestamp, message.
+ */
+- (void) chatReceivedInlineForm:(ECSChatFormMessage *)message;
+
+/*!
+ * @discussion An associate has sent their info message.
+ * @param message The ECSChatAssociateInfoMessage object. Important fields: from, timestamp, message.
+ */
+- (void) chatReceivedQuestion:(ECSSendQuestionMessage *)message;
+
+/*!
+ * @discussion An associate has sent their info message.
+ * @param message The ECSChatAssociateInfoMessage object. Important fields: from, timestamp, message.
+ */
+- (void) chatReceivedURL:(ECSChatURLMessage *)message;
 
 /*!
  * @discussion A participant has sent a chat state update. This typically indicates the operator on the other side is typing or not.
@@ -291,6 +319,8 @@ __attribute__((deprecated("Use chatClientDisconnected:withReason:")));
  Is the stomp currently connected? 
  */
 -(bool) isConnected;
+
+-(bool) isConnecting;
 
 /**
  Sets the channel information for sending messages

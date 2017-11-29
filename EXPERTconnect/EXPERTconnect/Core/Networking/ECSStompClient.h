@@ -75,6 +75,9 @@
 // Indicates if the client is currently connected.
 @property (assign, nonatomic) BOOL connected;
 
+// Indicates if the client is currently connected.
+@property (assign, nonatomic) BOOL isConnecting;
+
 // Indicates if the client is currently subscribed.
 @property (assign, nonatomic) BOOL subscribed;
 

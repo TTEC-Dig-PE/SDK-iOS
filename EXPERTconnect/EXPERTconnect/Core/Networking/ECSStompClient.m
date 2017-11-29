@@ -91,7 +91,7 @@ static NSString * const kStompReceiptID = @"ios-1-subscribe";
 int         _clientHeartbeatInterval;
 int         _clientHeartbeatsMissed;
 bool        _wasConnected;
-bool        _isConnecting;
+//bool        _isConnecting;
 
 @synthesize authToken;
 
@@ -190,6 +190,8 @@ bool        _isConnecting;
 -(void)appBackgrounded:(NSNotification*)note {
     
     ECSLogDebug(self.logger, @"STOMP app inactive notification. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
+    
+    self.isConnecting = NO;
     
     if( self.connected ) {
         
@@ -454,18 +456,18 @@ bool        _isConnecting;
     ECSLogError(self.logger, @"ERROR - %@", error);
 //    _isConnecting = NO;
     
-    if (error.code == 57) { // "Socket is not connected."
-        
-        // Attempt a reconnect after 5 seconds.
+//    if (error.code == 57) { // "Socket is not connected."
+//
+//        // Attempt a reconnect after 5 seconds.
 //        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
-        
-    } else {
-        
+//
+//    } else {
+    
         self.connected = NO;
-        _isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
+        self.isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
         
         [self.delegate stompClient:self didFailWithError:error];
-    }
+//    }
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceiveMessage:(id)message {
@@ -475,7 +477,7 @@ bool        _isConnecting;
     ECSLogVerbose(self.logger, @"\nMessage=%@\n\nFrame=%@\n", message, frame);
 
     // Any message from server indicates it is "good" reset server heartbeat miss count and "connecting" status.
-    _isConnecting = NO;
+    self.isConnecting = NO;
     _clientHeartbeatsMissed = 0;
     
     // Check for, and update heart-beat if applicable
@@ -560,7 +562,7 @@ bool        _isConnecting;
     
     ECSLogDebug(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
     
-    _isConnecting = NO;
+    self.isConnecting = NO;
     
     if( !wasClean ) {
         

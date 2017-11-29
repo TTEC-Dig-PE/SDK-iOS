@@ -108,7 +108,9 @@ CLLocation *_currentLocation;
 - (IBAction)btnNewSession_Touch:(id)sender {
     
     [EXPERTconnect shared].userCallbackNumber = @"+15555551234";
+    
     self.lblResponse.text = @"Starting new session...";
+    
     [[EXPERTconnect shared] breadcrumbNewSessionWithCompletion:^(NSString *response, NSError *error) {
         self.lblResponse.text = [NSString stringWithFormat:@"New session created. Response=%@, Error=%@", response, error];
     }];

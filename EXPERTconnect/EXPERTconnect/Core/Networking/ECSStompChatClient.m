@@ -98,6 +98,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     if (self) {
         
         _chatState = ECSChatStateUnknown;
+        _channelState = ECSChannelStateUnknown;
         
         self.agentInteractionCount = 0;
         
@@ -190,8 +191,11 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 #pragma mark - Externally accessible functions
 
 - (bool)isConnected {
-    
     return self.stompClient.connected;
+}
+
+- (bool)isConnecting {
+    return self.stompClient.isConnecting;
 }
 
 - (void)reconnect {
@@ -799,7 +803,9 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
             message.terminatedByString = @"system";
             message.disconnectReasonString = @"idleTimeout";
             
-            [self.delegate chatClient:self disconnectedWithMessage:message];
+            if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)] ) {
+                [self.delegate chatClient:self disconnectedWithMessage:message];
+            }
             
         }
     }];
@@ -900,17 +906,17 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
     else if ([bodyType isEqualToString:kECSChatCoBrowseMessage])
     {
-        [self handleCoBrowseMessage:message forClient:stompClient];
+//        [self handleCoBrowseMessage:message forClient:stompClient];
     }
     
     else if ([bodyType isEqualToString:kECSCafeXMessage])
     {
-        [self handleCafeXMessage:message forClient:stompClient];
+//        [self handleCafeXMessage:message forClient:stompClient];
     }
     
     else if ([bodyType isEqualToString:kECSVoiceAuthenticationMessage])
     {
-        [self handleVoiceAuthenticationMessage:message forClient:stompClient];
+//        [self handleVoiceAuthenticationMessage:message forClient:stompClient];
     }
     
     else if ([bodyType isEqualToString:kECSSendQuestionMessage])
@@ -927,7 +933,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
 #pragma mark - STOMP Message Handling
 
-- (void)handleChatMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleChatMessage:(ECSStompFrame*)message
+                forClient:(ECSStompClient*)stompClient {
     
     self.agentInteractionCount++;
     
@@ -986,7 +993,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 	 
 }
 
-- (void)handleChatStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleChatStateMessage:(ECSStompFrame*)message
+                     forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1021,7 +1029,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
 }
 
-- (void)handleChatNotificationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleChatNotificationMessage:(ECSStompFrame*)message
+                            forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1080,7 +1089,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 }
 
 
-- (void)handleChannelStateMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleChannelStateMessage:(ECSStompFrame*)message
+                        forClient:(ECSStompClient*)stompClient {
 
     NSError *serializationError = nil;
     id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
@@ -1101,6 +1111,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
             if ( message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)] ) {
                 [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
             }
+            
             if( [self.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
                 [self.delegate chatUpdatedEstimatedWait:message.estimatedWait.intValue];
             }
@@ -1164,57 +1175,70 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-- (void)handleURLMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                             withClass:[ECSChatURLMessage class]];
-            message.fromAgent = YES;
-            
-            ECSLogDebug(self.logger, @"Received URL message from %@. URL=%@", message.from, message.url);
-            
+- (void)handleURLMessage:(ECSStompFrame*)message
+               forClient:(ECSStompClient*)stompClient {
+    
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0 error:&serializationError];
+    if (!serializationError) {
+        
+        ECSChatURLMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                       withClass:[ECSChatURLMessage class]];
+        message.fromAgent = YES;
+        
+        ECSLogDebug(self.logger, @"Received URL message from %@. URL=%@", message.from, message.url);
+        
+        if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
             [self.delegate chatClient:self didReceiveMessage:message];
         }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
+        
+        if([self.delegate respondsToSelector:@selector(chatReceivedURL:)]) {
+            [self.delegate chatReceivedURL:message];
         }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat state message %@", serializationError);
+        
     }
 }
 
-- (void)handleFormMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatFormMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                           withClass:[ECSChatFormMessage class]];
-            message.fromAgent = YES;
-            
-            ECSLogDebug(self.logger, @"Received Form message from %@. Form name=%@", message.from, message.formName);
-            
+- (void)handleFormMessage:(ECSStompFrame*)message
+                forClient:(ECSStompClient*)stompClient {
+    
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0 error:&serializationError];
+    if (!serializationError) {
+        
+        ECSChatFormMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                        withClass:[ECSChatFormMessage class]];
+        message.fromAgent = YES;
+        
+        ECSLogDebug(self.logger, @"Received Form message from %@. Form name=%@", message.from, message.formName);
+        
+        if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
             [self.delegate chatClient:self didReceiveMessage:message];
         }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat form message %@", serializationError);
+        
+        if([self.delegate respondsToSelector:@selector(chatReceivedInlineForm:)]) {
+            [self.delegate chatReceivedInlineForm:message];
         }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat form message %@", serializationError);
+        
     }
     
 }
 
 
-- (void)handleAddParticipantMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleAddParticipantMessage:(ECSStompFrame*)message
+                          forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1232,13 +1256,11 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         // Older method
         if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
-            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         
         // Newer specific method.
         if ([self.delegate respondsToSelector:@selector(chatAddedParticipant:)]) {
-            
             [self.delegate chatAddedParticipant:message];
         }
         
@@ -1248,7 +1270,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-- (void)handleRemoveParticipantMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleRemoveParticipantMessage:(ECSStompFrame*)message
+                             forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1266,12 +1289,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                     message.firstName, message.lastName, message.userId, message.reason);
         
         if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
-            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         
         if([self.delegate respondsToSelector:@selector(chatRemovedParticipant:)]) {
-            
             [self.delegate chatRemovedParticipant:message];
         }
         
@@ -1280,7 +1301,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-- (void)handleAddChannelMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient {
+- (void)handleAddChannelMessage:(ECSStompFrame*)message
+                      forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1310,126 +1332,73 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     }
 }
 
-- (void)handleAssociateInfoMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0
-                                                      error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatAssociateInfoMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                            withClass:[ECSChatAssociateInfoMessage class]];
-            message.fromAgent = YES;
-            
-            ECSLogDebug(self.logger, @"Received associate info from %@. Body=%@", message.from, message.message);
-            
+- (void)handleAssociateInfoMessage:(ECSStompFrame*)message
+                         forClient:(ECSStompClient*)stompClient {
+    
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0
+                                                  error:&serializationError];
+    
+    if (!serializationError) {
+        
+        ECSChatAssociateInfoMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+                                                                                 withClass:[ECSChatAssociateInfoMessage class]];
+        message.fromAgent = YES;
+        
+        ECSLogDebug(self.logger, @"Received associate info from %@. Body=%@", message.from, message.message);
+        
+        if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
             [self.delegate chatClient:self didReceiveMessage:message];
         }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+        
+        if([self.delegate respondsToSelector:@selector(chatReceivedAssociateInfo:)]) {
+            [self.delegate chatReceivedAssociateInfo:message];
         }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+        
     }
 }
 
-- (void)handleCoBrowseMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0
-                                                      error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatCoBrowseMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                                withClass:[ECSChatCoBrowseMessage class]];
-            message.fromAgent = YES;
-            [self.delegate chatClient:self didReceiveMessage:message];
-        }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
-        }
-    }
-}
-
-- (void)handleCafeXMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0
-                                                      error:&serializationError];
-        if (!serializationError)
-        {
-            ECSCafeXMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                                withClass:[ECSCafeXMessage class]];
-            message.fromAgent = YES;
-            [self.delegate chatClient:self didReceiveMessage:message];
-        }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
-        }
-    }
-}
-
-- (void)handleVoiceAuthenticationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0
-                                                      error:&serializationError];
-        if (!serializationError)
-        {
-            ECSChatVoiceAuthenticationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-                                                                                           withClass:[ECSChatVoiceAuthenticationMessage class]];
-            message.fromAgent = YES;
-            [self.delegate chatClient:self didReceiveMessage:message];
-        }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
-        }
-    }
-}
-
-- (void)handleSendQuestionMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
-{
+- (void)handleSendQuestionMessage:(ECSStompFrame*)message
+                        forClient:(ECSStompClient*)stompClient {
+    
     self.agentInteractionCount++;
     
-    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
-    {
-        NSError *serializationError = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-                                                    options:0 error:&serializationError];
-        if (!serializationError)
-        {
-            ECSSendQuestionMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+    NSError *serializationError = nil;
+    
+    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:0 error:&serializationError];
+    
+    if (!serializationError) {
+        ECSSendQuestionMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
                                                                             withClass:[ECSSendQuestionMessage class]];
-            
-            message.fromAgent = YES;
-            
-            ECSLogDebug(self.logger, @"Received send question from %@. QuestionText=%@", message.from, message.questionText);
-            
+        
+        message.fromAgent = YES;
+        
+        ECSLogDebug(self.logger, @"Received send question from %@. QuestionText=%@", message.from, message.questionText);
+        
+        if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
             [self.delegate chatClient:self didReceiveMessage:message];
         }
-        else
-        {
-            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+        
+        if([self.delegate respondsToSelector:@selector(chatReceivedQuestion:)]) {
+            [self.delegate chatReceivedQuestion:message];
         }
+        
+    } else {
+        
+        ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+        
     }
-    
 }
 
-- (void)handleChannelTimeoutWarning:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient{
+- (void)handleChannelTimeoutWarning:(ECSStompFrame*)message
+                          forClient:(ECSStompClient*)stompClient {
     
     NSError *serializationError = nil;
     
@@ -1445,21 +1414,86 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         // Older
         if( [self.delegate respondsToSelector:@selector(chatClientTimeoutWarning:timeoutSeconds:)] ) {
-            
             [self.delegate chatClientTimeoutWarning:self timeoutSeconds:[message.timeoutSeconds intValue]];
         }
         
         // New
         if( [self.delegate respondsToSelector:@selector(chatTimeoutWarning:)]) {
-            
             [self.delegate chatTimeoutWarning:[message.timeoutSeconds intValue]];
         }
-    }
-    else
-    {
+        
+    } else {
+        
         ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+        
     }
     
 }
+
+//- (void)handleCoBrowseMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+//{
+//    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+//    {
+//        NSError *serializationError = nil;
+//        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+//                                                    options:0
+//                                                      error:&serializationError];
+//        if (!serializationError)
+//        {
+//            ECSChatCoBrowseMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+//                                                                                withClass:[ECSChatCoBrowseMessage class]];
+//            message.fromAgent = YES;
+//            [self.delegate chatClient:self didReceiveMessage:message];
+//        }
+//        else
+//        {
+//            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+//        }
+//    }
+//}
+//
+//- (void)handleCafeXMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+//{
+//    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+//    {
+//        NSError *serializationError = nil;
+//        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+//                                                    options:0
+//                                                      error:&serializationError];
+//        if (!serializationError)
+//        {
+//            ECSCafeXMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+//                                                                                withClass:[ECSCafeXMessage class]];
+//            message.fromAgent = YES;
+//            [self.delegate chatClient:self didReceiveMessage:message];
+//        }
+//        else
+//        {
+//            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+//        }
+//    }
+//}
+//
+//- (void)handleVoiceAuthenticationMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
+//{
+//    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
+//    {
+//        NSError *serializationError = nil;
+//        id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
+//                                                    options:0
+//                                                      error:&serializationError];
+//        if (!serializationError)
+//        {
+//            ECSChatVoiceAuthenticationMessage *message = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
+//                                                                                           withClass:[ECSChatVoiceAuthenticationMessage class]];
+//            message.fromAgent = YES;
+//            [self.delegate chatClient:self didReceiveMessage:message];
+//        }
+//        else
+//        {
+//            ECSLogError(self.logger,@"Unable to parse chat message %@", serializationError);
+//        }
+//    }
+//}
 
 @end

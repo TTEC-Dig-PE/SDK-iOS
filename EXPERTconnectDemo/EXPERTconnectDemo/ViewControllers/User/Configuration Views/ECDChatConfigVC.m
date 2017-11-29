@@ -272,6 +272,14 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 - (IBAction)optNavButtons_Change:(id)sender {
 }
 
+- (IBAction)btnViewChatHistory_Touch:(id)sender {
+    
+    ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
+    
+    [self.navigationController pushViewController:historyVC animated:YES]; 
+    
+}
+
 #pragma mark Notifications
 
 - (void)chatEnded:(NSNotification *)notification {

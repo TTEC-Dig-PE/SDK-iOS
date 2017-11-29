@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="CourierNew.ttf">
+            <string>CourierNewPSMT</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ECDChatConfigVC">
             <connections>
                 <outlet property="avatarImagesLabel" destination="biz-jQ-ijV" id="Il9-kS-z5i"/>
                 <outlet property="btnEndChat" destination="sZj-mM-z6a" id="qxr-90-Ucq"/>
                 <outlet property="btnStartChat" destination="JSf-ul-y3D" id="Gzf-1r-ghm"/>
+                <outlet property="btnViewChatHistory" destination="p84-Bj-cSr" id="luW-FM-Y6m"/>
                 <outlet property="chatBubblesLabel" destination="0ld-3D-Tla" id="QzN-77-OHa"/>
                 <outlet property="chatSkillLabel" destination="h6v-4t-B8b" id="Ixp-CQ-lbu"/>
                 <outlet property="customNavBarButtonsLabel" destination="HSZ-aU-FuY" id="46R-0I-aXb"/>
@@ -76,7 +82,7 @@
                     </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhg-ig-iN9">
-                    <rect key="frame" x="8" y="208" width="398" height="466"/>
+                    <rect key="frame" x="0.0" y="208" width="414" height="466"/>
                     <subviews>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U1p-Gk-Bi5" userLabel="optTimestamps">
                             <rect key="frame" x="42" y="8" width="51" height="31"/>
@@ -202,17 +208,29 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lsM-Sz-ujd">
-                            <rect key="frame" x="42" y="387" width="51" height="31"/>
+                            <rect key="frame" x="42" y="360" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </switch>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Low level chat." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2E-Pi-YMW">
-                            <rect key="frame" x="126" y="392" width="113" height="21"/>
+                            <rect key="frame" x="127" y="365" width="113" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p84-Bj-cSr" userLabel="btnViewChatHistory">
+                            <rect key="frame" x="41" y="409" width="195" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="View Chat History">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btnViewChatHistory_Touch:" destination="-1" eventType="touchUpInside" id="O13-BO-Mmy"/>
+                            </connections>
+                        </button>
                     </subviews>
+                    <color key="backgroundColor" red="0.91985247461928932" green="0.91985247461928932" blue="0.91985247461928932" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="U1p-Gk-Bi5" firstAttribute="top" secondItem="99D-GK-gkB" secondAttribute="top" id="0bG-BN-eWF"/>
                         <constraint firstItem="99D-GK-gkB" firstAttribute="leading" secondItem="HSZ-aU-FuY" secondAttribute="leading" id="2Yy-se-KG9"/>
@@ -239,7 +257,7 @@
                         <constraint firstItem="uoQ-lQ-Xd4" firstAttribute="leading" secondItem="o8k-vE-lae" secondAttribute="leading" id="XED-RG-UvU"/>
                         <constraint firstItem="99D-GK-gkB" firstAttribute="trailing" secondItem="HSZ-aU-FuY" secondAttribute="trailing" id="Xrl-Z4-PGV"/>
                         <constraint firstItem="W4J-tZ-Yqi" firstAttribute="leading" secondItem="0ld-3D-Tla" secondAttribute="leading" id="aCS-ss-YHP"/>
-                        <constraint firstAttribute="trailing" secondItem="mHJ-tN-pBN" secondAttribute="trailing" constant="112" id="bLc-ZD-kvi"/>
+                        <constraint firstAttribute="trailing" secondItem="mHJ-tN-pBN" secondAttribute="trailing" constant="133" id="bLc-ZD-kvi"/>
                         <constraint firstItem="1TR-3N-f5W" firstAttribute="top" secondItem="biz-jQ-ijV" secondAttribute="top" id="cfm-C4-ED9"/>
                         <constraint firstItem="0ld-3D-Tla" firstAttribute="leading" secondItem="biz-jQ-ijV" secondAttribute="leading" id="e0H-2g-e0n"/>
                         <constraint firstItem="1TR-3N-f5W" firstAttribute="top" secondItem="T8O-FD-h0B" secondAttribute="bottom" constant="8" symbolic="YES" id="g5a-Nd-HoN"/>
@@ -279,15 +297,15 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="5TZ-Vd-c03" firstAttribute="trailing" secondItem="7ps-yh-gJi" secondAttribute="trailing" id="5VK-di-Sa3"/>
-                <constraint firstItem="zhg-ig-iN9" firstAttribute="leading" secondItem="h6v-4t-B8b" secondAttribute="leading" id="9Ou-ee-CsK"/>
+                <constraint firstItem="zhg-ig-iN9" firstAttribute="leading" secondItem="h6v-4t-B8b" secondAttribute="leading" constant="-8" id="9Ou-ee-CsK"/>
                 <constraint firstItem="zhg-ig-iN9" firstAttribute="top" secondItem="h6v-4t-B8b" secondAttribute="bottom" constant="-2" id="A2w-Un-GdP"/>
                 <constraint firstItem="sZj-mM-z6a" firstAttribute="top" secondItem="zhg-ig-iN9" secondAttribute="bottom" constant="14" id="BQN-mp-ucd"/>
-                <constraint firstItem="sZj-mM-z6a" firstAttribute="trailing" secondItem="zhg-ig-iN9" secondAttribute="trailing" id="Bn5-kq-LrJ"/>
+                <constraint firstItem="sZj-mM-z6a" firstAttribute="trailing" secondItem="zhg-ig-iN9" secondAttribute="trailing" constant="-8" id="Bn5-kq-LrJ"/>
                 <constraint firstItem="sZj-mM-z6a" firstAttribute="width" secondItem="JSf-ul-y3D" secondAttribute="width" id="E0A-2t-WWK"/>
                 <constraint firstAttribute="trailing" secondItem="7ps-yh-gJi" secondAttribute="trailing" constant="8" id="GG9-A2-cwg"/>
                 <constraint firstAttribute="bottom" secondItem="zhg-ig-iN9" secondAttribute="bottom" constant="62" id="Lo8-gh-BD5"/>
-                <constraint firstItem="zhg-ig-iN9" firstAttribute="trailing" secondItem="h6v-4t-B8b" secondAttribute="trailing" id="PSE-dj-Aw4"/>
-                <constraint firstItem="JSf-ul-y3D" firstAttribute="leading" secondItem="zhg-ig-iN9" secondAttribute="leading" id="QS0-xj-hIQ"/>
+                <constraint firstItem="zhg-ig-iN9" firstAttribute="trailing" secondItem="h6v-4t-B8b" secondAttribute="trailing" constant="8" id="PSE-dj-Aw4"/>
+                <constraint firstItem="JSf-ul-y3D" firstAttribute="leading" secondItem="zhg-ig-iN9" secondAttribute="leading" constant="8" id="QS0-xj-hIQ"/>
                 <constraint firstItem="7ps-yh-gJi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Rqq-9F-5Po"/>
                 <constraint firstItem="sZj-mM-z6a" firstAttribute="top" secondItem="JSf-ul-y3D" secondAttribute="top" id="VNj-oW-4o1"/>
                 <constraint firstItem="h6v-4t-B8b" firstAttribute="leading" secondItem="5TZ-Vd-c03" secondAttribute="leading" id="cZg-Lg-91d"/>

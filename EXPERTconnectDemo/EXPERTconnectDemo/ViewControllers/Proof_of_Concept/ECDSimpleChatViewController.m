@@ -97,6 +97,12 @@ CGPoint     _originalCenter;
     [super viewWillAppear:animated];
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    [self.chatClient disconnect]; // Close the chat.
+    
+}
+
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
@@ -290,9 +296,18 @@ CGPoint     _originalCenter;
 
 #pragma mark - ActionSheet delegates
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     if( buttonIndex == 0 ) {
+        
+        UIImagePickerController *pickerView = [[UIImagePickerController alloc] init];
+        pickerView.allowsEditing = YES;
+        pickerView.delegate = self;
+        [pickerView setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        [self presentViewController:pickerView animated:YES completion:nil];
+        
+        
+    } else if( buttonIndex == 1 ) {
         
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             UIImagePickerController *pickerView =[[UIImagePickerController alloc]init];
@@ -301,15 +316,6 @@ CGPoint     _originalCenter;
             pickerView.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:pickerView animated:YES completion:nil];
         }
-        
-    }else if( buttonIndex == 1 ) {
-        
-        UIImagePickerController *pickerView = [[UIImagePickerController alloc] init];
-        pickerView.allowsEditing = YES;
-        pickerView.delegate = self;
-        [pickerView setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        [self presentViewController:pickerView animated:YES completion:nil];
-        
     }
 }
 

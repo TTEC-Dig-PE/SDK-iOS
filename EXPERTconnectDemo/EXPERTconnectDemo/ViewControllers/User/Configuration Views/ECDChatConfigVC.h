@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "ECDChatHistoryVC.h"
 
 @interface ECDChatConfigVC : UIViewController {
     NSMutableArray *chatSkillsArray;
@@ -22,8 +23,14 @@
 @property (strong, nonatomic) ECSChatViewController *chatController;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerChatSkill;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnEndChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnStartChat;
+@property (weak, nonatomic) IBOutlet UIButton *btnViewChatHistory;
+
+- (IBAction)btnStartChat_Touch:(id)sender;
+- (IBAction)btnEndChat_Touch:(id)sender;
+- (IBAction)btnViewChatHistory_Touch:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UISwitch *optTimestamp;
 @property (weak, nonatomic) IBOutlet UISwitch *optChatBubble;
@@ -33,6 +40,10 @@
 @property (weak, nonatomic) IBOutlet UISwitch *optImageUploadButton;
 @property (weak, nonatomic) IBOutlet UISwitch *optLowLevelChat;
 
+- (IBAction)optTimestamp_Change:(id)sender;
+- (IBAction)optChatBubble_Change:(id)sender;
+- (IBAction)optAvatarImages_Change:(id)sender;
+- (IBAction)optNavButtons_Change:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblAgentAvailability;
 @property (weak, nonatomic) IBOutlet UILabel *chatSkillLabel;
@@ -47,12 +58,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtHMargin;
 @property (weak, nonatomic) IBOutlet UITextField *txtVMargin;
 @property (weak, nonatomic) IBOutlet UITextField *txtCornerRadius;
-
-- (IBAction)btnStartChat_Touch:(id)sender;
-- (IBAction)btnEndChat_Touch:(id)sender;
-- (IBAction)optTimestamp_Change:(id)sender;
-- (IBAction)optChatBubble_Change:(id)sender;
-- (IBAction)optAvatarImages_Change:(id)sender;
-- (IBAction)optNavButtons_Change:(id)sender;
 
 @end
