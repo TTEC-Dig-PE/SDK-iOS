@@ -167,7 +167,6 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
                                                                               withSurvey:NO
                                                                       withChannelOptions:@{@"userType":@"student"}];
         
-       
         // Add our custom left bar button
         
         if(self.optNavButtons.on)
@@ -191,8 +190,18 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [_btnEndChat setTitle:@"Exit Queue" forState:UIControlStateNormal];
     [_btnEndChat setEnabled:YES];
     
-    // Push it onto our navigation stack (so back buttons will work)
-    [self.navigationController pushViewController:self.chatController animated:YES];
+    if( self.optTabBar.on ) {
+        
+        ECDChatWithTabBarVC *chatWindow = [[ECDChatWithTabBarVC alloc] init];
+        chatWindow.chatController = self.chatController;
+        
+        [self.navigationController pushViewController:chatWindow animated:YES];
+        
+    } else {
+        
+        // Push it onto our navigation stack (so back buttons will work)
+        [self.navigationController pushViewController:self.chatController animated:YES];
+    }
 }
 
 // User pressed our custom back button

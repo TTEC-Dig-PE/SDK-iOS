@@ -31,6 +31,7 @@
                 <outlet property="optLowLevelChat" destination="lsM-Sz-ujd" id="1mL-GP-h4Q"/>
                 <outlet property="optNavButtons" destination="X3o-Na-gho" id="XBm-HH-Kk8"/>
                 <outlet property="optSendButtonImage" destination="uoQ-lQ-Xd4" id="SeM-Cl-edE"/>
+                <outlet property="optTabBar" destination="NRy-je-Ilj" id="mX4-wc-GqC"/>
                 <outlet property="optTimestamp" destination="U1p-Gk-Bi5" id="cyj-2w-9s9"/>
                 <outlet property="pickerChatSkill" destination="5TZ-Vd-c03" id="PBC-4w-CVm"/>
                 <outlet property="showImageUploadButtonLabel" destination="W4J-tZ-Yqi" id="6aW-ZF-PLm"/>
@@ -219,7 +220,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p84-Bj-cSr" userLabel="btnViewChatHistory">
-                            <rect key="frame" x="41" y="409" width="195" height="40"/>
+                            <rect key="frame" x="281" y="16" width="125" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.18606009370000001" green="0.47406566090000002" blue="0.73756544499999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="View Chat History">
@@ -229,6 +230,17 @@
                                 <action selector="btnViewChatHistory_Touch:" destination="-1" eventType="touchUpInside" id="O13-BO-Mmy"/>
                             </connections>
                         </button>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="NRy-je-Ilj" userLabel="optTabBar">
+                            <rect key="frame" x="41" y="399" width="49" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Include tab bar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4KF-Hp-uAw">
+                            <rect key="frame" x="127" y="404" width="115" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.91985247461928932" green="0.91985247461928932" blue="0.91985247461928932" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>

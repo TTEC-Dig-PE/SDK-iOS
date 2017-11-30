@@ -723,7 +723,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
     // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
     
-    if( error.code == ECS_ERROR_STOMP_OPEN && [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401 ) {
+    if( (error.code == ECS_ERROR_STOMP_OPEN && [error.userInfo[@"HTTPResponseStatusCode"] intValue] == 401) ||
+        ([error.userInfo[@"description"] isEqualToString:@"Authentication failed."]) ) {
         
         // Let's immediately try to refresh the auth token.
         ECSLogDebug(self.logger, @"Error opening stomp connection (401). Fetching a new auth token.");

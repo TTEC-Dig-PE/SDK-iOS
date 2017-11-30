@@ -72,6 +72,8 @@
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
 		C491C2E41FCC75EC00D88EE3 /* ECDChatHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */; };
 		C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */; };
+		C491C2EA1FCF170D00D88EE3 /* ECDChatWithTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */; };
+		C491C2EB1FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */; };
 		C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */; };
 		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
 		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
@@ -265,6 +267,9 @@
 		C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatHistoryVC.h; path = "Configuration Views/ECDChatHistoryVC.h"; sourceTree = "<group>"; };
 		C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatHistoryVC.m; path = "Configuration Views/ECDChatHistoryVC.m"; sourceTree = "<group>"; };
 		C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatHistoryVC.xib; path = "Configuration Views/ECDChatHistoryVC.xib"; sourceTree = "<group>"; };
+		C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatWithTabBarVC.h; path = Proof_of_Concept/ECDChatWithTabBarVC.h; sourceTree = "<group>"; };
+		C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatWithTabBarVC.m; path = Proof_of_Concept/ECDChatWithTabBarVC.m; sourceTree = "<group>"; };
+		C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatWithTabBarVC.xib; path = Proof_of_Concept/ECDChatWithTabBarVC.xib; sourceTree = "<group>"; };
 		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
@@ -679,6 +684,9 @@
 				C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */,
 				C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */,
 				C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */,
+				C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */,
+				C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */,
+				C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */,
 			);
 			name = Proof_of_Concept;
 			sourceTree = "<group>";
@@ -842,6 +850,7 @@
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
 				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
+				C491C2EB1FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
@@ -898,6 +907,7 @@
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
+				C491C2EA1FCF170D00D88EE3 /* ECDChatWithTabBarVC.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
 				22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */,
 				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,

@@ -146,7 +146,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 @implementation ECSChatViewController
 
-@synthesize chatClient, messages, participants;
+@synthesize chatClient, messages, participants, bottomFrameOffset;
 
 - (void)viewDidLoad {
     
@@ -323,24 +323,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 //    }
 //}
 
-- (void)configureNavigationBar {
-    
-    self.navigationItem.title = self.actionType.displayName;
-    
-    if ([[self.navigationController viewControllers] count] > 1 && !self.navigationItem.leftBarButtonItem) {
-        
-        // Configure the "back" button on the nav bar
-        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
-        
-        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
-                                                                                 style:UIBarButtonItemStylePlain
-                                                                                target:self
-                                                                                action:@selector(backButtonPressed:)];
-    }
-}
-
 - (void)registerTableViewCells {
     
     [self.tableView registerClass:[ECSChatMessageTableViewCell class] forCellReuseIdentifier:MessageCellID];
@@ -409,6 +391,24 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0f
                                                            constant:0.0f]];
+}
+
+- (void)configureNavigationBar {
+    
+    self.navigationItem.title = self.actionType.displayName;
+    
+    if ([[self.navigationController viewControllers] count] > 1 && !self.navigationItem.leftBarButtonItem) {
+        
+        // Configure the "back" button on the nav bar
+        ECSImageCache *imageCache = [[ECSInjector defaultInjector] objectForClass:[ECSImageCache class]];
+        
+        UIImage *backImage = [[imageCache imageForPath:@"ecs_ic_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backImage
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:self
+                                                                                action:@selector(backButtonPressed:)];
+    }
 }
 
 #pragma mark - View Navigation Functions
@@ -1883,9 +1883,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     CGFloat bottomOffset = 0;
     if (self.keyboardFrame.size.height) {
         CGRect viewFrameInWindow = [self.view.window convertRect:self.view.frame fromView:self.view.superview];
-        bottomOffset = viewFrameInWindow.origin.y + viewFrameInWindow.size.height - self.keyboardFrame.origin.y;
+        bottomOffset = viewFrameInWindow.origin.y + viewFrameInWindow.size.height - self.keyboardFrame.origin.y + self.bottomFrameOffset;
     }
-    
+
     insets.bottom = bottomOffset;
     
     //    self.tableView.contentInset = insets;

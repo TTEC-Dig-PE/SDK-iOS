@@ -10,6 +10,7 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "ECDChatHistoryVC.h"
+#import "ECDChatWithTabBarVC.h"
 
 @interface ECDChatConfigVC : UIViewController {
     NSMutableArray *chatSkillsArray;
@@ -39,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *optSendButtonImage;
 @property (weak, nonatomic) IBOutlet UISwitch *optImageUploadButton;
 @property (weak, nonatomic) IBOutlet UISwitch *optLowLevelChat;
+@property (weak, nonatomic) IBOutlet UISwitch *optTabBar;
 
 - (IBAction)optTimestamp_Change:(id)sender;
 - (IBAction)optChatBubble_Change:(id)sender;
