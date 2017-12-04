@@ -270,6 +270,12 @@
 		C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatWithTabBarVC.h; path = Proof_of_Concept/ECDChatWithTabBarVC.h; sourceTree = "<group>"; };
 		C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatWithTabBarVC.m; path = Proof_of_Concept/ECDChatWithTabBarVC.m; sourceTree = "<group>"; };
 		C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatWithTabBarVC.xib; path = Proof_of_Concept/ECDChatWithTabBarVC.xib; sourceTree = "<group>"; };
+		C491C2F71FD1C80200D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2F81FD1C80300D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2F91FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2FA1FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2FB1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2FC1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
@@ -808,6 +814,9 @@
 				"es-ES",
 				"pt-BR",
 				"pt-PT",
+				nl,
+				sv,
+				da,
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -958,6 +967,9 @@
 				C47A15271E944992005E19DB /* es-ES */,
 				C42B04411F13C7350072DE92 /* pt-BR */,
 				C42B04431F13C73A0072DE92 /* pt-PT */,
+				C491C2F81FD1C80300D88EE3 /* nl */,
+				C491C2FA1FD1C80700D88EE3 /* sv */,
+				C491C2FC1FD1C81200D88EE3 /* da */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -972,6 +984,9 @@
 				C49206111D4FB66200B38C97 /* zh-Hans */,
 				C42B04401F13C7350072DE92 /* pt-BR */,
 				C42B04421F13C73A0072DE92 /* pt-PT */,
+				C491C2F71FD1C80200D88EE3 /* nl */,
+				C491C2F91FD1C80700D88EE3 /* sv */,
+				C491C2FB1FD1C81200D88EE3 /* da */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

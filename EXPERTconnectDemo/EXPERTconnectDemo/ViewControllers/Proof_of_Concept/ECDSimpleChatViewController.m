@@ -315,6 +315,8 @@ CGPoint     _originalCenter;
     [action showInView:self.view];
 }
 
+
+
 #pragma mark - ActionSheet delegates
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -395,6 +397,15 @@ CGPoint     _originalCenter;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if( [textField.text containsString:@"reconnect"] ) {
+        [self appendToChatLog:@"Executing manual reconnect command..."];
+        [self.chatClient reconnect];
+    } else if ( [textField.text containsString:@"disconnect"]) {
+        [self appendToChatLog:@"Executing manual disconnect command..."];
+        [self.chatClient disconnect];
+    }    
+    
     return [self hideKeyboard];
 }
 
