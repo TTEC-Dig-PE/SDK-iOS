@@ -30,9 +30,12 @@
 #import "ECDReportBugViewController.h"
 
 #import "ECDChatConfigVC.h"
+#import "ECDCallbackConfigVC.h"
+
 #import "ECDBreadcrumbConfigVC.h"
 #import "ECDJourneyConfigVC.h"
 #import "ECDDecisionConfigVC.h"
+#import "ECDFormWithTabBarVC.h"
 
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <EXPERTconnect/ECSTheme.h>
@@ -102,7 +105,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 	 SettingsSectionAdHocAnswerEngine,
 	 SettingsSectionAdHocForms,
 	 SettingsSectionAdHocUserProfile,
-	 SettingsSectionAdHocVoiceCallback,
+//     SettingsSectionAdHocVoiceCallback,
 //	 SettingsSectionAdHocEmailMessage,
 //	 SettingsSectionAdHocSMSMessage,
 	 SettingsSectionAdHocWebPage,
@@ -122,6 +125,7 @@ typedef NS_ENUM(NSInteger, SettingsSections)
 typedef NS_ENUM(NSInteger, AdHocChatSectionRows)
 {
 	 AdHocChatSectionRowStart,
+     AdHocChatSectionRowCallback,
      AdHocChatSectionRowBreadcrumb,
      AdHocChatSectionRowJourney,
      AdHocChatSectionRowDecision,
@@ -412,9 +416,9 @@ ECSFormViewController *_formsController;
 			   rowCount = AdHocUserProfileRowCount;
 			   break;
 			   
-		  case SettingsSectionAdHocVoiceCallback:
-			   rowCount = AdHocVoiceCallbackRowCount;
-			   break;
+//          case SettingsSectionAdHocVoiceCallback:
+//               rowCount = AdHocVoiceCallbackRowCount;
+//               break;
 			   
 //		  case SettingsSectionAdHocEmailMessage:
 //			   rowCount = AdHocEmailMessageRowCount;
@@ -495,6 +499,10 @@ ECSFormViewController *_formsController;
 //                       cell.textLabel.text = @"Test Chat";
                         cell.textLabel.text = ECDLocalizedString(ECDLocalizedTestChatLabel, @"Test Chat");
                         break;
+                       
+                   case AdHocChatSectionRowCallback:
+                       cell.textLabel.text = @"Test Voice Callback";
+                       break;
                        
                    case AdHocChatSectionRowBreadcrumb:
                        
@@ -578,21 +586,21 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocVoiceCallback:
-			   switch (indexPath.row) {
-				 case AdHocUserProfileSectionRowStart:
-					  cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVoiceCallbackLabel, @"AdHoc Voice Callback");
-					  if (callbackAgentsLoggedOn) {
-						   cell.textLabel.text = [NSString stringWithFormat:@"%@",
-												  cell.textLabel.text];
-					  }
-					  cell.accessoryView = self.selectAdHocVoiceCallbackPicker;
-					  break;
-					  
-				 default:
-					  break;
-			   }
-			   break;
+//          case SettingsSectionAdHocVoiceCallback:
+//               switch (indexPath.row) {
+//                 case AdHocUserProfileSectionRowStart:
+//                      cell.textLabel.text = ECDLocalizedString(ECDLocalizedStartVoiceCallbackLabel, @"AdHoc Voice Callback");
+//                      if (callbackAgentsLoggedOn) {
+//                           cell.textLabel.text = [NSString stringWithFormat:@"%@",
+//                                                  cell.textLabel.text];
+//                      }
+//                      cell.accessoryView = self.selectAdHocVoiceCallbackPicker;
+//                      break;
+//
+//                 default:
+//                      break;
+//               }
+//               break;
 			   
 //			   
 //		  case SettingsSectionAdHocEmailMessage:
@@ -761,6 +769,12 @@ ECSFormViewController *_formsController;
 		  [self handleAdHocStartChat];
 	 }
     
+    if( indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowCallback) {
+        
+        [self handleAdHocVoiceCallback];
+        
+    }
+    
     if (indexPath.section == SettingsSectionAdHocChat && indexPath.row == AdHocChatSectionRowBreadcrumb)
     {
         [self handleBreadcrumbConfig];
@@ -811,10 +825,10 @@ ECSFormViewController *_formsController;
 		  }
 	 }
 	 
-	 if (indexPath.section == SettingsSectionAdHocVoiceCallback && indexPath.row == AdHocVoiceCallbackSectionRowStart)
-	 {
-		  [self handleAdHocVoiceCallback];
-	 }
+//     if (indexPath.section == SettingsSectionAdHocVoiceCallback && indexPath.row == AdHocVoiceCallbackSectionRowStart)
+//     {
+//          [self handleAdHocVoiceCallback];
+//     }
 	 
 //	 if (indexPath.section == SettingsSectionAdHocEmailMessage && indexPath.row == AdHocEmailMessageSectionRowStart)
 //	 {
@@ -944,25 +958,25 @@ ECSFormViewController *_formsController;
 			   break;
 			   
 			   
-		  case SettingsSectionAdHocVoiceCallback:
-		  {
-			   title = ECDLocalizedString(ECDLocalizedStartVoiceCallbackHeader, @"AdHoc Voice Callback");
-			   if (callbackEstimatedWait>-1 && callbackAgentsLoggedOn > -1) {
-					title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
-							 title,
-							 ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
-							 (callbackEstimatedWait/60),
-							 ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
-							 ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
-							 callbackAgentsLoggedOn];
-               } else if(callbackAgentsLoggedOn == -1){
-                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
-			   } else {
-					title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
-			   }
-
-		  }
-			   break;
+//          case SettingsSectionAdHocVoiceCallback:
+//          {
+//               title = ECDLocalizedString(ECDLocalizedStartVoiceCallbackHeader, @"AdHoc Voice Callback");
+//               if (callbackEstimatedWait>-1 && callbackAgentsLoggedOn > -1) {
+//                    title = [NSString stringWithFormat:@"%@ - %@: %d %@. %@: %d",
+//                             title,
+//                             ECDLocalizedString(ECDLocalizedWaitString, @"Wait"),
+//                             (callbackEstimatedWait/60),
+//                             ECDLocalizedString(ECDLocalizedMinuteString, @"minutes"),
+//                             ECDLocalizedString(ECDLocalizedAgentString, @"Agents"),
+//                             callbackAgentsLoggedOn];
+//               } else if(callbackAgentsLoggedOn == -1){
+//                   title = [NSString stringWithFormat:@"%@ - %@", title, @"Loading data..."];
+//               } else {
+//                    title = [NSString stringWithFormat:@"%@ - %@", title, ECDLocalizedString(ECDLocalizedNoAgents, @"No Agents Available.")];
+//               }
+//
+//          }
+//               break;
 			   
 			   
 //		  case SettingsSectionAdHocEmailMessage:
@@ -1215,19 +1229,23 @@ ECSFormViewController *_formsController;
     [self.navigationController pushViewController:decisionConfig animated:YES];
 }
 
--(void)handleAdHocVoiceCallback
-{
-	 NSLog(@"Starting an ad-hoc Voice Callback Session");
-	 
-	 NSString *callSkill = [self.selectAdHocVoiceCallbackPicker currentSelection];
-	 
-	 [self localBreadCrumb:@"Voice callback started"
-			   description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
-	 
-	 UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
-																   withDisplayName:@"Voice Callback"];
-	 
-	 [self.navigationController pushViewController:chatController animated:YES];
+-(void)handleAdHocVoiceCallback {
+    
+    ECDCallbackConfigVC *callbackConfig = [[ECDCallbackConfigVC alloc] init];
+    
+    [self.navigationController pushViewController:callbackConfig animated:YES];
+    
+//     NSLog(@"Starting an ad-hoc Voice Callback Session");
+//
+//     NSString *callSkill = [self.selectAdHocVoiceCallbackPicker currentSelection];
+//
+//     [self localBreadCrumb:@"Voice callback started"
+//               description:[NSString stringWithFormat:@"Voice callback with skill=%@", callSkill]];
+//
+//     UIViewController *chatController = [[EXPERTconnect shared] startVoiceCallback:callSkill
+//                                                                   withDisplayName:@"Voice Callback"];
+//
+//     [self.navigationController pushViewController:chatController animated:YES];
 }
 
 -(void)handleAdHocStartAnswerEngine

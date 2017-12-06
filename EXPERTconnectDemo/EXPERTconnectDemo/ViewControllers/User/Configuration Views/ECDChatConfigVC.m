@@ -283,9 +283,17 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (IBAction)btnViewChatHistory_Touch:(id)sender {
     
-    ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [self.navigationController pushViewController:historyVC animated:YES]; 
+    // Test 1: Get Chat history (record of chat starts for this user)
+    [sessionManager getChatHistoryDetailsForJourneyId:sessionManager.journeyID withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
+        NSLog(@"Details: %@", response);
+        
+    }];
+    
+    //ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
+    
+    //[self.navigationController pushViewController:historyVC animated:YES];
     
 }
 

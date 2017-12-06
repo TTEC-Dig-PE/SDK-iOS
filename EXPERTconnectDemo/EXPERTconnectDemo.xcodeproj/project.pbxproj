@@ -82,6 +82,10 @@
 		C492B6141D1491DD008BE187 /* ECDJourneyConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */; };
 		C497F9E01FD84CD800458363 /* ECDFormWithTabBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */; };
 		C497F9E11FD84CD800458363 /* ECDFormWithTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */; };
+		C497F9E61FD89E4500458363 /* ECDCallbackConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */; };
+		C497F9E71FD89E4500458363 /* ECDCallbackConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */; };
+		C497F9EE1FD89F1000458363 /* ECDSimpleCallbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */; };
+		C497F9EF1FD89F1000458363 /* ECDSimpleCallbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -294,6 +298,12 @@
 		C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDFormWithTabBarVC.xib; path = Proof_of_Concept/ECDFormWithTabBarVC.xib; sourceTree = "<group>"; };
 		C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDFormWithTabBarVC.h; path = Proof_of_Concept/ECDFormWithTabBarVC.h; sourceTree = "<group>"; };
 		C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDFormWithTabBarVC.m; path = Proof_of_Concept/ECDFormWithTabBarVC.m; sourceTree = "<group>"; };
+		C497F9E31FD89E4500458363 /* ECDCallbackConfigVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDCallbackConfigVC.h; path = "Configuration Views/ECDCallbackConfigVC.h"; sourceTree = "<group>"; };
+		C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDCallbackConfigVC.m; path = "Configuration Views/ECDCallbackConfigVC.m"; sourceTree = "<group>"; };
+		C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDCallbackConfigVC.xib; path = "Configuration Views/ECDCallbackConfigVC.xib"; sourceTree = "<group>"; };
+		C497F9EB1FD89F1000458363 /* ECDSimpleCallbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDSimpleCallbackVC.h; path = Proof_of_Concept/ECDSimpleCallbackVC.h; sourceTree = "<group>"; };
+		C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleCallbackVC.m; path = Proof_of_Concept/ECDSimpleCallbackVC.m; sourceTree = "<group>"; };
+		C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDSimpleCallbackVC.xib; path = Proof_of_Concept/ECDSimpleCallbackVC.xib; sourceTree = "<group>"; };
 		C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EXPERTconnectDemo.entitlements; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
@@ -503,7 +513,7 @@
 		033ACB3F1A602CC00024F48F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C45AC03E1C206E2800625004 /* Proof_of_Concept */,
+				C45AC03E1C206E2800625004 /* LowLevel */,
 				033A39851AD579FC006B34B2 /* User */,
 				033ACB401A602CC00024F48F /* Root */,
 			);
@@ -673,6 +683,9 @@
 				C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */,
 				C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */,
 				C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */,
+				C497F9E31FD89E4500458363 /* ECDCallbackConfigVC.h */,
+				C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */,
+				C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -687,22 +700,33 @@
 			path = ThirdParty/HockeySDK.embeddedframework;
 			sourceTree = SOURCE_ROOT;
 		};
-		C45AC03E1C206E2800625004 /* Proof_of_Concept */ = {
+		C45AC03E1C206E2800625004 /* LowLevel */ = {
 			isa = PBXGroup;
 			children = (
-				C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */,
-				C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */,
-				C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */,
+				C497F9E21FD89DAA00458363 /* TabBarContainers */,
 				C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */,
 				C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */,
 				C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */,
 				C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */,
 				C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */,
+				C497F9EB1FD89F1000458363 /* ECDSimpleCallbackVC.h */,
+				C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */,
+				C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */,
+			);
+			name = LowLevel;
+			sourceTree = "<group>";
+		};
+		C497F9E21FD89DAA00458363 /* TabBarContainers */ = {
+			isa = PBXGroup;
+			children = (
+				C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */,
+				C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */,
+				C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */,
 				C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */,
 				C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */,
 				C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */,
 			);
-			name = Proof_of_Concept;
+			name = TabBarContainers;
 			sourceTree = "<group>";
 		};
 		C4D0E5221C74B7C60032925F /* Picker Views */ = {
@@ -848,6 +872,7 @@
 				C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */,
 				C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
+				C497F9E71FD89E4500458363 /* ECDCallbackConfigVC.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
 				C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */,
 				C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */,
@@ -866,6 +891,7 @@
 				C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
+				C497F9EF1FD89F1000458363 /* ECDSimpleCallbackVC.xib in Resources */,
 				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
 				C491C2EB1FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
@@ -919,6 +945,7 @@
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
 				D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
+				C497F9EE1FD89F1000458363 /* ECDSimpleCallbackVC.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
@@ -940,6 +967,7 @@
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
 				4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */,
+				C497F9E61FD89E4500458363 /* ECDCallbackConfigVC.m in Sources */,
 				C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

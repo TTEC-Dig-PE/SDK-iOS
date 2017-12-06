@@ -1244,6 +1244,30 @@
 }
 
 // TODO - Solve crash when there is zero chat history in the response (duplicated on TCE1)
+- (void)testGetChatHistoryByJourneyID
+{
+    [self setUp];   // Test setup
+    [self initSDKwithEnvironment:@"dce1" organization:@"mktwebextc"];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
+    
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    // Test 1: Get Chat history (record of chat starts for this user)
+    [sessionManager getChatHistoryDetailsForJourneyId:@"journey_b7ebada3-326d-4361-b224-1e5125d0bc2e_mktwebextc" withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
+        NSLog(@"Details: %@", response);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error)
+     {
+         if (error) XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+     }];
+}
+
+
+// TODO - Solve crash when there is zero chat history in the response (duplicated on TCE1)
 - (void)testGetChatHistory
 {
     [self setUp];   // Test setup
@@ -1252,8 +1276,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    // Test 1: Get Chat history (record of chat starts for this user)
+        
     [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
      {
          NSLog(@"Details: %@", response);
