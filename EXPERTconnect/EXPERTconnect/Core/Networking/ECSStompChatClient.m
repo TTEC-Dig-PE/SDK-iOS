@@ -447,18 +447,15 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                 }
                 
             } else if (!(error.code == NSURLErrorCancelled)) {
-                
-                if ([self.delegate respondsToSelector:@selector(chatClient:didFailWithError:)]) {
+    
+                if (!error) {
                     
-                    if (!error) {
-                        
-                        error = [NSError errorWithDomain:ECSErrorDomain
-                                                    code:ECS_ERROR_API_ERROR
-                                                userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
-                    }
-                    
-                    [self handleStompError:error];
+                    error = [NSError errorWithDomain:ECSErrorDomain
+                                                code:ECS_ERROR_API_ERROR
+                                            userInfo:@{NSLocalizedDescriptionKey: ECSLocalizedString(ECSLocalizeErrorText, nil)}];
                 }
+                
+                [self handleStompError:error];
             }
         }];
     }
@@ -1130,9 +1127,9 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                     [self.delegate chatClientAgentDidAnswer:self];
                 }
                 
-                if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
-                    [self.delegate voiceCallbackDidAnswer:self];
-                }
+//                if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
+//                    [self.delegate voiceCallbackDidAnswer:self];
+//                }
                 
                 if([self.delegate respondsToSelector:@selector(chatAgentDidAnswer)]) {
                     [self.delegate chatAgentDidAnswer]; 

@@ -10,6 +10,7 @@
 #import <EXPERTconnect/EXPERTconnect.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ECDFormWithTabBarVC.h"
 
 @interface ECDAdHocViewController : ECSRootViewController <CLLocationManagerDelegate>
 

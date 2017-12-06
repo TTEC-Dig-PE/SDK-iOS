@@ -160,7 +160,7 @@
  @discussion Called when an agent answers the voice call.
  @param stompClient the chat client that had an agent answer
  */
-- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient;
+//- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient;
 
 /**
  @discussion Called when an agent answers the chat call.

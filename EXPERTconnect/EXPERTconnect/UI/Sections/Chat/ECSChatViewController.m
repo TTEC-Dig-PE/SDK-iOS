@@ -883,7 +883,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
      */
 }
 
-- (void)sendMedia:(NSDictionary *)mediaInfo {
+- (void)chatViewSendMedia:(NSDictionary *)mediaInfo {
     
     ECSChatMediaMessage *message = [ECSChatMediaMessage new];
     
@@ -1299,15 +1299,17 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     [self hideWaitView];
 }
 
-- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient {
-    
-    if (_callbackViewController != nil) {
-        //        [self.navigationController popToViewController:self animated:YES];
-        //        _callbackViewController = nil;
-        
-        [_callbackViewController voiceCallbackDidAnswer:stompClient.delegate];
-    }
-}
+//- (void)voiceCallbackDidAnswer:(ECSStompChatClient *)stompClient {
+//
+//    if (_callbackViewController != nil) {
+//        //        [self.navigationController popToViewController:self animated:YES];
+//        //        _callbackViewController = nil;
+//
+//        if( [_callbackViewController respondsToSelector:@selector(voiceCallbackDidAnswer:)] ) {
+//            [_callbackViewController voiceCallbackDidAnswer:stompClient.delegate];
+//        }
+//    }
+//}
 
 //- (void)chatClient:(ECSStompChatClient *)stompClient didAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
 - (void) chatAddChannelWithMessage:(ECSChatAddChannelMessage *)message {
@@ -1874,24 +1876,6 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return size.height; // Add 1.0f for the cell separator height
-}
-
-- (void)updateEdgeInsets
-{
-    UIEdgeInsets insets = self.tableView.contentInset;
-    
-    CGFloat bottomOffset = 0;
-    if (self.keyboardFrame.size.height) {
-        CGRect viewFrameInWindow = [self.view.window convertRect:self.view.frame fromView:self.view.superview];
-        bottomOffset = viewFrameInWindow.origin.y + viewFrameInWindow.size.height - self.keyboardFrame.origin.y + self.bottomFrameOffset;
-    }
-
-    insets.bottom = bottomOffset;
-    
-    //    self.tableView.contentInset = insets;
-    //    self.tableView.scrollIndicatorInsets = insets;
-    
-    self.chatToolbarBottomConstraint.constant = bottomOffset;
 }
 
 - (BOOL)showAvatarAtIndexPath:(NSIndexPath*)indexPath
@@ -2860,6 +2844,24 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 }
 
 #pragma mark - Keyboard
+
+- (void)updateEdgeInsets {
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    
+    CGFloat bottomOffset = 0;
+    if (self.keyboardFrame.size.height) {
+        CGRect viewFrameInWindow = [self.view.window convertRect:self.view.frame fromView:self.view.superview];
+        bottomOffset = viewFrameInWindow.origin.y + viewFrameInWindow.size.height - self.keyboardFrame.origin.y + self.bottomFrameOffset;
+    }
+    
+    insets.bottom = bottomOffset;
+    
+    //    self.tableView.contentInset = insets;
+    //    self.tableView.scrollIndicatorInsets = insets;
+    
+    self.chatToolbarBottomConstraint.constant = bottomOffset;
+}
 
 - (void)keyboardWillChangeFrame:(NSNotification*)notification
 {

@@ -510,7 +510,7 @@
 
 - (void)mediaSelected:(NSDictionary *)mediaInfo {
     
-    if ([self.delegate respondsToSelector:@selector(sendMedia:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatViewSendMedia:)]) {
         
         self.mediaToSend = mediaInfo;
         
@@ -536,7 +536,7 @@
 
 - (void)userConfirmedSend:(ECSSendConfirmationViewController*)controller {
     
-    if ([self.delegate respondsToSelector:@selector(sendMedia:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatViewSendMedia:)]) {
         
         NSString *mediaType = self.mediaToSend[UIImagePickerControllerMediaType];
         
@@ -552,7 +552,7 @@
             self.mediaToSend = tempDict;
         }
         
-        [self.delegate sendMedia:self.mediaToSend];
+        [self.delegate chatViewSendMedia:self.mediaToSend];
     }
     self.mediaToSend = nil;
     

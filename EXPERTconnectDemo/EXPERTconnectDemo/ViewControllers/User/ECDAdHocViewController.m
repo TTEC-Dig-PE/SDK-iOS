@@ -1275,7 +1275,12 @@ ECSFormViewController *_formsController;
     _formsController = (ECSFormViewController *)[[EXPERTconnect shared] startSurvey:formName];
     _formsController.delegate = self;
     //_formsController.showFormSubmittedView = NO;
-    [self.navigationController pushViewController:_formsController animated:YES];
+    
+//    [self.navigationController pushViewController:_formsController animated:YES];
+    
+    ECDFormWithTabBarVC *formTabView = [[ECDFormWithTabBarVC alloc] init];
+    formTabView.formController = _formsController;
+    [self.navigationController pushViewController:formTabView animated:YES];
 }
 
 -(void)handleAdHocEditUserProfile

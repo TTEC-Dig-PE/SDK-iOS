@@ -349,8 +349,8 @@ CGPoint     _originalCenter;
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self.chatClient sendMedia:info
-                   notifyAgent:YES
-                    completion:^(NSString *response, NSError *error)
+                       notifyAgent:YES
+                        completion:^(NSString *response, NSError *error)
      {
          if( error ) {
              

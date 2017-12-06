@@ -12,7 +12,7 @@
 
 - (void)sendText:(NSString*)text;
 - (void)sendChatState:(NSString *)chatState;
-- (void)sendMedia:(NSDictionary*)mediaInfo;
+- (void)chatViewSendMedia:(NSDictionary*)mediaInfo;
 
 @end
 
