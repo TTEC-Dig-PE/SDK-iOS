@@ -880,6 +880,9 @@
 		C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
+		C491C2F41FD1C2BC00D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2F51FD1C63000D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2F61FD1C77C00D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C49206131D4FB68800B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FD1D10B98D008BE187 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSJourneyAttachResponse.h; path = Responses/ECSJourneyAttachResponse.h; sourceTree = "<group>"; };
@@ -1974,7 +1977,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECS;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978EE11A602AEF007793D6 = {
@@ -2004,6 +2007,9 @@
 				it,
 				"pt-BR",
 				"pt-PT",
+				nl,
+				sv,
+				da,
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2343,6 +2349,9 @@
 				C47A15251E94437D005E19DB /* it */,
 				C42B043E1F13C6390072DE92 /* pt-BR */,
 				C42B043F1F13C63E0072DE92 /* pt-PT */,
+				C491C2F41FD1C2BC00D88EE3 /* nl */,
+				C491C2F51FD1C63000D88EE3 /* sv */,
+				C491C2F61FD1C77C00D88EE3 /* da */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect/Localizations;
@@ -2360,14 +2369,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2410,14 +2425,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

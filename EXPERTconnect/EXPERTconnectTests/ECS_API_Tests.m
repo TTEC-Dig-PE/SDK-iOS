@@ -1244,6 +1244,30 @@
 }
 
 // TODO - Solve crash when there is zero chat history in the response (duplicated on TCE1)
+- (void)testGetChatHistoryByJourneyID
+{
+    [self setUp];   // Test setup
+    [self initSDKwithEnvironment:@"dce1" organization:@"mktwebextc"];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
+    
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    // Test 1: Get Chat history (record of chat starts for this user)
+    [sessionManager getChatHistoryDetailsForJourneyId:@"journey_b7ebada3-326d-4361-b224-1e5125d0bc2e_mktwebextc" withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
+        NSLog(@"Details: %@", response);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error)
+     {
+         if (error) XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+     }];
+}
+
+
+// TODO - Solve crash when there is zero chat history in the response (duplicated on TCE1)
 - (void)testGetChatHistory
 {
     [self setUp];   // Test setup
@@ -1252,58 +1276,71 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"testGetChatHistory"];
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
-    
-    // Test 1: Get Chat history (record of chat starts for this user)
+        
     [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
      {
          NSLog(@"Details: %@", response);
          
          if(error) XCTFail(@"Error reported: %@", error.description);
          
-         XCTAssert(response.journeys,@"Missing journeys field.");
+         XCTAssert(response, @"Missing any history data on this journey.");
          
-         // Test 2: Analyze the first item closely.
-         ECSHistoryListItem *listItem = [response.journeys objectAtIndex:0];
-         NSString *journeyId = [listItem valueForKey:@"journeyId"];
-         
-         XCTAssert(listItem.active,@"Missing active field.");
-         XCTAssert([listItem.active intValue]==0||[listItem.active intValue]==1, @"Active must be boolean (0 or 1)");
-         XCTAssert(listItem.dateString,@"Missing datestring field.");
-         XCTAssert(listItem.title,@"Missing titles field.");
-         XCTAssert(listItem.journeyId,@"Missing journeyID field.");
-         
-         //NSDictionary *firstItem = listItem.details
-         
-         [sessionManager getChatHistoryDetailsForJourneyId:journeyId
-                                            withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
-          {
-              NSLog(@"Details: %@", response);
-              if(error) XCTFail(@"Error reported: %@", error.description);
-              
-              XCTAssert(response.journeys,@"Missing journeys field.");
-              
-              NSDictionary *listItem = [response.journeys objectAtIndex:0];
-              XCTAssert([listItem valueForKey:@"active"],@"Missing active field.");
-              XCTAssert([listItem valueForKey:@"date"],@"Missing date field.");
-              XCTAssert([listItem valueForKey:@"details"],@"Missing details field.");
-              XCTAssert([listItem valueForKey:@"title"],@"Missing titles field.");
-              XCTAssert([listItem valueForKey:@"journeyId"],@"Missing journeyID field.");
-              
-              for (NSDictionary *dictionary in [listItem valueForKey:@"details"])
-              {
-                  XCTAssert([dictionary valueForKey:@"actionId"],@"Missing actionId field.");
-                  XCTAssert([dictionary valueForKey:@"context"],@"Missing context field.");
-                  XCTAssert([dictionary valueForKey:@"date"],@"Missing date field.");
-                  XCTAssert([dictionary valueForKey:@"id"],@"Missing id field.");
-                  XCTAssert([dictionary valueForKey:@"journeyId"],@"Missing journeyId field.");
-                  XCTAssert([dictionary valueForKey:@"request"]|| [dictionary valueForKey:@"response"],@"Missing request/reponse field.");
-                  XCTAssert([dictionary valueForKey:@"title"],@"Missing title field.");
-                  XCTAssert([dictionary valueForKey:@"type"],@"Missing type field.");
-              }
-              
-              [expectation fulfill];
-              
-          }];
+         if( response && !error ) {
+             
+             XCTAssert(response.journeys, @"Missing journeys field.");
+             
+             // Test 2: Analyze the first item closely.
+             ECSHistoryList *list = [[ECSHistoryList alloc] init];
+             list.journeys = response.journeys;
+             
+             XCTAssert(list.journeys.count>0, @"No journey data found.");
+             
+             if( list.journeys.count > 0 ) {
+                 
+                 ECSHistoryListItem *listItem = [list.journeys firstObject];
+                 NSString *journeyId = [listItem valueForKey:@"journeyId"];
+                 
+                 XCTAssert(listItem.active,         @"Missing active field.");
+                 XCTAssert(listItem.dateString,     @"Missing datestring field.");
+                 XCTAssert(listItem.title,          @"Missing titles field.");
+                 XCTAssert(listItem.journeyId,      @"Missing journeyID field.");
+                 XCTAssert([listItem.active intValue]==0||[listItem.active intValue]==1, @"Active must be boolean (0 or 1)");
+                 
+                 //NSDictionary *firstItem = listItem.details
+                 
+                 [sessionManager getChatHistoryDetailsForJourneyId:journeyId
+                                                    withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+                  {
+                      NSLog(@"Details: %@", response);
+                      if(error) XCTFail(@"Error reported: %@", error.description);
+                      
+                      XCTAssert(response.journeys,@"Missing journeys field.");
+                      
+                      NSDictionary *listItem = [response.journeys objectAtIndex:0];
+                      XCTAssert([listItem valueForKey:@"active"],       @"Missing active field.");
+                      XCTAssert([listItem valueForKey:@"date"],         @"Missing date field.");
+                      XCTAssert([listItem valueForKey:@"details"],      @"Missing details field.");
+                      XCTAssert([listItem valueForKey:@"title"],        @"Missing titles field.");
+                      XCTAssert([listItem valueForKey:@"journeyId"],    @"Missing journeyID field.");
+                      
+                      for (NSDictionary *dictionary in [listItem valueForKey:@"details"])
+                      {
+                          XCTAssert([dictionary valueForKey:@"actionId"],   @"Missing actionId field.");
+                          XCTAssert([dictionary valueForKey:@"context"],    @"Missing context field.");
+                          XCTAssert([dictionary valueForKey:@"date"],       @"Missing date field.");
+                          XCTAssert([dictionary valueForKey:@"id"],         @"Missing id field.");
+                          XCTAssert([dictionary valueForKey:@"journeyId"],  @"Missing journeyId field.");
+                          XCTAssert([dictionary valueForKey:@"title"],      @"Missing title field.");
+                          XCTAssert([dictionary valueForKey:@"type"],       @"Missing type field.");
+                          XCTAssert([dictionary valueForKey:@"request"]|| [dictionary valueForKey:@"response"],@"Missing request/reponse field.");
+                      }
+                      
+                      [expectation fulfill];
+                      
+                  
+                  }];
+             }
+         }
      }];
     
     [self waitForExpectationsWithTimeout:30.0 handler:^(NSError *error)

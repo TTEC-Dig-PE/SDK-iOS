@@ -136,29 +136,31 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 @interface EXPERTconnect : NSObject
 
-@property (readonly, nonatomic) BOOL authenticationRequired;
-@property (strong, nonatomic) ECSTheme *theme;
-@property (copy, nonatomic) NSString *userName;
-@property (copy, nonatomic) NSString *userIntent;
-@property (copy, nonatomic) NSString *userDisplayName;
-@property (copy, nonatomic) NSString *userCallbackNumber;
-@property (copy, nonatomic) NSString *customerType;
-@property (copy, nonatomic) NSString *treatmentType;
-@property (copy, nonatomic) NSString *lastSurveyScore;
-@property (copy, nonatomic) NSString *surveyFormName;
-//@property (copy, nonatomic) NSString *lastTimeStamp;
-//@property (assign, nonatomic) BOOL lastChatMessageFromAgent;
-@property (readonly, nonatomic) ECSURLSessionManager *urlSession;
-@property (weak) id <ExpertConnectDelegate> externalDelegate;
-@property (copy, nonatomic) NSString *journeyID;
-@property (copy, nonatomic) NSString *pushNotificationID;
-@property (copy, nonatomic) NSString *journeyManagerContext;
-@property (copy, nonatomic) NSString *sessionID;
-@property (nonatomic, strong) ECSLog *logger;
+@property (strong, nonatomic) ECSTheme                  *theme;
+@property (copy, nonatomic) NSString                    *userName;
+@property (copy, nonatomic) NSString                    *userIntent;
+@property (copy, nonatomic) NSString                    *userDisplayName;
+@property (copy, nonatomic) NSString                    *userCallbackNumber;
 
-@property (readonly, nonatomic) NSString *EXPERTconnectVersion;
-@property (readonly, nonatomic) NSString *EXPERTconnectBuildVersion;
-@property (copy, nonatomic) NSMutableArray *storedBreadcrumbs;
+
+@property (copy, nonatomic) NSString                    *lastSurveyScore;
+@property (copy, nonatomic) NSString                    *surveyFormName;            // Used by the SDK when launching journey-managed forms.
+@property (readonly, nonatomic) ECSURLSessionManager    *urlSession;                // Reference to the API wrapper functions
+
+@property (copy, nonatomic) NSString                    *journeyID;
+@property (copy, nonatomic) NSString                    *pushNotificationID;
+@property (copy, nonatomic) NSString                    *journeyManagerContext;
+@property (copy, nonatomic) NSString                    *sessionID;
+@property (nonatomic, strong) ECSLog                    *logger;                    // Internal debug logger.
+
+@property (readonly, nonatomic) NSString                *EXPERTconnectVersion;      // SDK version (eg. 6.2.2)
+@property (readonly, nonatomic) NSString                *EXPERTconnectBuildVersion; // SDK build version (eg 206)
+@property (copy, nonatomic) NSMutableArray              *storedBreadcrumbs;         // When using bulk-send, this is where breadcrumbs are stored.
+
+//@property (readonly, nonatomic) BOOL                  authenticationRequired;
+//@property (copy, nonatomic) NSString                  *customerType;
+//@property (copy, nonatomic) NSString                  *treatmentType;
+//@property (weak) id <ExpertConnectDelegate>           externalDelegate;           // Moxtra
 
 + (instancetype)shared;
 
@@ -198,7 +200,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @return the view controller for the Chat
  */
-- (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+//- (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Chat session, with CafeX Voice parameters.
@@ -208,7 +210,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @return the view controller for the Chat
  */
-- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
+//- (UIViewController*)startVoiceChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName;
 
 /**
  Returns a view controller for an EXPERTconnect Voice Callback session.
@@ -222,12 +224,11 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 /**
  Returns a view controller for an EXPERTconnect Answer Engine session.
- 
  @param aeContext the Answer Engine Context to post the question to
- 
  @return the view controller for the Answer Engine Session
  */
-- (UIViewController*)startAnswerEngine:(NSString*)aeContext withDisplayName:(NSString*)displayName;
+- (UIViewController*)startAnswerEngine:(NSString*)aeContext
+                       withDisplayName:(NSString*)displayName;
 
 - (UIViewController*)startAnswerEngine:(NSString *)aeContext
                        withDisplayName:(NSString *)displayName
@@ -235,34 +236,30 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 
 /**
  Returns a view controller for an EXPERTconnect Survey
- 
  @param formName the Name of the Form to launch
- 
  @return the view controller for the Survey
  */
 - (UIViewController*)startSurvey:(NSString*)formName;
 
 /**
  Returns a view controller for an EXPERTconnect User Profile Form for the current user
- 
  @return the view controller for the User Profile Controller
  */
 - (UIViewController*)startUserProfile;
 
 /**
  Returns a view controller for an EXPERTconnect Email Message
- 
  @return the view controller for the Messaging Controller
  */
-- (UIViewController*)startEmailMessage;
-- (UIViewController*)startEmailMessage:(ECSActionType *)messageAction;
+//- (UIViewController*)startEmailMessage;
+
+//- (UIViewController*)startEmailMessage:(ECSActionType *)messageAction;
 
 /**
  Returns a view controller for an EXPERTconnect SMS Message
- 
  @return the view controller for the Messaging Controller
  */
-- (UIViewController*)startSMSMessage;
+//- (UIViewController*)startSMSMessage;
 
 /**
  Returns a view controller for an EXPERTconnect Web Page View
@@ -344,12 +341,12 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  
  @param delegate The ExpertConnectDelegate instance that the host app would like to use to receive Moxtra events.
  */
-- (void)setDelegate:(id)delegate;
+//- (void)setDelegate:(id)delegate;
 
 /**
  Returns a landing view controller that points to the default view controller for the SDK
  */
-- (UIViewController*)landingViewController;
+//- (UIViewController*)landingViewController;
 
 /**
  *  Starts SDK workflow with a workflowName(workflowID), a delegate, and a viewController to present it on

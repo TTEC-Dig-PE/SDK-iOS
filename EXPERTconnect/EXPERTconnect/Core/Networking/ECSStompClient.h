@@ -26,6 +26,8 @@
 
 @end
 
+
+
 /**
  The ECSStompDelegate defines methods that are called when asynchronous STOMP messages are 
  received.
@@ -73,6 +75,9 @@
 // Indicates if the client is currently connected.
 @property (assign, nonatomic) BOOL connected;
 
+// Indicates if the client is currently connected.
+@property (assign, nonatomic) BOOL isConnecting;
+
 // Indicates if the client is currently subscribed.
 @property (assign, nonatomic) BOOL subscribed;
 
@@ -89,7 +94,7 @@
  Connect to the specified STOMP host.  Upon successful connection the ECSStompDelegate will be sent 
  the stompClientDidConnect: message
  
- @param host the host to connect to
+ @param host A URL specifying where the Humanify API is running an active Stomp instance.
  */
 - (void)connectToHost:(NSString*)host;
 
@@ -99,17 +104,22 @@
 - (void)disconnect;
 
 /** 
- Reconnects to a host
+ Reconnect the Stomp connection using previous conversationID, subscriptionID, etc.
  */
 - (void)reconnect;
 
+/**
+ Manually set the auth token.
+ 
+ @param token The auth token string. See https://jwt.io for examples.
+ */
 - (void)setAuthToken:(NSString *)token;
 
 /**
  Subscribe for asynchronous messages on the specified destination with the given subscriber ID.
  
- @param destination the destination to subscribe to
- @param subscriptionID the id to use for the subscription
+ @param destination A URL to the Humanify API for subscribing to a Stomp channel. Usually contains "%host_URL%/topic/conversations.%conversationID%"
+ @param subscriptionID A unique identifier for the subscription to the channel. Usually given out in a Stomp CONNECT packet.
  @param subscriber the ECSStompDelegate used to receive messages.
  */
 - (void)subscribeToDestination:(NSString*)destination
@@ -119,14 +129,14 @@
 /** 
  Unsubscribes from messages using the given subscription ID
  
- @param subscriptionID the identifier of the subscription to unsubscribe
+ @param subscriptionID unique identifier to the subscription we are unsubscribing from.
  */
 - (void)unsubscribe:(NSString*)subscriptionID;
 
 /**
  Sends an ACK message to the STOMP server.
  
- @param messageId the message identifier to ACK
+ @param messageId unique identifier pointing to the Stomp message to ACK
  @param transactionId the optional transaction identifier to ACK
  */
 - (void)sendAckForMessage:(NSString*)messageId andTransaction:(NSString*)transactionId;

@@ -9,16 +9,13 @@
 
 #import "ECSRootViewController.h"
 #import "ECSStompChatClient.h"
-#import "ECSStompCallbackClient.h"
+//#import "ECSStompCallbackClient.h"
 @class ECSLog;
 
-@interface ECSCallbackViewController : ECSRootViewController <ECSStompCallbackDelegate>
+@interface ECSCallbackViewController : ECSRootViewController <ECSStompChatDelegate>
 
-@property (assign, nonatomic) BOOL displaySMSOption;
-@property (assign, nonatomic) BOOL skipConfirmationView;
-
-- (void)setChatClient: (ECSStompChatClient *)client;
-
-@property (nonatomic, strong) ECSLog *logger;
+@property (assign, nonatomic) BOOL      displaySMSOption;
+@property (assign, nonatomic) BOOL      skipConfirmationView;
+@property (nonatomic, strong) ECSLog    *logger;
 
 @end

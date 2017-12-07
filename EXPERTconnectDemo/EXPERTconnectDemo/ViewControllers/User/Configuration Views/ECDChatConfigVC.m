@@ -167,7 +167,6 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
                                                                               withSurvey:NO
                                                                       withChannelOptions:@{@"userType":@"student"}];
         
-       
         // Add our custom left bar button
         
         if(self.optNavButtons.on)
@@ -191,8 +190,18 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
     [_btnEndChat setTitle:@"Exit Queue" forState:UIControlStateNormal];
     [_btnEndChat setEnabled:YES];
     
-    // Push it onto our navigation stack (so back buttons will work)
-    [self.navigationController pushViewController:self.chatController animated:YES];
+    if( self.optTabBar.on ) {
+        
+        ECDChatWithTabBarVC *chatWindow = [[ECDChatWithTabBarVC alloc] init];
+        chatWindow.chatController = self.chatController;
+        
+        [self.navigationController pushViewController:chatWindow animated:YES];
+        
+    } else {
+        
+        // Push it onto our navigation stack (so back buttons will work)
+        [self.navigationController pushViewController:self.chatController animated:YES];
+    }
 }
 
 // User pressed our custom back button
@@ -270,6 +279,22 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 }
 
 - (IBAction)optNavButtons_Change:(id)sender {
+}
+
+- (IBAction)btnViewChatHistory_Touch:(id)sender {
+    
+    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+    
+    // Test 1: Get Chat history (record of chat starts for this user)
+    [sessionManager getChatHistoryDetailsForJourneyId:sessionManager.journeyID withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
+        NSLog(@"Details: %@", response);
+        
+    }];
+    
+    //ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
+    
+    //[self.navigationController pushViewController:historyVC animated:YES];
+    
 }
 
 #pragma mark Notifications

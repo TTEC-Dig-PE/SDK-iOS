@@ -25,7 +25,8 @@
 // Current chat participants (name, avatar image, etc). Array key is UserID of agent
 @property (strong, nonatomic) NSMutableDictionary *participants;
 
-
+// Set this so the chat window knows any extra UI below our view. It will push the view a bit higher when keyboard shows. 
+@property (nonatomic) int bottomFrameOffset;
 
 @property (nonatomic, strong) ECSLog *logger;
 

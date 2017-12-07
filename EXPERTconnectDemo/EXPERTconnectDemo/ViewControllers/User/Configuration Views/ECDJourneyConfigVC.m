@@ -8,8 +8,8 @@
 
 #import "ECDJourneyConfigVC.h"
 #import "ECDLocalization.h"
-#import <AirshipKit/AirshipKit.h>
-#import <AirshipKit/UAPush.h>
+//#import <AirshipKit/AirshipKit.h>
+//#import <AirshipKit/UAPush.h>
 
 @interface ECDJourneyConfigVC ()
 

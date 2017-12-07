@@ -70,14 +70,22 @@
 		C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */; };
 		C47F52D51CAC54030098A0BC /* ECDPersonasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */; };
 		C47F52D61CAC54030098A0BC /* ECDPersonasViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */; };
-		C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; };
-		C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47F52DC1CAC90770098A0BC /* AirshipKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C491C2E41FCC75EC00D88EE3 /* ECDChatHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */; };
+		C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */; };
+		C491C2EA1FCF170D00D88EE3 /* ECDChatWithTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */; };
+		C491C2EB1FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */; };
 		C492B6011D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */; };
 		C492B6021D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6001D10C1AC008BE187 /* ECDBreadcrumbConfigVC.xib */; };
 		C492B6061D10C1DD008BE187 /* ECDChatConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6041D10C1DD008BE187 /* ECDChatConfigVC.m */; };
 		C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6051D10C1DD008BE187 /* ECDChatConfigVC.xib */; };
 		C492B6131D1491DD008BE187 /* ECDJourneyConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */; };
 		C492B6141D1491DD008BE187 /* ECDJourneyConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */; };
+		C497F9E01FD84CD800458363 /* ECDFormWithTabBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */; };
+		C497F9E11FD84CD800458363 /* ECDFormWithTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */; };
+		C497F9E61FD89E4500458363 /* ECDCallbackConfigVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */; };
+		C497F9E71FD89E4500458363 /* ECDCallbackConfigVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */; };
+		C497F9EE1FD89F1000458363 /* ECDSimpleCallbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */; };
+		C497F9EF1FD89F1000458363 /* ECDSimpleCallbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */; };
 		C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5191C6A409A0032925F /* AppConfig.m */; };
 		C4D0E5201C723A630032925F /* iBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E51E1C723A630032925F /* iBeaconViewController.m */; };
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
@@ -134,20 +142,6 @@
 			remoteGlobalIDString = 03978F061A602B2D007793D6;
 			remoteInfo = EXPERTconnectDemo;
 		};
-		C47F52DB1CAC90770098A0BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 494DD9571B0EB677009C134E;
-			remoteInfo = AirshipKit;
-		};
-		C47F52DF1CAC90900098A0BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 494DD9561B0EB677009C134E;
-			remoteInfo = AirshipKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -157,7 +151,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C47F52DE1CAC90900098A0BC /* AirshipKit.framework in Embed Frameworks */,
 				C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -277,7 +270,18 @@
 		C47F52D21CAC54030098A0BC /* ECDPersonasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDPersonasViewController.h; sourceTree = "<group>"; };
 		C47F52D31CAC54030098A0BC /* ECDPersonasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDPersonasViewController.m; sourceTree = "<group>"; };
 		C47F52D41CAC54030098A0BC /* ECDPersonasViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDPersonasViewController.xib; sourceTree = "<group>"; };
-		C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirshipKit.xcodeproj; path = EXPERTconnectDemo/AirshipKit/AirshipKit.xcodeproj; sourceTree = "<group>"; };
+		C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatHistoryVC.h; path = "Configuration Views/ECDChatHistoryVC.h"; sourceTree = "<group>"; };
+		C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatHistoryVC.m; path = "Configuration Views/ECDChatHistoryVC.m"; sourceTree = "<group>"; };
+		C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatHistoryVC.xib; path = "Configuration Views/ECDChatHistoryVC.xib"; sourceTree = "<group>"; };
+		C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatWithTabBarVC.h; path = Proof_of_Concept/ECDChatWithTabBarVC.h; sourceTree = "<group>"; };
+		C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatWithTabBarVC.m; path = Proof_of_Concept/ECDChatWithTabBarVC.m; sourceTree = "<group>"; };
+		C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatWithTabBarVC.xib; path = Proof_of_Concept/ECDChatWithTabBarVC.xib; sourceTree = "<group>"; };
+		C491C2F71FD1C80200D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2F81FD1C80300D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2F91FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2FA1FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C491C2FB1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C491C2FC1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
@@ -291,6 +295,15 @@
 		C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDJourneyConfigVC.h; path = "Configuration Views/ECDJourneyConfigVC.h"; sourceTree = "<group>"; };
 		C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDJourneyConfigVC.m; path = "Configuration Views/ECDJourneyConfigVC.m"; sourceTree = "<group>"; };
 		C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDJourneyConfigVC.xib; path = "Configuration Views/ECDJourneyConfigVC.xib"; sourceTree = "<group>"; };
+		C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDFormWithTabBarVC.xib; path = Proof_of_Concept/ECDFormWithTabBarVC.xib; sourceTree = "<group>"; };
+		C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDFormWithTabBarVC.h; path = Proof_of_Concept/ECDFormWithTabBarVC.h; sourceTree = "<group>"; };
+		C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDFormWithTabBarVC.m; path = Proof_of_Concept/ECDFormWithTabBarVC.m; sourceTree = "<group>"; };
+		C497F9E31FD89E4500458363 /* ECDCallbackConfigVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDCallbackConfigVC.h; path = "Configuration Views/ECDCallbackConfigVC.h"; sourceTree = "<group>"; };
+		C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDCallbackConfigVC.m; path = "Configuration Views/ECDCallbackConfigVC.m"; sourceTree = "<group>"; };
+		C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDCallbackConfigVC.xib; path = "Configuration Views/ECDCallbackConfigVC.xib"; sourceTree = "<group>"; };
+		C497F9EB1FD89F1000458363 /* ECDSimpleCallbackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDSimpleCallbackVC.h; path = Proof_of_Concept/ECDSimpleCallbackVC.h; sourceTree = "<group>"; };
+		C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDSimpleCallbackVC.m; path = Proof_of_Concept/ECDSimpleCallbackVC.m; sourceTree = "<group>"; };
+		C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDSimpleCallbackVC.xib; path = Proof_of_Concept/ECDSimpleCallbackVC.xib; sourceTree = "<group>"; };
 		C4A2D0E01DB6CC7300F46D93 /* EXPERTconnectDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EXPERTconnectDemo.entitlements; sourceTree = "<group>"; };
 		C4D0E5181C6A409A0032925F /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		C4D0E5191C6A409A0032925F /* AppConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
@@ -386,7 +399,6 @@
 				D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */,
 				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
-				C47F52DD1CAC90900098A0BC /* AirshipKit.framework in Frameworks */,
 				D87F2F791B6835A400B7B9D5 /* UIKit.framework in Frameworks */,
 				D87F2F5C1B68355000B7B9D5 /* libz.dylib in Frameworks */,
 				D87F2F5B1B68354B00B7B9D5 /* libxml2.2.dylib in Frameworks */,
@@ -501,7 +513,7 @@
 		033ACB3F1A602CC00024F48F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C45AC03E1C206E2800625004 /* Proof_of_Concept */,
+				C45AC03E1C206E2800625004 /* LowLevel */,
 				033A39851AD579FC006B34B2 /* User */,
 				033ACB401A602CC00024F48F /* Root */,
 			);
@@ -564,7 +576,6 @@
 		03978EFE1A602B2D007793D6 = {
 			isa = PBXGroup;
 			children = (
-				C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */,
 				C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */,
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
@@ -669,6 +680,12 @@
 				C13A61531DC093F100A28CA9 /* ECDDecisionConfigVC.h */,
 				C13A61541DC093F100A28CA9 /* ECDDecisionConfigVC.m */,
 				C13A61551DC093F100A28CA9 /* ECDDecisionConfigVC.xib */,
+				C491C2E11FCC75EC00D88EE3 /* ECDChatHistoryVC.h */,
+				C491C2E21FCC75EC00D88EE3 /* ECDChatHistoryVC.m */,
+				C491C2E31FCC75EC00D88EE3 /* ECDChatHistoryVC.xib */,
+				C497F9E31FD89E4500458363 /* ECDCallbackConfigVC.h */,
+				C497F9E41FD89E4500458363 /* ECDCallbackConfigVC.m */,
+				C497F9E51FD89E4500458363 /* ECDCallbackConfigVC.xib */,
 			);
 			name = "Configuration Views";
 			sourceTree = "<group>";
@@ -683,24 +700,33 @@
 			path = ThirdParty/HockeySDK.embeddedframework;
 			sourceTree = SOURCE_ROOT;
 		};
-		C45AC03E1C206E2800625004 /* Proof_of_Concept */ = {
+		C45AC03E1C206E2800625004 /* LowLevel */ = {
 			isa = PBXGroup;
 			children = (
+				C497F9E21FD89DAA00458363 /* TabBarContainers */,
 				C47E67721C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.h */,
 				C47E67731C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m */,
 				C45AC0421C206FCC00625004 /* ECDSimpleChatViewController.h */,
 				C45AC0431C206FCC00625004 /* ECDSimpleChatViewController.m */,
 				C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */,
+				C497F9EB1FD89F1000458363 /* ECDSimpleCallbackVC.h */,
+				C497F9EC1FD89F1000458363 /* ECDSimpleCallbackVC.m */,
+				C497F9ED1FD89F1000458363 /* ECDSimpleCallbackVC.xib */,
 			);
-			name = Proof_of_Concept;
+			name = LowLevel;
 			sourceTree = "<group>";
 		};
-		C47F52D81CAC90770098A0BC /* Products */ = {
+		C497F9E21FD89DAA00458363 /* TabBarContainers */ = {
 			isa = PBXGroup;
 			children = (
-				C47F52DC1CAC90770098A0BC /* AirshipKit.framework */,
+				C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */,
+				C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */,
+				C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */,
+				C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */,
+				C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */,
+				C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */,
 			);
-			name = Products;
+			name = TabBarContainers;
 			sourceTree = "<group>";
 		};
 		C4D0E5221C74B7C60032925F /* Picker Views */ = {
@@ -745,7 +771,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C47F52E01CAC90900098A0BC /* PBXTargetDependency */,
 			);
 			name = EXPERTconnectDemo;
 			productName = EXPERTconnectDemo;
@@ -777,7 +802,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ECD;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Humanify, Inc.";
 				TargetAttributes = {
 					03978F061A602B2D007793D6 = {
@@ -821,16 +846,13 @@
 				"es-ES",
 				"pt-BR",
 				"pt-PT",
+				nl,
+				sv,
+				da,
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C47F52D81CAC90770098A0BC /* Products */;
-					ProjectRef = C47F52D71CAC90770098A0BC /* AirshipKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				03978F061A602B2D007793D6 /* EXPERTconnectDemo */,
@@ -838,16 +860,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C47F52DC1CAC90770098A0BC /* AirshipKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AirshipKit.framework;
-			remoteRef = C47F52DB1CAC90770098A0BC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03978F051A602B2D007793D6 /* Resources */ = {
@@ -860,8 +872,10 @@
 				C1DBB4FE1BE88F8F00A61B61 /* ECDWorkflowViewController.xib in Resources */,
 				C1D2E5031C185BC400678FB5 /* ECDCustomizeThemeViewController.xib in Resources */,
 				22CD2EF01A840142003ED9E4 /* ECDSplashViewController.xib in Resources */,
+				C497F9E71FD89E4500458363 /* ECDCallbackConfigVC.xib in Resources */,
 				033A398F1AD579FC006B34B2 /* ECDRegisterViewController.xib in Resources */,
 				C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */,
+				C491C2E51FCC75EC00D88EE3 /* ECDChatHistoryVC.xib in Resources */,
 				033ACB541A602CC00024F48F /* ECDMainMenuViewController.xib in Resources */,
 				03978F1B1A602B2D007793D6 /* LaunchScreen.xib in Resources */,
 				03D452191AC1DB4C003607C4 /* AirshipConfig.plist in Resources */,
@@ -877,7 +891,9 @@
 				C492B6071D10C1DD008BE187 /* ECDChatConfigVC.xib in Resources */,
 				467257F41B7E5CF40091BE51 /* ECDAdHocFormsController.xib in Resources */,
 				033ACB521A602CC00024F48F /* MainMenuConfig.json in Resources */,
+				C497F9EF1FD89F1000458363 /* ECDSimpleCallbackVC.xib in Resources */,
 				4679BD981B7A525C002E2D9E /* ECDExtendedUserProfileViewController.xib in Resources */,
+				C491C2EB1FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib in Resources */,
 				0301CC011B0634C50068A0E1 /* ECDLicenseViewController.xib in Resources */,
 				033A398D1AD579FC006B34B2 /* ECDLoginViewController.xib in Resources */,
 				033ACB5A1A602CC00024F48F /* ECDMainMenuTableViewCell.xib in Resources */,
@@ -885,6 +901,7 @@
 				462E1DF11B7BD50800AFC62D /* ECDAPIConfigViewController.xib in Resources */,
 				C4DBE3491F63076800D35101 /* ECDSimpleChatViewController.xib in Resources */,
 				0301CC031B063C880068A0E1 /* ECDLicenses.txt in Resources */,
+				C497F9E01FD84CD800458363 /* ECDFormWithTabBarVC.xib in Resources */,
 				C44B72711E7ADBD800DF1FEA /* HockeySDKResources.bundle in Resources */,
 				033ACB561A602CC00024F48F /* ECDRootViewController.xib in Resources */,
 				466A7EFD1B6FCB8300A48DAC /* ECDAdHocViewController.xib in Resources */,
@@ -905,11 +922,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C491C2E41FCC75EC00D88EE3 /* ECDChatHistoryVC.m in Sources */,
 				C47E67741C493F6E00E7CEF3 /* ECDSimpleAnswerEngineController.m in Sources */,
 				0301CC001B0634C50068A0E1 /* ECDLicenseViewController.m in Sources */,
 				C1DBB4FD1BE88F8F00A61B61 /* ECDWorkflowViewController.m in Sources */,
 				4643F6131B73E27400F0AF7E /* ECDAdHocVoiceCallbackPicker.m in Sources */,
 				033A398E1AD579FC006B34B2 /* ECDRegisterViewController.m in Sources */,
+				C497F9E11FD84CD800458363 /* ECDFormWithTabBarVC.m in Sources */,
 				C4D0E51A1C6A409A0032925F /* AppConfig.m in Sources */,
 				033ACB5B1A602CC00024F48F /* ECDDefaultTheme.m in Sources */,
 				4643F6151B73E4B600F0AF7E /* ECDAdHocWebPagePicker.m in Sources */,
@@ -926,6 +945,7 @@
 				467257F61B7E5D0D0091BE51 /* ECDAdHocFormsController.m in Sources */,
 				033A398C1AD579FC006B34B2 /* ECDLoginViewController.m in Sources */,
 				D8EF94071BC32DED0068CAA0 /* ECDBugReportEmailer.m in Sources */,
+				C497F9EE1FD89F1000458363 /* ECDSimpleCallbackVC.m in Sources */,
 				03978F0D1A602B2D007793D6 /* main.m in Sources */,
 				D890F74E1B96146F00B75692 /* ECDAdHocVideoChatPicker.m in Sources */,
 				C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */,
@@ -933,6 +953,7 @@
 				033ACB551A602CC00024F48F /* ECDRootViewController.m in Sources */,
 				4679BD9B1B7A528E002E2D9E /* ECDExtendedUserProfileViewController.m in Sources */,
 				033ACB531A602CC00024F48F /* ECDMainMenuViewController.m in Sources */,
+				C491C2EA1FCF170D00D88EE3 /* ECDChatWithTabBarVC.m in Sources */,
 				46BA32FB1B6055A500E5C270 /* ECDRunModePicker.m in Sources */,
 				22CD2EEF1A840142003ED9E4 /* ECDSplashViewController.m in Sources */,
 				46368EC21B7107DE001AA48B /* ECDAdHocChatPicker.m in Sources */,
@@ -946,6 +967,7 @@
 				466A7F001B6FCC5A00A48DAC /* ECDAdHocViewController.m in Sources */,
 				46BA32FE1B60564C00E5C270 /* ECDUIPicker.m in Sources */,
 				4695C37C1B5D802F00C95878 /* ECDLocalization.m in Sources */,
+				C497F9E61FD89E4500458363 /* ECDCallbackConfigVC.m in Sources */,
 				C45AC0441C206FCC00625004 /* ECDSimpleChatViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -966,11 +988,6 @@
 			target = 03978F061A602B2D007793D6 /* EXPERTconnectDemo */;
 			targetProxy = 03978F211A602B2D007793D6 /* PBXContainerItemProxy */;
 		};
-		C47F52E01CAC90900098A0BC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AirshipKit;
-			targetProxy = C47F52DF1CAC90900098A0BC /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -988,6 +1005,9 @@
 				C47A15271E944992005E19DB /* es-ES */,
 				C42B04411F13C7350072DE92 /* pt-BR */,
 				C42B04431F13C73A0072DE92 /* pt-PT */,
+				C491C2F81FD1C80300D88EE3 /* nl */,
+				C491C2FA1FD1C80700D88EE3 /* sv */,
+				C491C2FC1FD1C81200D88EE3 /* da */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -1002,6 +1022,9 @@
 				C49206111D4FB66200B38C97 /* zh-Hans */,
 				C42B04401F13C7350072DE92 /* pt-BR */,
 				C42B04421F13C73A0072DE92 /* pt-PT */,
+				C491C2F71FD1C80200D88EE3 /* nl */,
+				C491C2F91FD1C80700D88EE3 /* sv */,
+				C491C2FB1FD1C81200D88EE3 /* da */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -1018,14 +1041,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1068,14 +1097,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1118,6 +1153,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1134,7 +1170,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -1154,6 +1190,7 @@
 					"$(PROJECT_DIR)/ThirdParty/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = EXPERTconnectDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1170,7 +1207,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

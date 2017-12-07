@@ -97,12 +97,13 @@
     [super layoutSubviews];
 }
 
-- (void)prepareForReuse
-{
+- (void)prepareForReuse {
+    
     self.horizontalSeparatorVisible = YES;
     self.enabled = YES;
     
     [super prepareForReuse];
+
 }
 
 - (void)setEnabled:(BOOL)enabled

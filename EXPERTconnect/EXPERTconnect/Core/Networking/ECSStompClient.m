@@ -14,85 +14,104 @@
 #import "ECSLog.h"
 #import "ECSWebSocket.h"
 
-static NSString * const kStompVersion = @"1.2";
+static NSString * const kStompVersion =     @"1.2";
 
-static NSString * const kStompConnect = @"CONNECT";
-static NSString * const kStompConnected = @"CONNECTED";
-static NSString * const kStompSend = @"SEND";
-static NSString * const kStompSubscribe = @"SUBSCRIBE";
+static NSString * const kStompConnect =     @"CONNECT";
+static NSString * const kStompConnected =   @"CONNECTED";
+static NSString * const kStompSend =        @"SEND";
+static NSString * const kStompSubscribe =   @"SUBSCRIBE";
 static NSString * const kStompUnsubscribe = @"UNSUBSCRIBE";
-static NSString * const kStompAck = @"ACK";
-static NSString * const kStompNack = @"NACK";
-static NSString * const kStompBegin = @"BEGIN";
-static NSString * const kStompCommit = @"COMMIT";
-static NSString * const kStompAbort = @"ABORT";
-static NSString * const kStompDisconnect = @"DISCONNECT";
-static NSString * const kStompMessage = @"MESSAGE";
-static NSString * const kStompReceipt = @"RECEIPT";
-static NSString * const kStompError = @"ERROR";
+static NSString * const kStompAck =         @"ACK";
+static NSString * const kStompNack =        @"NACK";
+static NSString * const kStompBegin =       @"BEGIN";
+static NSString * const kStompCommit =      @"COMMIT";
+static NSString * const kStompAbort =       @"ABORT";
+static NSString * const kStompDisconnect =  @"DISCONNECT";
+static NSString * const kStompMessage =     @"MESSAGE";
+static NSString * const kStompReceipt =     @"RECEIPT";
+static NSString * const kStompError =       @"ERROR";
 
 static NSString * const kStompReceiptID = @"ios-1-subscribe";
 
+
+// Stomp Frame Object  ------------------------------------------------------------------------
+
 @implementation ECSStompFrame
 
-- (instancetype)init
-{
+- (instancetype)init {
+    
     self = [super init];
-    if (self)
-    {
+    
+    if (self) {
         self.headers = [NSMutableDictionary new];
     }
     
     return self;
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
+    
     return [NSString stringWithFormat:@"CMD: %@\nHeaders: %@\nBody: %@", self.command, self.headers, self.body];
 }
 
 @end
 
+
+// Heart-beat Timer Object  -------------------------------------------------------------------
+
 @interface HeartBeatTimerTarget : NSObject
+
 @property (weak, nonatomic) id realTarget;
+
 @end
 
 @implementation HeartBeatTimerTarget
--(void)doStompHeartbeat:(NSTimer *)theTimer
-{
+
+-(void)doStompHeartbeat:(NSTimer *)theTimer {
+    
     [self.realTarget performSelector:@selector(doStompHeartbeat:) withObject:theTimer];
 }
+
 @end
+
+
+// Humanify Stomp Client  ---------------------------------------------------------------------
 
 @interface ECSStompClient() <ECSWebSocketDelegate>
 
-@property (strong, nonatomic) ECSWebSocket *webSocket;
-@property (strong, nonatomic) NSURL *hostURL;
-@property (strong, nonatomic) NSMutableDictionary *subscribers;
+@property (strong, nonatomic) ECSWebSocket          *webSocket;
+@property (strong, nonatomic) NSURL                 *hostURL;
+@property (strong, nonatomic) NSMutableDictionary   *subscribers;
 
 @end
+
 
 @implementation ECSStompClient
 
 int         _clientHeartbeatInterval;
 int         _clientHeartbeatsMissed;
 bool        _wasConnected;
-bool        _isConnecting;
+//bool        _isConnecting;
 
 @synthesize authToken;
 
-- (instancetype)init
-{
+- (instancetype)init {
+    
     self = [super init];
-    if (self)
-    {
+    
+    if (self) {
+        
         self.subscribers = [NSMutableDictionary new];
+        
         authToken = @"";
+        
         _clientHeartbeatInterval = 0;
-        _clientHeartbeatsMissed = 0;
-        _wasConnected = NO;
-        _isConnecting = NO;
+        _clientHeartbeatsMissed =  0;
+        
+        _wasConnected =  NO;
+        _isConnecting =  NO;
         self.connected = NO;
+        
         self.logger = [[EXPERTconnect shared] logger];
     }
     
@@ -100,14 +119,16 @@ bool        _isConnecting;
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
+    
+    [self unregisterForNotifications];
+    
     [self.subscribers removeAllObjects];
 }
 
 - (void)connectToHost:(NSString*)host {
     
     if( self.webSocket.readyState == ECS_OPEN ) {
-    //if( self.connected || (_isConnecting && !self.connected) ) {
+
         ECSLogError(self.logger, @"Connection in progress -or- already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
                     self.connected, _isConnecting);
         return;
@@ -116,11 +137,14 @@ bool        _isConnecting;
     _isConnecting = YES;
     
     self.hostURL = [NSURL URLWithString:host];
+    
     NSURL *url = self.hostURL;
     
-    if(self.authToken)
-    {
+    // Add the auth token to the URL string
+    if(self.authToken) {
+        
         NSString *queryString = [NSString stringWithFormat:@"access_token=%@", self.authToken];
+        
         NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self.hostURL absoluteString],
                                [self.hostURL query] ? @"&" : @"?", queryString];
         
@@ -132,21 +156,12 @@ bool        _isConnecting;
     ECSLogDebug(self.logger, @"Connecting to %@...", self.hostURL);
     
     self.webSocket = [[ECSWebSocket alloc] initWithURL:url];
+    
     self.webSocket.delegate = self;
+    
     [self.webSocket open];
     
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self]; // Remove any previous observers.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appForegrounded:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appBackgrounded:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
+    [self registerForActiveNotifications];
 }
 
 -(void)appForegrounded:(NSNotification*)note {
@@ -157,12 +172,16 @@ bool        _isConnecting;
         
         _wasConnected = NO;
         
-        [self reconnect];           // STOMP CONNECT
+        [self reconnect]; // STOMP CONNECT
+        
     }
 }
+
 -(void)appBackgrounded:(NSNotification*)note {
     
     ECSLogDebug(self.logger, @"STOMP app inactive notification. wasConnected=%d, self.connected=%d.", _wasConnected, self.connected);
+    
+    self.isConnecting = NO;
     
     if( self.connected ) {
         
@@ -175,18 +194,42 @@ bool        _isConnecting;
     }
 }
 
+- (void) registerForActiveNotifications {
+    
+    [self unregisterForNotifications];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appForegrounded:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appBackgrounded:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+}
+- (void) unregisterForNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+}
+
 - (void)reconnect {
     
     if ( self.hostURL ) {
         
         ECSLogVerbose(self.logger, @"STOMP reconnect. Host=%@", self.hostURL);
+        
         [self connectToHost:[self.hostURL absoluteString]];
+        
     }
 }
 
-- (void)sendConnectToHost:(NSString*)host
-{
+- (void)sendConnectToHost:(NSString*)host {
+    
     NSAssert(host, @"Host must not be nil");
+    
     ECSLogDebug(self.logger, @"STOMP connect. Host %@", host);
     
     NSDictionary *headers = @{
@@ -209,15 +252,18 @@ bool        _isConnecting;
     // Internally, we call disconnect when the app resigns active, in which case we want to receive these notifications still.
 
     ECSLogVerbose(self.logger, @"Removing app foreground notifications because Stomp has disconnected.");
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self unregisterForNotifications];
 }
 
 - (void)_internal_disconnect {
     
     ECSLogVerbose(self.logger, @"Issuing STOMP disconnect.");
+    
     [self invalidateHeartbeatTimer];
     
     self.connected = NO;
+
     _isConnecting = NO;
     
     [self sendCommand:kStompDisconnect withHeaders:nil andBody:nil];
@@ -229,8 +275,8 @@ bool        _isConnecting;
 
 - (void)subscribeToDestination:(NSString*)destination
             withSubscriptionID:(NSString*)subscriptionID
-                    subscriber:(__weak id<ECSStompDelegate>)subscriber
-{
+                    subscriber:(__weak id<ECSStompDelegate>)subscriber {
+    
     ECSLogDebug(self.logger, @"Subscribing. Dest=%@, SubID=%@", destination, subscriptionID);
     
     NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
@@ -288,6 +334,7 @@ bool        _isConnecting;
     ECSLogVerbose(self.logger, @"Sending ACK. MsgID=%@, TranID=%@", messageId, transactionId);
     
     if( !self.subscribed ) {
+        
         // An errant ACK issued after an unsubscribe. Ignoring.
         ECSLogVerbose(self.logger, @"Cancelling ACK. Stomp channel is no longer subscribed.");
         return;
@@ -329,16 +376,16 @@ bool        _isConnecting;
               andBody:nil];
 }
 
-- (void)commitTransaction:(NSString*)transactionId
-{
+- (void)commitTransaction:(NSString*)transactionId {
+    
     NSDictionary *headers = @{
                               @"transaction": transactionId
                               };
     [self sendCommand:kStompCommit withHeaders:headers andBody:nil];
 }
 
-- (void)abortTransaction:(NSString*)transactionId
-{
+- (void)abortTransaction:(NSString*)transactionId {
+    
     NSDictionary *headers = @{
                               @"transaction": transactionId
                               };
@@ -420,18 +467,18 @@ bool        _isConnecting;
     ECSLogError(self.logger, @"ERROR - %@", error);
 //    _isConnecting = NO;
     
-    if (error.code == 57) { // "Socket is not connected."
-        
-        // Attempt a reconnect after 5 seconds.
+//    if (error.code == 57) { // "Socket is not connected."
+//
+//        // Attempt a reconnect after 5 seconds.
 //        [self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
-        
-    } else {
-        
+//
+//    } else {
+    
         self.connected = NO;
-        _isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
+        self.isConnecting = NO;     // mas - 6.2.0 - A reconnect failure would prevent future reconnects from working. 
         
         [self.delegate stompClient:self didFailWithError:error];
-    }
+//    }
 }
 
 - (void)webSocket:(ECSWebSocket *)webSocket didReceiveMessage:(id)message {
@@ -441,7 +488,7 @@ bool        _isConnecting;
     ECSLogVerbose(self.logger, @"\nMessage=%@\n\nFrame=%@\n", message, frame);
 
     // Any message from server indicates it is "good" reset server heartbeat miss count and "connecting" status.
-    _isConnecting = NO;
+    self.isConnecting = NO;
     _clientHeartbeatsMissed = 0;
     
     // Check for, and update heart-beat if applicable
@@ -515,8 +562,8 @@ bool        _isConnecting;
     }
 }
 
-- (void)webSocket:(ECSWebSocket *)webSocket didReceivePong:(NSData *)pongPayload
-{
+- (void)webSocket:(ECSWebSocket *)webSocket didReceivePong:(NSData *)pongPayload {
+    
     ECSLogVerbose(self.logger, @"WebSocket Pong: %@", pongPayload);
 }
 
@@ -526,7 +573,7 @@ bool        _isConnecting;
     
     ECSLogDebug(self.logger, @"WebSocket closing. Code=%d, Reason=%@, wasClean=%d", code, reason, wasClean);
     
-    _isConnecting = NO;
+    self.isConnecting = NO;
     
     if( !wasClean ) {
         
@@ -534,8 +581,8 @@ bool        _isConnecting;
                                                 code:code
                                             userInfo:@{@"description": reason}]; // @"Stream end encountered"
         
-        if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)])
-        {
+        if([self.delegate respondsToSelector:@selector(stompClient:didFailWithError:)]) {
+            
             [self.delegate stompClient:self didFailWithError:newError];
         }
     }
@@ -658,6 +705,7 @@ bool        _isConnecting;
 #pragma mark Client Heartbeating
 
 -(void)updateHeartbeatFromHeader:(NSString *)theHeader {
+    
     // We have a heartbeat value to check.
     // Will look like:    0,0  or  5000,0  or  0,5000
     NSArray *parts = [theHeader componentsSeparatedByString:@","];

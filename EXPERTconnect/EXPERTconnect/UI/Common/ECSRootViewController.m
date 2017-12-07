@@ -24,7 +24,9 @@
 @property (strong, nonatomic) UIViewController *presurveyViewController;
 
 @property (strong, nonatomic) ECSActionType *currentHandlingActionType;
-@property (strong, nonatomic) UIView *networkUnreachableView;
+
+@property (strong, nonatomic) UIView            *networkUnreachableView;
+@property (strong, nonatomic) ECSDynamicLabel   *networkUnreachableLabel;
 
 @end
 
@@ -113,10 +115,16 @@
             if(self.networkUnreachableView != nil)
             {
                 [UIView animateWithDuration:0.3 animations:^{
+                    
                     self.networkUnreachableView.alpha = 0.0;
+                    self.networkUnreachableLabel.alpha = 0.0;
+                    
                 } completion:^(BOOL finished) {
                     [self.networkUnreachableView removeFromSuperview];
                     self.networkUnreachableView = nil;
+                    
+                    [self.networkUnreachableLabel removeFromSuperview];
+                    self.networkUnreachableLabel = nil;
                 }];
             }
         }
@@ -132,11 +140,14 @@
                 
                 self.networkUnreachableView = visualEffectView;
                 self.networkUnreachableView.translatesAutoresizingMaskIntoConstraints = NO;
+                
                 [self.view addSubview:self.networkUnreachableView];
+                
                 [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[view]|"
                                                                                   options:0
                                                                                   metrics:nil
                                                                                     views:@{ @"view": self.networkUnreachableView}]];
+                
                 [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
                                                                                   options:0
                                                                                   metrics:nil
@@ -149,18 +160,28 @@
                 label.textAlignment = NSTextAlignmentCenter;
                 label.numberOfLines = 0;
                 label.lineBreakMode = NSLineBreakByWordWrapping;
-                [self.networkUnreachableView addSubview:label];
-                [self.networkUnreachableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[label]-20-|"
+                self.networkUnreachableLabel = label;
+                
+                [self.view addSubview:self.networkUnreachableLabel];
+                
+                [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[label]-20-|"
                                                                                                     options:0
                                                                                                     metrics:nil
                                                                                                       views:@{ @"label": label}]];
-                [self.networkUnreachableView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(115)-[label]"
+                
+                [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(115)-[label]"
                                                                                                     options:0
                                                                                                     metrics:nil
                                                                                                       views:@{ @"label": label}]];
+                
                 self.networkUnreachableView.alpha = 0;
+                self.networkUnreachableLabel.alpha = 0;
+                
                 [UIView animateWithDuration:0.3f animations:^{
+                    
                     self.networkUnreachableView.alpha = 1.0;
+                    self.networkUnreachableLabel.alpha = 1.0;
+                    
                 }];
             }
         }

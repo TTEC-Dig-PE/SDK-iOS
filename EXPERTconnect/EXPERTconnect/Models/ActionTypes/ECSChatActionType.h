@@ -39,5 +39,8 @@ static int const kECSChatPriorityHigh               = 10;
 // The chat priority
 @property (assign, nonatomic) int priority;
 
+// Often the user's phone number
+@property (strong, nonatomic) NSString *sourceAddress;
+
 @end
 
