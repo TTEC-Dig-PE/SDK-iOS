@@ -820,10 +820,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 -(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
 
     // Deprecated. 
-    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-        
-        [self.delegate chatClientDisconnected:self wasGraceful:NO];
-    }
+
+//    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+//        [self.delegate chatClientDisconnected:self wasGraceful:NO];
+//    }
     
     ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
     message.state = @"disconnected";
@@ -980,7 +980,6 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         // Older method
         if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
-            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         
@@ -1145,10 +1144,10 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                     [self unsubscribe];
                 }
                 
-                // First check for the older, deprecated function
-                if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-                    [self.delegate chatClientDisconnected:self wasGraceful:YES];
-                }
+                // DEPRECATED
+//                if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
+//                    [self.delegate chatClientDisconnected:self wasGraceful:YES];
+//                }
                 
                 if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
                     [self.delegate chatClient:self disconnectedWithMessage:message]; 
