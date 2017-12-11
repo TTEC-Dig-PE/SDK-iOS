@@ -62,10 +62,10 @@
     
     [self updateButtonState];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
@@ -328,19 +328,19 @@
 
 #pragma mark Keyboard Delegate
 
-- (void)keyboardWillShow:(NSNotification*)notification {
-    
-    NSDictionary* info = [notification userInfo];
-    
-    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    
-    [UIView animateWithDuration:[number doubleValue]
-                     animations:^{
-                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
-                         [self.view layoutIfNeeded];
-                     }];
-}
+//- (void)keyboardWillShow:(NSNotification*)notification {
+//
+//    NSDictionary* info = [notification userInfo];
+//
+//    NSNumber *number = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+//
+//    [UIView animateWithDuration:[number doubleValue]
+//                     animations:^{
+//                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+//                         [self.view layoutIfNeeded];
+//                     }];
+//}
 
 - (void)keyboardWillHide:(NSNotification*)notification {
     
@@ -350,7 +350,7 @@
     
     [UIView animateWithDuration:[number doubleValue]
                      animations:^{
-                         self.buttonViewBottomConstraint.constant = 0;
+//                         self.buttonViewBottomConstraint.constant = 0;
                          [self.view layoutIfNeeded];
                      }];
 }
@@ -364,7 +364,7 @@
     [UIView animateWithDuration:[number doubleValue]
                      animations:^{
                          CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+//                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
                          [self.view layoutIfNeeded];
                      }];
 }
