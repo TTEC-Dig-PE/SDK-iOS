@@ -126,8 +126,11 @@ CGPoint     _originalCenter;
 }
 
 - (void)backButtonPressed:(id)sender {
+    
     [self.chatClient disconnect];
+    
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - ECSStompChatClient delegate callbacks

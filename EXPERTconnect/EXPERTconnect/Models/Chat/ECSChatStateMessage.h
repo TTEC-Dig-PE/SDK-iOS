@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, ECSChatState)
  */
 @interface ECSChatStateMessage : ECSChatMessage <ECSAddressableChatMessage>
 
-@property (strong, nonatomic) NSString *conversationId;
+//@property (strong, nonatomic) NSString *conversationId;
 @property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSString *from;
 @property (strong, nonatomic) NSString *to;
