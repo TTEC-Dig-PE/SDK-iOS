@@ -448,6 +448,9 @@ __attribute__((deprecated("See documentation on the Identity Delegate authentica
 
 -(void)setHost:(NSString *)theHost;
 
+
+- (void) getTranscriptForConversation:(NSString *)conversationID withCompletion:(void(^)(NSArray *messages, NSError *error))completion;
+
 #pragma mark Breadcrumb Functions
 
 /**

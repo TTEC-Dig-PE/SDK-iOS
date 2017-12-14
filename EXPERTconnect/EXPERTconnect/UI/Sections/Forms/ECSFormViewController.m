@@ -363,7 +363,7 @@
     
     [UIView animateWithDuration:[number doubleValue]
                      animations:^{
-                         CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+                         //CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 //                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
                          [self.view layoutIfNeeded];
                      }];

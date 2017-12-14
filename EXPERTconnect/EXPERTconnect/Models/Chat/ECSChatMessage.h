@@ -15,5 +15,6 @@
 @interface ECSChatMessage : ECSJSONObject <NSCopying, ECSJSONSerializing>
 
 @property (assign, nonatomic) BOOL fromAgent;
+@property (strong, nonatomic) NSString *conversationId;
 
 @end

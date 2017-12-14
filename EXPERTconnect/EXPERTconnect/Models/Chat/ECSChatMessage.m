@@ -18,7 +18,8 @@
 {
     ECSChatMessage *message = [[self class] new];
     message.fromAgent = self.fromAgent;
-
+    message.conversationId = self.conversationId;
+    
     return message;
 }
 
