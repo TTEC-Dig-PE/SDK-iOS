@@ -916,6 +916,56 @@ NSTimer *breadcrumbTimer;
     return initialViewController;
 }
 
+- (void) getTranscriptForConversation:(NSString *)conversationID withCompletion:(void(^)(NSArray *messages, NSError *error))completion {
+    
+    ECSURLSessionManager *urlSession = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    
+    [urlSession getChatHistoryDetailsForJourneyId:urlSession.journeyID withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+    {
+         if( ! error ) {
+             
+             NSArray *data = [response chatMessages];
+             
+             NSMutableArray *filteredData;
+             
+             if( data && data.count > 0 ) {
+                 
+                 if( conversationID ) {
+                     
+                     filteredData = [[NSMutableArray alloc] initWithCapacity:data.count];
+                     
+                     for (ECSChatMessage *message in data) {
+                         
+                         if( [message.conversationId isEqualToString:conversationID] ) {
+                             
+                             [filteredData addObject:message];
+                             
+                         }
+                     }
+                     
+                 } else {
+                     
+                     filteredData = [[NSMutableArray alloc] initWithArray:data];
+                     
+                 }
+                 
+                 completion(filteredData, nil);
+                 
+             } else {
+                 // Empty array. Return nil.
+                 completion(nil, nil);
+             }
+             
+         } else {
+             
+             completion(nil, error);
+             
+         }
+         
+    }];
+    
+}
+
 #pragma mark Breadcrumb Functions
 
 /**
