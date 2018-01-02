@@ -283,7 +283,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (IBAction)btnViewChatHistory_Touch:(id)sender {
     
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+//    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
    
     ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];

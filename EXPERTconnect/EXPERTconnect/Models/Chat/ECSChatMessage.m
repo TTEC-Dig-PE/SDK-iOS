@@ -9,16 +9,19 @@
 
 @implementation ECSChatMessage
 
-- (NSDictionary *)ECSJSONMapping
-{
-    return @{};
+- (NSDictionary *)ECSJSONMapping {
+    
+    return @{ @"date": @"timeStamp" };
 }
 
-- (id)copyWithZone:(NSZone*)zone
-{
+- (id)copyWithZone:(NSZone*)zone {
+    
     ECSChatMessage *message = [[self class] new];
-    message.fromAgent = self.fromAgent;
-    message.conversationId = self.conversationId;
+    
+    message.fromAgent       = self.fromAgent;
+    message.conversationId  = self.conversationId;
+    message.messageId       = self.messageId;
+    message.timeStamp       = self.timeStamp;
     
     return message;
 }

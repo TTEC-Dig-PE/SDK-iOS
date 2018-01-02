@@ -794,11 +794,11 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     if(theme.showChatTimeStamp  == YES) {
         
         if(![timeStamp isEqualToString:self.chatClient.lastTimeStamp]) {
-            
+
             message.timeStamp = timeStamp;
-            
+
         } else {
-            
+
             if (self.chatClient.lastChatMessageFromAgent == YES) {
                 message.timeStamp = timeStamp;
             }
