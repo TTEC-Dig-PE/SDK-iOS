@@ -934,9 +934,10 @@ NSTimer *breadcrumbTimer;
                      
                      filteredData = [[NSMutableArray alloc] initWithCapacity:data.count];
                      
-                     for (ECSChatMessage *message in data) {
+                     for (NSObject *message in data) {
                          
-                         if( [message.conversationId isEqualToString:conversationID] ) {
+                         ECSChatMessage *tmpMsg = (ECSChatMessage *)message;
+                         if( [tmpMsg.conversationId isEqualToString:conversationID] ) {
                              
                              [filteredData addObject:message];
                              

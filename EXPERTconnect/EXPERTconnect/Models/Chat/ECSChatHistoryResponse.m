@@ -37,11 +37,11 @@
              };
 }
 
-- (NSArray *)chatMessages
-{
+- (NSArray *)chatMessages {
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:SS"];
+    
     NSMutableArray *chatMessages = [[NSMutableArray alloc] init];
 
     NSDictionary *messageMapping = @{
@@ -61,9 +61,11 @@
     for (NSDictionary *journey in self.journeys)
     {
         NSMutableArray *historyMessageArray = [[NSMutableArray alloc] initWithCapacity:self.journeys.count];
+        
         for (NSDictionary *detail in [journey objectForKey:@"details"])
         {
             ECSChatHistoryMessage *message = [ECSJSONSerializer objectFromJSONDictionary:detail withClass:[ECSChatHistoryMessage class]];
+            
             if ([message.dateString isKindOfClass:[NSString class]] && message.dateString.length)
             {
                 message.date = [dateFormatter dateFromString:message.dateString];
@@ -100,27 +102,35 @@
                 
                 id<ECSJSONSerializing> transformedMessage = [ECSJSONSerializer objectFromJSONDictionary:dictionary
                                                                                               withClass:transformClass];
-                if ([transformedMessage isKindOfClass:[ECSChatMessage class]])
-                {
-                    ((ECSChatMessage*)transformedMessage).fromAgent = fromAgent;
+                
+                if ([transformedMessage isKindOfClass:[ECSChatTextMessage class]]) {
+                    
+                    ECSChatTextMessage *textMessage = (ECSChatTextMessage *)transformedMessage;
+                    
+                    textMessage.fromAgent = fromAgent;
+                    textMessage.messageId = message.messageId;
+                    textMessage.timeStamp = message.dateString;
+                    
+                    [chatMessages addObject:textMessage];
                 }
                 
-                if ([transformedMessage isKindOfClass:[ECSChannelStateMessage class]])
-                {
+                if ([transformedMessage isKindOfClass:[ECSChannelStateMessage class]]) {
+                    
                     ECSChannelStateMessage *stateMessage = (ECSChannelStateMessage*)transformedMessage;
                     
-                    if ([stateMessage.state isEqualToString:@"disconnected"])
-                    {
+                    // Only pass along the disconnected message. Convert it to an "info" message.
+                    if ([stateMessage.state isEqualToString:@"disconnected"]) {
+                        
                         ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-//                        disconnectedMessage.fromAgent = YES;
+                        
                         disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
+                        
+                        stateMessage.messageId = message.messageId;
+                        
                         [chatMessages addObject:disconnectedMessage];
+                        
                     }
                     
-                }
-                else
-                {
-                    [chatMessages addObject:transformedMessage];
                 }
             }
         }
