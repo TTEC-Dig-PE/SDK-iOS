@@ -35,8 +35,17 @@
         //[[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
         [[ECDBugReportEmailer topMostController] presentViewController:mailComposer animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You must first set up Mail on your device in order to send a Bug Report." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:@"You must first setup Mail on your device to send a bug report."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        
+        [alert addAction:okAction];
+        [[ECDBugReportEmailer topMostController] presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -60,8 +69,16 @@
         //[[ECDBugReportEmailer topMostController] presentModalViewController:mailComposer animated:YES];
         [[ECDBugReportEmailer topMostController] presentViewController:mailComposer animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"You must first set up Mail on your device in order to send a Bug Report." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:@"You must first setup Mail on your device to send a bug report."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        
+        [alert addAction:okAction];
+        [[ECDBugReportEmailer topMostController] presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -108,19 +125,30 @@
         case MFMailComposeResultFailed: {
             NSLog(@"Mail failed:  An error occurred when trying to compose this email");
             NSString *msg = [NSString stringWithFormat:@"Failed to submit bug report. Check to make sure you have set up Mail on this device, then try again. Error: %@", error];
-            UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Error Registering" message:msg delegate:nil cancelButtonTitle: @"OK" otherButtonTitles:nil];
-            [av show];
+            [self showAlertWithTitle:@"Error" andMesssage:msg];
+            
             break; }
         default: {
             NSLog(@"An error occurred when trying to compose this email");
             NSString *msg = [NSString stringWithFormat:@"Failed to submit bug report. Check to make sure you have set up Mail on this device, then try again. Error: %@", error];
-            UIAlertView *av = [[UIAlertView alloc] initWithTitle: @"Error Registering" message:msg delegate:nil cancelButtonTitle: @"OK" otherButtonTitles:nil];
-            [av show];
+            [self showAlertWithTitle:@"Error" andMesssage:msg];
             break;
         }
     }
     
     [[ECDBugReportEmailer topMostController] dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void) showAlertWithTitle:(NSString *)title andMesssage:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+    [[ECDBugReportEmailer topMostController] presentViewController:alert animated:YES completion:nil];
 }
 
 

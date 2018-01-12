@@ -175,7 +175,7 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 /**
  Initializes video components (video chat and co-browse capability). Video module addon required.
  */
-- (void)initializeVideoComponents;
+//- (void)initializeVideoComponents;
 
 /**
  Returns a view controller for an EXPERTconnect Chat session.
@@ -298,19 +298,19 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
  @param authCallback a void/String block that handles the callback for a voiceit auth response
 
  */
-- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback;
+//- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback;
 
 /**
  Convenience (wrapper) method for accessing VoiceIt to record a new voice print.
  
  */
-- (void)recordNewEnrollment;
+//- (void)recordNewEnrollment;
 
 /**
  Convenience (wrapper) method for accessing VoiceIt to clear existing recordings.
  
  */
-- (void)clearEnrollments;
+//- (void)clearEnrollments;
 
 /**
  Logout support. Does not change UI - just removes user token and unauthenticates user.

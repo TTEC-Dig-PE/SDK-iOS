@@ -94,7 +94,7 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     configuration.breadcrumbCacheTime = 25; // Wait 25 seconds before sending breadcrumbs.
     
     [[EXPERTconnect shared] initializeWithConfiguration:configuration];
-    [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
+//    [[EXPERTconnect shared] initializeVideoComponents]; // CafeX initialization.
     
     [[EXPERTconnect shared] setDebugLevel:ECSLogLevelVerbose]; // High debug.
     
@@ -217,12 +217,22 @@ static NSString * const ECDFirstRunComplete = @"ECDFirstRunComplete";
     NSString *pushAlertText = [userInfo valueForKeyPath:@"aps.alert"];
     if (pushAlertText && pushAlertText.length > 0)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Alert"
-                                                        message:pushAlertText
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Alert"
+//                                                        message:pushAlertText
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Push Alert"
+//                                                                       message:pushAlertText
+//                                                                preferredStyle:UIAlertControllerStyleAlert];
+//
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+//                                                           style:UIAlertActionStyleDefault
+//                                                         handler:nil];
+//        [alert addAction:okAction];
+//        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

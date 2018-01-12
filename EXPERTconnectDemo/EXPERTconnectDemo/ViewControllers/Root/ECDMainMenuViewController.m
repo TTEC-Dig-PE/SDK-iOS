@@ -195,12 +195,23 @@ typedef NS_ENUM(NSInteger, ECDMainMenuRow)
             {
                 actionViewController = nil;
 #ifdef DEBUG
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                                message:@"Cannot send bug reports from simulators."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                                message:@"Cannot send bug reports from simulators."
+//                                                               delegate:nil
+//                                                      cancelButtonTitle:@"OK"
+//                                                      otherButtonTitles:nil];
+//                [alert show];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                               message:@"Cannot send bug reports from the XCode simulator"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:nil];
+                
                 return;
 #else
                 AppDelegate* app = [UIApplication sharedApplication].delegate;

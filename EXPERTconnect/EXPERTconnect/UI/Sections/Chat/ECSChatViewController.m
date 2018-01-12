@@ -1517,134 +1517,134 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 #pragma mark - Convienence Functions
 
-- (void)handleVoiceItMessage:(ECSChatMessage *)message
-{
-    ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
-    NSString *expertName = [participant firstName];
-    
-    if (expertName == nil || expertName.length == 0)
-    {
-        expertName = @"The Expert";
-    }
-    
-    // Confirm with User:
-    NSString *alertTitle = @"Voice Authentication";
-    NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested that you authenticate by voice print. Press OK to continue.",
-                              expertName];
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                             message:alertMessage
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action)
-                                {
-                                    
-                                    /* Kick off internal VoiceIT auth check */
-                                    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userName] callback:^(NSString *response)
-                                     {
-                                         // Alert Agent to the response:
-                                         [self sendVoiceAuthConfirmation:response];
-                                     }];
-                                }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)handleCafeXMessage:(ECSCafeXMessage *)message
-{
-    ECSChatAddParticipantMessage *participant = [self participantInfoForID:message.from];
-    NSString *expertName = [participant firstName];
-    
-    if (expertName == nil || expertName.length == 0)
-    {
-        expertName = @"The Expert";
-    }
-    
-    NSString *channelName = nil;
-    NSString *channelType = message.parameter1;
-    
-    if ([channelType isEqualToString:@"voice_escalate"])
-    {
-        channelName = @"a Voice Call";
-    }
-    else if ([channelType isEqualToString:@"video_escalate"])
-    {
-        channelName = @"a Video Call";    }
-    else if ([channelType isEqualToString:@"cobrowse_start"])
-    {
-        channelName = @"that you share your screen.";
-    }
-    else if ([channelType isEqualToString:@"cobrowse_stop"])
-    {
-        /* no op */
-    }
-    else
-    {
-        ECSLogError(self.logger,@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
-        return; // no UI
-    }
-    
-    NSString *targetID = message.parameter2;
-    
-    // Confirm with User only if video or voice:
-    if ([channelType isEqualToString:@"cobrowse_start"])
-    {
-        // CafeX will prompt user.
-        ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-        [cafeXController startCoBrowse:targetID usingParentViewController:self];
-    }
-    else if ([channelType isEqualToString:@"cobrowse_stop"])
-    {
-        ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-        [cafeXController endCoBrowse];
-    }
-    else
-    {
-        NSString *alertTitle = @"Accept Call?";
-        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName];
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
-                                                                                 message:alertMessage
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              
-                                                              ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-                                                              
-                                                              // Do a login if there's no session:
-                                                              if (![cafeXController hasCafeXSession])
-                                                              {
-                                                                  [cafeXController setupCafeXSessionWithTask:^{
-                                                                      [cafeXController dial:targetID
-                                                                                  withVideo:[channelType isEqualToString:@"video_escalate"]
-                                                                                   andAudio:YES
-                                                                  usingParentViewController:self];
-                                                                  }];
-                                                              }
-                                                              else
-                                                              {
-                                                                  [cafeXController dial:targetID
-                                                                              withVideo:[channelType isEqualToString:@"video_escalate"]
-                                                                               andAudio:YES
-                                                              usingParentViewController:self];
-                                                              }
-                                                          }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:^(UIAlertAction *action) {
-                                                              // No
-                                                              ECSLogVerbose(self.logger,@"User rejected %@ request.", channelType);
-                                                              [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
-                                                          }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-}
+//- (void)handleVoiceItMessage:(ECSChatMessage *)message
+//{
+//    ECSChatAddParticipantMessage *participant = [self participantInfoForID:((ECSChatStateMessage*)message).from];
+//    NSString *expertName = [participant firstName];
+//    
+//    if (expertName == nil || expertName.length == 0)
+//    {
+//        expertName = @"The Expert";
+//    }
+//    
+//    // Confirm with User:
+//    NSString *alertTitle = @"Voice Authentication";
+//    NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested that you authenticate by voice print. Press OK to continue.",
+//                              expertName];
+//    
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+//                                                                             message:alertMessage
+//                                                                      preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+//                                                        style:UIAlertActionStyleDefault
+//                                                      handler:^(UIAlertAction *action)
+//                                {
+//                                    
+//                                    /* Kick off internal VoiceIT auth check */
+//                                    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userName] callback:^(NSString *response)
+//                                     {
+//                                         // Alert Agent to the response:
+//                                         [self sendVoiceAuthConfirmation:response];
+//                                     }];
+//                                }]];
+//    
+//    [self presentViewController:alertController animated:YES completion:nil];
+//}
+//
+//- (void)handleCafeXMessage:(ECSCafeXMessage *)message
+//{
+//    ECSChatAddParticipantMessage *participant = [self participantInfoForID:message.from];
+//    NSString *expertName = [participant firstName];
+//    
+//    if (expertName == nil || expertName.length == 0)
+//    {
+//        expertName = @"The Expert";
+//    }
+//    
+//    NSString *channelName = nil;
+//    NSString *channelType = message.parameter1;
+//    
+//    if ([channelType isEqualToString:@"voice_escalate"])
+//    {
+//        channelName = @"a Voice Call";
+//    }
+//    else if ([channelType isEqualToString:@"video_escalate"])
+//    {
+//        channelName = @"a Video Call";    }
+//    else if ([channelType isEqualToString:@"cobrowse_start"])
+//    {
+//        channelName = @"that you share your screen.";
+//    }
+//    else if ([channelType isEqualToString:@"cobrowse_stop"])
+//    {
+//        /* no op */
+//    }
+//    else
+//    {
+//        ECSLogError(self.logger,@"Unable to parse CafeX TT:Command: Unknown channel type %@", channelType);
+//        return; // no UI
+//    }
+//    
+//    NSString *targetID = message.parameter2;
+//    
+//    // Confirm with User only if video or voice:
+//    if ([channelType isEqualToString:@"cobrowse_start"])
+//    {
+//        // CafeX will prompt user.
+//        ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//        [cafeXController startCoBrowse:targetID usingParentViewController:self];
+//    }
+//    else if ([channelType isEqualToString:@"cobrowse_stop"])
+//    {
+//        ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//        [cafeXController endCoBrowse];
+//    }
+//    else
+//    {
+//        NSString *alertTitle = @"Accept Call?";
+//        NSString *alertMessage = [NSString stringWithFormat:@"%@ has requested %@. Allow?", expertName, channelName];
+//        
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle
+//                                                                                 message:alertMessage
+//                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeYes, @"YES")
+//                                                            style:UIAlertActionStyleDefault
+//                                                          handler:^(UIAlertAction *action) {
+//                                                              
+//                                                              ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//                                                              
+//                                                              // Do a login if there's no session:
+//                                                              if (![cafeXController hasCafeXSession])
+//                                                              {
+//                                                                  [cafeXController setupCafeXSessionWithTask:^{
+//                                                                      [cafeXController dial:targetID
+//                                                                                  withVideo:[channelType isEqualToString:@"video_escalate"]
+//                                                                                   andAudio:YES
+//                                                                  usingParentViewController:self];
+//                                                                  }];
+//                                                              }
+//                                                              else
+//                                                              {
+//                                                                  [cafeXController dial:targetID
+//                                                                              withVideo:[channelType isEqualToString:@"video_escalate"]
+//                                                                               andAudio:YES
+//                                                              usingParentViewController:self];
+//                                                              }
+//                                                          }]];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizeNo, @"NO")
+//                                                            style:UIAlertActionStyleCancel
+//                                                          handler:^(UIAlertAction *action) {
+//                                                              // No
+//                                                              ECSLogVerbose(self.logger,@"User rejected %@ request.", channelType);
+//                                                              [self sendSystemText:[NSString stringWithFormat:@"User rejected request for %@.", channelName]];
+//                                                          }]];
+//        
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }
+//}
 
 - (NSArray *)indexPathsToUpdate
 {
@@ -2435,7 +2435,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
                     [resultString appendFormat:@"%@", value];
                 }
                 
-                NSString *encodedString = [resultString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; 
+                NSString *encodedString = [resultString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 
                 URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://maps.apple.com/?q=%@", encodedString]];
                 break;

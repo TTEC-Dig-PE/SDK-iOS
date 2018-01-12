@@ -76,7 +76,7 @@
     }
 
     // URL encode the link. 
-    self.currentPath = [self.currentPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    self.currentPath = [self.currentPath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.currentPath]];
     [self.webView loadRequest:request];

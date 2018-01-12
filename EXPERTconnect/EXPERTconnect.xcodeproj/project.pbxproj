@@ -397,10 +397,8 @@
 		C47254641CC04C36003C0D4E /* ECSBreadcrumbsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C472545E1CC04C36003C0D4E /* ECSBreadcrumbsSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C478E5C31F02B8FB00382657 /* ECSWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = C478E5C01F02B8FB00382657 /* ECSWebSocket.h */; };
 		C478E5C41F02B8FB00382657 /* ECSWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C478E5C11F02B8FB00382657 /* ECSWebSocket.m */; };
-		C478E5C51F02B8FB00382657 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C478E5C21F02B8FB00382657 /* LICENSE */; };
 		C47ADBB81F39276D00B85AB9 /* ECSMessageTask.h in Headers */ = {isa = PBXBuildFile; fileRef = C47ADBB61F39276D00B85AB9 /* ECSMessageTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47ADBB91F39276D00B85AB9 /* ECSMessageTask.m in Sources */ = {isa = PBXBuildFile; fileRef = C47ADBB71F39276D00B85AB9 /* ECSMessageTask.m */; };
-		C47ADC3D1F448B2500B85AB9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C47ADC3A1F448B2500B85AB9 /* LICENSE */; };
 		C47ADC3E1F448B2500B85AB9 /* ZSWTappableLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = C47ADC3B1F448B2500B85AB9 /* ZSWTappableLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47ADC3F1F448B2500B85AB9 /* ZSWTappableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C47ADC3C1F448B2500B85AB9 /* ZSWTappableLabel.m */; };
 		C47E673A1C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C47E67391C3ACBCB00E7CEF3 /* ECSBinaryImageViewController.xib */; };
@@ -416,6 +414,7 @@
 		C495EAA01CA57D8300BC4057 /* ECSExpertDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */; };
 		C495EAA11CA57D8300BC4057 /* ECSSkillDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C495EAA21CA57D8300BC4057 /* ECSSkillDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */; };
+		C4963F8D200920F200CBCD51 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4963F8B200920B400CBCD51 /* AVKit.framework */; };
 		C49ABB9B1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */; };
 		C49ABB9C1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */; };
 		C49ABBA31CF8A587008D3401 /* AXRatingView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49ABBA11CF8A587008D3401 /* AXRatingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -448,8 +447,6 @@
 		D87F2F8C1B697FA500B7B9D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F831B697FA500B7B9D5 /* Foundation.framework */; };
 		D87F2F8F1B697FA500B7B9D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F861B697FA500B7B9D5 /* UIKit.framework */; };
 		D87F2F951B697FC800B7B9D5 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87F2F941B697FC800B7B9D5 /* libc++.dylib */; };
-		D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F7481B95032A00B75692 /* ECSVoiceItManager.m */; };
-		D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */; };
 		D8D3AABB1B66ACB600DA1762 /* ECSChatCoBrowseMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */; };
 		D8D3AABC1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */; };
 		D8D3AABF1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -891,6 +888,7 @@
 		C495EA9C1CA57D8300BC4057 /* ECSExpertDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSExpertDetail.m; path = "Data Models/ECSExpertDetail.m"; sourceTree = "<group>"; };
 		C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSkillDetail.h; path = "Data Models/ECSSkillDetail.h"; sourceTree = "<group>"; };
 		C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSkillDetail.m; path = "Data Models/ECSSkillDetail.m"; sourceTree = "<group>"; };
+		C4963F8B200920B400CBCD51 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChannelTimeoutWarningMessage.h; path = Chat/ECSChannelTimeoutWarningMessage.h; sourceTree = "<group>"; };
 		C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChannelTimeoutWarningMessage.m; path = Chat/ECSChannelTimeoutWarningMessage.m; sourceTree = "<group>"; };
 		C49ABBA11CF8A587008D3401 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Common/AXRatingView.h; sourceTree = "<group>"; };
@@ -925,10 +923,6 @@
 		D87F2F831B697FA500B7B9D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D87F2F861B697FA500B7B9D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D87F2F941B697FC800B7B9D5 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		D890F7471B95031100B75692 /* ECSVoiceItManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItManager.h; path = Core/Networking/ECSVoiceItManager.h; sourceTree = "<group>"; };
-		D890F7481B95032A00B75692 /* ECSVoiceItManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItManager.m; path = Core/Networking/ECSVoiceItManager.m; sourceTree = "<group>"; };
-		D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSVoiceItNetHelper.h; path = Core/Networking/ECSVoiceItNetHelper.h; sourceTree = "<group>"; };
-		D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSVoiceItNetHelper.m; path = Core/Networking/ECSVoiceItNetHelper.m; sourceTree = "<group>"; };
 		D8D3AAB91B66ACB600DA1762 /* ECSChatCoBrowseMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatCoBrowseMessage.h; path = Chat/ECSChatCoBrowseMessage.h; sourceTree = "<group>"; };
 		D8D3AABA1B66ACB600DA1762 /* ECSChatCoBrowseMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatCoBrowseMessage.m; path = Chat/ECSChatCoBrowseMessage.m; sourceTree = "<group>"; };
 		D8D3AABD1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatVoiceAuthenticationMessage.h; path = Chat/ECSChatVoiceAuthenticationMessage.h; sourceTree = "<group>"; };
@@ -942,6 +936,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4963F8D200920F200CBCD51 /* AVKit.framework in Frameworks */,
 				D81614F71B791B45005BD20E /* MediaPlayer.framework in Frameworks */,
 				D81613041B6BC43C005BD20E /* SystemConfiguration.framework in Frameworks */,
 				D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */,
@@ -1184,10 +1179,6 @@
 				D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */,
 				D83F78A31B7BAFCE00F307D4 /* ECSCafeXController.h */,
 				D83F78A11B7BAF9F00F307D4 /* ECSCafeXController.m */,
-				D890F7471B95031100B75692 /* ECSVoiceItManager.h */,
-				D890F7481B95032A00B75692 /* ECSVoiceItManager.m */,
-				D890F74A1B95064700B75692 /* ECSVoiceItNetHelper.h */,
-				D890F74B1B95065A00B75692 /* ECSVoiceItNetHelper.m */,
 				C4BE81FF1F38BBA800ED290B /* SessionTaskQueue.h */,
 				C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */,
 				C47ADBB61F39276D00B85AB9 /* ECSMessageTask.h */,
@@ -1439,6 +1430,7 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4963F8B200920B400CBCD51 /* AVKit.framework */,
 				D81614F11B791971005BD20E /* MediaPlayer.framework */,
 				D81613031B6BC43C005BD20E /* SystemConfiguration.framework */,
 				D81612FC1B6BC412005BD20E /* CoreText.framework */,
@@ -2042,7 +2034,6 @@
 				0342AFBC1A9B60840009959E /* ECSCallbackViewController.xib in Resources */,
 				0342AFB31A9B60700009959E /* ECSAnswerViewController.xib in Resources */,
 				0342B01F1A9B60AE0009959E /* ECSTextFormItemViewController.xib in Resources */,
-				C478E5C51F02B8FB00382657 /* LICENSE in Resources */,
 				0342AFA71A9B60700009959E /* ECSPullUpView.xib in Resources */,
 				0342AFBF1A9B60840009959E /* ECSCancelCallbackViewController.xib in Resources */,
 				039CDFC71AD6EC2900F52600 /* ECSChatTextTableViewCell.xib in Resources */,
@@ -2069,7 +2060,6 @@
 				0342B02C1A9B60AE0009959E /* ECSCheckboxFormItemViewController.xib in Resources */,
 				0342B01D1A9B60AE0009959E /* ECSTextAreaFormItemViewController.xib in Resources */,
 				0342AFDD1A9B60950009959E /* ECSChatCellBackground.xib in Resources */,
-				C47ADC3D1F448B2500B85AB9 /* LICENSE in Resources */,
 				03F0BD0B1A6EBF4000E90E7F /* Media.xcassets in Resources */,
 				0342B00D1A9B60AE0009959E /* ECSCheckboxTableViewCell.xib in Resources */,
 				0342B06C1A9B60EF0009959E /* ECSWebViewController.xib in Resources */,
@@ -2216,7 +2206,6 @@
 				D86BC4C01B8E318C005B9629 /* ECSVideoChatActionType.m in Sources */,
 				03AF24A61A9B601E00407BE5 /* ECSSearchTextField.m in Sources */,
 				0342AFE21A9B60950009959E /* ECSChatViewController.m in Sources */,
-				D890F74C1B95065A00B75692 /* ECSVoiceItNetHelper.m in Sources */,
 				03C310391A9B5B46006B3557 /* ECSAnswerEngineRateResponse.m in Sources */,
 				0342B0471A9B60C10009959E /* ECSFeaturedTableViewCell.m in Sources */,
 				0342AFD61A9B60950009959E /* ECSWebTableViewCell.m in Sources */,
@@ -2251,7 +2240,6 @@
 				D83F78BC1B7D2D0B00F307D4 /* ReachabilityManager.m in Sources */,
 				03B47F8E1A85BD6600B2686F /* ECSPresurveyFormItem.m in Sources */,
 				0342AFD91A9B60950009959E /* ECSChatImageTableViewCell.m in Sources */,
-				D890F7491B95032A00B75692 /* ECSVoiceItManager.m in Sources */,
 				039062431AC9B0D800E006BE /* ECSChatActionTableViewCell.m in Sources */,
 				0342AFDC1A9B60950009959E /* ECSChatCellBackground.m in Sources */,
 				03C3105B1A9B5B56006B3557 /* ECSCallbackActionType.m in Sources */,
@@ -2494,7 +2482,7 @@
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
@@ -2542,7 +2530,7 @@
 				);
 				INFOPLIST_FILE = EXPERTconnect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_NO_PIE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/";
