@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, ECSTerminatedBy)
 @interface ECSChannelStateMessage : ECSChatMessage
 
 //@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSNumber *estimatedWait;
 @property (strong, nonatomic) NSNumber *version;

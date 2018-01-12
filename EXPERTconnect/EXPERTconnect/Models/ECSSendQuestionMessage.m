@@ -25,4 +25,17 @@
     return jsonMapping;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    ECSSendQuestionMessage *message = [[[self class] allocWithZone:zone] init];
+    message.conversationId = [self.conversationId copyWithZone:zone];
+    message.channelId = [self.channelId copyWithZone:zone];
+    message.from = [self.from copyWithZone:zone];
+    message.version = [self.version copyWithZone:zone];
+    message.questionText = [self.questionText copyWithZone:zone];
+    message.interfaceName = [self.interfaceName copyWithZone:zone];
+
+    return message;
+}
+
 @end

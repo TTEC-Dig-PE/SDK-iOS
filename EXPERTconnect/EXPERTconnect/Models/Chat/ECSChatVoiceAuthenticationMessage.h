@@ -12,7 +12,7 @@
 @interface ECSChatVoiceAuthenticationMessage : ECSChatMessage <ECSAddressableChatMessage>
 
 //@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *channelId;
 //@property (strong, nonatomic) NSString *messageId;
 @property (strong, nonatomic) NSString *from;
 

@@ -20,4 +20,16 @@
              };
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    ECSChatNotificationMessage *message = [[[self class] allocWithZone:zone] init];
+    message.conversationId = [self.conversationId copyWithZone:zone];
+    message.channelId = [self.channelId copyWithZone:zone];
+    message.from = [self.from copyWithZone:zone];
+    message.type = [self.type copyWithZone:zone];
+    message.objectData = [self.objectData copyWithZone:zone];
+    
+    return message;
+}
+
 @end

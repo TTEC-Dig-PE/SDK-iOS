@@ -20,6 +20,7 @@
     
     message.fromAgent       = self.fromAgent;
     message.conversationId  = self.conversationId;
+    message.channelId       = self.channelId; 
     message.messageId       = self.messageId;
     message.timeStamp       = self.timeStamp;
     

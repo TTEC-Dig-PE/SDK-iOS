@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, ECSChatMediaType)
 @interface ECSChatMediaMessage : ECSChatMessage <ECSAddressableChatMessage>
 
 //@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSString *from;
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) NSString *urlType;

@@ -48,4 +48,9 @@
     return [NSKeyedArchiver archivedDataWithRootObject:socketMessage];
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"<TextMessage : from=%@, fromAgent? %d, body=%@, messageId=%@, conversationId=%@, channelId=%@>",
+            self.from, self.fromAgent, self.body, self.messageId, self.conversationId, self.channelId];
+}
+
 @end

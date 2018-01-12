@@ -17,7 +17,9 @@
 #import "ECSChatURLMessage.h"
 #import "ECSChatFormMessage.h"
 #import "ECSChannelStateMessage.h"
+
 #import "ECSChatAddParticipantMessage.h"
+#import "ECSChatRemoveParticipantMessage.h"
 #import "ECSChatAddChannelMessage.h"
 #import "ECSChatAssociateInfoMessage.h"
 #import "ECSChatCoBrowseMessage.h"
@@ -42,18 +44,19 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:SS"];
     
-    NSMutableArray *chatMessages = [[NSMutableArray alloc] init];
+    NSMutableArray *msgArray = [[NSMutableArray alloc] init];
 
     NSDictionary *messageMapping = @{
-                                     @"AddParticipantMessage": [ECSChatAddParticipantMessage class],
+                                     @"AddParticipant": [ECSChatAddParticipantMessage class],
+                                     @"RemoveParticipant": [ECSChatRemoveParticipantMessage class],
                                      @"ChannelState": [ECSChannelStateMessage class],
                                      @"RenderURLCommand": [ECSChatURLMessage class],
                                      @"ChatMessage": [ECSChatTextMessage class],
 //                                     @"ChatState": [ECSChatStateMessage class],
                                      @"AssociateInfoCommand": [ECSChatAssociateInfoMessage class],
-                                     @"CoBrowseMessage": [ECSChatCoBrowseMessage class],
-                                     @"CafeXMessage": [ECSCafeXMessage class],
-                                     @"VoiceAuthenticationMessage": [ECSChatVoiceAuthenticationMessage class],
+//                                     @"CoBrowseMessage": [ECSChatCoBrowseMessage class],
+//                                     @"CafeXMessage": [ECSCafeXMessage class],
+//                                     @"VoiceAuthenticationMessage": [ECSChatVoiceAuthenticationMessage class],
                                      @"NotificationMessage": [ECSChatNotificationMessage class]
                                      
                                      };
@@ -82,7 +85,7 @@
         {
         
             Class transformClass = messageMapping[message.type];
-        
+            
             if (transformClass)
             {
                 BOOL fromAgent = NO;
@@ -111,10 +114,9 @@
                     textMessage.messageId = message.messageId;
                     textMessage.timeStamp = message.dateString;
                     
-                    [chatMessages addObject:textMessage];
-                }
-                
-                if ([transformedMessage isKindOfClass:[ECSChannelStateMessage class]]) {
+                    [msgArray addObject:textMessage];
+                    
+                } else if ([transformedMessage isKindOfClass:[ECSChannelStateMessage class]]) {
                     
                     ECSChannelStateMessage *stateMessage = (ECSChannelStateMessage*)transformedMessage;
                     
@@ -122,20 +124,23 @@
                     if ([stateMessage.state isEqualToString:@"disconnected"]) {
                         
                         ECSChatInfoMessage *disconnectedMessage = [ECSChatInfoMessage new];
-                        
                         disconnectedMessage.infoMessage = ECSLocalizedString(ECSLocalizeChatDisconnected, @"Disconnected");
-                        
-                        stateMessage.messageId = message.messageId;
-                        
-                        [chatMessages addObject:disconnectedMessage];
-                        
-                    }
+                        disconnectedMessage.messageId = message.messageId;
+                        disconnectedMessage.conversationId = message.response[@"conversationId"];
+                        disconnectedMessage.channelId = message.response[@"channelId"];
+                        [msgArray addObject:disconnectedMessage];
+                    }                    
+                } else {
+                    NSLog(@"Untransformed message: %@, message.type = %@", [transformedMessage class], message.type);
+                    [msgArray addObject:transformedMessage];
                     
                 }
+            } else {
+                NSLog(@"Not including message of type: %@", message.type);
             }
         }
     }
     
-    return chatMessages;
+    return msgArray;
 }
 @end

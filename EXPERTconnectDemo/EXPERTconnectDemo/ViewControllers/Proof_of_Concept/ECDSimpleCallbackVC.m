@@ -115,9 +115,9 @@ bool _waitingForCall;
 
 - (void) startCallback {
     
-    ECSActionType *actionType = [[ECSActionType alloc] init];
+//    ECSActionType *actionType = [[ECSActionType alloc] init];
     
-    actionType.journeybegin = [NSNumber numberWithBool:NO];
+//    actionType.journeybegin = [NSNumber numberWithBool:NO];
     
     NSString *strPhone = [[self.phoneTextField.text
                            componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
