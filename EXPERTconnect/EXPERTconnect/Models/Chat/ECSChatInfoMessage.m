@@ -46,7 +46,7 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"<ECSChatInfoMessage : infoMessage=%@, useBiggerFont=%@, conversationId=%@, channelId=%@>",
+    return [NSString stringWithFormat:@"<ECSChatInfoMessage : infoMessage=%@, useBiggerFont=%d, conversationId=%@, channelId=%@>",
             self.infoMessage, self.useBiggerFont, self.conversationId, self.channelId];
 }
 

@@ -131,12 +131,12 @@
                         [msgArray addObject:disconnectedMessage];
                     }                    
                 } else {
-                    NSLog(@"Untransformed message: %@, message.type = %@", [transformedMessage class], message.type);
+//                    NSLog(@"Untransformed message: %@, message.type = %@", [transformedMessage class], message.type);
                     [msgArray addObject:transformedMessage];
                     
                 }
             } else {
-                NSLog(@"Not including message of type: %@", message.type);
+//                NSLog(@"Not including message of type: %@", message.type);
             }
         }
     }
