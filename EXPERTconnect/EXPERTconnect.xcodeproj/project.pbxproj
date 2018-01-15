@@ -889,6 +889,9 @@
 		C495EA9D1CA57D8300BC4057 /* ECSSkillDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSSkillDetail.h; path = "Data Models/ECSSkillDetail.h"; sourceTree = "<group>"; };
 		C495EA9E1CA57D8300BC4057 /* ECSSkillDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSSkillDetail.m; path = "Data Models/ECSSkillDetail.m"; sourceTree = "<group>"; };
 		C4963F8B200920B400CBCD51 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		C4963F90200D0F4B00CBCD51 /* pl-PL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pl-PL"; path = "pl-PL.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C4963F91200D10EF00CBCD51 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C4963F92200D11E700CBCD51 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C49ABB991CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChannelTimeoutWarningMessage.h; path = Chat/ECSChannelTimeoutWarningMessage.h; sourceTree = "<group>"; };
 		C49ABB9A1CF4A589008D3401 /* ECSChannelTimeoutWarningMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChannelTimeoutWarningMessage.m; path = Chat/ECSChannelTimeoutWarningMessage.m; sourceTree = "<group>"; };
 		C49ABBA11CF8A587008D3401 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Common/AXRatingView.h; sourceTree = "<group>"; };
@@ -2001,6 +2004,9 @@
 				nl,
 				sv,
 				da,
+				"pl-PL",
+				fi,
+				nb,
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2339,6 +2345,9 @@
 				C491C2F41FD1C2BC00D88EE3 /* nl */,
 				C491C2F51FD1C63000D88EE3 /* sv */,
 				C491C2F61FD1C77C00D88EE3 /* da */,
+				C4963F90200D0F4B00CBCD51 /* pl-PL */,
+				C4963F91200D10EF00CBCD51 /* fi */,
+				C4963F92200D11E700CBCD51 /* nb */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect/Localizations;

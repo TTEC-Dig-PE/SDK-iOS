@@ -187,7 +187,6 @@
 		033ACB4E1A602CC00024F48F /* ECDMainMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDMainMenuTableViewCell.xib; sourceTree = "<group>"; };
 		033ACB501A602CC00024F48F /* ECDDefaultTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDDefaultTheme.h; sourceTree = "<group>"; };
 		033ACB511A602CC00024F48F /* ECDDefaultTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDDefaultTheme.m; sourceTree = "<group>"; };
-		0368D7771B3AEACF00985673 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		0368D7791B3AEAD800985673 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0368D77B1B3AEADB00985673 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0368D77C1B3AEADC00985673 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 		03978F0E1A602B2D007793D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		03978F0F1A602B2D007793D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		03978F171A602B2D007793D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		03978F1A1A602B2D007793D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		03978F201A602B2D007793D6 /* EXPERTconnectDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EXPERTconnectDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03978F251A602B2D007793D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03978F261A602B2D007793D6 /* EXPERTconnectDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EXPERTconnectDemoTests.m; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 		22CD2EEC1A840142003ED9E4 /* ECDSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDSplashViewController.h; sourceTree = "<group>"; };
 		22CD2EED1A840142003ED9E4 /* ECDSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDSplashViewController.m; sourceTree = "<group>"; };
 		22CD2EEE1A840142003ED9E4 /* ECDSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDSplashViewController.xib; sourceTree = "<group>"; };
-		46004D521B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		46004D531B5D60F900E78A83 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		46222EFC1B72BF390096F2CB /* ECDAdHocFormsPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDAdHocFormsPicker.m; sourceTree = "<group>"; };
 		46222EFE1B72BF470096F2CB /* ECDAdHocFormsPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECDAdHocFormsPicker.h; sourceTree = "<group>"; };
@@ -255,9 +252,7 @@
 		C1DBB4FA1BE88F8F00A61B61 /* ECDWorkflowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDWorkflowViewController.h; sourceTree = "<group>"; };
 		C1DBB4FB1BE88F8F00A61B61 /* ECDWorkflowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDWorkflowViewController.m; sourceTree = "<group>"; };
 		C1DBB4FC1BE88F8F00A61B61 /* ECDWorkflowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDWorkflowViewController.xib; sourceTree = "<group>"; };
-		C42B04401F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C42B04411F13C7350072DE92 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		C42B04421F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C42B04431F13C73A0072DE92 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C44B726E1E7ADBD800DF1FEA /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		C44B726F1E7ADBD800DF1FEA /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
@@ -276,13 +271,9 @@
 		C491C2E71FCF170D00D88EE3 /* ECDChatWithTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECDChatWithTabBarVC.h; path = Proof_of_Concept/ECDChatWithTabBarVC.h; sourceTree = "<group>"; };
 		C491C2E81FCF170D00D88EE3 /* ECDChatWithTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ECDChatWithTabBarVC.m; path = Proof_of_Concept/ECDChatWithTabBarVC.m; sourceTree = "<group>"; };
 		C491C2E91FCF170D00D88EE3 /* ECDChatWithTabBarVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ECDChatWithTabBarVC.xib; path = Proof_of_Concept/ECDChatWithTabBarVC.xib; sourceTree = "<group>"; };
-		C491C2F71FD1C80200D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C491C2F81FD1C80300D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C491C2F91FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C491C2FA1FD1C80700D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C491C2FB1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C491C2FC1FD1C81200D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C49206111D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C49206121D4FB66200B38C97 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C492B5FE1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDBreadcrumbConfigVC.h; path = "Configuration Views/ECDBreadcrumbConfigVC.h"; sourceTree = "<group>"; };
 		C492B5FF1D10C1AC008BE187 /* ECDBreadcrumbConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDBreadcrumbConfigVC.m; path = "Configuration Views/ECDBreadcrumbConfigVC.m"; sourceTree = "<group>"; };
@@ -295,6 +286,10 @@
 		C492B6101D1491DD008BE187 /* ECDJourneyConfigVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDJourneyConfigVC.h; path = "Configuration Views/ECDJourneyConfigVC.h"; sourceTree = "<group>"; };
 		C492B6111D1491DD008BE187 /* ECDJourneyConfigVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDJourneyConfigVC.m; path = "Configuration Views/ECDJourneyConfigVC.m"; sourceTree = "<group>"; };
 		C492B6121D1491DD008BE187 /* ECDJourneyConfigVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDJourneyConfigVC.xib; path = "Configuration Views/ECDJourneyConfigVC.xib"; sourceTree = "<group>"; };
+		C4963F94200D120500CBCD51 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C4963F96200D120C00CBCD51 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C4963F98200D121500CBCD51 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C4963F99200D128100CBCD51 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C497F9DD1FD84CD800458363 /* ECDFormWithTabBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDFormWithTabBarVC.xib; path = Proof_of_Concept/ECDFormWithTabBarVC.xib; sourceTree = "<group>"; };
 		C497F9DE1FD84CD800458363 /* ECDFormWithTabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECDFormWithTabBarVC.h; path = Proof_of_Concept/ECDFormWithTabBarVC.h; sourceTree = "<group>"; };
 		C497F9DF1FD84CD800458363 /* ECDFormWithTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECDFormWithTabBarVC.m; path = Proof_of_Concept/ECDFormWithTabBarVC.m; sourceTree = "<group>"; };
@@ -849,6 +844,9 @@
 				nl,
 				sv,
 				da,
+				nb,
+				fi,
+				pl,
 			);
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
@@ -1008,6 +1006,9 @@
 				C491C2F81FD1C80300D88EE3 /* nl */,
 				C491C2FA1FD1C80700D88EE3 /* sv */,
 				C491C2FC1FD1C81200D88EE3 /* da */,
+				C4963F94200D120500CBCD51 /* nb */,
+				C4963F96200D120C00CBCD51 /* fi */,
+				C4963F98200D121500CBCD51 /* pl */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnectDemo;
@@ -1016,15 +1017,7 @@
 		03978F191A602B2D007793D6 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				03978F1A1A602B2D007793D6 /* Base */,
-				0368D7771B3AEACF00985673 /* fr */,
-				46004D521B5D60F900E78A83 /* es */,
-				C49206111D4FB66200B38C97 /* zh-Hans */,
-				C42B04401F13C7350072DE92 /* pt-BR */,
-				C42B04421F13C73A0072DE92 /* pt-PT */,
-				C491C2F71FD1C80200D88EE3 /* nl */,
-				C491C2F91FD1C80700D88EE3 /* sv */,
-				C491C2FB1FD1C81200D88EE3 /* da */,
+				C4963F99200D128100CBCD51 /* en */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
