@@ -359,12 +359,24 @@ typedef NS_ENUM(NSInteger, AnswerAnimatePosition)
             message = ECSLocalizedString(ECSLocalizedAnswerNotFoundMessage, @"Answer not found message");
         }
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+//                                                        message:message
+//                                                       delegate:nil
+//                                              cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
+//                                              otherButtonTitles:nil];
+//        [alert show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
         [self.searchTextField setText:@""];
         [self showFAQPopover:nil];
         

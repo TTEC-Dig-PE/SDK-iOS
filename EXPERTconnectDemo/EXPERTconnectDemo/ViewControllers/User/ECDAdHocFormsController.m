@@ -89,10 +89,10 @@
     [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error) {
         
         if(error) {
-            [self showAlert:@"Error:" withMessage:error.description];
+            [self showAlertWithTitle:@"Error:" andMessage:error.description];
         }
         if(fileNames.count==0) {
-            [self showAlert:@"File not found." withMessage:@"The image you requested does not exist on this server."];
+            [self showAlertWithTitle:@"File not found." andMessage:@"The image you requested does not exist on this server."];
         }
         /*NSString *delim = @"";
         NSMutableString *detailedErrorMessage = [[NSMutableString alloc] init];
@@ -146,7 +146,7 @@
     
     [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error) {
         NSLog(@"Form was Submited:");
-        [weakSelf showAlert:@"Thank you!" withMessage:@"Form was Submitted!"];
+        [weakSelf showAlertWithTitle:@"Thank you!" andMessage:@"Form was Submitted!"];
     }];
 }
 
@@ -302,7 +302,7 @@
      {
          if (error)
          {
-             [self showAlert:@"Error" withMessage: [NSString stringWithFormat:@"Failed to send media %@", error]];
+             [self showAlertWithTitle:@"Error" andMessage:[NSString stringWithFormat:@"Failed to send media %@", error]];
          }
          else
          {
@@ -311,13 +311,16 @@
      }];
 }
 
-- (void) showAlert:(NSString *)title withMessage:(NSString *)message {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"Ok Button")
-                                          otherButtonTitles:nil];
-    [alert show];
+- (void) showAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)unrecognizedAction:(NSString *)action {

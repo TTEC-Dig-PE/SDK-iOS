@@ -170,9 +170,9 @@
     }
     
     if (message !=nil){
-        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [alertView show];
+//            [alertView show];
         });
     }
     
@@ -214,9 +214,9 @@
         NSLog(@"Clearing Enrollments Result: %@", message);
     }
     
-    UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:@"Success" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//    UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:@"Success" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [alertView show];
+//        [alertView show];
     });
 }
 
@@ -274,16 +274,16 @@
 }
 
 - (void)startRecordAndShowAlert:(NSTimer *) timer {
-    UIAlertView * alertView = nil;
-    if ([[timer userInfo] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-    } else {
-        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-    }
+//    UIAlertView * alertView = nil;
+//    if ([[timer userInfo] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//        alertView = [[UIAlertView alloc] initWithTitle:@"New Enrollment" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//    } else {
+//        alertView = [[UIAlertView alloc] initWithTitle:@"Authenticate" message:@"Say: 'Zoos are filled with small and large animals.'" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"Present the alert view..");
-        [alertView show];
+//        [alertView show];
     });
     
     recordedFile = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingString:@"RecordedFile.wav"]];
@@ -312,7 +312,7 @@
     else
         isEnrollment = NO;
     
-    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:5];
+//    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:5];
 }
 
 -(void)playbackRecord {
@@ -347,9 +347,9 @@
     }
     
     if (message !=nil){
-        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [alertView show];
+//            [alertView show];
         });
     }
 }
@@ -403,9 +403,9 @@
                 (![message isEqualToString:@"Success"])) {
                 
                 NSLog(@"Enrollment response: %@", message);
-                UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//                UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [alertView show];
+//                    [alertView show];
                 });
             } else if (self.countOfEnrollment < 3) {
                 self.countOfEnrollment++;
@@ -415,26 +415,26 @@
     
 }
 
--(void)dismissAlertView:(UIAlertView *)alertView {
-    [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    [recorder stop];
-    recorder = nil;
-    if (playBackSwitch) {
-        [self playbackRecord];
-        voiceTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(sendRecordToServer) userInfo:nil repeats:NO];
-    } else {
-        [self sendRecordToServer];
-    }
-}
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == [alertView cancelButtonIndex]) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        [recorder stop];
-        recorder = nil;
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager removeItemAtURL:recordedFile error:nil];
-        recordedFile = nil;
-    }
-}
+//-(void)dismissAlertView:(UIAlertView *)alertView {
+//    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+//    [recorder stop];
+//    recorder = nil;
+//    if (playBackSwitch) {
+//        [self playbackRecord];
+//        voiceTimer=[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(sendRecordToServer) userInfo:nil repeats:NO];
+//    } else {
+//        [self sendRecordToServer];
+//    }
+//}
+//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex == [alertView cancelButtonIndex]) {
+//        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+//        [recorder stop];
+//        recorder = nil;
+//        NSFileManager *fileManager = [NSFileManager defaultManager];
+//        [fileManager removeItemAtURL:recordedFile error:nil];
+//        recordedFile = nil;
+//    }
+//}
 
 @end

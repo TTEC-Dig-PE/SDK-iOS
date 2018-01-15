@@ -7,8 +7,8 @@
 
 #import "EXPERTconnect.h"
 
-#import "ECSCafeXController.h"
-#import "ECSVoiceItManager.h"
+//#import "ECSCafeXController.h"
+//#import "ECSVoiceItManager.h"
 
 #import "ECSURLSessionManager.h"
 #import "ECSImageCache.h"
@@ -78,22 +78,22 @@ NSTimer *breadcrumbTimer;
     [[ECSInjector defaultInjector] setObject:[ECSImageCache new] forClass:[ECSImageCache class]];
     [[ECSInjector defaultInjector] setObject:[ECSTheme new] forClass:[ECSTheme class]];
     [[ECSInjector defaultInjector] setObject:[ECSUserManager new] forClass:[ECSUserManager class]];
-    [[ECSInjector defaultInjector] setObject:[ECSVoiceItManager new] forClass:[ECSVoiceItManager class]];
+//    [[ECSInjector defaultInjector] setObject:[ECSVoiceItManager new] forClass:[ECSVoiceItManager class]];
 
     //[self initializeVideoComponents];
 
     _userCallbackNumber = nil;
 }
 
-- (void)initializeVideoComponents
-{
-    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-    
-    // Do a login if there's no session:
-    if (![cafeXController hasCafeXSession]) {
-        [cafeXController setupCafeXSession];
-    }
-}
+//- (void)initializeVideoComponents
+//{
+//    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//
+//    // Do a login if there's no session:
+//    if (![cafeXController hasCafeXSession]) {
+//        [cafeXController setupCafeXSession];
+//    }
+//}
 
 #pragma mark Properties
 
@@ -362,13 +362,13 @@ NSTimer *breadcrumbTimer;
     
     [self breadcrumbDispatchWithCompletion:nil];
     
-    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-    // Do a login if there's no session:
-    if (![cafeXController hasCafeXSession]) {
-        [cafeXController setupCafeXSession];
-    }
-    chatAction.cafexmode = @"videocapable,voicecapable,cobrowsecapable";
-    chatAction.cafextarget = [cafeXController cafeXUsername];
+//    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//    // Do a login if there's no session:
+//    if (![cafeXController hasCafeXSession]) {
+//        [cafeXController setupCafeXSession];
+//    }
+//    chatAction.cafexmode = @"videocapable,voicecapable,cobrowsecapable";
+//    chatAction.cafextarget = [cafeXController cafeXUsername];
     
     UIViewController *chatController = [self viewControllerForActionType:chatAction];
     
@@ -377,19 +377,19 @@ NSTimer *breadcrumbTimer;
 
 - (UIViewController*)startVideoChat:(NSString*)chatSkill withDisplayName:(NSString*)displayName
 {
-    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
-    
-    // Do a login if there's no session:
-    if (![cafeXController hasCafeXSession]) {
-        [cafeXController setupCafeXSession];
-    }
+//    ECSCafeXController *cafeXController = [[ECSInjector defaultInjector] objectForClass:[ECSCafeXController class]];
+//
+//    // Do a login if there's no session:
+//    if (![cafeXController hasCafeXSession]) {
+//        [cafeXController setupCafeXSession];
+//    }
     
     ECSVideoChatActionType *chatAction = [ECSVideoChatActionType new];
     chatAction.actionId = @"";
     chatAction.agentSkill = chatSkill;
     chatAction.displayName = displayName;
     chatAction.cafexmode = @"videoauto";
-    chatAction.cafextarget = [cafeXController cafeXUsername];
+//    chatAction.cafextarget = [cafeXController cafeXUsername];
     
     UIViewController *chatController = [self viewControllerForActionType:chatAction];
     
@@ -607,38 +607,38 @@ NSTimer *breadcrumbTimer;
 
 #pragma mark VoiceIT Functions
 
-- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
-    // VoiceIT SDK. Call callback with response.
-    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
-    if ([voiceItManager isInitialized]) {
-        [voiceItManager authenticateAction:authCallback];
-    } else {
-        [voiceItManager configure:username];
-        [voiceItManager authenticateAction:authCallback];
-    }
-}
-
-- (void)recordNewEnrollment {
-    // VoiceIT SDK. Call callback with response.
-    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
-    if ([voiceItManager isInitialized]) {
-        [voiceItManager recordNewEnrollment];
-    } else {
-        [voiceItManager configure:[self userName]];
-        [voiceItManager recordNewEnrollment];
-    }
-}
-
-- (void)clearEnrollments {
-    // VoiceIT SDK. Call callback with response.
-    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
-    if ([voiceItManager isInitialized]) {
-        [voiceItManager clearEnrollments];
-    } else {
-        [voiceItManager configure:[self userName]];
-        [voiceItManager clearEnrollments];
-    }
-}
+//- (void)voiceAuthRequested:(NSString *)username callback:(void (^)(NSString *))authCallback {
+//    // VoiceIT SDK. Call callback with response.
+//    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+//    if ([voiceItManager isInitialized]) {
+//        [voiceItManager authenticateAction:authCallback];
+//    } else {
+//        [voiceItManager configure:username];
+//        [voiceItManager authenticateAction:authCallback];
+//    }
+//}
+//
+//- (void)recordNewEnrollment {
+//    // VoiceIT SDK. Call callback with response.
+//    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+//    if ([voiceItManager isInitialized]) {
+//        [voiceItManager recordNewEnrollment];
+//    } else {
+//        [voiceItManager configure:[self userName]];
+//        [voiceItManager recordNewEnrollment];
+//    }
+//}
+//
+//- (void)clearEnrollments {
+//    // VoiceIT SDK. Call callback with response.
+//    ECSVoiceItManager *voiceItManager = [[ECSInjector defaultInjector] objectForClass:[ECSVoiceItManager class]];
+//    if ([voiceItManager isInitialized]) {
+//        [voiceItManager clearEnrollments];
+//    } else {
+//        [voiceItManager configure:[self userName]];
+//        [voiceItManager clearEnrollments];
+//    }
+//}
 
 #pragma mark API Function Calls
 
