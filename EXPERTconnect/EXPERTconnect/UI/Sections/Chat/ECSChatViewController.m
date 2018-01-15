@@ -2413,6 +2413,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 // This occurs if the user clicks a link within the message bubble.
 // Details here: https://github.com/zacwest/ZSWTappableLabel
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)tappableLabel:(ZSWTappableLabel *)tappableLabel
         tappedAtIndex:(NSInteger)idx
        withAttributes:(NSDictionary<NSString *,id> *)attributes {
@@ -2464,9 +2466,15 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     ECSLogVerbose(self.logger, @"Data detector found tappable item. Opening URL: %@", URL.absoluteString);
     
     if ([URL isKindOfClass:[NSURL class]]) {
-        [[UIApplication sharedApplication] openURL:URL];
+        UIApplication *application = [UIApplication sharedApplication];
+        if([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+            [application openURL:URL options:@{} completionHandler:nil];
+        } else {
+            [application openURL:URL];
+        }
     }
 }
+#pragma clang diagnostic pop
 
 - (void)configureCellAvatarImage:(ECSChatTableViewCell*)cell
                             from:(NSString *)theFrom
