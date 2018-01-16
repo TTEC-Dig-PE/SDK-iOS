@@ -114,7 +114,19 @@
                     textMessage.messageId = message.messageId;
                     textMessage.timeStamp = message.dateString;
                     
-                    [msgArray addObject:textMessage];
+                    if( [textMessage.from isEqualToString:@"System"] &&
+                       ([textMessage.body containsString:@") has joined the chat."] ||
+                        [textMessage.body containsString:@") has left the chat."] ||
+                        [textMessage.body containsString:@"This chat is being transferred..."]) ) {
+                           // NOTE: Except for the first agent, any agent that joins or leaves the chat will trigger a
+                           // 'System' message informing the user of the change. The 'joins' are redundant because of the
+                           // AddParticipant message. So, we'll squelch them here.
+                           
+                           // Do nothing (don't add the message to the array.
+                       } else {
+                           
+                           [msgArray addObject:textMessage];
+                       }
                     
                 } else if ([transformedMessage isKindOfClass:[ECSChannelStateMessage class]]) {
                     
