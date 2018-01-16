@@ -49,8 +49,9 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"<TextMessage : from=%@, fromAgent? %d, body=%@, messageId=%@, conversationId=%@, channelId=%@>",
-            self.from, self.fromAgent, self.body, self.messageId, self.conversationId, self.channelId];
+
+    return [NSString stringWithFormat:@"<TextMessage : from=%@, fromAgent? %d, body=%@, timestamp=%@, conversationId=%@, channelId=%@>",
+            self.from, self.fromAgent, self.body, self.timeStamp, self.conversationId, self.channelId];
 }
 
 @end
