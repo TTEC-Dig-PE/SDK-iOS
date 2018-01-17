@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name = 'EXPERTconnect'
-  s.version = '6.3.0'
+  s.version = '6.3.2'
   s.license = 'MIT'
-  s.summary = 'Humanify customer service native SDK'
+  s.summary = 'TTEch Customer Service Native SDK'
   s.homepage = 'http://www.teletech.com/'
-  s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@humanify.com' }
+  s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@ttech.com' }
   s.source = { :git => 'https://github.com/humanifydev/SDK-iOS.git', :tag => s.version }
 
-  s.platform         = :ios, '8.1'
+  s.platform         = :ios, '9.1'
   s.requires_arc = true
   s.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS[config=Debug]' => '-D DEBUG' }
 
