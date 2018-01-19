@@ -2467,7 +2467,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     if ([URL isKindOfClass:[NSURL class]]) {
         UIApplication *application = [UIApplication sharedApplication];
-        if([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        
+        if( @available(iOS 10, *) ) {
             [application openURL:URL options:@{} completionHandler:nil];
         } else {
             [application openURL:URL];
