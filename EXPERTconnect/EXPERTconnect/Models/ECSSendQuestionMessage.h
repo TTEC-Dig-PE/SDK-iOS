@@ -16,9 +16,9 @@
 @interface ECSSendQuestionMessage : ECSChatMessage
 
 @property (strong, nonatomic) NSString *questionText;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSString *version;
-@property (strong, nonatomic) NSString *conversationId;
+//@property (strong, nonatomic) NSString *conversationId;
 @property (strong, nonatomic) NSString *interfaceName;
 @property (strong, nonatomic) NSString *from;
 

@@ -215,12 +215,22 @@ static const char *ECDZoomViewControllerKey = "ECDZoomViewControllerKey";
         } else if (!appConfig.organization) {
             message = @"Must select an organiztion/environment to proceed.";
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Harness Error"
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Harness Error"
+//                                                        message:message
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test Harness Error"
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

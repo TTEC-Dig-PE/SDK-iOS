@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <EXPERTconnect/EXPERTconnect.h>
 
-@interface ECDChatHistoryVC : UIViewController
+@interface ECDChatHistoryVC : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextView *historyTextView;
 

@@ -89,7 +89,7 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self setupPickerView];
+    [self setupPickerView];    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -283,17 +283,12 @@ static NSString *const lastChatSkillKey = @"lastSkillSelected";
 
 - (IBAction)btnViewChatHistory_Touch:(id)sender {
     
-    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
+//    ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    // Test 1: Get Chat history (record of chat starts for this user)
-    [sessionManager getChatHistoryDetailsForJourneyId:sessionManager.journeyID withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
-        NSLog(@"Details: %@", response);
-        
-    }];
+   
+    ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
     
-    //ECDChatHistoryVC *historyVC = [[ECDChatHistoryVC alloc] init];
-    
-    //[self.navigationController pushViewController:historyVC animated:YES];
+    [self.navigationController pushViewController:historyVC animated:YES];
     
 }
 

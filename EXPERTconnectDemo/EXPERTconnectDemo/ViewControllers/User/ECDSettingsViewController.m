@@ -386,21 +386,34 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     {
         ECDLicenseViewController *license = [[ECDLicenseViewController alloc] initWithNibName:nil bundle:nil];
         [self.navigationController pushViewController:license animated:YES];
-    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowAuthenticate) {
-        [self voiceItAuthenticate:nil];
-    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowRecord) {
-        [self voiceItRecord:nil];
-    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowReset) {
-        [self voiceItReset:nil];
+//    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowAuthenticate) {
+//        [self voiceItAuthenticate:nil];
+//    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowRecord) {
+//        [self voiceItRecord:nil];
+//    } else if (indexPath.section == SettingsSectionVoiceIt && indexPath.row == VoiceItSectionRowReset) {
+//        [self voiceItReset:nil];
     } else if (indexPath.section == SettingsSectionsStartJourney && indexPath.row == JourneyRowRecieve) {
         // Start a new journey.
         [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:[NSString stringWithFormat:@"Journey started with ID=%@", journeyID]
-                                                           delegate:nil
-                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
-                                                  otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                            message:[NSString stringWithFormat:@"Journey started with ID=%@", journeyID]
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+//                                                  otherButtonTitles:nil];
+//            [alert show];
+            
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success!"
+                                                                           message:[NSString stringWithFormat:@"Journey started with ID=%@", journeyID]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:nil];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
         }];
     }else if (indexPath.section == SettingsSectionCustomizeTheme && indexPath.row == ThemeSectionRowLicenses)
 	{
@@ -528,25 +541,25 @@ typedef NS_ENUM(NSInteger, ThemeSectionRows)
     }
 }
 
-- (void)voiceItAuthenticate:(id)sender
-{
-    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userName] callback:^(NSString *response) {
-        // Alert Agent to the response:
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
-        [alert show];
-    }];
-
-}
-
-- (void)voiceItRecord:(id)sender
-{
-    [[EXPERTconnect shared] recordNewEnrollment];
-}
-
-- (void)voiceItReset:(id)sender
-{
-    [[EXPERTconnect shared] clearEnrollments];
-}
+//- (void)voiceItAuthenticate:(id)sender
+//{
+//    [[EXPERTconnect shared] voiceAuthRequested:[[EXPERTconnect shared] userName] callback:^(NSString *response) {
+//        // Alert Agent to the response:
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:response delegate:nil cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK") otherButtonTitles:nil];
+//        [alert show];
+//    }];
+//
+//}
+//
+//- (void)voiceItRecord:(id)sender
+//{
+//    [[EXPERTconnect shared] recordNewEnrollment];
+//}
+//
+//- (void)voiceItReset:(id)sender
+//{
+//    [[EXPERTconnect shared] clearEnrollments];
+//}
 
 - (void)pushNotificationSwitchChanged:(id)sender
 {

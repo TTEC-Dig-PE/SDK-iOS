@@ -34,6 +34,7 @@
     
     NSData* data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response error:nil];
+    
     NSError *error;
     NSDictionary * dic = nil;
     if (data != nil) {

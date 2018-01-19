@@ -547,7 +547,7 @@
             }
         }();
         
-        XCTAssert(@"[iOS SDK]: ",@"(%@): %@", levelString, message);
+        NSLog(@"[iOS SDK]: (%@): %@", levelString, message);
         
     }];
 }

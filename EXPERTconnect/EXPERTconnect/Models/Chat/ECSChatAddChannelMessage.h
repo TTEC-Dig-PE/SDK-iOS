@@ -11,8 +11,8 @@
 
 @interface ECSChatAddChannelMessage : ECSChatMessage <ECSAddressableChatMessage>
 
-@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *conversationId;
+//@property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSString *from;
 @property (strong, nonatomic) NSString *mediaType;
 @property (strong, nonatomic) NSString *suggestedAddress;

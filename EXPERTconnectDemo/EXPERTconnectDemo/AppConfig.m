@@ -174,40 +174,69 @@
     
         NSString *urlString = [NSString stringWithFormat:@"%@authServerProxy/v1/tokens/ust?username=%@&client_id=%@",
                                hostURL,
-                               [[self getUserName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                               [[self getUserName] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]],
                                organization];
         
         NSURL *url = [[NSURL alloc] initWithString:urlString];
         
         NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - AuthToken URL: %@", url);
         
-        [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
-                                           queue:[[NSOperationQueue alloc] init]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-         {
-             
-             long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
-             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-             
-             if(!error && (statusCode == 200 || statusCode == 201))
-             {
-                 NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
-                                          [returnToken substringToIndex:4],
-                                          [returnToken substringFromIndex:returnToken.length-4]];
-                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
-                 completion([NSString stringWithFormat:@"%@", returnToken], nil);
-             }
-             else
-             {
-                 // If the new way didn't work, try the old way once.
-                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
-                 //[self fetchOldAuthenticationToken:completion];
-                 NSError *myError = [NSError errorWithDomain:@"com.humanify"
-                                                        code:statusCode
-                                                    userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
-                 completion(nil, myError);
-             }
-         }];
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithURL:url
+                completionHandler:^(NSData *data,
+                                    NSURLResponse *response,
+                                    NSError *error) {
+                    // handle response
+                    long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+                    NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    
+                    if(!error && (statusCode == 200 || statusCode == 201))
+                    {
+                        NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
+                                                 [returnToken substringToIndex:4],
+                                                 [returnToken substringFromIndex:returnToken.length-4]];
+                        NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
+                        completion([NSString stringWithFormat:@"%@", returnToken], nil);
+                    }
+                    else
+                    {
+                        // If the new way didn't work, try the old way once.
+                        NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+                        //[self fetchOldAuthenticationToken:completion];
+                        NSError *myError = [NSError errorWithDomain:@"com.humanify"
+                                                               code:statusCode
+                                                           userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+                        completion(nil, myError);
+                    }
+                }] resume];
+        
+//        [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+//                                           queue:[[NSOperationQueue alloc] init]
+//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+//         {
+//             
+//             long statusCode = (long)((NSHTTPURLResponse*)response).statusCode;
+//             NSString *returnToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//             
+//             if(!error && (statusCode == 200 || statusCode == 201))
+//             {
+//                 NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
+//                                          [returnToken substringToIndex:4],
+//                                          [returnToken substringFromIndex:returnToken.length-4]];
+//                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - Successfully fetched authToken: %@", abbrevToken);
+//                 completion([NSString stringWithFormat:@"%@", returnToken], nil);
+//             }
+//             else
+//             {
+//                 // If the new way didn't work, try the old way once.
+//                 NSLog(@"Test Harness::AppConfig.m - fetchAuthenticationToken - ERROR FETCHING AUTHENTICATION TOKEN! StatusCode=%ld, Payload=%@", statusCode, returnToken);
+//                 //[self fetchOldAuthenticationToken:completion];
+//                 NSError *myError = [NSError errorWithDomain:@"com.humanify"
+//                                                        code:statusCode
+//                                                    userInfo:[NSDictionary dictionaryWithObject:returnToken forKey:@"errorJson"]];
+//                 completion(nil, myError);
+//             }
+//         }];
     }
 }
 

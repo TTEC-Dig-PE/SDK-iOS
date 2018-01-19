@@ -1294,11 +1294,23 @@ ECSFormViewController *_formsController;
     _formsController.delegate = self;
     //_formsController.showFormSubmittedView = NO;
     
-//    [self.navigationController pushViewController:_formsController animated:YES];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Form Testing"
+                                                                   message:@"Start form with a tab bar at bottom?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    ECDFormWithTabBarVC *formTabView = [[ECDFormWithTabBarVC alloc] init];
-    formTabView.formController = _formsController;
-    [self.navigationController pushViewController:formTabView animated:YES];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ECDFormWithTabBarVC *formTabView = [[ECDFormWithTabBarVC alloc] init];
+        formTabView.formController = _formsController;
+        [self.navigationController pushViewController:formTabView animated:YES];
+    }];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController pushViewController:_formsController animated:YES];
+    }];
+    
+    [alert addAction:okAction];
+    [alert addAction:noAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)handleAdHocEditUserProfile

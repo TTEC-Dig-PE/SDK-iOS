@@ -6,6 +6,7 @@
 //
 
 #import "ECSSendConfirmationViewController.h"
+#import <AVKit/AVKit.h>
 
 @import MediaPlayer;
 
@@ -66,8 +67,14 @@
 {
     if (self.mediaURL)
     {
-        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:self.mediaURL];
-        [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+        AVPlayer *player = [AVPlayer playerWithURL:self.mediaURL];
+        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+        playerViewController.player = player;
+        [playerViewController.player play]; //Used to Play On start
+        [self presentViewController:playerViewController animated:YES completion:nil];
+        
+//        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:self.mediaURL];
+//        [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     }
 }
 

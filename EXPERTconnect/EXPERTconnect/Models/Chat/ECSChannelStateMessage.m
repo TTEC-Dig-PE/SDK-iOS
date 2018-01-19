@@ -134,4 +134,9 @@
     }
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"<ChannelStateMessage : state=%@, estimatedWait=%@, terminatedBy=%@, disconnectReason=%@, conversationId=%@, channelId=%@>",
+            self.state, self.estimatedWait, [self getTerminatedByString], [self getDisconnectReasonString], self.conversationId, self.channelId];
+}
+
 @end

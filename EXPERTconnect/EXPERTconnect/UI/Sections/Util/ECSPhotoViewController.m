@@ -6,6 +6,7 @@
 //
 
 #import "ECSPhotoViewController.h"
+#import <AVKit/AVKit.h>
 
 @import MediaPlayer;
 
@@ -62,8 +63,14 @@
 - (IBAction)playButtonTapped:(id)sender {
     if (self.mediaPath)
     {
-        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:self.mediaPath]];
-        [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+        AVPlayer *player = [AVPlayer playerWithURL:[NSURL URLWithString:self.mediaPath]];
+        AVPlayerViewController *playerViewController = [AVPlayerViewController new];
+        playerViewController.player = player;
+        [playerViewController.player play]; //Used to Play On start
+        [self presentViewController:playerViewController animated:YES completion:nil];
+        
+//        MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:self.mediaPath]];
+//        [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     }
 }
 

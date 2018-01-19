@@ -26,12 +26,13 @@
 - (id)copyWithZone:(NSZone*)zone
 {
     ECSChatAssociateInfoMessage *message = [[[self class] allocWithZone:zone] init];
-    message.conversationId = [self.conversationId copyWithZone:zone];
-    message.channelId = [self.channelId copyWithZone:zone];
-    message.messageId = [self.messageId copyWithZone:zone];
-    message.from = [self.from copyWithZone:zone];
-    message.message = [self.message copyWithZone:zone];
-    message.fromAgent = self.fromAgent;
+    
+    message.conversationId =    [self.conversationId copyWithZone:zone];
+    message.channelId =         [self.channelId copyWithZone:zone];
+    message.messageId =         [self.messageId copyWithZone:zone];
+    message.from =              [self.from copyWithZone:zone];
+    message.message =           [self.message copyWithZone:zone];
+    message.fromAgent =         self.fromAgent;
     
     return message;
 }

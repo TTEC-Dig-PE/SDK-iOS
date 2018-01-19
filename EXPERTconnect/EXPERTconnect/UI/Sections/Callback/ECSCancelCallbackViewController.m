@@ -121,12 +121,24 @@
 {
     if (error)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
-                                                            message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
-                                                           delegate:nil
-                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
-                                                  otherButtonTitles:nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
+//                                                            message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:ECSLocalizedString(ECSLocalizeError, @"Error")
+                                                                       message:ECSLocalizedString(ECSLocalizeErrorText, @"Error Text")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:ECSLocalizedString(ECSLocalizedOkButton, @"OK")
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        
     }
     else
     {

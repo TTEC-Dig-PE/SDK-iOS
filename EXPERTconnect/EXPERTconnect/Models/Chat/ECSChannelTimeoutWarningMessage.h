@@ -17,8 +17,8 @@
  */
 @interface ECSChannelTimeoutWarningMessage : ECSChatMessage <ECSAddressableChatMessage>
 
-@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *conversationId;
+//@property (strong, nonatomic) NSString *channelId;
 @property (strong, nonatomic) NSNumber *version;
 @property (strong, nonatomic) NSString *timeoutSeconds;
 

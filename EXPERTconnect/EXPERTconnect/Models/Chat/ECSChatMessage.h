@@ -14,6 +14,10 @@
 
 @interface ECSChatMessage : ECSJSONObject <NSCopying, ECSJSONSerializing>
 
-@property (assign, nonatomic) BOOL fromAgent;
+@property (assign, nonatomic) BOOL      fromAgent;
+@property (strong, nonatomic) NSString  *conversationId;
+@property (strong, nonatomic) NSString  *channelId;
+@property (strong, nonatomic) NSString  *messageId;
+@property (strong, nonatomic) NSString  *timeStamp;
 
 @end

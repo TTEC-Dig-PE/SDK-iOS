@@ -525,7 +525,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     ECSLogVerbose(self.logger, @"Get Results from a known endpoint");
     
     // Append the endpoint parameter to the base URL (factoring for slashes on either side)
-    NSURL *fullURL = [NSURL URLWithString:[endpoint stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+    NSURL *fullURL = [NSURL URLWithString:[endpoint stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]
                             relativeToURL:self.baseURL];
     
     // Now break it apart into it's components.

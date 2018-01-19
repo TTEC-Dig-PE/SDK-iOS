@@ -12,6 +12,7 @@
 #import "ECSChannelStateMessage.h"
 #import "ECSChatVoiceAuthenticationMessage.h"
 #import "ECSStompClient.h"
+#import "ECSChatHistoryResponse.h"
 
 @class ECSActionType;
 @class ECSChatActionType; 

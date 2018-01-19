@@ -820,6 +820,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 -(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
 
     // Deprecated. 
+
 //    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
 //        [self.delegate chatClientDisconnected:self wasGraceful:NO];
 //    }
@@ -979,7 +980,6 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
         
         // Older method
         if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)]) {
-            
             [self.delegate chatClient:self didReceiveMessage:message];
         }
         

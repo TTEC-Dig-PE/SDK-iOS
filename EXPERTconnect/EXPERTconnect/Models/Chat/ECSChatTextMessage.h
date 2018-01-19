@@ -14,13 +14,13 @@
 
 @interface ECSChatTextMessage : ECSChatMessage <ECSAddressableChatMessage>
 
-@property (strong, nonatomic) NSString *conversationId;
-@property (strong, nonatomic) NSString *channelId;
-@property (strong, nonatomic) NSString *messageId;
+//@property (strong, nonatomic) NSString *conversationId;
+//@property (strong, nonatomic) NSString *channelId;
+//@property (strong, nonatomic) NSString *messageId;
 @property (strong, nonatomic) NSString *from;
 @property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *chatState;
-@property (strong, nonatomic) NSString *timeStamp;
+//@property (strong, nonatomic) NSString *timeStamp;
 
 - (NSData*)socketMessage;
 

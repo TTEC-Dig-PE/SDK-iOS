@@ -27,8 +27,11 @@
             
             for (id key in parameters) {
                 id value = parameters[key];
-                NSString *encodedKey = [[key description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                NSString *encodedValue = [[value description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                
+                NSString *encodedKey = [[key description]  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                
+                NSString *encodedValue = [[value description]  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                
                 [stringParams addObject:[NSString stringWithFormat:@"%@=%@", encodedKey, encodedValue]];
             }
             
