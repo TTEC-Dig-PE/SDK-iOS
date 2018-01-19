@@ -2855,6 +2855,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 
 - (void)updateEdgeInsets {
     
+    // Don't shift controls up -- integrator has indicated they will shift.
+    if( !self.shiftUpForKeyboard ) return;
+    
     UIEdgeInsets insets = self.tableView.contentInset;
     
     CGFloat bottomOffset = 0;

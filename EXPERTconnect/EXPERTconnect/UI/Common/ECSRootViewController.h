@@ -25,6 +25,12 @@
 // Indicates if a full screen reachability message should be displayed.  Defaults to YES.
 @property (nonatomic, assign) BOOL showFullScreenReachabilityMessage;
 
+/*!
+ @brief Whether or not to shift the view components upward by the height of the keyboard (disable if you have views below while form view is shown).
+ */
+@property (nonatomic, assign) bool shiftUpForKeyboard;
+
+
 @property (nonatomic, weak) id<ECSWorkflowNavigationDelegate> workflowDelegate;
 
 /**

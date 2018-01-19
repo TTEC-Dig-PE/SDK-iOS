@@ -38,6 +38,7 @@
     if (self)
     {
         self.showFullScreenReachabilityMessage = YES;
+        self.shiftUpForKeyboard = YES; 
     }
     
     return self;

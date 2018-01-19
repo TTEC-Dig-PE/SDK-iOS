@@ -20,6 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.chatController.shiftUpForKeyboard = NO; 
     [self addChildViewController:self.chatController];
     
     self.chatController.bottomFrameOffset = self.tabBar.frame.size.height;

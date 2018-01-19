@@ -350,7 +350,12 @@
     
     [UIView animateWithDuration:[number doubleValue]
                      animations:^{
-//                         self.buttonViewBottomConstraint.constant = 0;
+                         
+                         // Works if no bottom bar. Breaks if any view below.
+                         if( self.shiftUpForKeyboard ) {
+                             self.buttonViewBottomConstraint.constant = 0;
+                         }
+                         
                          [self.view layoutIfNeeded];
                      }];
 }
@@ -363,8 +368,13 @@
     
     [UIView animateWithDuration:[number doubleValue]
                      animations:^{
-                         //CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-//                         self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+                         
+                         // Works if no bottom bar. Breaks if any view below.
+                         if( self.shiftUpForKeyboard ) {
+                             CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+                             self.buttonViewBottomConstraint.constant = keyboardFrame.size.height;
+                         }
+                         
                          [self.view layoutIfNeeded];
                      }];
 }

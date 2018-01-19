@@ -20,7 +20,7 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.formController.shiftUpForKeyboard = NO; 
     [self addChildViewController:self.formController];
     
 //    self.formController.bottomFrameOffset = self.tabBar.frame.size.height;
@@ -123,11 +123,11 @@
     NSNumber *animationTime = userInfo[UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
     self.keyboardFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
+
     [UIView animateWithDuration:[animationTime floatValue] animations:^{
         [UIView setAnimationCurve:[animationCurve intValue]];
         [self updateEdgeInsets];
-        
+
     } completion:^(BOOL finished) {
 
     }];
@@ -140,7 +140,7 @@
     NSNumber *animationTime = userInfo[UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
     self.keyboardFrame = CGRectZero;
-    
+
     [UIView animateWithDuration:[animationTime floatValue] animations:^{
         [UIView setAnimationCurve:[animationCurve intValue]];
         [self updateEdgeInsets];
