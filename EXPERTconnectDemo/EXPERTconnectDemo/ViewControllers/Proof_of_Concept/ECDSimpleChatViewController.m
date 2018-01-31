@@ -87,11 +87,18 @@ CGPoint     _originalCenter;
 //        [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
 //                                    subject:chatSubject];
         
-        // Chat start - Advanced (more customizable fields, priority, dataFields. Contact Humanify support for help using these two fields).
-        [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
-                                    subject:chatSubject
-                                   priority:kECSChatPriorityUseServerDefault
-                                 dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
+        [[EXPERTconnect shared].urlSession validateAPI:^(bool success) {
+            
+            NSLog(@"Success?=%d", success);
+            
+            // Chat start - Advanced (more customizable fields, priority, dataFields. Contact Humanify support for help using these two fields).
+            [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
+                                        subject:chatSubject
+                                       priority:kECSChatPriorityUseServerDefault
+                                     dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
+        
+        }];
+       
     }
     
     [self configureNavigationBar];
@@ -139,7 +146,7 @@ CGPoint     _originalCenter;
 // The WebSocket has connected to the server. This may be when you flip your view to the chat screen or dislpay a message to the user "connecting..."
 - (void) chatDidConnect {
     
-    [self appendToChatLog:@"Chat session initiated. Waiting for an agent to answer..."];
+    [self appendToChatLog:@"WebSocket has connected to the server."];
 }
 
 
@@ -147,7 +154,7 @@ CGPoint     _originalCenter;
 // but you could say "an associate is connecting...". Very soon after an "AddParticipant" message should arrive.
 - (void) chatAgentDidAnswer {
     
-    [self appendToChatLog:@"An agent is connecting..."];
+    [self appendToChatLog:@"An agent is joining this chat..."];
 }
 
 
@@ -192,7 +199,7 @@ CGPoint     _originalCenter;
     
     if ( message.disconnectReason == ECSDisconnectReasonIdleTimeout ) {
         
-        [self appendToChatLog:@"Chat has timed out."];
+        [self appendToChatLog:@"Server has timed out this chat."];
         
     } else if ( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant ) {
         
@@ -204,13 +211,15 @@ CGPoint     _originalCenter;
         
     }
     
+    [self.chatClient disconnect];
+    [self appendToChatLog:@"WebSocket has disconnected from the server."];
 }
 
 
 // The server is sending a warning that this client will idle timeout in X seconds if the user does not interact (type a message, or send one).
 - (void) chatTimeoutWarning:(int)seconds {
     
-    [self appendToChatLog:[NSString stringWithFormat:@"Chat will timeout in %d seconds.", seconds]];
+    [self appendToChatLog:[NSString stringWithFormat:@"Server Warning: This chat will timeout in %d seconds.", seconds]];
 }
 
 
@@ -220,6 +229,15 @@ CGPoint     _originalCenter;
     [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
 }
 
+- (void) chatReachabilityEvent:(bool)reachable {
+    
+    if( !reachable ) {
+        [self appendToChatLog:@"Network connection has died."];
+    } else {
+        [self appendToChatLog:@"Network connection has recovered."];
+    }
+    
+}
 
 // Receive other types of messages.
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {

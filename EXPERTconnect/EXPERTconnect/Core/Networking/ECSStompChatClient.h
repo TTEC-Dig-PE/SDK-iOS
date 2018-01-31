@@ -71,6 +71,12 @@
 - (void) chatDidFailWithError:(NSError *)error;
 
 /*!
+ * @discussion The chat detected that the network state has changed.
+ * @param reachable TRUE if the network has recovered, FALSE if OS Reachability has died.
+ */
+- (void) chatReachabilityEvent:(bool)reachable;
+
+/*!
  * @discussion The server is notifying the client of a disconnect. This could be an idle timeout or an agent disconnection (or error).
  * @param message The channelStateMessage object. Important fields: terminatedBy (agent, system), disconnectReason (idleTimeout, disconnectByParticipant)
  */

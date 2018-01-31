@@ -1382,7 +1382,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         // Network is now GOOD
         self.chatToolbar.sendEnabled = YES;
         [self hideNetworkErrorBar];
-        [self reconnectWebsocket:nil];
+//        [self reconnectWebsocket:nil];        // This happens in the websocket now.
 
     } else if ( !reachable ) {
         

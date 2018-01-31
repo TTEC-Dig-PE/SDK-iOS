@@ -1067,6 +1067,26 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+- (void)validateAPI:(void(^)(bool success))completion {
+    
+    // Intercept the return data and convert it to a boolean YES/NO for success.
+    void(^temp)(NSDictionary *response, NSError *error) =  ^void(NSDictionary *response, NSError *error) {
+        if( !error && response && response[@"result"]) {
+            completion(response[@"result"]);
+        } else {
+            completion(NO);
+        }
+    };
+    
+    NSURLSessionDataTask *innerTask =
+           [self GET:[NSString stringWithFormat:@"utils/v1/validate"]
+          parameters:nil
+             success:[self successWithExpectedType:[NSDictionary class] completion:temp]
+             failure:[self failureWithCompletion:temp]];
+    
+    [innerTask resume];
+}
+
 #pragma mark Journey Functions
 
 // Unit Test: ECS_API_Tests::testSetJourneyContext

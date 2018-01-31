@@ -115,6 +115,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
 - (void)dealloc {
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
+    
     [self disconnect];
     
 }
@@ -250,6 +252,31 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 }
 
 #pragma mark - Internal Convienence Functions
+
+- (void) networkConnectionChanged:(NSNotification *) notification {
+    
+    bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
+   
+    if ( reachable && [self isChatActive] ) {
+        
+        ECSLogDebug(self.logger, @"Network recovery. Reconnecting chat client.", reachable);
+        [self reconnect];
+        
+    } else if ( !reachable ) {
+        // TODO: What to do here?
+    }
+    
+    if ( [self.delegate respondsToSelector:@selector(chatReachabilityEvent:)] ) {
+        [self.delegate chatReachabilityEvent:reachable];
+    }
+    
+}
+
+- (bool) isChatActive {
+    
+    return _channelState == ECSChannelStateAnswered || _channelState == ECSChannelStateQueued || _channelState == ECSChannelStatePending || _channelState == ECSChannelStateConnected;
+    
+}
 
 // Unit Test: EXPERTconnectTests::testProperties
 -(NSString *)getTimeStampMessage {
@@ -734,6 +761,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
              // AuthToken updated. Try to reconnect.
              if( !error ) {
                  
+                 [self disconnect]; // To make sure we resubscribe and everything.
                  [self connectToHost:[EXPERTconnect shared].urlSession.hostName];
                  
              } else {
@@ -741,6 +769,11 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                  [self handleStompError:error];
              }
          }];
+        
+    } else if (error.code == 57) { // "Socket is not connected."
+        
+        // TODO: listen for reachability events to reconnect websocket automatically.
+        // Setup notification observers
         
     } else {
     
@@ -754,6 +787,15 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
     ECSLogVerbose(self.logger, @"connection detected.");
 
+    // Start listening for reachability events.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkConnectionChanged:)
+                                                 name:ECSReachabilityChangedNotification
+                                               object:nil];
+    
+    
     if (!self.initialConnectionMade) {
         self.initialConnectionMade = YES;
     } else {
@@ -819,11 +861,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 // Something bad happened...
 -(void)stompClientDidDisconnect:(ECSStompClient *)stompClient {
 
-    // Deprecated. 
-
-//    if ([self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-//        [self.delegate chatClientDisconnected:self wasGraceful:NO];
-//    }
+    // Stop listening for reachability events.
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
     
     ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
     message.state = @"disconnected";
