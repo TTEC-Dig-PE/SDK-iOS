@@ -1316,7 +1316,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     return ^(id result, NSURLResponse *response)
     {
-        ECSLogVerbose(self.logger,@"API: Success with response %@ and object %@", response, result);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        ECSLogVerbose(self.logger, @"API: HTTP %d. \nPayload=%@", (long)[httpResponse statusCode], result);
         
 //        [self.sessionTaskQueue sessionTaskFinished]; // Let the next queued message go.
         if( self.useMessageQueuing ) [self messageTaskFinished:response];

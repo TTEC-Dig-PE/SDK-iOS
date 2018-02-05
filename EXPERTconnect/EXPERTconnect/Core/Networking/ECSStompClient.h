@@ -43,7 +43,9 @@
  */
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient;
 
-- (void)stompClientDidDisconnect:(ECSStompClient *)stompClient; 
+- (void)stompClientDidDisconnect:(ECSStompClient *)stompClient;
+
+- (void)stompClientDidCloseWithCode:(NSInteger)code reason:(NSString *)reason;
 
 /**
  Called when the STOMP client fails to connect.

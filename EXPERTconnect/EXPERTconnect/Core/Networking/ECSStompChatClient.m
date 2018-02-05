@@ -42,17 +42,7 @@ static NSString * const kECSHeaderBodyVersion =     @"x-body-version";
 
 static NSString * const kECSMessageBodyVersion =    @"1";
 static NSString * const kECSChannelStateMessage =   @"ChannelState"; // state messages - agent connected, voice call sent, disconnection
-/*
- ECSChannelStateDisconnected,
- ECSChannelStateConnected,
- ECSChannelStatePending,
- ECSChannelStateAnswered,
- ECSChannelStateQueued,
- ECSChannelStateNotify,
- ECSChannelStateFailed,
- ECSChannelStateTimeout,
- ECSChannelStateUnknown
- */
+
 static NSString * const kECSChatMessage =                   @"ChatMessage";           // Regular text chat message from agent
 static NSString * const kECSChatNotificationMessage =       @"NotificationMessage";   // Incoming images from agent
 static NSString * const kECSChatStateMessage =              @"ChatState";             // Chat state (0, 1=paused, 2=composing)
@@ -69,8 +59,6 @@ static NSString * const kECSChatRenderFormMessage =         @"RenderFormCommand"
 static NSString * const kECSSendQuestionMessage =           @"SendQuestionCommand";
 static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarning"; // Idle timeout warning (approx. 1 minute remaining)
 
-
-
 @interface ECSStompChatClient() <ECSStompDelegate>
 
 @property (strong, nonatomic) ECSActionType     *actionType;
@@ -80,33 +68,34 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 @property (strong, nonatomic) NSString          *sendCoBrowseDestination;
 @property (assign, nonatomic) NSInteger         agentInteractionCount;
 @property (weak, nonatomic)   NSURLSessionTask  *currentNetworkTask;
-@property (assign, nonatomic) BOOL              initialConnectionMade;
 
 @end
-
-
 
 @implementation ECSStompChatClient
 
 @synthesize lastTimeStamp;
 @synthesize lastChatMessageFromAgent;
 
+// Internal variables.
+BOOL        _initialConnectionMade;
+NSTimer     *_stompRetryTimer;
+BOOL        _stompConnectionLost;
+int         _stompRetryInterval;
+
 - (instancetype)init {
     
     self = [super init];
-    
     if (self) {
-        
-        _chatState = ECSChatStateUnknown;
-        _channelState = ECSChannelStateUnknown;
-        
-        self.agentInteractionCount = 0;
         
         ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
         
-        self.fromUsername = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
-        
-        self.logger = [[EXPERTconnect shared] logger];
+        _chatState                      = ECSChatStateUnknown;
+        _channelState                   = ECSChannelStateUnknown;
+        _stompConnectionLost            = NO;
+        _initialConnectionMade          = NO;
+        self.agentInteractionCount      = 0;
+        self.logger                     = [[EXPERTconnect shared] logger];
+        self.fromUsername               = userManager.userDisplayName.length ? userManager.userDisplayName : @"Mobile User";
         
     }
     
@@ -116,7 +105,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
-    
+    [self stompRetryTimerStop];
     [self disconnect];
     
 }
@@ -743,6 +732,45 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
 #pragma mark - ECSStompClient
 
+- (void)stompClientDidCloseWithCode:(NSInteger)code reason:(NSString *)reason {
+    
+    if( [self isChatActive] ) {
+        // Chat was active and we got a close event. Start polling for reconnect.
+        
+        ECSLogVerbose(self.logger, @"Stomp close event while chat was active. Starting reconnect timer...");
+        
+        _stompConnectionLost = YES;
+        _stompRetryInterval = 5; // Base retry (increases over time)
+        _stompRetryTimer = [NSTimer scheduledTimerWithTimeInterval:_stompRetryInterval
+                                                            target:self
+                                                          selector:@selector(stompRetryTimerTick)
+                                                          userInfo:nil
+                                                           repeats:NO];
+        
+    }
+    
+}
+
+- (void) stompRetryTimerTick {
+    
+    _stompRetryInterval = _stompRetryInterval + 5;
+    ECSLogVerbose(self.logger, @"Stomp attempting reconnect. Will retry again in %d seconds.", _stompRetryInterval);
+    
+    [self.stompClient reconnect]; // Shoot off a reconnect. If we get connected, we'll invalidate the timer.
+    
+    _stompRetryTimer = [NSTimer scheduledTimerWithTimeInterval:_stompRetryInterval
+                                                        target:self
+                                                      selector:@selector(stompRetryTimerTick)
+                                                      userInfo:nil
+                                                       repeats:NO];
+    
+}
+
+- (void) stompRetryTimerStop {
+    if( _stompRetryTimer )[_stompRetryTimer invalidate];
+    _stompConnectionLost = NO;
+}
+
 - (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error {
     
     // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
@@ -761,7 +789,7 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
              // AuthToken updated. Try to reconnect.
              if( !error ) {
                  
-                 [self disconnect]; // To make sure we resubscribe and everything.
+                 // TODO: There is a scenario where if the auth token expires right as the "Subscribe" is sent, two chats can be initiated. 
                  [self connectToHost:[EXPERTconnect shared].urlSession.hostName];
                  
              } else {
@@ -787,6 +815,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
     
     ECSLogVerbose(self.logger, @"connection detected.");
 
+    [self stompRetryTimerStop]; // If started, stop the retry timer (we just got connected). 
+    
     // Start listening for reachability events.
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
     
@@ -796,8 +826,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
                                                object:nil];
     
     
-    if (!self.initialConnectionMade) {
-        self.initialConnectionMade = YES;
+    if (!_initialConnectionMade) {
+        _initialConnectionMade = YES;
     } else {
         //[self checkChatState];
         [self performSelector:@selector(checkChatState) withObject:nil afterDelay:5];
@@ -807,6 +837,8 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
               withSubscriptionID:@"ios-1"];
     
     if (!self.currentChannelId) {
+        
+        _channelState = ECSChannelStateQueued; // Manually set state to queued.
         
         [self setupChatChannel];
     }

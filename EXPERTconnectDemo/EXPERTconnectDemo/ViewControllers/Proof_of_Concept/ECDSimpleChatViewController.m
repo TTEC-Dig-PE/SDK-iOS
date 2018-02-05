@@ -47,12 +47,17 @@
 
 @property (strong, nonatomic) ECSStompChatClient    *chatClient;
 
+@property (strong, nonatomic) NSTimer               *apiCheckTimer;
+
 @end
 
 @implementation ECDSimpleChatViewController
 
 bool        _userTyping;
 CGPoint     _originalCenter;
+
+
+bool        _isReconnectingChannel;
 
 #pragma mark - Base UIViewController Loading / Init
 
@@ -83,21 +88,28 @@ CGPoint     _originalCenter;
         self.chatClient = [ECSStompChatClient new];
         self.chatClient.delegate = self;
         
-        // Chat start - Quick Start
-//        [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
-//                                    subject:chatSubject];
-        
-        [[EXPERTconnect shared].urlSession validateAPI:^(bool success) {
+        // Start a timer with API checks.
+        _apiCheckTimer = [NSTimer scheduledTimerWithTimeInterval:20.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
             
-            NSLog(@"Success?=%d", success);
+            [[EXPERTconnect shared].urlSession validateAPI:^(bool success) {
+                
+                if( success ) {
+                    [self appendToChatLog:@"Server API check: healthy."];
+                } else {
+                    [self appendToChatLog:@"Server API check: unhealthy or no connection to server."];
+                }
+                
+            }];
             
-            // Chat start - Advanced (more customizable fields, priority, dataFields. Contact Humanify support for help using these two fields).
-            [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
-                                        subject:chatSubject
-                                       priority:kECSChatPriorityUseServerDefault
-                                     dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
-        
         }];
+        
+        // Chat start - Advanced (more customizable fields, priority, dataFields. Contact Humanify support for help using these two fields).
+        [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
+                                    subject:chatSubject
+                                   priority:kECSChatPriorityUseServerDefault
+                                 dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
+        
+
        
     }
     
@@ -108,6 +120,7 @@ CGPoint     _originalCenter;
 
 - (void) viewWillDisappear:(BOOL)animated {
     
+    [_apiCheckTimer invalidate];
 //    [self.chatClient disconnect]; // Close the chat.
     
 }
@@ -232,8 +245,17 @@ CGPoint     _originalCenter;
 - (void) chatReachabilityEvent:(bool)reachable {
     
     if( !reachable ) {
+        // Show network bar
         [self appendToChatLog:@"Network connection has died."];
     } else {
+        
+        if( _isReconnectingChannel ) {
+            _isReconnectingChannel = YES;
+            
+            // Do reconnect logic.
+        }
+        
+        // Hide network bar
         [self appendToChatLog:@"Network connection has recovered."];
     }
     

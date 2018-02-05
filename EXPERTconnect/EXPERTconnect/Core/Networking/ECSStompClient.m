@@ -585,6 +585,12 @@ bool        _wasConnected;
             
             [self.delegate stompClient:self didFailWithError:newError];
         }
+    } else {
+        
+        if( [self.delegate respondsToSelector:@selector(stompClientDidCloseWithCode:reason:)] ) {
+            [self.delegate stompClientDidCloseWithCode:code reason:reason];
+        }
+        
     }
     
 }
