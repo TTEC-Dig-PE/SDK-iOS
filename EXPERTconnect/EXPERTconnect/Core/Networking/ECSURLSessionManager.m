@@ -238,22 +238,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  We will attempt this operation 3 times with a 500ms delay between each attempt.
  */
 - (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
-                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion
-{
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion {
+    
     __weak typeof(self) weakSelf = self;
     __block NSNumber *myRetryCount = [NSNumber numberWithInt:theRetryCount+1];
 
-    if (self.authTokenDelegate)
-    {
+    if (self.authTokenDelegate) {
+        
+        ECSLogVerbose(self.logger, @"Refreshing auth token. RetryCount=%d", myRetryCount);
+        
         [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error)
         {
             if (authToken)
             {
                 weakSelf.authToken = authToken;
-                
-                NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
-                                         [authToken substringToIndex:4],
-                                         [authToken substringFromIndex:authToken.length-4]];
+                NSString *abbrevToken = @"";
+                if( authToken.length > 4) {
+                    abbrevToken = [NSString stringWithFormat:@"%@...%@", [authToken substringToIndex:4], [authToken substringFromIndex:authToken.length-4]];
+                }
                 ECSLogVerbose(self.logger,@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
                 
                 completion(authToken, nil);
