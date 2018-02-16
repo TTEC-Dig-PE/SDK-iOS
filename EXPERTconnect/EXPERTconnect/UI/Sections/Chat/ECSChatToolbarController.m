@@ -32,11 +32,17 @@
 @property (weak, nonatomic) IBOutlet UIButton           *audioButton;
 @property (weak, nonatomic) IBOutlet UIButton           *locationButton;
 
+@property (weak, nonatomic) IBOutlet UITextView         *textView;
+
+@property (strong, nonatomic) NSTimer                   *myTimer;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *separatorHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelSuperViewTrailing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cancelSendTrailing;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatTextToLeftEdge;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatTextToPhotoButton;
 
 @property (strong, nonatomic)        UIViewController   *currentChildViewController;
 @property (weak, nonatomic) IBOutlet UIView             *separatorView;
@@ -71,11 +77,6 @@
 -(void)viewWillDisappear:(BOOL)animated {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (BOOL)resignFirstResponder {
-    
-    return [self.textView resignFirstResponder];
 }
 
 - (void)initializeSendState {
@@ -299,7 +300,6 @@
     if ([text containsString:@"\n"]) {
         
         [self sendText];
-        
         return NO;
         
     } else {
@@ -341,6 +341,10 @@
 }
 
 #pragma mark - Helper Functions
+
+- (void) hideKeyboard {
+    [self.textView resignFirstResponder]; 
+}
 
 - (void)appHasGoneInBackground:(NSNotification *)notification {
     
@@ -448,7 +452,7 @@
     
     ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
     
-    [self.textView resignFirstResponder];
+    [self hideKeyboard]; 
     
     self.textViewHeightConstraint.constant = 0.0f;
     
