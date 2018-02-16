@@ -1783,7 +1783,8 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     if (formActionType.form.formData.count > 0 && !self.inlineFormController)
     {
-        [self.chatToolbar.textView endEditing:YES];
+        [self.chatToolbar hideKeyboard];
+        
         self.inlineFormController = [ECSInlineFormViewController ecs_loadFromNib];
         self.inlineFormController.delegate = self;
         self.inlineFormController.form = formActionType.form;
@@ -2784,7 +2785,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
 {
     if (_userDragging)
     {
-        [self.chatToolbar.textView resignFirstResponder];
+        [self.chatToolbar hideKeyboard];
     }
 }
 
