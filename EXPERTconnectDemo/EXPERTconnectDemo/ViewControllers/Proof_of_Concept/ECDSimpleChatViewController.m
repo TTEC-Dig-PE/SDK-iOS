@@ -40,7 +40,7 @@
 
 #import "ECDSimpleChatViewController.h"
 
-@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField    *chatTextBox;
 @property (weak, nonatomic) IBOutlet UITextView     *chatTextLog;
@@ -349,32 +349,17 @@ bool        _isReconnectingChannel;
 
 - (IBAction)imageButton_Touch:(id)sender {
     
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select image from"
-                                                         delegate:self
-                                                cancelButtonTitle:@"Cancel"
-                                           destructiveButtonTitle:nil
-                                                otherButtonTitles:@"From library",@"From camera", nil];
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Select image from" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [action showInView:self.view];
-}
-
-
-
-#pragma mark - ActionSheet delegates
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if( buttonIndex == 0 ) {
-        
+    [sheet addAction:[UIAlertAction actionWithTitle:@"From Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIImagePickerController *pickerView = [[UIImagePickerController alloc] init];
         pickerView.allowsEditing = YES;
         pickerView.delegate = self;
         [pickerView setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         [self presentViewController:pickerView animated:YES completion:nil];
-        
-        
-    } else if( buttonIndex == 1 ) {
-        
+    }]];
+    
+    [sheet addAction:[UIAlertAction actionWithTitle:@"From Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             UIImagePickerController *pickerView =[[UIImagePickerController alloc]init];
             pickerView.allowsEditing = YES;
@@ -382,7 +367,9 @@ bool        _isReconnectingChannel;
             pickerView.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:pickerView animated:YES completion:nil];
         }
-    }
+    }]];
+    
+    [self presentViewController:sheet animated:YES completion:nil];
 }
 
 #pragma mark - PickerDelegates
