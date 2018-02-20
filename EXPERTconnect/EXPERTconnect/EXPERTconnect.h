@@ -157,6 +157,9 @@ FOUNDATION_EXPORT const unsigned char EXPERTconnectVersionString[];
 @property (readonly, nonatomic) NSString                *EXPERTconnectBuildVersion; // SDK build version (eg 206)
 @property (copy, nonatomic) NSMutableArray              *storedBreadcrumbs;         // When using bulk-send, this is where breadcrumbs are stored.
 
+@property (nonatomic, strong) NSString                  *userIdentityToken;
+@property (nonatomic, strong) NSString                  *apiKey;
+
 //@property (readonly, nonatomic) BOOL                  authenticationRequired;
 //@property (copy, nonatomic) NSString                  *customerType;
 //@property (copy, nonatomic) NSString                  *treatmentType;

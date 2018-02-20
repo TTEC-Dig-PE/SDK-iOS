@@ -206,10 +206,24 @@ NSTimer *breadcrumbTimer;
 
 // Directly set the authToken
 
-- (void)setUserIdentityToken:(NSString *)token
-{
+- (void)setUserIdentityToken:(NSString *)token {
     ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
     sessionManager.authToken = token;
+}
+- (NSString *)userIdentityToken {
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    return sessionManager.authToken;
+}
+
+// ApiKey is used for anonymous login capabilities.
+
+- (void)setApiKey:(NSString *)token {
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    sessionManager.apiKey = token;
+}
+- (NSString *)apiKey {
+    ECSURLSessionManager *sessionManager = [[ECSInjector defaultInjector] objectForClass:[ECSURLSessionManager class]];
+    return sessionManager.apiKey;
 }
 
 /**

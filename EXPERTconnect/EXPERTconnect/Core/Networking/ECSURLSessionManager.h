@@ -69,6 +69,9 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 // Authorization token
 @property (nonatomic, strong) NSString *authToken;
 
+// Anonymous apiKey token
+@property (nonatomic, strong) NSString *apiKey;
+
 @property (nonatomic, weak) id<ECSAuthenticationTokenDelegate> authTokenDelegate;
 
 @property (copy, nonatomic) NSString *journeyID;

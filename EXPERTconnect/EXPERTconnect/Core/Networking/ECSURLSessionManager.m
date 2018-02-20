@@ -1119,7 +1119,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     if(self.journeyManagerContext) parameters[@"context"] = self.journeyManagerContext;
     
     return [self POST:@"journeymanager/v1"
-    //return [self POST:@"conversationengine/v1/journeys"
            parameters:parameters
               success:[self successWithExpectedType:[ECSStartJourneyResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -1819,55 +1818,52 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return downloadTask;
 }
 
-- (void)setCommonHTTPHeadersForRequest:(NSMutableURLRequest*)mutableRequest
-{
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    ECSUserManager *userManager = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+- (void)setCommonHTTPHeadersForRequest:(NSMutableURLRequest*)mutableRequest {
     
-    if (self.authToken.length > 0)
-    {
-        NSString *authValue = self.authToken;
-        //if(self.authToken.length == 36) // 36 digits is the length of Humanify's bearer tokens
-        //{
-            authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
-        //}
+    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+    ECSUserManager *userManager     = [[ECSInjector defaultInjector] objectForClass:[ECSUserManager class]];
+    
+    // Use UST authentication if available. Fallback to anonymous otherwise.
+    if (self.authToken.length > 0) {
+        
+        NSString *authValue = [NSString stringWithFormat:@"Bearer %@", self.authToken];
         [mutableRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        
+    } else if( self.apiKey.length > 0 ) {
+        
+        [mutableRequest setValue:self.apiKey forHTTPHeaderField:@"Authorization"];
     }
     
-    if (userManager.userToken.length > 0)
-    {
+    if (userManager.userToken.length > 0) {
         [mutableRequest setValue:userManager.userToken forHTTPHeaderField:@"x-ia-userid"];
     }
     
-    if (userManager.deviceID.length > 0)
-    {
+    if (userManager.deviceID.length > 0) {
         [mutableRequest setValue:userManager.deviceID forHTTPHeaderField:@"x-ia-deviceuuid"];
     }
     
-    if (configuration.appName.length > 0)
-    {
+    if (configuration.appName.length > 0)  {
         [mutableRequest setValue:configuration.appName forHTTPHeaderField:@"x-ia-appname"];
     }
     
-    if (configuration.appVersion.length > 0)
-    {
+    if (configuration.appVersion.length > 0) {
         [mutableRequest setValue:configuration.appVersion forHTTPHeaderField:@"x-ia-appversion"];
     }
     
-    if (self.conversation && self.conversation.conversationID.length > 0)
-    {
+    if (self.conversation && self.conversation.conversationID.length > 0) {
         [mutableRequest setValue:self.conversation.conversationID forHTTPHeaderField:@"x-ia-conversation-id"];
     }
     
     // mas - 20-oct-2015 - First, try to grab journeyID from the global area. If not found, we may have one in the
     // conversation, use that instead.
-    if (self.journeyID && self.journeyID.length > 0)
-    {
+    if (self.journeyID && self.journeyID.length > 0) {
+        
         [mutableRequest setValue:self.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
-    }
-    else if (self.conversation && self.conversation.journeyID.length > 0)
-    {
+        
+    }else if (self.conversation && self.conversation.journeyID.length > 0) {
+        
         [mutableRequest setValue:self.conversation.journeyID forHTTPHeaderField:@"x-ia-journey-id"];
+        
     }
     
     NSDictionary *infoDictionary = [[NSBundle bundleForClass: [EXPERTconnect class]] infoDictionary];
@@ -1931,8 +1927,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)breadcrumbActionSingle:(id)actionJson
                                       completion:(void (^)(ECSBreadcrumbResponse *json, NSError *error))completion
 {
+    NSString *path = @"breadcrumb/v1/actions";
+    if( self.authToken.length == 0 ) path = @"breadcrumb/v1/anonymous/actions";
     
-    return [self POST:@"breadcrumb/v1/actions"
+    return [self POST:path
            parameters:actionJson
               success:[self successWithExpectedType:[ECSBreadcrumbResponse class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -1942,8 +1940,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)breadcrumbsAction:(id)actionJson
                                  completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
+    NSString *path = @"breadcrumb/v1/actions/bulk";
+    if( self.authToken.length == 0 ) path = @"breadcrumb/v1/anonymous/actions/bulk";
     
-    return [self POST:@"breadcrumb/v1/actions/bulk"
+    return [self POST:path
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
@@ -1953,7 +1953,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (NSURLSessionDataTask *)breadcrumbsSession:(id)actionJson
                                   completion:(void (^)(NSDictionary *decisionResponse, NSError *error))completion;
 {
-    return [self POST:@"breadcrumb/v1/sessions"
+    NSString *path = @"breadcrumb/v1/sessions";
+    if( self.authToken.length == 0 ) path = @"breadcrumb/v1/anonymous/sessions";
+    
+    return [self POST:path
            parameters:actionJson
               success:[self successWithExpectedType:[NSDictionary class] completion:completion]
               failure:[self failureWithCompletion:completion]];
