@@ -78,9 +78,12 @@ static NSString * const kECSChannelTimeoutWarning =         @"ChannelTimeoutWarn
 
 // Internal variables.
 BOOL        _initialConnectionMade;
+
 NSTimer     *_stompRetryTimer;
 BOOL        _stompConnectionLost;
 int         _stompRetryInterval;
+int         _stompRetryAttempts;
+int         _stompRetriesBlocked;
 
 - (instancetype)init {
     
@@ -246,19 +249,27 @@ int         _stompRetryInterval;
     
     bool reachable = [EXPERTconnect shared].urlSession.networkReachable;
    
-    if ( reachable && [self isChatActive] ) {
-        
-        ECSLogDebug(self.logger, @"Network recovery. Reconnecting chat client.", reachable);
-        [self reconnect];
-        
-    } else if ( !reachable ) {
-        // TODO: What to do here?
-    }
+    ECSLogDebug(self.logger, @"Network update. Chat active? %d. Network good? %d", [self isChatActive], reachable);
     
-    if ( [self.delegate respondsToSelector:@selector(chatReachabilityEvent:)] ) {
-        [self.delegate chatReachabilityEvent:reachable];
+    if( [self isChatActive] ) {
+        
+        if ( reachable ) {
+
+            [self stompRetryTimerStartWithDelay:0];
+            
+        } else if ( !reachable ) {
+            
+            // Close the WebSocket.
+            [self.stompClient closeSocket];
+            
+            if( !_stompRetryTimer ) [self stompRetryTimerStartWithDelay:10];
+            
+        }
+        
+        if ( [self.delegate respondsToSelector:@selector(chatReachabilityEvent:)] ) {
+            [self.delegate chatReachabilityEvent:reachable];
+        }
     }
-    
 }
 
 - (bool) isChatActive {
@@ -734,30 +745,50 @@ int         _stompRetryInterval;
 
 - (void)stompClientDidCloseWithCode:(NSInteger)code reason:(NSString *)reason {
     
-    if( [self isChatActive] ) {
+    if( [self isChatActive] && ![self.stompClient isConnecting] ) {
         // Chat was active and we got a close event. Start polling for reconnect.
         
-        ECSLogVerbose(self.logger, @"Stomp close event while chat was active. Starting reconnect timer...");
-        
-        _stompConnectionLost = YES;
-        _stompRetryInterval = 5; // Base retry (increases over time)
-        _stompRetryTimer = [NSTimer scheduledTimerWithTimeInterval:_stompRetryInterval
-                                                            target:self
-                                                          selector:@selector(stompRetryTimerTick)
-                                                          userInfo:nil
-                                                           repeats:NO];
+        [self stompRetryTimerStartWithDelay:5];
         
     }
     
 }
 
+- (void) stompRetryTimerStartWithDelay:(int)delay {
+    
+    if( _stompRetryTimer ) [self stompRetryTimerStop];
+    
+    ECSLogVerbose(self.logger, @"Scheduling WebSocket reconnect in %d seconds.", delay);
+    
+    _stompConnectionLost = YES;
+    _stompRetryInterval = delay; // Base retry (increases over time)
+    _stompRetryAttempts = 1;
+    _stompRetriesBlocked = 0;
+    _stompRetryTimer = [NSTimer scheduledTimerWithTimeInterval:_stompRetryInterval
+                                                        target:self
+                                                      selector:@selector(stompRetryTimerTick)
+                                                      userInfo:nil
+                                                       repeats:NO];
+}
+
 - (void) stompRetryTimerTick {
     
     _stompRetryInterval = _stompRetryInterval + 5;
-    ECSLogVerbose(self.logger, @"Stomp attempting reconnect. Will retry again in %d seconds.", _stompRetryInterval);
+    _stompRetryAttempts = _stompRetryAttempts + 1;
+    ECSLogVerbose(self.logger, @"WebSocket reconnect attempt. Next attempt in %d seconds.", _stompRetryInterval);
     
-    [self.stompClient reconnect]; // Shoot off a reconnect. If we get connected, we'll invalidate the timer.
+    // Shoot off a reconnect. If we get connected, we'll invalidate the timer.
+    if( ![self.stompClient reconnect] ) {
+        _stompRetriesBlocked += 1; 
+    }
     
+    // Something was bungled in the WebSocket state machine. Force a reconnect. 
+    if( _stompRetriesBlocked >= 3 ) {
+        ECSLogVerbose(self.logger, @"WebSocket state stuck in %@. Forcing new connection...", [self.stompClient readyStateString]);
+        [self.stompClient closeSocket];
+        [self.stompClient reconnect]; 
+    }
+       
     _stompRetryTimer = [NSTimer scheduledTimerWithTimeInterval:_stompRetryInterval
                                                         target:self
                                                       selector:@selector(stompRetryTimerTick)
@@ -767,11 +798,20 @@ int         _stompRetryInterval;
 }
 
 - (void) stompRetryTimerStop {
-    if( _stompRetryTimer )[_stompRetryTimer invalidate];
+    
+    if( _stompRetryTimer ) {
+        
+        ECSLogDebug(self.logger, @"Stopping WebSocket reconnect timer.");
+        
+        [_stompRetryTimer invalidate];
+        _stompRetryTimer = nil;
+    }
     _stompConnectionLost = NO;
 }
 
 - (void)stompClient:(ECSStompClient *)stompClient didFailWithError:(NSError *)error {
+    
+    ECSLogError(self.logger, @"WebSocket error: %@", error);
     
     // A 401 error occurred trying to start the stomp connection back up. Fetch a new auth token and try again.
     
@@ -779,9 +819,7 @@ int         _stompRetryInterval;
         ([error.userInfo[@"description"] isEqualToString:@"Authentication failed."]) ) {
         
         // Let's immediately try to refresh the auth token.
-        ECSLogDebug(self.logger, @"Error opening stomp connection (401). Fetching a new auth token.");
-        
-        // Attempt to get a new authToken.
+
         int retryCount = 0;
         [[EXPERTconnect shared].urlSession refreshIdentityDelegate:retryCount
                                                     withCompletion:^(NSString *authToken, NSError *error)
@@ -798,10 +836,12 @@ int         _stompRetryInterval;
              }
          }];
         
-    } else if (error.code == 57) { // "Socket is not connected."
+    } else if ( error.code >= ENETDOWN && error.code <= ENOTCONN) {
         
-        // TODO: listen for reachability events to reconnect websocket automatically.
-        // Setup notification observers
+        // Network is down. We will get a reachability notification for instant reconnect, but we'll also poll.
+        if( !_stompRetryTimer ) [self stompRetryTimerStartWithDelay:10];
+        
+        [self handleStompError:error];
         
     } else {
     

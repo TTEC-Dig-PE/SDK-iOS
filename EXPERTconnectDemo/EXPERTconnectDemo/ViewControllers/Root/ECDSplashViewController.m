@@ -110,7 +110,7 @@ static char ECSUserActionCompletionBlockKey;
 - (void)switchToRootViewController
 {
     ECDRootViewController *rootViewController = [[ECDRootViewController alloc] initWithNibName:nil bundle:nil];
-    AppDelegate* app = [UIApplication sharedApplication].delegate;
+    AppDelegate* app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     app.window.rootViewController = rootViewController;
     [app.window makeKeyAndVisible];
     rootViewController.view.alpha = 0;
