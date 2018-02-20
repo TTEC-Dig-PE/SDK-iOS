@@ -1,6 +1,25 @@
-# Humanify iOS SDK & Test Harness
+# EXPERTconnect SDK for iOS
 
-This repository includes the native iOS SDK (EXPERTconnect.framework) as well as the EXPERTconnect Test Harness app. These are two XCode projects within the same XCode workspace. 
+The EXPERTconnect SDK for iOS provides an easy-to-integrate solution for adding TTec's omnichannel technology and journey management to your native mobile iOS app. The complicated wiring of these CX features are wrapped up in simple, reliable packaging that makes integration and deployment more efficient. 
+
+The SDK offers two branches of the same feature set: 
+
+1. Our UI-packaged, "high level" solution can be used for rapid prototyping and extremely easy implementation. A complete mobile chat experience can be built using 5-10 lines of code. Although this high level feature set has a range of customization, ultimately the general layouts will be restricted to what is provided here. 
+
+2. Our API-wrapped, "low level" solution offers a lower to the ground but still efficient feature set. By using a set of delegates and callback functions, your app can respond to channel events. This allows your app designers to retain complete control of the user experience. Because the design is left in your hands, this does require more implementation by your app team (such as implementing the chat window, the chat bubbles, the buttons, and the flow) but ultimately will provide a much mroe personalized experience for your app users.
+
+We highly recommend using approach #1 (high level) for a rapid prototype to test fit our SDK, then transitioning to #2 (low level) as you find resources to build out your own personalized UI. Examples of both methods are provided in our integrator example app found here: 
+
+https://github.com/humanifydev/SDK-iOS-integrator
+
+
+### What is included in this repository
+
+This repository includes the native iOS SDK (EXPERTconnect.framework) as well as the EXPERTconnect Test Harness app for internal testing & code examples. These are two XCode projects within the same XCode workspace. 
+
+EXPERTconnect SDK: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconnect
+
+EXPERTconnect Test Harness: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconnectDemo
 
 Release Notes: https://docs.google.com/document/d/1QNO8MH9b_T3K6y3shlNPH6PXnItqZRbSORNS60OaXhw
 
