@@ -73,10 +73,11 @@
     //NSURL *url = [[NSURL alloc] initWithString:@"https://tce1.humanify.com/humanify_sdk_orgs.json"];
     NSURL *url = [[NSURL alloc] initWithString:@"https://dce1.humanify.com/humanify_sdk_orgs.json"];
     
-    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url
+                                            completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+    {
+ 
          // The server request has completed. Parse file and store it in user defaults.
          if (!error) {
              
@@ -104,6 +105,8 @@
              NSLog(@"Error fetching env/org JSON file. Error=%@", error);
          }
      }];
+    
+    [dataTask resume]; 
 }
 
 // Assigns this object to be the delegate for login retry requests.

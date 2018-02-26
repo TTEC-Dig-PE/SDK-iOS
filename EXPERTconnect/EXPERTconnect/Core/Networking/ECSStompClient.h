@@ -43,7 +43,9 @@
  */
 - (void)stompClientDidConnect:(ECSStompClient *)stompClient;
 
-- (void)stompClientDidDisconnect:(ECSStompClient *)stompClient; 
+- (void)stompClientDidDisconnect:(ECSStompClient *)stompClient;
+
+- (void)stompClientDidCloseWithCode:(NSInteger)code reason:(NSString *)reason;
 
 /**
  Called when the STOMP client fails to connect.
@@ -90,13 +92,19 @@
 
 @property (nonatomic, strong) ECSLog *logger;
 
+@property (strong, nonatomic) NSURL *hostURL;
+
+- (NSString *)readyStateString;
+
 /**
  Connect to the specified STOMP host.  Upon successful connection the ECSStompDelegate will be sent 
  the stompClientDidConnect: message
  
  @param host A URL specifying where the Humanify API is running an active Stomp instance.
  */
-- (void)connectToHost:(NSString*)host;
+- (BOOL) connectToHost:(NSString*)host;
+
+- (void)closeSocket;
 
 /**
  Disconnect from the current host
@@ -106,7 +114,7 @@
 /** 
  Reconnect the Stomp connection using previous conversationID, subscriptionID, etc.
  */
-- (void)reconnect;
+- (BOOL) reconnect;
 
 /**
  Manually set the auth token.

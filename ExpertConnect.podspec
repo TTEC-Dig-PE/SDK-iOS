@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name = 'EXPERTconnect'
-  s.version = '6.3.2'
+  s.version = '6.4.0'
   s.license = 'MIT'
-  s.summary = 'TTEch Customer Service Native SDK'
+  s.summary = 'Ttec Customer Service Native SDK'
   s.homepage = 'http://www.teletech.com/'
   s.authors = { 'Mike Schmoyer' => 'mike.schmoyer@ttech.com' }
   s.source = { :git => 'https://github.com/humanifydev/SDK-iOS.git', :tag => s.version }

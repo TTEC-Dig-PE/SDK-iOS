@@ -40,12 +40,14 @@
 
 #import "ECDSimpleChatViewController.h"
 
-@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface ECDSimpleChatViewController () <ECSStompChatDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField    *chatTextBox;
 @property (weak, nonatomic) IBOutlet UITextView     *chatTextLog;
 
 @property (strong, nonatomic) ECSStompChatClient    *chatClient;
+
+@property (strong, nonatomic) NSTimer               *apiCheckTimer;
 
 @end
 
@@ -53,6 +55,9 @@
 
 bool        _userTyping;
 CGPoint     _originalCenter;
+
+
+bool        _isReconnectingChannel;
 
 #pragma mark - Base UIViewController Loading / Init
 
@@ -83,15 +88,29 @@ CGPoint     _originalCenter;
         self.chatClient = [ECSStompChatClient new];
         self.chatClient.delegate = self;
         
-        // Chat start - Quick Start
-//        [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
-//                                    subject:chatSubject];
+        // Start a timer with API checks.
+        _apiCheckTimer = [NSTimer scheduledTimerWithTimeInterval:20.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            
+            [[EXPERTconnect shared].urlSession validateAPI:^(bool success) {
+                
+                if( success ) {
+                    [self appendToChatLog:@"Server API check: healthy."];
+                } else {
+                    [self appendToChatLog:@"Server API check: unhealthy or no connection to server."];
+                }
+                
+            }];
+            
+        }];
         
         // Chat start - Advanced (more customizable fields, priority, dataFields. Contact Humanify support for help using these two fields).
         [self.chatClient startChatWithSkill:@"CE_Mobile_Chat"
                                     subject:chatSubject
                                    priority:kECSChatPriorityUseServerDefault
                                  dataFields:@{@"subID": @"abc123", @"memberType": @"coach"}];
+        
+
+       
     }
     
     [self configureNavigationBar];
@@ -101,6 +120,7 @@ CGPoint     _originalCenter;
 
 - (void) viewWillDisappear:(BOOL)animated {
     
+    [_apiCheckTimer invalidate];
 //    [self.chatClient disconnect]; // Close the chat.
     
 }
@@ -139,7 +159,7 @@ CGPoint     _originalCenter;
 // The WebSocket has connected to the server. This may be when you flip your view to the chat screen or dislpay a message to the user "connecting..."
 - (void) chatDidConnect {
     
-    [self appendToChatLog:@"Chat session initiated. Waiting for an agent to answer..."];
+    [self appendToChatLog:@"WebSocket has connected to the server."];
 }
 
 
@@ -147,7 +167,7 @@ CGPoint     _originalCenter;
 // but you could say "an associate is connecting...". Very soon after an "AddParticipant" message should arrive.
 - (void) chatAgentDidAnswer {
     
-    [self appendToChatLog:@"An agent is connecting..."];
+    [self appendToChatLog:@"An agent is joining this chat..."];
 }
 
 
@@ -192,7 +212,7 @@ CGPoint     _originalCenter;
     
     if ( message.disconnectReason == ECSDisconnectReasonIdleTimeout ) {
         
-        [self appendToChatLog:@"Chat has timed out."];
+        [self appendToChatLog:@"Server has timed out this chat."];
         
     } else if ( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant ) {
         
@@ -204,13 +224,15 @@ CGPoint     _originalCenter;
         
     }
     
+    [self.chatClient disconnect];
+    [self appendToChatLog:@"WebSocket has disconnected from the server."];
 }
 
 
 // The server is sending a warning that this client will idle timeout in X seconds if the user does not interact (type a message, or send one).
 - (void) chatTimeoutWarning:(int)seconds {
     
-    [self appendToChatLog:[NSString stringWithFormat:@"Chat will timeout in %d seconds.", seconds]];
+    [self appendToChatLog:[NSString stringWithFormat:@"Server Warning: This chat will timeout in %d seconds.", seconds]];
 }
 
 
@@ -220,6 +242,24 @@ CGPoint     _originalCenter;
     [self appendToChatLog:[NSString stringWithFormat:@"Chat error: %@", [error.userInfo objectForKey:@"NSLocalizedDescription"]]];
 }
 
+- (void) chatReachabilityEvent:(bool)reachable {
+    
+    if( !reachable ) {
+        // Show network bar
+        [self appendToChatLog:@"Network connection has died."];
+    } else {
+        
+        if( _isReconnectingChannel ) {
+            _isReconnectingChannel = YES;
+            
+            // Do reconnect logic.
+        }
+        
+        // Hide network bar
+        [self appendToChatLog:@"Network connection has recovered."];
+    }
+    
+}
 
 // Receive other types of messages.
 - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
@@ -309,32 +349,17 @@ CGPoint     _originalCenter;
 
 - (IBAction)imageButton_Touch:(id)sender {
     
-    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:@"Select image from"
-                                                         delegate:self
-                                                cancelButtonTitle:@"Cancel"
-                                           destructiveButtonTitle:nil
-                                                otherButtonTitles:@"From library",@"From camera", nil];
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Select image from" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [action showInView:self.view];
-}
-
-
-
-#pragma mark - ActionSheet delegates
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if( buttonIndex == 0 ) {
-        
+    [sheet addAction:[UIAlertAction actionWithTitle:@"From Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIImagePickerController *pickerView = [[UIImagePickerController alloc] init];
         pickerView.allowsEditing = YES;
         pickerView.delegate = self;
         [pickerView setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         [self presentViewController:pickerView animated:YES completion:nil];
-        
-        
-    } else if( buttonIndex == 1 ) {
-        
+    }]];
+    
+    [sheet addAction:[UIAlertAction actionWithTitle:@"From Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             UIImagePickerController *pickerView =[[UIImagePickerController alloc]init];
             pickerView.allowsEditing = YES;
@@ -342,7 +367,9 @@ CGPoint     _originalCenter;
             pickerView.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:pickerView animated:YES completion:nil];
         }
-    }
+    }]];
+    
+    [self presentViewController:sheet animated:YES completion:nil];
 }
 
 #pragma mark - PickerDelegates

@@ -460,6 +460,12 @@ typedef NS_ENUM(NSUInteger, ECSHistoryType)
 - (NSURLSessionDataTask*)getDetailsForExpertSkills:(NSArray *)skills
                                        completion:(void(^)(NSDictionary *response, NSError *error))completion;
 
+/*!
+ * @discussion Validate that network connectivity to the API is successful and the API server is healthy (returns successful packet)
+ * @param completion One parameter - "success" when API connection is successful.
+ */
+- (void)validateAPI:(void(^)(bool success))completion;
+
 #pragma mark Journey Management
 
 // Start a new journey

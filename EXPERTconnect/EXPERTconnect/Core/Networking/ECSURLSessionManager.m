@@ -238,22 +238,24 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
  We will attempt this operation 3 times with a 500ms delay between each attempt.
  */
 - (NSURLSessionTask *)refreshIdentityDelegate:(int)theRetryCount
-                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion
-{
+                               withCompletion:(void (^)(NSString *authToken, NSError *error))completion {
+    
     __weak typeof(self) weakSelf = self;
     __block NSNumber *myRetryCount = [NSNumber numberWithInt:theRetryCount+1];
 
-    if (self.authTokenDelegate)
-    {
+    if (self.authTokenDelegate) {
+        
+        ECSLogVerbose(self.logger, @"Refreshing auth token. RetryCount=%d", myRetryCount);
+        
         [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error)
         {
             if (authToken)
             {
                 weakSelf.authToken = authToken;
-                
-                NSString *abbrevToken = [NSString stringWithFormat:@"%@...%@",
-                                         [authToken substringToIndex:4],
-                                         [authToken substringFromIndex:authToken.length-4]];
+                NSString *abbrevToken = @"";
+                if( authToken.length > 4) {
+                    abbrevToken = [NSString stringWithFormat:@"%@...%@", [authToken substringToIndex:4], [authToken substringFromIndex:authToken.length-4]];
+                }
                 ECSLogVerbose(self.logger,@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
                 
                 completion(authToken, nil);
@@ -1067,6 +1069,26 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
              failure:[self failureWithCompletion:completion]];
 }
 
+- (void)validateAPI:(void(^)(bool success))completion {
+    
+    // Intercept the return data and convert it to a boolean YES/NO for success.
+    void(^temp)(NSDictionary *response, NSError *error) =  ^void(NSDictionary *response, NSError *error) {
+        if( !error && response && response[@"result"]) {
+            completion(response[@"result"]);
+        } else {
+            completion(NO);
+        }
+    };
+    
+    NSURLSessionDataTask *innerTask =
+           [self GET:[NSString stringWithFormat:@"utils/v1/validate"]
+          parameters:nil
+             success:[self successWithExpectedType:[NSDictionary class] completion:temp]
+             failure:[self failureWithCompletion:temp]];
+    
+    [innerTask resume];
+}
+
 #pragma mark Journey Functions
 
 // Unit Test: ECS_API_Tests::testSetJourneyContext
@@ -1296,7 +1318,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 {
     return ^(id result, NSURLResponse *response)
     {
-        ECSLogVerbose(self.logger,@"API: Success with response %@ and object %@", response, result);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+        ECSLogVerbose(self.logger, @"API: HTTP %d. \nPayload=%@", (long)[httpResponse statusCode], result);
         
 //        [self.sessionTaskQueue sessionTaskFinished]; // Let the next queued message go.
         if( self.useMessageQueuing ) [self messageTaskFinished:response];

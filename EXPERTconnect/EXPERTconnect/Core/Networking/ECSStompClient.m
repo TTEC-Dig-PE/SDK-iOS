@@ -80,7 +80,7 @@ static NSString * const kStompReceiptID = @"ios-1-subscribe";
 @interface ECSStompClient() <ECSWebSocketDelegate>
 
 @property (strong, nonatomic) ECSWebSocket          *webSocket;
-@property (strong, nonatomic) NSURL                 *hostURL;
+//@property (strong, nonatomic) NSURL                 *hostURL;
 @property (strong, nonatomic) NSMutableDictionary   *subscribers;
 
 @end
@@ -125,13 +125,24 @@ bool        _wasConnected;
     [self.subscribers removeAllObjects];
 }
 
-- (void)connectToHost:(NSString*)host {
-    
-    if( self.webSocket.readyState == ECS_OPEN ) {
+- (NSString *)readyStateString {
+    switch(self.webSocket.readyState) {
+        case ECS_CONNECTING:    return @"0-CONNECTING";
+        case ECS_OPEN:          return @"1-OPEN";
+        case ECS_CLOSING:       return @"2-CLOSING";
+        case ECS_CLOSED:        return @"3-CLOSED";
+        default:                return @"UNKNOWN";
+    }
+}
 
-        ECSLogError(self.logger, @"Connection in progress -or- already connected. Blocking additional attempt. Connected? %d. Connecting? %d.",
-                    self.connected, _isConnecting);
-        return;
+- (BOOL) connectToHost:(NSString*)host {
+    
+    if( self.webSocket &&
+       ( self.webSocket.readyState == ECS_OPEN || self.webSocket.readyState == ECS_CONNECTING ) ) {
+
+        ECSLogError(self.logger, @"Connection in progress or already connected. Blocking additional attempt. Connected? %d. Connecting? %d. ReadyState=%@",
+                    self.connected, _isConnecting, [self readyStateString]);
+        return NO;
     }
     
     _isConnecting = YES;
@@ -162,6 +173,8 @@ bool        _wasConnected;
     [self.webSocket open];
     
     [self registerForActiveNotifications];
+    
+    return YES; 
 }
 
 -(void)appForegrounded:(NSNotification*)note {
@@ -215,14 +228,11 @@ bool        _wasConnected;
     
 }
 
-- (void)reconnect {
-    
+- (BOOL) reconnect {
     if ( self.hostURL ) {
-        
-        ECSLogVerbose(self.logger, @"STOMP reconnect. Host=%@", self.hostURL);
-        
-        [self connectToHost:[self.hostURL absoluteString]];
-        
+        return [self connectToHost:[self.hostURL absoluteString]];
+    } else {
+        return NO;
     }
 }
 
@@ -242,6 +252,10 @@ bool        _wasConnected;
     [self sendCommand:kStompConnect
           withHeaders:headers
               andBody:nil];
+}
+
+- (void)closeSocket {
+    [self.webSocket close];
 }
 
 - (void)disconnect {
@@ -331,38 +345,32 @@ bool        _wasConnected;
 - (void)sendAckForMessage:(NSString*)messageId
            andTransaction:(NSString*)transactionId {
     
-    ECSLogVerbose(self.logger, @"Sending ACK. MsgID=%@, TranID=%@", messageId, transactionId);
-    
-    if( !self.subscribed ) {
-        
-        // An errant ACK issued after an unsubscribe. Ignoring.
-        ECSLogVerbose(self.logger, @"Cancelling ACK. Stomp channel is no longer subscribed.");
-        return;
-    }
-    
-    NSMutableDictionary *headers = [[NSMutableDictionary alloc] initWithDictionary:@{@"id": messageId}];
-    
-    if (transactionId) {
-        headers[@"transaction"] = transactionId;
-    }
-    
-    [self sendCommand:kStompAck
-          withHeaders:headers
-              andBody:nil];
+    [self sendConfirmCommandType:kStompAck messageId:messageId transactionId:transactionId];
 }
 
 - (void)sendNackForMessage:(NSString*)messageId
             andTransaction:(NSString*)transactionId {
     
-    ECSLogVerbose(self.logger, @"Sending NACK. MsgID=%@, TranID=%@", messageId, transactionId);
+    [self sendConfirmCommandType:kStompNack messageId:messageId transactionId:transactionId];
+}
+
+- (void)sendConfirmCommandType:(NSString *)command messageId:(NSString *)messageId transactionId:(NSString *)transactionId {
     
-    NSMutableDictionary *headers = [[NSMutableDictionary alloc] initWithDictionary:@{@"id": messageId}];
-    
-    if (transactionId) {
-        headers[@"transaction"] = transactionId;
+    if( !self.subscribed ) {
+        // An errant command issued after an unsubscribe. Ignoring.
+        ECSLogVerbose(self.logger, @"Outbound %@ request but channel is unsubscribed. Dumping request.", command);
+        return;
+        
+    } else {
+        ECSLogVerbose(self.logger, @"Sending %@. MsgID=%@, TranID=%@", command, messageId, transactionId);
     }
     
-    [self sendCommand:kStompNack
+    NSMutableDictionary *headers = [[NSMutableDictionary alloc]
+                                    initWithDictionary:@{@"id": messageId}];
+    
+    if (transactionId) headers[@"transaction"] = transactionId;
+    
+    [self sendCommand:kStompAck
           withHeaders:headers
               andBody:nil];
 }
@@ -585,6 +593,12 @@ bool        _wasConnected;
             
             [self.delegate stompClient:self didFailWithError:newError];
         }
+    } else {
+        
+        if( [self.delegate respondsToSelector:@selector(stompClientDidCloseWithCode:reason:)] ) {
+            [self.delegate stompClientDidCloseWithCode:code reason:reason];
+        }
+        
     }
     
 }
@@ -756,17 +770,27 @@ bool        _wasConnected;
     
     if( _clientHeartbeatsMissed >= 3 )
     {
-        ECSLogDebug(self.logger, @"Server missed 3 heartbeats. Issuing a disconnect.");
+        ECSLogDebug(self.logger, @"Server missed 3 heartbeats. Issuing a close.");
         self.connected = NO;
-        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
-        {
-            [self.delegate stompClientDidDisconnect:self];
+//        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidDisconnect:)])
+//        {
+//            [self.delegate stompClientDidDisconnect:self];
+//        }
+
+        [self.webSocket close]; // Should trigger a didCloseWithCode() callback.
+        
+        if( self.delegate && [self.delegate respondsToSelector:@selector(stompClientDidCloseWithCode:reason:)]) {
+            [self.delegate stompClientDidCloseWithCode:ECSStatusNoStatusReceived reason:@"Heartbeat failure"];
         }
     }
     else if (self.webSocket.readyState == ECS_OPEN && self.connected && self.heartbeatTimer != nil)
     {
         _clientHeartbeatsMissed++;
-        ECSLogVerbose(self.logger, @"Connection good. Pinging again in %d", _clientHeartbeatInterval);
+        if( _clientHeartbeatsMissed > 1) {
+            ECSLogVerbose(self.logger, @"Connection BAD. Pinging again in %d", _clientHeartbeatInterval);
+        } else {
+            ECSLogVerbose(self.logger, @"Connection good. Pinging again in %d", _clientHeartbeatInterval);
+        }
         NSData *pingData = [[NSData alloc] initWithBytes:(unsigned char[]){0x0A} length:1];
         [self.webSocket sendPing:pingData];
         
