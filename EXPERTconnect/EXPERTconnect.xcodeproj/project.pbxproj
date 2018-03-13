@@ -387,7 +387,6 @@
 		C44B72211E770A3900DF1FEA /* ECSErrorDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = C44B72201E7709BF00DF1FEA /* ECSErrorDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C44B72231E770E2800DF1FEA /* ECSErrorDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = C44B72221E770E2800DF1FEA /* ECSErrorDefinitions.m */; };
 		C45AC04B1C2AF5E900625004 /* ECSStompCallbackClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03978EE71A602AEF007793D6 /* EXPERTconnect.h */; };
 		C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */; };
 		C472545F1CC04C36003C0D4E /* ECSBreadcrumb.m in Sources */ = {isa = PBXBuildFile; fileRef = C47254591CC04C36003C0D4E /* ECSBreadcrumb.m */; };
 		C47254601CC04C36003C0D4E /* ECSBreadcrumbResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C472545A1CC04C36003C0D4E /* ECSBreadcrumbResponse.m */; };
@@ -463,19 +462,6 @@
 			remoteInfo = EXPERTconnect;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C466D40B1BFD332F00A8865E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Headers";
-			dstSubfolderSpec = 7;
-			files = (
-				C466D40C1BFD333A00A8865E /* EXPERTconnect.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		030AF2101AF7E20C0056BFB0 /* ECSChatAddChannelMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatAddChannelMessage.h; path = Chat/ECSChatAddChannelMessage.h; sourceTree = "<group>"; };
@@ -1935,8 +1921,6 @@
 				03978EDE1A602AEF007793D6 /* Frameworks */,
 				03978EDF1A602AEF007793D6 /* Headers */,
 				03978EE01A602AEF007793D6 /* Resources */,
-				03F1897F1A64786D003C6E14 /* ShellScript */,
-				C466D40B1BFD332F00A8865E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2090,19 +2074,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03F1897F1A64786D003C6E14 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\n\n#FRAMEWORK_ARTIFACTS=\"${SRCROOT}/../artifacts\"\n#mkdir -p \"${FRAMEWORK_ARTIFACTS}\"\n#cp -R \"${TARGET_BUILD_DIR}/EXPERTconnect.framework\" \"${FRAMEWORK_ARTIFACTS}\"";
-		};
 		C6492F381B7C775B00CC977E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;

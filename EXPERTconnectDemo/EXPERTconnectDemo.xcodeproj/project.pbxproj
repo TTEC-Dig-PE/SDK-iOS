@@ -91,9 +91,9 @@
 		C4D0E5211C723A630032925F /* iBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E51F1C723A630032925F /* iBeaconViewController.xib */; };
 		C4D0E52B1C74C19E0032925F /* ECDBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5291C74C19E0032925F /* ECDBeaconViewController.m */; };
 		C4D0E52C1C74C19E0032925F /* ECDBeaconViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4D0E52A1C74C19E0032925F /* ECDBeaconViewController.xib */; };
-		C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; };
-		C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4D189CE1BD02E7E007A7047 /* ECDOrganizationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */; };
+		C4D8B11E205877E3007B92F1 /* EXPERTconnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4D8B11B205877B8007B92F1 /* EXPERTconnect.framework */; };
+		C4D8B11F205877E3007B92F1 /* EXPERTconnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4D8B11B205877B8007B92F1 /* EXPERTconnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4DBE3491F63076800D35101 /* ECDSimpleChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */; };
 		D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F01B6AB607005BD20E /* libicucore.dylib */; };
 		D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612F21B6AB60D005BD20E /* GLKit.framework */; };
@@ -142,6 +142,27 @@
 			remoteGlobalIDString = 03978F061A602B2D007793D6;
 			remoteInfo = EXPERTconnectDemo;
 		};
+		C4D8B11A205877B8007B92F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03978EE21A602AEF007793D6;
+			remoteInfo = EXPERTconnect;
+		};
+		C4D8B11C205877B8007B92F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03978EED1A602AEF007793D6;
+			remoteInfo = EXPERTconnectTests;
+		};
+		C4D8B120205877E3007B92F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 03978EE11A602AEF007793D6;
+			remoteInfo = EXPERTconnect;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -151,7 +172,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C4D188FF1BE2755A00049A36 /* EXPERTconnect.framework in Embed Frameworks */,
+				C4D8B11F205877E3007B92F1 /* EXPERTconnect.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,9 +329,9 @@
 		C4D0E5281C74C19E0032925F /* ECDBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDBeaconViewController.h; sourceTree = "<group>"; };
 		C4D0E5291C74C19E0032925F /* ECDBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDBeaconViewController.m; sourceTree = "<group>"; };
 		C4D0E52A1C74C19E0032925F /* ECDBeaconViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ECDBeaconViewController.xib; sourceTree = "<group>"; };
-		C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EXPERTconnect.framework; path = ../artifacts/EXPERTconnect.framework; sourceTree = "<group>"; };
 		C4D189CC1BD02E7E007A7047 /* ECDOrganizationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDOrganizationPicker.h; sourceTree = "<group>"; };
 		C4D189CD1BD02E7E007A7047 /* ECDOrganizationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDOrganizationPicker.m; sourceTree = "<group>"; };
+		C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EXPERTconnect.xcodeproj; path = ../EXPERTconnect/EXPERTconnect.xcodeproj; sourceTree = "<group>"; };
 		C4DBE3481F63076800D35101 /* ECDSimpleChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ECDSimpleChatViewController.xib; path = Proof_of_Concept/ECDSimpleChatViewController.xib; sourceTree = "<group>"; };
 		D81612F01B6AB607005BD20E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		D81612F21B6AB60D005BD20E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -373,7 +394,6 @@
 				D81612F71B6AB6BE005BD20E /* libsqlite3.dylib in Frameworks */,
 				D81612F31B6AB60D005BD20E /* GLKit.framework in Frameworks */,
 				D81612F11B6AB607005BD20E /* libicucore.dylib in Frameworks */,
-				C4D188FE1BE2755A00049A36 /* EXPERTconnect.framework in Frameworks */,
 				D87F2F5D1B6835A400B7B9D5 /* Accelerate.framework in Frameworks */,
 				D87F2F601B6835A400B7B9D5 /* AssetsLibrary.framework in Frameworks */,
 				D87F2F611B6835A400B7B9D5 /* AudioToolbox.framework in Frameworks */,
@@ -391,6 +411,7 @@
 				D87F2F701B6835A400B7B9D5 /* MapKit.framework in Frameworks */,
 				D87F2F721B6835A400B7B9D5 /* MessageUI.framework in Frameworks */,
 				D87F2F731B6835A400B7B9D5 /* MobileCoreServices.framework in Frameworks */,
+				C4D8B11E205877E3007B92F1 /* EXPERTconnect.framework in Frameworks */,
 				D87F2F741B6835A400B7B9D5 /* OpenGLES.framework in Frameworks */,
 				D87F2F751B6835A400B7B9D5 /* QuartzCore.framework in Frameworks */,
 				D87F2F761B6835A400B7B9D5 /* Security.framework in Frameworks */,
@@ -571,7 +592,7 @@
 		03978EFE1A602B2D007793D6 = {
 			isa = PBXGroup;
 			children = (
-				C4D188FD1BE2755A00049A36 /* EXPERTconnect.framework */,
+				C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */,
 				9F5B9BAA1AF2C3FE002770C0 /* Settings.bundle */,
 				03D452181AC1DB4C003607C4 /* AirshipConfig.plist */,
 				0368D77A1B3AEAD800985673 /* Localizable.strings */,
@@ -751,6 +772,15 @@
 			name = "Picker Views";
 			sourceTree = "<group>";
 		};
+		C4D8B115205877B8007B92F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4D8B11B205877B8007B92F1 /* EXPERTconnect.framework */,
+				C4D8B11D205877B8007B92F1 /* EXPERTconnectTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -766,6 +796,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C4D8B121205877E3007B92F1 /* PBXTargetDependency */,
 			);
 			name = EXPERTconnectDemo;
 			productName = EXPERTconnectDemo;
@@ -851,6 +882,12 @@
 			mainGroup = 03978EFE1A602B2D007793D6;
 			productRefGroup = 03978F081A602B2D007793D6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C4D8B115205877B8007B92F1 /* Products */;
+					ProjectRef = C4D8B114205877B8007B92F1 /* EXPERTconnect.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				03978F061A602B2D007793D6 /* EXPERTconnectDemo */,
@@ -858,6 +895,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C4D8B11B205877B8007B92F1 /* EXPERTconnect.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EXPERTconnect.framework;
+			remoteRef = C4D8B11A205877B8007B92F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4D8B11D205877B8007B92F1 /* EXPERTconnectTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = EXPERTconnectTests.xctest;
+			remoteRef = C4D8B11C205877B8007B92F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03978F051A602B2D007793D6 /* Resources */ = {
@@ -985,6 +1039,11 @@
 			isa = PBXTargetDependency;
 			target = 03978F061A602B2D007793D6 /* EXPERTconnectDemo */;
 			targetProxy = 03978F211A602B2D007793D6 /* PBXContainerItemProxy */;
+		};
+		C4D8B121205877E3007B92F1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EXPERTconnect;
+			targetProxy = C4D8B120205877E3007B92F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
