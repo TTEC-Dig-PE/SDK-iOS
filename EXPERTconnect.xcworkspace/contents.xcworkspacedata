@@ -4,7 +4,4 @@
    <FileRef
       location = "group:EXPERTconnectDemo/EXPERTconnectDemo.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "container:EXPERTconnect/EXPERTconnect.xcodeproj">
-   </FileRef>
 </Workspace>
