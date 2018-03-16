@@ -15,11 +15,9 @@ https://github.com/humanifydev/SDK-iOS-integrator
 
 ### What is included in this repository
 
-This repository includes the native iOS SDK (EXPERTconnect.framework) as well as the EXPERTconnect Test Harness app for internal testing & code examples. These are two XCode projects within the same XCode workspace. 
+This repository includes the native iOS SDK (EXPERTconnect.framework) 
 
 EXPERTconnect SDK: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconnect
-
-EXPERTconnect Test Harness: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconnectDemo
 
 Release Notes: https://docs.google.com/document/d/1QNO8MH9b_T3K6y3shlNPH6PXnItqZRbSORNS60OaXhw
 
@@ -41,7 +39,7 @@ platform :ios, '9.1'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'EXPERTconnect', '~> 6.3.2'
+    pod 'EXPERTconnect', '~> 6.4.0'
 end
 ```
 
@@ -64,7 +62,7 @@ $ brew install carthage
 To integrate EXPERTconnect into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "humanifydev/SDK-iOS" ~> 6.4.0
+github "humanifydev/SDK-iOS" ~> 6.4.2
 ```
 
 Run `carthage update` to build the framework and drag the built `EXPERTconnect.framework` into your Xcode project from the `Carthage\Build\iOS` subfolder.
@@ -107,7 +105,7 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 
 # Using the EXPERTconnect SDK
 
-## Low-levelChat
+## Low-level 
 A term used for the API wrapper layer of chat code (no UI). 
 
 ### Starting a chat session
