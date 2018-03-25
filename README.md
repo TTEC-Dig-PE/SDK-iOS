@@ -158,3 +158,54 @@ Message Types:
 * ECSChatURLMessage
 * ECSSendQuestionMessage
 * ECSChatAssociateInfoMessage
+
+# Use Case Specific Functionality
+
+## Getting Chat Skill Availability Details 
+The details of a chat or callback skill (such as estimated wait, chatReady, queueOpen) can be retrieved using the "getDetailsForExpertSkill" function. Example: 
+
+```objective-c
+  [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
+      completion:^(ECSSkillDetail *details, NSError *error)
+  {
+      NSLog(@"Estimated wait seconds: %@", details.estWait); 
+  }
+```
+
+Example can be found on line 161 of https://github.com/humanifydev/SDK-iOS-Integrator/blob/master/HumanifyDemo/ViewController.m
+  
+The ECSSkillDetail object contains the following fields:
+* active - Whether this skill queue is active or not.
+* chatCapacity - Maximum capacity of agents this skill can contain.
+* chatReady - Number of agents who are ready to accept chats.
+* description - Text description of this skill
+* estWait - The estimated wait time to get connected (seconds)
+* inQueue - Is this particular user in the queue already?
+* queueOpen - Is the queue open or closed?
+* skillName - Name of the skill
+* voiceCapacity - Maximum capacity of agents who can take voice calls.
+* voiceReady - Current number of agents ready to accept calls.
+
+## Chat Persistence 
+The integrator demo app does give an example of a persistent chat experience. By persistence, this means that the user can navigate to other views within the app and still remain connected to the chat. They can return later to see the updated messages.  
+
+Example can be found on lines 185-285 of https://github.com/humanifydev/SDK-iOS-Integrator/blob/master/HumanifyDemo/ViewController.m 
+
+In a nutshell, the navigation of the view can be overriden by either not using standard navigation bar controls (your app would be in control), or by overriding the left and right buttons yourself (as we have done in our demo app, seen on line 205-211). 
+
+If you want to do a "navigate away", simply pop the ECSChatViewController object off the stack (but do NOT deallocate it). 
+
+If you want to provide an "exit chat" behavior, issue the [ECSChatViewController endChatByUser] function. 
+
+## Customizing the chat Navigation Bar Buttons
+
+The integrator demo app also includes an example of customizing the top navigation bar buttons while using our high level (packaged UI) chat feature. The basic idea is that if the viewController we allocate detects navigation bar buttons already created by the host app (you), we will not touch the navigation bar area. 
+
+In the integrator app, we have overriden these buttons to be a left "minimize chat" button and a right "exit chat" button. You can find the code here: 
+https://github.com/humanifydev/SDK-iOS-Integrator/blob/master/HumanifyDemo/ViewController.m
+
+The "minimize" button refers to the "chatBackPushed" function found at line 239. 
+
+The "exit chat" button refers to "chatEndChatPushed" function found at line 253. 
+
+From here, you can customize anything about the button as allowed by iOS - such as tintColor, image, font, etc.
