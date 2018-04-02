@@ -105,6 +105,73 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 
 # Using the EXPERTconnect SDK
 
+## Setup and Configuration
+
+First, import the EXPERTconnect header file: 
+```objc
+#import <EXPERTconnect/EXPERTconnect.h>
+```
+
+Next, in a place called before any of our API functions (chat, decision engine, etc), initialize the SDK. Below is an example of minimal configuration: 
+
+```objc
+ECSConfiguration *configuration = [ECSConfiguration new];
+
+configuration.host          = @"https://ce03.api.humanify.com";
+configuration.appName       = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+configuration.appVersion    = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+configuration.appId         = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+
+[[EXPERTconnect shared] initializeWithConfiguration:configuration];
+```
+
+## Authentication
+
+Since we are dealing with private chats and potentially user profile information authentication between the Humanify API and the SDKs requires an identity delegate token. Please ask for more information if you have not already setup your IDT server.  Next, the SDK needs a callback function from your app to call when it needs to fetch a new token (usually on the initial API call or when the token expires). 
+
+In your object file containing the token refreshing code, add the delegate prototype: 
+```objc
+@interface ViewController () <ECSAuthenticationTokenDelegate>
+```
+Next, add the token fetching function:
+
+```objc
+-(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
+
+    // Get token here (usually by HTTP request)
+    NSString *myToken = @"testToken";
+
+    completion(myToken, nil);
+    
+}
+```
+
+Finally, in your EXPERTconnect SDK initialization code, make sure to set this object as the delegate: 
+```objc
+[[EXPERTconnect shared] setAuthenticationTokenDelegate:self]; 
+```
+
+In addition, if you have a token already in code (usually by calling your own token fetching block outside of the SDK doing so), you can input the token directly into the SDK: 
+```objc
+[[EXPERTconnect shared] setUserIdentityToken:@"MyTokenABC123"]; 
+```
+
+## Debugging
+
+The SDK offers a callback function for all debug logging with 5 levels of verboseness. It is extremely helpful to integrate our debug into your logging for the purpose of troubleshooting issues with the SDK. The following is a simple example of NSLogging() our debug. This configuration would also work with popular remote debug aggregators like Critterism. The debug level can be modified during runtime. 
+
+```objc
+
+// Options: ECSLogLevel[None|Debug|Error|Verbose|Warning]
+[[EXPERTconnect shared] setDebugLevel:ECSLogLevelVerbose];
+    
+[[EXPERTconnect shared] setLoggingCallback:^(ECSLogLevel level, NSString *message) {
+        
+    NSLog(@"[HMN SDK]: (%ld): %@", (long)level, message);
+    
+}];
+```
+
 ## Low-level 
 A term used for the API wrapper layer of chat code (no UI). 
 
