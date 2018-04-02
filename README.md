@@ -38,8 +38,16 @@ Release Notes: https://docs.google.com/document/d/1QNO8MH9b_T3K6y3shlNPH6PXnItqZ
       * [Low-Level Chat](#low-level-chat)
          * [Starting a Chat](#starting-a-chat)
          * [Sending Messages](#sending-messages)
-         * [Chat State Updates](#chat-state-updates)
+         * [Chat User Typing/Paused Events](#chat-user-typingpaused-events)
          * [Receiving Messages](#receiving-messages)
+            * [Chat Text Messages](#chat-text-messages)
+            * [Chat State Messages](#chat-state-messages)
+         * [Disconnection](#disconnection)
+         * [Chat State Updates](#chat-state-updates)
+            * [Connected](#connected)
+            * [Agent Answered](#agent-answered)
+            * [Participant Join](#participant-join)
+            * [Participant Leave](#participant-leave)
       * [Use-case specific Chat Features](#use-case-specific-chat-features)
          * [Getting Chat Skill Details](#getting-chat-skill-details)
          * [Chat Persistence](#chat-persistence)
@@ -204,10 +212,14 @@ A term used for the API wrapper layer of chat code (no UI).
 ### Starting a Chat
 Starting a chat consists of constructing an ECSStompChatClient object, setting a delegate (usually your chat view controller), and invoking the startChatWithSkill function. 
 
+```objc
     ECSStompChatClient *chatClient = [ECSStompChatClient new]; 
     chatClient.delegate = self; // to receive callback events. 
     
-    [chatClient startChatWithSkill:@"MyAgentSkill" subject:"Warranty Chat" dataFields:nil]; 
+    [chatClient startChatWithSkill:@"MyAgentSkill" 
+                           subject:"Warranty Chat" 
+                        dataFields:nil]; 
+```
 
 The three parameters required are: 
 * skill - The chat skill to connect with. Often a string provided by Humanify, such as "CustomerServiceReps" that contains a group of associates who recieve the chats.
@@ -225,7 +237,7 @@ Assuming you have setup your ECSStompChatClient, connected, and subscribed to a 
     
     }];
 
-### Chat State Updates
+### Chat User Typing/Paused Events
 Chat state updates can tell the associate if the user is typing a message or has stopped. Both messages are manually sent by the host app. We recommend sending ECSChatStateComoposing when the user begins typing a message, starting a timer, and sending an ECSChatStateTypingPaused after a certain length of time, or when the user has deleted all of the text in the text box. The completion block on this call is not often needed. 
 
     ECSStompChatClient *chatClient; 
@@ -233,24 +245,102 @@ Chat state updates can tell the associate if the user is typing a message or has
     [chatClient sendChatState:ECSChatStateComposing completion:nil]; 
 
 ### Receiving Messages
-Messages will arrive via the ECSStompChatDelegate callbacks. 
+Messages will arrive via the ECSStompChatDelegate callbacks. There are a couple of different kinds of messages you can receive, detailed below. 
 
-    - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
+#### Chat Text Messages
+Chat text messages are regular text sent from an associate or agent. The relevant fields are "from" and "body". From contains who sent the message, and body contains the message itself.
+
+```objc
+// An associate has sent a regular chat text message. The from field contains the userID, which should match an AddParticipant previously received.
+- (void) chatReceivedTextMessage:(ECSChatTextMessage *)message {
     
-        if( [message isKindOfClass:[ECSChatTextMessage class]] ) {
-        
-            NSLog(@"This is a regular chat text message from an associate."); 
-        
-        }
+    [self appendToChatLog:[NSString stringWithFormat:@"%@: %@", message.from, message.body]];
+}
+```
+
+#### Chat State Messages
+Chat state messages let the SDK know if the agent has begun typing a new message (ECSChatStateComposing) or has stopped (ECSChatStateTypingPaused).  
+
+```objc
+// A chat state message has arrrived. Typically used to detect when the agent has started typing and display that to the user.
+- (void) chatReceivedChatStateMessage:(ECSChatStateMessage *)stateMessage {
     
+    if (stateMessage.chatState == ECSChatStateComposing) {
+        
+        NSLog(@"Agent is typing...");
+        
+    } else if (stateMessage.chatState == ECSChatStateTypingPaused) {
+        
+        NSLog(@"Agent has stopped typing.");
+        
     }
-Message Types: 
-* ECSChatTextMessage
-* ECSChatAddParticipantMessage
-* ECSChatRemoveParticipationMessage
-* ECSChatURLMessage
-* ECSSendQuestionMessage
-* ECSChatAssociateInfoMessage
+}
+```
+
+### Disconnection
+The SDK can tell you when the chat has been disconnected from the server side, whether by an agent ending the chat or some kind of issue. 
+
+```objc
+// The chat was disconnected from the serve side. Typically because the associated ended the chat or an idle timeout has occurred.
+- (void) chatDisconnectedWithMessage:(ECSChannelStateMessage *)message {
+    
+    if ( message.disconnectReason == ECSDisconnectReasonIdleTimeout ) {
+        
+        NSLog(@"Server has timed out this chat.");
+        
+    } else if ( message.disconnectReason == ECSDisconnectReasonDisconnectByParticipant ) {
+        
+        NSLog(@"%@", [NSString stringWithFormat:@"Chat was ended by: %@", message.terminatedByString]);
+        
+    } else {
+        
+        NSLog(@"Chat was ended for an unknown reason");
+        
+    }
+    
+    [self.chatClient disconnect];
+}
+```
+
+### Chat State Updates
+
+Various delegate functions are called for chat state updates. 
+
+#### Connected
+```objc
+// The WebSocket has connected to the server. This may be when you flip your view to the chat screen or dislpay a message to the user "connecting..."
+- (void) chatDidConnect {
+    NSLog(@"WebSocket has connected to the server.");
+}
+```
+
+#### Agent Answered
+```objc
+// The chat has entered the "answered" state. In normal cases this callback would not be needed,
+// but you could say "an associate is connecting...". Very soon after an "AddParticipant" message should arrive.
+- (void) chatAgentDidAnswer {
+    
+    NSLog(@"An agent is joining this chat...");
+}
+```
+
+#### Participant Join
+```objc
+// An associate has joined the chat. This contains their userID, name, and avatarURL. Here is where you would typically display "John has joined the chat."
+- (void) chatAddedParticipant:(ECSChatAddParticipantMessage *)participant {
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"%@ %@ (%@) has joined the chat.", participant.firstName, participant.lastName, participant.userId]);
+}
+```
+
+#### Participant Leave
+```objc
+// An associate has left the chat. This contains their userID, name, and avatarURL. Here is where you would typically display "John has left the chat." This might occur during a transfer. During a normal "associate disconnected", a disconnect would soon follow.
+- (void) chatRemovedParticipant:(ECSChatRemoveParticipantMessage *)participant {
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"%@ %@ (%@) has left the chat.", participant.firstName, participant.lastName, participant.userId]);
+}
+```
 
 ## Use-case specific Chat Features
 
