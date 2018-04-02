@@ -12,8 +12,7 @@ We highly recommend using approach #1 (high level) for a rapid prototype to test
 
 https://github.com/humanifydev/SDK-iOS-integrator
 
-
-### What is included in this repository
+# What is included
 
 This repository includes the native iOS SDK (EXPERTconnect.framework) 
 
@@ -21,9 +20,34 @@ EXPERTconnect SDK: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconn
 
 Release Notes: https://docs.google.com/document/d/1QNO8MH9b_T3K6y3shlNPH6PXnItqZRbSORNS60OaXhw
 
-## SDK Installation
+# Table of Contents
 
-### CocoaPods
+   * [EXPERTconnect SDK for iOS](#expertconnect-sdk-for-ios)
+   * [What is included](#what-is-included)
+   * [Table of Contents](#table-of-contents)
+   * [Installation](#installation)
+      * [CocoaPods](#cocoapods)
+      * [Carthage](#carthage)
+      * [Manually](#manually)
+         * [Embedded Framework](#embedded-framework)
+   * [Usage](#usage)
+      * [Setup](#setup)
+      * [Authentication](#authentication)
+      * [Debugging](#debugging)
+   * [Chat](#chat)
+      * [Low-Level Chat](#low-level-chat)
+         * [Starting a Chat](#starting-a-chat)
+         * [Sending Messages](#sending-messages)
+         * [Chat State Updates](#chat-state-updates)
+         * [Receiving Messages](#receiving-messages)
+      * [Use-case specific Chat Features](#use-case-specific-chat-features)
+         * [Getting Chat Skill Details](#getting-chat-skill-details)
+         * [Chat Persistence](#chat-persistence)
+         * [Customizing the chat Navigation Bar Buttons](#customizing-the-chat-navigation-bar-buttons)
+
+# Installation
+
+## CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
@@ -48,7 +72,7 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
-### Carthage
+## Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
@@ -67,11 +91,11 @@ github "humanifydev/SDK-iOS" ~> 6.4.2
 
 Run `carthage update` to build the framework and drag the built `EXPERTconnect.framework` into your Xcode project from the `Carthage\Build\iOS` subfolder.
 
-### Manually
+## Manually
 
 If you prefer not to use any of the aforementioned dependency managers, you can integrate EXPERTconnect into your project manually.
 
-#### Embedded Framework
+### Embedded Framework
 
 - Open up Terminal, `cd` into your top-level project directory, and run the following command "if" your project is not initialized as a git repository:
 
@@ -103,9 +127,9 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
   > The `EXPERTconnect.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.
 
 
-# Using the EXPERTconnect SDK
+# Usage
 
-## Setup and Configuration
+## Setup
 
 First, import the EXPERTconnect header file: 
 ```objc
@@ -172,10 +196,12 @@ The SDK offers a callback function for all debug logging with 5 levels of verbos
 }];
 ```
 
-## Low-level 
+# Chat
+
+## Low-Level Chat
 A term used for the API wrapper layer of chat code (no UI). 
 
-### Starting a chat session
+### Starting a Chat
 Starting a chat consists of constructing an ECSStompChatClient object, setting a delegate (usually your chat view controller), and invoking the startChatWithSkill function. 
 
     ECSStompChatClient *chatClient = [ECSStompChatClient new]; 
@@ -188,7 +214,7 @@ The three parameters required are:
 * subject - This is displayed on the associate desktop client as text at the start of a chat.
 * dataFields - These data fields can be used to provide extra information to the associate. Eg: { "userType": "student" }
 
-### Sending Chat Messages
+### Sending Messages
 Assuming you have setup your ECSStompChatClient, connected, and subscribed to a Stomp channel...
 
     ECSStompChatClient *chatClient;
@@ -199,14 +225,14 @@ Assuming you have setup your ECSStompChatClient, connected, and subscribed to a 
     
     }];
 
-### Sending Chat State Updates
+### Chat State Updates
 Chat state updates can tell the associate if the user is typing a message or has stopped. Both messages are manually sent by the host app. We recommend sending ECSChatStateComoposing when the user begins typing a message, starting a timer, and sending an ECSChatStateTypingPaused after a certain length of time, or when the user has deleted all of the text in the text box. The completion block on this call is not often needed. 
 
     ECSStompChatClient *chatClient; 
     
     [chatClient sendChatState:ECSChatStateComposing completion:nil]; 
 
-### Receiving Messages from the Associate
+### Receiving Messages
 Messages will arrive via the ECSStompChatDelegate callbacks. 
 
     - (void)chatClient:(ECSStompChatClient *)stompClient didReceiveMessage:(ECSChatMessage *)message {
@@ -226,9 +252,9 @@ Message Types:
 * ECSSendQuestionMessage
 * ECSChatAssociateInfoMessage
 
-# Use Case Specific Functionality
+## Use-case specific Chat Features
 
-## Getting Chat Skill Availability Details 
+### Getting Chat Skill Details 
 The details of a chat or callback skill (such as estimated wait, chatReady, queueOpen) can be retrieved using the "getDetailsForExpertSkill" function. Example: 
 
 ```objective-c
@@ -238,7 +264,6 @@ The details of a chat or callback skill (such as estimated wait, chatReady, queu
       NSLog(@"Estimated wait seconds: %@", details.estWait); 
   }
 ```
-
 Example can be found on line 161 of https://github.com/humanifydev/SDK-iOS-Integrator/blob/master/HumanifyDemo/ViewController.m
   
 The ECSSkillDetail object contains the following fields:
@@ -253,7 +278,7 @@ The ECSSkillDetail object contains the following fields:
 * voiceCapacity - Maximum capacity of agents who can take voice calls.
 * voiceReady - Current number of agents ready to accept calls.
 
-## Chat Persistence 
+### Chat Persistence 
 The integrator demo app does give an example of a persistent chat experience. By persistence, this means that the user can navigate to other views within the app and still remain connected to the chat. They can return later to see the updated messages.  
 
 Example can be found on lines 185-285 of https://github.com/humanifydev/SDK-iOS-Integrator/blob/master/HumanifyDemo/ViewController.m 
@@ -264,7 +289,7 @@ If you want to do a "navigate away", simply pop the ECSChatViewController object
 
 If you want to provide an "exit chat" behavior, issue the [ECSChatViewController endChatByUser] function. 
 
-## Customizing the chat Navigation Bar Buttons
+### Customizing the chat Navigation Bar Buttons
 
 The integrator demo app also includes an example of customizing the top navigation bar buttons while using our high level (packaged UI) chat feature. The basic idea is that if the viewController we allocate detects navigation bar buttons already created by the host app (you), we will not touch the navigation bar area. 
 
@@ -276,3 +301,4 @@ The "minimize" button refers to the "chatBackPushed" function found at line 239.
 The "exit chat" button refers to "chatEndChatPushed" function found at line 253. 
 
 From here, you can customize anything about the button as allowed by iOS - such as tintColor, image, font, etc.
+
