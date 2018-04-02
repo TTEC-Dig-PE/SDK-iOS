@@ -29,11 +29,26 @@
     NSString *_username;
     NSString *_fullname;
     NSString *_firstname;
+    
+    bool _testEmptyAuthTokenFailure;
 }
 
 @end
 
 @implementation ECS_API_Tests
+
+- (void)setUp {
+    [super setUp];
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // Set to YES to test a missing auth token.
+    _testEmptyAuthTokenFailure = NO;
+}
+
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [super tearDown];
+}
 
 - (void)initSDKwithEnvironment:(NSString *)env organization:(NSString *)org {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -62,7 +77,9 @@
                      @"yasar.arafath@agiliztech.com",
                      org]];
     
-    [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
+    if( !_testEmptyAuthTokenFailure ) {
+        [[EXPERTconnect shared] setAuthenticationTokenDelegate:self];
+    }
     
     [[EXPERTconnect shared] setDebugLevel:5];
     [[EXPERTconnect shared] overrideDeviceLocale:@"en-US"];
@@ -89,11 +106,9 @@
     }];
 }
 
-
-
-
-
 -(void) fetchAuthenticationToken:(void (^)(NSString *, NSError *))completion {
+    
+    NSLog(@"UnitTest fetchAuthenticationToken grabbing a new token...URL=%@", _testAuthURL );
     // add /ust for new method
     [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:_testAuthURL]
                                        queue:[[NSOperationQueue alloc] init]
@@ -115,14 +130,41 @@
      }];
 }
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
+/**
+ NOTE: This test is failing in v5.4. Config required on server. @kenwashington is contact for information.
+ */
+- (void)testNoAuthKeyProvided {
+    
+    [self setUp];
+    
+    _testTenant = @"mktwebextc";
+    [self initSDKwithEnvironment:@"dce1" organization:@"mktwebextc"];
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
+    
+    NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                               @"henry",@"name",
+                                               nil];
+    
+    [[[EXPERTconnect shared] urlSession] makeDecision:decisionDictionary
+               completion:^(NSDictionary *response, NSError *error)
+     {
+         if( error ) {
+             
+             NSLog(@"Error = %@", error);
+             XCTAssert(error.code == 1001, @"Wrong error code returned.");
+             XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing or incompatible authentication token"], @"Wrong error returned");
+         }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+         [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
+     }];
+    
+    // Goes at bottom of test function
+    [self waitForExpectationsWithTimeout:15.0 handler:^(NSError *error) {
+        if (error) {
+            XCTFail(@"Timeout error (15 seconds). Error=%@", error);
+        }
+    }];
 }
 
 /**
@@ -133,12 +175,11 @@
     [self setUp];
     
     _testTenant = @"henry";
+    
     [self initSDKwithEnvironment:@"tce1" organization:@"mktwebextc_test"];
     
-    ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
     XCTestExpectation *expectation = [self expectationWithDescription:@"testMakeDecision"]; // Define a new expectation
     
-    // TODO: Change to "validateDE"
     NSMutableDictionary *decisionDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                @"henry",@"name",
                                                @"henryRule",@"projectServiceName",
@@ -151,13 +192,17 @@
                                                @"current local page",@"function",
                                                nil];
     
-    [session makeDecision:decisionDictionary
+    [[[EXPERTconnect shared] urlSession] makeDecision:decisionDictionary
                completion:^(NSDictionary *response, NSError *error)
      {
-         XCTAssert(!error,@"API call had an error.");
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
          
-         NSLog(@"Response JSON = %@", response);
+         //NSLog(@"Response JSON = %@", response);
          
+         XCTAssert(!error, @"API call had an error.");
          XCTAssert([response[@"eventId"] isEqualToString:@"determineRule"], @"Expected eventId matching input.");
          
          [expectation fulfill]; // Tell the loop to stop waiting - test is finished.
@@ -232,7 +277,12 @@
     [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
                                           completion:^(ECSSkillDetail *details, NSError *error)
      {
-         NSLog(@"Details: %@", details);
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
+         //NSLog(@"Details: %@", details);
          if(error) XCTFail(@"Error: %@", error.description);
          
          // Specific Tests
@@ -245,7 +295,7 @@
          [[EXPERTconnect shared] getDetailsForExpertSkill:nil
                                                completion:^(ECSSkillDetail *details, NSError *error)
           {
-              NSLog(@"Details: %@", details);
+              //NSLog(@"Details: %@", details);
               
               XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"experts.error.failedRetrievingExpertSkill"],
                         @"Expected failed retrieving expert skill error");
@@ -277,7 +327,12 @@
     [sessionManager getNavigationContextWithName:@"personas"
                                       completion:^(ECSNavigationContext *context,NSError *error)
      {
-         NSLog(@"Details: %@", context);
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
+         //NSLog(@"Details: %@", context);
          if(error) XCTFail(@"Error: %@", error.description);
          
          [expectation fulfill];
@@ -304,6 +359,11 @@
     [sessionManager getAnswerEngineTopQuestions:2
                                  withCompletion:^(NSArray *answers, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          if(error) XCTFail(@"Error: %@", error.description);
          XCTAssert(answers.count == 2, @"Expected 2 answers in ALL context.");
          
@@ -344,6 +404,11 @@
                                      forContext:@"Park"
                                  withCompletion:^(NSArray *answers, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", answers);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -384,6 +449,11 @@
                                            forContext:@"Park"
                                        withCompletion:^(NSArray *answers, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", answers);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -424,6 +494,11 @@
                                       withOptionalContext:@"Park"
                                                completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", response);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -438,7 +513,7 @@
               if(error) XCTFail(@"Error: %@", error.description);
               
               //Specific Tests
-              XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_ANSWER"], "Expected invalid question");
+              XCTAssert([response.answer isEqualToString:@"ANSWER_ENGINE_NO_QUESTION"], "Expected invalid question");
               XCTAssert(!response.answerContent,@"Expected empty content.");
               XCTAssert(response.inquiryId.length==0,@"Expected missing inquiryID");
               XCTAssert([response.answersQuestion intValue] != 1, @"Expected to not answer question.");
@@ -476,11 +551,16 @@
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
     // Test good question
-    [sessionManager getAnswerForQuestion:@"Remote Start"
+    [sessionManager getAnswerForQuestion:@"Remote Start with Vehicle Controls"
                                inContext:@"sdk_unit_test"
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", response);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -529,6 +609,11 @@
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          //NSLog(@"Response=%@", response);
          XCTAssert(!error,@"API call returned error.");
          if(error)NSLog(@"Error=%@", error);
@@ -555,7 +640,7 @@
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager getAnswerForQuestion:@"How Does Borrow Work?"
+    [sessionManager getAnswerForQuestion:@"Contact a Guide"
                                inContext:@""
                          parentNavigator:@""
                                 actionId:@""
@@ -563,6 +648,11 @@
                               customData:nil
                               completion:^(ECSAnswerEngineResponse *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", response);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -599,6 +689,11 @@
                  questionCount:1
                     completion:^(ECSAnswerEngineRateResponse *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          XCTAssert(response.constrainedRating==5, @"Rating was not converted to max for positive.");
          
          // Give a thumbs down rating...
@@ -696,6 +791,11 @@
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager getUserProfileWithCompletion:^(ECSUserProfile *profile, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", profile);
          
          if(error)
@@ -755,6 +855,11 @@
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     [sessionManager submitUserProfile:profile withCompletion:^(NSDictionary *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", response);
          
          if(error)
@@ -804,6 +909,11 @@
     
     [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", formNames);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -831,6 +941,11 @@
     
     [sessionManager getFormNamesWithCompletion:^(NSArray *formNames, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", formNames);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -860,6 +975,11 @@
     [sessionManager getFormByName:inputFormName
                    withCompletion:^(ECSForm *form, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", form);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -889,6 +1009,11 @@
     [sessionManager getFormByName:inputFormName
                    withCompletion:^(ECSForm *form, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", form);
          if(error) XCTFail(@"Error: %@", error.description);
          
@@ -933,6 +1058,11 @@
     [sessionManager getFormByName:@"not_real"
                    withCompletion:^(ECSForm *form, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          //NSLog(@"Response=%@", response);
          XCTAssert(error, @"Expected a missing form error.");
          if(error) {
@@ -1039,7 +1169,12 @@
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error) {
+    [sessionManager submitForm:form completion:^(ECSFormSubmitResponse *response, NSError *error)
+    {
+        if( [self testingEmptyAuthToken:error] ) {
+            [expectation fulfill];
+            return;
+        }
         
         NSLog(@"Details: %@", response);
         
@@ -1088,6 +1223,11 @@
     // Use this to get the auth token setup correctly.
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          ECSTheme *theme = [[ECSInjector defaultInjector] objectForClass:[ECSTheme class]];
          
          /*
@@ -1168,7 +1308,12 @@
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error) {
+    [sessionManager getMediaFileNamesWithCompletion:^(NSArray *fileNames, NSError *error)
+    {
+        if( [self testingEmptyAuthToken:error] ) {
+            [expectation fulfill];
+            return;
+        }
         
         NSLog(@"Details: %@", fileNames);
         
@@ -1201,7 +1346,12 @@
     
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
-    [sessionManager getAnswerEngineHistoryWithCompletion:^(ECSHistoryList *response, NSError *error) {
+    [sessionManager getAnswerEngineHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
+    {
+        if( [self testingEmptyAuthToken:error] ) {
+            [expectation fulfill];
+            return;
+        }
         
         NSLog(@"Details: %@", response);
         
@@ -1254,7 +1404,14 @@
     ECSURLSessionManager *sessionManager = [[EXPERTconnect shared] urlSession];
     
     // Test 1: Get Chat history (record of chat starts for this user)
-    [sessionManager getChatHistoryDetailsForJourneyId:@"journey_b7ebada3-326d-4361-b224-1e5125d0bc2e_mktwebextc" withCompletion:^(ECSChatHistoryResponse *response, NSError *error) {
+    [sessionManager getChatHistoryDetailsForJourneyId:@"journey_b7ebada3-326d-4361-b224-1e5125d0bc2e_mktwebextc"
+                                       withCompletion:^(ECSChatHistoryResponse *response, NSError *error)
+    {
+        if( [self testingEmptyAuthToken:error] ) {
+            [expectation fulfill];
+            return;
+        }
+        
         NSLog(@"Details: %@", response);
         
         [expectation fulfill];
@@ -1279,6 +1436,11 @@
         
     [sessionManager getChatHistoryWithCompletion:^(ECSHistoryList *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Details: %@", response);
          
          if(error) XCTFail(@"Error reported: %@", error.description);
@@ -1363,6 +1525,11 @@
     [session getExpertsWithInteractionItems:nil
                                  completion:^(NSArray *experts, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          //NSLog(@"Experts Array: %@", experts);
          XCTAssert(experts.count && experts.count>0,@"No experts returned.");
          if(experts.count && experts.count>0)
@@ -1415,6 +1582,11 @@
     // Start a new journey
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyID, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          XCTAssert(journeyID.length>0,@"Response contains a journeyID");
          XCTAssert(!error, @"Response does not contain an error");
          
@@ -1469,6 +1641,11 @@
     // Step 1: Start a new journey (prerequesite)
     [[EXPERTconnect shared] startJourneyWithCompletion:^(NSString *journeyId, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          NSLog(@"Journey response=%@", journeyId);
          
          __weak ECSURLSessionManager *session = [[EXPERTconnect shared] urlSession];
@@ -1578,6 +1755,10 @@
                                                         @"service"      : service}
                                            completion:^(NSDictionary *dr, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
 
          // This rule is used by Ford. All we are concerned with is the intentId it returns.
          XCTAssert(dr[@"responseData"] || dr[@"responseData"][@"intentId"], @"Intended directory structure was not intact.");
@@ -1658,6 +1839,11 @@
     [session makeDecision:decisionDictionary
                completion:^(NSDictionary *response, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
+         
          XCTAssert(!error,@"API call had an error.");
          
          NSLog(@"Response JSON = %@", response);
@@ -1694,6 +1880,10 @@
                                          context:@"WeightWatchers"
                                       completion:^(NSString *journeyID, NSError *error)
      {
+         if( [self testingEmptyAuthToken:error] ) {
+             [expectation fulfill];
+             return;
+         }
 
          NSString *endpointPathComponent = @"appconfig/v1/navigation?page=support";
          
@@ -1716,6 +1906,16 @@
             XCTFail(@"Timeout error (15 seconds). Error=%@", error);
         }
     }];
+}
+
+#pragma mark - Helper Functions
+
+- (BOOL) testingEmptyAuthToken:(NSError *)error {
+    if( _testEmptyAuthTokenFailure ) {
+        XCTAssert(error.code == 1001, @"Wrong error code returned.");
+        XCTAssert([error.userInfo[@"NSLocalizedFailureReason"] isEqualToString:@"Missing or incompatible authentication token"], @"Wrong error returned");
+    }
+    return _testEmptyAuthTokenFailure;
 }
 
 

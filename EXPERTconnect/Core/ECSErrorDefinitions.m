@@ -10,3 +10,5 @@
 
 NSString *const ECSErrorDomain      = @"com.humanify";
 NSString *const ECSErrorDomainStomp = @"com.humanify.stomp";
+
+NSString *const ECSErrorNoAuthKeyMessage = @"Missing or incompatible authentication token";

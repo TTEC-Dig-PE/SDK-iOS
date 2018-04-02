@@ -245,41 +245,46 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
     if (self.authTokenDelegate) {
         
-        ECSLogVerbose(self.logger, @"Refreshing auth token. RetryCount=%d", myRetryCount);
+        ECSLogVerbose(self.logger, @"Fetching a new auth token. RetryCount=%d", [myRetryCount intValue]);
         
         [self.authTokenDelegate fetchAuthenticationToken:^(NSString *authToken, NSError *error)
         {
-            if (authToken)
-            {
+            if (authToken) {
+                
                 weakSelf.authToken = authToken;
+                
                 NSString *abbrevToken = @"";
+                
                 if( authToken.length > 4) {
-                    abbrevToken = [NSString stringWithFormat:@"%@...%@", [authToken substringToIndex:4], [authToken substringFromIndex:authToken.length-4]];
+                    abbrevToken = [NSString stringWithFormat:@"%@...%@",
+                                   [authToken substringToIndex:4],
+                                   [authToken substringFromIndex:authToken.length-4]];
                 }
-                ECSLogVerbose(self.logger,@"refreshIdentityDelegate - New auth token is: %@", abbrevToken);
+                
+                ECSLogVerbose(self.logger, @"New auth token is: %@", abbrevToken);
                 
                 completion(authToken, nil);
-            }
-            else
-            {
-                if( theRetryCount >= 3 )
-                {
+                
+            } else {
+                
+                if( theRetryCount >= 3 ) {
+                    
                     completion(nil, error); // We're done. Throw error.
-                }
-                else
-                {
-                    // wait 500ms and try again (up to 3 times)
-//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Sleeping... (RetryCount=%@)", myRetryCount);
+                    
+                } else {
+
                     [NSThread sleepForTimeInterval:0.5f];
-//                    ECSLogVerbose(self.logger,@"refreshIdentityDelegate - Done sleeping.");
-                    [self refreshIdentityDelegate:[myRetryCount intValue] withCompletion:completion];
+
+                    [self refreshIdentityDelegate:[myRetryCount intValue]
+                                   withCompletion:completion];
                 }
             }
         }];
-    }
-    else
-    {
-        completion(nil, [self errorWithReason:@"No identity token delegate function found." code:ECS_ERROR_NO_AUTH_TOKEN]);
+        
+    } else {
+        
+        completion(nil, [self errorWithReason:@"No identity token delegate function found."
+                                         code:ECS_ERROR_NO_AUTH_TOKEN]);
     }
     
     return nil;
@@ -1604,35 +1609,35 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return task;
 }
 
-- (NSURLSessionTask *)authenticateAPIAndContinueCallWithRequest:(NSURLRequest *)request
-                                                            success:(ECSSessionManagerSuccess)success
-                                                            failure:(ECSSessionManagerFailure)failure
-{
-    __weak typeof(self) weakSelf = self;
-    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
-    
-    if (configuration.clientID.length == 0) {
-        
-        ECSLogError(self.logger,@"Error: %@", [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
-        return nil;
-    }
-    
-    ECSLogVerbose(self.logger,@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
-    return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
-        if (!error && authToken)
-        {
-            ECSLogVerbose(self.logger,@"Authentication successful");
-            NSMutableURLRequest *mutableRequest = [request mutableCopy];
-            [self setCommonHTTPHeadersForRequest:mutableRequest];
-            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
-            [task resume];
-        }
-        else
-        {
-            ECSLogVerbose(self.logger,@"Authentication failed.");
-        }
-    }];
-}
+//- (NSURLSessionTask *)authenticateAPIAndContinueCallWithRequest:(NSURLRequest *)request
+//                                                            success:(ECSSessionManagerSuccess)success
+//                                                            failure:(ECSSessionManagerFailure)failure
+//{
+//    __weak typeof(self) weakSelf = self;
+//    ECSConfiguration *configuration = [[ECSInjector defaultInjector] objectForClass:[ECSConfiguration class]];
+//
+//    if (configuration.clientID.length == 0) {
+//
+//        ECSLogError(self.logger,@"Error: %@", [self errorWithReason:@"ClientID/Secret or userIdentityToken must be provided." code:ECS_ERROR_NO_LEGACY_AUTH]);
+//        return nil;
+//    }
+//
+//    ECSLogVerbose(self.logger,@"Authenticating with server. ClientID=%@. Host=%@", configuration.clientID, configuration.host);
+//    return [self authenticateAPIWithClientID:configuration.clientID andSecret:configuration.clientSecret completion:^(NSString *authToken, NSError *error) {
+//        if (!error && authToken)
+//        {
+//            ECSLogVerbose(self.logger,@"Authentication successful");
+//            NSMutableURLRequest *mutableRequest = [request mutableCopy];
+//            [self setCommonHTTPHeadersForRequest:mutableRequest];
+//            NSURLSessionTask *task = [weakSelf dataTaskWithRequest:mutableRequest allowAuthorization:NO success:success failure:failure];
+//            [task resume];
+//        }
+//        else
+//        {
+//            ECSLogVerbose(self.logger,@"Authentication failed.");
+//        }
+//    }];
+//}
 
 // This version of the function uses the new identity delegate method.
 - (void)authenticateAPIAndContinueCallWithRequest2:(NSURLRequest *)request
@@ -1641,13 +1646,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     __weak typeof(self) weakSelf = self;
     
-    ECSLogVerbose(self.logger, @"Attempting to re-authenticate...");
+    //ECSLogVerbose(self.logger, @"Authenticating by fetching a new auth token...");
     
     [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error) {
         
         if (!error && authToken) {
         
-            ECSLogVerbose(self.logger, @"Re-Authentication successful.");
+            //ECSLogVerbose(self.logger, @"Token fetched successful.");
             
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             
@@ -1671,6 +1676,34 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                            allowAuthorization:(BOOL)allowAuthorization
                                       success:(ECSSessionManagerSuccess)success
                                       failure:(ECSSessionManagerFailure)failure {
+    
+    if( !self.authToken ) {
+        
+        if( self.authTokenDelegate ) {
+            
+            // Let's pre-emptively fetch a token rather than depend on a 401 response we know will happen.
+            [self authenticateAPIAndContinueCallWithRequest2:request
+                                                     success:success
+                                                     failure:failure];
+            
+            return nil;
+            
+        } else {
+            
+            // No token and no delegate function.
+            NSMutableDictionary *userInfo = [NSMutableDictionary new];
+            userInfo[NSLocalizedFailureReasonErrorKey] =    ECSErrorNoAuthKeyMessage;
+            userInfo[NSLocalizedDescriptionKey] =           ECSErrorNoAuthKeyMessage;
+            
+            NSError *retError = [NSError errorWithDomain:ECSErrorDomain
+                                                    code:ECS_ERROR_NO_AUTH_TOKEN
+                                                userInfo:userInfo];
+            
+            failure(nil, nil, retError);
+            
+            return nil;
+        }
+    }
     
     __weak typeof(self) weakSelf = self;
     

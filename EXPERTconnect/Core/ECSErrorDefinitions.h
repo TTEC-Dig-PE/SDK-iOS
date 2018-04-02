@@ -11,6 +11,7 @@
 
 extern NSString *const ECSErrorDomain;
 extern NSString *const ECSErrorDomainStomp;
+extern NSString *const ECSErrorNoAuthKeyMessage;
 
 #define	ECS_ERROR_STOMP                 1049		/* A stomp error */
 
