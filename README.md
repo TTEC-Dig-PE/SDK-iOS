@@ -12,18 +12,9 @@ We highly recommend using approach #1 (high level) for a rapid prototype to test
 
 https://github.com/humanifydev/SDK-iOS-integrator
 
-# What is included
-
-This repository includes the native iOS SDK (EXPERTconnect.framework) 
-
-EXPERTconnect SDK: https://github.com/humanifydev/SDK-iOS/tree/master/EXPERTconnect
-
-Release Notes: https://docs.google.com/document/d/1QNO8MH9b_T3K6y3shlNPH6PXnItqZRbSORNS60OaXhw
-
 # Table of Contents
 
    * [EXPERTconnect SDK for iOS](#expertconnect-sdk-for-ios)
-   * [What is included](#what-is-included)
    * [Table of Contents](#table-of-contents)
    * [Installation](#installation)
       * [CocoaPods](#cocoapods)
@@ -206,8 +197,37 @@ The SDK offers a callback function for all debug logging with 5 levels of verbos
 
 # Chat
 
+The EXPERTconnect SDK's primary feature is simple chat integration. This is a "live chat" style of conversation where two or more participants are active in the chat as long as it is open. There is an idle timeout (configurable, often 5 minutes) when no activity occurs by the user to ensure agents/associates are freed up to help other customers. Chats can persist in the background and do store-and-forward messages in the event of things like network hiccups, but the chats do not persist longer than the idle timeout. 
+
+A standard implementation of low level chat would include the following steps: 
+* Initialize the SDK
+* On chat button click, start a new chat session and launch a chat view. 
+* Ensure your view is a delegate to the EXPERTconnect SDK chat actions. 
+* Show "Agent X has joined" when delegate fires participant join callback.  
+* Display agent messages when delegate fires for recieved message. 
+* When user hits return on message input, use provided function to send out user's message. 
+* Show "Chat ended" when disconnect callback fires or user ends the chat. 
+
+An example of this can be found in the ECDSimpleChatViewController.m file in the SDK-iOS-Integrator repo. 
+
+## High-Level Chat
+
+High level chat is simple to use and extremely quick to get a prototype up and running. The following is the only line of code needed to start a chat after the SDK is initialized: 
+```objc
+[[EXPERTconnect shared] startChat:demoChatSkill
+                  withDisplayName:demoUserName
+                       withSurvey:NO]; 
+```
+* chatSkill - The chat skill to connect with. Often a group of agents. E.G. "premiumGermanSpeakingSupport"
+* displayName - This string is displayed in the navigationItem title. 
+* withSurvey - deprecated. Formerly for post-chat surveys, which are now handled separately. 
+
 ## Low-Level Chat
-A term used for the API wrapper layer of chat code (no UI). 
+A term used for the API wrapper layer of chat code (no UI). This implementation is a flexible, simple API wrapper that takes care of a lot of chat websocket related operations for you. A few things that are taken care of for you: 
+
+* Network loss/Reconnection - The SDK will make all effort to keep the chat connected until it is either ended by the user or by the agent. The SDK will re-authenticate tokens if they expire, it will detect network loss and attempt reconnects, and it will maintain a poll for reconnection if for any reason the network stays broken. 
+* Stomp/Websocket - The websocket layer is completely wrapped and maintained by the SDK. Offered to the integrator is a much simpler, flexible set of callback functions for various state changes and chat operations. 
+* JSON to Objects - API responses are converted into Cocoa style objects with well-documented and useful fields. For example, receiving a chat message from the agent provides an ECSChatTextMessage object with "from" and "body" included. 
 
 ### Starting a Chat
 Starting a chat consists of constructing an ECSStompChatClient object, setting a delegate (usually your chat view controller), and invoking the startChatWithSkill function. 
@@ -251,7 +271,8 @@ Messages will arrive via the ECSStompChatDelegate callbacks. There are a couple 
 Chat text messages are regular text sent from an associate or agent. The relevant fields are "from" and "body". From contains who sent the message, and body contains the message itself.
 
 ```objc
-// An associate has sent a regular chat text message. The from field contains the userID, which should match an AddParticipant previously received.
+// An associate has sent a regular chat text message. The from field contains the userID, which should 
+// match an AddParticipant previously received.
 - (void) chatReceivedTextMessage:(ECSChatTextMessage *)message {
     
     [self appendToChatLog:[NSString stringWithFormat:@"%@: %@", message.from, message.body]];
@@ -262,7 +283,8 @@ Chat text messages are regular text sent from an associate or agent. The relevan
 Chat state messages let the SDK know if the agent has begun typing a new message (ECSChatStateComposing) or has stopped (ECSChatStateTypingPaused).  
 
 ```objc
-// A chat state message has arrrived. Typically used to detect when the agent has started typing and display that to the user.
+// A chat state message has arrrived. Typically used to detect when the agent has started typing and 
+// display that to the user.
 - (void) chatReceivedChatStateMessage:(ECSChatStateMessage *)stateMessage {
     
     if (stateMessage.chatState == ECSChatStateComposing) {
@@ -281,7 +303,8 @@ Chat state messages let the SDK know if the agent has begun typing a new message
 The SDK can tell you when the chat has been disconnected from the server side, whether by an agent ending the chat or some kind of issue. 
 
 ```objc
-// The chat was disconnected from the serve side. Typically because the associated ended the chat or an idle timeout has occurred.
+// The chat was disconnected from the serve side. Typically because the associated ended the chat 
+// or an idle timeout has occurred.
 - (void) chatDisconnectedWithMessage:(ECSChannelStateMessage *)message {
     
     if ( message.disconnectReason == ECSDisconnectReasonIdleTimeout ) {
@@ -308,7 +331,8 @@ Various delegate functions are called for chat state updates.
 
 #### Connected
 ```objc
-// The WebSocket has connected to the server. This may be when you flip your view to the chat screen or dislpay a message to the user "connecting..."
+// The WebSocket has connected to the server. This may be when you flip your view to the chat screen
+// or dislpay a message to the user "connecting..."
 - (void) chatDidConnect {
     NSLog(@"WebSocket has connected to the server.");
 }
@@ -316,8 +340,9 @@ Various delegate functions are called for chat state updates.
 
 #### Agent Answered
 ```objc
-// The chat has entered the "answered" state. In normal cases this callback would not be needed,
-// but you could say "an associate is connecting...". Very soon after an "AddParticipant" message should arrive.
+// The chat has entered the "answered" state. In many cases this callback is not be needed,
+// but you could say "an associate is connecting...". 
+// Soon after, an "AddParticipant" message should arrive.
 - (void) chatAgentDidAnswer {
     
     NSLog(@"An agent is joining this chat...");
@@ -326,7 +351,8 @@ Various delegate functions are called for chat state updates.
 
 #### Participant Join
 ```objc
-// An associate has joined the chat. This contains their userID, name, and avatarURL. Here is where you would typically display "John has joined the chat."
+// An associate has joined the chat. This contains their userID, name, and avatarURL. 
+// Here is where you would typically display "John has joined the chat."
 - (void) chatAddedParticipant:(ECSChatAddParticipantMessage *)participant {
     
     NSLog(@"%@", [NSString stringWithFormat:@"%@ %@ (%@) has joined the chat.", participant.firstName, participant.lastName, participant.userId]);
@@ -335,7 +361,10 @@ Various delegate functions are called for chat state updates.
 
 #### Participant Leave
 ```objc
-// An associate has left the chat. This contains their userID, name, and avatarURL. Here is where you would typically display "John has left the chat." This might occur during a transfer. During a normal "associate disconnected", a disconnect would soon follow.
+// An associate has left the chat. This contains their userID, name, and avatarURL. 
+// Here is where you would typically display "John has left the chat." 
+// This might occur during a transfer. During a normal "associate disconnected", 
+// a disconnect would soon follow.
 - (void) chatRemovedParticipant:(ECSChatRemoveParticipantMessage *)participant {
     
     NSLog(@"%@", [NSString stringWithFormat:@"%@ %@ (%@) has left the chat.", participant.firstName, participant.lastName, participant.userId]);
@@ -347,7 +376,7 @@ Various delegate functions are called for chat state updates.
 ### Getting Chat Skill Details 
 The details of a chat or callback skill (such as estimated wait, chatReady, queueOpen) can be retrieved using the "getDetailsForExpertSkill" function. Example: 
 
-```objective-c
+```objc
   [[EXPERTconnect shared] getDetailsForExpertSkill:skillName
       completion:^(ECSSkillDetail *details, NSError *error)
   {
@@ -377,7 +406,31 @@ In a nutshell, the navigation of the view can be overriden by either not using s
 
 If you want to do a "navigate away", simply pop the ECSChatViewController object off the stack (but do NOT deallocate it). 
 
-If you want to provide an "exit chat" behavior, issue the [ECSChatViewController endChatByUser] function. 
+If you want to provide an "exit chat" behavior, issue the ```objc[ECSChatViewController endChatByUser]``` function. 
+
+Example: 
+```objc
+_chatController = (ECSChatViewController *)[[EXPERTconnect shared] startChat:demoChatSkill
+                                                                 withDisplayName:demoUserName
+                                                                  withSurvey:NO
+                                                          withChannelOptions:@{@"userType":@"student"}];
+
+ // OVERRIDING TOP NAVIGATION BUTTONS //
+ // This code shows how you can override the top navigation bar buttons in the chat view with your own.
+
+UIBarButtonItem *lButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self
+                                                           action:@selector(chatBackPushed:)];
+
+UIBarButtonItem *rButton = [[UIBarButtonItem alloc] initWithTitle:@"End Chat"
+                                                            style:UIBarButtonItemStylePlain
+                                                           target:self
+                                                           action:@selector(chatEndChatPushed:)];
+
+_chatController.navigationItem.leftBarButtonItem = lButton;
+_chatController.navigationItem.rightBarButtonItem = rButton;
+```
 
 ### Customizing the chat Navigation Bar Buttons
 
