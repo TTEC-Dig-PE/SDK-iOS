@@ -26,6 +26,7 @@ https://github.com/humanifydev/SDK-iOS-integrator
       * [Authentication](#authentication)
       * [Debugging](#debugging)
    * [Chat](#chat)
+      * [High-Level Chat](#high-level-chat)
       * [Low-Level Chat](#low-level-chat)
          * [Starting a Chat](#starting-a-chat)
          * [Sending Messages](#sending-messages)
@@ -43,6 +44,19 @@ https://github.com/humanifydev/SDK-iOS-integrator
          * [Getting Chat Skill Details](#getting-chat-skill-details)
          * [Chat Persistence](#chat-persistence)
          * [Customizing the chat Navigation Bar Buttons](#customizing-the-chat-navigation-bar-buttons)
+   * [Decision Engine](#decision-engine)
+   * [Breadcrumbs](#breadcrumbs)
+   * [Answer Engine](#answer-engine)
+      * [High-Level](#high-level)
+   * [Forms and Surveys](#forms-and-surveys)
+      * [High-Level](#high-level-1)
+      * [Form Delegate Callbacks](#form-delegate-callbacks)
+         * [answeredFormItem](#answeredformitem)
+         * [submittedForm](#submittedform)
+         * [closedWithForm](#closedwithform)
+   * [Voice Callback](#voice-callback)
+      * [High-Level](#high-level-2)
+
 
 # Installation
 
@@ -200,8 +214,9 @@ The SDK offers a callback function for all debug logging with 5 levels of verbos
 The EXPERTconnect SDK's primary feature is simple chat integration. This is a "live chat" style of conversation where two or more participants are active in the chat as long as it is open. There is an idle timeout (configurable, often 5 minutes) when no activity occurs by the user to ensure agents/associates are freed up to help other customers. Chats can persist in the background and do store-and-forward messages in the event of things like network hiccups, but the chats do not persist longer than the idle timeout. 
 
 A standard implementation of low level chat would include the following steps: 
+
 * Initialize the SDK
-* On chat button click, start a new chat session and launch a chat view. 
+* On chat button tap, start a new chat session and launch a chat view. 
 * Ensure your view is a delegate to the EXPERTconnect SDK chat actions. 
 * Show "Agent X has joined" when delegate fires participant join callback.  
 * Display agent messages when delegate fires for recieved message. 
@@ -445,3 +460,153 @@ The "exit chat" button refers to "chatEndChatPushed" function found at line 253.
 
 From here, you can customize anything about the button as allowed by iOS - such as tintColor, image, font, etc.
 
+# Decision Engine
+
+Humanify Decision Engine provides a method for rule processing from mobile apps & web. This enables complex use cases involving asking our servers questions based on a range of inputs, having the engine pull in data from a multitude of available sources, and returning a response (JSON) that can offer potential app behavior suggestions. 
+
+For example, sending some user information may determine this is a "premium" user, and based on the configured rules, the decision engine will return "enable chat for this user" and "send this user to a premium chat skill". 
+
+The way it works is by calling the makeDecision function with a NSDictionary object. The dictionary object is the array of key-value pair inputs to be processed by the server. The response will be in the form of a NSDictionary as well. Example below. 
+
+This feature requires Humanify services to setup the rules on the server. 
+
+```objc
+NSDictionary *decisionDictionary = [[NSMutableDictionary alloc]
+                                    initWithObjectsAndKeys:
+                                    @"ce03", @"tenantId",
+                                    @"HuSimple", @"projectServiceName",
+                                    @"validateDE", @"eventId",
+                                    @"hello ios world", @"inputString", nil];
+
+[[[EXPERTconnect shared] urlSession] makeDecision:decisionDictionary
+                                       completion:^(NSDictionary *decisionResponse, NSError *error) {
+                                           
+   if( !error ) {
+       NSString *responseJson = [self JSONStringWithDictionary:decisionResponse];
+       
+       NSString *resp = [NSString stringWithFormat:@"Event was: %@.\nResponse is: %@",
+                         decisionResponse[@"eventId"],
+                         decisionResponse];
+       
+   } else {
+       NSLog(@"Error: %@", error.description);
+   }
+}];
+```
+
+# Breadcrumbs
+
+Sending breadcrumbs to Humanify allows the Humanify Journey Manager solution to track user behavior and provide a complete journey picture. This enables JM to make decisions and provide feedback on how to provide better or more specific customer support to this particular user. Breadcrumbs contain 4 data fields with no specific meaning in each, but typically the first and second fields are used to help categorize the breadcrumbs (e.g. "pageview" or "login" or "cart_operation"). 
+
+Sent breadcrumbs provide an echo'ed response for validation, but it is optional to receive this. It is not unusual to send the breadcrumb and have NIL for completion, since no operation is disrupted by a breadcrumb failing to send. 
+
+```objc
+ECSBreadcrumb *myBreadcrumb = [[ECSBreadcrumb alloc] initWithAction:@"Data Field 1"
+                                                        description:@"Data Field 2"
+                                                             source:@"Data Field 3"
+                                                        destination:@"Data Field 4"];
+
+[[EXPERTconnect shared] breadcrumbSendOne:myBreadcrumb
+                           withCompletion:^(ECSBreadcrumbResponse *response, NSError *error) {
+    NSLog(@"Breadcrumb sent.");
+}];
+```
+
+# Answer Engine
+
+Answer Engine is a FAQ-style knowledge base UI and API feature. Humanify will plugin one of many supported knowledge base providers which can then feed this feature content. Most KB providers divide content up by "context", which is the first parameter of this function. Context is like grabbing a book from the library. All queries and top-10 displays will be pulled from this book (as opposed to the entire library). This is often used in scenarios where a user clicks "Help" or "FAQ" on a specific view of the app (such as "Warranty Information" or "Diet Needs"). 
+
+## High-Level 
+
+In the high level mode, the SDK will handle all of the API calls and all of the UI on the knowledge base view. There is a search box and users can click among the articles. Most pages have "related articles" and the view begins by showing a "top ten" articles. 
+
+```objc
+UIViewController *answerController = [[EXPERTconnect shared] startAnswerEngine:@"park"
+                                                               withDisplayName:@"Humanify FAQ"];
+
+[self.navigationController pushViewController:answerController animated:YES];
+```
+
+# Forms and Surveys
+
+EXPERTconnect SDK provides a complete UI and API wrapper for displaying forms & surveys within your mobile app. These forms are configured on the Humanify servers using Form Designer (by our support team, or in the future, by you if desired). Once configured, it's a simple matter of providing the form name to the API and displaying the view. 
+
+In low-level mode, the API will return form elements and submission data and you will have to display each element and call the API to submit the form at the end. 
+
+## High-Level
+
+```objc
+ECSFormViewController *formsController;
+formsController = (ECSFormViewController *)[[EXPERTconnect shared] startSurvey:demoFormName];
+formsController.delegate = self;
+
+[self.navigationController pushViewController:formsController animated:YES];
+```
+
+## Form Delegate Callbacks
+
+### answeredFormItem
+```objc
+- (void) ECSFormViewController:(ECSFormViewController *)formVC
+              answeredFormItem:(ECSFormItem *)item
+                       atIndex:(int)index {
+    
+    NSLog(@"User answered question %d with result: %@", index, item.formValue);
+    
+}
+```
+
+### submittedForm
+
+```objc
+/*!
+ @brief User has submitted a form
+ @discussion Invoked when the user has navigated forwad on the last question in the form, and the form has been submitted to the Humanify server. This can be used to perform actions after a form is completed.
+ @param formVC The ViewController object
+ @param form The form object containing each form element and potentially the user's answers to each item.
+ @param name The form name
+ @param error If an error occurred submitting the form
+ */
+- (void) ECSFormViewController:(ECSFormViewController *)formVC
+                 submittedForm:(ECSForm *)form
+                      withName:(NSString *)name
+                         error:(NSError *)error {
+    
+    NSLog(@"User submitted the form.");
+    
+}
+```
+
+### closedWithForm
+
+```objc
+/*!
+ @brief User has clicked close in the form submitted view
+ @discussion Invoked when the user clicks the Close button on the form submitted view. If your code contains this function, the ViewController will perform no action after the user clicks close. The transitioning and navigation stack manipulation will be left up to you. This can be used to override behavior after a form is completed, such as moving straight into another high-level feature of the SDK.
+ @param formVC The ViewController object
+ @param form The form object containing each form element and potentially the user's answers to each item.
+ @returns True - SDK will proceed to animate and dismiss the view. False - no further action. You will be responsible for transitions and navigation stack.
+ */
+- (bool) ECSFormViewController:(ECSFormViewController *)formVC
+                closedWithForm:(ECSForm *)form {
+    
+    NSLog(@"User closed the form view.");
+    
+    return YES;
+    
+}
+```
+
+# Voice Callback
+
+EXPERTconnect SDK provides the ability to setup a voice callback with the user. Once the user provides a phone number, they are put in queue (if no agent is available now) for a return call from an associate or agent. 
+
+## High-Level
+
+```objc
+UIViewController *callbackController;
+callbackController = [[EXPERTconnect shared] startVoiceCallback:@"myVoiceCallbackSkill"
+                                                withDisplayName:@"Voice Callback Service"];
+
+[self.navigationController pushViewController:callbackController animated:YES];
+```
