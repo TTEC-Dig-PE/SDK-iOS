@@ -1646,13 +1646,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     __weak typeof(self) weakSelf = self;
     
-    //ECSLogVerbose(self.logger, @"Authenticating by fetching a new auth token...");
+//    ECSLogVerbose(self.logger, @"Authenticating by fetching a new auth token...");
     
     [self refreshIdentityDelegate:0 withCompletion:^(NSString *authToken, NSError *error) {
         
-        if (!error && authToken) {
+        if (!error && authToken && authToken.length > 0) {
         
-            //ECSLogVerbose(self.logger, @"Token fetched successful.");
+//            ECSLogVerbose(self.logger, @"Token fetched successful.");
             
             NSMutableURLRequest *mutableRequest = [request mutableCopy];
             
@@ -1667,6 +1667,13 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         } else {
             
             ECSLogVerbose(self.logger, @"Re-Authentication failed.");
+            
+            // Generate a helpful error if the authToken was set to empty string.
+            if( !error && authToken.length == 0) {
+                error = [self errorWithReason:@"Empty authentication token returned."
+                                         code:ECS_ERROR_NO_AUTH_TOKEN];
+            }
+            
             failure(nil, nil, error);
         }
     }];
@@ -1677,7 +1684,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
                                       success:(ECSSessionManagerSuccess)success
                                       failure:(ECSSessionManagerFailure)failure {
     
-    if( !self.authToken ) {
+    if( !self.authToken || self.authToken.length == 0 ) {
         
         if( self.authTokenDelegate ) {
             
