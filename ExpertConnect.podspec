@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'EXPERTconnect'
-  s.version = '6.4.2'
+  s.version = '6.5.0'
   s.license = 'MIT'
   s.summary = 'Ttec Customer Service Native SDK'
   s.homepage = 'http://www.teletech.com/'
