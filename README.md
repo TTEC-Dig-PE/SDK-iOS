@@ -14,7 +14,7 @@ https://github.com/humanifydev/SDK-iOS-integrator
 
 # Table of Contents
 
-    * [EXPERTconnect SDK for iOS](#expertconnect-sdk-for-ios)
+   * [EXPERTconnect SDK for iOS](#expertconnect-sdk-for-ios)
    * [Table of Contents](#table-of-contents)
    * [Installation](#installation)
       * [CocoaPods](#cocoapods)
