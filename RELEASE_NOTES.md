@@ -1,96 +1,89 @@
 
-iOS SDK - RELEASE NOTES
-Release notes and changelog for the TTEC iOS SDK.
-
-# 6.4.0
+# Release 6.4.0
 Feb 23, 2017
 
-### PAAS-2652
+### PAAS-2652 - Spanish (Mexico) localization strings updated
 
 Localization - Updated strings for Mexico-Spanish. The changes apply to high level chat only.
 
-### PAAS-2631
+### PAAS-2631 - Chat network recovery enhancements
 
 Chat - Low level - The chat object (ECSStompChatClient) will now attempt to reconnect if it detects a network recovery and was previously connected to an active chat. This should happen automatically when the OS passes notification of a successful network recovery event. In addition, a new function callback was added to allow your app to run code when the chat object detects network loss or recovery.
 
 See: https://github.com/humanifydev/SDK-iOS#reachability-event
 
-### PAAS-2626
+### PAAS-2626 - API Check utility function
 
-Chat - Low level - Added a new function that responds with the health of the API server. This can be used to test network reachability to the API server as well as the health of the server. This might be used to handle the rare scenario that the user still has network connection at the device but lost the ability to route to the API server. A response of false indicates the server is unreachable or unable to serve API responses.  
+Added a new function that responds with the health of the API server. This can be used to test network reachability to the API server as well as the health of the server. This might be used to handle the rare scenario that the user still has network connection at the device but lost the ability to route to the API server. A response of false indicates the server is unreachable or unable to serve API responses.  
 
 See: https://github.com/humanifydev/SDK-iOS#checking-health-of-api-server
 
-### PAAS-2643
+### PAAS-2643 - Chat network recovery during server close fix
 
 Chat - The chat should now automatically attempt to reconnect if it detects a WebSocket "close" event while a chat is active. A rare scenario where this could occur is if the server is restarted or shut down while a chat is in progress. The chat object will attempt to reconnect every 5 seconds with a backoff of adding 5 more seconds each retry.
 
-# 6.3.2
+# Release 6.3.2
 Jan 18, 2017
 
-### PAAS-2500
+### PAAS-2500 - Support for nested high level chat view
+
 High Level Views - A new option facilitates the correct shifting of content above the keyboard when including a SDK high level view as a subview with other views below it. The new option suppresses any shifting of the content inside of the SDK's view. This would prevent double-shifting behaviors, which could cause gaps and content to be hidden behind other content. If your "outer" view already shifts any subviews upward, you would want to set the "shiftUpForKeyboard" boolean to NO.
 
 See:
-Chat: https://github.com/humanifydev/SDK-iOS#customizing-the-view-behavior-for-keyboard-focus
-Forms: https://github.com/humanifydev/SDK-iOS#customizing-the-view-behavior-for-keyboard-focus-1
+* Chat: https://github.com/humanifydev/SDK-iOS#customizing-the-view-behavior-for-keyboard-focus
+* Forms: https://github.com/humanifydev/SDK-iOS#customizing-the-view-behavior-for-keyboard-focus-1
 
-### PAAS-2505, 2594
+### PAAS-2505, 2594 - Added localizations
 
 Localizations - Added support for Danish, Dutch, Finnish, Norwegian, Polish, Portuguese, and Swedish.
 
-### PAAS-2520
+### PAAS-2520 - Retrieving chat history
 
 Chat - Added a new function for retrieving chat transcripts. ConversationID is the only input parameter and is optional. If a value is present, the function will return the transcript for the given conversationID. If left blank (nil), the function will return all conversation history for the current journeyID. The output is a completion block with an array of Humanify SDK chat message objects (ECSChatTextMessage, ECSChatStateMessage, etc).
 
-
-Note that the current conversationID can be retrieved with:
-[EXPERTconnect shared].urlSession.conversation.conversationID;
-
 See: https://github.com/humanifydev/SDK-iOS#retrieving-chat-history
 
-### PAAS-2599
+### PAAS-2599 - XCode build warnings
 
 XCode - Corrected build warnings associated with building for iOS 9.x. The deployment target has been moved to 9.3.
 
-
-# 6.3.0
+# Release 6.3.0
 Dec 7, 2017
 
 Note: In this release, an entire new set of low level chat functions were added which are simpler and more powerful to use than the previous. The previous set of functions will continue to function, however going forward we will document using the new method. This documentation can be found in our implementation guides and example projects.
 
-### PAAS-2531
+### PAAS-2531 - Chat network recovery enhancements
 
 Chat - High Level - Corrected an issue where chat from the associate would stop arriving at the device. This would occur with the following steps: 1.) lose network (airplane mode, etc), 2.) background the app 3.) recover network 4.) foreground the app.
 
-### PAAS-2302
+### PAAS-2302 - Chat message sending simplification
 
 Chat - The ECSStompChatClient object now offers a new, easier way to send chat message and chat state updates. Formerly, the urlSession() object's sendChatMessage and sendChatState were used. Now, the following two new functions in the ECSStompChatClient object are added:
 
 See: https://github.com/humanifydev/SDK-iOS#sending-messages
 
-### PAAS-2310
+### PAAS-2310 - Chat custom user data fields
 
 Chat - Added the capability to add custom data fields to a chat start which will be displayed at the associate desktop console. The (optional) parameter accepts a dictionary of key-value pairs which will be displayed in the details portion of the associate desktop client.
 
 See: https://github.com/humanifydev/SDK-iOS#starting-a-chat
 
-#6.2.2
+# Release 6.2.2
 Oct 29, 2017
 
-### PAAS-2393
+### PAAS-2393 - Form/Survey accessibility enhancements
 
 Forms - The high level form view has been updated to better support the iOS "voiceover" accessibility feature. The view should now read the display in order, highlight form fields as "buttons", and set focus to the question text when the user navigates to the next or previous item.
 
-### PAAS-2437
+### PAAS-2437 - Chat network recovery enhancements
 
 Chat - Corrected a situation where the ECSStompChatDelegate would send a "Processing error" to the delegate if the associate sent a string of messages rapidly. This is a server bug that will be fixed in a server patch and often only occurs under a barrage of messages from the associate client. The correction in the SDK is that the WebSocket will detect this error and automatically reconnect. This should be transparent to the user, and the error will no longer be passed to the delegate.
 
-### PAAS-2459
+### PAAS-2459 - Chat image sending crash fix
 
 Chat - Corrected a crash that could occur when sending an image to the associate.
 
-# 6.2.0
+# Release 6.2.0
 Sep 29, 2017
 
 ### PAAS-2204
@@ -119,15 +112,18 @@ Chat - The high level chat UI now supports clickable hyperlink, addresses and ph
 ### PAAS-2144
 
 Chat - Chat messages from the client are now queued for sending to increase reliability of message ordering. Each chat message will wait for the previous message response before being sent. Other SDK API calls outside of chat message sending are not affected by this queuing (such as breadcrumbs, decisioning calls, etc). This behavior is enabled by default and can be disabled by calling the following line once before chat starts:
+
+```objc
 [EXPERTconnect shared].urlSession.useMessageQueuing = NO;
+```
 
 ### PAAS-2321
 
 Chat - Added parameter "priority" on starting a low-level chat. This parameter will set the chat's priority as it comes to the server affecting how quickly it moves through the queue. Valid values are 1-10, or -1 to take the default priority configured by the server. The default value is 1 (low). The following static int values are defined by the SDK:
-kECSChatPriorityUseServerDefault = -1;
-kECSChatPriorityLow = 1;
-kECSChatPriorityNormal = 5;
-kECSChatPriorityHigh = 10;
+* kECSChatPriorityUseServerDefault = -1;
+* kECSChatPriorityLow = 1;
+*  kECSChatPriorityNormal = 5;
+*  kECSChatPriorityHigh = 10;
 
 ### PAAS-2290
 
@@ -148,9 +144,11 @@ Chat - High level chat will no longer send a "paused" chat state when the app re
 ### PAAS-2315
 
 Chat - High level - The chat window will no longer incorrectly show an "idle timeout warning" message when an associate is connected with the user. This would occur if the user waited in the queue long enough to trigger the idle timeout warning (default: 4 minutes) and was connected after that.
+
+
 Low Level - The idle timeout warning will still be sent to you during the queued state. It is our recommendation to set an "answered" flag when an associate answers a chat, and ignore the idle timeout warnings that arrive before the answered flag is set.
 
-#6.1.2
+# Release 6.1.2
 Aug 16, 2017
 
 ### PAAS-2145
@@ -173,7 +171,7 @@ Chat - Corrected an issue that would cause the chat to disconnect if there was c
 
 Chat - Corrected an issue where the SDK would stop reconnecting to the WebSocket after multiple chats had been started and ended.
 
-# 6.1.0
+# Release 6.1.0
 Jul 19, 2017
 
 ### PAAS-2116
@@ -187,13 +185,15 @@ Localization - Added translation strings for Portuguese-Brazil (pt-br) and Portu
 ### PAAS-2083
 
 Chat - Added a missing customization for changing the "subject" field of a low-level chat integration. The subject field is displayed to the associate and also used in reporting. The default value is "help". To modify the subject, add the following code before your setupChatClientWithAction call:
+```objc
 self.action.subject = @"help";
+```
 
 ### PAAS-2049
 
 Chat - The default placeholder image displayed while an image is loading was changed to a graphic with no text on it. The previous default had english text which would not be translated when viewed on other languages.
 
-#6.0.0
+# Release 6.0.0
 Jun 19, 2017
 
 ### PAAS-1792
@@ -204,16 +204,18 @@ Localization - Added support for Spanish-Spain (es-ES) and Italian (it). Base Sp
 
 Chat - Inline Forms - A form will no longer be submitted if the close button in the navigation bar is touched by the user. The only way an inline form can be submitted is by finishing the form and clicking the "submit" button. Note that this only applies to the inline form feature during a live chat. This may not apply if you do not support this feature.
 
-#5.9.1
+# Release 5.9.1
 Jun 1, 2017
 
 ### PAAS-1988
 
 Forms - Corrected issue that would cause a user's answer to not be displayed if they clicked "previous" and the previous question was an option list. Now the SDK should correctly maintain the user's answer and display it properly.
 
+
+
 Forms - Corrected issue with the "slider" form type that would cause the "next" button to be disabled if the user selected the minimum or maximum value.
 
-#5.9.0
+# Release 5.9.0
 May 22, 2017
 
 ### PAAS-1651
@@ -223,6 +225,8 @@ Support for bitcode has been enabled. Existing integrations whose bitcode settin
 ### PAAS-998
 
 The SDK will now automatically handle journey and session creation. This reduces need for extra code and waiting for server responses to proceed. It is no longer necessary to call startJourney() and wait for a journey before calling API calls. This requires Humanify API version 5.8.0 or later. Ask your Humanify support representative if you are unsure which API version is on your production server instance.
+
+
 
 Chat - Added additional customizations to the chat "send" button. The background color and tint color of the UIButton are now customizable using theme options. These additional customizations facilitate the use of a graphic button with a transparent background. To change these values, edit the following theme values before chat is invoked:
 
@@ -247,14 +251,14 @@ MyApp/1.0.0 EXPERTconnect/5.9.0 (iOS/10.3.0)
 
 Forms - Form submission from the high-level form view now contains the added data fields to properly display the form results to the Expert Desktop agent console. The form data will still show up using older versions of the SDK but the form fields will not have populated labels.
 
-# 5.8.1
+# Release 5.8.1
 April 21, 2017
 
 ### PAAS-1878
 
 Chat - The Chinese translation for the queue timeout error (key: ECSLocalizedChatQueueDisconnectMessage) was missing the Chinese translation. It is now translated to Chinese.
 
-# 5.8.0
+# Release 5.8.0
 April 18, 2017
 
 ### PAAS-1413
@@ -289,10 +293,13 @@ Chat - The message displayed for "less than one minute remaining" in chat queue 
 
 ### PAAS-1767
 
-Chat - The english strings for the dialog displayed when the user tries to exit the queue have been updated to have consistent capitalization and grammar. The word "leave" no longer has an uppercase L and now has a comma. Other localizations were already lowercased. Reports
+Chat - The english strings for the dialog displayed when the user tries to exit the queue have been updated to have consistent capitalization and grammar. The word "leave" no longer has an uppercase L and now has a comma. Other localizations were already lowercased. 
+
 New default values:
+```objc
 "ECSLocalizedLeaveQueueYes" = "Yes, leave";
 "ECSLocalizedLeaveQueueNo" = "No, stay";
+```
 
 ### PAAS-1761
 
@@ -302,35 +309,41 @@ Chat - The text displayed when the user tries to leave a chat queue was updated 
 
 User Profile View - The email input field will no longer capitalize the first letter.
 
-# 5.7.1
+# Release 5.7.1
 February 27, 2017
 
 ### PAAS-1677
 
 Chat - The default estimated wait time strings have been updated to include the line "Please remain on this screen to keep your spot in queue." at the end. The string keys updated were:
-ECSLocalizeGenericWaitTime
-ECSLocalizeWaitTimeShort
-ECSLocalizeWaitTime
-ECSLocalizeWaitTimeLong
+* ECSLocalizeGenericWaitTime
+* ECSLocalizeWaitTimeShort
+* ECSLocalizeWaitTime
+* ECSLocalizeWaitTimeLong
 
-# 5.7.0
+# Release 5.7.0
 February 15, 2017
 
 ### PAAS-1603
 
 Chat - a new dialog has been added to ask the user if they are sure they want to leave the chat queue. This dialog is displayed while the user is in the queue for a chat. The dialog has four new localized strings that can be overridden. The keys and default values are:
+
+```objc
 "ECSLocalizedLeaveQueueTitle" = "Leave Chat Queue?"
 "ECSLocalizedLeaveQueueMessage" = "By leaving now, you will lose your place in the chat queue."
 "ECSLocalizedLeaveQueueYes" = "Yes, Leave"
 "ECSLocalizedLeaveQueueNo" = "No, stay"
+```
 
 ### PAAS-1593
 
 Chat - All three localized strings used to display an estimated wait message to the user now allow for the use of the estimated Wait time variable. These three localization strings can be added to your project to replace the default text provided by the SDK. To use the variable in your text string, add the following three character into your string: %1d.
 Eg:
+
+```objc
 "ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than %1d minute(s).";
 "ECSLocalizeWaitTime" = "Your wait time is approximately %1d minute(s).";
 "ECSLocalizeWaitTimeLong" = "Heavy chat volume. You wait time is approximately %1d minutes.";
+```
 
 ### PAAS-1256
 
@@ -372,7 +385,7 @@ Chat - Corrected an issue with chat escalation to voice callback where the SDK w
 
 Chat History - The "agent is typing" messages are now filtered from chat history.
 
-# 5.6.0
+# Release 5.6.0
 November 2016
 
 ### PAAS-147
@@ -391,7 +404,7 @@ Voice Callback – Corrected an issue where the “stompClientDidDisconnect” d
 
 High Level Chat – Chat will no longer send a “composing” state message each time the user interacts with the keyboard. Instead, it will send “composing” only once at the first interaction with the keyboard, after the user erases a message, or if the user resumes typing after the 15- second timer puts the state back to “paused.”
 
-# 5.5.0
+# Release 5.5.0
 October 2016
 
 ### PAAS-91
@@ -437,7 +450,7 @@ NSPhotoLibraryUsageDescription – “To allow choosing a photo from your librar
 
 SDK – The default image for a missing avatar or media file has been changed to a silhouette image. The default image can be overridden by adding an “error_not_found” media asset to your project.
 
-# 5.4.0
+# Release 5.4.0
 July 24, 2016
 
 ### EC-2265
@@ -492,7 +505,7 @@ Long agent names are now displayed properly in the chat window when an agent con
 
 Corrected issue where the last line of a chat message could be clipped off. This often occurred on an iPhone 5S with the accessibility option for larger text turned up to the maximum.
 
-# 5.2.2
+# Release 5.2.2
 May 23, 2016							
 
 ### EC-2502
@@ -507,7 +520,7 @@ Corrected issue where the last line of a chat message could be clipped off. This
 
 The “No agents available” response when starting a chat has been localized in English, French and Spanish.
 
-# 5.2.2
+# Release 5.2.2
 April 10, 2016					
 
 Added support for the arm7 architecture.
