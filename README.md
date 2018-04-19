@@ -139,6 +139,20 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 
   > The `EXPERTconnect.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.
 
+# Supported Localizations
+* English
+* French
+* Spanish
+* Spanish (Mexico, Spain)
+* German
+* Chinese (Simplified)
+* Portuguese (Brazil, Portugal)
+* Dutch
+* Swedish
+* Danish
+* Polish (Poland)
+* Finnish
+* Norwegian (Bokmal)
 
 # Usage
 
@@ -237,6 +251,21 @@ High level chat is simple to use and extremely quick to get a prototype up and r
 * displayName - This string is displayed in the navigationItem title. 
 * withSurvey - deprecated. Formerly for post-chat surveys, which are now handled separately. 
 
+### Customizing the Send Button
+
+The background color and tint color of the UIButton are customizable using theme options. These additional customizations facilitate the use of a graphic button with a transparent background. To change these values, edit the following theme values before chat is invoked:
+
+```objc
+// Modify the image of the send button
+[EXPERTconnect shared].theme.chatSendButtonImage = [UIImage imageNamed:@"blue_chat_button"];
+
+// Modify the background color
+[EXPERTconnect shared].theme.chatSendButtonBackgroundColor = [UIColor clearColor];
+
+// Modify the tint color (text)
+[EXPERTconnect shared].theme.chatSendButtonTintColor = [UIColor redColor]; 
+```
+
 ## Low-Level Chat
 A term used for the API wrapper layer of chat code (no UI). This implementation is a flexible, simple API wrapper that takes care of a lot of chat websocket related operations for you. A few things that are taken care of for you: 
 
@@ -260,6 +289,29 @@ The three parameters required are:
 * skill - The chat skill to connect with. Often a string provided by Humanify, such as "CustomerServiceReps" that contains a group of associates who recieve the chats.
 * subject - This is displayed on the associate desktop client as text at the start of a chat.
 * dataFields - These data fields can be used to provide extra information to the associate. Eg: { "userType": "student" }
+
+In addition, you could start a chat with custom data fields. The (optional) parameter accepts a dictionary of key-value pairs which will be displayed in the details portion of the associate desktop client. 
+
+Example:
+
+```objc
+    ECSStompChatClient *chatClient = [ECSStompChatClient new]; 
+    chatClient.delegate = self; // to receive callback events. 
+    
+    [chatClient startChatWithSkill:@"MyAgentSkill" 
+                           subject:"Warranty Chat" 
+                        dataFields:nil
+                          priority:kECSChatPriorityUseServerDefault
+                        dataFields:@{@"subject":@"math", @"membertype": @"student"}]; 
+```
+
+Additional Parameters:  
+* priority - Higher priority values will be passed to associates faster than lower ones. 
+  * kECSChatPriorityUseServerDefault 
+  * kECSChatPriorityLow
+  * kECSChatPriorityNormal
+  * kECSChatPriorityHigh
+* fields - These data fields can be used to provide extra information to the associate. Eg:{ "userType": "student" } 
 
 ### Sending Messages
 Assuming you have setup your ECSStompChatClient, connected, and subscribed to a Stomp channel...
@@ -340,6 +392,16 @@ The SDK can tell you when the chat has been disconnected from the server side, w
 }
 ```
 
+### Reachability Event
+The chat object (ECSStompChatClient) will attempt to reconnect if it detects a network recovery and was previously connected to an active chat. This should happen automatically when the OS passes notification of a successful network recovery event.  
+In addition, a function callback was added to allow your app to run code when the chat object detects network loss or recovery.
+
+```objc
+- (void) chatReachabilityEvent:(bool)reachable {
+  NSLog(@"Network is reachable? %d", reachable); 
+}
+```
+
 ### Chat State Updates
 
 Various delegate functions are called for chat state updates. 
@@ -387,6 +449,17 @@ Various delegate functions are called for chat state updates.
 ```
 
 ## Use-case specific Chat Features
+
+### Customizing the view behavior for keyboard focus
+
+This option facilitates the correct shifting of content above the keyboard when including a SDK high level view as a subview with other views below it. The new option suppresses any shifting of the content inside of the SDK's view. This would prevent double-shifting behaviors, which could cause gaps and content to be hidden behind other content. If your "outer" view already shifts any subviews upward, you would want to set the "shiftUpForKeyboard" boolean to NO.  
+
+Example:  
+
+```objc
+ECSChatViewController *chatController; 
+chatController.shiftUpForKeyboard = NO; 
+```
 
 ### Getting Chat Skill Details 
 The details of a chat or callback skill (such as estimated wait, chatReady, queueOpen) can be retrieved using the "getDetailsForExpertSkill" function. Example: 
@@ -459,6 +532,34 @@ The "minimize" button refers to the "chatBackPushed" function found at line 239.
 The "exit chat" button refers to "chatEndChatPushed" function found at line 253. 
 
 From here, you can customize anything about the button as allowed by iOS - such as tintColor, image, font, etc.
+
+### Retrieving Chat History
+Added a new function for retrieving chat transcripts. ConversationID is the only input parameter and is optional. If a value is present, the function will return the transcript for the given conversationID. If left blank (nil), the function will return all conversation history for the current journeyID. The output is a completion block with an array of Humanify SDK chat message objects (ECSChatTextMessage, ECSChatStateMessage, etc).
+
+Note: the current conversationID can be retrieved with:  
+```objc
+[EXPERTconnect shared].urlSession.conversation.conversationID; 
+```
+ 
+Example: 
+
+```objc
+NSString *conversationID = [EXPERTconnect shared].urlSession.conversation.conversationID; 
+
+[[EXPERTconnect shared] 
+    getTranscriptForConversation:conversationID
+    withCompletion:^(NSArray *messages, NSError *error) { 
+  if( ! error ) { 
+    if( messages ) {  
+          // Happy path. We have history data. 
+      } else {
+          // No history found.
+      } 
+  } else { 
+    // An error retrieving history.  
+  } 
+}];
+```
 
 # Decision Engine
 
@@ -535,12 +636,32 @@ In low-level mode, the API will return form elements and submission data and you
 
 ## High-Level
 
+Accessibility - The high level form view supports the iOS "voiceover" accessibility feature. The view should read the display in order, highlight form fields as "buttons", and set focus to the question text when the user navigates to the next or previous item.
+
 ```objc
 ECSFormViewController *formsController;
 formsController = (ECSFormViewController *)[[EXPERTconnect shared] startSurvey:demoFormName];
 formsController.delegate = self;
 
 [self.navigationController pushViewController:formsController animated:YES];
+```
+
+### Show/Hide Form Submitted View
+
+```objc
+// If true, will show the "form submitted" page after last question is answered. False will do nothing. Set to false if you want to customize the transition after the survey is answered straight on to another view. 
+formsController.showFormSubmittedView; 
+```
+
+### Customizing the view behavior for keyboard focus
+
+This option facilitates the correct shifting of content above the keyboard when including a SDK high level view as a subview with other views below it. The new option suppresses any shifting of the content inside of the SDK's view. This would prevent double-shifting behaviors, which could cause gaps and content to be hidden behind other content. If your "outer" view already shifts any subviews upward, you would want to set the "shiftUpForKeyboard" boolean to NO.  
+
+Examples:  
+
+```objc
+ECSFormViewController *formController; 
+formController.shiftUpForKeyboard = NO; 
 ```
 
 ## Form Delegate Callbacks
@@ -609,4 +730,19 @@ callbackController = [[EXPERTconnect shared] startVoiceCallback:@"myVoiceCallbac
                                                 withDisplayName:@"Voice Callback Service"];
 
 [self.navigationController pushViewController:callbackController animated:YES];
+```
+
+# Utility Functions
+
+## Checking health of API Server
+
+Sometimes, your app may want to test for direct connectivity to the Humanify servers and verify the API is responding correctly. The following function will allow you to do so: 
+
+```objc
+[[EXPERTconnect shared].urlSession validateAPI:^(bool success) { 
+    if( success ) 
+    { 
+         // API is reachable and healthy.  
+    } 
+}];
 ```
