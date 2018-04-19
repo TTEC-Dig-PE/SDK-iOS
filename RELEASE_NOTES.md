@@ -1,6 +1,15 @@
 
+# Release 6.5.0
+Apr 19, 2018
+
+### PAAS-2663 - Carthage deployment now supported
+
+Added support for Carthage. Carthage is a decentralized dependency manager (similar to CocoaPods) which provides a solution for easily incorporating iOS framework files into your project. 
+
+See: https://github.com/humanifydev/SDK-iOS#carthage
+
 # Release 6.4.0
-Feb 23, 2017
+Feb 23, 2018
 
 ### PAAS-2652 - Spanish (Mexico) localization strings updated
 
@@ -23,7 +32,7 @@ See: https://github.com/humanifydev/SDK-iOS#checking-health-of-api-server
 Chat - The chat should now automatically attempt to reconnect if it detects a WebSocket "close" event while a chat is active. A rare scenario where this could occur is if the server is restarted or shut down while a chat is in progress. The chat object will attempt to reconnect every 5 seconds with a backoff of adding 5 more seconds each retry.
 
 # Release 6.3.2
-Jan 18, 2017
+Jan 18, 2018
 
 ### PAAS-2500 - Support for nested high level chat view
 
