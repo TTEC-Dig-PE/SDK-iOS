@@ -44,6 +44,7 @@ https://github.com/humanifydev/SDK-iOS-integrator
             * [Participant Join](#participant-join)
             * [Participant Leave](#participant-leave)
       * [Use-case specific Chat Features](#use-case-specific-chat-features)
+         * [Getting Agent Availability](#getting-agent-availability)
          * [Customizing the view behavior for keyboard focus](#customizing-the-view-behavior-for-keyboard-focus)
          * [Getting Chat Skill Details](#getting-chat-skill-details)
          * [Chat Persistence](#chat-persistence)
@@ -459,6 +460,28 @@ Various delegate functions are called for chat state updates.
 ```
 
 ## Use-case specific Chat Features
+
+### Getting Agent Availability
+
+```objc
+[[EXPERTconnect shared] getDetailsForExpertSkill:@"my_agent_skill"
+                                      completion:^(ECSSkillDetail *details, NSError *error) {
+                                      
+    NSLog(@"Estimated wait seconds: %@", details.estWait);
+    
+}
+```
+The ECSSkillDetail object contains the following fields:
+* active - Whether this skill queue is active or not.
+* chatCapacity - Maximum capacity of agents this skill can contain.
+* chatReady - Number of agents who are ready to accept chats.
+* description - Text description of this skill
+* estWait - The estimated wait time to get connected (seconds)
+* inQueue - Is this particular user in the queue already?
+* queueOpen - Is the queue open or closed?
+* skillName - Name of the skill
+* voiceCapacity - Maximum capacity of agents who can take voice calls.
+* voiceReady - Current number of agents ready to accept calls.
 
 ### Customizing the view behavior for keyboard focus
 
