@@ -5,6 +5,7 @@
 ## Build generated
 DerivedData/
 Output/
+build/
 
 ## Various settings
 *.pbxuser
