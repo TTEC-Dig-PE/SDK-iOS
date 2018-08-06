@@ -407,6 +407,7 @@
 		C47F53141CB402B70098A0BC /* ECSAnswerHistoryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */; };
 		C484AC311C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C484AC321C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */; };
+		C484ED4F20C70AF900806E9A /* ECSHighLevelChatUnitTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = C484ED4E20C70AF900806E9A /* ECSHighLevelChatUnitTesting.m */; };
 		C492B60C1D12EE54008BE187 /* ECSJourneyAttachResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C492B60A1D12EE54008BE187 /* ECSJourneyAttachResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C492B60D1D12EE54008BE187 /* ECSJourneyAttachResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C492B60B1D12EE54008BE187 /* ECSJourneyAttachResponse.m */; };
 		C495EA9F1CA57D8300BC4057 /* ECSExpertDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = C495EA9B1CA57D8300BC4057 /* ECSExpertDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -863,6 +864,7 @@
 		C47F53131CB402B70098A0BC /* ECSAnswerHistoryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSAnswerHistoryResponse.h; path = Responses/ECSAnswerHistoryResponse.h; sourceTree = "<group>"; };
 		C484AC2F1C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSChatRemoveParticipantMessage.h; path = Chat/ECSChatRemoveParticipantMessage.h; sourceTree = "<group>"; };
 		C484AC301C9380A9009C99E6 /* ECSChatRemoveParticipantMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatRemoveParticipantMessage.m; path = Chat/ECSChatRemoveParticipantMessage.m; sourceTree = "<group>"; };
+		C484ED4E20C70AF900806E9A /* ECSHighLevelChatUnitTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ECSHighLevelChatUnitTesting.m; sourceTree = "<group>"; };
 		C491C2F41FD1C2BC00D88EE3 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C491C2F51FD1C63000D88EE3 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C491C2F61FD1C77C00D88EE3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1128,6 +1130,7 @@
 		03978EF11A602AEF007793D6 /* EXPERTconnectTests */ = {
 			isa = PBXGroup;
 			children = (
+				C484ED4E20C70AF900806E9A /* ECSHighLevelChatUnitTesting.m */,
 				C4450B851CFF07F600486215 /* ECS_API_Tests.m */,
 				C47254541CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m */,
 				03978EF41A602AEF007793D6 /* EXPERTconnectTests.m */,
@@ -2284,6 +2287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4450B861CFF07F600486215 /* ECS_API_Tests.m in Sources */,
+				C484ED4F20C70AF900806E9A /* ECSHighLevelChatUnitTesting.m in Sources */,
 				03978EF51A602AEF007793D6 /* EXPERTconnectTests.m in Sources */,
 				C47254551CBC6D0C003C0D4E /* ECS_DceDev_Henry_Tests.m in Sources */,
 			);
