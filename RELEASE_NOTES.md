@@ -1,4 +1,15 @@
 
+# Release 6.5.4
+Aug 09, 2018
+
+### PAAS-2793 - Suppress white space chat messages
+
+Messages are now trimmed for whitespace before determining if the "send" button is enabled. Messages cannot be sent if the message is empty or only contains whitespace.
+
+### PAAS-2879 - Chat stuck during bad network
+
+Corrected a scenario where slow/unreliable network condition could cause the SDK to miss the message sent when an agent answers the chat. This would cause the high level chat UI to be stuck on the queue screen. For low level implementations, this means the "chatAgentDidAnswer" callback would be missed. The correction will now properly handle this out of order message. In addition, as a backup, if the chat gets an "AddParticipant" message from the server, and the chat is not answered, it will send the "chatAgentDidAnswer" callback.
+
 # Release 6.5.0
 Apr 19, 2018
 
