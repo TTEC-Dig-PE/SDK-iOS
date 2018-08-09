@@ -297,7 +297,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
-    if ([text containsString:@"\n"]) {
+    if ( [text containsString:@"\n"] && [self sendableMessage] ) {
         
         [self sendText];
         return NO;
@@ -321,23 +321,28 @@
     return YES;
 }
 
+// A sendable message is one with length > 0 (not including whitespace on edges)
+- (bool)sendableMessage {
+    NSString *trimmedString = [self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return (trimmedString.length > 0);
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
     
     CGSize size = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)];
     
     self.textViewHeightConstraint.constant = size.height;
     
-    if( _chatState == ECSChatStateTypingPaused && textView.text.length > 0) {
+    if( _chatState == ECSChatStateTypingPaused && [self sendableMessage]) {
         
         [self sendChatState:@"composing"];
     
-    } else if( _chatState == ECSChatStateComposing && textView.text.length == 0) {
+    } else if( _chatState == ECSChatStateComposing && ![self sendableMessage]) {
         
         [self sendChatState:@"paused"];
-    
     }
     
-    [self toggleSendButton: (textView.text.length > 0)];
+    [self toggleSendButton: [self sendableMessage]];
 }
 
 #pragma mark - Helper Functions

@@ -294,12 +294,21 @@ int         _stompRetriesBlocked;
     return currentTime;
 }
 
+- (void)resetClient {
+    self.currentChannelId = nil;
+    self.currentConversation = nil;
+    self.lastTimeStamp = nil;
+    self.lastChatMessageFromAgent = nil;
+}
+
 // Internal only.
 - (void)setupChatClientWithActionType:(ECSActionType*)actionType {
     
     __weak typeof(self) weakSelf = self;
     
     self.actionType = actionType;
+    
+    [self resetClient]; // mas - Aug-3-2018 - Clear out previous chat data (channels, conversations, etc).
     
     ECSLogVerbose(self.logger, @"Initiating a new chat client...");
     
@@ -448,18 +457,20 @@ int         _stompRetriesBlocked;
                                                     
             if ( !error && response ) {
                 
+#ifdef DEBUG
+                 //TESTING ONLY!!! (Pretends like an "answered" stomp message arrives right as the channel response is returned (before a channelID is fetched)
+//                ECSStompFrame *msg = [[ECSStompFrame alloc] init];
+//                msg.body = @"{\"conversationId\":\"conversation_abc123\",\"channelId\":\"channel_abc123\",\"state\":\"answered\",\"estimatedWait\":0,\"version\":1}";
+//                [self handleChannelStateMessage:msg forClient:_stompClient];
+#endif
+                
                 if( response.estimatedWait ) {
-                    // Old
-                    if ([weakSelf.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)]) {
-                        [weakSelf.delegate chatClient:self didUpdateEstimatedWait:response.estimatedWait.integerValue];
-                    }
-                    // New
-                    if( [weakSelf.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
-                        [weakSelf.delegate chatUpdatedEstimatedWait:response.estimatedWait.intValue];
-                    }
+                    [self sendUpdatedEstimatedWait:response.estimatedWait.intValue];
                 }
                 
                 weakSelf.currentChannelId = [response.channelId copy];
+                ECSLogDebug(self.logger, "Setting currentChannelId to %@", weakSelf.currentChannelId);
+                
                 weakSelf.channel = response;
                 
                 // Copy the channelID into the URLSession
@@ -474,7 +485,7 @@ int         _stompRetriesBlocked;
                 }
                 
             } else if (!(error.code == NSURLErrorCancelled)) {
-    
+                
                 if (!error) {
                     
                     error = [NSError errorWithDomain:ECSErrorDomain
@@ -901,33 +912,18 @@ int         _stompRetriesBlocked;
     ECSLogVerbose(self.logger, @"Checking chat state via API. Usually called after a long period of idleness.");
     
     [[EXPERTconnect shared].urlSession getDetailsForChannelId:self.currentChannelId
-                                                   completion:^(ECSChannelConfiguration *channelConfig, NSError *error)
-    {
+                                                   completion:^(ECSChannelConfiguration *channelConfig, NSError *error) {
         
-        if( channelConfig.channelState == ECSChannelStateDisconnected && self.channelState != ECSChannelStateDisconnected ) {
+        if( channelConfig.channelState == ECSChannelStateDisconnected &&
+            self.channelState != ECSChannelStateDisconnected ) {
             
             // The channel has disconnected. Send a disconnect so the low level delegate knows to act upon it.
+            ECSLogDebug(self.logger, @"API check of chat state revealed it was disconnected. Sending disconnect callback. channelConfig=%@", channelConfig);
             
-            ECSLogDebug(self.logger, @"API check of chat state revealed it was disconnected. Sending disconnect callback.");
-            
-            NSLog(@"channelConfig=%@", channelConfig);
-            
-            ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
-            message.state = @"disconnected";
-            message.terminatedByString = @"system";
-            message.disconnectReasonString = @"idleTimeout";
-            
-            if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)] ) {
-                [self.delegate chatClient:self disconnectedWithMessage:message];
-            }
-            
-            if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)]) {
-                [self.delegate chatDisconnectedWithMessage:message];
-            }
-            
+            [self sendDisconnectCallbackWithReason:@"idleTimeout"
+                                      terminatedBy:@"system"];
         }
     }];
-    
 }
 
 // Something bad happened...
@@ -936,38 +932,13 @@ int         _stompRetriesBlocked;
     // Stop listening for reachability events.
     [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSReachabilityChangedNotification object:nil];
     
-    ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
-    message.state = @"disconnected";
-    message.terminatedByString = @"error";
-    message.disconnectReasonString = @"error";
-    
-    // Older
-    if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
-
-        [self.delegate chatClient:self disconnectedWithMessage:message];
-    }
-    
-    // New
-    if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)]) {
-        
-        [self.delegate chatDisconnectedWithMessage:message];
-    }
+    [self sendDisconnectCallbackWithReason:@"error"
+                              terminatedBy:@"error"];
 }
 
 - (void)stompClient:(ECSStompClient *)stompClient didReceiveMessage:(ECSStompFrame *)message {
     
     NSString *bodyType = message.headers[kECSHeaderBodyType];
-    
-//    NSError *serializationError = nil;
-//    
-//    id result = [NSJSONSerialization JSONObjectWithData:[message.body dataUsingEncoding:NSUTF8StringEncoding]
-//                                                options:0
-//                                                  error:&serializationError];
-//    if (!serializationError) {
-//
-//        NSObject *jsonResultObject = [ECSJSONSerializer objectFromJSONDictionary:(NSDictionary*)result
-//                                                                       withClass:[ECSChatTextMessage class]];
-//    }
     
     if ([bodyType isEqualToString:kECSChatMessage])
     {
@@ -1216,34 +1187,30 @@ int         _stompRetriesBlocked;
                                                                             withClass:[ECSChannelStateMessage class]];
         _channelState = message.channelState;
         
-        ECSLogDebug(self.logger, @"Received channel state update to %@", message.state);
-
+        ECSLogVerbose(self.logger, @"Received channel state update to %@. message.channelId = %@, currentChannelId = %@", message.state, message.channelId, self.currentChannelId);
+        
+        // mas - Aug-3-2018 - It is possible to receive an "answered" STOMP message before a channelID has been received via HTTP POST,
+        // therefore as a work-around I have moved this call to outside the "check if channelID is ours" IF check. This is a breaking change
+        // for supporting 2 or more chats on the same device (not a feature we currently support).
+        if( message.channelState == ECSChannelStateConnected) {
+            ECSLogVerbose(self.logger, @"Sending agent answered callback to listeners...");
+            [self sendAgentAnsweredCallback];
+        }
+        
         // Make sure this message is for our current channelId.
         if( [message.channelId isEqualToString:self.currentChannelId] ) {
         
             // (old) Estimated wait data included
-            if ( message.estimatedWait && [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)] ) {
-                [self.delegate chatClient:self didUpdateEstimatedWait:message.estimatedWait.integerValue];
-            }
-            
-            if( [self.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
-                [self.delegate chatUpdatedEstimatedWait:message.estimatedWait.intValue];
+            if( message.estimatedWait ) {
+                [self sendUpdatedEstimatedWait:message.estimatedWait.intValue];
             }
         
             if (message.channelState == ECSChannelStateConnected) {
+
+                // ECSChannelStateConnect = "answered" from the server.
                 
-                // Connected means an agent has answered the chat.
-                if([self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)]) {
-                    [self.delegate chatClientAgentDidAnswer:self];
-                }
-                
-//                if([self.delegate respondsToSelector:@selector(voiceCallbackDidAnswer:)]) {
-//                    [self.delegate voiceCallbackDidAnswer:self];
-//                }
-                
-                if([self.delegate respondsToSelector:@selector(chatAgentDidAnswer)]) {
-                    [self.delegate chatAgentDidAnswer]; 
-                }
+                // mas - Aug-3-2018 - Handled above (for now).
+//                [self sendAgentAnsweredCallback];
                 
             } else if (message.channelState == ECSChannelStateDisconnected) {
                 
@@ -1255,19 +1222,8 @@ int         _stompRetriesBlocked;
                     [self unsubscribe];
                 }
                 
-                // DEPRECATED
-//                if( [self.delegate respondsToSelector:@selector(chatClientDisconnected:wasGraceful:)]) {
-//                    [self.delegate chatClientDisconnected:self wasGraceful:YES];
-//                }
-                
-                if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)]) {
-                    [self.delegate chatClient:self disconnectedWithMessage:message]; 
-                }
-                
-                // Delegate 2.0 method. 
-                if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)] ) {
-                    [self.delegate chatDisconnectedWithMessage:message];
-                }
+                [self sendDisconnectCallbackWithReason:message.disconnectReasonString
+                                          terminatedBy:message.terminatedByString];
                 
             } else if (message.channelState == ECSChannelStateQueued) {
                 
@@ -1276,16 +1232,20 @@ int         _stompRetriesBlocked;
                 }
                 
             }
+            
+            // In delegate 2.0, always report a channelStateMessage (we might also report a friendly delegate callback as well)
+            if( [self.delegate respondsToSelector:@selector(chatReceivedChannelStateMessage:)] ) {
+                [self.delegate chatReceivedChannelStateMessage:message];
+            }
+            
+        } else {
+            
+            ECSLogError(self.logger, @"Possible error: Received a message with a different channelID than ours. Message.channelId=%@, currentChannelID=%@", message.state, self.currentChannelId);
         }
-        
-        // In delegate 2.0, always report a channelStateMessage (we might also report a friendly delegate callback as well)
-        if( [self.delegate respondsToSelector:@selector(chatReceivedChannelStateMessage:)] ) {
-            [self.delegate chatReceivedChannelStateMessage:message];
-        }
-        
+
     } else {
         
-        ECSLogError(self.logger,@"Unable to parse channel state message %@", serializationError);
+        ECSLogError(self.logger, @"Unable to parse channel state message %@", serializationError);
     }
 }
 
@@ -1376,6 +1336,14 @@ int         _stompRetriesBlocked;
         // Newer specific method.
         if ([self.delegate respondsToSelector:@selector(chatAddedParticipant:)]) {
             [self.delegate chatAddedParticipant:message];
+        }
+        
+        // mas - Aug-3-2018 - If we're receiving an AddParticipant message, and we're not "answered", we must have missed something.
+        // Go ahead and set the chat status to "answered" (since a participant is literally joining the chat) and throw the callback.
+        // Since this is a work-around, we're not going to muck with the current channelState. Hopefully it gets fixed.
+        if( _channelState != ECSChannelStateConnected ) {
+            ECSLogError(self.logger, @"Error: AddParticipant received but chat state \"answered\" was not. Assuming chat state is answered...");
+            [self sendAgentAnsweredCallback];
         }
         
     } else {
@@ -1542,6 +1510,46 @@ int         _stompRetriesBlocked;
         
     }
     
+}
+
+-(void)sendUpdatedEstimatedWait:(int)estWait {
+    // (old) Estimated wait data included
+    if ( [self.delegate respondsToSelector:@selector(chatClient:didUpdateEstimatedWait:)] ) {
+        [self.delegate chatClient:self didUpdateEstimatedWait:(NSInteger)estWait];
+    }
+    
+    if( [self.delegate respondsToSelector:@selector(chatUpdatedEstimatedWait:)] ) {
+        [self.delegate chatUpdatedEstimatedWait:estWait];
+    }
+}
+
+-(void)sendAgentAnsweredCallback {
+    // Connected means an agent has answered the chat.
+    if([self.delegate respondsToSelector:@selector(chatClientAgentDidAnswer:)]) {
+        [self.delegate chatClientAgentDidAnswer:self];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(chatAgentDidAnswer)]) {
+        [self.delegate chatAgentDidAnswer];
+    }
+}
+
+-(void)sendDisconnectCallbackWithReason:(NSString *)reason terminatedBy:(NSString *)terminatedBy {
+    
+    ECSChannelStateMessage *message = [[ECSChannelStateMessage alloc] init];
+    message.state = @"disconnected";
+    message.terminatedByString = terminatedBy;
+    message.disconnectReasonString = reason;
+    message.channelId = self.currentChannelId;
+    message.conversationId = self.currentConversation.conversationID;
+    
+    if( [self.delegate respondsToSelector:@selector(chatClient:disconnectedWithMessage:)] ) {
+        [self.delegate chatClient:self disconnectedWithMessage:message];
+    }
+    
+    if( [self.delegate respondsToSelector:@selector(chatDisconnectedWithMessage:)]) {
+        [self.delegate chatDisconnectedWithMessage:message];
+    }
 }
 
 //- (void)handleCoBrowseMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
