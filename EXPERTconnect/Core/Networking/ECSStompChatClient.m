@@ -298,7 +298,7 @@ int         _stompRetriesBlocked;
     self.currentChannelId = nil;
     self.currentConversation = nil;
     self.lastTimeStamp = nil;
-    self.lastChatMessageFromAgent = nil;
+    self.lastChatMessageFromAgent = NO;
 }
 
 // Internal only.

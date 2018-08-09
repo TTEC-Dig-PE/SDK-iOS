@@ -520,8 +520,8 @@
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *alertActionStop = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        if (_defaultParent) {
-            [_defaultParent.workflowDelegate endVideoChat];
+        if (self->_defaultParent) {
+            [self->_defaultParent.workflowDelegate endVideoChat];
         }
         [alertController dismissViewControllerAnimated:YES completion:nil];
     }];

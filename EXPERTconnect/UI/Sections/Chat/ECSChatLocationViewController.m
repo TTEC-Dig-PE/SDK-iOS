@@ -103,15 +103,26 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
+     didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    CLLocation *newLocation = [locations lastObject];
     MKCoordinateSpan span = MKCoordinateSpanMake(0.04, 0.04);
     MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, span);
     
     [self.mapView setRegion:region animated:TRUE];
     [self.mapView regionThatFits:region];
 }
+
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation
+//           fromLocation:(CLLocation *)oldLocation
+//{
+//    MKCoordinateSpan span = MKCoordinateSpanMake(0.04, 0.04);
+//    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, span);
+//
+//    [self.mapView setRegion:region animated:TRUE];
+//    [self.mapView regionThatFits:region];
+//}
 // Do any additional setup after loading the view from its nib.
 
 - (void)didReceiveMemoryWarning {
