@@ -467,8 +467,24 @@ Various delegate functions are called for chat state updates.
 [[EXPERTconnect shared] getDetailsForExpertSkill:@"my_agent_skill"
                                       completion:^(ECSSkillDetail *details, NSError *error) {
                                       
-    NSLog(@"Estimated wait seconds: %@", details.estWait);
+    if( details.estWait < (10 * 60) ) {
+         
+        // 0 - 10 minutes
+        // We would enable the chat button and display ETA here as per normal operation
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is available. Your estimated wait is %d minutes.", (details.estWait / 60)];
+            
+    } else if( details.estWait > (10 * 60) && details.estWait < (754 * 60) ) {
+            
+        // 10 - 30 minutes
+        // Alert the user that there is an unusually long wait for chats.
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is available, but there is heavy chat volume. Your estimated wait is %d minutes.", (details.estWait / 60)];
+            
+    else if( details.estWait >= (754 * 60) ) {
     
+        // A special value that indicates the algorithm cannot determine how long estimated wait will be.
+        // This normally occurs if all of the agents enter an "away" state (not taking chats) but the queue is open and agents are logged in.
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is unavailable. No agent is available to answer a chat right now. estWait value is: %d", details.estWait];
+    }
 }
 ```
 The ECSSkillDetail object contains the following fields:
