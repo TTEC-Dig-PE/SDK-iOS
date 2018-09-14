@@ -421,6 +421,8 @@
 		C4BE82021F38BBA800ED290B /* SessionTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */; };
 		C4D0E5111C60FF1C0032925F /* ECSAuthenticationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0E5121C60FF1C0032925F /* ECSAuthenticationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */; };
+		C4F96944214C0D7000D7E61B /* NSString_stripHtml.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F96942214C0D6F00D7E61B /* NSString_stripHtml.h */; };
+		C4F96945214C0D7000D7E61B /* NSString_stripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F96943214C0D6F00D7E61B /* NSString_stripHtml.m */; };
 		C6F6FF0A1B8464CB00C40E97 /* ECSWorkflow.h in Headers */ = {isa = PBXBuildFile; fileRef = C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C6F6FF0B1B8464CB00C40E97 /* ECSWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */; };
 		D81612FE1B6BC412005BD20E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D81612FC1B6BC412005BD20E /* CoreText.framework */; };
@@ -884,6 +886,8 @@
 		C4BE82001F38BBA800ED290B /* SessionTaskQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionTaskQueue.m; path = Core/Networking/SessionTaskQueue.m; sourceTree = "<group>"; };
 		C4D0E50F1C60FF1C0032925F /* ECSAuthenticationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSAuthenticationToken.h; sourceTree = "<group>"; };
 		C4D0E5101C60FF1C0032925F /* ECSAuthenticationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSAuthenticationToken.m; sourceTree = "<group>"; };
+		C4F96942214C0D6F00D7E61B /* NSString_stripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_stripHtml.h; sourceTree = "<group>"; };
+		C4F96943214C0D6F00D7E61B /* NSString_stripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_stripHtml.m; sourceTree = "<group>"; };
 		C6F6FF081B8464CB00C40E97 /* ECSWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ECSWorkflow.h; path = ../Utilities/ECSWorkflow.h; sourceTree = "<group>"; };
 		C6F6FF091B8464CB00C40E97 /* ECSWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSWorkflow.m; path = ../Utilities/ECSWorkflow.m; sourceTree = "<group>"; };
 		D81612FC1B6BC412005BD20E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1018,6 +1022,8 @@
 			isa = PBXGroup;
 			children = (
 				C47ADC391F448B2500B85AB9 /* ZSWTabbableLabel */,
+				C4F96942214C0D6F00D7E61B /* NSString_stripHtml.h */,
+				C4F96943214C0D6F00D7E61B /* NSString_stripHtml.m */,
 				033ACB281A602C9C0024F48F /* ECSUtilities.h */,
 				033ACB291A602C9C0024F48F /* ECSUtilities.m */,
 				03F0BD1E1A6F622200E90E7F /* ECSLog.h */,
@@ -1416,12 +1422,12 @@
 		03CDD3FD1AB0825300E0C328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
+				D87F2F941B697FC800B7B9D5 /* libc++.dylib */,
 				C4963F8B200920B400CBCD51 /* AVKit.framework */,
 				D81614F11B791971005BD20E /* MediaPlayer.framework */,
 				D81613031B6BC43C005BD20E /* SystemConfiguration.framework */,
 				D81612FC1B6BC412005BD20E /* CoreText.framework */,
-				D87F2F941B697FC800B7B9D5 /* libc++.dylib */,
-				0380DEB21A9F6587003D9248 /* libicucore.dylib */,
 				D87F2F7F1B697FA500B7B9D5 /* AVFoundation.framework */,
 				D87F2F831B697FA500B7B9D5 /* Foundation.framework */,
 				D87F2F861B697FA500B7B9D5 /* UIKit.framework */,
@@ -1775,6 +1781,7 @@
 				0342B07C1A9B61280009959E /* ECSRootViewController.h in Headers */,
 				03AF24AF1A9B601E00407BE5 /* ECSCachingImageView.h in Headers */,
 				030AF25B1AF9533E0056BFB0 /* ECSHistoryList.h in Headers */,
+				C4F96944214C0D7000D7E61B /* NSString_stripHtml.h in Headers */,
 				03AF24B11A9B601E00407BE5 /* ECSCircleImageView.h in Headers */,
 				033ACB331A602C9C0024F48F /* ECSNavigationSection.h in Headers */,
 				039062421AC9B0D800E006BE /* ECSChatActionTableViewCell.h in Headers */,
@@ -2155,6 +2162,7 @@
 				2252C6B41A7BE9E200B99912 /* ECSFormItemText.m in Sources */,
 				0380DEC91AA10126003D9248 /* ECSStompClient.m in Sources */,
 				03C310271A9B59C0006B3557 /* ECSURLSessionManager.m in Sources */,
+				C4F96945214C0D7000D7E61B /* NSString_stripHtml.m in Sources */,
 				0342AFB21A9B60700009959E /* ECSAnswerViewController.m in Sources */,
 				2252C6AE1A7BE9E200B99912 /* ECSFormItemRadio.m in Sources */,
 				03A64D391B0145F000AED79D /* ECSNavigationController.m in Sources */,
@@ -2460,7 +2468,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -2500,7 +2507,6 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

@@ -9,6 +9,8 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "NSString_stripHtml.h"
+
 #import "ECSWebSocket.h"
 
 #import "ECSChatActionType.h"
@@ -1049,7 +1051,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         ECSChatInfoMessage *message = [ECSChatInfoMessage new];
         
         NSString *warningString = ECSLocalizedString(ECSChannelTimeoutWarningKey, @"Your chat will timeout in %d seconds due to inactivity.");
-        message.infoMessage = [NSString stringWithFormat:warningString, seconds];
+        message.infoMessage = [[NSString stringWithFormat:warningString, seconds] stripHtml];
         
         [self.messages addObject:message];
         [self.tableView reloadData];
@@ -2367,14 +2369,24 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
     
     messageCell.userMessage = !chatMessage.fromAgent;
 
-    [self configureCellAvatarImage:cell from:chatMessage.from fromAgent:chatMessage.fromAgent atIndexPath:indexPath];
+    [self configureCellAvatarImage:cell
+                              from:chatMessage.from
+                         fromAgent:chatMessage.fromAgent
+                       atIndexPath:indexPath];
     
+    NSString *msg = [chatMessage.body stripHtml];
     
-    // the next line throws an exception if string is nil - make sure you check
+        // the next line throws an exception if string is nil - make sure you check
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeAddress | NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber error:NULL];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:chatMessage.body attributes:nil];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:msg attributes:nil];
     // the next line throws an exception if string is nil - make sure you check
-    [detector enumerateMatchesInString:chatMessage.body options:0 range:NSMakeRange(0, chatMessage.body.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+    
+    [detector enumerateMatchesInString:msg
+                               options:0
+                                 range:NSMakeRange(0, msg.length)
+                            usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
+    {
+                                
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
         attributes[ZSWTappableLabelTappableRegionAttributeName] = @YES;
         attributes[ZSWTappableLabelHighlightedBackgroundAttributeName] = [UIColor lightGrayColor];
@@ -2383,10 +2395,9 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         attributes[@"NSTextCheckingResult"] = result;
         [attributedString addAttributes:attributes range:result.range];
     }];
+    
     messageCell.messageLabel.attributedText = attributedString;
     messageCell.messageLabel.tapDelegate = self;
-    
-    //messageCell.messageLabel.text = chatMessage.body;
     
     [messageCell.background.timestampLabel setText:chatMessage.timeStamp];
 }
@@ -2520,7 +2531,7 @@ static NSString *const InlineFormCellID     = @"ChatInlineFormCellID";
         ECSChatAddParticipantMessage *participant = [self participantInfoForID:chatMessage.from];
         [messageCell.background.avatarImageView setImageWithPath:participant.avatarURL];
     }
-    messageCell.messageLabel.text = chatMessage.message;
+    messageCell.messageLabel.text = [chatMessage.message stripHtml];
     [messageCell.background.timestampLabel setText:[[EXPERTconnect shared] getTimeStampMessage]];
 }
 
