@@ -399,4 +399,11 @@ __attribute__((deprecated("Use chatClientDisconnected:withReason:")));
       notifyAgent:(bool)notify
        completion:(void(^)(NSString *response, NSError *error))completion;
 
+/*!
+ * @discussion Returns a localized string letting the user know how long they are waiting
+ * @param seconds The estimated wait seconds (usually from the server)
+ */
+- (NSString *)getStringForEstimatedWaitSeconds:(int)seconds;
+
+
 @end
