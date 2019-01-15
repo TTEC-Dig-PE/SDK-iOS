@@ -303,10 +303,10 @@
 "ECSLocalizedLeaveQueueMessage" = "现在离开，你将失去你在聊天队列中的位置。";
 
 /* Dialog - User attempted to exit the chat queue (dialog YES button text) */
-"ECSLocalizedLeaveQueueYes" = "是的，离开";
+"ECSLocalizedLeaveQueueYes" = "离开";
 
 /* Dialog - User attempted to exit the chat queue (dialog NO button text) */
-"ECSLocalizedLeaveQueueNo" = "不，留";
+"ECSLocalizedLeaveQueueNo" = "继续等待";
 
 /* 5.8.0 Strings */
 

@@ -36,7 +36,9 @@
 "ECSLocalizeWelcome" = "Welkom";
 "ECSLocalizeWelcomeWithUsername" = "Welkom, %1@";
 "ECSLocalizeGenericWaitTime" = "U wordt binnenkort verbonden met een agent. Blijf op dit scherm om uw plaats in de wachtrij te behouden.";
-"ECSLocalizeWaitTimeShort" = "U wordt binnen minder dan 1 minuut verbonden met een agent. Blijf op dit scherm om uw plaats in de wachtrij te behouden.";
+
+"ECSLocalizeWaitTimeShort" = "Je wordt binnen 1 minuut verbonden met een agent. Blijf op dit scherm om je plaats in de wachtrij te behouden.";
+
 "ECSLocalizeWaitTime" = "Uw wachttijd is ongeveer %1d minuten. Blijf op dit scherm om uw plaats in de wachtrij te behouden.";
 "ECSLocalizeWaitTimeLong" = "Uw wachttijd is vermoedelijk langer dan 5 minuten. Blijf op dit scherm om uw plaats in de wachtrij te behouden.";
 "ECSLocalizeChatReachabilityErrorKey" = "Verbinding verbroken";
