@@ -526,6 +526,78 @@
     }];
 }
 
+- (void)testEstimatedWaitStrings {
+    
+    ECSStompChatClient *testClient = [[ECSStompChatClient alloc] init];
+    int seconds;
+    int minutes;
+    NSString *msg;
+    
+    // 1 second
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:1],
+                          @"You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.", "Expecting short string.");
+    
+    // <1 minute (59 seconds)
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:59],
+                          @"You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.", "Expecting short string.");
+    
+    // 1 minute
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:60],
+                   @"You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.", "Expecting short string.");
+    
+    // 1 minute, 1 second
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:61],
+                          @"You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.", "Expecting mid string.");
+    
+    // 1 minute, 31 seconds
+    seconds = (1 * 60) + 31;
+    minutes = round(seconds / 60.0f);
+    msg = [NSString stringWithFormat:@"Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.", minutes];
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting mid string with value populated.");
+    
+    // 3 minutes
+    seconds = (3 * 60);
+    minutes = round(seconds / 60.0f);
+    msg = [NSString stringWithFormat:@"Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.", minutes];
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting mid string with value populated.");
+    
+    // 4 minutes, 29 seconds
+    seconds = (5 * 60) - 31;
+    minutes = round(seconds / 60.0f);
+    msg = [NSString stringWithFormat:@"Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.", minutes];
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting mid string with value populated.");
+    
+    // 4 minutes, 31 seconds
+    seconds = (4 * 60) + 31;
+    minutes = round(seconds / 60.0f);
+    msg =@"Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting long string.");
+    
+    // 7 minutes
+    seconds = (7 * 60);
+    minutes = round(seconds / 60.0f);
+    msg =@"Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting long string.");
+    
+    // 756 minutes (the "I don't know estimated wait" value)
+    seconds = (755 * 60);
+    minutes = round(seconds / 60.0f);
+    msg =@"Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
+    XCTAssertEqualObjects([testClient getStringForEstimatedWaitSeconds:seconds], msg, @"Expecting long string.");
+    
+    /*
+     Usage: Displayed when the wait time is between 0-1 minutes long
+    "ECSLocalizeWaitTimeShort" = "You'll be connected to an agent in less than 1 minute. Please remain on this screen to keep your spot in queue.";
+    
+    Usage: Displayed when the wait time is greater than 1 and less than 5 minutes long.
+    "ECSLocalizeWaitTime" = "Your wait time is approximately %1d minutes. Please remain on this screen to keep your spot in queue.";
+    
+    Usage: Displayed when the wait time is greater than 5 minutes.
+    "ECSLocalizeWaitTimeLong" = "Your wait time is expected to be greater than 5 minutes. Please remain on this screen to keep your spot in queue.";
+
+     */
+}
+
 - (void)testSDKDebug {
     
     [self initSDK];

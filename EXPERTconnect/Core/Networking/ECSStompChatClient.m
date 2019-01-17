@@ -1552,6 +1552,39 @@ int         _stompRetriesBlocked;
     }
 }
 
+- (NSString *)getStringForEstimatedWaitSeconds:(int)seconds {
+    
+    //    waitTime = -3; // TESTING ONLY. (in seconds)
+    //    waitMinutes = waitTime / 60.0f; // Convert seconds to minutes
+    int waitMinutes = round(seconds / 60.0f);
+    
+    NSString *waitStringKey = ECSLocalizeWaitTimeShort;
+    
+    if ( waitMinutes <= 1 ) // seconds
+    {
+        waitStringKey = ECSLocalizeWaitTimeShort;
+    }
+    else if ( waitMinutes > 1 && waitMinutes < 5 ) // 1 to 5 minutes
+    {
+        waitStringKey = ECSLocalizeWaitTime;
+    }
+    else if ( waitMinutes >= 5 ) // Greater than 5 minutes
+    {
+        waitStringKey = ECSLocalizeWaitTimeLong;
+    }
+    
+    // Grab the localized string value based on the key provided above.
+    NSString *waitString = ECSLocalizedString(waitStringKey, @"Wait time");
+    
+    // If the string has a place to put the wait minutes (%1d) then replace it with actual minutes.
+    if( [waitString containsString:@"%1d"])
+    {
+        waitString = [NSString stringWithFormat:waitString, waitMinutes];
+    }
+    
+    return waitString;
+}
+
 //- (void)handleCoBrowseMessage:(ECSStompFrame*)message forClient:(ECSStompClient*)stompClient
 //{
 //    if ([self.delegate respondsToSelector:@selector(chatClient:didReceiveMessage:)])
