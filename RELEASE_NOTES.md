@@ -1,4 +1,19 @@
 
+# Release 6.5.8
+Jan 17, 2019
+
+### PAAS-3033 - Chinese and Dutch translation updates.
+
+Chinese and Dutch translation updates.
+
+### PAAS-2903 - Chat HTML Stripping
+
+Chat - Non-supported HTML will be stripped from chat messages. Supported HTML and tags, such as link text, phone numbers, email addresses, map addresses, will continue to be clickable elements.
+
+### PAAS-2958 - Estimated Wait Message
+
+Chat - Corrected issue in choosing which estimated wait message to display. Previously, the "long" wait message would never be displayed. This should now correctly be shown for any wait time over 5 minutes.
+
 # Release 6.5.4
 Aug 09, 2018
 
