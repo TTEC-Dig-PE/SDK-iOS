@@ -101,7 +101,7 @@
 "ECSLocalizedSubmittedFormDescriptionLabel" = "Su respuesta nos ayudará a mejorar nuestra atención en el futuro.";
 "ECSLocalizedSubmittedFormCloseLabel" = "Cerrar";
 "ECSLocalizeAnswers" = "Respuestas";
-"ECSLocalizeDirections" = "<h1>No se pudo determinar la ubicación</h1><h2>Siga estas instrucciones para habilitar el acceso a las ubicaciones.</h2><ol><li>Inicie <b>Configuración</b> en su iPhone o iPad.</li><li>Desplácese hacia abajo para seleccionar <b>Privacidad</b>; luego, <b>Servicios de ubicación</b></li><li>Asegúrese de que el interruptor superior esté en <b>verde</b></li><li>Desplácese hacia abajo y seleccione *%@*. Asegúrese de qué esté configurado en "Mientras se usa la aplicación" o "Siempre".</li></ol>;
+"ECSLocalizeDirections" = "<h1>No se pudo determinar la ubicación</h1><h2>Siga estas instrucciones para habilitar el acceso a las ubicaciones.</h2><ol><li>Inicie <b>Configuración</b> en su iPhone o iPad.</li><li>Desplácese hacia abajo para seleccionar <b>Privacidad</b>; luego, <b>Servicios de ubicación</b></li><li>Asegúrese de que el interruptor superior esté en <b>verde</b></li><li>Desplácese hacia abajo y seleccione *%@*. Asegúrese de qué esté configurado en \"Mientras se usa la aplicación\" o \"Siempre\".</li></ol>;
 "ECSLocalizeProfileError" = "Se produjo un error al crear su perfil.  Complete todos los campos y vuelva a intentarlo.";
 "ECSLocalizeNoAgents" = "No hay agentes disponibles.";
 "ECSChannelTimeoutWarning" = "Su conversación se cerrará en %s segundos por inactividad.";
