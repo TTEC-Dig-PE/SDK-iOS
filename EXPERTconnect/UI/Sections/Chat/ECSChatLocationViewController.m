@@ -6,21 +6,18 @@
 //
 
 #import "ECSChatLocationViewController.h"
-
-#import <CoreLocation/CLLocationManager.h>
 #import <MapKit/MapKit.h>
-
 #import "ECSDynamicLabel.h"
 #import "ECSLocalization.h"
 #import "ECSInjector.h"
 #import "ECSTheme.h"
 
-@interface ECSChatLocationViewController () <CLLocationManagerDelegate>
+@interface ECSChatLocationViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
+//@property (strong, nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation ECSChatLocationViewController
@@ -34,23 +31,23 @@
     
     self.mapView.showsUserLocation = YES;
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    self.locationManager.delegate = self;
+//    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//
+//    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+//    if (status == kCLAuthorizationStatusNotDetermined)
+//    {
+//        [self.locationManager requestWhenInUseAuthorization];
+//    }
+//    else if (status == kCLAuthorizationStatusAuthorizedAlways ||
+//             status == kCLAuthorizationStatusAuthorizedWhenInUse)
+//    {
+//        [self.locationManager startUpdatingLocation];
+//    }
     
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    if (status == kCLAuthorizationStatusNotDetermined)
-    {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    else if (status == kCLAuthorizationStatusAuthorizedAlways ||
-             status == kCLAuthorizationStatusAuthorizedWhenInUse)
-    {
-        [self.locationManager startUpdatingLocation];
-    }
-    
-    [self updateViewForAuthorizationStatus:status];
+    [self updateViewForAuthorizationStatus:false];
 }
 
 - (void)setupMessageLabelText
@@ -76,42 +73,44 @@
     [self.messageLabel setAttributedText:stringWithHTMLAttributes];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+//- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+//{
+//    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways)
+//    {
+//        [self.locationManager startUpdatingLocation];
+//    }
+//
+//    [self updateViewForAuthorizationStatus:status];
+//}
+
+- (void)updateViewForAuthorizationStatus:(BOOL)status
 {
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways)
-    {
-        [self.locationManager startUpdatingLocation];
-    }
-    
-    [self updateViewForAuthorizationStatus:status];
+//    switch (status) {
+//        case kCLAuthorizationStatusNotDetermined:
+//        case kCLAuthorizationStatusAuthorizedAlways:
+//        case kCLAuthorizationStatusAuthorizedWhenInUse:
+//            self.mapView.alpha = 1.0f;
+//            self.messageLabel.alpha = 0.0f;
+//            break;
+//        default:
+//            self.mapView.alpha = 0.0f;
+//            self.messageLabel.alpha = 1.0f;
+//            break;
+//    }
+    self.mapView.alpha = 0.0f;
+    self.messageLabel.alpha = 1.0f;
 }
 
-- (void)updateViewForAuthorizationStatus:(CLAuthorizationStatus)status
-{
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-        case kCLAuthorizationStatusAuthorizedAlways:
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-            self.mapView.alpha = 1.0f;
-            self.messageLabel.alpha = 0.0f;
-            break;
-        default:
-            self.mapView.alpha = 0.0f;
-            self.messageLabel.alpha = 1.0f;
-            break;
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    
-    CLLocation *newLocation = [locations lastObject];
-    MKCoordinateSpan span = MKCoordinateSpanMake(0.04, 0.04);
-    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, span);
-    
-    [self.mapView setRegion:region animated:TRUE];
-    [self.mapView regionThatFits:region];
-}
+//- (void)locationManager:(CLLocationManager *)manager
+//     didUpdateLocations:(NSArray<CLLocation *> *)locations {
+//    
+//    CLLocation *newLocation = [locations lastObject];
+//    MKCoordinateSpan span = MKCoordinateSpanMake(0.04, 0.04);
+//    MKCoordinateRegion region = MKCoordinateRegionMake(newLocation.coordinate, span);
+//    
+//    [self.mapView setRegion:region animated:TRUE];
+//    [self.mapView regionThatFits:region];
+//}
 
 //- (void)locationManager:(CLLocationManager *)manager
 //    didUpdateToLocation:(CLLocation *)newLocation

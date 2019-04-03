@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 #import "ECSBreadcrumb.h"
 
 static NSString* PROPERTY_ID             = @"id";
@@ -173,53 +172,53 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
 }
 
 /* Geo Location */
-- (void)setGeoLocation: (CLLocation *)geolocation {
-    
-    //self.geoLocation = [geolocation copy];
-    
-    NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
-    
-    if (geolocation.coordinate.latitude) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
-                     forKey:PROPERTY_LATITUDE];
-    }
-    
-    if (geolocation.coordinate.longitude) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
-                     forKey:PROPERTY_LONGITUDE];
-    }
-    
-    if (geolocation.horizontalAccuracy) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
-                     forKey:PROPERTY_HORIZ_ACCURACY];
-    }
-        
-    if (geolocation.verticalAccuracy) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
-                     forKey:PROPERTY_VERT_ACCURACY];
-    }
-        
-    if (geolocation.speed) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
-                     forKey:PROPERTY_SPEED];
-    }
-        
-    if (geolocation.course) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
-                     forKey:PROPERTY_COURSE];
-    }
-    
-    if (geolocation.altitude) {
-        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.altitude]
-                     forKey:PROPERTY_ALTITUDE];
-    }
-    
-    [self.properties setObject:geoProps forKey:PROPERTY_GEOLOCATION];
-    
-    //[self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
-    //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
-    //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
-}
+//- (void)setGeoLocation: (CLLocation *)geolocation {
+//
+//    //self.geoLocation = [geolocation copy];
+//
+//    NSMutableDictionary *geoProps = [[NSMutableDictionary alloc] init];
+//
+//    if (geolocation.coordinate.latitude) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.latitude ]
+//                     forKey:PROPERTY_LATITUDE];
+//    }
+//
+//    if (geolocation.coordinate.longitude) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.coordinate.longitude ]
+//                     forKey:PROPERTY_LONGITUDE];
+//    }
+//
+//    if (geolocation.horizontalAccuracy) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.horizontalAccuracy ]
+//                     forKey:PROPERTY_HORIZ_ACCURACY];
+//    }
+//
+//    if (geolocation.verticalAccuracy) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.verticalAccuracy ]
+//                     forKey:PROPERTY_VERT_ACCURACY];
+//    }
+//
+//    if (geolocation.speed) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.speed ]
+//                     forKey:PROPERTY_SPEED];
+//    }
+//
+//    if (geolocation.course) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.course ]
+//                     forKey:PROPERTY_COURSE];
+//    }
+//
+//    if (geolocation.altitude) {
+//        [geoProps setObject:[[NSNumber alloc] initWithDouble:geolocation.altitude]
+//                     forKey:PROPERTY_ALTITUDE];
+//    }
+//
+//    [self.properties setObject:geoProps forKey:PROPERTY_GEOLOCATION];
+//
+//    //[self.properties setObject:geolocation.timestamp forKey:PROPERTY_TIMESTAMP];
+//    //[self.properties setObject:geolocation.floor forKey:PROPERTY_FLOOR];
+//    //[self.properties setObject:geolocation.description forKey:PROPERTY_DESCRIPTION];
+//}
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@; type=%@, desc=%@, source=%@, dest=%@", [super description], self.actionType, self.actionDescription, self.actionSource, self.actionDestination];
@@ -241,7 +240,7 @@ static NSString* PROPERTY_DESCRIPTION       = @"description";
     if(self.actionSource) newBC.actionSource = [self.actionSource copyWithZone:zone];
     if(self.actionDestination) newBC.actionDestination = [self.actionDestination copyWithZone:zone];
     if(self.creationTime) newBC.creationTime = [self.creationTime copyWithZone:zone];
-    if(self.geoLocation) newBC.geoLocation = [self.geoLocation copyWithZone:zone];
+//    if(self.geoLocation) newBC.geoLocation = [self.geoLocation copyWithZone:zone];
     
     return newBC;
 }

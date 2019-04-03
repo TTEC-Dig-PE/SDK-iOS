@@ -1021,15 +1021,13 @@ NSTimer *breadcrumbTimer;
     [self breadcrumbWithAction:theBreadcrumb.actionType
                    description:theBreadcrumb.actionDescription
                         source:theBreadcrumb.actionSource
-                   destination:theBreadcrumb.actionDestination
-                   geolocation:theBreadcrumb.geoLocation];
+                   destination:theBreadcrumb.actionDestination];
 }
 
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
                   destination: (NSString *)actionDestination
-                  geolocation: (CLLocation *)geolocation
 {
     // Build a new breadcrumb object.
     ECSBreadcrumb *breadcrumb = [[ECSBreadcrumb alloc] init];
@@ -1039,7 +1037,7 @@ NSTimer *breadcrumbTimer;
     breadcrumb.actionSource = actionSource;
     breadcrumb.actionDestination = actionDestination;
     
-    if (geolocation) [breadcrumb setGeoLocation:geolocation];
+    //if (geolocation) [breadcrumb setGeoLocation:geolocation];
     
     // This block will create a breadcrumb session if one is not already created.
     if([self sessionID] == Nil)

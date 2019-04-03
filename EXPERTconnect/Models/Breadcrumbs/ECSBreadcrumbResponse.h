@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
-
 #import "ECSJSONObject.h"
 #import "ECSJSONSerializing.h"
 

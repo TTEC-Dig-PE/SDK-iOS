@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 
 // Model Imports
 #import <EXPERTconnect/ECSJSONObject.h>
@@ -474,8 +473,7 @@ __attribute__((deprecated("See documentation on the Identity Delegate authentica
 - (void) breadcrumbWithAction: (NSString *)actionType
                   description: (NSString *)actionDescription
                        source: (NSString *)actionSource
-                  destination: (NSString *)actionDestination
-                  geolocation: (CLLocation *)geolocation;
+                  destination: (NSString *)actionDestination;
 
 - (void) breadcrumbNewSessionWithCompletion:(void(^)(NSString *, NSError *))completion;
 

@@ -6,8 +6,6 @@
 //  Copyright © 2015 Humanify, Inc. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
-
 @interface ECSBreadcrumb: NSObject <NSCopying>
 
 @property (nonatomic) NSMutableDictionary *properties;
@@ -23,7 +21,7 @@
 @property (strong, nonatomic) NSString *actionSource;
 @property (strong, nonatomic) NSString *actionDestination;
 @property (strong, nonatomic) NSString *creationTime;
-@property (strong, nonatomic) CLLocation *geoLocation;
+//@property (strong, nonatomic) CLLocation *geoLocation;
 
 - (id)init;
 
@@ -69,6 +67,6 @@
 - (void)setCreationTime: (NSString *)creationTime;
 - (NSString *)creationTime;
 
-- (void)setGeoLocation: (CLLocation *)geolocation;
+//- (void)setGeoLocation: (CLLocation *)geolocation;
 
 @end
