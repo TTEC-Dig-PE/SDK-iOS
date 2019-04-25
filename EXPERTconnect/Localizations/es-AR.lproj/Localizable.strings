@@ -83,7 +83,7 @@
 "ECSLocalizeCancel" = "Cancelar";
 "ECSLocalizeProfile" = "perfil";
 "ECSLocalizeChatLogs" = "Registros de conversaciones";
-"ECSLocalizeChatJoin" = "Está conectado con %s";
+"ECSLocalizeChatJoin" = "Está conectado con %1@.";
 "ECSLocalizeChatLeave" = "%1@ abandonó la conversación.";
 "ECSLocalizeHistory" = "Historial";
 "ECSLocalizeEditProfile" = "Editar perfil";
