@@ -920,6 +920,7 @@
 		D8D3AABE1B66AD7200DA1762 /* ECSChatVoiceAuthenticationMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSChatVoiceAuthenticationMessage.m; path = Chat/ECSChatVoiceAuthenticationMessage.m; sourceTree = "<group>"; };
 		D8EF94091BC700A80068CAA0 /* ECSStompCallbackClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ECSStompCallbackClient.h; path = Core/Networking/ECSStompCallbackClient.h; sourceTree = "<group>"; };
 		D8EF940A1BC700EA0068CAA0 /* ECSStompCallbackClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ECSStompCallbackClient.m; path = Core/Networking/ECSStompCallbackClient.m; sourceTree = "<group>"; };
+		F42FBE76224E2350005D1DEB /* es-AR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-AR"; path = "es-AR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1979,6 +1980,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				fr,
 				es,
@@ -1995,6 +1997,7 @@
 				"pl-PL",
 				fi,
 				nb,
+				"es-AR",
 			);
 			mainGroup = 03978ED81A602AEF007793D6;
 			productRefGroup = 03978EE31A602AEF007793D6 /* Products */;
@@ -2323,6 +2326,7 @@
 				C4963F90200D0F4B00CBCD51 /* pl-PL */,
 				C4963F91200D10EF00CBCD51 /* fi */,
 				C4963F92200D11E700CBCD51 /* nb */,
+				F42FBE76224E2350005D1DEB /* es-AR */,
 			);
 			name = Localizable.strings;
 			path = EXPERTconnect/Localizations;
