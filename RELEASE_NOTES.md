@@ -1,4 +1,11 @@
 
+# Release 6.5.10
+Jun 21, 2019
+
+### PAAS-3097 - Argentinian Spanish
+
+Added support for Argentinian Spanish localization.
+
 # Release 6.5.8
 Jan 17, 2019
 
