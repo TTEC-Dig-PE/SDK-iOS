@@ -26,6 +26,7 @@ https://github.com/humanifydev/SDK-iOS-integrator
       * [Setup](#setup)
       * [Authentication](#authentication)
       * [Debugging](#debugging)
+   * [Themes](#themes)
    * [Chat](#chat)
       * [High-Level Chat](#high-level-chat)
          * [Customizing the Send Button](#customizing-the-send-button)
@@ -232,6 +233,25 @@ The SDK offers a callback function for all debug logging with 5 levels of verbos
     NSLog(@"[HMN SDK]: (%ld): %@", (long)level, message);
     
 }];
+```
+
+# Themes
+
+When using the high-level (UI-packaged) components of the SDK, a theme drives the fonts/colors/styles. 
+
+Note: The default font used throughout the UI is HelveticaNeue
+
+To customize elements, make modifications to the singleton ECSTheme object: 
+```objc
+ECSTheme *theme = [[EXPERTconnect shared] theme];
+```
+
+The different elements within the theme are found here: 
+https://github.com/humanifydev/SDK-iOS/blob/master/EXPERTconnect/UI/Common/ECSTheme.h
+
+Example customization: 
+```objc
+theme.bodyFont = [UIFont fontWithName:@"Arial" size:16];
 ```
 
 # Chat
