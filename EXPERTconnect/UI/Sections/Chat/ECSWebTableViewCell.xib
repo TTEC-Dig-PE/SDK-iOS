@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,15 +13,15 @@
             <rect key="frame" x="0.0" y="0.0" width="386" height="294"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="386" height="293"/>
+                <rect key="frame" x="0.0" y="0.0" width="386" height="294"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTT-T3-klD">
-                        <rect key="frame" x="0.0" y="0.0" width="386" height="293"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </webView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Urg-w9-WiR">
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="294"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9br-J5-vvd" userLabel="SeparatorView">
-                        <rect key="frame" x="15" y="292" width="371" height="1"/>
+                        <rect key="frame" x="15" y="293" width="371" height="1"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="FsJ-90-c7f"/>
@@ -31,21 +29,21 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="iTT-T3-klD" secondAttribute="bottom" id="3Re-Wt-IUt"/>
                     <constraint firstAttribute="trailing" secondItem="9br-J5-vvd" secondAttribute="trailing" id="A5O-s0-85Y"/>
-                    <constraint firstAttribute="trailing" secondItem="iTT-T3-klD" secondAttribute="trailing" id="Ijt-7y-CxT"/>
                     <constraint firstItem="9br-J5-vvd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Jbc-sv-G6s"/>
-                    <constraint firstItem="iTT-T3-klD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ktn-9J-zmp"/>
-                    <constraint firstItem="iTT-T3-klD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kap-gU-U5d"/>
+                    <constraint firstAttribute="bottom" secondItem="Urg-w9-WiR" secondAttribute="bottom" id="ewW-Iw-u21"/>
+                    <constraint firstAttribute="trailing" secondItem="Urg-w9-WiR" secondAttribute="trailing" id="iak-ap-Tac"/>
                     <constraint firstAttribute="bottom" secondItem="9br-J5-vvd" secondAttribute="bottom" id="tQZ-qB-DcC"/>
+                    <constraint firstItem="Urg-w9-WiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tXt-wl-nUg"/>
+                    <constraint firstItem="Urg-w9-WiR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xtJ-R8-9du"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="separator" destination="9br-J5-vvd" id="jr7-qS-nul"/>
                 <outlet property="separatorHeightConstraint" destination="FsJ-90-c7f" id="qBD-Nz-0kP"/>
-                <outlet property="webView" destination="iTT-T3-klD" id="9tC-a5-Bo2"/>
+                <outlet property="webViewContainer" destination="Urg-w9-WiR" id="MRG-dx-sdG"/>
             </connections>
-            <point key="canvasLocation" x="430" y="483"/>
+            <point key="canvasLocation" x="428.80000000000001" y="482.15892053973016"/>
         </tableViewCell>
     </objects>
 </document>

@@ -10,10 +10,16 @@
 #import "ECSInjector.h"
 #import "ECSTheme.h"
 #import "ECSImageCache.h"
+#import <WebKit/WebKit.h>
 
-@interface ECSWebViewController () <UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@interface ECSWebViewController () <WKNavigationDelegate>
+
+
+@property (weak, nonatomic) IBOutlet UIView *webViewContainer;
+@property(nonatomic, strong)WKWebView *webView;
+
+
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
@@ -29,9 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+//    self.webView.scalesPageToFit = YES;
+    self.webView.navigationDelegate = self;
+    self.webView = [self createWebView];
+    [self addWebView:self.webViewContainer];
     
-    self.webView.delegate = self;
-    self.webView.scalesPageToFit = YES;
     self.backButton.enabled = NO;
     self.forwardButton.enabled = NO;
     
@@ -64,6 +73,21 @@
     UIEdgeInsets contentInsets = self.webView.scrollView.contentInset;
     contentInsets.bottom = CGRectGetHeight(self.toolbar.frame);
     self.webView.scrollView.contentInset = contentInsets;
+}
+
+-(WKWebView *)createWebView
+{
+     WKWebViewConfiguration *configuration =
+               [[WKWebViewConfiguration alloc] init];
+     return [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+}
+
+
+-(void)addWebView:(UIView *)view
+{
+      [view addSubview:self.webView];
+      [self.webView setTranslatesAutoresizingMaskIntoConstraints:false];
+      self.webView.frame = view.frame;
 }
 
 - (void)loadItemAtPath:(NSString *)path
@@ -118,14 +142,14 @@
                      completion:nil];
 }
 
-- (BOOL)webView:(UIWebView *)webView
-shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self setLoadingIndicatorVisible:YES];
-    return YES;
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    
+      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+       [self setLoadingIndicatorVisible:YES];
+        decisionHandler(WKNavigationActionPolicyAllow);
 }
+
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
@@ -133,8 +157,14 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
     [self setLoadingIndicatorVisible:NO];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self setLoadingIndicatorVisible:NO];
+}
+
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self setLoadingIndicatorVisible:NO];
     self.backButton.enabled = self.webView.canGoBack;
