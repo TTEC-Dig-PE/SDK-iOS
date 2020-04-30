@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.webView.scalesPageToFit = YES;
     self.webView.navigationDelegate = self;
     self.webView = [self createWebView];
     [self addWebView:self.webViewContainer];
@@ -149,6 +148,7 @@
        [self setLoadingIndicatorVisible:YES];
         decisionHandler(WKNavigationActionPolicyAllow);
 }
+
 
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
