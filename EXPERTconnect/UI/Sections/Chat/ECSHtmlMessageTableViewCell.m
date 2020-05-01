@@ -25,11 +25,11 @@
         int height = containerFrame.size.height;
         
         height = 275;  // TODO: Still trying to determine this programatically
-        
-        self.webContent = [[UIWebView alloc] initWithFrame:self.background.messageContainerView.frame];
+
+        self.webContent = [[WKWebView alloc] initWithFrame:self.background.messageContainerView.frame];
         
         CGRect webViewFrame = CGRectMake(0, 0, width - 10.0f, height - 10.0f);
-        self.webContent = [[UIWebView alloc]initWithFrame:webViewFrame];
+        self.webContent = [[WKWebView alloc]initWithFrame:webViewFrame];
         self.webContent.translatesAutoresizingMaskIntoConstraints = YES;
         
         [self.background.messageContainerView addSubview:self.webContent];
@@ -37,12 +37,12 @@
                                                                                                      options:0
                                                                                                      metrics:nil
                                                                                                        views:@{@"content": self.webContent}]];
-
+        
         [self.background.messageContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(10)-[content]-(10)-|"
                                                                                                      options:0
                                                                                                      metrics:nil
                                                                                                        views:@{@"content": self.webContent}]];
-
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -59,23 +59,23 @@
     int width = (self.frame.size.width * 0.5f);
     int height = self.webContent.frame.size.height;
     
-/*
-    for (UIView* view in self.webContent.scrollView.subviews)
-    {
-        height += view.frame.size.height;
-    }
-    
-    if(height > 450) {
-        height = 450;
-    }
-*/
+    /*
+     for (UIView* view in self.webContent.scrollView.subviews)
+     {
+     height += view.frame.size.height;
+     }
+     
+     if(height > 450) {
+     height = 450;
+     }
+     */
     
     CGRect containerFrame = CGRectMake(x, y, width, height);
     CGRect webViewFrame = CGRectMake(0, 0, width - 10, height);
     
     self.background.messageContainerView.frame = containerFrame;
     self.webContent.frame = webViewFrame;
-
+    
     [super layoutSubviews];
 }
 

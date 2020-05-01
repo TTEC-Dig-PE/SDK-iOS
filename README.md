@@ -26,6 +26,7 @@ https://github.com/humanifydev/SDK-iOS-integrator
       * [Setup](#setup)
       * [Authentication](#authentication)
       * [Debugging](#debugging)
+   * [Themes](#themes)
    * [Chat](#chat)
       * [High-Level Chat](#high-level-chat)
          * [Customizing the Send Button](#customizing-the-send-button)
@@ -87,7 +88,7 @@ platform :ios, '9.1'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'EXPERTconnect', '~> 6.5.0'
+    pod 'EXPERTconnect', '~> 6.5.11'
 end
 ```
 
@@ -110,7 +111,7 @@ $ brew install carthage
 To integrate EXPERTconnect into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "humanifydev/SDK-iOS" ~> 6.5.0
+github "humanifydev/SDK-iOS" ~> 6.5.11
 ```
 
 Run `carthage update` to build the framework and drag the built `EXPERTconnect.framework` into your Xcode project from the `Carthage\Build\iOS` subfolder.
@@ -232,6 +233,25 @@ The SDK offers a callback function for all debug logging with 5 levels of verbos
     NSLog(@"[HMN SDK]: (%ld): %@", (long)level, message);
     
 }];
+```
+
+# Themes
+
+When using the high-level (UI-packaged) components of the SDK, a theme drives the fonts/colors/styles. 
+
+Note: The default font used throughout the UI is HelveticaNeue
+
+To customize elements, make modifications to the singleton ECSTheme object: 
+```objc
+ECSTheme *theme = [[EXPERTconnect shared] theme];
+```
+
+The different elements within the theme are found here: 
+https://github.com/humanifydev/SDK-iOS/blob/master/EXPERTconnect/UI/Common/ECSTheme.h
+
+Example customization: 
+```objc
+theme.bodyFont = [UIFont fontWithName:@"Arial" size:16];
 ```
 
 # Chat
@@ -467,8 +487,24 @@ Various delegate functions are called for chat state updates.
 [[EXPERTconnect shared] getDetailsForExpertSkill:@"my_agent_skill"
                                       completion:^(ECSSkillDetail *details, NSError *error) {
                                       
-    NSLog(@"Estimated wait seconds: %@", details.estWait);
+    if( details.estWait < (10 * 60) ) {
+         
+        // 0 - 10 minutes
+        // We would enable the chat button and display ETA here as per normal operation
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is available. Your estimated wait is %d minutes.", (details.estWait / 60)];
+            
+    } else if( details.estWait > (10 * 60) && details.estWait < (754 * 60) ) {
+            
+        // 10 - 30 minutes
+        // Alert the user that there is an unusually long wait for chats.
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is available, but there is heavy chat volume. Your estimated wait is %d minutes.", (details.estWait / 60)];
+            
+    else if( details.estWait >= (754 * 60) ) {
     
+        // A special value that indicates the algorithm cannot determine how long estimated wait will be.
+        // This normally occurs if all of the agents enter an "away" state (not taking chats) but the queue is open and agents are logged in.
+        self.textAreaResponse.text = [NSString stringWithFormat:@"Chat is unavailable. No agent is available to answer a chat right now. estWait value is: %d", details.estWait];
+    }
 }
 ```
 The ECSSkillDetail object contains the following fields:

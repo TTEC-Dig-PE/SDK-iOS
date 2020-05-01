@@ -10,7 +10,8 @@
 #import "ECSInjector.h"
 #import "ECSTheme.h"
 
-@interface ECSWebTableViewCell () <UIWebViewDelegate>
+
+@interface ECSWebTableViewCell () <WKNavigationDelegate>
 {
     BOOL _loaded;
 }
@@ -37,10 +38,16 @@
     self.separatorHeightConstraint.constant = (1.0f / [[UIScreen mainScreen] scale]);
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+   
+    self.webView = [self createWebView];
+    [self addWebView:self.webViewContainer];
+    
     self.webView.scrollView.scrollEnabled = NO;
     self.webView.scrollView.scrollsToTop = NO;
-    self.webView.suppressesIncrementalRendering = YES;
+    self.webView.configuration.suppressesIncrementalRendering = YES;
 }
+
+
 
 - (void)prepareForReuse
 {
@@ -52,6 +59,20 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+//Setting Up WKWebview Programatically
+-(WKWebView *)createWebView
+{
+     WKWebViewConfiguration *configuration =
+               [[WKWebViewConfiguration alloc] init];
+     return [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+}
+-(void)addWebView:(UIView *)view
+{
+      [view addSubview:self.webView];
+      [self.webView setTranslatesAutoresizingMaskIntoConstraints:false];
+      self.webView.frame = view.frame;
 }
 
 #pragma mark - UIWebViewDelegate

@@ -20,6 +20,7 @@
 #import "ECSWebTableViewCell.h"
 #import "ECSWebViewController.h"
 
+
 #import "NSBundle+ECSBundle.h"
 #import "UIView+ECSNibLoading.h"
 #import "UIViewController+ECSNibLoading.h"
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSInteger, AnswerSections)
 };
 
 @interface ECSAnswerViewController () <UITableViewDataSource,
-UITableViewDelegate, UIWebViewDelegate, UIScrollViewDelegate, ECSAnswerRatingDelegate>
+UITableViewDelegate,WKNavigationDelegate , UIScrollViewDelegate, ECSAnswerRatingDelegate>
 {
     BOOL _triggeredNavigation;
 }
@@ -160,39 +161,36 @@ UITableViewDelegate, UIWebViewDelegate, UIScrollViewDelegate, ECSAnswerRatingDel
     self.bottomOverscrollView = pullUpView;
 }
 
-- (BOOL)webView:(UIWebView *)webView
-shouldStartLoadWithRequest:(NSURLRequest *)request
- navigationType:(UIWebViewNavigationType)navigationType
-{
-    BOOL shouldNavigate = YES;
-    if (navigationType == UIWebViewNavigationTypeLinkClicked)
-    {
-        UIViewController *controller = nil;
-        if ([request.URL.absoluteString hasSuffix:@"jpg"] ||
-            [request.URL.absoluteString hasSuffix:@"png"] ||
-            [request.URL.absoluteString hasSuffix:@"gif"] ||
-            [request.URL.absoluteString hasSuffix:@"jpeg"])
-        {
-            ECSPhotoViewController *photoController = [ECSPhotoViewController ecs_loadFromNib];
-            photoController.imagePath = request.URL.absoluteString;
-            controller = photoController;
-        }
-        else
-        {
-            ECSWebViewController *webController = [ECSWebViewController ecs_loadFromNib];
-            [webController loadRequest:request];
-            controller = webController;
-        }
-        
-        [self.navigationController pushViewController:controller animated:YES];
-        shouldNavigate = NO;
-    }
-    
-    return shouldNavigate;
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+      BOOL shouldNavigate = YES;
+       if (navigationAction.navigationType == UIWebViewNavigationTypeLinkClicked)
+       {
+           UIViewController *controller = nil;
+           if ([navigationAction.request.URL.absoluteString hasSuffix:@"jpg"] ||
+               [navigationAction.request.URL.absoluteString hasSuffix:@"png"] ||
+               [navigationAction.request.URL.absoluteString hasSuffix:@"gif"] ||
+               [navigationAction.request.URL.absoluteString hasSuffix:@"jpeg"])
+           {
+               ECSPhotoViewController *photoController = [ECSPhotoViewController ecs_loadFromNib];
+               photoController.imagePath = navigationAction.request.URL.absoluteString;
+               controller = photoController;
+           }
+           else
+           {
+               ECSWebViewController *webController = [ECSWebViewController ecs_loadFromNib];
+               [webController loadRequest:navigationAction.request];
+               controller = webController;
+           }
+           
+           [self.navigationController pushViewController:controller animated:YES];
+           shouldNavigate = NO;
+       }
+       decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self.tableView reloadData];
 }
 
@@ -243,8 +241,8 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
             if (!self.webTableCell)
             {
                 self.webTableCell = [self.tableView dequeueReusableCellWithIdentifier:ECSWebCellId];
-                self.webTableCell.webView.scalesPageToFit = NO;
-                self.webTableCell.webView.delegate = self;
+
+                self.webTableCell.webView.navigationDelegate = self;
                 [self.webTableCell.webView loadHTMLString:[self htmlStringForAnswer:self.answer.answer] baseURL:nil];
                 
                 if (![self.answer.requestRating boolValue])
