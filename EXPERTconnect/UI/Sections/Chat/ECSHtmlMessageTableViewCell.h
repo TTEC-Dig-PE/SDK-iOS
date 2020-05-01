@@ -7,11 +7,12 @@
 //
 
 #import "ECSChatTableViewCell.h"
+#import <WebKit/WebKit.h>
 
 // #import "ECSDynamicLabel.h"
 
 @interface ECSHtmlMessageTableViewCell : ECSChatTableViewCell
 
-@property (strong, nonatomic) UIWebView *webContent;
+@property (strong, nonatomic) WKWebView *webContent;
 
 @end

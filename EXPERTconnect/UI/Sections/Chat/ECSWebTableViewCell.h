@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 @class ECSWebTableViewCell;
 
@@ -17,7 +18,11 @@
 
 @interface ECSWebTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+@property (weak, nonatomic) IBOutlet UIView *webViewContainer;
+@property(nonatomic, strong)WKWebView *webView;
+
+
 @property (weak, nonatomic) IBOutlet UIView *separator;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 

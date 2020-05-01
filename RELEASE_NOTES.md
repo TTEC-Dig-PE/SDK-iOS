@@ -1,3 +1,9 @@
+# Release 6.5.11
+Apr 30, 2020
+
+### Removing_UIWebView_adding_WKWebView
+
+Removed UiWebView as it is not more supported and added WkWebView.
 
 # Release 6.5.10
 Jun 21, 2019
