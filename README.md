@@ -88,7 +88,7 @@ platform :ios, '9.1'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'EXPERTconnect', '~> 6.5.11'
+    pod 'EXPERTconnect', '~> 6.5.12'
 end
 ```
 
@@ -111,7 +111,7 @@ $ brew install carthage
 To integrate EXPERTconnect into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "humanifydev/SDK-iOS" ~> 6.5.11
+github "humanifydev/SDK-iOS" ~> 6.5.12
 ```
 
 Run `carthage update` to build the framework and drag the built `EXPERTconnect.framework` into your Xcode project from the `Carthage\Build\iOS` subfolder.
