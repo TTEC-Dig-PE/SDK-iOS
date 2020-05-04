@@ -164,7 +164,7 @@ UITableViewDelegate,WKNavigationDelegate , UIScrollViewDelegate, ECSAnswerRating
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
       BOOL shouldNavigate = YES;
-       if (navigationAction.navigationType == UIWebViewNavigationTypeLinkClicked)
+      if ([navigationAction.request.URL.relativeString hasPrefix:@"http"])
        {
            UIViewController *controller = nil;
            if ([navigationAction.request.URL.absoluteString hasSuffix:@"jpg"] ||
@@ -186,6 +186,8 @@ UITableViewDelegate,WKNavigationDelegate , UIScrollViewDelegate, ECSAnswerRating
            [self.navigationController pushViewController:controller animated:YES];
            shouldNavigate = NO;
        }
+
+
        decisionHandler(WKNavigationActionPolicyAllow);
 }
 
